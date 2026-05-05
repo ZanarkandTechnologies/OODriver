@@ -57,6 +57,7 @@ class Fail2DriveVideoSmokeTest(unittest.TestCase):
 
             config = Fail2DriveVideoSmokeConfig.from_carla_config(
                 _carla_config(root, output_dir),
+                timeout_s=900.0,
                 traffic_manager_port=8000,
             )
             plan = plan_fail2drive_video_smoke(config)
@@ -77,6 +78,7 @@ class Fail2DriveVideoSmokeTest(unittest.TestCase):
         self.assertIn("--checkpoint", plan.run_command)
         self.assertIn("--host", plan.run_command)
         self.assertIn("--traffic-manager-port", plan.run_command)
+        self.assertIn("900", plan.run_command)
         self.assertIn("generate_video.py", " ".join(plan.video_command))
         self.assertIn("-f", plan.video_command)
         self.assertEqual(plan.expected_outputs["video"].suffix, ".mp4")

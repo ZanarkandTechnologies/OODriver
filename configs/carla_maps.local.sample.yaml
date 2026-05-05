@@ -1,0 +1,13 @@
+carla_maps:
+  version: 0.9.16
+  platform: auto
+  carla_root:
+  package_url:
+  package_path:
+  package_cache_dir: artifacts/cache/carla
+  desired_maps: Town13
+  search_paths: ~/Applications/Sikarugir/CARLA.app,/Users/kenjipcx/Applications/Sikarugir/CARLA.app,/Applications/CARLA.app
+  host: host.docker.internal
+  port: 2000
+  timeout_s: 30
+  attempt_load: true

@@ -12,6 +12,9 @@ dry-run command planning.
 - `smoke_carla_server(host, port, timeout_s)`
 - `probe_carla_client(config)`
 - `write_carla_probe(run_dir, result)`
+- `install_carla_additional_maps(config)`
+- `probe_carla_map_inventory(config)`
+- `write_carla_maps_report(run_dir, result)`
 - `plan_fail2drive_run(config, recipe)`
 - `build_bench2drive_route_suite(run_dir, recipes, route_root, behavior_id)`
 - `write_bench2drive_route_suite(run_dir, suite, simlingo_plan=...)`
@@ -36,6 +39,16 @@ bash scripts/run_carla_client_docker.sh python -m driverx probe-carla \
   --host host.docker.internal \
   --port 2000 \
   --run-id task8-carla-probe
+PYTHONPATH=src python3 -m driverx install-carla-additional-maps \
+  --config configs/carla_maps.local.sample.yaml \
+  --dry-run \
+  --run-id task58-town13-dry-run
+bash scripts/run_carla_client_docker.sh python -m driverx probe-carla-maps \
+  --config configs/carla_maps.local.sample.yaml \
+  --host host.docker.internal \
+  --port 2000 \
+  --map Town13 \
+  --run-id task58-town13-probe
 bash scripts/run_carla_client_docker.sh python -m driverx spawn-ego-smoke \
   --host host.docker.internal \
   --port 2000 \
@@ -90,4 +103,5 @@ PYTHONPATH=src python3 -m unittest tests.test_simlingo_sidecar_runner
 PYTHONPATH=src python3 -m unittest tests.test_simlingo_result_ingestion
 PYTHONPATH=src python3 -m unittest tests.test_simlingo_evidence
 PYTHONPATH=src python3 -m unittest tests.test_gpu_host_suitability
+PYTHONPATH=src python3 -m unittest tests.test_carla_maps
 ```

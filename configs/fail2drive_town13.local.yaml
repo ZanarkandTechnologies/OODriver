@@ -1,0 +1,12 @@
+carla:
+  host: host.docker.internal
+  port: 2000
+  timeout_s: 30.0
+  root:
+
+fail2drive:
+  root: /workspace/fail2drive
+  route_path: fail2drive_split/Generalization_PedestriansOnRoad_1088.xml
+  agent_path: team_code/viz_path_agent.py
+  output_dir: /workspace/0xDriver/artifacts/carla/fail2drive-town13
+  track: MAP

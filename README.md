@@ -113,6 +113,21 @@ bash scripts/run_carla_client_docker.sh python -m driverx probe-carla \
   --port 2000 \
   --run-id task8-carla-probe
 
+# Install/probe CARLA 0.9.16 AdditionalMaps for stock Fail2Drive Town13 routes
+PYTHONPATH=src python3 -m driverx install-carla-additional-maps \
+  --config configs/carla_maps.local.sample.yaml \
+  --dry-run \
+  --run-id task58-town13-dry-run
+PYTHONPATH=src python3 -m driverx install-carla-additional-maps \
+  --config configs/carla_maps.local.sample.yaml \
+  --run-id task58-town13-install
+bash scripts/run_carla_client_docker.sh python -m driverx probe-carla-maps \
+  --config configs/carla_maps.local.sample.yaml \
+  --host host.docker.internal \
+  --port 2000 \
+  --map Town13 \
+  --run-id task58-town13-probe
+
 # Spawn one ego vehicle/camera, capture a frame, log tracks, and clean up
 bash scripts/run_carla_client_docker.sh python -m driverx spawn-ego-smoke \
   --host host.docker.internal \

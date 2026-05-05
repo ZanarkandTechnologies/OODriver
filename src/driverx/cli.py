@@ -257,6 +257,7 @@ def _command_plan_fail2drive_video_smoke(args: argparse.Namespace) -> int:
     smoke_config = Fail2DriveVideoSmokeConfig.from_carla_config(
         config,
         output_dir=run_dir / "fail2drive_outputs",
+        timeout_s=args.route_timeout_s,
         live_visu=not args.no_live_visu,
         method_name=args.method_name,
         agent_config=args.agent_config,
@@ -684,6 +685,13 @@ def build_parser() -> argparse.ArgumentParser:
     )
     video_smoke_parser.add_argument("--agent-config", type=Path)
     video_smoke_parser.add_argument("--traffic-manager-port", type=int)
+    video_smoke_parser.add_argument(
+        "--timeout-s",
+        dest="route_timeout_s",
+        type=float,
+        default=300.0,
+        help="Fail2Drive evaluator route timeout passed into the planned command.",
+    )
     video_smoke_parser.add_argument("--method-name", default="DriverXRouteSmoke")
     video_smoke_parser.add_argument("--no-live-visu", action="store_true")
     video_smoke_parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
@@ -899,6 +907,7 @@ def build_parser() -> argparse.ArgumentParser:
     from driverx.simulators.simlingo_cli import register_simlingo_parsers
     from driverx.simulators.carla_alpamayo_capture_cli import register_carla_alpamayo_capture_parser
     from driverx.simulators.gpu_host_cli import register_gpu_host_parser
+    from driverx.simulators.carla_maps_cli import register_carla_maps_parser
     from driverx.simulators.route_video_assembly_cli import register_route_video_assembly_parser
     from driverx.simulators.fail2drive_route_runner_cli import register_fail2drive_route_runner_parser
 
@@ -917,6 +926,7 @@ def build_parser() -> argparse.ArgumentParser:
     register_runpod_remote_parser(subparsers)
     register_simlingo_parsers(subparsers)
     register_carla_alpamayo_capture_parser(subparsers)
+    register_carla_maps_parser(subparsers)
     register_gpu_host_parser(subparsers)
     register_route_video_assembly_parser(subparsers)
     register_fail2drive_route_runner_parser(subparsers)

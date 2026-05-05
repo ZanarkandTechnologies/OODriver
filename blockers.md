@@ -6,14 +6,6 @@ unblocked ticket when possible.
 
 ## Open
 
-- 2026-05-06 00:52 +0800 | alpamayo,huggingface,physical-ai,dataset | TASK-053
-  found that the upstream `nvidia/PhysicalAI-Autonomous-Vehicles` sample dataset
-  is still gated for the current Hugging Face token. This no longer blocks
-  adapter implementation because TASK-053 produced shape evidence through
-  synthetic Alpamayo-shaped tensors, but it does block reproducing NVIDIA's
-  exact `test_inference.py` sample. Next unblock path: request or accept access
-  at `https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles`.
-
 - 2026-05-06 01:50 +0800 | fail2drive,carla,map | TASK-054B proved the
   Docker Fail2Drive client can reach local CARLA, but the stock Fail2Drive
   split routes in `fail2drive_split/` all require `Town13`, which is not
@@ -36,6 +28,14 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-06 03:22 +0800 | alpamayo,huggingface,physical-ai,dataset | TASK-059
+  resolved the upstream `nvidia/PhysicalAI-Autonomous-Vehicles` dataset gate.
+  The dataset-forced RunPod shape probe used real PhysicalAI sample frames
+  (`shape_source_used=dataset`) and observed `pred_xyz=[1,1,1,64,3]`,
+  `pred_rot=[1,1,1,64,3,3]`, CoC output, `124987.44ms` latency, and
+  `24881.65MB` peak VRAM. Evidence:
+  `tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.md`.
 
 - 2026-05-06 01:50 +0800 | fail2drive,docker,video | TASK-054B resolved the
   TASK-041/TASK-042/TASK-043 local route blockers. The Docker image now builds,

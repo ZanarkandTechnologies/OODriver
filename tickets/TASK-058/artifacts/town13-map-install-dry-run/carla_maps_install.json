@@ -1,0 +1,84 @@
+{
+  "status": "dry_run",
+  "dry_run": true,
+  "version": "0.9.16",
+  "platform": "windows",
+  "carla_root": "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16",
+  "package_url": "https://carla-releases.s3.us-east-005.backblazeb2.com/Windows/AdditionalMaps_0.9.16.zip",
+  "package_path": "artifacts/cache/carla/AdditionalMaps_0.9.16.zip",
+  "package_size_bytes": 7250055782,
+  "disk_free_bytes": 481972629504,
+  "required_free_bytes": 17179869184,
+  "desired_maps": [
+    "Town13"
+  ],
+  "candidates": [
+    {
+      "path": "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16",
+      "source": "executable_scan",
+      "platform": "windows",
+      "exists": true,
+      "writable": true,
+      "executable_path": "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Binaries/Win64/CarlaUE4-Win64-Shipping.exe",
+      "confidence": 85,
+      "notes": []
+    },
+    {
+      "path": "/workspace/CARLA_0.9.16",
+      "source": "search_path",
+      "platform": "unknown",
+      "exists": false,
+      "writable": false,
+      "executable_path": null,
+      "confidence": 0,
+      "notes": [
+        "path does not exist"
+      ]
+    },
+    {
+      "path": "/opt/carla-simulator",
+      "source": "search_path",
+      "platform": "unknown",
+      "exists": false,
+      "writable": false,
+      "executable_path": null,
+      "confidence": 0,
+      "notes": [
+        "path does not exist"
+      ]
+    },
+    {
+      "path": "/Users/kenjipcx/CARLA_0.9.16",
+      "source": "search_path",
+      "platform": "unknown",
+      "exists": false,
+      "writable": false,
+      "executable_path": null,
+      "confidence": 0,
+      "notes": [
+        "path does not exist"
+      ]
+    },
+    {
+      "path": "/Applications/CARLA.app",
+      "source": "search_path",
+      "platform": "unknown",
+      "exists": false,
+      "writable": false,
+      "executable_path": null,
+      "confidence": 0,
+      "notes": [
+        "path does not exist"
+      ]
+    }
+  ],
+  "archive_members_sample": [],
+  "extracted_count": 0,
+  "map_markers": {
+    "Town13": [
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Config/Town13.Package.json"
+    ]
+  },
+  "blockers": [],
+  "error": null
+}

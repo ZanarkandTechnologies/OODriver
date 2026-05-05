@@ -1,7 +1,7 @@
 # TASK-058: CARLA Town13 AdditionalMaps Installer And Probe
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: none
@@ -163,7 +163,13 @@ weights, CARLA binaries, map archives, or media should be committed.
 - CARLA 0.9.16 release assets: `https://github.com/carla-simulator/carla/releases/tag/0.9.16/`
 
 ## Evidence
-- Pending implementation.
+- 2026-05-06 03:09 +0800: `$impl` selected this ticket first because Town13 is
+  the critical path from integration setup to stock Fail2Drive OOD route/video
+  evidence.
+- 2026-05-06 03:28 +0800: Build review attached:
+  `docs/reviews/TASK-058-060-build-review.md`.
 
 ## Blockers
-- Pending local CARLA root/package probe.
+- Official AdditionalMaps package is still downloading to
+  `artifacts/cache/carla/AdditionalMaps_0.9.16.zip.partial`; live probe remains
+  `Town13` not loadable until extraction and CARLA restart/probe.

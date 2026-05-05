@@ -139,7 +139,18 @@ ignored by `.gitignore`.
   install or if the Mac cannot sustain the route runtime.
 
 ## Evidence
-- Pending TASK-058.
+- 2026-05-06 03:24 +0800: Prepared
+  `configs/fail2drive_town13.local.yaml` while the TASK-058 AdditionalMaps
+  package download was in progress, so route execution can start immediately
+  once `Town13` is loadable.
+- 2026-05-06 03:25 +0800: Docker `plan-fail2drive-video-smoke` produced a
+  stock Town13 route command with `--timeout 900`, `TOWN=Town13`, and expected
+  result/debug/RGB/video paths under
+  `tickets/TASK-060/artifacts/town13-video-plan/`. Remaining live blocker is
+  still map availability plus missing upstream `tools/generate_video.py`, which
+  the DriverX assembler already replaces after RGB frames exist.
+- 2026-05-06 03:28 +0800: Build review attached:
+  `docs/reviews/TASK-058-060-build-review.md`.
 
 ## Blockers
 - Town13 must be loadable first.

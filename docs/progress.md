@@ -75,7 +75,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 ## Active Roadmap
 
 - [ ] TASK-058 CARLA Town13 AdditionalMaps installer and probe
-- [ ] TASK-059 PhysicalAI dataset-backed Alpamayo sample probe
+- [x] TASK-059 PhysicalAI dataset-backed Alpamayo sample probe
 - [ ] TASK-060 stock Fail2Drive Town13 route score and video evidence
 - [ ] TASK-061 route-aligned Alpamayo OOD capture and memory comparison
 - [ ] TASK-062 trajectory intent to CARLA control dry run
@@ -83,6 +83,19 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 
 ## Latest Evidence
 
+- TASK-059 resolved the PhysicalAI dataset gate. The dataset-forced RunPod
+  probe used real sample frames (`shape_source_used=dataset`) and observed
+  `image_frames=[4,4,3,1080,1920]`, `pred_xyz=[1,1,1,64,3]`,
+  `pred_rot=[1,1,1,64,3,3]`, CoC output, `124987.44ms` latency, and
+  `24881.65MB` peak VRAM on RTX 6000 Ada/eager attention.
+- TASK-058 dry-run found the local Kegworks CARLA 0.9.16 root and confirmed
+  the official Windows AdditionalMaps package is `7250055782` bytes with enough
+  local free disk. Live map probe still reports `Town13` not loadable until the
+  AdditionalMaps package is staged and CARLA is restarted/probed again.
+- TASK-060 prebuilt the Docker stock route plan for
+  `Generalization_PedestriansOnRoad_1088.xml`; it now carries `TOWN=Town13`,
+  `--timeout 900`, and expected result/debug/RGB/video paths, so live route
+  execution can start as soon as TASK-058 makes Town13 loadable.
 - TASK-058 through TASK-063 define the next proof batch after the user approved
   the PhysicalAI dataset gate and chose to keep the RunPod Alpamayo cache alive.
   The batch unblocks the two strongest remaining evidence gaps: exact

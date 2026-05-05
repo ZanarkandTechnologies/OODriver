@@ -57,11 +57,15 @@ def classify_alpamayo_shape_probe_artifacts(
         "blockers": blockers,
         "artifacts": artifacts,
         "inference_state": _inference_state(probe_payload),
+        "shape_source_used": _get(probe_payload, "shape_source_used"),
+        "clip_id": _get(probe_payload, "clip_id"),
+        "t0_us": _get(probe_payload, "t0_us"),
         "input_shapes": _mapping_or_empty(probe_payload, "input_shapes"),
         "output_shapes": _mapping_or_empty(probe_payload, "output_shapes"),
         "output_types": _mapping_or_empty(probe_payload, "output_types"),
         "latency_ms": _maybe_number(_get(probe_payload, "latency_ms")),
         "vram_peak_mb": _maybe_number(_nested_get(memory_payload, "vram_peak_mb")),
+        "cot_excerpt": _get(probe_payload, "cot_excerpt"),
         "entrypoint_inventory": inventory_payload if isinstance(inventory_payload, dict) else {},
         "redacted_excerpt": _redact_secrets(combined_text)[:2400],
     }
@@ -134,6 +138,8 @@ def _classify(
     state = _inference_state(payload)
     if state in {"shape_observed", "completed", "success"}:
         if _has_required_shapes(payload):
+            if _get(payload, "shape_source_used") == "dataset":
+                return "dataset_shape_observed", []
             return "shape_observed", []
         return "shape_blocked", ["Inference completed but required output shapes were missing."]
     if any(pattern.search(text) for pattern in _AUTH_ERROR_PATTERNS):
@@ -216,6 +222,9 @@ def _markdown(payload: dict[str, Any]) -> str:
         f"- status: `{payload['status']}`",
         f"- blocked: `{payload['blocked']}`",
         f"- inference_state: `{payload.get('inference_state')}`",
+        f"- shape_source_used: `{payload.get('shape_source_used')}`",
+        f"- clip_id: `{payload.get('clip_id')}`",
+        f"- t0_us: `{payload.get('t0_us')}`",
         f"- latency_ms: `{payload.get('latency_ms')}`",
         f"- vram_peak_mb: `{payload.get('vram_peak_mb')}`",
         "",

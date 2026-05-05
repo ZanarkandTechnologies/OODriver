@@ -46,6 +46,33 @@ class AlpamayoShapeProbeTest(unittest.TestCase):
         self.assertEqual(summary["output_shapes"]["pred_xyz"], [1, 1, 1, 64, 3])
         self.assertEqual(summary["vram_peak_mb"], 24576.0)
 
+    def test_classifier_detects_dataset_backed_shape_observation(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "alpamayo_shape_probe.json").write_text(
+                json.dumps(
+                    {
+                        "inference_state": "shape_observed",
+                        "shape_source_used": "dataset",
+                        "clip_id": "030c760c-ae38-49aa-9ad8-f5650a545d26",
+                        "t0_us": 5100000,
+                        "output_shapes": {
+                            "pred_xyz": [1, 1, 1, 64, 3],
+                            "pred_rot": [1, 1, 1, 64, 3, 3],
+                            "extra.cot": [1, 1, 1],
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            summary = classify_alpamayo_shape_probe_artifacts(root)
+
+        self.assertEqual(summary["status"], "dataset_shape_observed")
+        self.assertFalse(summary["blocked"])
+        self.assertEqual(summary["shape_source_used"], "dataset")
+        self.assertEqual(summary["t0_us"], 5100000)
+
     def test_classifier_keeps_success_when_dataset_fallback_logged_403(self) -> None:
         with TemporaryDirectory() as tmp:
             root = Path(tmp)

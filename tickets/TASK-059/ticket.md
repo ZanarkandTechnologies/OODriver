@@ -1,7 +1,7 @@
 # TASK-059: PhysicalAI Dataset Alpamayo Sample Probe
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-052, TASK-053
@@ -121,13 +121,13 @@ HF cache, model weights, or raw image samples should be committed.
 - Dataset-backed inference may use more memory than the synthetic sample.
 
 ## Acceptance Criteria
-- [ ] AC-1: Dataset-forced probe produces a report with
+- [x] AC-1: Dataset-forced probe produces a report with
   `shape_source_used=dataset`, or a precise non-access blocker.
-- [ ] AC-2: Report includes input shapes, output shapes, CoC type/shape, latency,
+- [x] AC-2: Report includes input shapes, output shapes, CoC type/shape, latency,
   VRAM, clip id, and t0.
-- [ ] AC-3: PhysicalAI blocker is resolved or replaced in `blockers.md`.
-- [ ] AC-4: Secret scan shows no HF token in artifacts.
-- [ ] AC-5: Heavy caches/model/data remain outside git.
+- [x] AC-3: PhysicalAI blocker is resolved or replaced in `blockers.md`.
+- [x] AC-4: Secret scan shows no HF token in artifacts.
+- [x] AC-5: Heavy caches/model/data remain outside git.
 
 ## Verification
 - Unit: `PYTHONPATH=src python3 -m unittest tests.test_alpamayo_shape_probe`
@@ -142,7 +142,16 @@ HF cache, model weights, or raw image samples should be committed.
 - Human gate only if Hugging Face still returns 403 after the user's approval.
 
 ## Evidence
-- Pending implementation.
+- 2026-05-06 03:18 +0800: `$impl` started this while the local Town13
+  AdditionalMaps package download was in progress so the project keeps moving
+  toward the real VLA/OOD evaluation goal instead of idling in setup.
+- 2026-05-06 03:22 +0800: Dataset-forced RunPod probe succeeded with
+  `shape_source_used=dataset`, `pred_xyz=[1,1,1,64,3]`,
+  `pred_rot=[1,1,1,64,3,3]`, CoC output, `124987.44ms` latency, and
+  `24881.65MB` peak VRAM. Report:
+  `tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.md`.
+- 2026-05-06 03:28 +0800: Build review attached:
+  `docs/reviews/TASK-058-060-build-review.md`.
 
 ## Blockers
-- Pending live dataset-backed probe.
+- None.
