@@ -138,6 +138,12 @@ from driverx.simulators.simlingo_sidecar_runner import (
     run_simlingo_sidecar_processes,
     write_simlingo_sidecar_run,
 )
+from driverx.simulators.carla_policy_replay import (
+    CarlaPolicyReplayConfig,
+    CarlaPolicyReplayResult,
+    replay_policy_decision,
+    write_carla_policy_replay,
+)
 
 __all__ = [
     "CarlaCommandPlan",
@@ -155,6 +161,8 @@ __all__ = [
     "CarlaMapProbeConfig",
     "CarlaMapsInstallConfig",
     "CarlaMapsInstallResult",
+    "CarlaPolicyReplayConfig",
+    "CarlaPolicyReplayResult",
     "CarlaProbeConfig",
     "CarlaProbeResult",
     "CarlaOverlayInjectionConfig",
@@ -214,6 +222,7 @@ __all__ = [
     "run_ego_spawn_smoke",
     "run_fail2drive_route",
     "run_overlay_injection_plan",
+    "replay_policy_decision",
     "run_route_video_assembly",
     "run_simlingo_sidecar_processes",
     "scan_simlingo_evidence",
@@ -224,6 +233,7 @@ __all__ = [
     "write_carla_script_plan",
     "write_bench2drive_route_suite",
     "write_carla_maps_report",
+    "write_carla_policy_replay",
     "write_carla_probe",
     "write_carla_alpamayo_capture",
     "write_ego_smoke",

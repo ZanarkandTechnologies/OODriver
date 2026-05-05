@@ -1,7 +1,7 @@
 # TASK-062: Trajectory Intent To CARLA Control Dry Run
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-061
@@ -66,6 +66,7 @@ src/driverx/simulators/carla_policy_replay.py / replay_policy_decision(config: C
 ### Type Sketch
 ```python
 TrajectoryControlConfig = {
+  "trajectory_frame": "ego" | "world",
   "max_speed_mps": 6.0,
   "max_steer": 0.35,
   "max_brake": 0.5,
@@ -120,13 +121,13 @@ should depend on this until it is proven.
   replay clearly.
 
 ## Acceptance Criteria
-- [ ] AC-1: Pure controller tests cover straight, left, right, stop, and clamp
+- [x] AC-1: Pure controller tests cover straight, left, right, stop, and clamp
   cases.
-- [ ] AC-2: Fake-CARLA replay applies command traces and reports cleanup.
-- [ ] AC-3: CLI consumes a saved `alpamayo_policy_decision.json` and writes
+- [x] AC-2: Fake-CARLA replay applies command traces and reports cleanup.
+- [x] AC-3: CLI consumes a saved `alpamayo_policy_decision.json` and writes
   `carla_policy_replay.json/.md`.
-- [ ] AC-4: Live smoke is optional; if run, it is labeled cached replay.
-- [ ] AC-5: No claim of real-time Alpamayo closed-loop control appears in docs.
+- [x] AC-4: Live smoke is optional; if run, it is labeled cached replay.
+- [x] AC-5: No claim of real-time Alpamayo closed-loop control appears in docs.
 
 ## Verification
 - Unit:
@@ -140,7 +141,22 @@ should depend on this until it is proven.
 - Live smoke requires CARLA running but not the RunPod model.
 
 ## Evidence
-- Pending TASK-061.
+- 2026-05-06 03:36 +0800: Implemented pure cached trajectory replay before
+  TASK-061 because it is locally testable and directly supports the original
+  mission of turning VLA intent into simulator behavior. Focused tests:
+  `PYTHONPATH=src python3 -m unittest tests.test_trajectory_control tests.test_carla_policy_replay`
+  passed with 11 tests.
+- 2026-05-06 03:36 +0800: CLI consumed the archived TASK-039
+  `alpamayo_policy_decision.json` and wrote
+  `tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.md`.
+  The controller correctly labeled this as `cached_replay` and braked instead
+  of steering because the archived trajectory points sit behind the ego frame.
+  The report now records `trajectory_frame=ego`.
+- 2026-05-06 03:34 +0800: Hardened the coordinate-frame contract:
+  `trajectory_frame=ego` is the default for Alpamayo/DriverX trajectory intent,
+  while `trajectory_frame=world` explicitly applies the CARLA ego pose transform.
+- Review: `docs/reviews/TASK-062-trajectory-replay-review.md` passed with
+  4.1/5.0 and no blocking findings.
 
 ## Blockers
 - None for fake tests; live replay waits on CARLA availability.

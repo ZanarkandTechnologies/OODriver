@@ -78,7 +78,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-059 PhysicalAI dataset-backed Alpamayo sample probe
 - [ ] TASK-060 stock Fail2Drive Town13 route score and video evidence
 - [ ] TASK-061 route-aligned Alpamayo OOD capture and memory comparison
-- [ ] TASK-062 trajectory intent to CARLA control dry run
+- [x] TASK-062 trajectory intent to CARLA control dry run
 - [ ] TASK-063 final submission evidence refresh
 
 ## Latest Evidence
@@ -96,6 +96,11 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   `Generalization_PedestriansOnRoad_1088.xml`; it now carries `TOWN=Town13`,
   `--timeout 900`, and expected result/debug/RGB/video paths, so live route
   execution can start as soon as TASK-058 makes Town13 loadable.
+- TASK-062 added the cached trajectory replay seam. It converts a saved
+  `alpamayo_policy_decision.json` into bounded CARLA-style control commands,
+  reports `closed_loop_control=cached_replay` and `trajectory_frame=ego`, and
+  conservatively brakes when a trajectory target is behind the ego frame instead
+  of steering toward it. Review passed at 4.1/5.0 with no blocking findings.
 - TASK-058 through TASK-063 define the next proof batch after the user approved
   the PhysicalAI dataset gate and chose to keep the RunPod Alpamayo cache alive.
   The batch unblocks the two strongest remaining evidence gaps: exact

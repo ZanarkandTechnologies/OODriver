@@ -908,6 +908,7 @@ def build_parser() -> argparse.ArgumentParser:
     from driverx.simulators.carla_alpamayo_capture_cli import register_carla_alpamayo_capture_parser
     from driverx.simulators.gpu_host_cli import register_gpu_host_parser
     from driverx.simulators.carla_maps_cli import register_carla_maps_parser
+    from driverx.simulators.carla_policy_replay_cli import register_carla_policy_replay_parser
     from driverx.simulators.route_video_assembly_cli import register_route_video_assembly_parser
     from driverx.simulators.fail2drive_route_runner_cli import register_fail2drive_route_runner_parser
 
@@ -927,6 +928,7 @@ def build_parser() -> argparse.ArgumentParser:
     register_simlingo_parsers(subparsers)
     register_carla_alpamayo_capture_parser(subparsers)
     register_carla_maps_parser(subparsers)
+    register_carla_policy_replay_parser(subparsers)
     register_gpu_host_parser(subparsers)
     register_route_video_assembly_parser(subparsers)
     register_fail2drive_route_runner_parser(subparsers)

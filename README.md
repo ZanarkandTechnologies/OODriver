@@ -236,6 +236,14 @@ PYTHONPATH=src python3 -m driverx build-alpamayo-ood-comparison \
   --route-evidence tickets/archive/TASK-055/artifacts/town10-route-evidence/run_evidence.json \
   --run-id task56-alpamayo-ood-comparison
 
+# Convert a cached Alpamayo/DriverX policy decision into bounded CARLA-style
+# controls. This is a dry-run bridge for trajectory intent, not real-time VLA
+# closed-loop driving.
+PYTHONPATH=src python3 -m driverx replay-policy-decision \
+  --decision tickets/archive/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json \
+  --trajectory-frame ego \
+  --run-id task62-cached-replay
+
 # Build the judge-facing demo pack with storyboard, artifact map, declarations,
 # write-up draft, and first understood failure case
 PYTHONPATH=src python3 -m driverx build-demo-pack \

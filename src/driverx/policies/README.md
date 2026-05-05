@@ -19,6 +19,8 @@ fallbacks, API VLMs, SimLingo/CarLLaVA, or Alpamayo later.
 - `inspect_alpamayo_release(...)`
 - `alpamayo_prediction_to_trajectory(...)`
 - `run_alpamayo_offline_fixture(...)`
+- `trajectory_to_control_trace(...)`
+- `load_policy_decision_trajectory(...)`
 - `select_policy_adapter(name, memory_aware=False)`
 - `run_policy_fixture(...)`
 - `write_policy_decision(...)`
@@ -34,6 +36,7 @@ PYTHONPATH=src python3 -m driverx run-alpamayo-live --package artifacts/runs/tas
 PYTHONPATH=src python3 -m driverx inspect-alpamayo-release --repo ../external/alpamayo1.5
 PYTHONPATH=src python3 -m driverx convert-alpamayo-trajectory --prediction-json artifacts/sample_pred_xyz.json
 PYTHONPATH=src python3 -m driverx run-alpamayo-offline --prediction-json artifacts/sample_pred_xyz.json --with-memory
+PYTHONPATH=src python3 -m driverx replay-policy-decision --decision tickets/archive/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json --trajectory-frame ego
 ALPAMAYO_ATTN_IMPLEMENTATION=eager bash scripts/run_remote_alpamayo_probe.sh root@195.26.233.80 artifacts/remote/alpamayo-probe/latest
 ```
 
@@ -45,4 +48,5 @@ as `MEM-0019`.
 
 ```bash
 PYTHONPATH=src python3 -m unittest tests.test_policies
+PYTHONPATH=src python3 -m unittest tests.test_trajectory_control
 ```
