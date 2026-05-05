@@ -74,7 +74,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 
 ## Active Roadmap
 
-- [ ] TASK-058 CARLA Town13 AdditionalMaps installer and probe
+- [x] TASK-058 CARLA Town13 AdditionalMaps installer and probe
 - [x] TASK-059 PhysicalAI dataset-backed Alpamayo sample probe
 - [ ] TASK-060 stock Fail2Drive Town13 route score and video evidence
 - [ ] TASK-061 route-aligned Alpamayo OOD capture and memory comparison
@@ -90,10 +90,12 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   `image_frames=[4,4,3,1080,1920]`, `pred_xyz=[1,1,1,64,3]`,
   `pred_rot=[1,1,1,64,3,3]`, CoC output, `124987.44ms` latency, and
   `24881.65MB` peak VRAM on RTX 6000 Ada/eager attention.
-- TASK-058 dry-run found the local Kegworks CARLA 0.9.16 root and confirmed
-  the official Windows AdditionalMaps package is `7250055782` bytes with enough
-  local free disk. Live map probe still reports `Town13` not loadable until the
-  AdditionalMaps package is staged and CARLA is restarted/probed again.
+- TASK-058 installed the official Windows CARLA 0.9.16 AdditionalMaps package
+  into the local Kegworks CARLA root. `Town13` is now present in
+  `available_maps`, and the long probe reached `Carla/Maps/Town13/Town13` as
+  `current_map`, but the running simulator timed out while finishing the load.
+  The remaining blocker is a local CARLA relaunch/readiness probe before
+  TASK-060 route execution.
 - TASK-060 prebuilt the Docker stock route plan for
   `Generalization_PedestriansOnRoad_1088.xml`; it now carries `TOWN=Town13`,
   `--timeout 900`, and expected result/debug/RGB/video paths, so live route

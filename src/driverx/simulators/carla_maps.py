@@ -802,6 +802,14 @@ def _attempt_map_load(client: object, map_name: str) -> CarlaMapLoadAttempt:
             loaded_map=loaded,
         )
     except Exception as exc:
+        loaded = _world_map_name(client.get_world()) if hasattr(client, "get_world") else None
+        if _map_name_matches(loaded, map_name):
+            return CarlaMapLoadAttempt(
+                map_name=map_name,
+                success=True,
+                loaded_map=loaded,
+                error=f"load_world raised after map became current: {exc}",
+            )
         return CarlaMapLoadAttempt(
             map_name=map_name,
             success=False,

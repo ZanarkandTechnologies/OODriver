@@ -1,7 +1,7 @@
 # TASK-058: CARLA Town13 AdditionalMaps Installer And Probe
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: none
@@ -10,8 +10,8 @@
 - leave when: Town13 install/staging is attempted, map availability is probed,
   and the Fail2Drive Town13 blocker is either resolved or replaced by a precise
   local-install blocker
-- blockers: local CARLA/Kegworks root may need discovery or user path if
-  automatic search cannot find a writable CARLA install
+- blockers: none for install/probe; TASK-060 waits on local CARLA
+  restart/readiness after Town13 load timeout
 - spawned follow-ups: TASK-060 stock Fail2Drive Town13 route score and video
 - complexity: M
 
@@ -135,14 +135,14 @@ weights, CARLA binaries, map archives, or media should be committed.
   space before download/extract.
 
 ## Acceptance Criteria
-- [ ] AC-1: Dry-run install writes chosen package URL, target root, required
+- [x] AC-1: Dry-run install writes chosen package URL, target root, required
   disk estimate, and expected files without touching CARLA.
-- [ ] AC-2: Real install/stage either makes `Town13` loadable or writes a precise
+- [x] AC-2: Real install/stage either makes `Town13` loadable or writes a precise
   failure report.
-- [ ] AC-3: `probe-carla-maps` reports current map, available maps, and `Town13`
+- [x] AC-3: `probe-carla-maps` reports current map, available maps, and `Town13`
   load result through the Docker CARLA client.
-- [ ] AC-4: `blockers.md` accurately reflects the new Town13 state.
-- [ ] AC-5: AdditionalMaps archives, extracted CARLA assets, and generated media
+- [x] AC-4: `blockers.md` accurately reflects the new Town13 state.
+- [x] AC-5: AdditionalMaps archives, extracted CARLA assets, and generated media
   stay out of git.
 
 ## Verification
@@ -168,8 +168,18 @@ weights, CARLA binaries, map archives, or media should be committed.
   evidence.
 - 2026-05-06 03:28 +0800: Build review attached:
   `docs/reviews/TASK-058-060-build-review.md`.
+- 2026-05-06 03:34 +0800: Real install succeeded at
+  `tickets/TASK-058/artifacts/town13-map-install-real-002/carla_maps_install.md`.
+  It extracted 23,647 files from the official Windows AdditionalMaps package
+  into the Kegworks CARLA 0.9.16 root and found `Town13` map markers.
+- 2026-05-06 03:34 +0800: Docker map probe after install listed `Town13` in
+  `available_maps`; the long load probe switched `current_map` to
+  `Carla/Maps/Town13/Town13` but timed out waiting for the simulator. Follow-up
+  no-load probe also timed out, so the remaining blocker is CARLA process
+  restart/readiness, not missing map files.
+- Review: `docs/reviews/TASK-058-town13-install-review.md` passed TASK-058 at
+  4.1/5.0 and moved the remaining issue to TASK-060 restart/readiness.
 
 ## Blockers
-- Official AdditionalMaps package is still downloading to
-  `artifacts/cache/carla/AdditionalMaps_0.9.16.zip.partial`; live probe remains
-  `Town13` not loadable until extraction and CARLA restart/probe.
+- Restart/relaunch local `CARLA.app`, then rerun the no-load map probe. Do not
+  start TASK-060 route execution until CARLA responds after loading Town13.

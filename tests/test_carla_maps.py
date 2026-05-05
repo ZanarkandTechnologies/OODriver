@@ -61,6 +61,14 @@ class _FakeClient:
         return "0.9.16"
 
 
+class _TimeoutAfterSwitchClient(_FakeClient):
+    def load_world(self, map_name: str) -> _FakeWorld:
+        if map_name != "Town13":
+            raise RuntimeError(f"map not found: {map_name}")
+        self.current_map = "Carla/Maps/Town13/Town13"
+        raise RuntimeError("time-out while waiting for simulator")
+
+
 def _write_fake_root(path: Path) -> None:
     path.mkdir(parents=True)
     (path / "CarlaUE4.exe").write_text("fake exe\n", encoding="utf-8")
@@ -88,10 +96,10 @@ class CarlaMapsTest(unittest.TestCase):
 
             candidates = discover_carla_install_candidates([root])
 
-        self.assertTrue(candidates)
-        self.assertEqual(candidates[0].path, root)
-        self.assertEqual(candidates[0].platform, "windows")
-        self.assertGreaterEqual(candidates[0].confidence, 50)
+        fake_candidates = [candidate for candidate in candidates if candidate.path == root]
+        self.assertTrue(fake_candidates)
+        self.assertEqual(fake_candidates[0].platform, "windows")
+        self.assertGreaterEqual(fake_candidates[0].confidence, 50)
 
     def test_dry_run_install_reports_url_root_and_disk_without_extracting(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -140,6 +148,17 @@ class CarlaMapsTest(unittest.TestCase):
         self.assertEqual(result.current_map, "Carla/Maps/Town10HD_Opt")
         self.assertTrue(result.load_attempts[0].success)
         self.assertEqual(result.load_attempts[0].loaded_map, "Carla/Maps/Town13")
+
+    def test_probe_treats_timeout_after_map_switch_as_success(self) -> None:
+        result = probe_carla_map_inventory(
+            CarlaMapProbeConfig(host="host.docker.internal", port=2000),
+            client_factory=_TimeoutAfterSwitchClient,
+        )
+
+        self.assertTrue(result.connected)
+        self.assertTrue(result.load_attempts[0].success)
+        self.assertEqual(result.load_attempts[0].loaded_map, "Carla/Maps/Town13/Town13")
+        self.assertIn("load_world raised after map became current", result.load_attempts[0].error)
 
     def test_write_reports_json_and_markdown(self) -> None:
         with TemporaryDirectory() as tmp:

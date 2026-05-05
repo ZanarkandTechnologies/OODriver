@@ -6,13 +6,16 @@ unblocked ticket when possible.
 
 ## Open
 
-- 2026-05-06 01:50 +0800 | fail2drive,carla,map | TASK-054B proved the
-  Docker Fail2Drive client can reach local CARLA, but the stock Fail2Drive
-  split routes in `fail2drive_split/` all require `Town13`, which is not
-  installed in the local CARLA 0.9.16 package. Evidence:
-  `tickets/archive/TASK-054B/artifacts/docker-route-run-town13-map-blocker-classified/fail2drive_route_run.md`.
-  Next unblock path: install/provide a CARLA package containing Town13 or use a
-  compatible route generator for installed maps such as Town10HD_Opt.
+- 2026-05-06 03:34 +0800 | fail2drive,carla,map,restart | TASK-058 installed
+  CARLA 0.9.16 AdditionalMaps and the live Docker probe now lists `Town13`, but
+  the running Kegworks CARLA process times out after switching toward
+  `Carla/Maps/Town13/Town13`. Evidence:
+  `tickets/TASK-058/artifacts/town13-map-install-real-002/carla_maps_install.md`,
+  `tickets/TASK-058/artifacts/town13-map-probe-after-install-long/carla_map_inventory.md`,
+  and
+  `tickets/TASK-058/artifacts/town13-map-probe-no-load-after-timeout/carla_map_inventory.md`.
+  Next unblock path: quit and relaunch the local `CARLA.app`, wait for the map
+  to finish loading, then rerun the no-load map probe before starting TASK-060.
 
 - 2026-05-05 17:07 +0800 | h100,carla,vulkan | TASK-020 stock
   SimLingo H100 route run cannot reach policy execution because CARLA 0.9.15
@@ -28,6 +31,13 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-06 03:34 +0800 | fail2drive,carla,map | TASK-058 resolved the
+  original "Town13 not installed" blocker. The official Windows
+  `AdditionalMaps_0.9.16.zip` package downloaded successfully, extracted
+  23,647 files into the local Kegworks CARLA root, and `Town13` appears in
+  `available_maps`. Remaining blocker is now only the simulator restart/readiness
+  step above.
 
 - 2026-05-06 03:22 +0800 | alpamayo,huggingface,physical-ai,dataset | TASK-059
   resolved the upstream `nvidia/PhysicalAI-Autonomous-Vehicles` dataset gate.

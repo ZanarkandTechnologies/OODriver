@@ -96,3 +96,4 @@
 2026-05-06 03:34 +0800 | SHIP | TASK-062 added a cached Alpamayo policy-decision replay seam that converts trajectory intent into bounded CARLA-style control traces while preserving the no-real-time-closed-loop label
 2026-05-06 03:34 +0800 | SHIP | TASK-061 added a fake-CARLA route-aligned capture attach seam so future Fail2Drive hero actors can be captured for Alpamayo without being spawned or destroyed by DriverX
 2026-05-06 03:34 +0800 | SHIP | TASK-063 added cached replay inputs and claim-boundary fields to the demo-pack generator so final evidence can distinguish open-loop VLA evaluation from cached control replay
+2026-05-06 03:34 +0800 | QA | TASK-058 installed CARLA 0.9.16 AdditionalMaps locally, confirmed Town13 map markers and available_maps visibility, and narrowed the remaining Fail2Drive blocker to CARLA relaunch/readiness after a Town13 load timeout

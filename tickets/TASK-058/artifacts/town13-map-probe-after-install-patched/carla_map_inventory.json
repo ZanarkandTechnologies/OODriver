@@ -1,0 +1,11 @@
+{
+  "connected": false,
+  "host": "host.docker.internal",
+  "port": 2000,
+  "server_version": null,
+  "client_version": null,
+  "current_map": null,
+  "available_maps": [],
+  "load_attempts": [],
+  "error": "CARLA map inventory probe failed: time-out of 45000ms while waiting for the simulator, make sure the simulator is ready and connected to host.docker.internal:2000"
+}

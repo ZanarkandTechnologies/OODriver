@@ -1,0 +1,124 @@
+{
+  "status": "installed",
+  "dry_run": false,
+  "version": "0.9.16",
+  "platform": "windows",
+  "carla_root": "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16",
+  "package_url": "https://carla-releases.s3.us-east-005.backblazeb2.com/Windows/AdditionalMaps_0.9.16.zip",
+  "package_path": "artifacts/cache/carla/AdditionalMaps_0.9.16.zip",
+  "package_size_bytes": 7250055782,
+  "disk_free_bytes": 461179904000,
+  "required_free_bytes": 17179869184,
+  "desired_maps": [
+    "Town13"
+  ],
+  "candidates": [
+    {
+      "path": "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16",
+      "source": "executable_scan",
+      "platform": "windows",
+      "exists": true,
+      "writable": true,
+      "executable_path": "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Binaries/Win64/CarlaUE4-Win64-Shipping.exe",
+      "confidence": 85,
+      "notes": []
+    },
+    {
+      "path": "/workspace/CARLA_0.9.16",
+      "source": "search_path",
+      "platform": "unknown",
+      "exists": false,
+      "writable": false,
+      "executable_path": null,
+      "confidence": 0,
+      "notes": [
+        "path does not exist"
+      ]
+    },
+    {
+      "path": "/opt/carla-simulator",
+      "source": "search_path",
+      "platform": "unknown",
+      "exists": false,
+      "writable": false,
+      "executable_path": null,
+      "confidence": 0,
+      "notes": [
+        "path does not exist"
+      ]
+    },
+    {
+      "path": "/Users/kenjipcx/CARLA_0.9.16",
+      "source": "search_path",
+      "platform": "unknown",
+      "exists": false,
+      "writable": false,
+      "executable_path": null,
+      "confidence": 0,
+      "notes": [
+        "path does not exist"
+      ]
+    },
+    {
+      "path": "/Applications/CARLA.app",
+      "source": "search_path",
+      "platform": "unknown",
+      "exists": false,
+      "writable": false,
+      "executable_path": null,
+      "confidence": 0,
+      "notes": [
+        "path does not exist"
+      ]
+    }
+  ],
+  "archive_members_sample": [
+    "CarlaUE4/",
+    "CarlaUE4/Content/",
+    "CarlaUE4/Content/Carla/",
+    "CarlaUE4/Content/Carla/Blueprints/",
+    "CarlaUE4/Content/Carla/Blueprints/Game/",
+    "CarlaUE4/Content/Carla/Blueprints/Game/CarlaGameMode.uasset",
+    "CarlaUE4/Content/Carla/Blueprints/Game/CarlaGameMode.uexp",
+    "CarlaUE4/Content/Carla/Blueprints/Game/CarlaParameters.uasset",
+    "CarlaUE4/Content/Carla/Blueprints/Game/CarlaParameters.uexp",
+    "CarlaUE4/Content/Carla/Blueprints/Game/Spectator.uasset",
+    "CarlaUE4/Content/Carla/Blueprints/Game/Spectator.uexp",
+    "CarlaUE4/Content/Carla/Blueprints/LevelDesign/",
+    "CarlaUE4/Content/Carla/Blueprints/LevelDesign/BP_Building.uasset",
+    "CarlaUE4/Content/Carla/Blueprints/LevelDesign/BP_Building.uexp",
+    "CarlaUE4/Content/Carla/Blueprints/LevelDesign/BP_Prop.uasset",
+    "CarlaUE4/Content/Carla/Blueprints/LevelDesign/BP_Prop.uexp",
+    "CarlaUE4/Content/Carla/Blueprints/LevelDesign/BP_RepSpline.uasset",
+    "CarlaUE4/Content/Carla/Blueprints/LevelDesign/BP_RepSpline.uexp",
+    "CarlaUE4/Content/Carla/Blueprints/LevelDesign/BuildingBlockGeneratorAssets/",
+    "CarlaUE4/Content/Carla/Blueprints/LevelDesign/BuildingBlockGeneratorAssets/BuildingCategories.uasset"
+  ],
+  "extracted_count": 23647,
+  "map_markers": {
+    "Town13": [
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_6_2.umap",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_2_5.umap",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_3_1.umap",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_4_3.umap",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_0_4.umap",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_1_0.umap",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_5_1.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_0_2.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_4_5.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_7_0.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_2_3.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_6_4.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_6_5.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_2_2.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_7_1.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_4_4.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_0_3.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_5_0.uexp",
+      "/Users/kenjipcx/Applications/Sikarugir/CARLA.app/Contents/SharedSupport/prefix/drive_c/Program Files/CARLA_0.9.16/CarlaUE4/Content/Carla/Maps/Town13/Town13_Tile_1_1.umap"
+    ]
+  },
+  "blockers": [],
+  "error": null
+}
