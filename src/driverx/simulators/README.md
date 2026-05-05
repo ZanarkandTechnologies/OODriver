@@ -4,7 +4,8 @@
 
 Owns adapter surfaces for external simulators. The local path covers CARLA
 server smoke checks, CARLA Python API probing through Docker, and Fail2Drive
-dry-run command planning.
+dry-run command planning. It also owns the dependency-light local 2D OOD
+simulator used to prove the full generated-scenario policy loop without CARLA.
 
 ## Public API
 
@@ -33,6 +34,8 @@ dry-run command planning.
 - `find_capture_actor(world, attach)`
 - `replay_policy_decision(config, actor=None)`
 - `write_carla_policy_replay(run_dir, result)`
+- `run_local_ood_sim(recipe, behavior, decisions, control_traces, output_dir)`
+- `write_local_ood_sim_result(run_dir, result)`
 
 ## Example
 
@@ -100,6 +103,8 @@ PYTHONPATH=src python3 -m driverx replay-policy-decision \
   --decision tickets/archive/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json \
   --trajectory-frame ego \
   --run-id task62-cached-replay
+PYTHONPATH=src python3 -m driverx run-end-to-end-ood-demo \
+  --run-id local-ood-demo
 ```
 
 The OOD suite report accepts either the older
@@ -121,4 +126,5 @@ PYTHONPATH=src python3 -m unittest tests.test_gpu_host_suitability
 PYTHONPATH=src python3 -m unittest tests.test_carla_maps
 PYTHONPATH=src python3 -m unittest tests.test_carla_policy_replay
 PYTHONPATH=src python3 -m unittest tests.test_carla_alpamayo_capture
+PYTHONPATH=src python3 -m unittest tests.test_local_ood_sim
 ```

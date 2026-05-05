@@ -54,6 +54,20 @@ def default_behavior_plans() -> list[BehaviorPlan]:
             tags=["motorcycle", "stunt_proxy", "fast_low_profile"],
             expected_pressure="Low-profile fast two-wheeler surrogate creates perception and prediction stress.",
         ),
+        BehaviorPlan(
+            behavior_id="double_parked_door_swerve",
+            actor_kind="vehicle",
+            parameters={"speed_mps": 4.0, "start_y": 3.2, "intrusion_y": 0.35, "swerve_start_s": 1.25},
+            tags=["double_parked", "door_open", "sudden_swerve", "urban_clutter"],
+            expected_pressure="Double-parked actor abruptly intrudes into lane as if avoiding an opening door.",
+        ),
+        BehaviorPlan(
+            behavior_id="unsignaled_u_turn",
+            actor_kind="vehicle",
+            parameters={"turn_center_x": 8.0, "turn_center_y": -2.0, "radius_m": 2.3, "approach_speed_mps": 5.0},
+            tags=["u_turn", "no_signal", "opposing_conflict", "heading_reversal"],
+            expected_pressure="Actor begins an unsignaled U-turn across ego's path with rapid heading reversal.",
+        ),
     ]
 
 
@@ -158,6 +172,61 @@ def _stunt_motorcycle_proxy(plan: BehaviorPlan) -> list[BehaviorSample]:
     ]
 
 
+def _double_parked_door_swerve(plan: BehaviorPlan) -> list[BehaviorSample]:
+    speed = float(plan.parameters["speed_mps"])
+    start_y = float(plan.parameters["start_y"])
+    intrusion_y = float(plan.parameters["intrusion_y"])
+    swerve_start = float(plan.parameters["swerve_start_s"])
+    samples: list[BehaviorSample] = []
+    for t in _sample_times(plan):
+        active_t = max(0.0, t - swerve_start)
+        y = _linear(start_y, intrusion_y, active_t / 0.9)
+        if active_t > 2.0:
+            y = _linear(intrusion_y, start_y, (active_t - 2.0) / 1.4)
+        samples.append(
+            BehaviorSample(
+                t_s=t,
+                x_m=speed * t + 2.0,
+                y_m=y,
+                speed_mps=speed,
+                heading_deg=-24.0 if swerve_start <= t <= swerve_start + 1.0 else 0.0,
+            )
+        )
+    return samples
+
+
+def _unsignaled_u_turn(plan: BehaviorPlan) -> list[BehaviorSample]:
+    center_x = float(plan.parameters["turn_center_x"])
+    center_y = float(plan.parameters["turn_center_y"])
+    radius = float(plan.parameters["radius_m"])
+    approach_speed = float(plan.parameters["approach_speed_mps"])
+    samples: list[BehaviorSample] = []
+    for t in _sample_times(plan):
+        if t < 1.0:
+            samples.append(
+                BehaviorSample(
+                    t_s=t,
+                    x_m=center_x - approach_speed * (1.0 - t),
+                    y_m=center_y - radius,
+                    speed_mps=approach_speed,
+                    heading_deg=0.0,
+                )
+            )
+            continue
+        alpha = min(1.0, (t - 1.0) / 2.0)
+        theta = -math.pi / 2.0 + alpha * math.pi
+        samples.append(
+            BehaviorSample(
+                t_s=t,
+                x_m=center_x + radius * math.cos(theta),
+                y_m=center_y + radius * math.sin(theta),
+                speed_mps=approach_speed * 0.75,
+                heading_deg=round(alpha * 180.0, 4),
+            )
+        )
+    return samples
+
+
 SIMULATORS: dict[str, Callable[[BehaviorPlan], list[BehaviorSample]]] = {
     "no_signal_cut_in": _no_signal_cut_in,
     "sudden_brake": _sudden_brake,
@@ -165,6 +234,8 @@ SIMULATORS: dict[str, Callable[[BehaviorPlan], list[BehaviorSample]]] = {
     "wrong_way_shoulder_creep": _wrong_way_shoulder_creep,
     "informal_right_of_way_push": _informal_right_of_way_push,
     "stunt_motorcycle_proxy": _stunt_motorcycle_proxy,
+    "double_parked_door_swerve": _double_parked_door_swerve,
+    "unsignaled_u_turn": _unsignaled_u_turn,
 }
 
 

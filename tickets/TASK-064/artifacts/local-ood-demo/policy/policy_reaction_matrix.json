@@ -1,0 +1,50 @@
+{
+  "rows": [
+    {
+      "mode": "policy",
+      "policy_id": "mock",
+      "adapter_kind": "mock",
+      "setup_status": "ready",
+      "latency_ms": 0.0478,
+      "target_behavior": "probe_then_continue",
+      "target_speed_mps": 7.5,
+      "yield": false,
+      "memory_guided": false,
+      "retrieved_memory_ids": [],
+      "safety_score_proxy": 47.1,
+      "setup_blocker": null
+    },
+    {
+      "mode": "policy+memory",
+      "policy_id": "mock",
+      "adapter_kind": "mock_memory",
+      "setup_status": "ready",
+      "latency_ms": 0.0275,
+      "target_behavior": "yield_then_proceed",
+      "target_speed_mps": 3.0,
+      "yield": true,
+      "memory_guided": true,
+      "retrieved_memory_ids": [
+        "mem-0002-fixture-prior-motorcycle-filtering",
+        "mem-0000-generalization-animals-1078",
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "safety_score_proxy": 88.2,
+      "setup_blocker": null
+    },
+    {
+      "mode": "hybrid",
+      "policy_id": "hybrid",
+      "adapter_kind": "local_hybrid",
+      "setup_status": "ready",
+      "latency_ms": 0.2375,
+      "target_behavior": "stop",
+      "target_speed_mps": 2.52,
+      "yield": false,
+      "memory_guided": false,
+      "retrieved_memory_ids": [],
+      "safety_score_proxy": 52.0,
+      "setup_blocker": null
+    }
+  ]
+}

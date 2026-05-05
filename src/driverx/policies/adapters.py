@@ -142,7 +142,7 @@ def _memory_lateral_bias(context: PolicyContext) -> str:
         ]
     ).lower()
     if "side clearance" in text or "motorcycle" in text or "lateral" in text:
-        return "left"
+        return "right"
     return "center"
 
 

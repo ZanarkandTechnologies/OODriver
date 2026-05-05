@@ -13,6 +13,7 @@ from driverx.simulators.simlingo_results import parse_simlingo_result
 @dataclass(frozen=True)
 class RouteEvidenceInputs:
     plan_path: Path | None = None
+    route_run_path: Path | None = None
     result_path: Path | None = None
     entity_tracks_path: Path | None = None
     video_path: Path | None = None
@@ -23,6 +24,7 @@ class RouteEvidenceInputs:
 
 def build_route_evidence(run_dir: Path, inputs: RouteEvidenceInputs) -> dict[str, Any]:
     plan = _load_optional_mapping(inputs.plan_path)
+    route_run = _route_run_evidence(inputs.route_run_path)
     expected = _mapping(plan.get("expected_outputs")) if plan else {}
     result_path = _coalesce_path(inputs.result_path, expected.get("result"))
     tracks_path = _coalesce_path(inputs.entity_tracks_path, expected.get("entity_tracks") or expected.get("tracks"))
@@ -36,6 +38,7 @@ def build_route_evidence(run_dir: Path, inputs: RouteEvidenceInputs) -> dict[str
     log_assets = [_log_asset(path) for path in logs]
     blockers = _blockers(
         plan=plan,
+        route_run=route_run,
         result=result,
         tracks=tracks,
         video=video,
@@ -45,6 +48,7 @@ def build_route_evidence(run_dir: Path, inputs: RouteEvidenceInputs) -> dict[str
     payload = {
         "status": _status(blockers, result, tracks, video),
         "plan": _plan_summary(inputs.plan_path, plan),
+        "route_run": route_run,
         "result": result,
         "entity_tracks": tracks,
         "video": video,
@@ -146,6 +150,31 @@ def _video_evidence(path: Path | None, duration_s: float | None) -> dict[str, An
     }
 
 
+def _route_run_evidence(path: Path | None) -> dict[str, Any]:
+    asset = _file_asset(path, "route_run")
+    if path is None or not path.exists() or not path.is_file():
+        return {**asset, "summary": None}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return {**asset, "summary": {"parse_error": str(exc)}}
+    return {
+        **asset,
+        "summary": {
+            "status": payload.get("status"),
+            "timeout_s": payload.get("timeout_s"),
+            "duration_s": payload.get("duration_s"),
+            "exit_code": payload.get("exit_code"),
+            "error": payload.get("error"),
+            "route_blockers": [
+                str(item) for item in list(payload.get("route_blockers", []))
+            ]
+            if isinstance(payload.get("route_blockers"), list)
+            else [],
+        },
+    }
+
+
 def _file_asset(path: Path | None, label: str) -> dict[str, Any]:
     if path is None:
         return {
@@ -174,6 +203,7 @@ def _log_asset(path: Path) -> dict[str, Any]:
 def _blockers(
     *,
     plan: dict[str, Any],
+    route_run: dict[str, Any],
     result: dict[str, Any],
     tracks: dict[str, Any],
     video: dict[str, Any],
@@ -181,6 +211,7 @@ def _blockers(
     logs: list[dict[str, Any]],
 ) -> list[str]:
     blockers = _plan_blockers(plan, result, video)
+    blockers.extend(_route_run_blockers(route_run))
     blockers.extend(_missing_blocker(result, "route result"))
     blockers.extend(_missing_blocker(tracks, "entity tracks"))
     blockers.extend(_missing_blocker(video, "route video"))
@@ -195,6 +226,15 @@ def _blockers(
         parse_error = _mapping(component.get("summary")).get("parse_error")
         if parse_error:
             blockers.append(f"{label.title()} parse error: {parse_error}")
+    return blockers
+
+
+def _route_run_blockers(route_run: dict[str, Any]) -> list[str]:
+    summary = _mapping(route_run.get("summary"))
+    blockers = [str(item) for item in list(summary.get("route_blockers", []))]
+    error = summary.get("error")
+    if error and not any(str(error) in blocker for blocker in blockers):
+        blockers.append(f"Route runner error: {error}")
     return blockers
 
 
@@ -353,7 +393,7 @@ def _markdown(payload: dict[str, Any]) -> str:
         "## Artifacts",
         "",
     ]
-    for label in ["result", "entity_tracks", "video"]:
+    for label in ["route_run", "result", "entity_tracks", "video"]:
         artifact = _mapping(payload.get(label))
         lines.append(
             f"- {label}: exists=`{artifact.get('exists')}` path=`{artifact.get('path')}`"

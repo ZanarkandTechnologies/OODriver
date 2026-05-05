@@ -6,16 +6,19 @@ unblocked ticket when possible.
 
 ## Open
 
-- 2026-05-06 03:34 +0800 | fail2drive,carla,map,restart | TASK-058 installed
-  CARLA 0.9.16 AdditionalMaps and the live Docker probe now lists `Town13`, but
-  the running Kegworks CARLA process times out after switching toward
-  `Carla/Maps/Town13/Town13`. Evidence:
-  `tickets/TASK-058/artifacts/town13-map-install-real-002/carla_maps_install.md`,
-  `tickets/TASK-058/artifacts/town13-map-probe-after-install-long/carla_map_inventory.md`,
+- 2026-05-06 04:08 +0800 | fail2drive,carla,town13,performance | TASK-068
+  proved local CARLA can load `Town13` and the stock Fail2Drive route starts,
+  writes a checkpoint, and emits RGB frames, but the local Kegworks/Wine Mac
+  runtime is too slow to finish the route inside the 300s cap. Route logs show
+  about `0.075x` simulation speed and the checkpoint remains `entry_status:
+  Started`. Evidence:
+  `tickets/TASK-068/artifacts/town13-load-probe-after-local-demo/carla_map_inventory.md`,
+  `tickets/TASK-068/artifacts/town13-route-run-with-torch/fail2drive_route_run.md`,
   and
-  `tickets/TASK-058/artifacts/town13-map-probe-no-load-after-timeout/carla_map_inventory.md`.
-  Next unblock path: quit and relaunch the local `CARLA.app`, wait for the map
-  to finish loading, then rerun the no-load map probe before starting TASK-060.
+  `tickets/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.md`.
+  Next unblock path: run the same stock route on a faster graphics-capable
+  Linux NVIDIA host, or rerun locally with a much longer timeout if cost/time is
+  acceptable.
 
 - 2026-05-05 17:07 +0800 | h100,carla,vulkan | TASK-020 stock
   SimLingo H100 route run cannot reach policy execution because CARLA 0.9.15
@@ -31,6 +34,18 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-06 04:08 +0800 | fail2drive,carla,map,restart | TASK-068 resolved
+  the post-install CARLA relaunch/readiness blocker. Docker client probes now
+  connect to local CARLA 0.9.16, list `Town13`, and successfully load
+  `Carla/Maps/Town13/Town13`. Evidence:
+  `tickets/TASK-068/artifacts/town13-load-probe-after-local-demo/carla_map_inventory.md`.
+
+- 2026-05-06 04:08 +0800 | fail2drive,docker,torch | The first TASK-068 route
+  attempt failed immediately because the Fail2Drive Docker client lacked
+  `torch`. Rebuilding the existing optional torch path with
+  `DRIVERX_FAIL2DRIVE_INSTALL_TORCH=1 bash scripts/build_fail2drive_client_docker.sh`
+  resolved the dependency blocker and allowed the route to start.
 
 - 2026-05-06 03:34 +0800 | fail2drive,carla,map | TASK-058 resolved the
   original "Town13 not installed" blocker. The official Windows

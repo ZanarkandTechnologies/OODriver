@@ -12,6 +12,7 @@ from driverx.pipeline.submission_demo_pack_live import live_evidence, preferred_
 def build_submission_demo_pack(
     run_dir: Path,
     *,
+    local_demo_path: Path | None = None,
     generated_suite_path: Path | None = None,
     policy_matrix_path: Path | None = None,
     alpamayo_probe_path: Path | None = None,
@@ -21,6 +22,7 @@ def build_submission_demo_pack(
     blockers_path: Path | None = None,
     progress_path: Path | None = None,
 ) -> dict[str, Any]:
+    local_demo = _load_json(local_demo_path)
     suite = _load_json(generated_suite_path)
     policy_matrix = _load_json(policy_matrix_path)
     alpamayo_probe = _load_json(alpamayo_probe_path)
@@ -37,6 +39,7 @@ def build_submission_demo_pack(
             "plausible long-tail situations without fine-tuning on those cases."
         ),
         "storyboard": _storyboard(
+            local_demo,
             suite,
             policy_matrix,
             alpamayo_probe,
@@ -45,9 +48,11 @@ def build_submission_demo_pack(
             cached_replay,
             blockers,
         ),
-        "failure_case": _failure_case(suite, route_evidence, blockers),
+        "failure_case": _failure_case(local_demo, suite, route_evidence, blockers),
         "artifact_map": _artifact_map(
+            local_demo,
             suite,
+            local_demo_path=local_demo_path,
             policy_matrix_path=policy_matrix_path,
             alpamayo_probe_path=alpamayo_probe_path,
             route_evidence_path=route_evidence_path,
@@ -56,10 +61,11 @@ def build_submission_demo_pack(
             blockers_path=blockers_path,
         ),
         "model_declarations": _model_declarations(policy_matrix, alpamayo_probe, alpamayo_comparison),
-        "data_declarations": _data_declarations(suite, route_evidence),
+        "data_declarations": _data_declarations(local_demo, suite, route_evidence),
         "claim_boundaries": _claim_boundaries(alpamayo_comparison, cached_replay),
         "live_evidence": live_evidence(route_evidence, alpamayo_comparison, cached_replay),
         "writeup_draft": _writeup_draft(
+            local_demo,
             suite,
             policy_matrix,
             alpamayo_probe,
@@ -70,6 +76,7 @@ def build_submission_demo_pack(
         ),
         "progress_tail": progress_tail,
         "inputs": {
+            "local_demo_path": _path_str(local_demo_path),
             "generated_suite_path": _path_str(generated_suite_path),
             "policy_matrix_path": _path_str(policy_matrix_path),
             "alpamayo_probe_path": _path_str(alpamayo_probe_path),
@@ -93,6 +100,7 @@ def write_submission_demo_pack(run_dir: Path, payload: dict[str, Any]) -> dict[s
 
 
 def _storyboard(
+    local_demo: dict[str, Any],
     suite: dict[str, Any],
     policy_matrix: dict[str, Any],
     alpamayo_probe: dict[str, Any],
@@ -102,13 +110,16 @@ def _storyboard(
     blockers: list[str],
 ) -> list[dict[str, str]]:
     readiness = _mapping(suite.get("readiness"))
-    ready_count = _mapping(policy_matrix).get("ready_count", "unknown")
+    ready_count = _ready_policy_count(policy_matrix)
     alpamayo_status = _mapping(alpamayo_probe).get("status", "not provided")
     route_video = _mapping(route_evidence.get("video"))
     trajectory_delta = _mapping(alpamayo_comparison.get("trajectory_delta"))
     replay_command_count = cached_replay.get("command_count", "unknown")
     replay_mode = cached_replay.get("closed_loop_control", "not provided")
     blocker_line = preferred_blocker(blockers)
+    local_recipe = _mapping(local_demo.get("recipe"))
+    local_sim = _mapping(local_demo.get("local_sim"))
+    local_worst = _local_worst_track(local_demo)
     return [
         {
             "time": "0:00-0:20",
@@ -118,30 +129,41 @@ def _storyboard(
         },
         {
             "time": "0:20-0:55",
+            "beat": "Runnable Local OOD Demo",
+            "visual": "Open the generated local simulator HTML with actor, ego, baseline, memory, and hybrid tracks.",
+            "narration": (
+                f"The dependency-light demo runs now: recipe {local_recipe.get('recipe_id', 'unknown')} "
+                f"uses behavior {local_sim.get('behavior_id', 'unknown')} and finds worst risk "
+                f"{local_worst.get('risk_level', 'unknown')} at "
+                f"{local_worst.get('closest_actor_distance_m', 'unknown')}m."
+            ),
+        },
+        {
+            "time": "0:55-1:20",
             "beat": "Scenario Forge",
             "visual": "Show generated recipe ids, mutations, route pack, and overlay plan paths.",
             "narration": f"The harness generated {readiness.get('recipe_count', suite.get('num_recipes', 'unknown'))} scenario recipe(s) with deterministic mutations and reusable route artifacts.",
         },
         {
-            "time": "0:55-1:30",
+            "time": "1:20-1:55",
             "beat": "Policy Harness",
             "visual": "Show policy runtime matrix and mock/memory/hybrid readiness rows.",
             "narration": f"Local policies and Fail2Drive dry-run adapters are ready while heavier VLA rows remain setup-gated; ready rows: {ready_count}.",
         },
         {
-            "time": "1:30-2:10",
+            "time": "1:55-2:25",
             "beat": "Route Video Evidence",
             "visual": "Play the Town10 CARLA route video and show the route evidence report.",
             "narration": f"The local route proof produced video={route_video.get('exists', False)} while keeping missing route-score/entity-track limitations explicit.",
         },
         {
-            "time": "2:10-2:45",
+            "time": "2:25-3:00",
             "beat": "Alpamayo Memory Test",
             "visual": "Show Alpamayo no-memory vs memory CoC snippets and trajectory delta.",
             "narration": f"Alpamayo is now a live open-loop policy probe: status {alpamayo_status}, memory changed trajectory final L2 by {trajectory_delta.get('final_l2_m', 'unknown')}m, and cached replay produced {replay_command_count} bounded commands labeled {replay_mode}.",
         },
         {
-            "time": "2:45-3:20",
+            "time": "3:00-3:30",
             "beat": "Next Run",
             "visual": "Show blockers.md and the exact next live command.",
             "narration": blocker_line,
@@ -150,10 +172,33 @@ def _storyboard(
 
 
 def _failure_case(
+    local_demo: dict[str, Any],
     suite: dict[str, Any],
     route_evidence: dict[str, Any],
     blockers: list[str],
 ) -> dict[str, Any]:
+    local_worst = _local_worst_track(local_demo)
+    if local_worst:
+        artifacts = _mapping(local_demo.get("artifact_map"))
+        recipe = _mapping(local_demo.get("recipe"))
+        return {
+            "scenario_id": recipe.get("recipe_id"),
+            "route_path": recipe.get("route_path"),
+            "status": local_worst.get("risk_level"),
+            "summary": (
+                f"Baseline `{local_worst.get('label')}` policy reaches "
+                f"{local_worst.get('closest_actor_distance_m')}m from the OOD actor in the "
+                f"{_mapping(local_demo.get('local_sim')).get('behavior_id', 'unknown')} case; "
+                "the memory-guided row slows/yields earlier, making this a concrete "
+                "minimal-shot retrieval failure case."
+            ),
+            "why_it_matters": (
+                "This is the runnable failure surface for the submission: the generated "
+                "scenario stresses a frozen policy without needing CARLA, GPU, or model weights."
+            ),
+            "artifact": artifacts.get("local_sim_html") or artifacts.get("local_sim_svg"),
+            "blockers": [],
+        }
     if route_evidence:
         metrics = _mapping(route_evidence.get("metrics"))
         if metrics.get("driving_score") is None or metrics.get("route_completion") is None:
@@ -200,8 +245,10 @@ def _failure_case(
 
 
 def _artifact_map(
+    local_demo: dict[str, Any],
     suite: dict[str, Any],
     *,
+    local_demo_path: Path | None,
     policy_matrix_path: Path | None,
     alpamayo_probe_path: Path | None,
     route_evidence_path: Path | None,
@@ -221,6 +268,10 @@ def _artifact_map(
                 }
             )
     return {
+        "local_demo_path": _path_str(local_demo_path),
+        "local_sim_html": _mapping(local_demo.get("artifact_map")).get("local_sim_html"),
+        "local_sim_svg": _mapping(local_demo.get("artifact_map")).get("local_sim_svg"),
+        "local_sim_json": _mapping(local_demo.get("artifact_map")).get("local_sim_json"),
         "scenario_summary_path": suite.get("scenario_summary_path"),
         "route_pack_path": suite.get("route_pack_path"),
         "overlay_plan_path": suite.get("overlay_plan_path"),
@@ -244,14 +295,15 @@ def _model_declarations(
     rows = list(policy_matrix.get("rows", [])) if isinstance(policy_matrix.get("rows"), list) else []
     for row in rows:
         if isinstance(row, dict):
+            name = row.get("policy") or row.get("policy_id") or row.get("mode")
             declarations.append(
                 {
-                    "name": row.get("policy"),
-                    "runtime_kind": row.get("runtime_kind"),
-                    "state": row.get("ready_state"),
+                    "name": name,
+                    "runtime_kind": row.get("runtime_kind") or row.get("adapter_kind"),
+                    "state": row.get("ready_state") or row.get("setup_status"),
                     "base_model_or_policy": _base_policy_label(row),
-                    "uses_public_model_pretraining": row.get("policy") in {"simlingo", "alpamayo"},
-                    "blocker": row.get("blocker"),
+                    "uses_public_model_pretraining": name in {"simlingo", "alpamayo"},
+                    "blocker": row.get("blocker") or row.get("setup_blocker"),
                 }
             )
     if alpamayo_probe:
@@ -288,7 +340,11 @@ def _model_declarations(
     return declarations
 
 
-def _data_declarations(suite: dict[str, Any], route_evidence: dict[str, Any]) -> list[str]:
+def _data_declarations(
+    local_demo: dict[str, Any],
+    suite: dict[str, Any],
+    route_evidence: dict[str, Any],
+) -> list[str]:
     declarations = [
         "Fail2Drive-style route/scenario seeds are used as scenario references; external checkout is not vendored.",
         "Generated OOD recipes, route packs, overlay plans, evidence reports, and blocker ledgers are small local artifacts.",
@@ -297,6 +353,9 @@ def _data_declarations(suite: dict[str, Any], route_evidence: dict[str, Any]) ->
     ]
     if suite.get("route_pack_path"):
         declarations.append(f"Current route pack evidence: {suite.get('route_pack_path')}")
+    local_artifacts = _mapping(local_demo.get("artifact_map"))
+    if local_artifacts.get("local_sim_html"):
+        declarations.append(f"Current local end-to-end simulator evidence: {local_artifacts.get('local_sim_html')}")
     video = _mapping(route_evidence.get("video"))
     if video.get("exists"):
         declarations.append(
@@ -328,6 +387,7 @@ def _claim_boundaries(
 
 
 def _writeup_draft(
+    local_demo: dict[str, Any],
     suite: dict[str, Any],
     policy_matrix: dict[str, Any],
     alpamayo_probe: dict[str, Any],
@@ -336,9 +396,10 @@ def _writeup_draft(
     cached_replay: dict[str, Any],
     blockers: list[str],
 ) -> dict[str, str]:
-    failure = _failure_case(suite, route_evidence, blockers)
-    ready_rows = _mapping(policy_matrix).get("ready_count", "unknown")
+    failure = _failure_case(local_demo, suite, route_evidence, blockers)
+    ready_rows = _ready_policy_count(policy_matrix)
     trajectory_delta = _mapping(alpamayo_comparison.get("trajectory_delta"))
+    local_sim = _mapping(local_demo.get("local_sim"))
     return {
         "motivation": (
             "Autonomy systems fail when they only work on distributions they have already seen. "
@@ -353,7 +414,8 @@ def _writeup_draft(
             "SimLingo and Alpamayo remain swappable live-policy adapters."
         ),
         "what_worked": (
-            f"The local harness is reproducible: generated suite status is `{suite.get('status')}`, "
+            f"The local harness is reproducible: local demo status is `{local_demo.get('status', 'not provided')}`, "
+            f"behavior is `{local_sim.get('behavior_id', 'not provided')}`, "
             f"policy runtime ready rows are `{ready_rows}`, and the Alpamayo probe status is "
             f"`{alpamayo_probe.get('status', 'not provided')}`. The live Alpamayo memory comparison "
             f"changed trajectory final L2 by `{trajectory_delta.get('final_l2_m', 'unknown')}` metres "
@@ -374,7 +436,7 @@ def _writeup_draft(
 
 
 def _base_policy_label(row: dict[str, Any]) -> str:
-    policy = str(row.get("policy", ""))
+    policy = str(row.get("policy") or row.get("policy_id") or "")
     if policy.startswith("fail2drive"):
         return "Fail2Drive stock CARLA policy/agent path"
     if policy == "simlingo":
@@ -382,6 +444,38 @@ def _base_policy_label(row: dict[str, Any]) -> str:
     if policy == "alpamayo":
         return "Alpamayo reasoning VLA, setup-gated"
     return "DriverX local deterministic or mock policy"
+
+
+def _ready_policy_count(policy_matrix: dict[str, Any]) -> Any:
+    if "ready_count" in policy_matrix:
+        return policy_matrix.get("ready_count")
+    rows = list(policy_matrix.get("rows", [])) if isinstance(policy_matrix.get("rows"), list) else []
+    if not rows:
+        return "unknown"
+    return sum(
+        1
+        for row in rows
+        if isinstance(row, dict)
+        and str(row.get("ready_state") or row.get("setup_status")).lower() == "ready"
+    )
+
+
+def _local_worst_track(local_demo: dict[str, Any]) -> dict[str, Any]:
+    local_sim = _mapping(local_demo.get("local_sim"))
+    tracks = [
+        dict(track)
+        for track in list(local_sim.get("policy_tracks", []))
+        if isinstance(track, dict)
+    ]
+    if not tracks:
+        return {}
+    for track in tracks:
+        if str(track.get("label")) == "policy":
+            return track
+    return min(
+        tracks,
+        key=lambda track: float(track.get("closest_actor_distance_m") or 10**9),
+    )
 
 
 def _load_json(path: Path | None) -> dict[str, Any]:

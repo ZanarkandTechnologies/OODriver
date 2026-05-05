@@ -17,6 +17,7 @@ class SubmissionDemoPackTest(unittest.TestCase):
 
             summary = build_submission_demo_pack(
                 root / "demo-pack",
+                local_demo_path=paths["local_demo"],
                 generated_suite_path=paths["suite"],
                 policy_matrix_path=paths["policy"],
                 alpamayo_probe_path=paths["alpamayo"],
@@ -30,9 +31,9 @@ class SubmissionDemoPackTest(unittest.TestCase):
             json_exists = Path(summary["json_path"]).exists()
 
         self.assertTrue(json_exists)
-        self.assertEqual(len(summary["storyboard"]), 6)
-        self.assertEqual(summary["failure_case"]["status"], "partial")
-        self.assertIn("no completed route score", summary["failure_case"]["summary"])
+        self.assertEqual(len(summary["storyboard"]), 7)
+        self.assertEqual(summary["failure_case"]["status"], "near_miss_proxy")
+        self.assertIn("Baseline `policy` policy", summary["failure_case"]["summary"])
         self.assertIn("1-5 Minute Demo Outline", report)
         self.assertIn("Model Declarations", report)
         self.assertIn("Live Evidence", report)
@@ -40,6 +41,8 @@ class SubmissionDemoPackTest(unittest.TestCase):
         self.assertIn("Short Write-Up Draft", report)
         self.assertTrue(any(item["name"] == "alpamayo-probe" for item in summary["model_declarations"]))
         self.assertTrue(any(item["name"] == "alpamayo-live-ood-comparison" for item in summary["model_declarations"]))
+        self.assertTrue(any(item["name"] == "mock" for item in summary["model_declarations"]))
+        self.assertEqual(summary["artifact_map"]["local_sim_html"], "local_ood_sim.html")
         self.assertEqual(summary["live_evidence"]["alpamayo_comparison"]["trajectory_delta"]["final_l2_m"], 2.5)
         self.assertEqual(summary["live_evidence"]["cached_replay"]["command_count"], 20)
         self.assertTrue(any("not real-time VLA steering" in item for item in summary["claim_boundaries"]))
@@ -54,6 +57,8 @@ class SubmissionDemoPackTest(unittest.TestCase):
                 exit_code = main(
                     [
                         "build-demo-pack",
+                        "--local-demo",
+                        str(paths["local_demo"]),
                         "--generated-suite",
                         str(paths["suite"]),
                         "--policy-matrix",
@@ -81,11 +86,45 @@ class SubmissionDemoPackTest(unittest.TestCase):
 
         self.assertEqual(exit_code, 0)
         self.assertTrue(report_exists)
+        self.assertEqual(summary["artifact_map"]["local_demo_path"], str(paths["local_demo"]))
         self.assertEqual(summary["artifact_map"]["route_pack_path"], "routes/generated.xml")
         self.assertEqual(summary["artifact_map"]["cached_replay_path"], str(paths["cached_replay"]))
 
 
 def _write_inputs(root: Path) -> dict[str, Path]:
+    local_demo = root / "end_to_end_demo.json"
+    local_demo.write_text(
+        json.dumps(
+            {
+                "status": "ready",
+                "recipe": {
+                    "recipe_id": "generated-regional-1",
+                    "route_path": "routes/local.xml",
+                },
+                "local_sim": {
+                    "behavior_id": "motorcycle_filtering",
+                    "policy_tracks": [
+                        {
+                            "label": "policy",
+                            "closest_actor_distance_m": 1.5,
+                            "risk_level": "near_miss_proxy",
+                        },
+                        {
+                            "label": "policy+memory",
+                            "closest_actor_distance_m": 4.5,
+                            "risk_level": "clearance_ok",
+                        },
+                    ],
+                },
+                "artifact_map": {
+                    "local_sim_html": "local_ood_sim.html",
+                    "local_sim_svg": "local_ood_sim.svg",
+                    "local_sim_json": "local_ood_sim.json",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
     suite = root / "generated_ood_suite.json"
     suite.write_text(
         json.dumps(
@@ -183,6 +222,7 @@ def _write_inputs(root: Path) -> dict[str, Path]:
     progress = root / "progress.md"
     progress.write_text("# Progress\n\n- TASK evidence\n", encoding="utf-8")
     return {
+        "local_demo": local_demo,
         "suite": suite,
         "policy": policy,
         "alpamayo": alpamayo,

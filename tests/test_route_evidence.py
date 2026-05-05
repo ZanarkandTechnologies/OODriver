@@ -107,6 +107,22 @@ def _write_plan_with_live_blockers(path: Path, *, result: Path, video: Path, rgb
     )
 
 
+def _write_route_run(path: Path) -> None:
+    path.write_text(
+        json.dumps(
+            {
+                "status": "blocked",
+                "timeout_s": 300.0,
+                "duration_s": 300.5,
+                "exit_code": None,
+                "route_blockers": ["Fail2Drive route command timed out."],
+                "error": "Timed out after 300.0 seconds.",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
 class RouteEvidenceTest(unittest.TestCase):
     def test_build_route_evidence_summarizes_result_tracks_and_video(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -189,6 +205,29 @@ class RouteEvidenceTest(unittest.TestCase):
         self.assertNotIn("RGB folder does not exist yet", blockers)
         self.assertIn("Some remaining plan blocker", blockers)
 
+    def test_build_route_evidence_surfaces_route_run_timeout(self) -> None:
+        with TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            result = tmp_path / "result.json"
+            video = tmp_path / "route.mp4"
+            route_run = tmp_path / "route_run.json"
+            plan = tmp_path / "plan.json"
+            _write_result(result)
+            video.write_bytes(b"fake mp4")
+            _write_route_run(route_run)
+            _write_plan(plan, result=result, tracks=tmp_path / "missing_tracks.json", video=video)
+
+            summary = build_route_evidence(
+                tmp_path / "run",
+                RouteEvidenceInputs(plan_path=plan, route_run_path=route_run),
+            )
+
+        blockers = "\n".join(summary["blockers"])
+        self.assertEqual(summary["status"], "partial")
+        self.assertIn("Fail2Drive route command timed out.", blockers)
+        self.assertIn("Timed out after 300.0 seconds.", blockers)
+        self.assertEqual(summary["route_run"]["summary"]["timeout_s"], 300.0)
+
     def test_build_route_evidence_cli_writes_json_and_markdown(self) -> None:
         with TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
@@ -207,6 +246,8 @@ class RouteEvidenceTest(unittest.TestCase):
                         "build-route-evidence",
                         "--plan",
                         str(plan),
+                        "--route-run",
+                        str(tmp_path / "missing_route_run.json"),
                         "--video-duration-s",
                         "4.25",
                         "--output-root",

@@ -1,0 +1,79 @@
+{
+  "num_behaviors": 8,
+  "behavior_ids": [
+    "no_signal_cut_in",
+    "sudden_brake",
+    "motorcycle_filtering",
+    "wrong_way_shoulder_creep",
+    "informal_right_of_way_push",
+    "stunt_motorcycle_proxy",
+    "double_parked_door_swerve",
+    "unsignaled_u_turn"
+  ],
+  "metrics": {
+    "no_signal_cut_in": {
+      "lateral_displacement_m": 3.5,
+      "longitudinal_displacement_m": 48.0,
+      "max_lateral_speed_mps": 0.8333,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 8.0,
+      "wrong_way_distance_m": 0.0
+    },
+    "sudden_brake": {
+      "lateral_displacement_m": 0.0,
+      "longitudinal_displacement_m": 27.75,
+      "max_lateral_speed_mps": 0.0,
+      "max_deceleration_mps2": 13.6,
+      "max_heading_abs_deg": 0.0,
+      "wrong_way_distance_m": 0.0
+    },
+    "motorcycle_filtering": {
+      "lateral_displacement_m": 2.0,
+      "longitudinal_displacement_m": 78.0,
+      "max_lateral_speed_mps": 4.3592,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 6.0,
+      "wrong_way_distance_m": 0.0
+    },
+    "wrong_way_shoulder_creep": {
+      "lateral_displacement_m": 0.0,
+      "longitudinal_displacement_m": -15.0,
+      "max_lateral_speed_mps": 0.0,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 180.0,
+      "wrong_way_distance_m": 15.0
+    },
+    "informal_right_of_way_push": {
+      "lateral_displacement_m": 3.5,
+      "longitudinal_displacement_m": 13.5,
+      "max_lateral_speed_mps": 1.4,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 20.0,
+      "wrong_way_distance_m": 0.0
+    },
+    "stunt_motorcycle_proxy": {
+      "lateral_displacement_m": 2.3852,
+      "longitudinal_displacement_m": 90.0,
+      "max_lateral_speed_mps": 7.2774,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 10.0,
+      "wrong_way_distance_m": 0.0
+    },
+    "double_parked_door_swerve": {
+      "lateral_displacement_m": 2.85,
+      "longitudinal_displacement_m": 24.0,
+      "max_lateral_speed_mps": 3.1667,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 24.0,
+      "wrong_way_distance_m": 0.0
+    },
+    "unsignaled_u_turn": {
+      "lateral_displacement_m": 4.6,
+      "longitudinal_displacement_m": 5.0,
+      "max_lateral_speed_mps": 3.5207,
+      "max_deceleration_mps2": 5.0,
+      "max_heading_abs_deg": 180.0,
+      "wrong_way_distance_m": 0.0
+    }
+  }
+}

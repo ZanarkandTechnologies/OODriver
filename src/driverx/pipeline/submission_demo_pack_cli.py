@@ -15,6 +15,7 @@ def command_build_submission_demo_pack(args: argparse.Namespace) -> int:
     run_dir = prepare_run_dir(args.output_root, args.run_id)
     summary = build_submission_demo_pack(
         run_dir,
+        local_demo_path=args.local_demo,
         generated_suite_path=args.generated_suite,
         policy_matrix_path=args.policy_matrix,
         alpamayo_probe_path=args.alpamayo_probe,
@@ -34,6 +35,7 @@ def register_submission_demo_pack_parser(subparsers: Any) -> None:
         help="Build a judge-facing demo outline, artifact map, declarations, and write-up draft.",
     )
     parser.add_argument("--generated-suite", type=Path)
+    parser.add_argument("--local-demo", type=Path)
     parser.add_argument("--policy-matrix", type=Path)
     parser.add_argument("--alpamayo-probe", type=Path)
     parser.add_argument("--route-evidence", type=Path)

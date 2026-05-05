@@ -80,11 +80,44 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [ ] TASK-061 route-aligned Alpamayo OOD capture and memory comparison
   (fake attach seam complete; live proof waits on TASK-060)
 - [x] TASK-062 trajectory intent to CARLA control dry run
-- [ ] TASK-063 final submission evidence refresh
-  (cached replay evidence wired; final route facts pending)
+- [x] TASK-063 final submission evidence refresh
+  (superseded by TASK-070 V2 pack)
+- [x] TASK-064 local OOD end-to-end demo runner
+- [x] TASK-065 OOD simulator visual evidence surface
+- [x] TASK-066 regional OOD behavior pack v2
+- [x] TASK-067 local policy reaction matrix
+- [x] TASK-068 CARLA Town13 route runner resume
+- [ ] TASK-069 route-aligned Alpamayo live capture resume
+- [x] TASK-070 submission pack v2 local plus CARLA evidence
 
 ## Latest Evidence
 
+- TASK-070 refreshed the judge-facing demo pack around the runnable TASK-064
+  local OOD simulator first, then includes current CARLA and Alpamayo evidence
+  with explicit claim boundaries. Current pack:
+  `tickets/TASK-070/artifacts/submission-pack-v2-final/submission_demo_pack.md`.
+- TASK-068 proved the local CARLA 0.9.16 server is responsive after Town13
+  install, lists `Town13`, and can load `Carla/Maps/Town13/Town13`. The stock
+  Fail2Drive `Generalization_PedestriansOnRoad_1088` route starts through
+  Docker, writes a checkpoint, and emits 10 RGB frames; the Mac/Kegworks/Wine
+  runtime times out at the 300s cap around `0.075x` simulation speed, so the
+  current evidence is partial:
+  `tickets/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.md`.
+- TASK-064 produced the first one-command end-to-end artifact at
+  `tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.md`. The run
+  generates a regional-driving OOD recipe, simulates `motorcycle_filtering`,
+  retrieves prior safety memory, compares no-memory/memory/hybrid policy
+  reactions, converts trajectories into cached controls, and renders
+  `local-sim/local_ood_sim.html`. It explicitly carries
+  `closed_loop_carla=false` and `live_vla=false`.
+- TASK-066 expands the regional/OOD behavior suite to eight deterministic
+  traces by adding `double_parked_door_swerve` and `unsignaled_u_turn`, with
+  coordinate/time tests and a generated behavior report under
+  `tickets/TASK-066/artifacts/behavior-pack-v2/behavior_report.md`.
+- TASK-067 is represented in the TASK-064 local demo by
+  `policy/policy_reaction_matrix.md`, which compares baseline mock,
+  memory-guided mock, and local hybrid policy reactions on the same generated
+  OOD scenario.
 - TASK-059 resolved the PhysicalAI dataset gate. The dataset-forced RunPod
   probe used real sample frames (`shape_source_used=dataset`) and observed
   `image_frames=[4,4,3,1080,1920]`, `pred_xyz=[1,1,1,64,3]`,

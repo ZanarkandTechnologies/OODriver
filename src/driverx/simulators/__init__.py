@@ -146,6 +146,12 @@ from driverx.simulators.carla_policy_replay import (
     replay_policy_decision,
     write_carla_policy_replay,
 )
+from driverx.simulators.local_ood_sim import (
+    LocalOodPolicyTrack,
+    LocalOodSimResult,
+    run_local_ood_sim,
+    write_local_ood_sim_result,
+)
 
 __all__ = [
     "CarlaCommandPlan",
@@ -181,6 +187,8 @@ __all__ = [
     "Fail2DriveRouteRunConfig",
     "Fail2DriveRouteRunResult",
     "HostSuitabilityCheck",
+    "LocalOodPolicyTrack",
+    "LocalOodSimResult",
     "OverlayActorTrack",
     "OverlayEvidenceInputs",
     "OverlayInjectionPlan",
@@ -225,6 +233,7 @@ __all__ = [
     "run_carla_alpamayo_capture",
     "run_ego_spawn_smoke",
     "run_fail2drive_route",
+    "run_local_ood_sim",
     "run_overlay_injection_plan",
     "replay_policy_decision",
     "run_route_video_assembly",
@@ -238,6 +247,7 @@ __all__ = [
     "write_bench2drive_route_suite",
     "write_carla_maps_report",
     "write_carla_policy_replay",
+    "write_local_ood_sim_result",
     "write_carla_probe",
     "write_carla_alpamayo_capture",
     "write_ego_smoke",

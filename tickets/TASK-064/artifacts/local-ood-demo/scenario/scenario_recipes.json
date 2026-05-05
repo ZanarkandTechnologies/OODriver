@@ -1,0 +1,30 @@
+[
+  {
+    "recipe_id": "generated-base-animals-0076-regional-driving-behavior-000",
+    "parent_seed_id": "Base_Animals_0076",
+    "mutation": "regional_driving_behavior",
+    "actors": [
+      {
+        "role": "two_wheeler",
+        "asset": "motorcycle_filtering_or_scooter",
+        "placement": "adjacent lane gap"
+      }
+    ],
+    "environment": {
+      "traffic_style": "dense_asian_urban",
+      "lane_discipline": "low"
+    },
+    "expected_failure_mode": "Policy assumes lane-disciplined traffic and misses lateral filtering behavior.",
+    "memory_query": [
+      "Animals",
+      "animals",
+      "unknown_obstacle",
+      "occupied_space",
+      "regional_driving_behavior",
+      "motorcycle_filtering",
+      "lateral_uncertainty"
+    ],
+    "solvability_assumption": "Privileged expert can complete route by slowing, yielding, or rerouting locally.",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml"
+  }
+]

@@ -1,0 +1,1637 @@
+[
+  {
+    "plan": {
+      "behavior_id": "no_signal_cut_in",
+      "actor_kind": "vehicle",
+      "duration_s": 6.0,
+      "dt_s": 0.25,
+      "parameters": {
+        "start_y": 3.5,
+        "end_y": 0.0,
+        "speed_mps": 8.0
+      },
+      "tags": [
+        "cut_in",
+        "no_signal",
+        "lateral_aggression"
+      ],
+      "expected_pressure": "Actor cuts across lane without indicator or sufficient gap."
+    },
+    "samples": [
+      {
+        "t_s": 0.0,
+        "x_m": 0.0,
+        "y_m": 3.5,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 0.25,
+        "x_m": 2.0,
+        "y_m": 3.2916666666666665,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 0.5,
+        "x_m": 4.0,
+        "y_m": 3.083333333333333,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 0.75,
+        "x_m": 6.0,
+        "y_m": 2.875,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 1.0,
+        "x_m": 8.0,
+        "y_m": 2.6666666666666665,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 1.25,
+        "x_m": 10.0,
+        "y_m": 2.458333333333333,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 1.5,
+        "x_m": 12.0,
+        "y_m": 2.25,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 1.75,
+        "x_m": 14.0,
+        "y_m": 2.0416666666666665,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 2.0,
+        "x_m": 16.0,
+        "y_m": 1.833333333333333,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 2.25,
+        "x_m": 18.0,
+        "y_m": 1.6249999999999996,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 2.5,
+        "x_m": 20.0,
+        "y_m": 1.416666666666666,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 2.75,
+        "x_m": 22.0,
+        "y_m": 1.208333333333333,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 3.0,
+        "x_m": 24.0,
+        "y_m": 0.9999999999999996,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 3.25,
+        "x_m": 26.0,
+        "y_m": 0.7916666666666661,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 3.5,
+        "x_m": 28.0,
+        "y_m": 0.583333333333333,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 3.75,
+        "x_m": 30.0,
+        "y_m": 0.37499999999999956,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 4.0,
+        "x_m": 32.0,
+        "y_m": 0.16666666666666607,
+        "speed_mps": 8.0,
+        "heading_deg": -8.0
+      },
+      {
+        "t_s": 4.25,
+        "x_m": 34.0,
+        "y_m": 0.0,
+        "speed_mps": 8.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 4.5,
+        "x_m": 36.0,
+        "y_m": 0.0,
+        "speed_mps": 8.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 4.75,
+        "x_m": 38.0,
+        "y_m": 0.0,
+        "speed_mps": 8.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.0,
+        "x_m": 40.0,
+        "y_m": 0.0,
+        "speed_mps": 8.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.25,
+        "x_m": 42.0,
+        "y_m": 0.0,
+        "speed_mps": 8.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.5,
+        "x_m": 44.0,
+        "y_m": 0.0,
+        "speed_mps": 8.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.75,
+        "x_m": 46.0,
+        "y_m": 0.0,
+        "speed_mps": 8.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 6.0,
+        "x_m": 48.0,
+        "y_m": 0.0,
+        "speed_mps": 8.0,
+        "heading_deg": 0.0
+      }
+    ],
+    "metrics": {
+      "lateral_displacement_m": 3.5,
+      "longitudinal_displacement_m": 48.0,
+      "max_lateral_speed_mps": 0.8333,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 8.0,
+      "wrong_way_distance_m": 0.0
+    }
+  },
+  {
+    "plan": {
+      "behavior_id": "sudden_brake",
+      "actor_kind": "vehicle",
+      "duration_s": 6.0,
+      "dt_s": 0.25,
+      "parameters": {
+        "speed_mps": 11.0,
+        "brake_time_s": 2.0,
+        "final_speed_mps": 0.8
+      },
+      "tags": [
+        "sudden_brake",
+        "rear_end_risk"
+      ],
+      "expected_pressure": "Lead actor brakes hard after a steady approach."
+    },
+    "samples": [
+      {
+        "t_s": 0.0,
+        "x_m": 0.0,
+        "y_m": 0.0,
+        "speed_mps": 11.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.25,
+        "x_m": 2.75,
+        "y_m": 0.0,
+        "speed_mps": 11.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.5,
+        "x_m": 5.5,
+        "y_m": 0.0,
+        "speed_mps": 11.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.75,
+        "x_m": 8.25,
+        "y_m": 0.0,
+        "speed_mps": 11.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 1.0,
+        "x_m": 11.0,
+        "y_m": 0.0,
+        "speed_mps": 11.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 1.25,
+        "x_m": 13.75,
+        "y_m": 0.0,
+        "speed_mps": 11.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 1.5,
+        "x_m": 16.5,
+        "y_m": 0.0,
+        "speed_mps": 11.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 1.75,
+        "x_m": 19.25,
+        "y_m": 0.0,
+        "speed_mps": 11.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 2.0,
+        "x_m": 22.0,
+        "y_m": 0.0,
+        "speed_mps": 11.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 2.25,
+        "x_m": 23.9,
+        "y_m": 0.0,
+        "speed_mps": 7.6000000000000005,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 2.5,
+        "x_m": 24.95,
+        "y_m": 0.0,
+        "speed_mps": 4.200000000000001,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 2.75,
+        "x_m": 25.15,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 3.0,
+        "x_m": 25.349999999999998,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 3.25,
+        "x_m": 25.549999999999997,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 3.5,
+        "x_m": 25.749999999999996,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 3.75,
+        "x_m": 25.949999999999996,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 4.0,
+        "x_m": 26.149999999999995,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 4.25,
+        "x_m": 26.349999999999994,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 4.5,
+        "x_m": 26.549999999999994,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 4.75,
+        "x_m": 26.749999999999993,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.0,
+        "x_m": 26.949999999999992,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.25,
+        "x_m": 27.14999999999999,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.5,
+        "x_m": 27.34999999999999,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.75,
+        "x_m": 27.54999999999999,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 6.0,
+        "x_m": 27.74999999999999,
+        "y_m": 0.0,
+        "speed_mps": 0.8000000000000007,
+        "heading_deg": 0.0
+      }
+    ],
+    "metrics": {
+      "lateral_displacement_m": 0.0,
+      "longitudinal_displacement_m": 27.75,
+      "max_lateral_speed_mps": 0.0,
+      "max_deceleration_mps2": 13.6,
+      "max_heading_abs_deg": 0.0,
+      "wrong_way_distance_m": 0.0
+    }
+  },
+  {
+    "plan": {
+      "behavior_id": "motorcycle_filtering",
+      "actor_kind": "motorcycle",
+      "duration_s": 6.0,
+      "dt_s": 0.25,
+      "parameters": {
+        "speed_mps": 13.0,
+        "lane_center_y": 1.75,
+        "weave_m": 1.0
+      },
+      "tags": [
+        "motorcycle",
+        "filtering",
+        "lateral_uncertainty"
+      ],
+      "expected_pressure": "Fast two-wheeler filters between lanes with lateral weave."
+    },
+    "samples": [
+      {
+        "t_s": 0.0,
+        "x_m": 0.0,
+        "y_m": 1.75,
+        "speed_mps": 13.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.25,
+        "x_m": 3.25,
+        "y_m": 2.673879532511287,
+        "speed_mps": 13.0,
+        "heading_deg": 5.54327719506772
+      },
+      {
+        "t_s": 0.5,
+        "x_m": 6.5,
+        "y_m": 2.4571067811865475,
+        "speed_mps": 13.0,
+        "heading_deg": 4.242640687119286
+      },
+      {
+        "t_s": 0.75,
+        "x_m": 9.75,
+        "y_m": 1.3673165676349104,
+        "speed_mps": 13.0,
+        "heading_deg": -2.296100594190538
+      },
+      {
+        "t_s": 1.0,
+        "x_m": 13.0,
+        "y_m": 0.75,
+        "speed_mps": 13.0,
+        "heading_deg": -6.0
+      },
+      {
+        "t_s": 1.25,
+        "x_m": 16.25,
+        "y_m": 1.3673165676349095,
+        "speed_mps": 13.0,
+        "heading_deg": -2.296100594190542
+      },
+      {
+        "t_s": 1.5,
+        "x_m": 19.5,
+        "y_m": 2.4571067811865475,
+        "speed_mps": 13.0,
+        "heading_deg": 4.242640687119284
+      },
+      {
+        "t_s": 1.75,
+        "x_m": 22.75,
+        "y_m": 2.673879532511287,
+        "speed_mps": 13.0,
+        "heading_deg": 5.54327719506772
+      },
+      {
+        "t_s": 2.0,
+        "x_m": 26.0,
+        "y_m": 1.7500000000000004,
+        "speed_mps": 13.0,
+        "heading_deg": 2.204364238465236e-15
+      },
+      {
+        "t_s": 2.25,
+        "x_m": 29.25,
+        "y_m": 0.8261204674887136,
+        "speed_mps": 13.0,
+        "heading_deg": -5.543277195067718
+      },
+      {
+        "t_s": 2.5,
+        "x_m": 32.5,
+        "y_m": 1.0428932188134517,
+        "speed_mps": 13.0,
+        "heading_deg": -4.242640687119291
+      },
+      {
+        "t_s": 2.75,
+        "x_m": 35.75,
+        "y_m": 2.132683432365088,
+        "speed_mps": 13.0,
+        "heading_deg": 2.2961005941905284
+      },
+      {
+        "t_s": 3.0,
+        "x_m": 39.0,
+        "y_m": 2.75,
+        "speed_mps": 13.0,
+        "heading_deg": 6.0
+      },
+      {
+        "t_s": 3.25,
+        "x_m": 42.25,
+        "y_m": 2.132683432365089,
+        "speed_mps": 13.0,
+        "heading_deg": 2.2961005941905346
+      },
+      {
+        "t_s": 3.5,
+        "x_m": 45.5,
+        "y_m": 1.0428932188134523,
+        "speed_mps": 13.0,
+        "heading_deg": -4.242640687119286
+      },
+      {
+        "t_s": 3.75,
+        "x_m": 48.75,
+        "y_m": 0.8261204674887118,
+        "speed_mps": 13.0,
+        "heading_deg": -5.543277195067729
+      },
+      {
+        "t_s": 4.0,
+        "x_m": 52.0,
+        "y_m": 1.7499999999999993,
+        "speed_mps": 13.0,
+        "heading_deg": -4.408728476930472e-15
+      },
+      {
+        "t_s": 4.25,
+        "x_m": 55.25,
+        "y_m": 2.673879532511288,
+        "speed_mps": 13.0,
+        "heading_deg": 5.543277195067725
+      },
+      {
+        "t_s": 4.5,
+        "x_m": 58.5,
+        "y_m": 2.457106781186549,
+        "speed_mps": 13.0,
+        "heading_deg": 4.242640687119293
+      },
+      {
+        "t_s": 4.75,
+        "x_m": 61.75,
+        "y_m": 1.3673165676349122,
+        "speed_mps": 13.0,
+        "heading_deg": -2.296100594190526
+      },
+      {
+        "t_s": 5.0,
+        "x_m": 65.0,
+        "y_m": 0.75,
+        "speed_mps": 13.0,
+        "heading_deg": -6.0
+      },
+      {
+        "t_s": 5.25,
+        "x_m": 68.25,
+        "y_m": 1.3673165676349106,
+        "speed_mps": 13.0,
+        "heading_deg": -2.296100594190537
+      },
+      {
+        "t_s": 5.5,
+        "x_m": 71.5,
+        "y_m": 2.457106781186545,
+        "speed_mps": 13.0,
+        "heading_deg": 4.24264068711927
+      },
+      {
+        "t_s": 5.75,
+        "x_m": 74.75,
+        "y_m": 2.673879532511287,
+        "speed_mps": 13.0,
+        "heading_deg": 5.543277195067722
+      },
+      {
+        "t_s": 6.0,
+        "x_m": 78.0,
+        "y_m": 1.750000000000001,
+        "speed_mps": 13.0,
+        "heading_deg": 6.6130927153957075e-15
+      }
+    ],
+    "metrics": {
+      "lateral_displacement_m": 2.0,
+      "longitudinal_displacement_m": 78.0,
+      "max_lateral_speed_mps": 4.3592,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 6.0,
+      "wrong_way_distance_m": 0.0
+    }
+  },
+  {
+    "plan": {
+      "behavior_id": "wrong_way_shoulder_creep",
+      "actor_kind": "vehicle",
+      "duration_s": 6.0,
+      "dt_s": 0.25,
+      "parameters": {
+        "start_x": 18.0,
+        "speed_mps": -2.5,
+        "shoulder_y": -5.2
+      },
+      "tags": [
+        "wrong_way",
+        "shoulder",
+        "creep"
+      ],
+      "expected_pressure": "Actor creeps against route direction along the shoulder."
+    },
+    "samples": [
+      {
+        "t_s": 0.0,
+        "x_m": 18.0,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 0.25,
+        "x_m": 17.375,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 0.5,
+        "x_m": 16.75,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 0.75,
+        "x_m": 16.125,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 1.0,
+        "x_m": 15.5,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 1.25,
+        "x_m": 14.875,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 1.5,
+        "x_m": 14.25,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 1.75,
+        "x_m": 13.625,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 2.0,
+        "x_m": 13.0,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 2.25,
+        "x_m": 12.375,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 2.5,
+        "x_m": 11.75,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 2.75,
+        "x_m": 11.125,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 3.0,
+        "x_m": 10.5,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 3.25,
+        "x_m": 9.875,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 3.5,
+        "x_m": 9.25,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 3.75,
+        "x_m": 8.625,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 4.0,
+        "x_m": 8.0,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 4.25,
+        "x_m": 7.375,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 4.5,
+        "x_m": 6.75,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 4.75,
+        "x_m": 6.125,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 5.0,
+        "x_m": 5.5,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 5.25,
+        "x_m": 4.875,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 5.5,
+        "x_m": 4.25,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 5.75,
+        "x_m": 3.625,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 6.0,
+        "x_m": 3.0,
+        "y_m": -5.2,
+        "speed_mps": 2.5,
+        "heading_deg": 180.0
+      }
+    ],
+    "metrics": {
+      "lateral_displacement_m": 0.0,
+      "longitudinal_displacement_m": -15.0,
+      "max_lateral_speed_mps": 0.0,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 180.0,
+      "wrong_way_distance_m": 15.0
+    }
+  },
+  {
+    "plan": {
+      "behavior_id": "informal_right_of_way_push",
+      "actor_kind": "vehicle",
+      "duration_s": 6.0,
+      "dt_s": 0.25,
+      "parameters": {
+        "speed_mps": 3.0,
+        "push_start_s": 1.5,
+        "conflict_y": 0.0
+      },
+      "tags": [
+        "right_of_way",
+        "creep",
+        "assertive_gap"
+      ],
+      "expected_pressure": "Actor slowly pushes into a conflict zone instead of yielding."
+    },
+    "samples": [
+      {
+        "t_s": 0.0,
+        "x_m": -4.0,
+        "y_m": -3.5,
+        "speed_mps": 0.5,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.25,
+        "x_m": -4.0,
+        "y_m": -3.5,
+        "speed_mps": 0.5,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.5,
+        "x_m": -4.0,
+        "y_m": -3.5,
+        "speed_mps": 0.5,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.75,
+        "x_m": -4.0,
+        "y_m": -3.5,
+        "speed_mps": 0.5,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 1.0,
+        "x_m": -4.0,
+        "y_m": -3.5,
+        "speed_mps": 0.5,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 1.25,
+        "x_m": -4.0,
+        "y_m": -3.5,
+        "speed_mps": 0.5,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 1.5,
+        "x_m": -4.0,
+        "y_m": -3.5,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 1.75,
+        "x_m": -3.25,
+        "y_m": -3.15,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 2.0,
+        "x_m": -2.5,
+        "y_m": -2.8,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 2.25,
+        "x_m": -1.75,
+        "y_m": -2.45,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 2.5,
+        "x_m": -1.0,
+        "y_m": -2.0999999999999996,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 2.75,
+        "x_m": -0.25,
+        "y_m": -1.75,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 3.0,
+        "x_m": 0.5,
+        "y_m": -1.4,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 3.25,
+        "x_m": 1.25,
+        "y_m": -1.0500000000000003,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 3.5,
+        "x_m": 2.0,
+        "y_m": -0.6999999999999997,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 3.75,
+        "x_m": 2.75,
+        "y_m": -0.3500000000000001,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 4.0,
+        "x_m": 3.5,
+        "y_m": 0.0,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 4.25,
+        "x_m": 4.25,
+        "y_m": 0.0,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 4.5,
+        "x_m": 5.0,
+        "y_m": 0.0,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 4.75,
+        "x_m": 5.75,
+        "y_m": 0.0,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 5.0,
+        "x_m": 6.5,
+        "y_m": 0.0,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 5.25,
+        "x_m": 7.25,
+        "y_m": 0.0,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 5.5,
+        "x_m": 8.0,
+        "y_m": 0.0,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 5.75,
+        "x_m": 8.75,
+        "y_m": 0.0,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      },
+      {
+        "t_s": 6.0,
+        "x_m": 9.5,
+        "y_m": 0.0,
+        "speed_mps": 3.0,
+        "heading_deg": 20.0
+      }
+    ],
+    "metrics": {
+      "lateral_displacement_m": 3.5,
+      "longitudinal_displacement_m": 13.5,
+      "max_lateral_speed_mps": 1.4,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 20.0,
+      "wrong_way_distance_m": 0.0
+    }
+  },
+  {
+    "plan": {
+      "behavior_id": "stunt_motorcycle_proxy",
+      "actor_kind": "motorcycle",
+      "duration_s": 6.0,
+      "dt_s": 0.25,
+      "parameters": {
+        "speed_mps": 15.0,
+        "weave_m": 1.2,
+        "low_profile": true
+      },
+      "tags": [
+        "motorcycle",
+        "stunt_proxy",
+        "fast_low_profile"
+      ],
+      "expected_pressure": "Low-profile fast two-wheeler surrogate creates perception and prediction stress."
+    },
+    "samples": [
+      {
+        "t_s": 0.0,
+        "x_m": 0.0,
+        "y_m": 0.0,
+        "speed_mps": 15.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.25,
+        "x_m": 3.75,
+        "y_m": 1.185226008714165,
+        "speed_mps": 15.0,
+        "heading_deg": 9.876883405951377
+      },
+      {
+        "t_s": 0.5,
+        "x_m": 7.5,
+        "y_m": -0.37082039324993726,
+        "speed_mps": 15.0,
+        "heading_deg": -3.090169943749477
+      },
+      {
+        "t_s": 0.75,
+        "x_m": 11.25,
+        "y_m": -1.0692078290260414,
+        "speed_mps": 15.0,
+        "heading_deg": -8.910065241883679
+      },
+      {
+        "t_s": 1.0,
+        "x_m": 15.0,
+        "y_m": 0.7053423027509683,
+        "speed_mps": 15.0,
+        "heading_deg": 5.877852522924735
+      },
+      {
+        "t_s": 1.25,
+        "x_m": 18.75,
+        "y_m": 0.8485281374238566,
+        "speed_mps": 15.0,
+        "heading_deg": 7.071067811865471
+      },
+      {
+        "t_s": 1.5,
+        "x_m": 22.5,
+        "y_m": -0.9708203932499366,
+        "speed_mps": 15.0,
+        "heading_deg": -8.090169943749473
+      },
+      {
+        "t_s": 1.75,
+        "x_m": 26.25,
+        "y_m": -0.5447885996874556,
+        "speed_mps": 15.0,
+        "heading_deg": -4.539904997395464
+      },
+      {
+        "t_s": 2.0,
+        "x_m": 30.0,
+        "y_m": 1.1412678195541848,
+        "speed_mps": 15.0,
+        "heading_deg": 9.51056516295154
+      },
+      {
+        "t_s": 2.25,
+        "x_m": 33.75,
+        "y_m": 0.1877213580482767,
+        "speed_mps": 15.0,
+        "heading_deg": 1.564344650402306
+      },
+      {
+        "t_s": 2.5,
+        "x_m": 37.5,
+        "y_m": -1.2,
+        "speed_mps": 15.0,
+        "heading_deg": -10.0
+      },
+      {
+        "t_s": 2.75,
+        "x_m": 41.25,
+        "y_m": 0.1877213580482772,
+        "speed_mps": 15.0,
+        "heading_deg": 1.56434465040231
+      },
+      {
+        "t_s": 3.0,
+        "x_m": 45.0,
+        "y_m": 1.1412678195541845,
+        "speed_mps": 15.0,
+        "heading_deg": 9.510565162951538
+      },
+      {
+        "t_s": 3.25,
+        "x_m": 48.75,
+        "y_m": -0.544788599687458,
+        "speed_mps": 15.0,
+        "heading_deg": -4.5399049973954835
+      },
+      {
+        "t_s": 3.5,
+        "x_m": 52.5,
+        "y_m": -0.9708203932499362,
+        "speed_mps": 15.0,
+        "heading_deg": -8.09016994374947
+      },
+      {
+        "t_s": 3.75,
+        "x_m": 56.25,
+        "y_m": 0.8485281374238569,
+        "speed_mps": 15.0,
+        "heading_deg": 7.071067811865475
+      },
+      {
+        "t_s": 4.0,
+        "x_m": 60.0,
+        "y_m": 0.7053423027509653,
+        "speed_mps": 15.0,
+        "heading_deg": 5.877852522924711
+      },
+      {
+        "t_s": 4.25,
+        "x_m": 63.75,
+        "y_m": -1.0692078290260423,
+        "speed_mps": 15.0,
+        "heading_deg": -8.910065241883686
+      },
+      {
+        "t_s": 4.5,
+        "x_m": 67.5,
+        "y_m": -0.37082039324993626,
+        "speed_mps": 15.0,
+        "heading_deg": -3.090169943749469
+      },
+      {
+        "t_s": 4.75,
+        "x_m": 71.25,
+        "y_m": 1.185226008714165,
+        "speed_mps": 15.0,
+        "heading_deg": 9.876883405951377
+      },
+      {
+        "t_s": 5.0,
+        "x_m": 75.0,
+        "y_m": -2.6467226396860946e-15,
+        "speed_mps": 15.0,
+        "heading_deg": -2.2056021997384124e-14
+      },
+      {
+        "t_s": 5.25,
+        "x_m": 78.75,
+        "y_m": -1.1852260087141644,
+        "speed_mps": 15.0,
+        "heading_deg": -9.87688340595137
+      },
+      {
+        "t_s": 5.5,
+        "x_m": 82.5,
+        "y_m": 0.37082039324993726,
+        "speed_mps": 15.0,
+        "heading_deg": 3.090169943749477
+      },
+      {
+        "t_s": 5.75,
+        "x_m": 86.25,
+        "y_m": 1.0692078290260398,
+        "speed_mps": 15.0,
+        "heading_deg": 8.910065241883666
+      },
+      {
+        "t_s": 6.0,
+        "x_m": 90.0,
+        "y_m": -0.7053423027509661,
+        "speed_mps": 15.0,
+        "heading_deg": -5.877852522924718
+      }
+    ],
+    "metrics": {
+      "lateral_displacement_m": 2.3852,
+      "longitudinal_displacement_m": 90.0,
+      "max_lateral_speed_mps": 7.2774,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 10.0,
+      "wrong_way_distance_m": 0.0
+    }
+  },
+  {
+    "plan": {
+      "behavior_id": "double_parked_door_swerve",
+      "actor_kind": "vehicle",
+      "duration_s": 6.0,
+      "dt_s": 0.25,
+      "parameters": {
+        "speed_mps": 4.0,
+        "start_y": 3.2,
+        "intrusion_y": 0.35,
+        "swerve_start_s": 1.25
+      },
+      "tags": [
+        "double_parked",
+        "door_open",
+        "sudden_swerve",
+        "urban_clutter"
+      ],
+      "expected_pressure": "Double-parked actor abruptly intrudes into lane as if avoiding an opening door."
+    },
+    "samples": [
+      {
+        "t_s": 0.0,
+        "x_m": 2.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.25,
+        "x_m": 3.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.5,
+        "x_m": 4.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.75,
+        "x_m": 5.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 1.0,
+        "x_m": 6.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 1.25,
+        "x_m": 7.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": -24.0
+      },
+      {
+        "t_s": 1.5,
+        "x_m": 8.0,
+        "y_m": 2.408333333333333,
+        "speed_mps": 4.0,
+        "heading_deg": -24.0
+      },
+      {
+        "t_s": 1.75,
+        "x_m": 9.0,
+        "y_m": 1.6166666666666667,
+        "speed_mps": 4.0,
+        "heading_deg": -24.0
+      },
+      {
+        "t_s": 2.0,
+        "x_m": 10.0,
+        "y_m": 0.8250000000000002,
+        "speed_mps": 4.0,
+        "heading_deg": -24.0
+      },
+      {
+        "t_s": 2.25,
+        "x_m": 11.0,
+        "y_m": 0.3500000000000001,
+        "speed_mps": 4.0,
+        "heading_deg": -24.0
+      },
+      {
+        "t_s": 2.5,
+        "x_m": 12.0,
+        "y_m": 0.3500000000000001,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 2.75,
+        "x_m": 13.0,
+        "y_m": 0.3500000000000001,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 3.0,
+        "x_m": 14.0,
+        "y_m": 0.3500000000000001,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 3.25,
+        "x_m": 15.0,
+        "y_m": 0.3500000000000001,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 3.5,
+        "x_m": 16.0,
+        "y_m": 0.8589285714285715,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 3.75,
+        "x_m": 17.0,
+        "y_m": 1.3678571428571429,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 4.0,
+        "x_m": 18.0,
+        "y_m": 1.876785714285714,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 4.25,
+        "x_m": 19.0,
+        "y_m": 2.385714285714286,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 4.5,
+        "x_m": 20.0,
+        "y_m": 2.8946428571428573,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 4.75,
+        "x_m": 21.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.0,
+        "x_m": 22.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.25,
+        "x_m": 23.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.5,
+        "x_m": 24.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 5.75,
+        "x_m": 25.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 6.0,
+        "x_m": 26.0,
+        "y_m": 3.2,
+        "speed_mps": 4.0,
+        "heading_deg": 0.0
+      }
+    ],
+    "metrics": {
+      "lateral_displacement_m": 2.85,
+      "longitudinal_displacement_m": 24.0,
+      "max_lateral_speed_mps": 3.1667,
+      "max_deceleration_mps2": 0.0,
+      "max_heading_abs_deg": 24.0,
+      "wrong_way_distance_m": 0.0
+    }
+  },
+  {
+    "plan": {
+      "behavior_id": "unsignaled_u_turn",
+      "actor_kind": "vehicle",
+      "duration_s": 6.0,
+      "dt_s": 0.25,
+      "parameters": {
+        "turn_center_x": 8.0,
+        "turn_center_y": -2.0,
+        "radius_m": 2.3,
+        "approach_speed_mps": 5.0
+      },
+      "tags": [
+        "u_turn",
+        "no_signal",
+        "opposing_conflict",
+        "heading_reversal"
+      ],
+      "expected_pressure": "Actor begins an unsignaled U-turn across ego's path with rapid heading reversal."
+    },
+    "samples": [
+      {
+        "t_s": 0.0,
+        "x_m": 3.0,
+        "y_m": -4.3,
+        "speed_mps": 5.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.25,
+        "x_m": 4.25,
+        "y_m": -4.3,
+        "speed_mps": 5.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.5,
+        "x_m": 5.5,
+        "y_m": -4.3,
+        "speed_mps": 5.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 0.75,
+        "x_m": 6.75,
+        "y_m": -4.3,
+        "speed_mps": 5.0,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 1.0,
+        "x_m": 8.0,
+        "y_m": -4.3,
+        "speed_mps": 3.75,
+        "heading_deg": 0.0
+      },
+      {
+        "t_s": 1.25,
+        "x_m": 8.880171894439707,
+        "y_m": -4.124922924775959,
+        "speed_mps": 3.75,
+        "heading_deg": 22.5
+      },
+      {
+        "t_s": 1.5,
+        "x_m": 9.62634559672906,
+        "y_m": -3.6263455967290588,
+        "speed_mps": 3.75,
+        "heading_deg": 45.0
+      },
+      {
+        "t_s": 1.75,
+        "x_m": 10.124922924775959,
+        "y_m": -2.8801718944397066,
+        "speed_mps": 3.75,
+        "heading_deg": 67.5
+      },
+      {
+        "t_s": 2.0,
+        "x_m": 10.3,
+        "y_m": -2.0,
+        "speed_mps": 3.75,
+        "heading_deg": 90.0
+      },
+      {
+        "t_s": 2.25,
+        "x_m": 10.124922924775959,
+        "y_m": -1.1198281055602934,
+        "speed_mps": 3.75,
+        "heading_deg": 112.5
+      },
+      {
+        "t_s": 2.5,
+        "x_m": 9.62634559672906,
+        "y_m": -0.373654403270941,
+        "speed_mps": 3.75,
+        "heading_deg": 135.0
+      },
+      {
+        "t_s": 2.75,
+        "x_m": 8.880171894439707,
+        "y_m": 0.12492292477595912,
+        "speed_mps": 3.75,
+        "heading_deg": 157.5
+      },
+      {
+        "t_s": 3.0,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 3.25,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 3.5,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 3.75,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 4.0,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 4.25,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 4.5,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 4.75,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 5.0,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 5.25,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 5.5,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 5.75,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      },
+      {
+        "t_s": 6.0,
+        "x_m": 8.0,
+        "y_m": 0.2999999999999998,
+        "speed_mps": 3.75,
+        "heading_deg": 180.0
+      }
+    ],
+    "metrics": {
+      "lateral_displacement_m": 4.6,
+      "longitudinal_displacement_m": 5.0,
+      "max_lateral_speed_mps": 3.5207,
+      "max_deceleration_mps2": 5.0,
+      "max_heading_abs_deg": 180.0,
+      "wrong_way_distance_m": 0.0
+    }
+  }
+]

@@ -1,0 +1,148 @@
+{
+  "status": "partial",
+  "plan": {
+    "path": "tickets/TASK-060/artifacts/town13-video-plan/fail2drive_video_smoke_plan.json",
+    "run_command": [
+      "python",
+      "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py",
+      "--routes",
+      "/workspace/fail2drive/fail2drive_split/Generalization_PedestriansOnRoad_1088.xml",
+      "--repetitions",
+      "1",
+      "--track",
+      "MAP",
+      "--checkpoint",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+      "--debug-checkpoint",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_debug.txt",
+      "--timeout",
+      "900",
+      "--agent",
+      "/workspace/fail2drive/team_code/viz_path_agent.py",
+      "--host",
+      "host.docker.internal",
+      "--port",
+      "2000"
+    ],
+    "video_command": [
+      "python",
+      "/workspace/fail2drive/tools/generate_video.py",
+      "-f",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+      "-o",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088.mp4"
+    ],
+    "expected_outputs": {
+      "result": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+      "debug": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_debug.txt",
+      "save_path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/visualizations",
+      "rgb_folder": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+      "video": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088.mp4"
+    },
+    "live_blockers": [
+      "Fail2Drive video tool not found: /workspace/fail2drive/tools/generate_video.py",
+      "RGB folder does not exist yet; run the route command with SAVE_PATH before generating video: /workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb"
+    ]
+  },
+  "route_run": {
+    "label": "route_run",
+    "path": "tickets/TASK-068/artifacts/town13-route-run-with-torch/fail2drive_route_run.json",
+    "exists": true,
+    "size_bytes": 3355,
+    "summary": {
+      "status": "blocked",
+      "timeout_s": 300.0,
+      "duration_s": 300.561921,
+      "exit_code": null,
+      "error": "Timed out after 300.0 seconds.",
+      "route_blockers": [
+        "Fail2Drive route command timed out."
+      ]
+    }
+  },
+  "result": {
+    "label": "route_result",
+    "path": "tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+    "exists": true,
+    "size_bytes": 361,
+    "summary": {
+      "status": null,
+      "success": false,
+      "driving_score": null,
+      "route_completion": null,
+      "infraction_penalty": null,
+      "duration_game_s": null,
+      "duration_system_s": null,
+      "route_count": 0,
+      "primary_route": null,
+      "infraction_counts": {}
+    }
+  },
+  "entity_tracks": {
+    "label": "entity_tracks",
+    "path": null,
+    "exists": false,
+    "size_bytes": null,
+    "summary": null
+  },
+  "video": {
+    "label": "video",
+    "path": "tickets/TASK-068/artifacts/town13-route-run-with-torch/Generalization_PedestriansOnRoad_1088_partial.mp4",
+    "exists": true,
+    "size_bytes": 1059835,
+    "duration_s": 1.0
+  },
+  "screenshots": [],
+  "logs": [
+    {
+      "label": "log",
+      "path": "tickets/TASK-068/artifacts/town13-route-run-with-torch/logs/fail2drive_route.stdout.log",
+      "exists": true,
+      "size_bytes": 11024,
+      "tail": [
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:14.047 -- System time = 50.954 -- Game time = 3.800 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:14.565 -- System time = 51.472 -- Game time = 3.850 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:15.188 -- System time = 52.095 -- Game time = 3.900 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:15.771 -- System time = 52.677 -- Game time = 3.950 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:16.233 -- System time = 53.140 -- Game time = 4.000 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:17.171 -- System time = 54.078 -- Game time = 4.050 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:17.921 -- System time = 54.828 -- Game time = 4.100 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:18.847 -- System time = 55.754 -- Game time = 4.150 -- Ratio = 0.074x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:19.512 -- System time = 56.419 -- Game time = 4.200 -- Ratio = 0.074x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:20.084 -- System time = 56.991 -- Game time = 4.250 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:20.661 -- System time = 57.568 -- Game time = 4.300 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:21.250 -- System time = 58.157 -- Game time = 4.350 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:21.819 -- System time = 58.725 -- Game time = 4.400 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:22.524 -- System time = 59.430 -- Game time = 4.450 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:23.068 -- System time = 59.974 -- Game time = 4.500 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:23.576 -- System time = 60.483 -- Game time = 4.550 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:24.315 -- System time = 61.222 -- Game time = 4.600 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:25.510 -- System time = 62.417 -- Game time = 4.650 -- Ratio = 0.074x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:26.137 -- System time = 63.044 -- Game time = 4.700 -- Ratio = 0.075x",
+        "=== [Agent] -- Wallclock = 2026-05-05 20:28:26.832 -- System time = 63.739 -- Game time = 4.750 -- Ratio = 0.075x"
+      ]
+    },
+    {
+      "label": "log",
+      "path": "tickets/TASK-068/artifacts/town13-route-run-with-torch/logs/fail2drive_route.stderr.log",
+      "exists": true,
+      "size_bytes": 0,
+      "tail": []
+    }
+  ],
+  "blockers": [
+    "Fail2Drive route command timed out.",
+    "Route runner error: Timed out after 300.0 seconds."
+  ],
+  "metrics": {
+    "driving_score": null,
+    "route_completion": null,
+    "infraction_penalty": null,
+    "duration_game_s": null,
+    "duration_system_s": null,
+    "track_count": null,
+    "actor_refs": [],
+    "video_duration_s": 1.0,
+    "video_size_bytes": 1059835
+  }
+}

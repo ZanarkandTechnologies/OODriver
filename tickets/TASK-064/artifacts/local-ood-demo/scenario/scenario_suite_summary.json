@@ -1,0 +1,56 @@
+{
+  "num_seeds": 3,
+  "num_recipes": 1,
+  "scenario_classes": [
+    "Animals",
+    "CustomObstacles",
+    "PedestriansOnRoad"
+  ],
+  "mutation_counts": {
+    "regional_driving_behavior": 1
+  },
+  "seeds": [
+    {
+      "seed_id": "Base_Animals_0076",
+      "source": "fixture",
+      "split": "Base",
+      "scenario_class": "Animals",
+      "route_id": "0076",
+      "route_path": "fail2drive_split/Base_Animals_0076.xml",
+      "ood_tags": [
+        "animals",
+        "unknown_obstacle",
+        "occupied_space"
+      ]
+    },
+    {
+      "seed_id": "Generalization_PedestriansOnRoad_1088",
+      "source": "fixture",
+      "split": "Generalization",
+      "scenario_class": "PedestriansOnRoad",
+      "route_id": "1088",
+      "route_path": "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml",
+      "ood_tags": [
+        "pedestrian",
+        "crossing",
+        "behavior"
+      ]
+    },
+    {
+      "seed_id": "Generalization_CustomObstacles_1028",
+      "source": "fixture",
+      "split": "Generalization",
+      "scenario_class": "CustomObstacles",
+      "route_id": "1028",
+      "route_path": "fail2drive_split/Generalization_CustomObstacles_1028.xml",
+      "ood_tags": [
+        "custom",
+        "obstacle",
+        "visual"
+      ]
+    }
+  ],
+  "recipes_path": "tickets/TASK-064/artifacts/local-ood-demo/scenario/scenario_recipes.json",
+  "report_path": "tickets/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_report.md",
+  "summary_path": "tickets/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_summary.json"
+}

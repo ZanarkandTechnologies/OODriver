@@ -1,0 +1,566 @@
+{
+  "policy": {
+    "source_policy_id": "mock:policy",
+    "closed_loop_control": "cached_replay",
+    "trajectory_frame": "ego",
+    "commands": [
+      {
+        "tick": 0,
+        "target_x": 0.9,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 1,
+        "target_x": 1.8,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 2,
+        "target_x": 2.7,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 3,
+        "target_x": 3.6,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 4,
+        "target_x": 4.5,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 5,
+        "target_x": 5.4,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 6,
+        "target_x": 6.3,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 7,
+        "target_x": 7.2,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 8,
+        "target_x": 8.1,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 9,
+        "target_x": 9.0,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 10,
+        "target_x": 9.9,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 11,
+        "target_x": 10.8,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 12,
+        "target_x": 11.7,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 13,
+        "target_x": 12.6,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 14,
+        "target_x": 13.5,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 15,
+        "target_x": 14.4,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 16,
+        "target_x": 15.3,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 17,
+        "target_x": 16.2,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 18,
+        "target_x": 17.1,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      },
+      {
+        "tick": 19,
+        "target_x": 18.0,
+        "target_y": 0.0,
+        "target_speed_mps": 3.6,
+        "steer": 0.0,
+        "throttle": 0.27,
+        "brake": 0.0
+      }
+    ],
+    "safety_clamps": []
+  },
+  "policy+memory": {
+    "source_policy_id": "mock:policy+memory",
+    "closed_loop_control": "cached_replay",
+    "trajectory_frame": "ego",
+    "commands": [
+      {
+        "tick": 0,
+        "target_x": 0.45,
+        "target_y": -0.04,
+        "target_speed_mps": 1.8071,
+        "steer": -0.0395,
+        "throttle": 0.1355,
+        "brake": 0.0
+      },
+      {
+        "tick": 1,
+        "target_x": 0.9,
+        "target_y": -0.0768,
+        "target_speed_mps": 1.806,
+        "steer": -0.0379,
+        "throttle": 0.1355,
+        "brake": 0.0
+      },
+      {
+        "tick": 2,
+        "target_x": 1.35,
+        "target_y": -0.1107,
+        "target_speed_mps": 1.8051,
+        "steer": -0.0365,
+        "throttle": 0.1354,
+        "brake": 0.0
+      },
+      {
+        "tick": 3,
+        "target_x": 1.8,
+        "target_y": -0.1418,
+        "target_speed_mps": 1.8043,
+        "steer": -0.035,
+        "throttle": 0.1353,
+        "brake": 0.0
+      },
+      {
+        "tick": 4,
+        "target_x": 2.25,
+        "target_y": -0.1705,
+        "target_speed_mps": 1.8037,
+        "steer": -0.0337,
+        "throttle": 0.1353,
+        "brake": 0.0
+      },
+      {
+        "tick": 5,
+        "target_x": 2.7,
+        "target_y": -0.1968,
+        "target_speed_mps": 1.8031,
+        "steer": -0.0324,
+        "throttle": 0.1352,
+        "brake": 0.0
+      },
+      {
+        "tick": 6,
+        "target_x": 3.15,
+        "target_y": -0.2211,
+        "target_speed_mps": 1.8026,
+        "steer": -0.0312,
+        "throttle": 0.1352,
+        "brake": 0.0
+      },
+      {
+        "tick": 7,
+        "target_x": 3.6,
+        "target_y": -0.2434,
+        "target_speed_mps": 1.8022,
+        "steer": -0.0301,
+        "throttle": 0.1352,
+        "brake": 0.0
+      },
+      {
+        "tick": 8,
+        "target_x": 4.05,
+        "target_y": -0.2639,
+        "target_speed_mps": 1.8019,
+        "steer": -0.029,
+        "throttle": 0.1351,
+        "brake": 0.0
+      },
+      {
+        "tick": 9,
+        "target_x": 4.5,
+        "target_y": -0.2828,
+        "target_speed_mps": 1.8016,
+        "steer": -0.028,
+        "throttle": 0.1351,
+        "brake": 0.0
+      },
+      {
+        "tick": 10,
+        "target_x": 4.95,
+        "target_y": -0.3002,
+        "target_speed_mps": 1.8013,
+        "steer": -0.027,
+        "throttle": 0.1351,
+        "brake": 0.0
+      },
+      {
+        "tick": 11,
+        "target_x": 5.4,
+        "target_y": -0.3162,
+        "target_speed_mps": 1.8011,
+        "steer": -0.0261,
+        "throttle": 0.1351,
+        "brake": 0.0
+      },
+      {
+        "tick": 12,
+        "target_x": 5.85,
+        "target_y": -0.3309,
+        "target_speed_mps": 1.801,
+        "steer": -0.0252,
+        "throttle": 0.1351,
+        "brake": 0.0
+      },
+      {
+        "tick": 13,
+        "target_x": 6.3,
+        "target_y": -0.3444,
+        "target_speed_mps": 1.8008,
+        "steer": -0.0243,
+        "throttle": 0.1351,
+        "brake": 0.0
+      },
+      {
+        "tick": 14,
+        "target_x": 6.75,
+        "target_y": -0.3569,
+        "target_speed_mps": 1.8007,
+        "steer": -0.0235,
+        "throttle": 0.1351,
+        "brake": 0.0
+      },
+      {
+        "tick": 15,
+        "target_x": 7.2,
+        "target_y": -0.3683,
+        "target_speed_mps": 1.8006,
+        "steer": -0.0228,
+        "throttle": 0.135,
+        "brake": 0.0
+      },
+      {
+        "tick": 16,
+        "target_x": 7.65,
+        "target_y": -0.3788,
+        "target_speed_mps": 1.8005,
+        "steer": -0.022,
+        "throttle": 0.135,
+        "brake": 0.0
+      },
+      {
+        "tick": 17,
+        "target_x": 8.1,
+        "target_y": -0.3885,
+        "target_speed_mps": 1.8004,
+        "steer": -0.0214,
+        "throttle": 0.135,
+        "brake": 0.0
+      },
+      {
+        "tick": 18,
+        "target_x": 8.55,
+        "target_y": -0.3974,
+        "target_speed_mps": 1.8004,
+        "steer": -0.0207,
+        "throttle": 0.135,
+        "brake": 0.0
+      },
+      {
+        "tick": 19,
+        "target_x": 9.0,
+        "target_y": -0.4057,
+        "target_speed_mps": 1.8003,
+        "steer": -0.0201,
+        "throttle": 0.135,
+        "brake": 0.0
+      }
+    ],
+    "safety_clamps": []
+  },
+  "hybrid": {
+    "source_policy_id": "hybrid:hybrid",
+    "closed_loop_control": "cached_replay",
+    "trajectory_frame": "ego",
+    "commands": [
+      {
+        "tick": 0,
+        "target_x": 0.315,
+        "target_y": 0.0,
+        "target_speed_mps": 1.26,
+        "steer": 0.0,
+        "throttle": 0.0945,
+        "brake": 0.0
+      },
+      {
+        "tick": 1,
+        "target_x": 0.6134,
+        "target_y": 0.0,
+        "target_speed_mps": 1.1936,
+        "steer": 0.0,
+        "throttle": 0.0895,
+        "brake": 0.0
+      },
+      {
+        "tick": 2,
+        "target_x": 0.8953,
+        "target_y": 0.0,
+        "target_speed_mps": 1.1276,
+        "steer": 0.0,
+        "throttle": 0.0846,
+        "brake": 0.0
+      },
+      {
+        "tick": 3,
+        "target_x": 1.1605,
+        "target_y": 0.0,
+        "target_speed_mps": 1.0608,
+        "steer": 0.0,
+        "throttle": 0.0796,
+        "brake": 0.0
+      },
+      {
+        "tick": 4,
+        "target_x": 1.4092,
+        "target_y": 0.0,
+        "target_speed_mps": 0.9948,
+        "steer": 0.0,
+        "throttle": 0.0746,
+        "brake": 0.0
+      },
+      {
+        "tick": 5,
+        "target_x": 1.6413,
+        "target_y": 0.0,
+        "target_speed_mps": 0.9284,
+        "steer": 0.0,
+        "throttle": 0.0696,
+        "brake": 0.0
+      },
+      {
+        "tick": 6,
+        "target_x": 1.8568,
+        "target_y": 0.0,
+        "target_speed_mps": 0.862,
+        "steer": 0.0,
+        "throttle": 0.0647,
+        "brake": 0.0
+      },
+      {
+        "tick": 7,
+        "target_x": 2.0558,
+        "target_y": 0.0,
+        "target_speed_mps": 0.796,
+        "steer": 0.0,
+        "throttle": 0.0597,
+        "brake": 0.0
+      },
+      {
+        "tick": 8,
+        "target_x": 2.2382,
+        "target_y": 0.0,
+        "target_speed_mps": 0.7296,
+        "steer": 0.0,
+        "throttle": 0.0547,
+        "brake": 0.0
+      },
+      {
+        "tick": 9,
+        "target_x": 2.4039,
+        "target_y": 0.0,
+        "target_speed_mps": 0.6628,
+        "steer": 0.0,
+        "throttle": 0.0497,
+        "brake": 0.0
+      },
+      {
+        "tick": 10,
+        "target_x": 2.5532,
+        "target_y": 0.0,
+        "target_speed_mps": 0.5972,
+        "steer": 0.0,
+        "throttle": 0.0448,
+        "brake": 0.0
+      },
+      {
+        "tick": 11,
+        "target_x": 2.6858,
+        "target_y": 0.0,
+        "target_speed_mps": 0.5304,
+        "steer": 0.0,
+        "throttle": 0.0398,
+        "brake": 0.0
+      },
+      {
+        "tick": 12,
+        "target_x": 2.8018,
+        "target_y": 0.0,
+        "target_speed_mps": 0.464,
+        "steer": 0.0,
+        "throttle": 0.0348,
+        "brake": 0.0
+      },
+      {
+        "tick": 13,
+        "target_x": 2.9013,
+        "target_y": 0.0,
+        "target_speed_mps": 0.398,
+        "steer": 0.0,
+        "throttle": 0.0298,
+        "brake": 0.0
+      },
+      {
+        "tick": 14,
+        "target_x": 2.9842,
+        "target_y": 0.0,
+        "target_speed_mps": 0.3316,
+        "steer": 0.0,
+        "throttle": 0.0249,
+        "brake": 0.0
+      },
+      {
+        "tick": 15,
+        "target_x": 3.0505,
+        "target_y": 0.0,
+        "target_speed_mps": 0.2652,
+        "steer": 0.0,
+        "throttle": 0.0199,
+        "brake": 0.0
+      },
+      {
+        "tick": 16,
+        "target_x": 3.1005,
+        "target_y": 0.0,
+        "target_speed_mps": 0.2,
+        "steer": 0.0,
+        "throttle": 0.015,
+        "brake": 0.0
+      },
+      {
+        "tick": 17,
+        "target_x": 3.1505,
+        "target_y": 0.0,
+        "target_speed_mps": 0.2,
+        "steer": 0.0,
+        "throttle": 0.015,
+        "brake": 0.0
+      },
+      {
+        "tick": 18,
+        "target_x": 3.2005,
+        "target_y": 0.0,
+        "target_speed_mps": 0.2,
+        "steer": 0.0,
+        "throttle": 0.015,
+        "brake": 0.0
+      },
+      {
+        "tick": 19,
+        "target_x": 3.2505,
+        "target_y": 0.0,
+        "target_speed_mps": 0.2,
+        "steer": 0.0,
+        "throttle": 0.015,
+        "brake": 0.0
+      }
+    ],
+    "safety_clamps": []
+  }
+}

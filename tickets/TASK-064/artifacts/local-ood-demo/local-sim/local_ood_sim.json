@@ -1,0 +1,1025 @@
+{
+  "recipe_id": "generated-base-animals-0076-regional-driving-behavior-000",
+  "behavior_id": "motorcycle_filtering",
+  "simulator_kind": "driverx_local_2d_ood_sim",
+  "actor_metrics": {
+    "lateral_displacement_m": 2.0,
+    "longitudinal_displacement_m": 78.0,
+    "max_lateral_speed_mps": 4.3592,
+    "max_deceleration_mps2": 0.0,
+    "max_heading_abs_deg": 6.0,
+    "wrong_way_distance_m": 0.0
+  },
+  "policy_tracks": [
+    {
+      "label": "policy",
+      "policy_id": "mock",
+      "adapter_kind": "mock",
+      "target_behavior": "probe_then_continue",
+      "speed_profile": "steady",
+      "target_speed_mps": 7.5,
+      "yield": false,
+      "memory_guided": false,
+      "retrieved_memory_ids": [],
+      "latency_ms": 0.0478,
+      "closest_actor_distance_m": 1.9679,
+      "risk_level": "near_miss_proxy",
+      "control_trace": {
+        "source_policy_id": "mock:policy",
+        "closed_loop_control": "cached_replay",
+        "trajectory_frame": "ego",
+        "commands": [
+          {
+            "tick": 0,
+            "target_x": 0.9,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 1,
+            "target_x": 1.8,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 2,
+            "target_x": 2.7,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 3,
+            "target_x": 3.6,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 4,
+            "target_x": 4.5,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 5,
+            "target_x": 5.4,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 6,
+            "target_x": 6.3,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 7,
+            "target_x": 7.2,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 8,
+            "target_x": 8.1,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 9,
+            "target_x": 9.0,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 10,
+            "target_x": 9.9,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 11,
+            "target_x": 10.8,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 12,
+            "target_x": 11.7,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 13,
+            "target_x": 12.6,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 14,
+            "target_x": 13.5,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 15,
+            "target_x": 14.4,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 16,
+            "target_x": 15.3,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 17,
+            "target_x": 16.2,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 18,
+            "target_x": 17.1,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          },
+          {
+            "tick": 19,
+            "target_x": 18.0,
+            "target_y": 0.0,
+            "target_speed_mps": 3.6,
+            "steer": 0.0,
+            "throttle": 0.27,
+            "brake": 0.0
+          }
+        ],
+        "safety_clamps": []
+      },
+      "decision": {
+        "policy_id": "mock",
+        "adapter_kind": "mock",
+        "intent": {
+          "scene_type": "construction_merge::regional_driving_behavior",
+          "hazards": [
+            "construction cones narrowing the lane",
+            "stopped service vehicle near lane center",
+            "pedestrian occlusion near the right shoulder",
+            "Policy assumes lane-disciplined traffic and misses lateral filtering behavior.",
+            "Fast two-wheeler filters between lanes with lateral weave.",
+            "Animals",
+            "animals",
+            "unknown_obstacle",
+            "occupied_space",
+            "regional_driving_behavior",
+            "motorcycle_filtering",
+            "lateral_uncertainty"
+          ],
+          "ego_intent": "continue unless direct conflict is obvious",
+          "target_behavior": "probe_then_continue",
+          "speed_profile": "steady",
+          "lateral_bias": "center",
+          "uncertainty": 0.62
+        },
+        "action": {
+          "mode": "trajectory_chunk",
+          "trajectory": {
+            "points_xy": [
+              [
+                0.9,
+                0.0
+              ],
+              [
+                1.8,
+                0.0
+              ],
+              [
+                2.7,
+                0.0
+              ],
+              [
+                3.6,
+                0.0
+              ],
+              [
+                4.5,
+                0.0
+              ],
+              [
+                5.4,
+                0.0
+              ],
+              [
+                6.3,
+                0.0
+              ],
+              [
+                7.2,
+                0.0
+              ],
+              [
+                8.1,
+                0.0
+              ],
+              [
+                9.0,
+                0.0
+              ],
+              [
+                9.9,
+                0.0
+              ],
+              [
+                10.8,
+                0.0
+              ],
+              [
+                11.7,
+                0.0
+              ],
+              [
+                12.6,
+                0.0
+              ],
+              [
+                13.5,
+                0.0
+              ],
+              [
+                14.4,
+                0.0
+              ],
+              [
+                15.3,
+                0.0
+              ],
+              [
+                16.2,
+                0.0
+              ],
+              [
+                17.1,
+                0.0
+              ],
+              [
+                18.0,
+                0.0
+              ]
+            ],
+            "source": "policy_mock",
+            "score": 0.62,
+            "metadata": {
+              "policy_id": "mock",
+              "speed_scale": 0.9
+            }
+          },
+          "control": {
+            "target_speed_mps": 7.5,
+            "yield": false,
+            "memory_guided": false
+          },
+          "safety_notes": [
+            "No retrieved memory supplied; using generic caution."
+          ]
+        },
+        "latency_ms": 0.0478,
+        "reason_summary": "No memory supplied, so mock policy uses a generic steady probe.",
+        "retrieved_memory_ids": [],
+        "setup_blocker": null
+      }
+    },
+    {
+      "label": "policy+memory",
+      "policy_id": "mock",
+      "adapter_kind": "mock_memory",
+      "target_behavior": "yield_then_proceed",
+      "speed_profile": "decelerate_then_creep",
+      "target_speed_mps": 3.0,
+      "yield": true,
+      "memory_guided": true,
+      "retrieved_memory_ids": [
+        "mem-0002-fixture-prior-motorcycle-filtering",
+        "mem-0000-generalization-animals-1078",
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "latency_ms": 0.0275,
+      "closest_actor_distance_m": 1.8457,
+      "risk_level": "near_miss_proxy",
+      "control_trace": {
+        "source_policy_id": "mock:policy+memory",
+        "closed_loop_control": "cached_replay",
+        "trajectory_frame": "ego",
+        "commands": [
+          {
+            "tick": 0,
+            "target_x": 0.45,
+            "target_y": -0.04,
+            "target_speed_mps": 1.8071,
+            "steer": -0.0395,
+            "throttle": 0.1355,
+            "brake": 0.0
+          },
+          {
+            "tick": 1,
+            "target_x": 0.9,
+            "target_y": -0.0768,
+            "target_speed_mps": 1.806,
+            "steer": -0.0379,
+            "throttle": 0.1355,
+            "brake": 0.0
+          },
+          {
+            "tick": 2,
+            "target_x": 1.35,
+            "target_y": -0.1107,
+            "target_speed_mps": 1.8051,
+            "steer": -0.0365,
+            "throttle": 0.1354,
+            "brake": 0.0
+          },
+          {
+            "tick": 3,
+            "target_x": 1.8,
+            "target_y": -0.1418,
+            "target_speed_mps": 1.8043,
+            "steer": -0.035,
+            "throttle": 0.1353,
+            "brake": 0.0
+          },
+          {
+            "tick": 4,
+            "target_x": 2.25,
+            "target_y": -0.1705,
+            "target_speed_mps": 1.8037,
+            "steer": -0.0337,
+            "throttle": 0.1353,
+            "brake": 0.0
+          },
+          {
+            "tick": 5,
+            "target_x": 2.7,
+            "target_y": -0.1968,
+            "target_speed_mps": 1.8031,
+            "steer": -0.0324,
+            "throttle": 0.1352,
+            "brake": 0.0
+          },
+          {
+            "tick": 6,
+            "target_x": 3.15,
+            "target_y": -0.2211,
+            "target_speed_mps": 1.8026,
+            "steer": -0.0312,
+            "throttle": 0.1352,
+            "brake": 0.0
+          },
+          {
+            "tick": 7,
+            "target_x": 3.6,
+            "target_y": -0.2434,
+            "target_speed_mps": 1.8022,
+            "steer": -0.0301,
+            "throttle": 0.1352,
+            "brake": 0.0
+          },
+          {
+            "tick": 8,
+            "target_x": 4.05,
+            "target_y": -0.2639,
+            "target_speed_mps": 1.8019,
+            "steer": -0.029,
+            "throttle": 0.1351,
+            "brake": 0.0
+          },
+          {
+            "tick": 9,
+            "target_x": 4.5,
+            "target_y": -0.2828,
+            "target_speed_mps": 1.8016,
+            "steer": -0.028,
+            "throttle": 0.1351,
+            "brake": 0.0
+          },
+          {
+            "tick": 10,
+            "target_x": 4.95,
+            "target_y": -0.3002,
+            "target_speed_mps": 1.8013,
+            "steer": -0.027,
+            "throttle": 0.1351,
+            "brake": 0.0
+          },
+          {
+            "tick": 11,
+            "target_x": 5.4,
+            "target_y": -0.3162,
+            "target_speed_mps": 1.8011,
+            "steer": -0.0261,
+            "throttle": 0.1351,
+            "brake": 0.0
+          },
+          {
+            "tick": 12,
+            "target_x": 5.85,
+            "target_y": -0.3309,
+            "target_speed_mps": 1.801,
+            "steer": -0.0252,
+            "throttle": 0.1351,
+            "brake": 0.0
+          },
+          {
+            "tick": 13,
+            "target_x": 6.3,
+            "target_y": -0.3444,
+            "target_speed_mps": 1.8008,
+            "steer": -0.0243,
+            "throttle": 0.1351,
+            "brake": 0.0
+          },
+          {
+            "tick": 14,
+            "target_x": 6.75,
+            "target_y": -0.3569,
+            "target_speed_mps": 1.8007,
+            "steer": -0.0235,
+            "throttle": 0.1351,
+            "brake": 0.0
+          },
+          {
+            "tick": 15,
+            "target_x": 7.2,
+            "target_y": -0.3683,
+            "target_speed_mps": 1.8006,
+            "steer": -0.0228,
+            "throttle": 0.135,
+            "brake": 0.0
+          },
+          {
+            "tick": 16,
+            "target_x": 7.65,
+            "target_y": -0.3788,
+            "target_speed_mps": 1.8005,
+            "steer": -0.022,
+            "throttle": 0.135,
+            "brake": 0.0
+          },
+          {
+            "tick": 17,
+            "target_x": 8.1,
+            "target_y": -0.3885,
+            "target_speed_mps": 1.8004,
+            "steer": -0.0214,
+            "throttle": 0.135,
+            "brake": 0.0
+          },
+          {
+            "tick": 18,
+            "target_x": 8.55,
+            "target_y": -0.3974,
+            "target_speed_mps": 1.8004,
+            "steer": -0.0207,
+            "throttle": 0.135,
+            "brake": 0.0
+          },
+          {
+            "tick": 19,
+            "target_x": 9.0,
+            "target_y": -0.4057,
+            "target_speed_mps": 1.8003,
+            "steer": -0.0201,
+            "throttle": 0.135,
+            "brake": 0.0
+          }
+        ],
+        "safety_clamps": []
+      },
+      "decision": {
+        "policy_id": "mock",
+        "adapter_kind": "mock_memory",
+        "intent": {
+          "scene_type": "construction_merge::regional_driving_behavior",
+          "hazards": [
+            "construction cones narrowing the lane",
+            "stopped service vehicle near lane center",
+            "pedestrian occlusion near the right shoulder",
+            "Policy assumes lane-disciplined traffic and misses lateral filtering behavior.",
+            "Fast two-wheeler filters between lanes with lateral weave.",
+            "Animals",
+            "animals",
+            "unknown_obstacle",
+            "occupied_space",
+            "regional_driving_behavior",
+            "motorcycle_filtering",
+            "lateral_uncertainty"
+          ],
+          "ego_intent": "preserve controllability before progress",
+          "target_behavior": "yield_then_proceed",
+          "speed_profile": "decelerate_then_creep",
+          "lateral_bias": "right",
+          "uncertainty": 0.24
+        },
+        "action": {
+          "mode": "trajectory_chunk",
+          "trajectory": {
+            "points_xy": [
+              [
+                0.45,
+                -0.04
+              ],
+              [
+                0.9,
+                -0.0768
+              ],
+              [
+                1.35,
+                -0.1107
+              ],
+              [
+                1.8,
+                -0.1418
+              ],
+              [
+                2.25,
+                -0.1705
+              ],
+              [
+                2.7,
+                -0.1968
+              ],
+              [
+                3.15,
+                -0.2211
+              ],
+              [
+                3.6,
+                -0.2434
+              ],
+              [
+                4.05,
+                -0.2639
+              ],
+              [
+                4.5,
+                -0.2828
+              ],
+              [
+                4.95,
+                -0.3002
+              ],
+              [
+                5.4,
+                -0.3162
+              ],
+              [
+                5.85,
+                -0.3309
+              ],
+              [
+                6.3,
+                -0.3444
+              ],
+              [
+                6.75,
+                -0.3569
+              ],
+              [
+                7.2,
+                -0.3683
+              ],
+              [
+                7.65,
+                -0.3788
+              ],
+              [
+                8.1,
+                -0.3885
+              ],
+              [
+                8.55,
+                -0.3974
+              ],
+              [
+                9.0,
+                -0.4057
+              ]
+            ],
+            "source": "policy_mock_memory",
+            "score": 0.24,
+            "metadata": {
+              "policy_id": "mock",
+              "speed_scale": 0.45
+            }
+          },
+          "control": {
+            "target_speed_mps": 3.0,
+            "yield": true,
+            "memory_guided": true
+          },
+          "safety_notes": [
+            "Slow early, treat the object as occupied space, and proceed only after the path is clear.",
+            "Slow early, treat the object as occupied space, and proceed only after the path is clear."
+          ]
+        },
+        "latency_ms": 0.0275,
+        "reason_summary": "Retrieved memory changed the decision toward slower yielding behavior.",
+        "retrieved_memory_ids": [
+          "mem-0002-fixture-prior-motorcycle-filtering",
+          "mem-0000-generalization-animals-1078",
+          "mem-0001-generalization-pedestriansonroad-1088"
+        ],
+        "setup_blocker": null
+      }
+    },
+    {
+      "label": "hybrid",
+      "policy_id": "hybrid",
+      "adapter_kind": "local_hybrid",
+      "target_behavior": "stop",
+      "speed_profile": "brake",
+      "target_speed_mps": 2.52,
+      "yield": false,
+      "memory_guided": false,
+      "retrieved_memory_ids": [],
+      "latency_ms": 0.2375,
+      "closest_actor_distance_m": 1.7781,
+      "risk_level": "near_miss_proxy",
+      "control_trace": {
+        "source_policy_id": "hybrid:hybrid",
+        "closed_loop_control": "cached_replay",
+        "trajectory_frame": "ego",
+        "commands": [
+          {
+            "tick": 0,
+            "target_x": 0.315,
+            "target_y": 0.0,
+            "target_speed_mps": 1.26,
+            "steer": 0.0,
+            "throttle": 0.0945,
+            "brake": 0.0
+          },
+          {
+            "tick": 1,
+            "target_x": 0.6134,
+            "target_y": 0.0,
+            "target_speed_mps": 1.1936,
+            "steer": 0.0,
+            "throttle": 0.0895,
+            "brake": 0.0
+          },
+          {
+            "tick": 2,
+            "target_x": 0.8953,
+            "target_y": 0.0,
+            "target_speed_mps": 1.1276,
+            "steer": 0.0,
+            "throttle": 0.0846,
+            "brake": 0.0
+          },
+          {
+            "tick": 3,
+            "target_x": 1.1605,
+            "target_y": 0.0,
+            "target_speed_mps": 1.0608,
+            "steer": 0.0,
+            "throttle": 0.0796,
+            "brake": 0.0
+          },
+          {
+            "tick": 4,
+            "target_x": 1.4092,
+            "target_y": 0.0,
+            "target_speed_mps": 0.9948,
+            "steer": 0.0,
+            "throttle": 0.0746,
+            "brake": 0.0
+          },
+          {
+            "tick": 5,
+            "target_x": 1.6413,
+            "target_y": 0.0,
+            "target_speed_mps": 0.9284,
+            "steer": 0.0,
+            "throttle": 0.0696,
+            "brake": 0.0
+          },
+          {
+            "tick": 6,
+            "target_x": 1.8568,
+            "target_y": 0.0,
+            "target_speed_mps": 0.862,
+            "steer": 0.0,
+            "throttle": 0.0647,
+            "brake": 0.0
+          },
+          {
+            "tick": 7,
+            "target_x": 2.0558,
+            "target_y": 0.0,
+            "target_speed_mps": 0.796,
+            "steer": 0.0,
+            "throttle": 0.0597,
+            "brake": 0.0
+          },
+          {
+            "tick": 8,
+            "target_x": 2.2382,
+            "target_y": 0.0,
+            "target_speed_mps": 0.7296,
+            "steer": 0.0,
+            "throttle": 0.0547,
+            "brake": 0.0
+          },
+          {
+            "tick": 9,
+            "target_x": 2.4039,
+            "target_y": 0.0,
+            "target_speed_mps": 0.6628,
+            "steer": 0.0,
+            "throttle": 0.0497,
+            "brake": 0.0
+          },
+          {
+            "tick": 10,
+            "target_x": 2.5532,
+            "target_y": 0.0,
+            "target_speed_mps": 0.5972,
+            "steer": 0.0,
+            "throttle": 0.0448,
+            "brake": 0.0
+          },
+          {
+            "tick": 11,
+            "target_x": 2.6858,
+            "target_y": 0.0,
+            "target_speed_mps": 0.5304,
+            "steer": 0.0,
+            "throttle": 0.0398,
+            "brake": 0.0
+          },
+          {
+            "tick": 12,
+            "target_x": 2.8018,
+            "target_y": 0.0,
+            "target_speed_mps": 0.464,
+            "steer": 0.0,
+            "throttle": 0.0348,
+            "brake": 0.0
+          },
+          {
+            "tick": 13,
+            "target_x": 2.9013,
+            "target_y": 0.0,
+            "target_speed_mps": 0.398,
+            "steer": 0.0,
+            "throttle": 0.0298,
+            "brake": 0.0
+          },
+          {
+            "tick": 14,
+            "target_x": 2.9842,
+            "target_y": 0.0,
+            "target_speed_mps": 0.3316,
+            "steer": 0.0,
+            "throttle": 0.0249,
+            "brake": 0.0
+          },
+          {
+            "tick": 15,
+            "target_x": 3.0505,
+            "target_y": 0.0,
+            "target_speed_mps": 0.2652,
+            "steer": 0.0,
+            "throttle": 0.0199,
+            "brake": 0.0
+          },
+          {
+            "tick": 16,
+            "target_x": 3.1005,
+            "target_y": 0.0,
+            "target_speed_mps": 0.2,
+            "steer": 0.0,
+            "throttle": 0.015,
+            "brake": 0.0
+          },
+          {
+            "tick": 17,
+            "target_x": 3.1505,
+            "target_y": 0.0,
+            "target_speed_mps": 0.2,
+            "steer": 0.0,
+            "throttle": 0.015,
+            "brake": 0.0
+          },
+          {
+            "tick": 18,
+            "target_x": 3.2005,
+            "target_y": 0.0,
+            "target_speed_mps": 0.2,
+            "steer": 0.0,
+            "throttle": 0.015,
+            "brake": 0.0
+          },
+          {
+            "tick": 19,
+            "target_x": 3.2505,
+            "target_y": 0.0,
+            "target_speed_mps": 0.2,
+            "steer": 0.0,
+            "throttle": 0.015,
+            "brake": 0.0
+          }
+        ],
+        "safety_clamps": []
+      },
+      "decision": {
+        "policy_id": "hybrid",
+        "adapter_kind": "local_hybrid",
+        "intent": {
+          "scene_type": "unknown scene",
+          "hazards": [
+            "construction cones narrowing the lane",
+            "stopped service vehicle near lane center",
+            "pedestrian occlusion near the right shoulder",
+            "Policy assumes lane-disciplined traffic and misses lateral filtering behavior.",
+            "Fast two-wheeler filters between lanes with lateral weave."
+          ],
+          "ego_intent": "fallback to cautious stop",
+          "target_behavior": "stop",
+          "speed_profile": "brake",
+          "lateral_bias": "center",
+          "uncertainty": 0.9
+        },
+        "action": {
+          "mode": "local_fallback_trajectory",
+          "trajectory": {
+            "points_xy": [
+              [
+                0.315,
+                0.0
+              ],
+              [
+                0.6134,
+                0.0
+              ],
+              [
+                0.8953,
+                0.0
+              ],
+              [
+                1.1605,
+                0.0
+              ],
+              [
+                1.4092,
+                0.0
+              ],
+              [
+                1.6413,
+                0.0
+              ],
+              [
+                1.8568,
+                0.0
+              ],
+              [
+                2.0558,
+                0.0
+              ],
+              [
+                2.2382,
+                0.0
+              ],
+              [
+                2.4039,
+                0.0
+              ],
+              [
+                2.5532,
+                0.0
+              ],
+              [
+                2.6858,
+                0.0
+              ],
+              [
+                2.8018,
+                0.0
+              ],
+              [
+                2.9013,
+                0.0
+              ],
+              [
+                2.9842,
+                0.0
+              ],
+              [
+                3.0505,
+                0.0
+              ],
+              [
+                3.1005,
+                0.0
+              ],
+              [
+                3.1505,
+                0.0
+              ],
+              [
+                3.2005,
+                0.0
+              ],
+              [
+                3.2505,
+                0.0
+              ]
+            ],
+            "source": "fallback_center_brake",
+            "score": 1.51926,
+            "metadata": {
+              "lateral_target": 0.0,
+              "speed_multiplier": 0.42,
+              "target_behavior": "stop",
+              "candidate_family": "semantic_intent",
+              "rank_cost": 1.51926
+            }
+          },
+          "control": {
+            "target_speed_mps": 2.52,
+            "yield": false,
+            "memory_guided": false
+          },
+          "safety_notes": [
+            "Deterministic hybrid fallback ranked trajectory candidates locally."
+          ]
+        },
+        "latency_ms": 0.2375,
+        "reason_summary": "Local hybrid adapter used mock intent plus motion-prior candidates.",
+        "retrieved_memory_ids": [],
+        "setup_blocker": null
+      }
+    }
+  ],
+  "min_distance_m": 1.7781,
+  "worst_risk_level": "near_miss_proxy",
+  "svg_path": "tickets/TASK-064/artifacts/local-ood-demo/local-sim/local_ood_sim.svg",
+  "html_path": "tickets/TASK-064/artifacts/local-ood-demo/local-sim/local_ood_sim.html",
+  "timeline_path": "tickets/TASK-064/artifacts/local-ood-demo/local-sim/local_ood_timeline.json",
+  "closed_loop_carla_claim": false
+}

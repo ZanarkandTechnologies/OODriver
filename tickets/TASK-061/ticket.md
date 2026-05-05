@@ -159,4 +159,7 @@ execution semantics.
   implemented AC-1 seam at 4.0/5.0 and keeps the live proof blocker on TASK-060.
 
 ## Blockers
-- Stock Town13 route proof remains the live prerequisite for AC-2 through AC-4.
+- TASK-068 proved Town13 route startup, but the local Mac/Kegworks/Wine runtime
+  timed out before a stable route-aligned capture handoff. AC-2 through AC-4
+  now need either a faster graphics-capable Linux NVIDIA CARLA host or a much
+  longer local run with capture attached during the route window.

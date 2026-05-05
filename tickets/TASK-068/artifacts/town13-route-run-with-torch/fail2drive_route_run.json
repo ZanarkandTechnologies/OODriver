@@ -1,0 +1,84 @@
+{
+  "status": "blocked",
+  "plan_path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_video_smoke_plan.json",
+  "run_dir": "/workspace/0xDriver/tickets/TASK-068/artifacts/town13-route-run-with-torch",
+  "command": [
+    "python",
+    "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py",
+    "--routes",
+    "/workspace/fail2drive/fail2drive_split/Generalization_PedestriansOnRoad_1088.xml",
+    "--repetitions",
+    "1",
+    "--track",
+    "MAP",
+    "--checkpoint",
+    "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+    "--debug-checkpoint",
+    "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_debug.txt",
+    "--timeout",
+    "900",
+    "--agent",
+    "/workspace/fail2drive/team_code/viz_path_agent.py",
+    "--host",
+    "host.docker.internal",
+    "--port",
+    "2000"
+  ],
+  "cwd": "/workspace/fail2drive",
+  "env": {
+    "CARLA_HOST": "host.docker.internal",
+    "CARLA_PORT": "2000",
+    "FAIL2DRIVE_ROOT": "/workspace/fail2drive",
+    "DRIVERX_METHOD_NAME": "DriverXRouteSmoke",
+    "REPETITION": "0",
+    "SAVE_PATH": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/visualizations",
+    "SCENARIO_RUNNER_ROOT": "/workspace/fail2drive/scenario_runner",
+    "TOWN": "Town13",
+    "VIZ_PATH": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+    "LIVE_VISU": "1"
+  },
+  "dry_run": false,
+  "timeout_s": 300.0,
+  "started_at_monotonic_s": 548526.651493093,
+  "finished_at_monotonic_s": 548827.213414189,
+  "duration_s": 300.561921,
+  "exit_code": null,
+  "stdout_path": "/workspace/0xDriver/tickets/TASK-068/artifacts/town13-route-run-with-torch/logs/fail2drive_route.stdout.log",
+  "stderr_path": "/workspace/0xDriver/tickets/TASK-068/artifacts/town13-route-run-with-torch/logs/fail2drive_route.stderr.log",
+  "expected_outputs": [
+    {
+      "label": "result",
+      "path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+      "exists": true,
+      "size_bytes": 361
+    },
+    {
+      "label": "debug",
+      "path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_debug.txt",
+      "exists": false,
+      "size_bytes": null
+    },
+    {
+      "label": "save_path",
+      "path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/visualizations",
+      "exists": true,
+      "size_bytes": null
+    },
+    {
+      "label": "rgb_folder",
+      "path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+      "exists": true,
+      "size_bytes": null
+    },
+    {
+      "label": "video",
+      "path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan/fail2drive_outputs/Generalization_PedestriansOnRoad_1088.mp4",
+      "exists": false,
+      "size_bytes": null
+    }
+  ],
+  "route_blockers": [
+    "Fail2Drive route command timed out."
+  ],
+  "error": "Timed out after 300.0 seconds."
+}

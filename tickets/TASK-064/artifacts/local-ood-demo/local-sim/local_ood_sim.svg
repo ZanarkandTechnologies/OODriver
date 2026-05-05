@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="640" viewBox="0 0 1040 640">
+<style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#172033}
+.title{font-size:22px;font-weight:700}.small{font-size:13px}.tiny{font-size:11px}
+</style>
+<rect width="1040" height="640" fill="#f6f7f2"/>
+<text x="30" y="38" class="title">Local OOD simulator: generated-base-animals-0076-regional-driving-behavior-000</text>
+<text x="30" y="62" class="small">mutation=regional_driving_behavior | behavior=motorcycle_filtering | CARLA claim=false</text>
+<rect x="30" y="90" width="690" height="470" rx="5" fill="#e6ebe2" stroke="#4b5d51"/>
+<rect x="30" y="250" width="690" height="90" fill="#4b5563" opacity="0.55"/>
+<line x1="45" y1="295" x2="705" y2="295" stroke="#f8fafc" stroke-width="2.5" stroke-dasharray="16 12"/>
+<line x1="45" y1="250" x2="705" y2="250" stroke="#f8fafc" stroke-width="2" opacity="0.7"/>
+<line x1="45" y1="340" x2="705" y2="340" stroke="#f8fafc" stroke-width="2" opacity="0.7"/>
+<text x="48" y="110" class="tiny">x forward, y lateral; orange=OOD actor, red=no memory, green=memory-guided</text>
+<polyline points="90.0,270.5 148.5,239.1 207.0,246.5 265.5,283.5 324.0,304.5 382.5,283.5 441.0,246.5 499.5,239.1 558.0,270.5 616.5,301.9 675.0,294.5 733.5,257.5 792.0,236.5 850.5,257.5 909.0,294.5 967.5,301.9 1026.0,270.5 1084.5,239.1 1143.0,246.5 1201.5,283.5 1260.0,304.5 1318.5,283.5 1377.0,246.5 1435.5,239.1 1494.0,270.5" fill="none" stroke="#f97316" stroke-width="5"/>
+<polyline points="106.2,330.0 122.4,330.0 138.6,330.0 154.8,330.0 171.0,330.0 187.2,330.0 203.4,330.0 219.6,330.0 235.8,330.0 252.0,330.0 268.2,330.0 284.4,330.0 300.6,330.0 316.8,330.0 333.0,330.0 349.2,330.0 365.4,330.0 381.6,330.0 397.8,330.0 414.0,330.0" fill="none" stroke="#dc2626" stroke-width="4"/>
+<polyline points="98.1,331.4 106.2,332.6 114.3,333.8 122.4,334.8 130.5,335.8 138.6,336.7 146.7,337.5 154.8,338.3 162.9,339.0 171.0,339.6 179.1,340.2 187.2,340.8 195.3,341.3 203.4,341.7 211.5,342.1 219.6,342.5 227.7,342.9 235.8,343.2 243.9,343.5 252.0,343.8" fill="none" stroke="#059669" stroke-width="4"/>
+<polyline points="95.7,330.0 101.0,330.0 106.1,330.0 110.9,330.0 115.4,330.0 119.5,330.0 123.4,330.0 127.0,330.0 130.3,330.0 133.3,330.0 136.0,330.0 138.3,330.0 140.4,330.0 142.2,330.0 143.7,330.0 144.9,330.0 145.8,330.0 146.7,330.0 147.6,330.0 148.5,330.0" fill="none" stroke="#7c3aed" stroke-width="4"/>
+<circle cx="90.0" cy="270.5" r="6" fill="#fb923c" stroke="#7c2d12"/>
+<circle cx="324.0" cy="304.5" r="6" fill="#fb923c" stroke="#7c2d12"/>
+<circle cx="558.0" cy="270.5" r="6" fill="#fb923c" stroke="#7c2d12"/>
+<circle cx="792.0" cy="236.5" r="6" fill="#fb923c" stroke="#7c2d12"/>
+<circle cx="1026.0" cy="270.5" r="6" fill="#fb923c" stroke="#7c2d12"/>
+<circle cx="1260.0" cy="304.5" r="6" fill="#fb923c" stroke="#7c2d12"/>
+<circle cx="1494.0" cy="270.5" r="6" fill="#fb923c" stroke="#7c2d12"/>
+<rect x="750" y="90" width="255" height="470" rx="5" fill="#ffffff" stroke="#c8d0c8"/>
+<text x="770" y="122" class="title">Policy reaction</text>
+<text x="770" y="155" class="small">policy: near_miss_proxy</text>
+<text x="790" y="177" class="tiny">closest=1.9679m speed=7.5</text>
+<text x="790" y="196" class="tiny">yield=False memory=False</text>
+<text x="770" y="235" class="small">policy+memory: near_miss_proxy</text>
+<text x="790" y="257" class="tiny">closest=1.8457m speed=3.0</text>
+<text x="790" y="276" class="tiny">yield=True memory=True</text>
+<text x="770" y="315" class="small">hybrid: near_miss_proxy</text>
+<text x="790" y="337" class="tiny">closest=1.7781m speed=2.52</text>
+<text x="790" y="356" class="tiny">yield=False memory=False</text>
+<text x="770" y="500" class="small">Expected failure</text>
+<text x="770" y="522" class="tiny">Policy assumes lane-disciplined traffic and miss</text>
+</svg>

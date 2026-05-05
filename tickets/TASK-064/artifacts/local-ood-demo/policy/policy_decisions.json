@@ -1,0 +1,396 @@
+{
+  "policy": {
+    "policy_id": "mock",
+    "adapter_kind": "mock",
+    "intent": {
+      "scene_type": "construction_merge::regional_driving_behavior",
+      "hazards": [
+        "construction cones narrowing the lane",
+        "stopped service vehicle near lane center",
+        "pedestrian occlusion near the right shoulder",
+        "Policy assumes lane-disciplined traffic and misses lateral filtering behavior.",
+        "Fast two-wheeler filters between lanes with lateral weave.",
+        "Animals",
+        "animals",
+        "unknown_obstacle",
+        "occupied_space",
+        "regional_driving_behavior",
+        "motorcycle_filtering",
+        "lateral_uncertainty"
+      ],
+      "ego_intent": "continue unless direct conflict is obvious",
+      "target_behavior": "probe_then_continue",
+      "speed_profile": "steady",
+      "lateral_bias": "center",
+      "uncertainty": 0.62
+    },
+    "action": {
+      "mode": "trajectory_chunk",
+      "trajectory": {
+        "points_xy": [
+          [
+            0.9,
+            0.0
+          ],
+          [
+            1.8,
+            0.0
+          ],
+          [
+            2.7,
+            0.0
+          ],
+          [
+            3.6,
+            0.0
+          ],
+          [
+            4.5,
+            0.0
+          ],
+          [
+            5.4,
+            0.0
+          ],
+          [
+            6.3,
+            0.0
+          ],
+          [
+            7.2,
+            0.0
+          ],
+          [
+            8.1,
+            0.0
+          ],
+          [
+            9.0,
+            0.0
+          ],
+          [
+            9.9,
+            0.0
+          ],
+          [
+            10.8,
+            0.0
+          ],
+          [
+            11.7,
+            0.0
+          ],
+          [
+            12.6,
+            0.0
+          ],
+          [
+            13.5,
+            0.0
+          ],
+          [
+            14.4,
+            0.0
+          ],
+          [
+            15.3,
+            0.0
+          ],
+          [
+            16.2,
+            0.0
+          ],
+          [
+            17.1,
+            0.0
+          ],
+          [
+            18.0,
+            0.0
+          ]
+        ],
+        "source": "policy_mock",
+        "score": 0.62,
+        "metadata": {
+          "policy_id": "mock",
+          "speed_scale": 0.9
+        }
+      },
+      "control": {
+        "target_speed_mps": 7.5,
+        "yield": false,
+        "memory_guided": false
+      },
+      "safety_notes": [
+        "No retrieved memory supplied; using generic caution."
+      ]
+    },
+    "latency_ms": 0.0478,
+    "reason_summary": "No memory supplied, so mock policy uses a generic steady probe.",
+    "retrieved_memory_ids": [],
+    "setup_blocker": null
+  },
+  "policy+memory": {
+    "policy_id": "mock",
+    "adapter_kind": "mock_memory",
+    "intent": {
+      "scene_type": "construction_merge::regional_driving_behavior",
+      "hazards": [
+        "construction cones narrowing the lane",
+        "stopped service vehicle near lane center",
+        "pedestrian occlusion near the right shoulder",
+        "Policy assumes lane-disciplined traffic and misses lateral filtering behavior.",
+        "Fast two-wheeler filters between lanes with lateral weave.",
+        "Animals",
+        "animals",
+        "unknown_obstacle",
+        "occupied_space",
+        "regional_driving_behavior",
+        "motorcycle_filtering",
+        "lateral_uncertainty"
+      ],
+      "ego_intent": "preserve controllability before progress",
+      "target_behavior": "yield_then_proceed",
+      "speed_profile": "decelerate_then_creep",
+      "lateral_bias": "right",
+      "uncertainty": 0.24
+    },
+    "action": {
+      "mode": "trajectory_chunk",
+      "trajectory": {
+        "points_xy": [
+          [
+            0.45,
+            -0.04
+          ],
+          [
+            0.9,
+            -0.0768
+          ],
+          [
+            1.35,
+            -0.1107
+          ],
+          [
+            1.8,
+            -0.1418
+          ],
+          [
+            2.25,
+            -0.1705
+          ],
+          [
+            2.7,
+            -0.1968
+          ],
+          [
+            3.15,
+            -0.2211
+          ],
+          [
+            3.6,
+            -0.2434
+          ],
+          [
+            4.05,
+            -0.2639
+          ],
+          [
+            4.5,
+            -0.2828
+          ],
+          [
+            4.95,
+            -0.3002
+          ],
+          [
+            5.4,
+            -0.3162
+          ],
+          [
+            5.85,
+            -0.3309
+          ],
+          [
+            6.3,
+            -0.3444
+          ],
+          [
+            6.75,
+            -0.3569
+          ],
+          [
+            7.2,
+            -0.3683
+          ],
+          [
+            7.65,
+            -0.3788
+          ],
+          [
+            8.1,
+            -0.3885
+          ],
+          [
+            8.55,
+            -0.3974
+          ],
+          [
+            9.0,
+            -0.4057
+          ]
+        ],
+        "source": "policy_mock_memory",
+        "score": 0.24,
+        "metadata": {
+          "policy_id": "mock",
+          "speed_scale": 0.45
+        }
+      },
+      "control": {
+        "target_speed_mps": 3.0,
+        "yield": true,
+        "memory_guided": true
+      },
+      "safety_notes": [
+        "Slow early, treat the object as occupied space, and proceed only after the path is clear.",
+        "Slow early, treat the object as occupied space, and proceed only after the path is clear."
+      ]
+    },
+    "latency_ms": 0.0275,
+    "reason_summary": "Retrieved memory changed the decision toward slower yielding behavior.",
+    "retrieved_memory_ids": [
+      "mem-0002-fixture-prior-motorcycle-filtering",
+      "mem-0000-generalization-animals-1078",
+      "mem-0001-generalization-pedestriansonroad-1088"
+    ],
+    "setup_blocker": null
+  },
+  "hybrid": {
+    "policy_id": "hybrid",
+    "adapter_kind": "local_hybrid",
+    "intent": {
+      "scene_type": "unknown scene",
+      "hazards": [
+        "construction cones narrowing the lane",
+        "stopped service vehicle near lane center",
+        "pedestrian occlusion near the right shoulder",
+        "Policy assumes lane-disciplined traffic and misses lateral filtering behavior.",
+        "Fast two-wheeler filters between lanes with lateral weave."
+      ],
+      "ego_intent": "fallback to cautious stop",
+      "target_behavior": "stop",
+      "speed_profile": "brake",
+      "lateral_bias": "center",
+      "uncertainty": 0.9
+    },
+    "action": {
+      "mode": "local_fallback_trajectory",
+      "trajectory": {
+        "points_xy": [
+          [
+            0.315,
+            0.0
+          ],
+          [
+            0.6134,
+            0.0
+          ],
+          [
+            0.8953,
+            0.0
+          ],
+          [
+            1.1605,
+            0.0
+          ],
+          [
+            1.4092,
+            0.0
+          ],
+          [
+            1.6413,
+            0.0
+          ],
+          [
+            1.8568,
+            0.0
+          ],
+          [
+            2.0558,
+            0.0
+          ],
+          [
+            2.2382,
+            0.0
+          ],
+          [
+            2.4039,
+            0.0
+          ],
+          [
+            2.5532,
+            0.0
+          ],
+          [
+            2.6858,
+            0.0
+          ],
+          [
+            2.8018,
+            0.0
+          ],
+          [
+            2.9013,
+            0.0
+          ],
+          [
+            2.9842,
+            0.0
+          ],
+          [
+            3.0505,
+            0.0
+          ],
+          [
+            3.1005,
+            0.0
+          ],
+          [
+            3.1505,
+            0.0
+          ],
+          [
+            3.2005,
+            0.0
+          ],
+          [
+            3.2505,
+            0.0
+          ]
+        ],
+        "source": "fallback_center_brake",
+        "score": 1.51926,
+        "metadata": {
+          "lateral_target": 0.0,
+          "speed_multiplier": 0.42,
+          "target_behavior": "stop",
+          "candidate_family": "semantic_intent",
+          "rank_cost": 1.51926
+        }
+      },
+      "control": {
+        "target_speed_mps": 2.52,
+        "yield": false,
+        "memory_guided": false
+      },
+      "safety_notes": [
+        "Deterministic hybrid fallback ranked trajectory candidates locally."
+      ]
+    },
+    "latency_ms": 0.2375,
+    "reason_summary": "Local hybrid adapter used mock intent plus motion-prior candidates.",
+    "retrieved_memory_ids": [],
+    "setup_blocker": null
+  }
+}

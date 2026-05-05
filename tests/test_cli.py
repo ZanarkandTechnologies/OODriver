@@ -701,7 +701,8 @@ class CliTest(unittest.TestCase):
                 )
             result = json.loads(stream.getvalue())
             self.assertEqual(exit_code, 0)
-            self.assertEqual(result["num_behaviors"], 6)
+            self.assertEqual(result["num_behaviors"], 8)
+            self.assertIn("unsignaled_u_turn", result["behavior_ids"])
             self.assertTrue(Path(result["traces_path"]).exists())
             self.assertTrue(Path(result["report_path"]).exists())
 

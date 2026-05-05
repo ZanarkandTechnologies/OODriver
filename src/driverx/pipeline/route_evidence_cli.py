@@ -17,6 +17,7 @@ def command_build_route_evidence(args: argparse.Namespace) -> int:
         run_dir,
         RouteEvidenceInputs(
             plan_path=args.plan,
+            route_run_path=args.route_run,
             result_path=args.result,
             entity_tracks_path=args.entity_tracks,
             video_path=args.video,
@@ -35,6 +36,7 @@ def register_route_evidence_parser(subparsers: Any) -> None:
         help="Bundle route result, video, tracks, screenshots, and logs into review evidence.",
     )
     parser.add_argument("--plan", type=Path)
+    parser.add_argument("--route-run", type=Path)
     parser.add_argument("--result", type=Path)
     parser.add_argument("--entity-tracks", type=Path)
     parser.add_argument("--video", type=Path)

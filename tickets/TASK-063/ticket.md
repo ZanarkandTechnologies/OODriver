@@ -1,7 +1,7 @@
 # TASK-063: Final Submission Evidence Refresh
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-059, TASK-060, TASK-061
@@ -11,8 +11,7 @@
   evidence or precise Town13 failure evidence exist
 - leave when: demo pack, dossier, progress, blockers, and canonical docs reflect
   the strongest current story
-- blockers: final live Town13/route-aligned evidence still waits on TASK-058
-  through TASK-061; demo-pack schema now accepts cached replay evidence
+- blockers: none; V2 local-first refresh completed in TASK-070
 - spawned follow-ups: final video/deck assembly outside code if needed
 - complexity: S
 
@@ -108,14 +107,14 @@ Docs and report generators only. No new simulator/model runtime behavior.
   archived, then regenerate archive-path reports during closeout.
 
 ## Acceptance Criteria
-- [ ] AC-1: Demo pack includes latest PhysicalAI, Town13, and Alpamayo OOD
+- [x] AC-1: Demo pack includes latest PhysicalAI, Town13, and Alpamayo OOD
   evidence where available.
-- [ ] AC-2: README/ARCHITECTURE no longer describe already-completed work as
+- [x] AC-2: README/ARCHITECTURE no longer describe already-completed work as
   active or blocked.
-- [ ] AC-3: Remaining blockers are short, current, and human-actionable.
-- [ ] AC-4: Claim boundaries explicitly separate open-loop, cached replay, and
+- [x] AC-3: Remaining blockers are short, current, and human-actionable.
+- [x] AC-4: Claim boundaries explicitly separate open-loop, cached replay, and
   closed-loop control.
-- [ ] AC-5: Final review artifact passes evidence/integration readiness.
+- [x] AC-5: Final review artifact passes evidence/integration readiness.
 
 ## Verification
 - Unit:
@@ -142,6 +141,11 @@ Docs and report generators only. No new simulator/model runtime behavior.
 - Review: `docs/reviews/TASK-063-cached-replay-demo-pack-review.md` passed the
   partial cached-replay refresh at 4.0/5.0; final review still waits on
   TASK-060/TASK-061 live evidence.
+- 2026-05-06 04:33 +0800: Final refresh is superseded and completed by
+  TASK-070's local-first V2 submission pack:
+  `tickets/TASK-070/artifacts/submission-pack-v2-final/submission_demo_pack.md`.
+- Final review:
+  `docs/reviews/TASK-068-070-local-first-submission-review.md`.
 
 ## Blockers
-- Final refresh still waits on TASK-060/TASK-061 live route evidence.
+- None. TASK-060/TASK-069 remain separate live-runtime follow-ups.

@@ -76,11 +76,31 @@ planner.
 The current closed-loop pivot has scenario generation, failure memory,
 CARLA/Fail2Drive dry-run planning, local CARLA probing, route-pack export,
 overlay plans, sidecar orchestration, policy readiness reports, live Alpamayo
-open-loop inference, and a judge-facing demo pack. The active next batch is
-TASK-058 through TASK-063: install/probe Town13, rerun the PhysicalAI-backed
-Alpamayo sample, collect stock Fail2Drive route evidence, align Alpamayo
-captures to that route, prepare cached trajectory replay, and refresh the final
-submission pack.
+open-loop inference, and a judge-facing demo pack. TASK-064 adds the first
+dependency-light end-to-end runnable artifact: one command generates an OOD
+scenario, simulates a regional behavior, retrieves safety memory, compares
+policy reactions, converts trajectories into cached controls, and renders a
+local 2D simulator report. TASK-068 proved Town13 can load and the stock
+Fail2Drive route can start, but the local Mac/Kegworks/Wine runtime is too slow
+to finish the route inside the current 300s cap. TASK-070 therefore leads the
+submission pack with the runnable local simulator and treats CARLA/Town13 and
+Alpamayo as measured supporting evidence.
+
+## Quickstart: End-To-End OOD Demo
+
+```bash
+PYTHONPATH=src python3 -m driverx run-end-to-end-ood-demo \
+  --output-root artifacts/runs \
+  --run-id local-ood-demo
+```
+
+Key outputs:
+
+- `end_to_end_demo.md`: generated scenario, memory ids, policy reactions, and
+  claim boundaries.
+- `local-sim/local_ood_sim.html`: top-down local simulator evidence.
+- `policy/policy_reaction_matrix.md`: baseline, memory-guided, and hybrid
+  policy comparison table.
 
 ## Quickstart: Scenario Forge
 
@@ -258,15 +278,16 @@ PYTHONPATH=src python3 -m driverx replay-policy-decision \
 # Build the judge-facing demo pack with storyboard, artifact map, declarations,
 # write-up draft, and first understood failure case
 PYTHONPATH=src python3 -m driverx build-demo-pack \
-  --generated-suite artifacts/runs/task36-suite/generated_ood_suite.json \
-  --policy-matrix artifacts/runs/task37-policy-matrix/policy_runtime_matrix.json \
-  --alpamayo-probe artifacts/runs/task38-alpamayo-probe/alpamayo_probe_report.json \
-  --route-evidence tickets/archive/TASK-055/artifacts/town10-route-evidence/run_evidence.json \
+  --local-demo tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.json \
+  --generated-suite tickets/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_summary.json \
+  --policy-matrix tickets/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json \
+  --alpamayo-probe tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json \
+  --route-evidence tickets/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.json \
   --alpamayo-comparison tickets/archive/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json \
   --cached-replay tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json \
   --blockers blockers.md \
   --progress docs/progress.md \
-  --run-id task40-demo-pack
+  --run-id submission-pack-v2-final
 
 # Once a live route run has written RGB frames under SAVE_PATH, assemble MP4
 # evidence without relying on Fail2Drive's missing tools/generate_video.py

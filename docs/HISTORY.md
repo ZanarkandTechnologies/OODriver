@@ -97,3 +97,7 @@
 2026-05-06 03:34 +0800 | SHIP | TASK-061 added a fake-CARLA route-aligned capture attach seam so future Fail2Drive hero actors can be captured for Alpamayo without being spawned or destroyed by DriverX
 2026-05-06 03:34 +0800 | SHIP | TASK-063 added cached replay inputs and claim-boundary fields to the demo-pack generator so final evidence can distinguish open-loop VLA evaluation from cached control replay
 2026-05-06 03:34 +0800 | QA | TASK-058 installed CARLA 0.9.16 AdditionalMaps locally, confirmed Town13 map markers and available_maps visibility, and narrowed the remaining Fail2Drive blocker to CARLA relaunch/readiness after a Town13 load timeout
+2026-05-06 04:08 +0800 | SHIP | TASK-064 added a dependency-light end-to-end OOD demo runner with scenario generation, regional behavior simulation, memory retrieval, policy reaction comparison, cached controls, and local 2D simulator evidence
+2026-05-06 04:08 +0800 | SHIP | TASK-066 expanded the deterministic regional OOD behavior suite to eight traces with double-parked door swerve and unsignaled U-turn cases
+2026-05-06 04:33 +0800 | QA | TASK-068 proved Town13 load and stock Fail2Drive route startup through Docker, produced a partial RGB/video evidence bundle, and reclassified the remaining live blocker as local Mac/Kegworks/Wine runtime speed rather than setup
+2026-05-06 04:33 +0800 | SHIP | TASK-070 refreshed the judge-facing demo pack so the submission now leads with the runnable local OOD simulator and treats CARLA/Town13 and Alpamayo as measured supporting evidence with explicit claim boundaries

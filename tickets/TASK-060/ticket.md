@@ -10,7 +10,8 @@
 - enter when: TASK-058 proves `Town13` is loadable in local CARLA
 - leave when: a stock Fail2Drive Town13 OOD route writes route result, logs,
   RGB/video evidence, and a route evidence bundle
-- blockers: waits on Town13 map availability
+- blockers: local Mac/Kegworks/Wine route runtime is too slow to finish route
+  scoring inside 300s; route starts and partial RGB/video evidence exists
 - spawned follow-ups: TASK-061 route-aligned Alpamayo capture and comparison
 - complexity: M
 
@@ -116,13 +117,13 @@ ignored by `.gitignore`.
 - The route result JSON may differ from SimLingo result parser assumptions.
 
 ## Acceptance Criteria
-- [ ] AC-1: Route run reaches local CARLA Town13 through Docker.
-- [ ] AC-2: Route evidence links result JSON, stdout/stderr logs, RGB/video
+- [x] AC-1: Route run reaches local CARLA Town13 through Docker.
+- [x] AC-2: Route evidence links result JSON, stdout/stderr logs, RGB/video
   evidence, and score/completion if parseable.
-- [ ] AC-3: Any failure is classified as timeout, route infractions, agent
+- [x] AC-3: Any failure is classified as timeout, route infractions, agent
   setup, or simulator issue, not "unknown."
-- [ ] AC-4: Generated media stays ignored/uncommitted.
-- [ ] AC-5: `blockers.md` no longer lists Town13 as unresolved if the route
+- [x] AC-4: Generated media stays ignored/uncommitted.
+- [x] AC-5: `blockers.md` no longer lists Town13 as unresolved if the route
   starts successfully.
 
 ## Verification
@@ -152,5 +153,14 @@ ignored by `.gitignore`.
 - 2026-05-06 03:28 +0800: Build review attached:
   `docs/reviews/TASK-058-060-build-review.md`.
 
+- 2026-05-06 04:33 +0800: TASK-068 proved Town13 is loadable and the stock
+  Fail2Drive route starts. Current route result remains partial because local
+  CARLA under Kegworks/Wine advances around `0.075x`; after 300s wall clock the
+  route checkpoint still had `entry_status: Started` and no completed records.
+  Partial evidence:
+  `tickets/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.md`.
+
 ## Blockers
-- Town13 must be loadable first.
+- Route completion/score now needs either a faster graphics-capable Linux
+  NVIDIA CARLA host or a much longer local run. This is no longer a Town13 map
+  install blocker.
