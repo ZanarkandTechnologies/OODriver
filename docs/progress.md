@@ -74,10 +74,19 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 
 ## Active Roadmap
 
-No active tickets remain in the current Alpamayo-to-CARLA live policy batch.
+- [ ] TASK-058 CARLA Town13 AdditionalMaps installer and probe
+- [ ] TASK-059 PhysicalAI dataset-backed Alpamayo sample probe
+- [ ] TASK-060 stock Fail2Drive Town13 route score and video evidence
+- [ ] TASK-061 route-aligned Alpamayo OOD capture and memory comparison
+- [ ] TASK-062 trajectory intent to CARLA control dry run
+- [ ] TASK-063 final submission evidence refresh
 
 ## Latest Evidence
 
+- TASK-058 through TASK-063 define the next proof batch after the user approved
+  the PhysicalAI dataset gate and chose to keep the RunPod Alpamayo cache alive.
+  The batch unblocks the two strongest remaining evidence gaps: exact
+  dataset-backed Alpamayo inference and stock Fail2Drive Town13 route proof.
 - Ticket board tidy-up archived the completed Alpamayo/CARLA batch
   (`TASK-039`, `TASK-052` through `TASK-057`) and regenerated the route,
   Alpamayo comparison, and demo-pack reports so current evidence points at

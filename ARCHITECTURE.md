@@ -34,8 +34,10 @@ flowchart TD
 - `docs/specs/minimal-shot-vla-roadmap.md`: end-to-end roadmap from live CARLA
   probing through generated assets, behavior scripts, policy adapters, and RAG
   comparison.
-- `tickets/TASK-039/ticket.md`: active-but-blocked Alpamayo CARLA adapter
-  surface.
+- `tickets/TASK-058` through `tickets/TASK-063`: active next proof batch for
+  Town13, PhysicalAI-backed Alpamayo evidence, stock Fail2Drive route evidence,
+  route-aligned Alpamayo comparison, cached trajectory replay, and final
+  submission refresh.
 - `src/driverx/scenarios`: scenario seed and OOD recipe generation.
 - `src/driverx/memory`: failure-memory creation and retrieval.
 - `src/driverx/simulators`: CARLA smoke checks, Fail2Drive command planning,
@@ -69,7 +71,7 @@ Remote or Linux NVIDIA runtime:
 1. `AGENTS.md`
 2. `docs/prd.md`
 3. `ARCHITECTURE.md`
-4. `tickets/TASK-007/ticket.md`
+4. active `tickets/TASK-*/ticket.md`
 5. relevant module `README.md`
 6. archived tickets for prior Waymo evidence when needed
 
@@ -79,10 +81,11 @@ Remote or Linux NVIDIA runtime:
 - CARLA on Apple Silicon is treated as an optional smoke path until server,
   Python client, Fail2Drive, and policy execution work together.
 - Generated scenarios now export stock-compatible Bench2Drive route XML plus
-  DriverX sidecar overlays; live route video is still blocked until the route
-  runner produces RGB frames.
+  DriverX sidecar overlays; local Town10 video proof exists, while stock
+  Fail2Drive OOD evidence waits on Town13 map availability.
 - Regional driving behavior traces and dry-run generated asset manifests are
   shipped as local evidence; real generated mesh import remains a future
   provider/runtime task.
-- Alpamayo CARLA control is blocked until the offline probe provides observed
-  model input/output shapes.
+- Alpamayo CARLA control remains open-loop today: live inference and memory
+  comparison are proven, while TASK-062 owns the first cached trajectory replay
+  bridge toward closed-loop control.

@@ -91,3 +91,4 @@
 2026-05-06 02:17 +0800 | SHIP | TASK-056 added an Alpamayo OOD comparison harness and live memory-augmented RunPod proof, showing changed CoC and trajectory intent while preserving the open-loop/no-closed-control label
 2026-05-06 02:31 +0800 | SHIP | TASK-057 refreshed the demo pack around route video evidence and live Alpamayo memory comparison, with the remaining failure framed as route-score/closed-loop proof rather than setup-only work
 2026-05-06 02:38 +0800 | MAINT | archived completed Alpamayo/CARLA ticket batch TASK-039 and TASK-052 through TASK-057, normalized archived ticket states to done, regenerated archive-path evidence reports, and left the active ticket board empty
+2026-05-06 03:02 +0800 | PLAN | created TASK-058 through TASK-063 to unblock Town13, rerun PhysicalAI-backed Alpamayo probes, collect stock Fail2Drive route evidence, align Alpamayo captures to that route, prepare cached trajectory replay, and refresh final submission evidence

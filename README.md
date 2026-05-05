@@ -75,10 +75,12 @@ planner.
 
 The current closed-loop pivot has scenario generation, failure memory,
 CARLA/Fail2Drive dry-run planning, local CARLA probing, route-pack export,
-overlay plans, sidecar orchestration, policy readiness reports, an Alpamayo
-offline probe, and a judge-facing demo pack. The only active ticket is the
-Alpamayo CARLA adapter, blocked until a live Alpamayo probe produces real
-input/output shape evidence.
+overlay plans, sidecar orchestration, policy readiness reports, live Alpamayo
+open-loop inference, and a judge-facing demo pack. The active next batch is
+TASK-058 through TASK-063: install/probe Town13, rerun the PhysicalAI-backed
+Alpamayo sample, collect stock Fail2Drive route evidence, align Alpamayo
+captures to that route, prepare cached trajectory replay, and refresh the final
+submission pack.
 
 ## Quickstart: Scenario Forge
 
