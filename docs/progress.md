@@ -66,10 +66,13 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-052 RunPod Alpamayo bootstrap, download, and eager load proof
 - [x] TASK-053 live Alpamayo inference shape probe
 - [x] TASK-054 Alpamayo tensor materializer from DriverX/CARLA captures
+- [x] TASK-039 Alpamayo CARLA adapter
 
 ## Active Roadmap
 
-- [ ] TASK-039 Alpamayo CARLA adapter
+- [ ] TASK-055 live OOD scenario video evidence
+- [ ] TASK-056 Alpamayo OOD evaluation harness
+- [ ] TASK-057 demo pack refresh
 
 ## Latest Evidence
 
@@ -263,6 +266,12 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   `camera_indices=[3]`, `ego_history_xyz=[1,1,16,3]`, and
   `ego_history_rot=[1,1,16,3,3]`; local validation does not require CUDA and
   the actual tensor loader is lazy for the remote Alpamayo environment.
+- TASK-039 adds an open-loop `alpamayo-live` policy path. The RunPod RTX 6000
+  Ada live inference completed on a TASK-051 CARLA capture with
+  `pred_xyz=[1,1,1,64,3]`, `pred_rot=[1,1,1,64,3,3]`,
+  `extra.cot=[1,1,1]`, `99.8s` latency, and `23.2GB` peak VRAM, then converted
+  the native trajectory into a 20-point DriverX policy decision labeled
+  `closed_loop_control=false`.
 - TASK-049 adds `run-alpamayo-offline`, an end-to-end adapter rehearsal that
   writes an Alpamayo input manifest, converts saved native `pred_xyz`, and
   emits a normal DriverX policy decision with `offline_replay=true`. This proves

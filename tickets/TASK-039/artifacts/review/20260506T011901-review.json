@@ -1,0 +1,84 @@
+{
+  "work_type": ["backend", "integration", "evidence"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/policies/alpamayo_live.py",
+      "src/driverx/policies/alpamayo_live_cli.py",
+      "src/driverx/policies/adapters.py",
+      "src/driverx/policies/runner.py",
+      "src/driverx/cli.py",
+      "scripts/run_remote_alpamayo_carla_inference.sh",
+      "tests/test_alpamayo_live.py",
+      "tests/test_alpamayo_remote_bootstrap_script.py",
+      "tickets/TASK-039/ticket.md"
+    ],
+    "neighboring_surfaces": [
+      "src/driverx/policies/alpamayo_materializer.py",
+      "src/driverx/policies/alpamayo_trajectory.py",
+      "src/driverx/policies/alpamayo_offline.py",
+      "tickets/TASK-039/artifacts/live-capture/alpamayo_live_prediction.json",
+      "tickets/TASK-039/artifacts/live-capture-summary/alpamayo_policy_report.md",
+      "tickets/TASK-039/artifacts/qa_report.md",
+      "tickets/TASK-039/artifacts/pre_push_check.log"
+    ]
+  },
+  "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality"],
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.2,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.2,
+        "error-handling": 4.1,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Proceed to OOD evaluation harness while keeping closed-loop actuation out of this adapter."
+    },
+    "integration-readiness": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.3,
+        "contract-correctness": 4.2,
+        "dependency-readiness": 4.1,
+        "coupling-risk": 4.1,
+        "merge-readiness": 4.2
+      },
+      "findings": [],
+      "next_action": "Advance; remote inference is measured and the policy decision explicitly disables closed-loop control."
+    },
+    "evidence-quality": {
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.4,
+        "reproducibility": 4.2,
+        "traceability": 4.3,
+        "consistency": 4.3,
+        "inspectability": 4.2,
+        "autonomy-readiness": 4.2
+      },
+      "findings": [],
+      "next_action": "Evidence is sufficient for TASK-039; TASK-055/TASK-056 should add scenario/video and memory comparison evidence."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Commit TASK-039, then continue with live OOD evidence work."
+}

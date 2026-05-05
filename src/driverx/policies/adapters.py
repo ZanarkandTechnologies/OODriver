@@ -8,6 +8,7 @@ from driverx.core.types import DrivingIntent, TrajectoryCandidate
 from driverx.planning.hybrid import generate_hybrid_candidates
 from driverx.planning.ranking import rank_candidates
 from driverx.reasoning.mock import MockReasoner
+from driverx.policies.alpamayo_live import AlpamayoLiveAdapter
 from driverx.policies.types import (
     PolicyAction,
     PolicyAdapter,
@@ -128,6 +129,8 @@ def select_policy_adapter(name: str, *, memory_aware: bool = False) -> PolicyAda
             "alpamayo",
             "Provide Alpamayo checkpoint/runtime access on a Linux NVIDIA host before selecting this adapter.",
         )
+    if normalized == "alpamayo-live":
+        return AlpamayoLiveAdapter()
     raise ValueError(f"Unknown policy adapter: {name}")
 
 
@@ -165,6 +168,7 @@ def _simple_trajectory(context: PolicyContext, intent: DrivingIntent) -> Traject
 
 __all__ = [
     "HybridPlannerPolicyAdapter",
+    "AlpamayoLiveAdapter",
     "MockPolicyAdapter",
     "SetupCheckedStubPolicyAdapter",
     "select_policy_adapter",

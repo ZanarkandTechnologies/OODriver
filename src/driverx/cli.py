@@ -495,9 +495,19 @@ def _command_run_policy_fixture(args: argparse.Namespace) -> int:
         run_id=args.run_id,
         memory_entries=memory_entries,
         memory_aware=args.with_memory,
+        metadata=_policy_metadata_from_args(args),
     )
     print(json.dumps(summary, indent=2))
     return 0
+
+
+def _policy_metadata_from_args(args: argparse.Namespace) -> dict[str, object]:
+    metadata: dict[str, object] = {}
+    if getattr(args, "alpamayo_package", None) is not None:
+        metadata["alpamayo_package_path"] = args.alpamayo_package
+    if getattr(args, "alpamayo_prediction_json", None) is not None:
+        metadata["alpamayo_prediction_json"] = args.alpamayo_prediction_json
+    return metadata
 
 
 def _command_run_rag_comparison(args: argparse.Namespace) -> int:
@@ -828,12 +838,14 @@ def build_parser() -> argparse.ArgumentParser:
     )
     policy_parser.add_argument(
         "--policy",
-        choices=["mock", "mock-memory", "hybrid", "vlm-api", "simlingo", "carllava", "alpamayo"],
+        choices=["mock", "mock-memory", "hybrid", "vlm-api", "simlingo", "carllava", "alpamayo", "alpamayo-live"],
         default="mock",
     )
     policy_parser.add_argument("--fixture", default="construction_merge")
     policy_parser.add_argument("--with-memory", action="store_true")
     policy_parser.add_argument("--memory", type=Path)
+    policy_parser.add_argument("--alpamayo-package", type=Path)
+    policy_parser.add_argument("--alpamayo-prediction-json", type=Path)
     policy_parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
     policy_parser.add_argument("--run-id", default="policy-fixture")
     policy_parser.set_defaults(func=_command_run_policy_fixture)
@@ -874,6 +886,7 @@ def build_parser() -> argparse.ArgumentParser:
     from driverx.pipeline.generated_ood_suite_cli import register_generated_ood_suite_parser
     from driverx.pipeline.route_evidence_cli import register_route_evidence_parser
     from driverx.policies.alpamayo_input_cli import register_alpamayo_input_parser
+    from driverx.policies.alpamayo_live_cli import register_alpamayo_live_parser
     from driverx.policies.alpamayo_materializer_cli import register_alpamayo_materializer_parser
     from driverx.policies.alpamayo_offline_cli import register_alpamayo_offline_parser
     from driverx.policies.alpamayo_probe_cli import register_alpamayo_probe_parser
@@ -891,6 +904,7 @@ def build_parser() -> argparse.ArgumentParser:
     register_generated_ood_suite_parser(subparsers)
     register_route_evidence_parser(subparsers)
     register_alpamayo_input_parser(subparsers)
+    register_alpamayo_live_parser(subparsers)
     register_alpamayo_materializer_parser(subparsers)
     register_alpamayo_offline_parser(subparsers)
     register_alpamayo_probe_parser(subparsers)

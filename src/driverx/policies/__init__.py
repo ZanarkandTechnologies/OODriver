@@ -1,6 +1,7 @@
 """Policy adapters for mock, fallback, and future VLA backends."""
 
 from driverx.policies.adapters import (
+    AlpamayoLiveAdapter,
     HybridPlannerPolicyAdapter,
     MockPolicyAdapter,
     SetupCheckedStubPolicyAdapter,
@@ -33,6 +34,11 @@ from driverx.policies.alpamayo_materializer import (
     materialize_alpamayo_input,
     write_alpamayo_tensor_materialization,
 )
+from driverx.policies.alpamayo_live import (
+    AlpamayoLiveDecisionBundle,
+    build_alpamayo_live_decision,
+    run_alpamayo_live_package,
+)
 from driverx.policies.alpamayo_offline import run_alpamayo_offline_fixture
 from driverx.policies.alpamayo_release import (
     AlpamayoReleaseContract,
@@ -61,6 +67,8 @@ from driverx.policies.types import (
 
 __all__ = [
     "HybridPlannerPolicyAdapter",
+    "AlpamayoLiveAdapter",
+    "AlpamayoLiveDecisionBundle",
     "MockPolicyAdapter",
     "AlpamayoInputPackage",
     "AlpamayoReleaseContract",
@@ -78,6 +86,7 @@ __all__ = [
     "classify_alpamayo_shape_probe_artifacts",
     "alpamayo_prediction_to_trajectory",
     "build_alpamayo_input_package",
+    "build_alpamayo_live_decision",
     "expected_alpamayo_schema",
     "inspect_alpamayo_release",
     "load_alpamayo_torch_tensors",
@@ -85,6 +94,7 @@ __all__ = [
     "memory_entries_from_json",
     "run_policy_fixture",
     "run_alpamayo_offline_fixture",
+    "run_alpamayo_live_package",
     "sample_memory_entries",
     "select_policy_adapter",
     "resample_alpamayo_xy",

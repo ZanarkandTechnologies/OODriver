@@ -20,11 +20,12 @@ def run_policy_fixture(
     run_id: str,
     memory_entries: list[MemoryEntry] | None = None,
     memory_aware: bool = False,
+    metadata: dict[str, object] | None = None,
 ) -> dict[str, object]:
     frame = load_fixture_frame(fixture)
     run_dir = prepare_run_dir(output_root, run_id)
     adapter = select_policy_adapter(policy, memory_aware=memory_aware)
-    context = PolicyContext(frame=frame, memories=memory_entries or [])
+    context = PolicyContext(frame=frame, memories=memory_entries or [], metadata=metadata or {})
     try:
         decision = adapter.decide(context)
     except PolicySetupError as exc:

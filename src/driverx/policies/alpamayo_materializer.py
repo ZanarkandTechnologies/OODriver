@@ -369,7 +369,7 @@ def _load_rgb_chw_tensor(torch: Any, image_module: Any, path: Path) -> Any:
     width, height = image.size
     raw = image.tobytes()
     if hasattr(torch, "frombuffer"):
-        tensor = torch.frombuffer(raw, dtype=torch.uint8)
+        tensor = torch.frombuffer(raw, dtype=torch.uint8).clone()
     else:
         tensor = torch.ByteTensor(torch.ByteStorage.from_buffer(raw))
     return tensor.reshape(height, width, 3).permute(2, 0, 1).to(dtype=torch.float32) / 255.0

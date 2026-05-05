@@ -15,6 +15,7 @@ fallbacks, API VLMs, SimLingo/CarLLaVA, or Alpamayo later.
 - `build_alpamayo_input_package(...)`
 - `materialize_alpamayo_input(...)`
 - `load_alpamayo_torch_tensors(...)`
+- `run_alpamayo_live_package(...)`
 - `inspect_alpamayo_release(...)`
 - `alpamayo_prediction_to_trajectory(...)`
 - `run_alpamayo_offline_fixture(...)`
@@ -29,6 +30,7 @@ PYTHONPATH=src python3 -m driverx run-policy-fixture --policy mock --run-id task
 PYTHONPATH=src python3 -m driverx probe-alpamayo --artifact-root artifacts/remote/alpamayo-probe/latest
 PYTHONPATH=src python3 -m driverx build-alpamayo-input --fixture construction_merge --with-memory
 PYTHONPATH=src python3 -m driverx materialize-alpamayo-input --package artifacts/runs/task51-live-alpamayo-capture/alpamayo_carla_input_package.json
+PYTHONPATH=src python3 -m driverx run-alpamayo-live --package artifacts/runs/task51-live-alpamayo-capture/alpamayo_carla_input_package.json --prediction-json artifacts/remote/alpamayo-live/latest/alpamayo_live_prediction.json
 PYTHONPATH=src python3 -m driverx inspect-alpamayo-release --repo ../external/alpamayo1.5
 PYTHONPATH=src python3 -m driverx convert-alpamayo-trajectory --prediction-json artifacts/sample_pred_xyz.json
 PYTHONPATH=src python3 -m driverx run-alpamayo-offline --prediction-json artifacts/sample_pred_xyz.json --with-memory

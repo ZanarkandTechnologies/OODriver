@@ -50,6 +50,29 @@ class AlpamayoRemoteBootstrapScriptTest(unittest.TestCase):
 
         self.assertEqual(completed.returncode, 0, completed.stderr)
 
+    def test_carla_inference_script_has_valid_bash_syntax_and_secret_cleanup(self) -> None:
+        script = Path("scripts/run_remote_alpamayo_carla_inference.sh").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("alpamayo_live_prediction.json", script)
+        self.assertIn("ALPAMAYO_ATTN_IMPLEMENTATION", script)
+        self.assertIn("sample_trajectories_from_data_with_vlm_rollout", script)
+        self.assertIn("helper.create_message", script)
+        self.assertIn("rm -f '$REMOTE_ROOT/.hf_token'", script)
+        self.assertIn("falling back to ssh tar stream", script)
+        self.assertNotIn("set -x", script)
+        self.assertNotIn("echo \"$HF_TOKEN", script)
+        completed = subprocess.run(
+            ["bash", "-n", "scripts/run_remote_alpamayo_carla_inference.sh"],
+            check=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
