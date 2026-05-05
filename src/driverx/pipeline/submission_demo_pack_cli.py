@@ -18,6 +18,8 @@ def command_build_submission_demo_pack(args: argparse.Namespace) -> int:
         generated_suite_path=args.generated_suite,
         policy_matrix_path=args.policy_matrix,
         alpamayo_probe_path=args.alpamayo_probe,
+        route_evidence_path=args.route_evidence,
+        alpamayo_comparison_path=args.alpamayo_comparison,
         blockers_path=args.blockers,
         progress_path=args.progress,
     )
@@ -33,6 +35,8 @@ def register_submission_demo_pack_parser(subparsers: Any) -> None:
     parser.add_argument("--generated-suite", type=Path)
     parser.add_argument("--policy-matrix", type=Path)
     parser.add_argument("--alpamayo-probe", type=Path)
+    parser.add_argument("--route-evidence", type=Path)
+    parser.add_argument("--alpamayo-comparison", type=Path)
     parser.add_argument("--blockers", type=Path, default=Path("blockers.md"))
     parser.add_argument("--progress", type=Path, default=Path("docs/progress.md"))
     parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))

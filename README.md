@@ -225,6 +225,8 @@ PYTHONPATH=src python3 -m driverx build-demo-pack \
   --generated-suite artifacts/runs/task36-suite/generated_ood_suite.json \
   --policy-matrix artifacts/runs/task37-policy-matrix/policy_runtime_matrix.json \
   --alpamayo-probe artifacts/runs/task38-alpamayo-probe/alpamayo_probe_report.json \
+  --route-evidence tickets/TASK-055/artifacts/town10-route-evidence/run_evidence.json \
+  --alpamayo-comparison tickets/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json \
   --blockers blockers.md \
   --progress docs/progress.md \
   --run-id task40-demo-pack

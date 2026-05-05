@@ -20,6 +20,8 @@ class SubmissionDemoPackTest(unittest.TestCase):
                 generated_suite_path=paths["suite"],
                 policy_matrix_path=paths["policy"],
                 alpamayo_probe_path=paths["alpamayo"],
+                route_evidence_path=paths["route"],
+                alpamayo_comparison_path=paths["comparison"],
                 blockers_path=paths["blockers"],
                 progress_path=paths["progress"],
             )
@@ -28,11 +30,15 @@ class SubmissionDemoPackTest(unittest.TestCase):
 
         self.assertTrue(json_exists)
         self.assertEqual(len(summary["storyboard"]), 6)
-        self.assertEqual(summary["failure_case"]["scenario_id"], "recipe-1")
+        self.assertEqual(summary["failure_case"]["status"], "partial")
+        self.assertIn("no completed route score", summary["failure_case"]["summary"])
         self.assertIn("1-5 Minute Demo Outline", report)
         self.assertIn("Model Declarations", report)
+        self.assertIn("Live Evidence", report)
         self.assertIn("Short Write-Up Draft", report)
         self.assertTrue(any(item["name"] == "alpamayo-probe" for item in summary["model_declarations"]))
+        self.assertTrue(any(item["name"] == "alpamayo-live-ood-comparison" for item in summary["model_declarations"]))
+        self.assertEqual(summary["live_evidence"]["alpamayo_comparison"]["trajectory_delta"]["final_l2_m"], 2.5)
 
     def test_demo_pack_cli_writes_report(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -50,6 +56,10 @@ class SubmissionDemoPackTest(unittest.TestCase):
                         str(paths["policy"]),
                         "--alpamayo-probe",
                         str(paths["alpamayo"]),
+                        "--route-evidence",
+                        str(paths["route"]),
+                        "--alpamayo-comparison",
+                        str(paths["comparison"]),
                         "--blockers",
                         str(paths["blockers"]),
                         "--progress",
@@ -118,6 +128,35 @@ def _write_inputs(root: Path) -> dict[str, Path]:
         ),
         encoding="utf-8",
     )
+    route = root / "run_evidence.json"
+    route.write_text(
+        json.dumps(
+            {
+                "status": "partial",
+                "video": {"exists": True, "path": "route.mp4", "duration_s": 4.1, "size_bytes": 1234},
+                "metrics": {"driving_score": None, "route_completion": None},
+                "blockers": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    comparison = root / "alpamayo_ood_comparison.json"
+    comparison.write_text(
+        json.dumps(
+            {
+                "open_loop_policy_evaluation": True,
+                "closed_loop_control": False,
+                "trajectory_delta": {"available": True, "final_l2_m": 2.5},
+                "reasoning_delta": {"available": True, "changed": True},
+                "safety_flags": {"memory_augmented_live_run_available": True},
+                "records": [
+                    {"latency_ms": 1000.0, "vram_peak_mb": 23000.0},
+                    {"latency_ms": 1010.0, "vram_peak_mb": 23100.0},
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
     blockers = root / "blockers.md"
     blockers.write_text("# Blockers\n\n## Open\n\n- Missing route video\n", encoding="utf-8")
     progress = root / "progress.md"
@@ -126,6 +165,8 @@ def _write_inputs(root: Path) -> dict[str, Path]:
         "suite": suite,
         "policy": policy,
         "alpamayo": alpamayo,
+        "route": route,
+        "comparison": comparison,
         "blockers": blockers,
         "progress": progress,
     }

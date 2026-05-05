@@ -70,13 +70,19 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-054B self-resolved Fail2Drive Docker/numpy route path
 - [x] TASK-055 live OOD scenario video evidence
 - [x] TASK-056 Alpamayo OOD evaluation harness
+- [x] TASK-057 demo pack refresh
 
 ## Active Roadmap
 
-- [ ] TASK-057 demo pack refresh
+No active tickets remain in the current Alpamayo-to-CARLA live policy batch.
 
 ## Latest Evidence
 
+- TASK-057 refreshed the demo pack with live route-video evidence and the
+  Alpamayo memory comparison. The storyboard now leads with route video proof
+  and an open-loop no-memory vs memory Alpamayo evaluation, and the named
+  failure case is the current route-score gap rather than stale missing-video
+  helper text.
 - TASK-056 compares the real TASK-039 baseline Alpamayo CARLA capture against a
   memory-augmented Alpamayo rerun. Both are labeled open-loop only. Retrieved
   memory changed the CoC from accelerating through a green-light intersection to

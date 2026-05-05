@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from driverx.pipeline.submission_demo_pack_live import live_evidence, preferred_blocker
+
 
 def build_submission_demo_pack(
     run_dir: Path,
@@ -13,12 +15,16 @@ def build_submission_demo_pack(
     generated_suite_path: Path | None = None,
     policy_matrix_path: Path | None = None,
     alpamayo_probe_path: Path | None = None,
+    route_evidence_path: Path | None = None,
+    alpamayo_comparison_path: Path | None = None,
     blockers_path: Path | None = None,
     progress_path: Path | None = None,
 ) -> dict[str, Any]:
     suite = _load_json(generated_suite_path)
     policy_matrix = _load_json(policy_matrix_path)
     alpamayo_probe = _load_json(alpamayo_probe_path)
+    route_evidence = _load_json(route_evidence_path)
+    alpamayo_comparison = _load_json(alpamayo_comparison_path)
     blockers = _parse_open_blockers(_read_text(blockers_path))
     progress_tail = _latest_lines(_read_text(progress_path), limit=12)
     payload = {
@@ -28,22 +34,41 @@ def build_submission_demo_pack(
             "policy harness for testing frozen driving policies on weird but "
             "plausible long-tail situations without fine-tuning on those cases."
         ),
-        "storyboard": _storyboard(suite, policy_matrix, alpamayo_probe, blockers),
-        "failure_case": _failure_case(suite, blockers),
+        "storyboard": _storyboard(
+            suite,
+            policy_matrix,
+            alpamayo_probe,
+            route_evidence,
+            alpamayo_comparison,
+            blockers,
+        ),
+        "failure_case": _failure_case(suite, route_evidence, blockers),
         "artifact_map": _artifact_map(
             suite,
             policy_matrix_path=policy_matrix_path,
             alpamayo_probe_path=alpamayo_probe_path,
+            route_evidence_path=route_evidence_path,
+            alpamayo_comparison_path=alpamayo_comparison_path,
             blockers_path=blockers_path,
         ),
-        "model_declarations": _model_declarations(policy_matrix, alpamayo_probe),
-        "data_declarations": _data_declarations(suite),
-        "writeup_draft": _writeup_draft(suite, policy_matrix, alpamayo_probe, blockers),
+        "model_declarations": _model_declarations(policy_matrix, alpamayo_probe, alpamayo_comparison),
+        "data_declarations": _data_declarations(suite, route_evidence),
+        "live_evidence": live_evidence(route_evidence, alpamayo_comparison),
+        "writeup_draft": _writeup_draft(
+            suite,
+            policy_matrix,
+            alpamayo_probe,
+            route_evidence,
+            alpamayo_comparison,
+            blockers,
+        ),
         "progress_tail": progress_tail,
         "inputs": {
             "generated_suite_path": _path_str(generated_suite_path),
             "policy_matrix_path": _path_str(policy_matrix_path),
             "alpamayo_probe_path": _path_str(alpamayo_probe_path),
+            "route_evidence_path": _path_str(route_evidence_path),
+            "alpamayo_comparison_path": _path_str(alpamayo_comparison_path),
             "blockers_path": _path_str(blockers_path),
             "progress_path": _path_str(progress_path),
         },
@@ -64,12 +89,16 @@ def _storyboard(
     suite: dict[str, Any],
     policy_matrix: dict[str, Any],
     alpamayo_probe: dict[str, Any],
+    route_evidence: dict[str, Any],
+    alpamayo_comparison: dict[str, Any],
     blockers: list[str],
 ) -> list[dict[str, str]]:
     readiness = _mapping(suite.get("readiness"))
     ready_count = _mapping(policy_matrix).get("ready_count", "unknown")
     alpamayo_status = _mapping(alpamayo_probe).get("status", "not provided")
-    blocker_line = blockers[0] if blockers else "No open blocker in the provided blocker ledger."
+    route_video = _mapping(route_evidence.get("video"))
+    trajectory_delta = _mapping(alpamayo_comparison.get("trajectory_delta"))
+    blocker_line = preferred_blocker(blockers)
     return [
         {
             "time": "0:00-0:20",
@@ -91,15 +120,15 @@ def _storyboard(
         },
         {
             "time": "1:30-2:10",
-            "beat": "Failure Case",
-            "visual": "Open the selected blocked generated scenario evidence report.",
-            "narration": "The first failure is understood and actionable rather than hidden.",
+            "beat": "Route Video Evidence",
+            "visual": "Play the Town10 CARLA route video and show the route evidence report.",
+            "narration": f"The local route proof produced video={route_video.get('exists', False)} while keeping missing route-score/entity-track limitations explicit.",
         },
         {
             "time": "2:10-2:45",
-            "beat": "VLA Extension",
-            "visual": "Show Alpamayo probe report and schema contract.",
-            "narration": f"Alpamayo integration is framed as a measured probe before CARLA control; current status: {alpamayo_status}.",
+            "beat": "Alpamayo Memory Test",
+            "visual": "Show Alpamayo no-memory vs memory CoC snippets and trajectory delta.",
+            "narration": f"Alpamayo is now a live open-loop policy probe: status {alpamayo_status}, memory changed trajectory final L2 by {trajectory_delta.get('final_l2_m', 'unknown')}m.",
         },
         {
             "time": "2:45-3:20",
@@ -110,7 +139,28 @@ def _storyboard(
     ]
 
 
-def _failure_case(suite: dict[str, Any], blockers: list[str]) -> dict[str, Any]:
+def _failure_case(
+    suite: dict[str, Any],
+    route_evidence: dict[str, Any],
+    blockers: list[str],
+) -> dict[str, Any]:
+    if route_evidence:
+        metrics = _mapping(route_evidence.get("metrics"))
+        if metrics.get("driving_score") is None or metrics.get("route_completion") is None:
+            return {
+                "scenario_id": route_evidence.get("route_id"),
+                "route_path": _mapping(route_evidence.get("plan")).get("command"),
+                "status": route_evidence.get("status"),
+                "summary": "Live route video exists, but the bounded smoke run has no completed route score or route completion.",
+                "why_it_matters": (
+                    "This is the honest remaining gap between visible CARLA evidence and a full "
+                    "closed-loop policy evaluation."
+                ),
+                "artifact": route_evidence.get("json_path") or "provided route evidence path",
+                "blockers": list(route_evidence.get("blockers", []))
+                if isinstance(route_evidence.get("blockers"), list)
+                else [],
+            }
     records = list(suite.get("recipe_records", [])) if isinstance(suite.get("recipe_records"), list) else []
     for record in records:
         if isinstance(record, dict) and record.get("blockers"):
@@ -144,6 +194,8 @@ def _artifact_map(
     *,
     policy_matrix_path: Path | None,
     alpamayo_probe_path: Path | None,
+    route_evidence_path: Path | None,
+    alpamayo_comparison_path: Path | None,
     blockers_path: Path | None,
 ) -> dict[str, Any]:
     recipe_artifacts = []
@@ -164,6 +216,8 @@ def _artifact_map(
         "overlay_evidence_path": suite.get("overlay_evidence_path"),
         "policy_matrix_path": _path_str(policy_matrix_path),
         "alpamayo_probe_path": _path_str(alpamayo_probe_path),
+        "route_evidence_path": _path_str(route_evidence_path),
+        "alpamayo_comparison_path": _path_str(alpamayo_comparison_path),
         "blockers_path": _path_str(blockers_path),
         "recipe_artifacts": recipe_artifacts,
     }
@@ -172,6 +226,7 @@ def _artifact_map(
 def _model_declarations(
     policy_matrix: dict[str, Any],
     alpamayo_probe: dict[str, Any],
+    alpamayo_comparison: dict[str, Any],
 ) -> list[dict[str, Any]]:
     declarations: list[dict[str, Any]] = []
     rows = list(policy_matrix.get("rows", [])) if isinstance(policy_matrix.get("rows"), list) else []
@@ -198,10 +253,30 @@ def _model_declarations(
                 "blocker": "; ".join(str(item) for item in list(alpamayo_probe.get("blockers", []))),
             }
         )
+    if alpamayo_comparison:
+        records = [
+            record
+            for record in list(alpamayo_comparison.get("records", []))
+            if isinstance(record, dict)
+        ]
+        declarations.append(
+            {
+                "name": "alpamayo-live-ood-comparison",
+                "runtime_kind": "open_loop_vla_policy_evaluation",
+                "state": "live_memory_comparison_ready",
+                "base_model_or_policy": "nvidia/Alpamayo-1.5-10B",
+                "uses_public_model_pretraining": True,
+                "blocker": None,
+                "open_loop_policy_evaluation": alpamayo_comparison.get("open_loop_policy_evaluation"),
+                "closed_loop_control": alpamayo_comparison.get("closed_loop_control"),
+                "latency_ms": [record.get("latency_ms") for record in records],
+                "vram_peak_mb": [record.get("vram_peak_mb") for record in records],
+            }
+        )
     return declarations
 
 
-def _data_declarations(suite: dict[str, Any]) -> list[str]:
+def _data_declarations(suite: dict[str, Any], route_evidence: dict[str, Any]) -> list[str]:
     declarations = [
         "Fail2Drive-style route/scenario seeds are used as scenario references; external checkout is not vendored.",
         "Generated OOD recipes, route packs, overlay plans, evidence reports, and blocker ledgers are small local artifacts.",
@@ -210,6 +285,12 @@ def _data_declarations(suite: dict[str, Any]) -> list[str]:
     ]
     if suite.get("route_pack_path"):
         declarations.append(f"Current route pack evidence: {suite.get('route_pack_path')}")
+    video = _mapping(route_evidence.get("video"))
+    if video.get("exists"):
+        declarations.append(
+            f"Current local route video evidence: {video.get('path')} "
+            f"({video.get('duration_s')}s, {video.get('size_bytes')} bytes)"
+        )
     return declarations
 
 
@@ -217,10 +298,13 @@ def _writeup_draft(
     suite: dict[str, Any],
     policy_matrix: dict[str, Any],
     alpamayo_probe: dict[str, Any],
+    route_evidence: dict[str, Any],
+    alpamayo_comparison: dict[str, Any],
     blockers: list[str],
 ) -> dict[str, str]:
-    failure = _failure_case(suite, blockers)
+    failure = _failure_case(suite, route_evidence, blockers)
     ready_rows = _mapping(policy_matrix).get("ready_count", "unknown")
+    trajectory_delta = _mapping(alpamayo_comparison.get("trajectory_delta"))
     return {
         "motivation": (
             "Autonomy systems fail when they only work on distributions they have already seen. "
@@ -237,7 +321,9 @@ def _writeup_draft(
         "what_worked": (
             f"The local harness is reproducible: generated suite status is `{suite.get('status')}`, "
             f"policy runtime ready rows are `{ready_rows}`, and the Alpamayo probe status is "
-            f"`{alpamayo_probe.get('status', 'not provided')}`."
+            f"`{alpamayo_probe.get('status', 'not provided')}`. The live Alpamayo memory comparison "
+            f"changed trajectory final L2 by `{trajectory_delta.get('final_l2_m', 'unknown')}` metres "
+            "while staying explicitly open-loop."
         ),
         "what_did_not_work": (
             f"The current named failure is `{failure.get('summary')}`. This blocks a polished live route "
@@ -368,6 +454,21 @@ def _markdown(payload: dict[str, Any]) -> str:
         for artifact in recipe_artifacts:
             if isinstance(artifact, dict):
                 lines.append(f"- `{artifact.get('recipe_id')}` -> `{artifact.get('route_evidence_path')}`")
+    live = _mapping(payload.get("live_evidence"))
+    if live:
+        route = _mapping(live.get("route"))
+        comparison = _mapping(live.get("alpamayo_comparison"))
+        lines.extend(
+            [
+                "",
+                "## Live Evidence",
+                "",
+                f"- route_status: `{route.get('status')}`",
+                f"- route_video: `{_mapping(route.get('video')).get('path')}`",
+                f"- alpamayo_open_loop: `{comparison.get('open_loop_policy_evaluation')}`",
+                f"- trajectory_delta: `{comparison.get('trajectory_delta')}`",
+            ]
+        )
     lines.extend(["", "## Model Declarations", ""])
     for declaration in list(payload.get("model_declarations", [])):
         if isinstance(declaration, dict):

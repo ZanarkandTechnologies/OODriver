@@ -89,3 +89,4 @@
 2026-05-06 01:50 +0800 | SHIP | TASK-054B resolved the Fail2Drive Docker/numpy path, mounted CARLA PythonAPI agents, classified route blockers, and produced Town10 RGB/video evidence while identifying Town13 as the remaining stock-split map blocker
 2026-05-06 02:02 +0800 | SHIP | TASK-055 added live CARLA Town10 route video evidence from Docker Fail2Drive RGB frames while preserving Town13 as the stock Fail2Drive split map blocker
 2026-05-06 02:17 +0800 | SHIP | TASK-056 added an Alpamayo OOD comparison harness and live memory-augmented RunPod proof, showing changed CoC and trajectory intent while preserving the open-loop/no-closed-control label
+2026-05-06 02:31 +0800 | SHIP | TASK-057 refreshed the demo pack around route video evidence and live Alpamayo memory comparison, with the remaining failure framed as route-score/closed-loop proof rather than setup-only work
