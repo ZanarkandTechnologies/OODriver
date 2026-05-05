@@ -272,6 +272,11 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   `extra.cot=[1,1,1]`, `99.8s` latency, and `23.2GB` peak VRAM, then converted
   the native trajectory into a 20-point DriverX policy decision labeled
   `closed_loop_control=false`.
+- TASK-055 bundles the TASK-054B Town10 live route video proof into compact
+  route evidence. The evidence links the route result JSON, stdout/stderr logs,
+  DriverX-assembled MP4 metadata, and realistic limitations: no entity tracks,
+  no completed route score because the run was smoke-bounded, and stock
+  Fail2Drive OOD split routes still require unavailable Town13.
 - TASK-054B resolves the local Fail2Drive Docker/numpy blocker. The lightweight
   Docker client imports `carla` and `numpy`; the Torch image also imports
   `torch` and CARLA PythonAPI `agents`. The runner now exports Fail2Drive's

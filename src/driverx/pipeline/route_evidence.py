@@ -180,7 +180,7 @@ def _blockers(
     screenshots: list[dict[str, Any]],
     logs: list[dict[str, Any]],
 ) -> list[str]:
-    blockers = [f"Plan blocker: {blocker}" for blocker in list(plan.get("live_blockers", []))]
+    blockers = _plan_blockers(plan, result, video)
     blockers.extend(_missing_blocker(result, "route result"))
     blockers.extend(_missing_blocker(tracks, "entity tracks"))
     blockers.extend(_missing_blocker(video, "route video"))
@@ -196,6 +196,44 @@ def _blockers(
         if parse_error:
             blockers.append(f"{label.title()} parse error: {parse_error}")
     return blockers
+
+
+def _plan_blockers(
+    plan: dict[str, Any],
+    result: dict[str, Any],
+    video: dict[str, Any],
+) -> list[str]:
+    expected = _mapping(plan.get("expected_outputs"))
+    rgb_folder = Path(str(expected.get("rgb_folder"))).expanduser() if expected.get("rgb_folder") else None
+    return [
+        f"Plan blocker: {blocker}"
+        for blocker in list(plan.get("live_blockers", []))
+        if not _is_stale_plan_blocker(str(blocker), rgb_folder=rgb_folder, result=result, video=video)
+    ]
+
+
+def _is_stale_plan_blocker(
+    blocker: str,
+    *,
+    rgb_folder: Path | None,
+    result: dict[str, Any],
+    video: dict[str, Any],
+) -> bool:
+    text = blocker.lower()
+    if "rgb folder does not exist yet" in text:
+        return bool(video.get("exists")) or _has_frame_files(rgb_folder)
+    if "video tool not found" in text:
+        return bool(video.get("exists"))
+    if "route result" in text and bool(result.get("exists")):
+        return True
+    return False
+
+
+def _has_frame_files(folder: Path | None) -> bool:
+    if folder is None or not folder.exists() or not folder.is_dir():
+        return False
+    suffixes = {".jpg", ".jpeg", ".png"}
+    return any(path.is_file() and path.suffix.lower() in suffixes for path in folder.iterdir())
 
 
 def _missing_blocker(asset: dict[str, Any], label: str) -> list[str]:

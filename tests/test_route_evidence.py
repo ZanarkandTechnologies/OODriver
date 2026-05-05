@@ -85,6 +85,28 @@ def _write_plan(path: Path, *, result: Path, tracks: Path, video: Path) -> None:
     )
 
 
+def _write_plan_with_live_blockers(path: Path, *, result: Path, video: Path, rgb_folder: Path) -> None:
+    path.write_text(
+        json.dumps(
+            {
+                "run_command": ["python", "leaderboard_evaluator_local.py"],
+                "video_command": ["python", "tools/generate_video.py", "-f", "rgb"],
+                "expected_outputs": {
+                    "result": str(result),
+                    "rgb_folder": str(rgb_folder),
+                    "video": str(video),
+                },
+                "live_blockers": [
+                    "Fail2Drive video tool not found: /workspace/fail2drive/tools/generate_video.py",
+                    f"RGB folder does not exist yet; run the route command with SAVE_PATH before generating video: {rgb_folder}",
+                    "Some remaining plan blocker.",
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
 class RouteEvidenceTest(unittest.TestCase):
     def test_build_route_evidence_summarizes_result_tracks_and_video(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -140,6 +162,32 @@ class RouteEvidenceTest(unittest.TestCase):
         self.assertIn("Missing route result", blockers)
         self.assertIn("Missing entity tracks", blockers)
         self.assertIn("Missing route video", blockers)
+
+    def test_build_route_evidence_suppresses_stale_plan_blockers_when_video_exists(self) -> None:
+        with TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            result = tmp_path / "result.json"
+            video = tmp_path / "route.mp4"
+            rgb = tmp_path / "rgb"
+            plan = tmp_path / "plan.json"
+            _write_result(result)
+            video.write_bytes(b"fake mp4")
+            rgb.mkdir()
+            (rgb / "00000.png").write_bytes(b"fake image")
+            _write_plan_with_live_blockers(plan, result=result, video=video, rgb_folder=rgb)
+
+            summary = build_route_evidence(
+                tmp_path / "run",
+                RouteEvidenceInputs(
+                    plan_path=plan,
+                    video_duration_s=3.5,
+                ),
+            )
+
+        blockers = "\n".join(summary["blockers"])
+        self.assertNotIn("video tool not found", blockers)
+        self.assertNotIn("RGB folder does not exist yet", blockers)
+        self.assertIn("Some remaining plan blocker", blockers)
 
     def test_build_route_evidence_cli_writes_json_and_markdown(self) -> None:
         with TemporaryDirectory() as tmp:
