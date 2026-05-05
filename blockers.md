@@ -6,6 +6,14 @@ unblocked ticket when possible.
 
 ## Open
 
+- 2026-05-05 22:33 +0800 | fail2drive,docker,network | TASK-043
+  added the Dockerized Fail2Drive client path, but local image build stalled
+  during the pip wheel download layer after the apt layer succeeded. The image
+  is intentionally lightweight by default and keeps torch gated behind
+  `DRIVERX_FAIL2DRIVE_INSTALL_TORCH=1`. Next unblock path: rerun
+  `scripts/build_fail2drive_client_docker.sh` on a faster network or the A6000
+  host.
+
 - 2026-05-05 22:10 +0800 | fail2drive,local-deps | TASK-042 local
   Fail2Drive route runner reached the evaluator, but native macOS Python failed
   before CARLA connection with `ModuleNotFoundError: No module named 'numpy'`.

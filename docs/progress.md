@@ -54,6 +54,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-040 submission demo pack
 - [x] TASK-041 DriverX route video assembler
 - [x] TASK-042 local Fail2Drive route runner
+- [x] TASK-043 Dockerized Fail2Drive client runner
 
 ## Active Roadmap
 
@@ -203,6 +204,11 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   attempt failed before CARLA connection because the evaluator's Python
   environment lacked `numpy`; the next implementation should use a Dockerized
   Fail2Drive client env.
+- TASK-043 adds a Dockerized Fail2Drive client image, build script, run script,
+  and container config that mount both `0xDriver` and `../external/fail2drive`
+  and target host CARLA at `host.docker.internal:2000`. Local build was
+  stopped after the pip wheel layer stalled, so rerun it on a faster network or
+  remote host.
 - TASK-024 adds `run-simlingo-sidecar`, a timed process runner for existing
   TASK-023 plans. Local evidence executed harmless SimLingo/overlay sample
   commands, wrote process logs, timings, exit codes, JSON, and Markdown.
