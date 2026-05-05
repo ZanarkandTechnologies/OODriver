@@ -1,7 +1,7 @@
 # TASK-022: Live Companion CARLA Actor Injector
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-021

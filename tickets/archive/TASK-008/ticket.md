@@ -2,7 +2,7 @@
 
 ## Status
 
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-007, live CARLA 0.9.16 app, Docker Desktop

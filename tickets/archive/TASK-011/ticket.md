@@ -2,7 +2,7 @@
 
 ## Status
 
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-009, TASK-010

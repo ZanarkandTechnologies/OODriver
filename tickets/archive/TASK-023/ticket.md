@@ -1,7 +1,7 @@
 # TASK-023: SimLingo Sidecar Orchestration Plan
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-018, TASK-021, TASK-022

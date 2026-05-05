@@ -1,7 +1,7 @@
 # TASK-021: DriverX Overlay Injection Plan
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-018, TASK-011

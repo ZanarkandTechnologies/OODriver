@@ -38,9 +38,9 @@ comparison = run_rag_comparison(
 
 ```bash
 PYTHONPATH=src python3 -m driverx build-alpamayo-ood-comparison \
-  --baseline-decision tickets/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json \
+  --baseline-decision tickets/archive/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json \
   --source-package artifacts/runs/task51-live-alpamayo-capture/alpamayo_carla_input_package.json \
-  --route-evidence tickets/TASK-055/artifacts/town10-route-evidence/run_evidence.json
+  --route-evidence tickets/archive/TASK-055/artifacts/town10-route-evidence/run_evidence.json
 ```
 
 ```bash

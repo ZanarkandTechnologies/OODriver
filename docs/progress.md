@@ -78,6 +78,11 @@ No active tickets remain in the current Alpamayo-to-CARLA live policy batch.
 
 ## Latest Evidence
 
+- Ticket board tidy-up archived the completed Alpamayo/CARLA batch
+  (`TASK-039`, `TASK-052` through `TASK-057`) and regenerated the route,
+  Alpamayo comparison, and demo-pack reports so current evidence points at
+  `tickets/archive/...`. The active `tickets/` root now contains only the
+  template.
 - TASK-057 refreshed the demo pack with live route-video evidence and the
   Alpamayo memory comparison. The storyboard now leads with route video proof
   and an open-loop no-memory vs memory Alpamayo evaluation, and the named

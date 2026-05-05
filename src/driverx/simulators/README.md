@@ -62,16 +62,16 @@ PYTHONPATH=src python3 -m driverx run-simlingo-sidecar \
   --plan artifacts/runs/simlingo-sidecar/simlingo_sidecar_plan.json \
   --timeout-s 900
 PYTHONPATH=src python3 -m driverx ingest-simlingo-result \
-  --result tickets/TASK-017/artifacts/qa/2026-05-04T194700Z/seed_1_res.json \
-  --compatibility tickets/TASK-017/artifacts/qa/2026-05-04T194700Z/torch_cuda_compatibility.json \
-  --route-log tickets/TASK-017/artifacts/qa/2026-05-04T194700Z/run_one_route.log
+  --result tickets/archive/TASK-017/artifacts/qa/2026-05-04T194700Z/seed_1_res.json \
+  --compatibility tickets/archive/TASK-017/artifacts/qa/2026-05-04T194700Z/torch_cuda_compatibility.json \
+  --route-log tickets/archive/TASK-017/artifacts/qa/2026-05-04T194700Z/run_one_route.log
 PYTHONPATH=src python3 -m driverx summarize-simlingo-evidence \
-  --artifact-root tickets/TASK-020/artifacts/task20-remote \
-  --output-root tickets/TASK-020/artifacts
+  --artifact-root tickets/archive/TASK-020/artifacts/task20-remote \
+  --output-root tickets/archive/TASK-020/artifacts
 PYTHONPATH=src python3 -m driverx assess-gpu-host \
-  --torch-compatibility tickets/TASK-020/artifacts/task20-remote/torch_cuda_compatibility.json \
-  --carla-diagnostics tickets/TASK-020/artifacts/task20-remote/carla_runtime_diagnostics.md \
-  --simlingo-evidence tickets/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.json
+  --torch-compatibility tickets/archive/TASK-020/artifacts/task20-remote/torch_cuda_compatibility.json \
+  --carla-diagnostics tickets/archive/TASK-020/artifacts/task20-remote/carla_runtime_diagnostics.md \
+  --simlingo-evidence tickets/archive/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.json
 ```
 
 The OOD suite report accepts either the older

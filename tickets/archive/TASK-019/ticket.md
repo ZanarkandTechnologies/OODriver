@@ -1,7 +1,7 @@
 # TASK-019: SimLingo Result Ingestion
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-017 result JSON or blocker artifacts

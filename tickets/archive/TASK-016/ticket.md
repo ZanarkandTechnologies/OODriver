@@ -1,7 +1,7 @@
 # TASK-016: Local CARLA 0.9.16 Docker Proof
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: local Docker; optional host CARLA 0.9.16 server on port 2000

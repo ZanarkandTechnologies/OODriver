@@ -1,0 +1,112 @@
+# TASK-052: RunPod Alpamayo Bootstrap And Probe
+
+## Status
+- state: done
+- owner: Codex
+- assignee: generalPurpose
+- dependencies: TASK-044, TASK-048
+- location: `scripts/`, `src/driverx/remote/`, `tickets/archive/TASK-052/`
+- enter when: user confirms RunPod is the active GPU lane and the RunPod SSH key should be used
+- leave when: RunPod SSH is resolved from live pod metadata, Alpamayo remote setup/probe is attempted, and evidence or blockers are recorded
+- blockers: none for load-only proof; TASK-053 owns live inference shape probing
+- spawned follow-ups: TASK-053 live Alpamayo inference shape probe
+- complexity: M
+
+### Description
+Resolve the current RunPod direct TCP SSH target without relying on stale
+Connect-tab values, then use the existing Alpamayo remote bootstrap/probe
+scripts against that host. Keep secrets out of artifacts and force heavyweight
+caches into `/workspace` because this pod has a small container root disk.
+
+### Goal
+Turn the current RunPod instance into the live Alpamayo proof lane, or produce a
+precise blocker that lets the next remote attempt resume without rediscovery.
+
+### Acceptance Criteria
+- [x] AC-1: Add a dependency-light RunPod SSH resolver that reads pod metadata and emits `GPU_SSH_HOST` / `GPU_SSH_OPTS` without printing API keys.
+- [x] AC-2: Update remote Alpamayo scripts so model, Python, and package caches default to `/workspace`.
+- [x] AC-3: Record a live RunPod SSH proof artifact with GPU, disk, and resolved TCP mapping.
+- [x] AC-4: Run the Alpamayo remote bootstrap or probe as far as the pod permits, then record pass/fail evidence.
+- [x] AC-5: Update `blockers.md`, `docs/HISTORY.md`, and user-facing docs with the current RunPod flow.
+
+### Agent Contract
+- Open: `blockers.md`, `scripts/bootstrap_remote_alpamayo_release.sh`, `scripts/run_remote_alpamayo_probe.sh`, `README.md`
+- Test hook: `PYTHONPATH=src python3 -m unittest tests.test_runpod_remote tests.test_alpamayo_remote_bootstrap_script`
+- Stabilize: no secrets in stdout/artifacts; no model weights committed; no generated remote artifacts outside ignored `artifacts/`
+- Inspect: live SSH `nvidia-smi` and `df -h /workspace /`
+- Expected artifacts: `tickets/archive/TASK-052/artifacts/runpod-ssh/runpod_ssh_resolution.{json,md}`, remote bootstrap/probe pulled artifacts if available
+- Delegate with: no delegation needed unless remote bootstrap errors become ambiguous
+
+### Evidence Checklist
+- [x] Snapshot: RunPod SSH resolver artifact
+- [x] Snapshot: live SSH GPU/disk probe
+- [x] Snapshot: Alpamayo bootstrap/probe artifact or blocker
+- [x] QA report linked:
+
+### Build Notes
+- Resolved current RunPod TCP SSH from REST metadata:
+  `root@195.26.233.80 -p 55050 -i ~/.ssh/id_ed25519_runpod`.
+- Live SSH proof recorded RTX 6000 Ada Generation, 48GB VRAM, compute
+  capability 8.9, Python 3.11 base image, and `/workspace` persistent storage.
+- `scripts/bootstrap_remote_alpamayo_release.sh` installed managed Python
+  3.12.13 through `uv`, synced Alpamayo 1.5 in SDPA mode, and kept caches under
+  `/workspace/.cache/driverx`.
+- Lightweight model-info probe observed `nvidia/Alpamayo-1.5-10B` commit
+  `f11cd25b758ab560114019b555dde2a8b92d88b4`.
+- Download probe fetched the Alpamayo snapshot to
+  `/workspace/.cache/driverx/huggingface/hub/models--nvidia--Alpamayo-1.5-10B`.
+- Load-only probe failed on `403 Forbidden` for gated base model
+  `nvidia/Cosmos-Reason2-8B`; this is now the live blocker.
+- After the gated access agreement was accepted, reran the load probe. SDPA
+  mode reached model construction but failed because Alpamayo's custom class
+  does not support PyTorch SDPA dispatch.
+- Added `ALPAMAYO_ATTN_IMPLEMENTATION` to `scripts/run_remote_alpamayo_probe.sh`
+  and reran with `ALPAMAYO_ATTN_IMPLEMENTATION=eager`.
+- Eager load succeeded on the RunPod RTX 6000 Ada. Evidence reports
+  `model_load_state=loaded`, `latency_ms=32108.99`, and
+  `vram_peak_mb=21141.57`.
+
+### QA Reconciliation
+- AC-1: PASS
+- AC-2: PASS
+- AC-3: PASS
+- AC-4: PASS
+- AC-5: PASS
+
+### Artifact Links
+- RunPod SSH resolver:
+  `tickets/archive/TASK-052/artifacts/runpod-ssh/runpod_ssh_resolution.md`
+- Live SSH proof:
+  `tickets/archive/TASK-052/artifacts/live-ssh/runpod_live_ssh_proof.md`
+- Bootstrap log:
+  `tickets/archive/TASK-052/artifacts/bootstrap/bootstrap.log`
+- Remote cache state:
+  `tickets/archive/TASK-052/artifacts/bootstrap/remote_cache_state.md`
+- Model-info probe:
+  `tickets/archive/TASK-052/artifacts/probe-model-info-summary/alpamayo_probe_report.md`
+- Snapshot download probe:
+  `tickets/archive/TASK-052/artifacts/probe-download-summary/alpamayo_probe_report.md`
+- Load-only probe:
+  `tickets/archive/TASK-052/artifacts/probe-load-summary/alpamayo_probe_report.md`
+- Post-Cosmos SDPA blocker probe:
+  `tickets/archive/TASK-052/artifacts/probe-load-after-cosmos-summary/alpamayo_probe_report.md`
+- Post-Cosmos eager load proof:
+  `tickets/archive/TASK-052/artifacts/probe-load-eager-after-cosmos-summary/alpamayo_probe_report.md`
+- Review:
+  `tickets/archive/TASK-052/artifacts/review/20260505T235100-review.md`
+- Post-access review:
+  `tickets/archive/TASK-052/artifacts/review/20260506T000800-review.md`
+- QA:
+  `tickets/archive/TASK-052/artifacts/qa/qa_report.md`
+
+### User Evidence
+- Supporting evidence: RunPod SSH, bootstrap, model-info, download, SDPA
+  blocker, and eager load proof reports listed above.
+- QA report: `tickets/archive/TASK-052/artifacts/qa/qa_report.md`
+- Final verdict: RunPod setup, Alpamayo download, nested Cosmos access, and
+  load-only execution are working. TASK-053 should capture real inference input
+  and output shapes before TASK-039 implements closed-loop CARLA adaptation.
+
+### Required Evidence
+- [x] Unit/integration/e2e tests pass (as applicable)
+- [x] Lint passes

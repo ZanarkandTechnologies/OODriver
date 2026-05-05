@@ -90,3 +90,4 @@
 2026-05-06 02:02 +0800 | SHIP | TASK-055 added live CARLA Town10 route video evidence from Docker Fail2Drive RGB frames while preserving Town13 as the stock Fail2Drive split map blocker
 2026-05-06 02:17 +0800 | SHIP | TASK-056 added an Alpamayo OOD comparison harness and live memory-augmented RunPod proof, showing changed CoC and trajectory intent while preserving the open-loop/no-closed-control label
 2026-05-06 02:31 +0800 | SHIP | TASK-057 refreshed the demo pack around route video evidence and live Alpamayo memory comparison, with the remaining failure framed as route-score/closed-loop proof rather than setup-only work
+2026-05-06 02:38 +0800 | MAINT | archived completed Alpamayo/CARLA ticket batch TASK-039 and TASK-052 through TASK-057, normalized archived ticket states to done, regenerated archive-path evidence reports, and left the active ticket board empty

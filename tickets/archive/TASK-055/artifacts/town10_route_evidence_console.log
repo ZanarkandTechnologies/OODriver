@@ -1,0 +1,88 @@
+{
+  "status": "partial",
+  "plan": null,
+  "result": {
+    "label": "route_result",
+    "path": "tickets/archive/TASK-054B/artifacts/docker-route-plan-town10-speedlimit/fail2drive_outputs/routes_town10_res.json",
+    "exists": true,
+    "size_bytes": 361,
+    "summary": {
+      "status": null,
+      "success": false,
+      "driving_score": null,
+      "route_completion": null,
+      "infraction_penalty": null,
+      "duration_game_s": null,
+      "duration_system_s": null,
+      "route_count": 0,
+      "primary_route": null,
+      "infraction_counts": {}
+    }
+  },
+  "entity_tracks": {
+    "label": "entity_tracks",
+    "path": null,
+    "exists": false,
+    "size_bytes": null,
+    "summary": null
+  },
+  "video": {
+    "label": "video",
+    "path": "tickets/archive/TASK-054B/artifacts/docker-route-plan-town10-speedlimit/fail2drive_outputs/routes_town10.mp4",
+    "exists": true,
+    "size_bytes": 7886364,
+    "duration_s": 4.1
+  },
+  "screenshots": [],
+  "logs": [
+    {
+      "label": "log",
+      "path": "tickets/archive/TASK-054B/artifacts/docker-route-run-town10-speedlimit/logs/fail2drive_route.stdout.log",
+      "exists": true,
+      "size_bytes": 46390,
+      "tail": [
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:34.800 -- System time = 74.102 -- Game time = 19.250 -- Ratio = 0.260x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:35.014 -- System time = 74.316 -- Game time = 19.300 -- Ratio = 0.260x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:35.254 -- System time = 74.556 -- Game time = 19.350 -- Ratio = 0.260x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:35.478 -- System time = 74.780 -- Game time = 19.400 -- Ratio = 0.259x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:35.704 -- System time = 75.006 -- Game time = 19.450 -- Ratio = 0.259x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:35.932 -- System time = 75.234 -- Game time = 19.500 -- Ratio = 0.259x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:36.159 -- System time = 75.461 -- Game time = 19.550 -- Ratio = 0.259x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:36.432 -- System time = 75.734 -- Game time = 19.600 -- Ratio = 0.259x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:36.651 -- System time = 75.953 -- Game time = 19.650 -- Ratio = 0.259x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:36.880 -- System time = 76.181 -- Game time = 19.700 -- Ratio = 0.259x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:37.105 -- System time = 76.407 -- Game time = 19.750 -- Ratio = 0.258x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:37.457 -- System time = 76.759 -- Game time = 19.800 -- Ratio = 0.258x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:37.693 -- System time = 76.995 -- Game time = 19.850 -- Ratio = 0.258x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:37.945 -- System time = 77.247 -- Game time = 19.900 -- Ratio = 0.258x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:38.166 -- System time = 77.468 -- Game time = 19.950 -- Ratio = 0.258x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:38.395 -- System time = 77.697 -- Game time = 20.000 -- Ratio = 0.257x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:38.629 -- System time = 77.931 -- Game time = 20.050 -- Ratio = 0.257x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:38.959 -- System time = 78.260 -- Game time = 20.100 -- Ratio = 0.257x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:39.200 -- System time = 78.502 -- Game time = 20.150 -- Ratio = 0.257x",
+        "=== [Agent] -- Wallclock = 2026-05-05 17:49:39.458 -- System time = 78.760 -- Game time = 20.200 -- Ratio = 0.256x"
+      ]
+    },
+    {
+      "label": "log",
+      "path": "tickets/archive/TASK-054B/artifacts/docker-route-run-town10-speedlimit/logs/fail2drive_route.stderr.log",
+      "exists": true,
+      "size_bytes": 0,
+      "tail": []
+    }
+  ],
+  "blockers": [],
+  "metrics": {
+    "driving_score": null,
+    "route_completion": null,
+    "infraction_penalty": null,
+    "duration_game_s": null,
+    "duration_system_s": null,
+    "track_count": null,
+    "actor_refs": [],
+    "video_duration_s": 4.1,
+    "video_size_bytes": 7886364
+  },
+  "json_path": "tickets/archive/TASK-055/artifacts/town10-route-evidence/run_evidence.json",
+  "report_path": "tickets/archive/TASK-055/artifacts/town10-route-evidence/run_evidence.md"
+}

@@ -18,7 +18,7 @@ unblocked ticket when possible.
   Docker Fail2Drive client can reach local CARLA, but the stock Fail2Drive
   split routes in `fail2drive_split/` all require `Town13`, which is not
   installed in the local CARLA 0.9.16 package. Evidence:
-  `tickets/TASK-054B/artifacts/docker-route-run-town13-map-blocker-classified/fail2drive_route_run.md`.
+  `tickets/archive/TASK-054B/artifacts/docker-route-run-town13-map-blocker-classified/fail2drive_route_run.md`.
   Next unblock path: install/provide a CARLA package containing Town13 or use a
   compatible route generator for installed maps such as Town10HD_Opt.
 
@@ -29,8 +29,8 @@ unblocked ticket when possible.
   runtime; diagnostics show default Vulkan only exposes `llvmpipe`, forcing the
   NVIDIA ICD fails with `ERROR_INCOMPATIBLE_DRIVER`, and CARLA exits with
   status `1`. Evidence:
-  `tickets/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.md`
-  and `tickets/TASK-020/artifacts/task20-remote/carla_runtime_diagnostics.md`.
+  `tickets/archive/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.md`
+  and `tickets/archive/TASK-020/artifacts/task20-remote/carla_runtime_diagnostics.md`.
   Next unblock path: move the stock route to a graphics-capable Ampere host
   such as RTX 3090 / RTX A6000 / A40 / A10, or rebuild the SimLingo torch stack
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
@@ -42,7 +42,7 @@ unblocked ticket when possible.
   imports `carla`, `numpy`, `torch`, and CARLA PythonAPI `agents`, reaches
   live local CARLA through `host.docker.internal:2000`, and a Town10 fallback
   route produced 41 RGB frames plus a DriverX-assembled MP4. Evidence:
-  `tickets/TASK-054B/artifacts/qa_report.md`.
+  `tickets/archive/TASK-054B/artifacts/qa_report.md`.
 
 - 2026-05-06 00:05 +0800 | alpamayo,huggingface,cosmos,attention | The
   TASK-052 nested Cosmos access blocker is resolved. After the user accepted
@@ -51,7 +51,7 @@ unblocked ticket when possible.
   `ALPAMAYO_ATTN_IMPLEMENTATION=eager`. SDPA mode is incompatible with
   Alpamayo's custom architecture, so future live probes should use `eager` or
   install the upstream flash-attn path instead. Evidence:
-  `tickets/TASK-052/artifacts/probe-load-eager-after-cosmos-summary/alpamayo_probe_report.md`.
+  `tickets/archive/TASK-052/artifacts/probe-load-eager-after-cosmos-summary/alpamayo_probe_report.md`.
 
 - 2026-05-05 23:50 +0800 | alpamayo,probe,gpu | The TASK-038 generic
   "needs live Alpamayo probe" blocker is resolved by TASK-052 evidence:

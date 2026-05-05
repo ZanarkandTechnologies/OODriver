@@ -58,8 +58,8 @@ flowchart TD
 
 - `docs/prd.md`: current scenario-forge PRD.
 - `ARCHITECTURE.md`: top-level system map.
-- `tickets/TASK-039/ticket.md`: currently blocked Alpamayo CARLA adapter ticket.
-- `tickets/archive/`: completed Waymo/fixture support-track tickets.
+- `tickets/archive/`: completed ticket records and compact evidence artifacts,
+  including the live Alpamayo and CARLA route proofs.
 - `src/driverx/scenarios/`: scenario seeds, recipes, and reports.
 - `src/driverx/memory/`: failure memory and retrieval.
 - `src/driverx/simulators/`: CARLA smoke checks and Fail2Drive command plans.
@@ -176,7 +176,7 @@ PYTHONPATH=src python3 -m driverx build-ood-suite-report \
   --run-id task25-ood-suite-report
 # `--simlingo-result` also accepts remote evidence from
 # `summarize-simlingo-evidence`, such as
-# tickets/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.json.
+# tickets/archive/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.json.
 
 # Run a generated OOD mini-suite and build per-recipe evidence bundles
 PYTHONPATH=src python3 -m driverx run-generated-ood-suite \
@@ -213,10 +213,10 @@ bash scripts/run_remote_alpamayo_probe.sh root@195.26.233.80 \
 # DriverX safety memory. The comparison is intentionally not a closed-loop
 # CARLA-control claim.
 PYTHONPATH=src python3 -m driverx build-alpamayo-ood-comparison \
-  --baseline-decision tickets/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json \
-  --memory-decision tickets/TASK-056/artifacts/live-memory-run-summary/alpamayo_policy_decision.json \
+  --baseline-decision tickets/archive/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json \
+  --memory-decision tickets/archive/TASK-056/artifacts/live-memory-run-summary/alpamayo_policy_decision.json \
   --source-package artifacts/runs/task51-live-alpamayo-capture/alpamayo_carla_input_package.json \
-  --route-evidence tickets/TASK-055/artifacts/town10-route-evidence/run_evidence.json \
+  --route-evidence tickets/archive/TASK-055/artifacts/town10-route-evidence/run_evidence.json \
   --run-id task56-alpamayo-ood-comparison
 
 # Build the judge-facing demo pack with storyboard, artifact map, declarations,
@@ -225,8 +225,8 @@ PYTHONPATH=src python3 -m driverx build-demo-pack \
   --generated-suite artifacts/runs/task36-suite/generated_ood_suite.json \
   --policy-matrix artifacts/runs/task37-policy-matrix/policy_runtime_matrix.json \
   --alpamayo-probe artifacts/runs/task38-alpamayo-probe/alpamayo_probe_report.json \
-  --route-evidence tickets/TASK-055/artifacts/town10-route-evidence/run_evidence.json \
-  --alpamayo-comparison tickets/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json \
+  --route-evidence tickets/archive/TASK-055/artifacts/town10-route-evidence/run_evidence.json \
+  --alpamayo-comparison tickets/archive/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json \
   --blockers blockers.md \
   --progress docs/progress.md \
   --run-id task40-demo-pack
@@ -261,9 +261,9 @@ PYTHONPATH=src python3 -m driverx plan-simlingo-run \
   --config configs/simlingo.sample.yaml \
   --run-id task15-simlingo-plan
 PYTHONPATH=src python3 -m driverx ingest-simlingo-result \
-  --result tickets/TASK-017/artifacts/qa/2026-05-04T194700Z/seed_1_res.json \
-  --compatibility tickets/TASK-017/artifacts/qa/2026-05-04T194700Z/torch_cuda_compatibility.json \
-  --route-log tickets/TASK-017/artifacts/qa/2026-05-04T194700Z/run_one_route.log \
+  --result tickets/archive/TASK-017/artifacts/qa/2026-05-04T194700Z/seed_1_res.json \
+  --compatibility tickets/archive/TASK-017/artifacts/qa/2026-05-04T194700Z/torch_cuda_compatibility.json \
+  --route-log tickets/archive/TASK-017/artifacts/qa/2026-05-04T194700Z/run_one_route.log \
   --run-id task19-simlingo-result
 
 # On a Linux NVIDIA GPU host, sync this repo and launch the SimLingo bootstrap
@@ -310,30 +310,30 @@ bash scripts/run_remote_simlingo_route.sh
 
 # Classify whatever compact evidence came back into a small verdict report.
 PYTHONPATH=src python3 -m driverx summarize-simlingo-evidence \
-  --artifact-root tickets/TASK-020/artifacts/task20-remote \
-  --output-root tickets/TASK-020/artifacts \
+  --artifact-root tickets/archive/TASK-020/artifacts/task20-remote \
+  --output-root tickets/archive/TASK-020/artifacts \
   --run-id task20-evidence
 
 # On a fresh GPU host, collect the small preflight artifacts used by
 # assess-gpu-host before launching an expensive route job.
 GPU_SSH_HOST=root@195.26.233.80 \
 GPU_SSH_OPTS="-p 55050 -i ~/.ssh/id_ed25519_runpod" \
-LOCAL_PROBE_DIR=tickets/TASK-029/artifacts/gpu-host-probe \
+LOCAL_PROBE_DIR=tickets/archive/TASK-029/artifacts/gpu-host-probe \
 bash scripts/run_remote_gpu_probe.sh
 
 # Convert CUDA, CARLA graphics, and remote evidence into a host recommendation.
 PYTHONPATH=src python3 -m driverx assess-gpu-host \
-  --gpu-snapshot tickets/TASK-020/artifacts/2026-05-05T151900+0800/remote_gpu_snapshot.txt \
-  --torch-compatibility tickets/TASK-020/artifacts/task20-remote/torch_cuda_compatibility.json \
-  --carla-diagnostics tickets/TASK-020/artifacts/task20-remote/carla_runtime_diagnostics.md \
-  --simlingo-evidence tickets/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.json \
+  --gpu-snapshot tickets/archive/TASK-020/artifacts/2026-05-05T151900+0800/remote_gpu_snapshot.txt \
+  --torch-compatibility tickets/archive/TASK-020/artifacts/task20-remote/torch_cuda_compatibility.json \
+  --carla-diagnostics tickets/archive/TASK-020/artifacts/task20-remote/carla_runtime_diagnostics.md \
+  --simlingo-evidence tickets/archive/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.json \
   --run-id h100-host-suitability
 
 # Build a submission-facing Markdown/JSON dossier from current evidence.
 PYTHONPATH=src python3 -m driverx build-submission-dossier \
-  --ood-suite-manifest tickets/TASK-027/artifacts/ood-suite-report-task20-blocker/ood_suite_manifest.json \
-  --gpu-host-suitability tickets/TASK-029/artifacts/h100-probe-live-suitability/gpu_host_suitability.json \
-  --output-root tickets/TASK-031/artifacts \
+  --ood-suite-manifest tickets/archive/TASK-027/artifacts/ood-suite-report-task20-blocker/ood_suite_manifest.json \
+  --gpu-host-suitability tickets/archive/TASK-029/artifacts/h100-probe-live-suitability/gpu_host_suitability.json \
+  --output-root tickets/archive/TASK-031/artifacts \
   --run-id current-submission-dossier
 ```
 
