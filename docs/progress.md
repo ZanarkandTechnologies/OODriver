@@ -59,6 +59,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-045 Alpamayo release contract extractor
 - [x] TASK-046 Alpamayo trajectory conversion
 - [x] TASK-047 Alpamayo input package manifest
+- [x] TASK-048 Alpamayo remote release bootstrap script
 
 ## Active Roadmap
 
@@ -234,6 +235,11 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   identity rotation scaffolding, nav text, and memory context. It remains
   GPU-free and marks repeated fixture images as placeholders for future live
   CARLA temporal capture.
+- TASK-048 adds `scripts/bootstrap_remote_alpamayo_release.sh`, a secret-safe
+  remote setup path for cloning Alpamayo 1.5, installing uv, creating the
+  Python 3.12 venv, choosing SDPA or flash-attn dependency sync, and optionally
+  running upstream `test_inference.py`. The current A6000 endpoint still
+  refuses SSH, so the script is validated locally but not yet executed remotely.
 - TASK-024 adds `run-simlingo-sidecar`, a timed process runner for existing
   TASK-023 plans. Local evidence executed harmless SimLingo/overlay sample
   commands, wrote process logs, timings, exit codes, JSON, and Markdown.

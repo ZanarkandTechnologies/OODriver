@@ -1,0 +1,34 @@
+from pathlib import Path
+import subprocess
+import unittest
+
+
+class AlpamayoRemoteBootstrapScriptTest(unittest.TestCase):
+    def test_script_is_secret_safe_and_configurable(self) -> None:
+        script = Path("scripts/bootstrap_remote_alpamayo_release.sh").read_text(encoding="utf-8")
+
+        self.assertIn("GPU_SSH_OPTS", script)
+        self.assertIn("DRIVERX_ENV_FILE", script)
+        self.assertIn("ALPAMAYO_REMOTE_ROOT", script)
+        self.assertIn("ALPAMAYO_SYNC_MODE", script)
+        self.assertIn("ALPAMAYO_RUN_TEST", script)
+        self.assertIn("--no-install-package flash-attn", script)
+        self.assertIn("nvcc is required", script)
+        self.assertIn("/tmp/driverx_hf_token", script)
+        self.assertNotIn("set -x", script)
+        self.assertNotIn("echo \"$HF_TOKEN", script)
+
+    def test_script_has_valid_bash_syntax(self) -> None:
+        completed = subprocess.run(
+            ["bash", "-n", "scripts/bootstrap_remote_alpamayo_release.sh"],
+            check=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+
+
+if __name__ == "__main__":
+    unittest.main()

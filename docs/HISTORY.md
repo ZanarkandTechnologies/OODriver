@@ -76,3 +76,4 @@
 2026-05-05 22:51 +0800 | SHIP | TASK-045 added a GPU-free Alpamayo release contract extractor and CLI over the local upstream checkout
 2026-05-05 22:55 +0800 | SHIP | TASK-046 added native Alpamayo pred_xyz selection and 10Hz-to-4Hz DriverX trajectory conversion
 2026-05-05 23:00 +0800 | SHIP | TASK-047 added fixture-backed Alpamayo input package manifests with camera windows, ego history, nav text, and memory context
+2026-05-05 23:03 +0800 | SHIP | TASK-048 added a remote Alpamayo release bootstrap script with SDPA/flash-attn sync modes and optional test-inference execution
