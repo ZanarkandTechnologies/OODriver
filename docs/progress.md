@@ -272,6 +272,14 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   `extra.cot=[1,1,1]`, `99.8s` latency, and `23.2GB` peak VRAM, then converted
   the native trajectory into a 20-point DriverX policy decision labeled
   `closed_loop_control=false`.
+- TASK-054B resolves the local Fail2Drive Docker/numpy blocker. The lightweight
+  Docker client imports `carla` and `numpy`; the Torch image also imports
+  `torch` and CARLA PythonAPI `agents`. The runner now exports Fail2Drive's
+  required `TOWN`, `REPETITION`, `SCENARIO_RUNNER_ROOT`, and `VIZ_PATH`, and it
+  classifies failed checkpoints, missing maps, missing RGB, and timeout output
+  safely. Stock Fail2Drive split routes reach local CARLA but block on missing
+  `Town13`; the Town10 fallback route produced `41` RGB frames and an MP4
+  before the bounded smoke timeout.
 - TASK-049 adds `run-alpamayo-offline`, an end-to-end adapter rehearsal that
   writes an Alpamayo input manifest, converts saved native `pred_xyz`, and
   emits a normal DriverX policy decision with `offline_replay=true`. This proves

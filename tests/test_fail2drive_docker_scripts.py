@@ -1,4 +1,5 @@
 from pathlib import Path
+import subprocess
 import unittest
 
 from driverx.core.config import read_config_mapping
@@ -18,7 +19,9 @@ class Fail2DriveDockerScriptsTest(unittest.TestCase):
 
         self.assertIn("/workspace/0xDriver", script)
         self.assertIn("/workspace/fail2drive", script)
+        self.assertIn("/workspace/carla-pythonapi", script)
         self.assertIn("FAIL2DRIVE_ROOT", script)
+        self.assertIn("CARLA_PYTHONAPI_ROOT", script)
         self.assertIn("host.docker.internal", Path("configs/fail2drive_docker.local.yaml").read_text(encoding="utf-8"))
 
     def test_dockerfile_keeps_torch_optional(self) -> None:
@@ -27,6 +30,27 @@ class Fail2DriveDockerScriptsTest(unittest.TestCase):
         self.assertIn("ARG INSTALL_TORCH=0", dockerfile)
         self.assertIn("carla==${CARLA_PYTHON_VERSION}", dockerfile)
         self.assertIn("torch==2.5.0", dockerfile)
+
+    def test_ticket_media_artifacts_are_ignored(self) -> None:
+        completed = subprocess.run(
+            [
+                "git",
+                "check-ignore",
+                "tickets/TASK-fixture/artifacts/frame.png",
+                "tickets/TASK-fixture/artifacts/frame.jpg",
+                "tickets/TASK-fixture/artifacts/video.mp4",
+            ],
+            check=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        ignored = set(completed.stdout.splitlines())
+        self.assertIn("tickets/TASK-fixture/artifacts/frame.png", ignored)
+        self.assertIn("tickets/TASK-fixture/artifacts/frame.jpg", ignored)
+        self.assertIn("tickets/TASK-fixture/artifacts/video.mp4", ignored)
 
 
 if __name__ == "__main__":

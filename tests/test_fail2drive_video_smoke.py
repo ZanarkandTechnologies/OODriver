@@ -23,7 +23,10 @@ def _fake_fail2drive_root(root: Path, *, include_video_tool: bool = True) -> Non
     (root / "team_code").mkdir()
     (root / "team_code" / "visu_agent.py").write_text("# fake agent\n", encoding="utf-8")
     (root / "fail2drive_split").mkdir()
-    (root / "fail2drive_split" / ROUTE_NAME).write_text("<routes />\n", encoding="utf-8")
+    (root / "fail2drive_split" / ROUTE_NAME).write_text(
+        '<routes><route id="0" town="Town10HD_Opt" /></routes>\n',
+        encoding="utf-8",
+    )
     if include_video_tool:
         (root / "tools").mkdir()
         (root / "tools" / "generate_video.py").write_text("# fake video tool\n", encoding="utf-8")
@@ -61,7 +64,14 @@ class Fail2DriveVideoSmokeTest(unittest.TestCase):
         self.assertTrue(plan.dry_run)
         self.assertEqual(plan.cwd, root.resolve())
         self.assertEqual(plan.env["LIVE_VISU"], "1")
+        self.assertEqual(plan.env["REPETITION"], "0")
         self.assertEqual(plan.env["SAVE_PATH"], str((output_dir / "visualizations").resolve()))
+        self.assertEqual(plan.env["SCENARIO_RUNNER_ROOT"], str((root / "scenario_runner").resolve()))
+        self.assertEqual(plan.env["TOWN"], "Town10HD_Opt")
+        self.assertEqual(
+            plan.env["VIZ_PATH"],
+            str((output_dir / "visualizations" / Path(ROUTE_NAME).stem / "rgb").resolve()),
+        )
         self.assertIn("leaderboard_evaluator_local.py", " ".join(plan.run_command))
         self.assertIn("--routes", plan.run_command)
         self.assertIn("--checkpoint", plan.run_command)

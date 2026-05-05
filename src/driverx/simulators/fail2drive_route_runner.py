@@ -142,7 +142,12 @@ def run_fail2drive_route(config: Fail2DriveRouteRunConfig) -> Fail2DriveRouteRun
         stderr_path.write_text(completed.stderr, encoding="utf-8")
         finished_at = time.monotonic()
         outputs = _expected_outputs(payload)
-        inferred = _infer_runtime_blockers(completed.returncode, completed.stdout, completed.stderr)
+        inferred = _post_run_blockers(
+            completed.returncode,
+            completed.stdout,
+            completed.stderr,
+            outputs,
+        )
         return Fail2DriveRouteRunResult(
             plan_path=plan_path,
             run_dir=run_dir,
@@ -160,8 +165,15 @@ def run_fail2drive_route(config: Fail2DriveRouteRunConfig) -> Fail2DriveRouteRun
             route_blockers=inferred,
         )
     except subprocess.TimeoutExpired as exc:
-        stdout_path.write_text(exc.stdout or "", encoding="utf-8")
-        stderr_path.write_text(exc.stderr or "", encoding="utf-8")
+        timeout_stdout = _timeout_text(exc.stdout)
+        timeout_stderr = _timeout_text(exc.stderr)
+        stdout_path.write_text(timeout_stdout, encoding="utf-8")
+        stderr_path.write_text(timeout_stderr, encoding="utf-8")
+        outputs = _expected_outputs(payload)
+        timeout_blockers = ["Fail2Drive route command timed out."]
+        timeout_blockers.extend(_specific_runtime_blockers(timeout_stdout, timeout_stderr))
+        timeout_blockers.extend(_checkpoint_blockers(outputs))
+        timeout_blockers.extend(_missing_rgb_blockers(outputs))
         return Fail2DriveRouteRunResult(
             plan_path=plan_path,
             run_dir=run_dir,
@@ -175,8 +187,8 @@ def run_fail2drive_route(config: Fail2DriveRouteRunConfig) -> Fail2DriveRouteRun
             exit_code=None,
             stdout_path=stdout_path,
             stderr_path=stderr_path,
-            expected_outputs=_expected_outputs(payload),
-            route_blockers=["Fail2Drive route command timed out."],
+            expected_outputs=outputs,
+            route_blockers=timeout_blockers,
             error=f"Timed out after {config.timeout_s} seconds.",
         )
     except OSError as exc:
@@ -264,20 +276,99 @@ def _infer_runtime_blockers(returncode: int, stdout: str, stderr: str) -> list[s
     if returncode == 0:
         return []
     text = f"{stdout}\n{stderr}".lower()
+    specific = _specific_runtime_blockers(stdout, stderr)
+    if specific:
+        return specific
     if "no module named" in text or "modulenotfounderror" in text:
         missing_module = _missing_module_name(stdout, stderr)
         suffix = f": {missing_module}" if missing_module else "; inspect stderr log for module name"
         return [f"Fail2Drive Python dependency is missing{suffix}."]
-    if "connection refused" in text or "failed to connect" in text or "timeout" in text:
+    if "connection refused" in text or "failed to connect" in text or "connection timed out" in text:
         return ["Fail2Drive could not connect to CARLA or timed out."]
     if "no such file" in text:
         return ["Fail2Drive route command referenced a missing file."]
     return [f"Fail2Drive route command exited non-zero: {returncode}."]
 
 
+def _specific_runtime_blockers(stdout: str, stderr: str) -> list[str]:
+    text = f"{stdout}\n{stderr}".lower()
+    blockers: list[str] = []
+    if "no module named" in text or "modulenotfounderror" in text:
+        missing_module = _missing_module_name(stdout, stderr)
+        suffix = f": {missing_module}" if missing_module else "; inspect stderr log for module name"
+        blockers.append(f"Fail2Drive Python dependency is missing{suffix}.")
+    if "connection refused" in text or "failed to connect" in text or "connection timed out" in text:
+        blockers.append("Fail2Drive could not connect to CARLA or timed out.")
+    if "map '" in text and "not found" in text:
+        blockers.append("Fail2Drive route requires a CARLA map that is not installed.")
+    return blockers
+
+
+def _post_run_blockers(
+    returncode: int,
+    stdout: str,
+    stderr: str,
+    outputs: list[ExpectedOutputStatus],
+) -> list[str]:
+    blockers = _infer_runtime_blockers(returncode, stdout, stderr)
+    blockers.extend(_checkpoint_blockers(outputs))
+    blockers.extend(_missing_rgb_blockers(outputs))
+    return blockers
+
+
+def _checkpoint_blockers(outputs: list[ExpectedOutputStatus]) -> list[str]:
+    result_output = next((output for output in outputs if output.label == "result" and output.exists), None)
+    if result_output is None:
+        return []
+    try:
+        payload = json.loads(result_output.path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"Fail2Drive result checkpoint could not be parsed: {exc}"]
+    checkpoint = dict(payload.get("_checkpoint", {}))
+    global_record = dict(checkpoint.get("global_record", {}))
+    status = str(global_record.get("status", ""))
+    blockers: list[str] = []
+    if status.lower() == "failed":
+        blockers.append("Fail2Drive result checkpoint reports global status Failed.")
+    for record in list(checkpoint.get("records", [])):
+        if not isinstance(record, dict):
+            continue
+        record_status = str(record.get("status", ""))
+        if "failed" in record_status.lower():
+            route_id = str(record.get("route_id", "unknown-route"))
+            blockers.append(f"Fail2Drive route record failed: {route_id}: {record_status}")
+    return blockers
+
+
+def _missing_rgb_blockers(outputs: list[ExpectedOutputStatus]) -> list[str]:
+    rgb_output = next((output for output in outputs if output.label == "rgb_folder"), None)
+    if rgb_output is None:
+        return []
+    if not rgb_output.exists:
+        return [f"RGB frames were not produced by Fail2Drive route run: {rgb_output.path}"]
+    if not _frame_paths(rgb_output.path):
+        return [f"No RGB frames found in Fail2Drive route output: {rgb_output.path}"]
+    return []
+
+
 def _missing_module_name(stdout: str, stderr: str) -> str | None:
     match = re.search(r"No module named ['\"]([^'\"]+)['\"]", f"{stdout}\n{stderr}")
     return match.group(1) if match else None
+
+
+def _timeout_text(value: str | bytes | None) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, bytes):
+        return value.decode("utf-8", errors="replace")
+    return value
+
+
+def _frame_paths(folder: Path) -> list[Path]:
+    if not folder.exists() or not folder.is_dir():
+        return []
+    suffixes = {".jpg", ".jpeg", ".png"}
+    return sorted(path for path in folder.iterdir() if path.is_file() and path.suffix.lower() in suffixes)
 
 
 def _markdown(payload: dict[str, Any]) -> str:

@@ -14,25 +14,13 @@ unblocked ticket when possible.
   exact `test_inference.py` sample. Next unblock path: request or accept access
   at `https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles`.
 
-- 2026-05-05 22:33 +0800 | fail2drive,docker,network | TASK-043
-  added the Dockerized Fail2Drive client path, but local image build stalled
-  during the pip wheel download layer after the apt layer succeeded. The image
-  is intentionally lightweight by default and keeps torch gated behind
-  `DRIVERX_FAIL2DRIVE_INSTALL_TORCH=1`. Next unblock path: rerun
-  `scripts/build_fail2drive_client_docker.sh` on a faster network or the A6000
-  host.
-
-- 2026-05-05 22:10 +0800 | fail2drive,local-deps | TASK-042 local
-  Fail2Drive route runner reached the evaluator, but native macOS Python failed
-  before CARLA connection with `ModuleNotFoundError: No module named 'numpy'`.
-  Evidence: `artifacts/runs/task42-route-run-numpy-blocker/fail2drive_route_run.md`.
-  Next unblock path: run Fail2Drive inside a Docker client environment that
-  mounts both `0xDriver` and `../external/fail2drive`.
-
-- 2026-05-05 19:42 +0800 | fail2drive,video | TASK-041 removes the
-  hard dependency on Fail2Drive's missing `tools/generate_video.py` by adding
-  `python -m driverx assemble-route-video`, but live video evidence still needs
-  a route run to create the RGB frame folder under `SAVE_PATH`.
+- 2026-05-06 01:50 +0800 | fail2drive,carla,map | TASK-054B proved the
+  Docker Fail2Drive client can reach local CARLA, but the stock Fail2Drive
+  split routes in `fail2drive_split/` all require `Town13`, which is not
+  installed in the local CARLA 0.9.16 package. Evidence:
+  `tickets/TASK-054B/artifacts/docker-route-run-town13-map-blocker-classified/fail2drive_route_run.md`.
+  Next unblock path: install/provide a CARLA package containing Town13 or use a
+  compatible route generator for installed maps such as Town10HD_Opt.
 
 - 2026-05-05 17:07 +0800 | h100,carla,vulkan | TASK-020 stock
   SimLingo H100 route run cannot reach policy execution because CARLA 0.9.15
@@ -48,6 +36,13 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-06 01:50 +0800 | fail2drive,docker,video | TASK-054B resolved the
+  TASK-041/TASK-042/TASK-043 local route blockers. The Docker image now builds,
+  imports `carla`, `numpy`, `torch`, and CARLA PythonAPI `agents`, reaches
+  live local CARLA through `host.docker.internal:2000`, and a Town10 fallback
+  route produced 41 RGB frames plus a DriverX-assembled MP4. Evidence:
+  `tickets/TASK-054B/artifacts/qa_report.md`.
 
 - 2026-05-06 00:05 +0800 | alpamayo,huggingface,cosmos,attention | The
   TASK-052 nested Cosmos access blocker is resolved. After the user accepted

@@ -1,0 +1,174 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from fail2drive-client.Dockerfile
+#1 transferring dockerfile: 1.49kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.10-bullseye
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 208B done
+#3 DONE 0.0s
+
+#4 [1/5] FROM docker.io/library/python:3.10-bullseye@sha256:65c6bdcca22db1a3468a0262ae05f38a0a718f51e9818cd09c12094aaae28a33
+#4 resolve docker.io/library/python:3.10-bullseye@sha256:65c6bdcca22db1a3468a0262ae05f38a0a718f51e9818cd09c12094aaae28a33 0.0s done
+#4 DONE 0.0s
+
+#5 [2/5] WORKDIR /workspace/0xDriver
+#5 CACHED
+
+#6 [3/5] RUN apt-get update     && apt-get install -y --no-install-recommends       libglib2.0-0       libsm6       libxext6       libxrender1     && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [4/5] RUN python -m pip install --default-timeout=1000 --retries=10     "carla==0.9.16"     "dictor==0.1.12"     "ephem==4.1.5"     "filterpy==1.4.5"     "jsonpickle==3.0.3"     "lxml==5.1.0"     "matplotlib==3.5.3"     "networkx==3.4.2"     "numpy==1.26.4"     "opencv-python-headless==4.6.0.66"     "pexpect==4.9.0"     "Pillow==10.2.0"     "psutil==5.9.8"     "py-trees==0.8.3"     "pygame==2.6.0"     "rdp==0.8"     "requests==2.31.0"     "scipy==1.14.1"     "shapely==2.0.4"     "simple_watchdog_timer==0.1.1"     "six==1.16.0"     "tabulate==0.9.0"     "transforms3d==0.4.1"     "ujson==5.9.0"     "xmlschema==1.0.18"
+#7 3.004 Collecting carla==0.9.16
+#7 3.345   Downloading carla-0.9.16-cp310-cp310-manylinux_2_31_x86_64.whl (34.2 MB)
+#7 43.10      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 34.2/34.2 MB 716.4 kB/s eta 0:00:00
+#7 43.42 Collecting dictor==0.1.12
+#7 43.57   Downloading dictor-0.1.12.tar.gz (10.0 kB)
+#7 43.59   Preparing metadata (setup.py): started
+#7 44.45   Preparing metadata (setup.py): finished with status 'done'
+#7 45.21 Collecting ephem==4.1.5
+#7 45.36   Downloading ephem-4.1.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.8 MB)
+#7 47.76      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 738.9 kB/s eta 0:00:00
+#7 47.87 Collecting filterpy==1.4.5
+#7 47.93   Downloading filterpy-1.4.5.zip (177 kB)
+#7 48.23      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 178.0/178.0 kB 692.6 kB/s eta 0:00:00
+#7 48.24   Preparing metadata (setup.py): started
+#7 48.87   Preparing metadata (setup.py): finished with status 'done'
+#7 48.96 Collecting jsonpickle==3.0.3
+#7 49.16   Downloading jsonpickle-3.0.3-py3-none-any.whl (40 kB)
+#7 49.21      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.8/40.8 kB 802.9 kB/s eta 0:00:00
+#7 50.34 Collecting lxml==5.1.0
+#7 50.41   Downloading lxml-5.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (8.0 MB)
+#7 62.68      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.0/8.0 MB 653.5 kB/s eta 0:00:00
+#7 63.26 Collecting matplotlib==3.5.3
+#7 63.37   Downloading matplotlib-3.5.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.9 MB)
+#7 73.70      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.9/11.9 MB 1.3 MB/s eta 0:00:00
+#7 73.83 Collecting networkx==3.4.2
+#7 74.03   Downloading networkx-3.4.2-py3-none-any.whl (1.7 MB)
+#7 75.33      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 1.3 MB/s eta 0:00:00
+#7 76.01 Collecting numpy==1.26.4
+#7 76.09   Downloading numpy-1.26.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.2 MB)
+#7 90.23      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.2/18.2 MB 1.2 MB/s eta 0:00:00
+#7 90.63 Collecting opencv-python-headless==4.6.0.66
+#7 90.72   Downloading opencv_python_headless-4.6.0.66-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (48.3 MB)
+#7 167.3      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.3/48.3 MB 1.0 MB/s eta 0:00:00
+#7 167.5 Collecting pexpect==4.9.0
+#7 167.6   Downloading pexpect-4.9.0-py2.py3-none-any.whl (63 kB)
+#7 167.6      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.8/63.8 kB 3.8 MB/s eta 0:00:00
+#7 168.3 Collecting Pillow==10.2.0
+#7 168.5   Downloading pillow-10.2.0-cp310-cp310-manylinux_2_28_x86_64.whl (4.5 MB)
+#7 170.9      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 1.8 MB/s eta 0:00:00
+#7 171.7 Collecting psutil==5.9.8
+#7 171.8   Downloading psutil-5.9.8-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (288 kB)
+#7 171.9      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 288.2/288.2 kB 3.6 MB/s eta 0:00:00
+#7 172.3 Collecting py-trees==0.8.3
+#7 172.4   Downloading py_trees-0.8.3-py3-none-any.whl (61 kB)
+#7 172.4      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.9/61.9 kB 1.2 MB/s eta 0:00:00
+#7 173.0 Collecting pygame==2.6.0
+#7 173.0   Downloading pygame-2.6.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (14.0 MB)
+#7 181.2      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.0/14.0 MB 1.6 MB/s eta 0:00:00
+#7 181.4 Collecting rdp==0.8
+#7 181.5   Downloading rdp-0.8.tar.gz (4.4 kB)
+#7 181.5   Preparing metadata (setup.py): started
+#7 182.5   Preparing metadata (setup.py): finished with status 'done'
+#7 182.6 Collecting requests==2.31.0
+#7 182.7   Downloading requests-2.31.0-py3-none-any.whl (62 kB)
+#7 182.7      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 3.0 MB/s eta 0:00:00
+#7 183.1 Collecting scipy==1.14.1
+#7 183.4   Downloading scipy-1.14.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (41.2 MB)
+#7 208.6      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 41.2/41.2 MB 1.7 MB/s eta 0:00:00
+#7 208.9 Collecting shapely==2.0.4
+#7 209.0   Downloading shapely-2.0.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.5 MB)
+#7 210.3      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.5/2.5 MB 1.8 MB/s eta 0:00:00
+#7 210.7 Collecting simple_watchdog_timer==0.1.1
+#7 210.7   Downloading simple_watchdog_timer-0.1.1.tar.gz (3.5 kB)
+#7 210.7   Preparing metadata (setup.py): started
+#7 211.4   Preparing metadata (setup.py): finished with status 'done'
+#7 211.5 Collecting six==1.16.0
+#7 211.6   Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+#7 211.7 Collecting tabulate==0.9.0
+#7 211.7   Downloading tabulate-0.9.0-py3-none-any.whl (35 kB)
+#7 211.8 Collecting transforms3d==0.4.1
+#7 211.9   Downloading transforms3d-0.4.1-py3-none-any.whl (1.4 MB)
+#7 212.7      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 1.8 MB/s eta 0:00:00
+#7 212.9 Collecting ujson==5.9.0
+#7 212.9   Downloading ujson-5.9.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (53 kB)
+#7 212.9      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.2/53.2 kB 1.9 MB/s eta 0:00:00
+#7 213.0 Collecting xmlschema==1.0.18
+#7 213.2   Downloading xmlschema-1.0.18-py2.py3-none-any.whl (358 kB)
+#7 213.3      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 359.0/359.0 kB 2.1 MB/s eta 0:00:00
+#7 213.5 Collecting cycler>=0.10
+#7 213.5   Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+#7 213.6 Collecting packaging>=20.0
+#7 213.7   Downloading packaging-26.2-py3-none-any.whl (100 kB)
+#7 213.7      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 5.7 MB/s eta 0:00:00
+#7 213.8 Collecting python-dateutil>=2.7
+#7 213.9   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+#7 214.0      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 2.0 MB/s eta 0:00:00
+#7 214.6 Collecting fonttools>=4.22.0
+#7 214.7   Downloading fonttools-4.62.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.9 MB)
+#7 217.5      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 1.7 MB/s eta 0:00:00
+#7 217.7 Collecting kiwisolver>=1.0.1
+#7 217.8   Downloading kiwisolver-1.5.0-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (1.6 MB)
+#7 218.8      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 1.7 MB/s eta 0:00:00
+#7 218.9 Collecting pyparsing>=2.2.1
+#7 219.0   Downloading pyparsing-3.3.2-py3-none-any.whl (122 kB)
+#7 219.0      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 122.8/122.8 kB 4.6 MB/s eta 0:00:00
+#7 219.1 Collecting ptyprocess>=0.5
+#7 219.2   Downloading ptyprocess-0.7.0-py2.py3-none-any.whl (13 kB)
+#7 219.3 Collecting pydot
+#7 219.4   Downloading pydot-4.0.1-py3-none-any.whl (37 kB)
+#7 219.4 Requirement already satisfied: setuptools in /usr/local/lib/python3.10/site-packages (from py-trees==0.8.3) (65.5.1)
+#7 219.6 Collecting urllib3<3,>=1.21.1
+#7 219.7   Downloading urllib3-2.6.3-py3-none-any.whl (131 kB)
+#7 219.7      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.6/131.6 kB 3.8 MB/s eta 0:00:00
+#7 220.0 Collecting charset-normalizer<4,>=2
+#7 220.1   Downloading charset_normalizer-3.4.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (216 kB)
+#7 220.2      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 216.9/216.9 kB 3.2 MB/s eta 0:00:00
+#7 220.3 Collecting idna<4,>=2.5
+#7 220.3   Downloading idna-3.13-py3-none-any.whl (68 kB)
+#7 220.4      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 68.6/68.6 kB 7.9 MB/s eta 0:00:00
+#7 220.5 Collecting certifi>=2017.4.17
+#7 220.5   Downloading certifi-2026.4.22-py3-none-any.whl (135 kB)
+#7 220.6      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 135.7/135.7 kB 1.5 MB/s eta 0:00:00
+#7 220.8 Collecting elementpath~=1.3.0
+#7 220.9   Downloading elementpath-1.3.3-py2.py3-none-any.whl (68 kB)
+#7 220.9      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.0/69.0 kB 1.9 MB/s eta 0:00:00
+#7 221.0 Building wheels for collected packages: dictor, filterpy, rdp, simple_watchdog_timer
+#7 221.0   Building wheel for dictor (setup.py): started
+#7 222.0   Building wheel for dictor (setup.py): finished with status 'done'
+#7 222.0   Created wheel for dictor: filename=dictor-0.1.12-py3-none-any.whl size=7950 sha256=8727dfb86c1f657b9954eeb8e7c3130e3f023b0e72557d2159d42477c8d92498
+#7 222.0   Stored in directory: /root/.cache/pip/wheels/eb/6a/c4/f56a4918b4dea517f2198183dbe2225c6179bd6dd9a917fef1
+#7 222.1   Building wheel for filterpy (setup.py): started
+#7 223.0   Building wheel for filterpy (setup.py): finished with status 'done'
+#7 223.0   Created wheel for filterpy: filename=filterpy-1.4.5-py3-none-any.whl size=110458 sha256=7f3f740370d6c9b1237ed648183702634272c97a465db687837bd43d5b8d73d4
+#7 223.0   Stored in directory: /root/.cache/pip/wheels/0f/0c/ea/218f266af4ad626897562199fbbcba521b8497303200186102
+#7 223.0   Building wheel for rdp (setup.py): started
+#7 224.0   Building wheel for rdp (setup.py): finished with status 'done'
+#7 224.0   Created wheel for rdp: filename=rdp-0.8-py3-none-any.whl size=4586 sha256=41d9cd162f615868fc9ae923fd5db01a693161d938a8f9a5ae547f490cf8310e
+#7 224.0   Stored in directory: /root/.cache/pip/wheels/5d/12/ec/0fc50553af000b9c3d2c74b9f77a01ae4bfe856e9917ac239c
+#7 224.0   Building wheel for simple_watchdog_timer (setup.py): started
+#7 225.1   Building wheel for simple_watchdog_timer (setup.py): finished with status 'done'
+#7 225.1   Created wheel for simple_watchdog_timer: filename=simple_watchdog_timer-0.1.1-py3-none-any.whl size=4431 sha256=799b9ddb71ab706c8bd7c803a686906db62cb2e161cf21e2ee048bfcc4c058d3
+#7 225.1   Stored in directory: /root/.cache/pip/wheels/f7/4a/f1/cf50f7dc7fdee007e9ae3bc36eae5ad353aab1d375f35a4620
+#7 225.1 Successfully built dictor filterpy rdp simple_watchdog_timer
+#7 225.3 Installing collected packages: simple_watchdog_timer, ptyprocess, ephem, elementpath, dictor, carla, xmlschema, urllib3, ujson, transforms3d, tabulate, six, pyparsing, pygame, psutil, Pillow, pexpect, packaging, numpy, networkx, lxml, kiwisolver, jsonpickle, idna, fonttools, cycler, charset-normalizer, certifi, shapely, scipy, requests, rdp, python-dateutil, pydot, opencv-python-headless, py-trees, matplotlib, filterpy
+#7 236.6 Successfully installed Pillow-10.2.0 carla-0.9.16 certifi-2026.4.22 charset-normalizer-3.4.7 cycler-0.12.1 dictor-0.1.12 elementpath-1.3.3 ephem-4.1.5 filterpy-1.4.5 fonttools-4.62.1 idna-3.13 jsonpickle-3.0.3 kiwisolver-1.5.0 lxml-5.1.0 matplotlib-3.5.3 networkx-3.4.2 numpy-1.26.4 opencv-python-headless-4.6.0.66 packaging-26.2 pexpect-4.9.0 psutil-5.9.8 ptyprocess-0.7.0 py-trees-0.8.3 pydot-4.0.1 pygame-2.6.0 pyparsing-3.3.2 python-dateutil-2.9.0.post0 rdp-0.8 requests-2.31.0 scipy-1.14.1 shapely-2.0.4 simple_watchdog_timer-0.1.1 six-1.16.0 tabulate-0.9.0 transforms3d-0.4.1 ujson-5.9.0 urllib3-2.6.3 xmlschema-1.0.18
+#7 DONE 237.2s
+
+#8 [5/5] RUN if [ "0" = "1" ]; then       python -m pip install --default-timeout=1000 --retries=10         --index-url https://download.pytorch.org/whl/cpu         "torch==2.5.0" "torchvision==0.20.0";     fi
+#8 DONE 0.2s
+
+#9 exporting to image
+#9 exporting layers
+#9 exporting layers 20.8s done
+#9 exporting manifest sha256:033a71aabddef8dce03a65a35a88d94ed42632ff65cc10b9ce9d56bf45a91b8f
+#9 exporting manifest sha256:033a71aabddef8dce03a65a35a88d94ed42632ff65cc10b9ce9d56bf45a91b8f done
+#9 exporting config sha256:acc1645151a5e00325e58d0de4c6f714b050f34259da9562a3841b46f22ccb30 done
+#9 exporting attestation manifest sha256:4b55cdd069783e4a85e675c9a065873fa7f7624c2e2096d6e6f28ebd0d4f6df0 0.0s done
+#9 exporting manifest list sha256:255fd7acbf47002bfa7e9aec6a5d13ca6ec90835474c48fb001fe2b394e5b4ff done
+#9 naming to docker.io/library/driverx-fail2drive-client:0.9.16 done
+#9 DONE 20.9s

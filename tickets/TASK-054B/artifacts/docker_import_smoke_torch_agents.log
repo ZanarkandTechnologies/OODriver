@@ -1,0 +1,4 @@
+carla ok
+numpy 1.26.4
+torch 2.5.0+cpu
+agents ok GlobalRoutePlanner

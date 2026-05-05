@@ -1,0 +1,14 @@
+
+[1m========= Preparing RouteScenario_1088 (repetition 0) =========[0m
+[1m> Loading the world[0m
+
+[91mThe scenario could not be loaded:
+
+Traceback (most recent call last):
+  File "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py", line 292, in _load_and_run_scenario
+    self._load_and_wait_for_world(args, config.town)
+  File "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py", line 233, in _load_and_wait_for_world
+    self.world = self.client.load_world(town, reset_settings=False)
+RuntimeError: Map 'Town13' not found
+[0m
+[1m> Registering the route statistics[0m

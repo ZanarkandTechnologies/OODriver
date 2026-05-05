@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py", line 292, in _load_and_run_scenario
+    self._load_and_wait_for_world(args, config.town)
+  File "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py", line 233, in _load_and_wait_for_world
+    self.world = self.client.load_world(town, reset_settings=False)
+RuntimeError: Map 'Town13' not found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py", line 520, in <module>
+    main()
+  File "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py", line 510, in main
+    crashed = leaderboard_evaluator.run(arguments)
+  File "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py", line 440, in run
+    crashed = self._load_and_run_scenario(args, config)
+  File "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py", line 302, in _load_and_run_scenario
+    self._register_statistics(config.index, entry_status, crash_message)
+  File "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py", line 266, in _register_statistics
+    self.statistics_manager.save_entry_status(entry_status)
+  File "/workspace/fail2drive/leaderboard/leaderboard/utils/statistics_manager_local.py", line 296, in save_entry_status
+    raise ValueError("Found an invalid value for 'entry_status'")
+ValueError: Found an invalid value for 'entry_status'

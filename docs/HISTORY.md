@@ -86,3 +86,4 @@
 2026-05-06 00:52 +0800 | SHIP | TASK-053 proved live Alpamayo inference shapes via synthetic fallback after the PhysicalAI sample dataset gate, observing pred_xyz 1x1x1x64x3 and 24.5GB peak VRAM
 2026-05-06 01:03 +0800 | SHIP | TASK-054 added Alpamayo tensor materialization for DriverX/CARLA capture packages with real capture proof and lazy remote torch loading
 2026-05-06 01:17 +0800 | SHIP | TASK-039 connected live Alpamayo inference to CARLA capture packages as an open-loop policy path with measured latency, VRAM, CoC, and converted DriverX trajectory intent
+2026-05-06 01:50 +0800 | SHIP | TASK-054B resolved the Fail2Drive Docker/numpy path, mounted CARLA PythonAPI agents, classified route blockers, and produced Town10 RGB/video evidence while identifying Town13 as the remaining stock-split map blocker

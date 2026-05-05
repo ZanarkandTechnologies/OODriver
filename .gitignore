@@ -10,3 +10,7 @@ external/
 .env
 .env.*
 !.env.example
+tickets/**/artifacts/**/*.jpg
+tickets/**/artifacts/**/*.jpeg
+tickets/**/artifacts/**/*.png
+tickets/**/artifacts/**/*.mp4

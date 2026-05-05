@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "plan": {
+    "rgb_folder": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-054B/artifacts/docker-route-plan-town10-speedlimit/fail2drive_outputs/visualizations/routes_town10/rgb",
+    "output_video": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-054B/artifacts/docker-route-plan-town10-speedlimit/fail2drive_outputs/routes_town10.mp4",
+    "fps": 10,
+    "frame_count": 41,
+    "frame_pattern": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-054B/artifacts/docker-route-plan-town10-speedlimit/fail2drive_outputs/visualizations/routes_town10/rgb/*.jpg",
+    "ffmpeg_path": "/opt/homebrew/bin/ffmpeg",
+    "command": [
+      "/opt/homebrew/bin/ffmpeg",
+      "-y",
+      "-framerate",
+      "10",
+      "-pattern_type",
+      "glob",
+      "-i",
+      "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-054B/artifacts/docker-route-plan-town10-speedlimit/fail2drive_outputs/visualizations/routes_town10/rgb/*.jpg",
+      "-c:v",
+      "libx264",
+      "-pix_fmt",
+      "yuv420p",
+      "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-054B/artifacts/docker-route-plan-town10-speedlimit/fail2drive_outputs/routes_town10.mp4"
+    ],
+    "live_blockers": [],
+    "dry_run": true
+  },
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "ffmpeg version 8.1 Copyright (c) 2000-2026 the FFmpeg developers\n  built with Apple clang version 21.0.0 (clang-2100.0.123.102)\n  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/8.1_1 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gpl --enable-libsvtav1 --enable-libopus --enable-libx264 --enable-libmp3lame --enable-libdav1d --enable-libvmaf --enable-libvpx --enable-libx265 --enable-openssl --enable-videotoolbox --enable-audiotoolbox --enable-neon\n  libavutil      60. 26.100 / 60. 26.100\n  libavcodec     62. 28.100 / 62. 28.100\n  libavformat    62. 12.100 / 62. 12.100\n  libavdevice    62.  3.100 / 62.  3.100\n  libavfilter    11. 14.100 / 11. 14.100\n  libswscale      9.  5.100 /  9.  5.100\n  libswresample   6.  3.100 /  6.  3.100\nInput #0, image2, from '/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-054B/artifacts/docker-route-plan-town10-speedlimit/fail2drive_outputs/visualizations/routes_town10/rgb/*.jpg':\n  Duration: 00:00:04.10, start: 0.000000, bitrate: N/A\n  Stream #0:0: Video: mjpeg (Baseline), yuvj420p(pc, bt470bg/unknown/unknown), 1920x1080 [SAR 1:1 DAR 16:9], 10 fps, 10 tbr, 10 tbn\nStream mapping:\n  Stream #0:0 -> #0:0 (mjpeg (native) -> h264 (libx264))\nPress [q] to stop, [?] for help\n[swscaler @ 0xae03ec000] deprecated pixel format used, make sure you did set range correctly\n[libx264 @ 0xae1008a80] using SAR=1/1\n[libx264 @ 0xae1008a80] using cpu capabilities: ARMv8 NEON DotProd I8MM\n[libx264 @ 0xae1008a80] profile High, level 4.0, 4:2:0, 8-bit\n[libx264 @ 0xae1008a80] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=27 lookahead_threads=4 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=10 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00\nOutput #0, mp4, to '/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-054B/artifacts/docker-route-plan-town10-speedlimit/fail2drive_outputs/routes_town10.mp4':\n  Metadata:\n    encoder         : Lavf62.12.100\n  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(pc, bt470bg/unknown/unknown, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 10 fps, 10240 tbn\n    Metadata:\n      encoder         : Lavc62.28.100 libx264\n    Side data:\n      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A\nframe=    2 fps=0.0 q=25.0 size=     256KiB time=00:00:00.00 bitrate=N/A speed=   0x elapsed=0:00:00.50    \n[out#0/mp4 @ 0xae0c0c9c0] video:7700KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.016867%\nframe=   41 fps=0.0 q=-1.0 Lsize=    7702KiB time=00:00:03.90 bitrate=16177.2kbits/s speed=4.36x elapsed=0:00:00.89    \n[libx264 @ 0xae1008a80] frame I:1     Avg QP:23.90  size:345955\n[libx264 @ 0xae1008a80] frame P:22    Avg QP:24.83  size:218172\n[libx264 @ 0xae1008a80] frame B:18    Avg QP:25.19  size:152145\n[libx264 @ 0xae1008a80] consecutive B-frames: 41.5%  0.0%  0.0% 58.5%\n[libx264 @ 0xae1008a80] mb I  I16..4:  1.2% 84.3% 14.5%\n[libx264 @ 0xae1008a80] mb P  I16..4:  0.6% 64.1% 10.1%  P16..4: 10.5%  9.5%  4.6%  0.0%  0.0%    skip: 0.6%\n[libx264 @ 0xae1008a80] mb B  I16..4:  0.4% 23.1%  4.2%  B16..8: 26.8% 16.7%  6.2%  direct: 9.9%  skip:12.8%  L0:48.5% L1:36.4% BI:15.0%\n[libx264 @ 0xae1008a80] 8x8 transform intra:85.1% inter:65.3%\n[libx264 @ 0xae1008a80] coded y,uvDC,uvAC intra: 95.1% 74.6% 50.7% inter: 60.9% 30.7% 9.6%\n[libx264 @ 0xae1008a80] i16 v,h,dc,p: 12% 52%  5% 32%\n[libx264 @ 0xae1008a80] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 10% 18% 16%  7%  9%  6% 13%  7% 14%\n[libx264 @ 0xae1008a80] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 12% 23% 10%  7% 11%  7% 16%  6%  8%\n[libx264 @ 0xae1008a80] i8c dc,h,v,p: 56% 23% 15%  6%\n[libx264 @ 0xae1008a80] Weighted P-Frames: Y:0.0% UV:0.0%\n[libx264 @ 0xae1008a80] ref P L0: 43.1% 25.0% 19.5% 12.4%\n[libx264 @ 0xae1008a80] ref B L0: 87.3% 11.4%  1.4%\n[libx264 @ 0xae1008a80] ref B L1: 97.2%  2.8%\n[libx264 @ 0xae1008a80] kb/s:15384.09\n",
+  "executed": true
+}

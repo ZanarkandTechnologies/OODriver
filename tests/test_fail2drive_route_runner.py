@@ -48,6 +48,7 @@ class Fail2DriveRouteRunnerTest(unittest.TestCase):
     def test_runner_executes_command_and_writes_logs(self) -> None:
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
+            _write_rgb_folder(root)
             plan = _write_plan(root, command=["python3", "-c", "print('route-ok')"])
             result = run_fail2drive_route(
                 Fail2DriveRouteRunConfig(plan_path=plan, run_dir=root / "run")
@@ -89,9 +90,79 @@ class Fail2DriveRouteRunnerTest(unittest.TestCase):
         self.assertEqual(result.status, "blocked")
         self.assertIn("numpy", result.route_blockers[0])
 
+    def test_runner_records_timeout_without_crashing(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            plan = _write_plan(
+                root,
+                command=["python3", "-c", "import time; print('before-timeout'); time.sleep(1)"],
+            )
+            result = run_fail2drive_route(
+                Fail2DriveRouteRunConfig(
+                    plan_path=plan,
+                    run_dir=root / "run",
+                    timeout_s=0.01,
+                )
+            )
+
+        self.assertEqual(result.status, "blocked")
+        self.assertIn("timed out", "\n".join(result.route_blockers))
+
+    def test_runner_preserves_specific_blockers_on_timeout(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            plan = _write_plan(
+                root,
+                command=[
+                    "python3",
+                    "-c",
+                    "import sys, time; print(\"RuntimeError: Map 'Town13' not found\", file=sys.stderr, flush=True); time.sleep(2)",
+                ],
+            )
+            result = run_fail2drive_route(
+                Fail2DriveRouteRunConfig(
+                    plan_path=plan,
+                    run_dir=root / "run",
+                    timeout_s=0.25,
+                )
+            )
+
+        blockers = "\n".join(result.route_blockers)
+        self.assertIn("timed out", blockers)
+        self.assertIn("map", blockers.lower())
+
+    def test_runner_classifies_missing_carla_map(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            command = [
+                "python3",
+                "-c",
+                "import sys; print(\"RuntimeError: Map 'Town13' not found\", file=sys.stderr); sys.exit(1)",
+            ]
+            plan = _write_plan(root, command=command)
+            result = run_fail2drive_route(
+                Fail2DriveRouteRunConfig(plan_path=plan, run_dir=root / "run")
+            )
+
+        self.assertEqual(result.status, "blocked")
+        self.assertIn("map", "\n".join(result.route_blockers).lower())
+
+    def test_runner_blocks_when_rgb_folder_is_empty(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "out" / "visualizations" / "Route" / "rgb").mkdir(parents=True)
+            plan = _write_plan(root, command=["python3", "-c", "print('no-frames')"])
+            result = run_fail2drive_route(
+                Fail2DriveRouteRunConfig(plan_path=plan, run_dir=root / "run")
+            )
+
+        self.assertEqual(result.status, "blocked")
+        self.assertIn("No RGB frames found", "\n".join(result.route_blockers))
+
     def test_cli_writes_route_run_summary(self) -> None:
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
+            _write_rgb_folder(root)
             plan = _write_plan(root, command=["python3", "-c", "print('cli-ok')"])
             stream = StringIO()
 
@@ -113,6 +184,39 @@ class Fail2DriveRouteRunnerTest(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertTrue(json_exists)
         self.assertEqual(summary["status"], "passed")
+
+    def test_runner_blocks_when_checkpoint_reports_failed_route(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            output = root / "out"
+            result_path = output / "route_res.json"
+            result_path.parent.mkdir(parents=True)
+            result_path.write_text(
+                json.dumps(
+                    {
+                        "_checkpoint": {
+                            "global_record": {"status": "Failed"},
+                            "records": [
+                                {
+                                    "route_id": "RouteScenario_0_rep0",
+                                    "status": "Failed - Agent couldn't be set up",
+                                }
+                            ],
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+            plan = _write_plan(root, command=["python3", "-c", "print('checkpoint-failed')"])
+            result = run_fail2drive_route(
+                Fail2DriveRouteRunConfig(plan_path=plan, run_dir=root / "run")
+            )
+
+        self.assertEqual(result.status, "blocked")
+        blockers = "\n".join(result.route_blockers)
+        self.assertIn("global status Failed", blockers)
+        self.assertIn("RouteScenario_0_rep0", blockers)
+        self.assertIn("RGB frames were not produced", blockers)
 
 
 def _write_plan(root: Path, *, command: list[str] | None = None) -> Path:
@@ -136,6 +240,12 @@ def _write_plan(root: Path, *, command: list[str] | None = None) -> Path:
     path = root / "plan.json"
     path.write_text(json.dumps(payload), encoding="utf-8")
     return path
+
+
+def _write_rgb_folder(root: Path) -> None:
+    rgb = root / "out" / "visualizations" / "Route" / "rgb"
+    rgb.mkdir(parents=True)
+    (rgb / "00000.jpg").write_bytes(b"fake-image")
 
 
 if __name__ == "__main__":

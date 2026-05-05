@@ -1,0 +1,14 @@
+{
+  "carla": {
+    "host": "host.docker.internal",
+    "port": 2000,
+    "timeout_s": 10.0
+  },
+  "fail2drive": {
+    "root": "/workspace/fail2drive",
+    "route_path": "scenario_runner/srunner/data/routes_town10.xml",
+    "agent_path": "team_code/viz_path_agent.py",
+    "output_dir": "/workspace/0xDriver/artifacts/carla/fail2drive-docker-town10",
+    "track": "MAP"
+  }
+}

@@ -1,0 +1,14 @@
+Warn: large tracked source files detected
+  - 944 lines :: src/driverx/cli.py
+  - 944 lines :: tests/test_cli.py
+Run lint
+Skip typecheck: command not configured in scripts/pre_push_check.sh
+Run tests
+...........................................................................................................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 251 tests in 3.418s
+
+OK
+Skip build: command not configured in scripts/pre_push_check.sh
+Skip desloppify: command not configured in scripts/pre_push_check.sh
+Pre-push checks passed.
