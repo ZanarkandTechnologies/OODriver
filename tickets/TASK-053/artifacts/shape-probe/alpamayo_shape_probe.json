@@ -1,0 +1,12 @@
+{
+  "model_id": "nvidia/Alpamayo-1.5-10B",
+  "clip_id": "030c760c-ae38-49aa-9ad8-f5650a545d26",
+  "t0_us": 5100000,
+  "num_traj_samples": 1,
+  "max_generation_length": 256,
+  "attn_implementation": "eager",
+  "inference_state": "failed",
+  "nvidia_smi_exit_code": 0,
+  "error": "GatedRepoError: 403 Client Error. (Request ID: Root=1-69fa1f5f-5af4425778b764ac47623a48;a7f7c481-7ea9-4c52-b9cf-88c38933a41f)\n\nCannot access gated repo for url https://huggingface.co/api/datasets/nvidia/PhysicalAI-Autonomous-Vehicles/refs.\nAccess to dataset nvidia/PhysicalAI-Autonomous-Vehicles is restricted and you are not in the authorized list. Visit https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles to ask for access.",
+  "latency_ms": 35152.18
+}

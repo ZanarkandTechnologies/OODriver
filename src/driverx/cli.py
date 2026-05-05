@@ -877,6 +877,7 @@ def build_parser() -> argparse.ArgumentParser:
     from driverx.policies.alpamayo_offline_cli import register_alpamayo_offline_parser
     from driverx.policies.alpamayo_probe_cli import register_alpamayo_probe_parser
     from driverx.policies.alpamayo_release_cli import register_alpamayo_release_parser
+    from driverx.policies.alpamayo_shape_probe_cli import register_alpamayo_shape_probe_parser
     from driverx.policies.alpamayo_trajectory_cli import register_alpamayo_trajectory_parser
     from driverx.policies.runtime_matrix_cli import register_policy_runtime_matrix_parser
     from driverx.remote.runpod_cli import register_runpod_remote_parser
@@ -891,6 +892,7 @@ def build_parser() -> argparse.ArgumentParser:
     register_alpamayo_input_parser(subparsers)
     register_alpamayo_offline_parser(subparsers)
     register_alpamayo_probe_parser(subparsers)
+    register_alpamayo_shape_probe_parser(subparsers)
     register_alpamayo_release_parser(subparsers)
     register_alpamayo_trajectory_parser(subparsers)
     register_policy_runtime_matrix_parser(subparsers)

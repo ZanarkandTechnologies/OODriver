@@ -64,11 +64,12 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-050 live local CARLA 0.9.16 probe refresh
 - [x] TASK-051 live CARLA Alpamayo input capture
 - [x] TASK-052 RunPod Alpamayo bootstrap, download, and eager load proof
+- [x] TASK-053 live Alpamayo inference shape probe
 
 ## Active Roadmap
 
-- [ ] TASK-053 live Alpamayo inference shape probe
-- [ ] TASK-039 Alpamayo CARLA adapter (blocked on TASK-053 shape evidence)
+- [ ] TASK-054 Alpamayo tensor materializer from DriverX/CARLA captures
+- [ ] TASK-039 Alpamayo CARLA adapter
 
 ## Latest Evidence
 
@@ -251,6 +252,12 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   `ALPAMAYO_ATTN_IMPLEMENTATION=eager`. The successful eager load took about
   `32.1s` and peaked at about `21.1GB` VRAM; SDPA mode is not compatible with
   Alpamayo's custom architecture.
+- TASK-053 adds live Alpamayo inference shape probing. The upstream
+  `nvidia/PhysicalAI-Autonomous-Vehicles` sample dataset is gated, so the probe
+  falls back to synthetic Alpamayo-shaped tensors and still exercises the real
+  `sample_trajectories_from_data_with_vlm_rollout` path. Observed shapes are
+  `pred_xyz=[1,1,1,64,3]`, `pred_rot=[1,1,1,64,3,3]`,
+  `extra.cot=[1,1,1]`, with about `96.7s` live latency and `24.5GB` peak VRAM.
 - TASK-049 adds `run-alpamayo-offline`, an end-to-end adapter rehearsal that
   writes an Alpamayo input manifest, converts saved native `pred_xyz`, and
   emits a normal DriverX policy decision with `offline_replay=true`. This proves

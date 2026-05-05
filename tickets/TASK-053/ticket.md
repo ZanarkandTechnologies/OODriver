@@ -1,7 +1,7 @@
 # TASK-053: Live Alpamayo Inference Shape Probe
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-052, TASK-045, TASK-047, TASK-051
@@ -9,7 +9,8 @@
 - enter when: TASK-052 has a successful RunPod Alpamayo load proof
 - leave when: a real Alpamayo inference call records input contracts, output
   keys/shapes, latency, and VRAM without leaking prompts, tokens, or weights
-- blockers: none yet; possible upstream dataset gate or missing sample data
+- blockers: none for shape evidence; upstream PhysicalAI sample dataset remains
+  gated but synthetic fallback produced the required model I/O shapes
 - spawned follow-ups: TASK-039 Alpamayo CARLA adapter
 - complexity: M
 
@@ -24,17 +25,17 @@ Turn Alpamayo from "loadable" into "adaptable" by capturing the concrete
 sample-call contract needed by the DriverX CARLA adapter.
 
 ### Acceptance Criteria
-- [ ] AC-1: Identify the upstream inference entrypoint and required sample data
+- [x] AC-1: Identify the upstream inference entrypoint and required sample data
   path from the local or remote Alpamayo checkout.
-- [ ] AC-2: Run the smallest live inference path available on the RunPod pod
+- [x] AC-2: Run the smallest live inference path available on the RunPod pod
   with `ALPAMAYO_ATTN_IMPLEMENTATION=eager`, or record a precise external
   blocker if a separate gated dataset/sample is required.
-- [ ] AC-3: Write a compact shape report containing observed input fields,
+- [x] AC-3: Write a compact shape report containing observed input fields,
   output keys, trajectory shape, reasoning field shape/type when present,
   latency, and peak VRAM.
-- [ ] AC-4: Update TASK-039 with the exact adapter handoff decision: ready,
+- [x] AC-4: Update TASK-039 with the exact adapter handoff decision: ready,
   shape-blocked, data-blocked, or memory-blocked.
-- [ ] AC-5: Keep all model weights, raw datasets, tokens, and heavyweight logs
+- [x] AC-5: Keep all model weights, raw datasets, tokens, and heavyweight logs
   out of git.
 
 ### Agent Contract
@@ -51,27 +52,55 @@ sample-call contract needed by the DriverX CARLA adapter.
 - Delegate with: reviewer/QA only after shape evidence or blocker is recorded
 
 ### Evidence Checklist
-- [ ] Snapshot: upstream inference entrypoint inventory
-- [ ] Snapshot: live shape probe report or precise blocker
-- [ ] Snapshot: updated TASK-039 blocker/readiness note
-- [ ] QA report linked:
+- [x] Snapshot: upstream inference entrypoint inventory
+- [x] Snapshot: live shape probe report or precise blocker
+- [x] Snapshot: updated TASK-039 blocker/readiness note
+- [x] QA report linked:
 
 ### Build Notes
+- Added `scripts/run_remote_alpamayo_shape_probe.sh`, a compact remote runner
+  that first tries the upstream `load_physical_aiavdataset` sample path, then
+  falls back to synthetic Alpamayo-shaped tensors when the dataset is gated.
+- Added `probe-alpamayo-shapes` plus local classifier/reporting tests for shape
+  evidence.
+- Live RunPod attempt confirmed the upstream sample path is gated by
+  `nvidia/PhysicalAI-Autonomous-Vehicles`, then synthetic fallback exercised
+  `sample_trajectories_from_data_with_vlm_rollout`.
+- Observed input shapes:
+  `image_frames=[4,4,3,384,448]`, `camera_indices=[4]`,
+  `ego_history_xyz=[1,1,16,3]`, `ego_history_rot=[1,1,16,3,3]`,
+  `tokenized_data.input_ids=[1,2894]`, `pixel_values=[10752,1536]`.
+- Observed output shapes:
+  `pred_xyz=[1,1,1,64,3]`, `pred_rot=[1,1,1,64,3,3]`,
+  `extra.cot=[1,1,1]`, `extra.meta_action=[1,1,1]`,
+  `extra.answer=[1,1,1]`.
+- Live run latency was `96673.62ms` and peak VRAM was `24478.66MB` on the
+  RunPod RTX 6000 Ada.
 
 ### QA Reconciliation
-- AC-1: NOT PROVABLE
-- AC-2: NOT PROVABLE
-- AC-3: NOT PROVABLE
-- AC-4: NOT PROVABLE
-- AC-5: NOT PROVABLE
+- AC-1: PASS
+- AC-2: PASS
+- AC-3: PASS
+- AC-4: PASS
+- AC-5: PASS
 
 ### Artifact Links
+- Dataset-gated upstream attempt:
+  `tickets/TASK-053/artifacts/shape-probe-summary/alpamayo_shape_probe_report.md`
+- Synthetic fallback shape proof:
+  `tickets/TASK-053/artifacts/shape-probe-synthetic-summary/alpamayo_shape_probe_report.md`
+- QA:
+  `tickets/TASK-053/artifacts/qa/qa_report.md`
+- Review:
+  `tickets/TASK-053/artifacts/review/20260506T005200-review.md`
 
 ### User Evidence
-- Supporting evidence:
-- QA report:
-- Final verdict:
+- Supporting evidence: live RunPod shape probe reports listed above.
+- QA report: `tickets/TASK-053/artifacts/qa/qa_report.md`
+- Final verdict: TASK-039 can proceed against observed Alpamayo I/O shapes;
+  real PhysicalAI sample data remains gated but is not needed to implement the
+  DriverX/CARLA adapter path.
 
 ### Required Evidence
-- [ ] Unit/integration/e2e tests pass (as applicable)
-- [ ] Lint passes
+- [x] Unit/integration/e2e tests pass (as applicable)
+- [x] Lint passes

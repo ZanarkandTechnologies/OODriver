@@ -1,0 +1,127 @@
+{
+  "model_id": "nvidia/Alpamayo-1.5-10B",
+  "clip_id": "030c760c-ae38-49aa-9ad8-f5650a545d26",
+  "t0_us": 5100000,
+  "num_traj_samples": 1,
+  "max_generation_length": 256,
+  "attn_implementation": "eager",
+  "shape_source": "auto",
+  "inference_state": "shape_observed",
+  "nvidia_smi_exit_code": 0,
+  "shape_source_used": "synthetic_after_dataset_blocker",
+  "cot_excerpt": "Keep lane since the lane is clear ahead",
+  "input_shapes": {
+    "image_frames": [
+      4,
+      4,
+      3,
+      384,
+      448
+    ],
+    "camera_indices": [
+      4
+    ],
+    "ego_history_xyz": [
+      1,
+      1,
+      16,
+      3
+    ],
+    "ego_history_rot": [
+      1,
+      1,
+      16,
+      3,
+      3
+    ],
+    "ego_future_xyz": [
+      1,
+      1,
+      64,
+      3
+    ],
+    "ego_future_rot": [
+      1,
+      1,
+      64,
+      3,
+      3
+    ],
+    "tokenized_data": {
+      "input_ids": [
+        1,
+        2894
+      ],
+      "attention_mask": [
+        1,
+        2894
+      ],
+      "pixel_values": [
+        10752,
+        1536
+      ],
+      "image_grid_thw": [
+        16,
+        3
+      ]
+    }
+  },
+  "output_shapes": {
+    "pred_xyz": [
+      1,
+      1,
+      1,
+      64,
+      3
+    ],
+    "pred_rot": [
+      1,
+      1,
+      1,
+      64,
+      3,
+      3
+    ],
+    "extra": {
+      "cot": [
+        1,
+        1,
+        1
+      ],
+      "meta_action": [
+        1,
+        1,
+        1
+      ],
+      "answer": [
+        1,
+        1,
+        1
+      ]
+    },
+    "extra.cot": [
+      1,
+      1,
+      1
+    ],
+    "extra.meta_action": [
+      1,
+      1,
+      1
+    ],
+    "extra.answer": [
+      1,
+      1,
+      1
+    ]
+  },
+  "output_types": {
+    "pred_xyz": "Tensor",
+    "pred_rot": "Tensor",
+    "extra": "dict",
+    "extra.cot": "ndarray",
+    "extra.meta_action": "ndarray",
+    "extra.answer": "ndarray"
+  },
+  "latency_ms": 96673.62
+}

@@ -1,0 +1,18 @@
+{
+  "entrypoint": "alpamayo1_5.test_inference equivalent",
+  "data_loader": "load_physical_aiavdataset",
+  "message_builder": "helper.create_message",
+  "trajectory_method": "sample_trajectories_from_data_with_vlm_rollout",
+  "dataset_keys": [
+    "absolute_timestamps",
+    "camera_indices",
+    "clip_id",
+    "ego_future_rot",
+    "ego_future_xyz",
+    "ego_history_rot",
+    "ego_history_xyz",
+    "image_frames",
+    "relative_timestamps",
+    "t0_us"
+  ]
+}

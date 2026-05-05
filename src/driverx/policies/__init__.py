@@ -18,6 +18,10 @@ from driverx.policies.alpamayo_probe import (
     expected_alpamayo_schema,
     write_alpamayo_probe_report,
 )
+from driverx.policies.alpamayo_shape_probe import (
+    classify_alpamayo_shape_probe_artifacts,
+    write_alpamayo_shape_probe_report,
+)
 from driverx.policies.alpamayo_input import (
     AlpamayoInputPackage,
     build_alpamayo_input_package,
@@ -64,6 +68,7 @@ __all__ = [
     "PolicySetupError",
     "SetupCheckedStubPolicyAdapter",
     "classify_alpamayo_probe_artifacts",
+    "classify_alpamayo_shape_probe_artifacts",
     "alpamayo_prediction_to_trajectory",
     "build_alpamayo_input_package",
     "expected_alpamayo_schema",
@@ -77,6 +82,7 @@ __all__ = [
     "select_alpamayo_xyz_sample",
     "build_policy_runtime_matrix",
     "write_alpamayo_probe_report",
+    "write_alpamayo_shape_probe_report",
     "write_alpamayo_input_package",
     "write_alpamayo_release_contract",
     "write_alpamayo_trajectory_conversion",

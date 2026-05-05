@@ -6,6 +6,14 @@ unblocked ticket when possible.
 
 ## Open
 
+- 2026-05-06 00:52 +0800 | alpamayo,huggingface,physical-ai,dataset | TASK-053
+  found that the upstream `nvidia/PhysicalAI-Autonomous-Vehicles` sample dataset
+  is still gated for the current Hugging Face token. This no longer blocks
+  adapter implementation because TASK-053 produced shape evidence through
+  synthetic Alpamayo-shaped tensors, but it does block reproducing NVIDIA's
+  exact `test_inference.py` sample. Next unblock path: request or accept access
+  at `https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles`.
+
 - 2026-05-05 22:33 +0800 | fail2drive,docker,network | TASK-043
   added the Dockerized Fail2Drive client path, but local image build stalled
   during the pip wheel download layer after the apt layer succeeded. The image
