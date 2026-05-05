@@ -209,6 +209,16 @@ REMOTE_CACHE_ROOT=/workspace/.cache/driverx \
 bash scripts/run_remote_alpamayo_probe.sh root@195.26.233.80 \
   artifacts/remote/alpamayo-probe/latest
 
+# Compare live Alpamayo open-loop policy decisions with and without retrieved
+# DriverX safety memory. The comparison is intentionally not a closed-loop
+# CARLA-control claim.
+PYTHONPATH=src python3 -m driverx build-alpamayo-ood-comparison \
+  --baseline-decision tickets/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json \
+  --memory-decision tickets/TASK-056/artifacts/live-memory-run-summary/alpamayo_policy_decision.json \
+  --source-package artifacts/runs/task51-live-alpamayo-capture/alpamayo_carla_input_package.json \
+  --route-evidence tickets/TASK-055/artifacts/town10-route-evidence/run_evidence.json \
+  --run-id task56-alpamayo-ood-comparison
+
 # Build the judge-facing demo pack with storyboard, artifact map, declarations,
 # write-up draft, and first understood failure case
 PYTHONPATH=src python3 -m driverx build-demo-pack \

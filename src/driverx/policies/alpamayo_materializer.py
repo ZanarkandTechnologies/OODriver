@@ -456,7 +456,7 @@ def _markdown(payload: dict[str, Any]) -> str:
             "",
             "## Remote Loader Contract",
             "",
-            "The remote runner should load PNGs as RGB, stack them as `[N, 4, 3, H, W]`, ",
+            "The remote runner should load PNGs as RGB, stack them as `[N, 4, 3, H, W]`,",
             "create `camera_indices` as `torch.long`, and wrap ego history as `[1, 1, 16, ...]`.",
             "",
         ]

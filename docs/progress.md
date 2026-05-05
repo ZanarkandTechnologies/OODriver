@@ -67,15 +67,22 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-053 live Alpamayo inference shape probe
 - [x] TASK-054 Alpamayo tensor materializer from DriverX/CARLA captures
 - [x] TASK-039 Alpamayo CARLA adapter
+- [x] TASK-054B self-resolved Fail2Drive Docker/numpy route path
+- [x] TASK-055 live OOD scenario video evidence
+- [x] TASK-056 Alpamayo OOD evaluation harness
 
 ## Active Roadmap
 
-- [ ] TASK-055 live OOD scenario video evidence
-- [ ] TASK-056 Alpamayo OOD evaluation harness
 - [ ] TASK-057 demo pack refresh
 
 ## Latest Evidence
 
+- TASK-056 compares the real TASK-039 baseline Alpamayo CARLA capture against a
+  memory-augmented Alpamayo rerun. Both are labeled open-loop only. Retrieved
+  memory changed the CoC from accelerating through a green-light intersection to
+  keeping lane because the intersection was clear, changed the 20-point
+  trajectory by `0.9666m` mean L2 and `2.8886m` final L2, and added about
+  `611.1ms` latency on the same RunPod/eager path.
 - TASK-008 TCP smoke reached CARLA at `127.0.0.1:2000`.
 - TASK-008 Docker probe reached CARLA through `host.docker.internal:2000`.
 - Probe reported map `Carla/Maps/Town10HD_Opt`, actor count `23`, server

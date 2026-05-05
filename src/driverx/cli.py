@@ -883,6 +883,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     from driverx.pipeline.submission_dossier_cli import register_submission_dossier_parser
     from driverx.pipeline.submission_demo_pack_cli import register_submission_demo_pack_parser
+    from driverx.pipeline.alpamayo_ood_evaluation_cli import register_alpamayo_ood_evaluation_parser
     from driverx.pipeline.generated_ood_suite_cli import register_generated_ood_suite_parser
     from driverx.pipeline.route_evidence_cli import register_route_evidence_parser
     from driverx.policies.alpamayo_input_cli import register_alpamayo_input_parser
@@ -903,6 +904,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     register_generated_ood_suite_parser(subparsers)
     register_route_evidence_parser(subparsers)
+    register_alpamayo_ood_evaluation_parser(subparsers)
     register_alpamayo_input_parser(subparsers)
     register_alpamayo_live_parser(subparsers)
     register_alpamayo_materializer_parser(subparsers)

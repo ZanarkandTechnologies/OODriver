@@ -184,6 +184,24 @@ prediction: dict[str, Any] = {
 }
 memory: dict[str, Any] = {}
 
+
+def prompt_nav_text(payload: dict[str, Any]) -> str | None:
+    nav_text = payload.get("nav_text")
+    lines: list[str] = []
+    if isinstance(nav_text, str) and nav_text.strip():
+        lines.append(nav_text.strip())
+    memory_context = payload.get("memory_context")
+    if isinstance(memory_context, list) and memory_context:
+        lines.append("DriverX retrieved safety memory, prompt-side only:")
+        for item in memory_context[:3]:
+            if not isinstance(item, dict):
+                continue
+            entry_id = str(item.get("entry_id", "memory"))
+            recommended = str(item.get("recommended_behavior") or item.get("principle") or "").strip()
+            if recommended:
+                lines.append(f"{entry_id}: {recommended}")
+    return "\n".join(lines) if lines else None
+
 code, gpu_snapshot = run(
     [
         "nvidia-smi",
@@ -218,6 +236,9 @@ try:
     camera_indices = torch.tensor(payload["camera_indices"], dtype=torch.long)
     ego_history_xyz = torch.tensor(payload["ego_history_xyz"], dtype=torch.float32).reshape(1, 1, 16, 3)
     ego_history_rot = torch.tensor(payload["ego_history_rot"], dtype=torch.float32).reshape(1, 1, 16, 3, 3)
+    nav_text = prompt_nav_text(payload)
+    memory_context = payload.get("memory_context")
+    memory_context_count = len(memory_context) if isinstance(memory_context, list) else 0
     input_shapes = {
         "image_frames": shape_of(image_frames),
         "camera_indices": shape_of(camera_indices),
@@ -236,7 +257,13 @@ try:
     messages = helper.create_message(
         frames=image_frames.flatten(0, 1),
         camera_indices=camera_indices,
+        nav_text=nav_text,
     )
+    prediction["prompt_context"] = {
+        "nav_text_provided": nav_text is not None,
+        "nav_text_excerpt": nav_text[:500] if nav_text else None,
+        "memory_context_count": memory_context_count,
+    }
     tokenized = processor.apply_chat_template(
         messages,
         tokenize=True,

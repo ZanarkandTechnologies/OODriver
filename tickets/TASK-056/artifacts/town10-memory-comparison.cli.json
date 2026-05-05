@@ -1,0 +1,305 @@
+{
+  "open_loop_policy_evaluation": true,
+  "closed_loop_control": false,
+  "scenario_id": "alpamayo-open-loop::alpamayo-live",
+  "records": [
+    {
+      "mode": "alpamayo",
+      "path": "tickets/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json",
+      "policy_id": "alpamayo-live",
+      "adapter_kind": "alpamayo_open_loop",
+      "open_loop_policy_evaluation": true,
+      "closed_loop_control": false,
+      "latency_ms": 99795.97,
+      "vram_peak_mb": 23235.75,
+      "retrieved_memory_ids": [],
+      "cot_snippet": "[[['Accelerate to proceed through the intersection since the traffic light turns green']]]",
+      "target_behavior": "open_loop_trajectory_eval",
+      "speed_profile": "trajectory_chunk",
+      "trajectory_points_xy": [
+        [
+          -0.0043,
+          -0.0
+        ],
+        [
+          -0.0202,
+          -0.0
+        ],
+        [
+          -0.0544,
+          -0.0
+        ],
+        [
+          -0.1127,
+          0.0
+        ],
+        [
+          -0.2079,
+          0.0
+        ],
+        [
+          -0.3438,
+          0.0
+        ],
+        [
+          -0.523,
+          0.0001
+        ],
+        [
+          -0.7392,
+          0.0002
+        ],
+        [
+          -0.992,
+          0.0004
+        ],
+        [
+          -1.2732,
+          0.0007
+        ],
+        [
+          -1.5786,
+          0.0012
+        ],
+        [
+          -1.8995,
+          0.002
+        ],
+        [
+          -2.2317,
+          0.0031
+        ],
+        [
+          -2.5672,
+          0.0044
+        ],
+        [
+          -2.887,
+          0.0059
+        ],
+        [
+          -3.1744,
+          0.0074
+        ],
+        [
+          -3.4166,
+          0.0088
+        ],
+        [
+          -3.6078,
+          0.01
+        ],
+        [
+          -3.7277,
+          0.0107
+        ],
+        [
+          -3.7665,
+          0.011
+        ]
+      ],
+      "trajectory_summary": {
+        "point_count": 20,
+        "start_xy": [
+          -0.0043,
+          -0.0
+        ],
+        "end_xy": [
+          -3.7665,
+          0.011
+        ],
+        "path_length_m": 3.7622
+      },
+      "setup_blocker": null
+    },
+    {
+      "mode": "alpamayo+memory",
+      "path": "tickets/TASK-056/artifacts/live-memory-run-summary/alpamayo_policy_decision.json",
+      "policy_id": "alpamayo-live",
+      "adapter_kind": "alpamayo_open_loop",
+      "open_loop_policy_evaluation": true,
+      "closed_loop_control": false,
+      "latency_ms": 100407.07,
+      "vram_peak_mb": 23373.31,
+      "retrieved_memory_ids": [
+        "mem-sample-motorcycle-filtering"
+      ],
+      "cot_snippet": "[[['Keep lane since the intersection is clear and no lead vehicle is present']]]",
+      "target_behavior": "open_loop_trajectory_eval",
+      "speed_profile": "trajectory_chunk",
+      "trajectory_points_xy": [
+        [
+          -0.0054,
+          0.0
+        ],
+        [
+          -0.0271,
+          0.0
+        ],
+        [
+          -0.0775,
+          0.0
+        ],
+        [
+          -0.1676,
+          0.0
+        ],
+        [
+          -0.3148,
+          0.0
+        ],
+        [
+          -0.5217,
+          0.0001
+        ],
+        [
+          -0.7923,
+          0.0002
+        ],
+        [
+          -1.1178,
+          0.0005
+        ],
+        [
+          -1.4976,
+          0.001
+        ],
+        [
+          -1.9215,
+          0.0018
+        ],
+        [
+          -2.3834,
+          0.0031
+        ],
+        [
+          -2.8701,
+          0.0048
+        ],
+        [
+          -3.3747,
+          0.007
+        ],
+        [
+          -3.889,
+          0.0098
+        ],
+        [
+          -4.4026,
+          0.013
+        ],
+        [
+          -4.9058,
+          0.0165
+        ],
+        [
+          -5.3931,
+          0.0202
+        ],
+        [
+          -5.8583,
+          0.0239
+        ],
+        [
+          -6.2833,
+          0.0274
+        ],
+        [
+          -6.655,
+          0.0304
+        ]
+      ],
+      "trajectory_summary": {
+        "point_count": 20,
+        "start_xy": [
+          -0.0054,
+          0.0
+        ],
+        "end_xy": [
+          -6.655,
+          0.0304
+        ],
+        "path_length_m": 6.6497
+      },
+      "setup_blocker": null
+    }
+  ],
+  "memory_ids": [
+    "mem-sample-motorcycle-filtering"
+  ],
+  "memory_context": [
+    {
+      "entry_id": "mem-sample-motorcycle-filtering",
+      "principle": "Regional two-wheeler behavior should be treated as lateral occupancy uncertainty.",
+      "recommended_behavior": "Slow early, yield, and keep extra side clearance before committing.",
+      "confidence": 0.82,
+      "tags": [
+        "motorcycle",
+        "filtering",
+        "lateral",
+        "regional"
+      ]
+    }
+  ],
+  "trajectory_delta": {
+    "available": true,
+    "point_count": 20,
+    "mean_l2_m": 0.9666,
+    "max_l2_m": 2.8886,
+    "final_l2_m": 2.8886
+  },
+  "reasoning_delta": {
+    "baseline_chars": 90,
+    "memory_chars": 80,
+    "changed": true,
+    "available": true
+  },
+  "latency_delta_ms": 611.1,
+  "route_evidence": {
+    "path": "tickets/TASK-055/artifacts/town10-route-evidence/run_evidence.json",
+    "status": "partial",
+    "video": {
+      "label": "video",
+      "path": "tickets/TASK-054B/artifacts/docker-route-plan-town10-speedlimit/fail2drive_outputs/routes_town10.mp4",
+      "exists": true,
+      "size_bytes": 7886364,
+      "duration_s": 4.1
+    },
+    "metrics": {
+      "driving_score": null,
+      "route_completion": null,
+      "infraction_penalty": null,
+      "duration_game_s": null,
+      "duration_system_s": null,
+      "track_count": null,
+      "actor_refs": [],
+      "video_duration_s": 4.1,
+      "video_size_bytes": 7886364
+    },
+    "blockers": []
+  },
+  "memory_augmented_package": {
+    "json_path": "tickets/TASK-056/artifacts/town10-memory-comparison/memory_augmented_alpamayo_carla_input_package.json",
+    "report_path": "tickets/TASK-056/artifacts/town10-memory-comparison/memory_augmented_alpamayo_carla_input_package.md",
+    "torch_ready": true,
+    "validation_errors": [],
+    "memory_context_count": 1,
+    "nav_text_excerpt": "follow the route safely\nDriverX retrieved safety memory, prompt-side only:\nmem-sample-motorcycle-filtering: Regional two-wheeler behavior should be treated as lateral occupancy uncertainty. Recommended behavior: Slow early, yield, and keep extra side clearance before committing."
+  },
+  "safety_flags": {
+    "open_loop_only": true,
+    "closed_loop_control_claimed": false,
+    "memory_augmented_live_run_available": true,
+    "route_video_available": true,
+    "route_score_available": false
+  },
+  "inputs": {
+    "baseline_decision_path": "tickets/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json",
+    "memory_decision_path": "tickets/TASK-056/artifacts/live-memory-run-summary/alpamayo_policy_decision.json",
+    "source_package_path": "artifacts/runs/task51-live-alpamayo-capture/alpamayo_carla_input_package.json",
+    "route_evidence_path": "tickets/TASK-055/artifacts/town10-route-evidence/run_evidence.json",
+    "memory_entries_path": null
+  },
+  "json_path": "tickets/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json",
+  "report_path": "tickets/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.md"
+}
