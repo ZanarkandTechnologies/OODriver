@@ -6,6 +6,15 @@ unblocked ticket when possible.
 
 ## Open
 
+- 2026-05-05 22:45 +0800 | alpamayo,gpu,ssh | TASK-044 hardened the
+  remote Alpamayo probe for custom SSH port/key, `.env` token loading, and
+  compact rsync pullback, but the supplied A6000 endpoint refused connection:
+  `ssh: connect to host 195.26.233.80 port 36723: Connection refused`.
+  The literal key path `~/.ssh/id_ed25519` is absent locally; the live attempt
+  used `~/.ssh/id_ed25519_prime_intellect`. Next unblock path: confirm the
+  instance is running, port `36723` is still the active SSH port, firewall rules
+  expose it, and the instance has the matching public key.
+
 - 2026-05-05 22:33 +0800 | fail2drive,docker,network | TASK-043
   added the Dockerized Fail2Drive client path, but local image build stalled
   during the pip wheel download layer after the apt layer succeeded. The image

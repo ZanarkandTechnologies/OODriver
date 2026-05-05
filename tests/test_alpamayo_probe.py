@@ -123,6 +123,9 @@ class AlpamayoProbeTest(unittest.TestCase):
         self.assertIn("ALPAMAYO_DOWNLOAD", script)
         self.assertIn("ALPAMAYO_LOAD", script)
         self.assertIn("HF_TOKEN", script)
+        self.assertIn("GPU_SSH_OPTS", script)
+        self.assertIn("DRIVERX_ENV_FILE", script)
+        self.assertIn("rsync", script)
         self.assertNotIn("set -x", script)
         self.assertIn(".hf_token", script)
 

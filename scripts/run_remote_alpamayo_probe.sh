@@ -7,6 +7,13 @@ if [ "${1:-}" = "" ]; then
 fi
 
 REMOTE="$1"
+ENV_FILE="${DRIVERX_ENV_FILE:-.env}"
+if [ -f "${ENV_FILE}" ]; then
+  set -a
+  # shellcheck disable=SC1090
+  . "${ENV_FILE}"
+  set +a
+fi
 RUN_ID="${RUN_ID:-alpamayo-probe-$(date -u +%Y%m%dT%H%M%SZ)}"
 REMOTE_ROOT="${REMOTE_ROOT:-/workspace/0xdriver-artifacts/alpamayo-probe/$RUN_ID}"
 LOCAL_OUTPUT="${2:-${LOCAL_OUTPUT:-artifacts/remote/alpamayo-probe/$RUN_ID}}"
@@ -14,14 +21,16 @@ MODEL_ID="${ALPAMAYO_REPO_ID:-nvidia/Alpamayo-1.5-10B}"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 ALPAMAYO_DOWNLOAD="${ALPAMAYO_DOWNLOAD:-0}"
 ALPAMAYO_LOAD="${ALPAMAYO_LOAD:-0}"
+SSH_OPTIONS="${GPU_SSH_OPTS:-${SSH_OPTS:-}}"
+SSH_RSH="ssh ${SSH_OPTIONS} -o StrictHostKeyChecking=accept-new"
 
-ssh "$REMOTE" "mkdir -p '$REMOTE_ROOT'"
+ssh ${SSH_OPTIONS} -o StrictHostKeyChecking=accept-new "$REMOTE" "mkdir -p '$REMOTE_ROOT'"
 
 if [ -n "${HF_TOKEN:-}" ]; then
-  printf '%s' "$HF_TOKEN" | ssh "$REMOTE" "cat > '$REMOTE_ROOT/.hf_token' && chmod 600 '$REMOTE_ROOT/.hf_token'"
+  printf '%s' "$HF_TOKEN" | ssh ${SSH_OPTIONS} "$REMOTE" "cat > '$REMOTE_ROOT/.hf_token' && chmod 600 '$REMOTE_ROOT/.hf_token'"
 fi
 
-ssh "$REMOTE" "cat > '$REMOTE_ROOT/probe.py'" <<'PY'
+ssh ${SSH_OPTIONS} "$REMOTE" "cat > '$REMOTE_ROOT/probe.py'" <<'PY'
 from __future__ import annotations
 
 import json
@@ -176,15 +185,23 @@ except Exception:
 (remote_root / "probe.log").write_text(redact("\n".join(log_lines)), encoding="utf-8")
 PY
 
-ssh "$REMOTE" "REMOTE_ROOT='$REMOTE_ROOT' MODEL_ID='$MODEL_ID' ALPAMAYO_DOWNLOAD='$ALPAMAYO_DOWNLOAD' ALPAMAYO_LOAD='$ALPAMAYO_LOAD' PYTHON_BIN='$PYTHON_BIN' '$PYTHON_BIN' '$REMOTE_ROOT/probe.py'; rm -f '$REMOTE_ROOT/.hf_token'"
+ssh ${SSH_OPTIONS} "$REMOTE" "REMOTE_ROOT='$REMOTE_ROOT' MODEL_ID='$MODEL_ID' ALPAMAYO_DOWNLOAD='$ALPAMAYO_DOWNLOAD' ALPAMAYO_LOAD='$ALPAMAYO_LOAD' PYTHON_BIN='$PYTHON_BIN' '$PYTHON_BIN' '$REMOTE_ROOT/probe.py'; rm -f '$REMOTE_ROOT/.hf_token'"
 
 mkdir -p "$LOCAL_OUTPUT"
-scp "$REMOTE:$REMOTE_ROOT/alpamayo_probe.json" "$LOCAL_OUTPUT/" || true
-scp "$REMOTE:$REMOTE_ROOT/gpu_snapshot.txt" "$LOCAL_OUTPUT/" || true
-scp "$REMOTE:$REMOTE_ROOT/package_versions.json" "$LOCAL_OUTPUT/" || true
-scp "$REMOTE:$REMOTE_ROOT/package_versions.txt" "$LOCAL_OUTPUT/" || true
-scp "$REMOTE:$REMOTE_ROOT/memory_usage.json" "$LOCAL_OUTPUT/" || true
-scp "$REMOTE:$REMOTE_ROOT/probe.log" "$LOCAL_OUTPUT/" || true
+rsync -rltz --prune-empty-dirs \
+  -e "${SSH_RSH}" \
+  --no-owner \
+  --no-group \
+  --include='*/' \
+  --include='alpamayo_probe.json' \
+  --include='gpu_snapshot.txt' \
+  --include='package_versions.json' \
+  --include='package_versions.txt' \
+  --include='memory_usage.json' \
+  --include='probe.log' \
+  --exclude='*' \
+  "$REMOTE:${REMOTE_ROOT%/}/" \
+  "$LOCAL_OUTPUT/" || true
 
 PYTHONPATH="${PYTHONPATH:-src}" python3 -m driverx probe-alpamayo \
   --artifact-root "$LOCAL_OUTPUT" \

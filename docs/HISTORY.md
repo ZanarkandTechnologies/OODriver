@@ -71,3 +71,5 @@
 2026-05-05 19:42 +0800 | SHIP | TASK-041 added a DriverX-owned ffmpeg route-video assembler so missing Fail2Drive video helper code no longer blocks future RGB-to-MP4 evidence
 2026-05-05 22:10 +0800 | SHIP | TASK-042 added a structured Fail2Drive route runner and proved local native execution reaches the evaluator but blocks on missing numpy before CARLA connection
 2026-05-05 22:33 +0800 | SHIP | TASK-043 added a Dockerized Fail2Drive client path with repo/external mounts and host-CARLA config; local build stalled in pip download and should be rerun on a faster network or remote host
+2026-05-05 22:45 +0800 | SHIP | TASK-044 hardened the Alpamayo remote probe for custom SSH options, local env token loading, secret-safe remote handoff, and compact rsync pullback
+2026-05-05 22:45 +0800 | BLOCKER | TASK-044 live A6000 probe could not start because the supplied endpoint refused SSH on port 36723

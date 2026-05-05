@@ -1,0 +1,88 @@
+{
+  "work_type": ["backend", "ops"],
+  "search_scope": {
+    "changed_files": [
+      "scripts/run_remote_alpamayo_probe.sh",
+      "tests/test_alpamayo_probe.py",
+      "tickets/TASK-044/ticket.md",
+      "blockers.md",
+      "docs/progress.md",
+      "docs/HISTORY.md"
+    ],
+    "related_files": [
+      "tickets/archive/TASK-038/ticket.md",
+      "src/driverx/policies/alpamayo_probe.py",
+      "tickets/TASK-044/artifacts/a6000-probe/run.log"
+    ],
+    "docs_checked": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "evidence-quality.md",
+      "integration-readiness.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "evidence-quality", "integration-readiness"],
+  "summary": "The probe wrapper now supports the provided real-GPU SSH shape while preserving secret safety and compact artifact pullback. Focused tests cover the script contract, and the live A6000 attempt produced a precise connection-refused blocker rather than an ambiguous failure.",
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.0,
+        "error-handling": 4.0,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "No code follow-up required before retrying with a reachable GPU host."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.0,
+        "traceability": 4.0,
+        "consistency": 4.5,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.5
+      },
+      "findings": [],
+      "next_action": "Retry the same command once the SSH endpoint is reachable."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.5,
+        "merge-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Advance locally; keep TASK-039 blocked until Alpamayo shape/load evidence exists."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Archive TASK-044 after the pre-push gate, then continue with GPU-independent Alpamayo repo/bootstrap planning."
+}
