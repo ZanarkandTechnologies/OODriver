@@ -12,6 +12,12 @@ from driverx.policies.runner import (
     sample_memory_entries,
     write_policy_decision,
 )
+from driverx.policies.alpamayo_probe import (
+    DEFAULT_ALPAMAYO_MODEL_ID,
+    classify_alpamayo_probe_artifacts,
+    expected_alpamayo_schema,
+    write_alpamayo_probe_report,
+)
 from driverx.policies.runtime_matrix import (
     PolicyRuntimeRow,
     build_policy_runtime_matrix,
@@ -28,6 +34,7 @@ from driverx.policies.types import (
 __all__ = [
     "HybridPlannerPolicyAdapter",
     "MockPolicyAdapter",
+    "DEFAULT_ALPAMAYO_MODEL_ID",
     "PolicyAction",
     "PolicyAdapter",
     "PolicyContext",
@@ -35,11 +42,14 @@ __all__ = [
     "PolicyRuntimeRow",
     "PolicySetupError",
     "SetupCheckedStubPolicyAdapter",
+    "classify_alpamayo_probe_artifacts",
+    "expected_alpamayo_schema",
     "memory_entries_from_json",
     "run_policy_fixture",
     "sample_memory_entries",
     "select_policy_adapter",
     "build_policy_runtime_matrix",
+    "write_alpamayo_probe_report",
     "write_policy_runtime_matrix",
     "write_policy_decision",
 ]

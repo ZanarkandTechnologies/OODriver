@@ -6,6 +6,13 @@ unblocked ticket when possible.
 
 ## Open
 
+- 2026-05-05 19:24 +0800 | alpamayo,probe,gpu | TASK-038 shipped the
+  local Alpamayo probe classifier and remote probe script, but live Alpamayo
+  model proof still needs a confirmed checkpoint/repo id and an explicit remote
+  run of `scripts/run_remote_alpamayo_probe.sh`. The script is intentionally
+  download/load gated with `ALPAMAYO_DOWNLOAD=1` and `ALPAMAYO_LOAD=1` so a
+  default run does not unexpectedly pull a large model.
+
 - 2026-05-05 18:58 +0800 | fail2drive,video | TASK-033 route-video
   smoke planning is implemented, but the external Fail2Drive checkout does not
   include `tools/generate_video.py`. The plan still writes the expected command

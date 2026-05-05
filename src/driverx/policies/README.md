@@ -10,6 +10,8 @@ fallbacks, API VLMs, SimLingo/CarLLaVA, or Alpamayo later.
 
 - `PolicyContext`
 - `PolicyDecision`
+- `expected_alpamayo_schema(...)`
+- `classify_alpamayo_probe_artifacts(...)`
 - `select_policy_adapter(name, memory_aware=False)`
 - `run_policy_fixture(...)`
 - `write_policy_decision(...)`
@@ -18,6 +20,7 @@ fallbacks, API VLMs, SimLingo/CarLLaVA, or Alpamayo later.
 
 ```bash
 PYTHONPATH=src python3 -m driverx run-policy-fixture --policy mock --run-id task13-policy
+PYTHONPATH=src python3 -m driverx probe-alpamayo --artifact-root artifacts/remote/alpamayo-probe/latest
 ```
 
 ## Test

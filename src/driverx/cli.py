@@ -872,12 +872,14 @@ def build_parser() -> argparse.ArgumentParser:
     from driverx.pipeline.submission_dossier_cli import register_submission_dossier_parser
     from driverx.pipeline.generated_ood_suite_cli import register_generated_ood_suite_parser
     from driverx.pipeline.route_evidence_cli import register_route_evidence_parser
+    from driverx.policies.alpamayo_probe_cli import register_alpamayo_probe_parser
     from driverx.policies.runtime_matrix_cli import register_policy_runtime_matrix_parser
     from driverx.simulators.simlingo_cli import register_simlingo_parsers
     from driverx.simulators.gpu_host_cli import register_gpu_host_parser
 
     register_generated_ood_suite_parser(subparsers)
     register_route_evidence_parser(subparsers)
+    register_alpamayo_probe_parser(subparsers)
     register_policy_runtime_matrix_parser(subparsers)
     register_simlingo_parsers(subparsers)
     register_gpu_host_parser(subparsers)
