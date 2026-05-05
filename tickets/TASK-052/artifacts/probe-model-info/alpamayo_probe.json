@@ -1,0 +1,14 @@
+{
+  "model_id": "nvidia/Alpamayo-1.5-10B",
+  "model_load_state": "not_requested",
+  "download_requested": false,
+  "load_requested": false,
+  "nvidia_smi_exit_code": 0,
+  "model_info_latency_ms": 110.27,
+  "model_info": {
+    "id": "nvidia/Alpamayo-1.5-10B",
+    "sha": "f11cd25b758ab560114019b555dde2a8b92d88b4",
+    "private": false,
+    "gated": false
+  }
+}

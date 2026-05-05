@@ -1,0 +1,10 @@
+{
+  "torch": {
+    "device_name": "NVIDIA RTX 6000 Ada Generation",
+    "compute_capability": "8.9",
+    "total_memory_mb": 48519.94,
+    "allocated_mb": 0.0,
+    "reserved_mb": 0.0,
+    "vram_peak_mb": 0.0
+  }
+}

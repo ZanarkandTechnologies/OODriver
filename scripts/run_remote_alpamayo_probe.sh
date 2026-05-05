@@ -21,10 +21,11 @@ MODEL_ID="${ALPAMAYO_REPO_ID:-nvidia/Alpamayo-1.5-10B}"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 ALPAMAYO_DOWNLOAD="${ALPAMAYO_DOWNLOAD:-0}"
 ALPAMAYO_LOAD="${ALPAMAYO_LOAD:-0}"
+REMOTE_CACHE_ROOT="${REMOTE_CACHE_ROOT:-/workspace/.cache/driverx}"
 SSH_OPTIONS="${GPU_SSH_OPTS:-${SSH_OPTS:-}}"
 SSH_RSH="ssh ${SSH_OPTIONS} -o StrictHostKeyChecking=accept-new"
 
-ssh ${SSH_OPTIONS} -o StrictHostKeyChecking=accept-new "$REMOTE" "mkdir -p '$REMOTE_ROOT'"
+ssh ${SSH_OPTIONS} -o StrictHostKeyChecking=accept-new "$REMOTE" "mkdir -p '$REMOTE_ROOT' '$REMOTE_CACHE_ROOT'"
 
 if [ -n "${HF_TOKEN:-}" ]; then
   printf '%s' "$HF_TOKEN" | ssh ${SSH_OPTIONS} "$REMOTE" "cat > '$REMOTE_ROOT/.hf_token' && chmod 600 '$REMOTE_ROOT/.hf_token'"
@@ -91,6 +92,8 @@ code, gpu_snapshot = run(
 probe["nvidia_smi_exit_code"] = code
 
 code, freeze = run([os.environ.get("PYTHON_BIN", "python3"), "-m", "pip", "freeze"])
+if code != 0:
+    code, freeze = run(["uv", "pip", "freeze", "--python", os.environ.get("PYTHON_BIN", "python3")])
 (remote_root / "package_versions.txt").write_text(redact(freeze), encoding="utf-8")
 packages = {"pip_freeze_exit_code": code, "python": os.environ.get("PYTHON_BIN", "python3")}
 
@@ -142,25 +145,41 @@ if load_model and probe.get("error") is None:
     started = time.perf_counter()
     try:
         import torch
-        from transformers import AutoModelForCausalLM, AutoModelForVision2Seq, AutoProcessor
-
-        AutoProcessor.from_pretrained(model_id, token=os.environ.get("HF_TOKEN") or None, trust_remote_code=True)
         try:
-            AutoModelForVision2Seq.from_pretrained(
+            from alpamayo1_5.models.alpamayo1_5 import Alpamayo1_5
+
+            Alpamayo1_5.from_pretrained(
                 model_id,
                 token=os.environ.get("HF_TOKEN") or None,
-                trust_remote_code=True,
-                torch_dtype=torch.bfloat16,
-                device_map="auto",
-            )
-        except Exception:
-            AutoModelForCausalLM.from_pretrained(
-                model_id,
-                token=os.environ.get("HF_TOKEN") or None,
-                trust_remote_code=True,
-                torch_dtype=torch.bfloat16,
-                device_map="auto",
-            )
+                dtype=torch.bfloat16,
+                attn_implementation="sdpa",
+            ).to("cuda")
+            probe["model_class"] = "Alpamayo1_5"
+        except Exception as alpamayo_exc:
+            log_lines.append("Alpamayo1_5 load failed; trying transformers auto fallback.")
+            log_lines.append(traceback.format_exc())
+            from transformers import AutoModelForCausalLM, AutoModelForVision2Seq, AutoProcessor
+
+            probe["alpamayo_class_error"] = f"{type(alpamayo_exc).__name__}: {alpamayo_exc}"
+            AutoProcessor.from_pretrained(model_id, token=os.environ.get("HF_TOKEN") or None, trust_remote_code=True)
+            try:
+                AutoModelForVision2Seq.from_pretrained(
+                    model_id,
+                    token=os.environ.get("HF_TOKEN") or None,
+                    trust_remote_code=True,
+                    torch_dtype=torch.bfloat16,
+                    device_map="auto",
+                )
+                probe["model_class"] = "AutoModelForVision2Seq"
+            except Exception:
+                AutoModelForCausalLM.from_pretrained(
+                    model_id,
+                    token=os.environ.get("HF_TOKEN") or None,
+                    trust_remote_code=True,
+                    torch_dtype=torch.bfloat16,
+                    device_map="auto",
+                )
+                probe["model_class"] = "AutoModelForCausalLM"
         probe["model_load_state"] = "loaded"
     except Exception as exc:
         probe["model_load_state"] = "failed"
@@ -185,7 +204,7 @@ except Exception:
 (remote_root / "probe.log").write_text(redact("\n".join(log_lines)), encoding="utf-8")
 PY
 
-ssh ${SSH_OPTIONS} "$REMOTE" "REMOTE_ROOT='$REMOTE_ROOT' MODEL_ID='$MODEL_ID' ALPAMAYO_DOWNLOAD='$ALPAMAYO_DOWNLOAD' ALPAMAYO_LOAD='$ALPAMAYO_LOAD' PYTHON_BIN='$PYTHON_BIN' '$PYTHON_BIN' '$REMOTE_ROOT/probe.py'; rm -f '$REMOTE_ROOT/.hf_token'"
+ssh ${SSH_OPTIONS} "$REMOTE" "PATH=\"\$HOME/.local/bin:\$PATH\" REMOTE_ROOT='$REMOTE_ROOT' MODEL_ID='$MODEL_ID' ALPAMAYO_DOWNLOAD='$ALPAMAYO_DOWNLOAD' ALPAMAYO_LOAD='$ALPAMAYO_LOAD' PYTHON_BIN='$PYTHON_BIN' XDG_CACHE_HOME='$REMOTE_CACHE_ROOT' UV_CACHE_DIR='$REMOTE_CACHE_ROOT/uv' HF_HOME='$REMOTE_CACHE_ROOT/huggingface' TRANSFORMERS_CACHE='$REMOTE_CACHE_ROOT/huggingface' HF_HUB_CACHE='$REMOTE_CACHE_ROOT/huggingface/hub' '$PYTHON_BIN' '$REMOTE_ROOT/probe.py'; rm -f '$REMOTE_ROOT/.hf_token'"
 
 mkdir -p "$LOCAL_OUTPUT"
 rsync -rltz --prune-empty-dirs \
@@ -201,7 +220,11 @@ rsync -rltz --prune-empty-dirs \
   --include='probe.log' \
   --exclude='*' \
   "$REMOTE:${REMOTE_ROOT%/}/" \
-  "$LOCAL_OUTPUT/" || true
+  "$LOCAL_OUTPUT/" || {
+    echo "rsync pullback failed; falling back to ssh tar stream." >&2
+    ssh ${SSH_OPTIONS} "$REMOTE" "cd '$REMOTE_ROOT' && files=''; for f in alpamayo_probe.json gpu_snapshot.txt package_versions.json package_versions.txt memory_usage.json probe.log; do if [ -e \"\$f\" ]; then files=\"\$files \$f\"; fi; done; if [ -n \"\$files\" ]; then tar -cf - \$files; fi" \
+      | tar -xf - -C "$LOCAL_OUTPUT" || true
+  }
 
 PYTHONPATH="${PYTHONPATH:-src}" python3 -m driverx probe-alpamayo \
   --artifact-root "$LOCAL_OUTPUT" \

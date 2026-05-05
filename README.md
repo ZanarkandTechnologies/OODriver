@@ -249,13 +249,21 @@ PYTHONPATH=src python3 -m driverx ingest-simlingo-result \
 bash scripts/sync_remote_gpu.sh root@31.22.104.74 /workspace/0xDriver
 bash scripts/run_remote_simlingo_bootstrap.sh root@31.22.104.74 /workspace/0xDriver
 
-# For RunPod direct TCP SSH, set the target and raw SSH options instead of
-# relying on the default port 22 shape:
-GPU_SSH_HOST=root@38.80.152.148 \
-GPU_SSH_OPTS="-p 31257 -i ~/.ssh/id_ed25519_runpod" \
+# For RunPod direct TCP SSH, resolve the current pod port first. RunPod TCP
+# mappings change when pods are replaced or restarted, so do not reuse stale
+# Connect-tab ports blindly.
+PYTHONPATH=src python3 -m driverx resolve-runpod-ssh \
+  --env-file .env \
+  --ssh-key ~/.ssh/id_ed25519_runpod \
+  --run-id runpod-current
+
+# Then export the emitted GPU_SSH_HOST / GPU_SSH_OPTS values before running
+# remote helpers.
+GPU_SSH_HOST=root@195.26.233.80 \
+GPU_SSH_OPTS="-p 55050 -i ~/.ssh/id_ed25519_runpod" \
 bash scripts/sync_remote_gpu.sh
-GPU_SSH_HOST=root@38.80.152.148 \
-GPU_SSH_OPTS="-p 31257 -i ~/.ssh/id_ed25519_runpod" \
+GPU_SSH_HOST=root@195.26.233.80 \
+GPU_SSH_OPTS="-p 55050 -i ~/.ssh/id_ed25519_runpod" \
 SESSION_NAME=task20 \
 REMOTE_RUN_ID=task20 \
 bash scripts/run_remote_simlingo_bootstrap.sh
@@ -263,16 +271,16 @@ bash scripts/run_remote_simlingo_bootstrap.sh
 # Pull only compact logs, JSON, Markdown, checksums, and generated run scripts
 # back from the remote artifact directory. This deliberately excludes model
 # weights, simulator archives, videos, images, caches, and CARLA files.
-GPU_SSH_HOST=root@38.80.152.148 \
-GPU_SSH_OPTS="-p 31257 -i ~/.ssh/id_ed25519_runpod" \
+GPU_SSH_HOST=root@195.26.233.80 \
+GPU_SSH_OPTS="-p 55050 -i ~/.ssh/id_ed25519_runpod" \
 REMOTE_RUN_ID=task20 \
 bash scripts/pull_remote_simlingo_artifacts.sh
 
 # After the bootstrap emits run_one_route_with_carla_as_user.sh, launch the
 # stock route, keep the remote route log, and pull compact evidence back even
 # when the route fails with a runtime blocker.
-GPU_SSH_HOST=root@38.80.152.148 \
-GPU_SSH_OPTS="-p 31257 -i ~/.ssh/id_ed25519_runpod" \
+GPU_SSH_HOST=root@195.26.233.80 \
+GPU_SSH_OPTS="-p 55050 -i ~/.ssh/id_ed25519_runpod" \
 REMOTE_RUN_ID=task20 \
 bash scripts/run_remote_simlingo_route.sh
 
@@ -284,8 +292,8 @@ PYTHONPATH=src python3 -m driverx summarize-simlingo-evidence \
 
 # On a fresh GPU host, collect the small preflight artifacts used by
 # assess-gpu-host before launching an expensive route job.
-GPU_SSH_HOST=root@38.80.152.148 \
-GPU_SSH_OPTS="-p 31257 -i ~/.ssh/id_ed25519_runpod" \
+GPU_SSH_HOST=root@195.26.233.80 \
+GPU_SSH_OPTS="-p 55050 -i ~/.ssh/id_ed25519_runpod" \
 LOCAL_PROBE_DIR=tickets/TASK-029/artifacts/gpu-host-probe \
 bash scripts/run_remote_gpu_probe.sh
 

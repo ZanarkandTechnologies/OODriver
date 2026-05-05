@@ -1,0 +1,212 @@
+Cloning into '/workspace/alpamayo1.5'...
+downloading uv 0.11.9 x86_64-unknown-linux-gnu
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading cpython-3.12.13-linux-x86_64-gnu (download) (32.5MiB)
+ Downloaded cpython-3.12.13-linux-x86_64-gnu (download)
+Installed Python 3.12.13 in 924ms
+ + cpython-3.12.13-linux-x86_64-gnu (python3.12)
+Using CPython 3.12.13
+Creating virtual environment at: a1_5_venv
+Activate with: source a1_5_venv/bin/activate
+Resolved 111 packages in 3ms
+   Building alpamayo1-5 @ file:///workspace/alpamayo1.5
+warning: `build_system.requires = ["uv-build>=0.9.7,<0.10.0"]` does not contain the current uv version 0.11.9
+      Built alpamayo1-5 @ file:///workspace/alpamayo1.5
+Downloading jedi (1.5MiB)
+Downloading pygments (1.2MiB)
+Downloading nvidia-cublas-cu12 (566.8MiB)
+Downloading nvidia-nvjitlink-cu12 (37.4MiB)
+Downloading setuptools (1.1MiB)
+Downloading pandas (11.8MiB)
+Downloading nvidia-cufile-cu12 (1.1MiB)
+Downloading pillow (6.7MiB)
+Downloading kiwisolver (1.4MiB)
+Downloading virtualenv (5.6MiB)
+Downloading nvidia-cufft-cu12 (184.2MiB)
+Downloading scipy (34.0MiB)
+Downloading hf-xet (3.2MiB)
+Downloading widgetsnbextension (2.1MiB)
+Downloading pyarrow (45.5MiB)
+Downloading numpy (15.8MiB)
+Downloading nvidia-cuda-nvrtc-cu12 (84.0MiB)
+Downloading nvidia-cudnn-cu12 (674.0MiB)
+Downloading sympy (6.0MiB)
+Downloading nvidia-cusparselt-cu12 (273.9MiB)
+Downloading nvidia-cusparse-cu12 (274.9MiB)
+Downloading nvidia-curand-cu12 (60.7MiB)
+Downloading matplotlib (8.3MiB)
+Downloading nvidia-cuda-cupti-cu12 (9.8MiB)
+Downloading nvidia-cusolver-cu12 (255.1MiB)
+Downloading av (38.7MiB)
+Downloading nvidia-nccl-cu12 (307.4MiB)
+Downloading transformers (11.4MiB)
+Downloading torchvision (8.2MiB)
+Downloading debugpy (4.1MiB)
+Downloading tokenizers (3.1MiB)
+Downloading torch (846.8MiB)
+Downloading networkx (2.0MiB)
+Downloading triton (148.4MiB)
+Downloading fonttools (4.7MiB)
+ Downloaded nvidia-cufile-cu12
+ Downloaded kiwisolver
+ Downloaded widgetsnbextension
+ Downloaded pygments
+   Building antlr4-python3-runtime==4.9.3
+ Downloaded tokenizers
+ Downloaded hf-xet
+ Downloaded setuptools
+ Downloaded networkx
+ Downloaded debugpy
+ Downloaded fonttools
+ Downloaded virtualenv
+ Downloaded pillow
+      Built antlr4-python3-runtime==4.9.3
+ Downloaded torchvision
+ Downloaded matplotlib
+ Downloaded sympy
+ Downloaded nvidia-cuda-cupti-cu12
+ Downloaded jedi
+ Downloaded numpy
+ Downloaded transformers
+ Downloaded pandas
+ Downloaded nvidia-nvjitlink-cu12
+ Downloaded av
+ Downloaded scipy
+ Downloaded nvidia-curand-cu12
+ Downloaded nvidia-cuda-nvrtc-cu12
+ Downloaded pyarrow
+ Downloaded nvidia-cufft-cu12
+ Downloaded triton
+ Downloaded nvidia-cusolver-cu12
+ Downloaded nvidia-cusparse-cu12
+ Downloaded nvidia-cusparselt-cu12
+ Downloaded nvidia-nccl-cu12
+ Downloaded nvidia-cublas-cu12
+ Downloaded nvidia-cudnn-cu12
+ Downloaded torch
+Prepared 106 packages in 1m 42s
+Installed 106 packages in 9.73s
+ + accelerate==1.12.0
+ + alpamayo1-5==0.1.0 (from file:///workspace/alpamayo1.5)
+ + antlr4-python3-runtime==4.9.3
+ + asttokens==3.0.1
+ + av==16.0.1
+ + certifi==2025.11.12
+ + cfgv==3.5.0
+ + charset-normalizer==3.4.4
+ + colorlog==6.10.1
+ + comm==0.2.3
+ + contourpy==1.3.3
+ + cycler==0.12.1
+ + debugpy==1.8.17
+ + decorator==5.2.1
+ + distlib==0.4.0
+ + einops==0.8.1
+ + executing==2.2.1
+ + filelock==3.25.1
+ + fonttools==4.61.0
+ + fsspec==2025.10.0
+ + hf-xet==1.2.0
+ + huggingface-hub==0.36.0
+ + hydra-colorlog==1.2.0
+ + hydra-core==1.3.2
+ + identify==2.6.17
+ + idna==3.11
+ + iniconfig==2.3.0
+ + ipykernel==6.29.3
+ + ipython==9.7.0
+ + ipython-pygments-lexers==1.1.1
+ + ipywidgets==8.1.8
+ + jedi==0.19.2
+ + jinja2==3.1.6
+ + jupyter-client==8.6.3
+ + jupyter-core==5.9.1
+ + jupyterlab-widgets==3.0.16
+ + kiwisolver==1.4.9
+ + markupsafe==3.0.3
+ + matplotlib==3.10.7
+ + matplotlib-inline==0.2.1
+ + mediapy==1.2.4
+ + mpmath==1.3.0
+ + nest-asyncio==1.6.0
+ + networkx==3.6
+ + nodeenv==1.10.0
+ + numpy==2.3.5
+ + nvidia-cublas-cu12==12.8.4.1
+ + nvidia-cuda-cupti-cu12==12.8.90
+ + nvidia-cuda-nvrtc-cu12==12.8.93
+ + nvidia-cuda-runtime-cu12==12.8.90
+ + nvidia-cudnn-cu12==9.10.2.21
+ + nvidia-cufft-cu12==11.3.3.83
+ + nvidia-cufile-cu12==1.13.1.3
+ + nvidia-curand-cu12==10.3.9.90
+ + nvidia-cusolver-cu12==11.7.3.90
+ + nvidia-cusparse-cu12==12.5.8.93
+ + nvidia-cusparselt-cu12==0.7.1
+ + nvidia-nccl-cu12==2.27.3
+ + nvidia-nvjitlink-cu12==12.8.93
+ + nvidia-nvtx-cu12==12.8.90
+ + omegaconf==2.3.0
+ + packaging==25.0
+ + pandas==2.3.3
+ + parso==0.8.5
+ + pexpect==4.9.0
+ + physical-ai-av==0.2.0
+ + pillow==12.0.0
+ + platformdirs==4.5.0
+ + pluggy==1.6.0
+ + pre-commit==4.5.1
+ + prompt-toolkit==3.0.52
+ + psutil==7.1.3
+ + ptyprocess==0.7.0
+ + pure-eval==0.2.3
+ + pyarrow==22.0.0
+ + pygments==2.19.2
+ + pyparsing==3.2.5
+ + pytest==9.0.2
+ + python-dateutil==2.9.0.post0
+ + python-discovery==1.1.3
+ + pytz==2025.2
+ + pyyaml==6.0.3
+ + pyzmq==27.1.0
+ + regex==2025.11.3
+ + requests==2.32.5
+ + safetensors==0.7.0
+ + scipy==1.16.3
+ + seaborn==0.13.2
+ + setuptools==80.9.0
+ + six==1.17.0
+ + stack-data==0.6.3
+ + sympy==1.14.0
+ + tokenizers==0.22.1
+ + torch==2.8.0
+ + torchvision==0.23.0
+ + tornado==6.5.2
+ + tqdm==4.67.1
+ + traitlets==5.14.3
+ + transformers==4.57.1
+ + triton==3.4.0
+ + typing-extensions==4.15.0
+ + tzdata==2025.2
+ + urllib3==2.5.0
+ + virtualenv==21.2.0
+ + wcwidth==0.2.14
+ + widgetsnbextension==4.0.15
+{
+  "python": "3.12.13 (main, May  4 2026, 21:09:48) [Clang 22.1.3 ]",
+  "uv": "/root/.local/bin/uv",
+  "nvcc": null,
+  "xdg_cache_home": "/workspace/.cache/driverx",
+  "hf_home": "/workspace/.cache/driverx/huggingface",
+  "uv_cache_dir": "/workspace/.cache/driverx/uv",
+  "nvidia_smi_exit_code": 0,
+  "nvidia_smi": "NVIDIA RTX 6000 Ada Generation, 49140 MiB, 8.9"
+}

@@ -1,0 +1,16 @@
+{
+  "model_id": "nvidia/Alpamayo-1.5-10B",
+  "model_load_state": "not_requested",
+  "download_requested": true,
+  "load_requested": false,
+  "nvidia_smi_exit_code": 0,
+  "model_info_latency_ms": 147.96,
+  "model_info": {
+    "id": "nvidia/Alpamayo-1.5-10B",
+    "sha": "f11cd25b758ab560114019b555dde2a8b92d88b4",
+    "private": false,
+    "gated": false
+  },
+  "snapshot_path": "/workspace/.cache/driverx/huggingface/hub/models--nvidia--Alpamayo-1.5-10B/snapshots/f11cd25b758ab560114019b555dde2a8b92d88b4",
+  "download_latency_ms": 37230.37
+}

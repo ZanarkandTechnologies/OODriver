@@ -1,0 +1,101 @@
+{
+  "work_type": [
+    "backend",
+    "remote-runtime",
+    "evidence"
+  ],
+  "ticket_id": "TASK-052",
+  "reviewed_at": "2026-05-05 23:50 +0800",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/remote/runpod.py",
+      "src/driverx/remote/runpod_cli.py",
+      "src/driverx/cli.py",
+      "scripts/bootstrap_remote_alpamayo_release.sh",
+      "scripts/run_remote_alpamayo_probe.sh",
+      "src/driverx/policies/alpamayo_probe.py",
+      "tests/test_runpod_remote.py",
+      "tests/test_alpamayo_probe.py",
+      "tests/test_alpamayo_remote_bootstrap_script.py",
+      "README.md",
+      ".env.example",
+      "blockers.md",
+      "docs/HISTORY.md",
+      "docs/progress.md",
+      "tickets/TASK-052/ticket.md"
+    ],
+    "neighboring_surfaces": [
+      "src/driverx/README.md",
+      "src/driverx/remote/README.md",
+      "tickets/TASK-052/artifacts/runpod-ssh/runpod_ssh_resolution.md",
+      "tickets/TASK-052/artifacts/live-ssh/runpod_live_ssh_proof.md",
+      "tickets/TASK-052/artifacts/bootstrap/bootstrap.log",
+      "tickets/TASK-052/artifacts/probe-model-info-summary/alpamayo_probe_report.md",
+      "tickets/TASK-052/artifacts/probe-download-summary/alpamayo_probe_report.md",
+      "tickets/TASK-052/artifacts/probe-load-summary/alpamayo_probe_report.md"
+    ]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "integration-readiness",
+    "evidence-quality"
+  ],
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.2,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.2,
+        "error-handling": 4.1,
+        "maintainability": 4.1
+      },
+      "findings": [],
+      "next_action": "Proceed; resolver and probe script changes are localized and covered by tests."
+    },
+    "integration-readiness": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.1,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Proceed with the external blocker recorded; live Alpamayo load now depends on Hugging Face access to nvidia/Cosmos-Reason2-8B."
+    },
+    "evidence-quality": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.2,
+        "reproducibility": 4.1,
+        "traceability": 4.2,
+        "consistency": 4.1,
+        "inspectability": 4.1,
+        "autonomy-readiness": 4.2
+      },
+      "findings": [],
+      "next_action": "Proceed; artifacts cover SSH resolution, live GPU/disk proof, bootstrap, metadata, download, and load blocker."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Ask the user to accept/request access to nvidia/Cosmos-Reason2-8B, then rerun the load probe."
+}

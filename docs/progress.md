@@ -220,9 +220,8 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - TASK-044 hardens `scripts/run_remote_alpamayo_probe.sh` for real rented-GPU
   access: custom SSH port/key via `GPU_SSH_OPTS`, local `.env` sourcing without
   secret printing, gated download/load flags, safe remote token handoff, and
-  compact rsync artifact pullback. The supplied A6000 endpoint currently
-  refuses SSH on port `36723`, so the next unblock is instance/network access,
-  not more local probe code.
+  compact rsync/tar artifact pullback. The earlier RunPod `36723` TCP mapping
+  was stale; TASK-052 now resolves the current SSH target from RunPod metadata.
 - TASK-045 adds `inspect-alpamayo-release`, a GPU-free contract extractor over
   the local `../external/alpamayo1.5` checkout. Current evidence records
   commit `2eff703`, Python `3.12`, CUDA `12.x`, 22GB weights, 24/40/60GB VRAM
@@ -241,8 +240,12 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - TASK-048 adds `scripts/bootstrap_remote_alpamayo_release.sh`, a secret-safe
   remote setup path for cloning Alpamayo 1.5, installing uv, creating the
   Python 3.12 venv, choosing SDPA or flash-attn dependency sync, and optionally
-  running upstream `test_inference.py`. The current A6000 endpoint still
-  refuses SSH, so the script is validated locally but not yet executed remotely.
+  running upstream `test_inference.py`. Current remote execution now uses
+  RunPod direct TCP SSH resolved from live pod metadata.
+- TASK-052 adds `resolve-runpod-ssh`, hardens remote Alpamayo cache placement
+  on `/workspace`, bootstraps Alpamayo 1.5 on the RunPod RTX 6000 Ada pod,
+  downloads the `nvidia/Alpamayo-1.5-10B` snapshot, and records the remaining
+  load blocker as gated access to `nvidia/Cosmos-Reason2-8B`.
 - TASK-049 adds `run-alpamayo-offline`, an end-to-end adapter rehearsal that
   writes an Alpamayo input manifest, converts saved native `pred_xyz`, and
   emits a normal DriverX policy decision with `offline_replay=true`. This proves

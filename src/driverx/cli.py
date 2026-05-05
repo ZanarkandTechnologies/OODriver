@@ -879,6 +879,7 @@ def build_parser() -> argparse.ArgumentParser:
     from driverx.policies.alpamayo_release_cli import register_alpamayo_release_parser
     from driverx.policies.alpamayo_trajectory_cli import register_alpamayo_trajectory_parser
     from driverx.policies.runtime_matrix_cli import register_policy_runtime_matrix_parser
+    from driverx.remote.runpod_cli import register_runpod_remote_parser
     from driverx.simulators.simlingo_cli import register_simlingo_parsers
     from driverx.simulators.carla_alpamayo_capture_cli import register_carla_alpamayo_capture_parser
     from driverx.simulators.gpu_host_cli import register_gpu_host_parser
@@ -893,6 +894,7 @@ def build_parser() -> argparse.ArgumentParser:
     register_alpamayo_release_parser(subparsers)
     register_alpamayo_trajectory_parser(subparsers)
     register_policy_runtime_matrix_parser(subparsers)
+    register_runpod_remote_parser(subparsers)
     register_simlingo_parsers(subparsers)
     register_carla_alpamayo_capture_parser(subparsers)
     register_gpu_host_parser(subparsers)

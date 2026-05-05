@@ -6,14 +6,15 @@ unblocked ticket when possible.
 
 ## Open
 
-- 2026-05-05 22:45 +0800 | alpamayo,gpu,ssh | TASK-044 hardened the
-  remote Alpamayo probe for custom SSH port/key, `.env` token loading, and
-  compact rsync pullback, but the supplied A6000 endpoint refused connection:
-  `ssh: connect to host 195.26.233.80 port 36723: Connection refused`.
-  The literal key path `~/.ssh/id_ed25519` is absent locally; the live attempt
-  used `~/.ssh/id_ed25519_prime_intellect`. Next unblock path: confirm the
-  instance is running, port `36723` is still the active SSH port, firewall rules
-  expose it, and the instance has the matching public key.
+- 2026-05-05 23:50 +0800 | alpamayo,huggingface,cosmos | TASK-052
+  bootstrapped Alpamayo 1.5 on the RunPod RTX 6000 Ada pod, downloaded the
+  `nvidia/Alpamayo-1.5-10B` snapshot to `/workspace`, and verified CUDA
+  availability. Load-only inference is blocked because Alpamayo imports its
+  gated base model `nvidia/Cosmos-Reason2-8B`, and Hugging Face returned
+  `403 Forbidden` for `https://huggingface.co/nvidia/Cosmos-Reason2-8B/...`.
+  Next unblock path: request/accept access for
+  `https://hf.co/nvidia/Cosmos-Reason2-8B` on the same Hugging Face account
+  backing `HF_TOKEN`, then rerun the TASK-052 load probe.
 
 - 2026-05-05 22:33 +0800 | fail2drive,docker,network | TASK-043
   added the Dockerized Fail2Drive client path, but local image build stalled
@@ -29,13 +30,6 @@ unblocked ticket when possible.
   Evidence: `artifacts/runs/task42-route-run-numpy-blocker/fail2drive_route_run.md`.
   Next unblock path: run Fail2Drive inside a Docker client environment that
   mounts both `0xDriver` and `../external/fail2drive`.
-
-- 2026-05-05 19:24 +0800 | alpamayo,probe,gpu | TASK-038 shipped the
-  local Alpamayo probe classifier and remote probe script, but live Alpamayo
-  model proof still needs a confirmed checkpoint/repo id and an explicit remote
-  run of `scripts/run_remote_alpamayo_probe.sh`. The script is intentionally
-  download/load gated with `ALPAMAYO_DOWNLOAD=1` and `ALPAMAYO_LOAD=1` so a
-  default run does not unexpectedly pull a large model.
 
 - 2026-05-05 19:42 +0800 | fail2drive,video | TASK-041 removes the
   hard dependency on Fail2Drive's missing `tools/generate_video.py` by adding
@@ -56,6 +50,19 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-05 23:50 +0800 | alpamayo,probe,gpu | The TASK-038 generic
+  "needs live Alpamayo probe" blocker is resolved by TASK-052 evidence:
+  model metadata was observed, the 21GB Alpamayo snapshot downloaded, CUDA is
+  available, and the remaining live-load blocker is specifically gated access
+  to the nested Cosmos backbone.
+
+- 2026-05-05 23:35 +0800 | runpod,ssh,alpamayo | The apparent A6000 SSH
+  blocker on `195.26.233.80:36723` was a stale RunPod direct TCP mapping.
+  RunPod REST metadata resolved the current SSH target as
+  `root@195.26.233.80 -p 55050` with `~/.ssh/id_ed25519_runpod`, and live SSH
+  reached the RTX 6000 Ada pod. Future runs should resolve RunPod SSH metadata
+  first instead of reusing old Connect-tab ports.
 
 - 2026-05-05 19:42 +0800 | fail2drive,video | The TASK-033 missing
   `tools/generate_video.py` helper is mitigated by TASK-041's DriverX-owned

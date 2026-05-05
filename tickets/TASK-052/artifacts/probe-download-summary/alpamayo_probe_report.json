@@ -1,0 +1,125 @@
+{
+  "model_id": "nvidia/Alpamayo-1.5-10B",
+  "artifact_root": "tickets/TASK-052/artifacts/probe-download",
+  "status": "metadata_observed",
+  "blocked": false,
+  "blockers": [],
+  "artifacts": {
+    "alpamayo_probe.json": {
+      "path": "tickets/TASK-052/artifacts/probe-download/alpamayo_probe.json",
+      "present": true,
+      "bytes": 542
+    },
+    "gpu_snapshot.txt": {
+      "path": "tickets/TASK-052/artifacts/probe-download/gpu_snapshot.txt",
+      "present": true,
+      "bytes": 66
+    },
+    "package_versions.json": {
+      "path": "tickets/TASK-052/artifacts/probe-download/package_versions.json",
+      "present": true,
+      "bytes": 150
+    },
+    "package_versions.txt": {
+      "path": "tickets/TASK-052/artifacts/probe-download/package_versions.txt",
+      "present": true,
+      "bytes": 60
+    },
+    "memory_usage.json": {
+      "path": "tickets/TASK-052/artifacts/probe-download/memory_usage.json",
+      "present": true,
+      "bytes": 212
+    },
+    "probe.log": {
+      "path": "tickets/TASK-052/artifacts/probe-download/probe.log",
+      "present": true,
+      "bytes": 0
+    }
+  },
+  "model_load_state": "not_requested",
+  "latency_ms": null,
+  "vram_peak_mb": 0.0,
+  "observed_shape": null,
+  "package_versions": {
+    "pip_freeze_exit_code": 1,
+    "python": "/workspace/alpamayo1.5/a1_5_venv/bin/python",
+    "torch_version": "2.8.0+cu128",
+    "cuda_available": true
+  },
+  "redacted_excerpt": "\nNVIDIA RTX 6000 Ada Generation, 570.124.06, 49140 MiB, 2 MiB, 8.9\n\nFileNotFoundError: [Errno 2] No such file or directory: 'uv'\n{\"download_latency_ms\": 37230.37, \"download_requested\": true, \"load_requested\": false, \"model_id\": \"nvidia/Alpamayo-1.5-10B\", \"model_info\": {\"gated\": false, \"id\": \"nvidia/Alpamayo-1.5-10B\", \"private\": false, \"sha\": \"f11cd25b758ab560114019b555dde2a8b92d88b4\"}, \"model_info_latency_ms\": 147.96, \"model_load_state\": \"not_requested\", \"nvidia_smi_exit_code\": 0, \"snapshot_path\": \"/workspace/.cache/driverx/huggingface/hub/models--nvidia--Alpamayo-1.5-10B/snapshots/f11cd25b758ab560114019b555dde2a8b92d88b4\"}\n{\"torch\": {\"allocated_mb\": 0.0, \"compute_capability\": \"8.9\", \"device_name\": \"NVIDIA RTX 6000 Ada Generation\", \"reserved_mb\": 0.0, \"total_memory_mb\": 48519.94, \"vram_peak_mb\": 0.0}}\n{\"cuda_available\": true, \"pip_freeze_exit_code\": 1, \"python\": \"/workspace/alpamayo1.5/a1_5_venv/bin/python\", \"torch_version\": \"2.8.0+cu128\"}",
+  "expected_schema": {
+    "status": "unverified_adapter_stub",
+    "model_id": "nvidia/Alpamayo-1.5-10B",
+    "coordinate_frame": {
+      "name": "ego_vehicle_local",
+      "x_axis": "forward",
+      "y_axis": "left_positive_before_carla_conversion",
+      "z_axis": "up",
+      "note": "TASK-039 must validate signs and units against real Alpamayo outputs."
+    },
+    "inputs": [
+      {
+        "name": "camera_views",
+        "source": "CARLA RGB sensors or Waymo front cameras",
+        "shape": "batch x time x views x height x width x 3",
+        "dtype": "uint8 or normalized float tensor, backend-dependent",
+        "required": true,
+        "notes": "At minimum front, front-left, and front-right views should be supported."
+      },
+      {
+        "name": "ego_state",
+        "source": "vehicle transform, velocity, acceleration, and recent pose history",
+        "shape": "structured scalar/vector fields",
+        "dtype": "float32",
+        "required": true,
+        "notes": "Used for speed profile, local frame normalization, and latency-aligned replay."
+      },
+      {
+        "name": "route_context",
+        "source": "route waypoints, high-level command, or Bench2Drive route id",
+        "shape": "optional route polyline plus command string",
+        "dtype": "float32 plus text",
+        "required": false,
+        "notes": "Keep optional so image-only and route-aware probes can both be tested."
+      },
+      {
+        "name": "memory_context",
+        "source": "retrieved OOD failure memory",
+        "shape": "short structured text snippets",
+        "dtype": "text/json",
+        "required": false,
+        "notes": "DriverX-specific minimal-shot RAG guidance, not part of the base model."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "reasoning",
+        "shape": "short text or JSON trace",
+        "dtype": "text/json",
+        "required": false,
+        "notes": "Should be compact and redacted before report artifacts."
+      },
+      {
+        "name": "trajectory",
+        "shape": "backend-native 64 x 3 waypoints at 10 Hz, convertible to 20 x 2 waypoints for 5 seconds at 4 Hz",
+        "dtype": "float32",
+        "required": true,
+        "notes": "Primary handoff to CARLA control intent and Waymo-style offline scoring."
+      },
+      {
+        "name": "control",
+        "shape": "optional throttle/steer/brake or speed target",
+        "dtype": "float32/bool",
+        "required": false,
+        "notes": "Only trusted after TASK-039 validates closed-loop conversion."
+      },
+      {
+        "name": "runtime",
+        "shape": "latency_ms, vram_peak_mb, model_load_state",
+        "dtype": "json",
+        "required": true,
+        "notes": "Needed to compare realistic compute constraints."
+      }
+    ]
+  }
+}

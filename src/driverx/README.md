@@ -18,6 +18,7 @@ support track.
 - `python3 -m driverx smoke-carla --config configs/carla_local.sample.yaml`
 - `python3 -m driverx evaluate --run-dir <run-dir>`
 - `python3 -m driverx package-submission --run-dir <run-dir>`
+- `python3 -m driverx resolve-runpod-ssh --env-file .env`
 
 ## Test
 

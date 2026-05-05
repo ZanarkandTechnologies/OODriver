@@ -1,0 +1,17 @@
+{
+  "model_id": "nvidia/Alpamayo-1.5-10B",
+  "model_load_state": "failed",
+  "download_requested": false,
+  "load_requested": true,
+  "nvidia_smi_exit_code": 0,
+  "model_info_latency_ms": 117.83,
+  "model_info": {
+    "id": "nvidia/Alpamayo-1.5-10B",
+    "sha": "f11cd25b758ab560114019b555dde2a8b92d88b4",
+    "private": false,
+    "gated": false
+  },
+  "alpamayo_class_error": "OSError: You are trying to access a gated repo.\nMake sure to have access to it at https://huggingface.co/nvidia/Cosmos-Reason2-8B.\n403 Client Error. (Request ID: Root=1-69fa0fe9-3c98e59a13eb4e4f44cc7968;cea7881a-118a-417f-aaf8-174b179f64cd)\n\nCannot access gated repo for url https://huggingface.co/nvidia/Cosmos-Reason2-8B/resolve/main/config.json.\nAccess to model nvidia/Cosmos-Reason2-8B is restricted and you are not in the authorized list. Visit https://huggingface.co/nvidia/Cosmos-Reason2-8B to ask for access.",
+  "error": "OSError: You are trying to access a gated repo.\nMake sure to have access to it at https://huggingface.co/nvidia/Cosmos-Reason2-8B.\n403 Client Error. (Request ID: Root=1-69fa0fea-13a3af7256554abc5060300b;c932fdfd-02ba-4efc-9fa2-43c31d740d33)\n\nCannot access gated repo for url https://huggingface.co/nvidia/Cosmos-Reason2-8B/resolve/main/config.json.\nAccess to model nvidia/Cosmos-Reason2-8B is restricted and you are not in the authorized list. Visit https://huggingface.co/nvidia/Cosmos-Reason2-8B to ask for access.",
+  "latency_ms": 38709.03
+}

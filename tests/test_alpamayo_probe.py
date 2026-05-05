@@ -29,7 +29,7 @@ class AlpamayoProbeTest(unittest.TestCase):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
             (root / "probe.log").write_text(
-                "401 Unauthorized HF_TOKEN=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\n",
+                "401 Unauthorized HF_TOKEN=redaction_fixture_token\n",
                 encoding="utf-8",
             )
 
@@ -37,7 +37,7 @@ class AlpamayoProbeTest(unittest.TestCase):
 
         self.assertEqual(summary["status"], "auth_blocked")
         self.assertTrue(summary["blocked"])
-        self.assertNotIn("hf_Drh", summary["redacted_excerpt"])
+        self.assertNotIn("redaction_fixture_token", summary["redacted_excerpt"])
         self.assertIn("[REDACTED]", summary["redacted_excerpt"])
 
     def test_classifier_detects_oom_and_memory_artifact(self) -> None:
@@ -78,6 +78,27 @@ class AlpamayoProbeTest(unittest.TestCase):
         self.assertFalse(summary["blocked"])
         self.assertEqual(summary["latency_ms"], 321.5)
         self.assertEqual(summary["observed_shape"], {"trajectory_shape": [20, 2]})
+
+    def test_classifier_treats_model_info_sha_as_metadata_not_auth_error(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "alpamayo_probe.json").write_text(
+                json.dumps(
+                    {
+                        "model_load_state": "not_requested",
+                        "model_info": {
+                            "id": "nvidia/Alpamayo-1.5-10B",
+                            "sha": "f11cd25b758ab560114019b555dde2a8b92d88b4",
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            summary = classify_alpamayo_probe_artifacts(root)
+
+        self.assertEqual(summary["status"], "metadata_observed")
+        self.assertFalse(summary["blocked"])
 
     def test_report_writer_and_cli_emit_json_and_markdown(self) -> None:
         with TemporaryDirectory() as tmp:

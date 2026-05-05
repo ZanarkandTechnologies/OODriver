@@ -24,6 +24,15 @@ _SECRET_PATTERNS = (
     re.compile(r"(Authorization:\s*Bearer\s+)[^\s]+", re.IGNORECASE),
 )
 
+_AUTH_ERROR_PATTERNS = (
+    re.compile(r"\b401\b"),
+    re.compile(r"\b403\b"),
+    re.compile(r"unauthorized", re.IGNORECASE),
+    re.compile(r"forbidden", re.IGNORECASE),
+    re.compile(r"gated repo", re.IGNORECASE),
+    re.compile(r"invalid token", re.IGNORECASE),
+)
+
 
 def expected_alpamayo_schema(
     model_id: str = DEFAULT_ALPAMAYO_MODEL_ID,
@@ -210,7 +219,7 @@ def _classify_text_and_payload(
     lower = text.lower()
     if present_count == 0:
         return "not_run", ["No Alpamayo probe artifacts found."]
-    if any(marker in lower for marker in ("401", "403", "unauthorized", "forbidden", "gated repo", "invalid token")):
+    if any(pattern.search(text) for pattern in _AUTH_ERROR_PATTERNS):
         return "auth_blocked", ["Hugging Face or model access was rejected."]
     if "out of memory" in lower or "cuda oom" in lower or "cublas_status_alloc_failed" in lower:
         return "oom", ["Probe exhausted GPU memory before producing a usable output."]
@@ -219,6 +228,12 @@ def _classify_text_and_payload(
     load_state = _model_load_state(payload)
     if load_state in {"loaded", "success", "ok"}:
         return "model_loaded", []
+    if (
+        load_state == "not_requested"
+        and isinstance(payload, dict)
+        and isinstance(payload.get("model_info"), dict)
+    ):
+        return "metadata_observed", []
     if load_state in {"failed", "error", "blocked"}:
         return "runtime_blocked", [_runtime_blocker(payload) or "Model load failed."]
     if artifacts["alpamayo_probe.json"]["present"]:

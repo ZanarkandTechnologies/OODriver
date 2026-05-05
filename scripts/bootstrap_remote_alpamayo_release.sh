@@ -22,6 +22,7 @@ ALPAMAYO_VENV_NAME="${ALPAMAYO_VENV_NAME:-a1_5_venv}"
 ALPAMAYO_SYNC_MODE="${ALPAMAYO_SYNC_MODE:-sdpa}"
 ALPAMAYO_RUN_TEST="${ALPAMAYO_RUN_TEST:-0}"
 PYTHON_BIN="${PYTHON_BIN:-python3.12}"
+REMOTE_CACHE_ROOT="${REMOTE_CACHE_ROOT:-/workspace/.cache/driverx}"
 
 if [ "${ALPAMAYO_SYNC_MODE}" != "sdpa" ] && [ "${ALPAMAYO_SYNC_MODE}" != "flash" ]; then
   echo "ALPAMAYO_SYNC_MODE must be either 'sdpa' or 'flash'." >&2
@@ -41,8 +42,16 @@ ssh ${SSH_OPTIONS} "$REMOTE" \
    ALPAMAYO_SYNC_MODE='$ALPAMAYO_SYNC_MODE' \
    ALPAMAYO_RUN_TEST='$ALPAMAYO_RUN_TEST' \
    PYTHON_BIN='$PYTHON_BIN' \
+   REMOTE_CACHE_ROOT='$REMOTE_CACHE_ROOT' \
    bash -s" <<'REMOTE_SCRIPT'
 set -euo pipefail
+
+mkdir -p "$REMOTE_CACHE_ROOT"
+export XDG_CACHE_HOME="$REMOTE_CACHE_ROOT"
+export UV_CACHE_DIR="$REMOTE_CACHE_ROOT/uv"
+export HF_HOME="$REMOTE_CACHE_ROOT/huggingface"
+export TRANSFORMERS_CACHE="$REMOTE_CACHE_ROOT/huggingface"
+export HF_HUB_CACHE="$REMOTE_CACHE_ROOT/huggingface/hub"
 
 if ! command -v git >/dev/null 2>&1; then
   echo "git is required on the remote host." >&2
@@ -63,8 +72,12 @@ if ! command -v uv >/dev/null 2>&1; then
 fi
 
 if ! command -v "$PYTHON_BIN" >/dev/null 2>&1; then
-  echo "$PYTHON_BIN is not available; install Python 3.12 before Alpamayo sync." >&2
-  exit 4
+  REQUESTED_PYTHON="$PYTHON_BIN"
+  if [[ "$REQUESTED_PYTHON" == python* ]]; then
+    REQUESTED_PYTHON="${REQUESTED_PYTHON#python}"
+  fi
+  uv python install "$REQUESTED_PYTHON"
+  PYTHON_BIN="$REQUESTED_PYTHON"
 fi
 
 uv venv "$ALPAMAYO_VENV_NAME" --python "$PYTHON_BIN"
@@ -93,6 +106,7 @@ fi
 
 python - <<'PY'
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -101,6 +115,9 @@ payload = {
     "python": sys.version,
     "uv": shutil.which("uv"),
     "nvcc": shutil.which("nvcc"),
+    "xdg_cache_home": os.environ.get("XDG_CACHE_HOME"),
+    "hf_home": os.environ.get("HF_HOME"),
+    "uv_cache_dir": os.environ.get("UV_CACHE_DIR"),
 }
 try:
     completed = subprocess.run(

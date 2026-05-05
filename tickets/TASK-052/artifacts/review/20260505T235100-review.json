@@ -1,0 +1,97 @@
+{
+  "work_type": [
+    "backend",
+    "remote-runtime",
+    "evidence"
+  ],
+  "ticket_id": "TASK-052",
+  "reviewed_at": "2026-05-05 23:51 +0800",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/remote/runpod.py",
+      "src/driverx/remote/runpod_cli.py",
+      "scripts/bootstrap_remote_alpamayo_release.sh",
+      "scripts/run_remote_alpamayo_probe.sh",
+      "src/driverx/policies/alpamayo_probe.py",
+      "tests/test_runpod_remote.py",
+      "tests/test_alpamayo_probe.py",
+      "tests/test_alpamayo_remote_bootstrap_script.py",
+      "tickets/TASK-052/ticket.md",
+      "blockers.md",
+      "README.md",
+      ".env.example"
+    ],
+    "evidence_artifacts": [
+      "tickets/TASK-052/artifacts/qa/pre_push_check.log",
+      "tickets/TASK-052/artifacts/qa/qa_report.md",
+      "tickets/TASK-052/artifacts/runpod-ssh/runpod_ssh_resolution.md",
+      "tickets/TASK-052/artifacts/live-ssh/runpod_live_ssh_proof.md",
+      "tickets/TASK-052/artifacts/bootstrap/bootstrap.log",
+      "tickets/TASK-052/artifacts/probe-download-summary/alpamayo_probe_report.md",
+      "tickets/TASK-052/artifacts/probe-load-summary/alpamayo_probe_report.md"
+    ]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "integration-readiness",
+    "evidence-quality"
+  ],
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.2,
+        "bloatability": 4.0,
+        "readability": 4.1,
+        "boundary-clarity": 4.2,
+        "error-handling": 4.1,
+        "maintainability": 4.1
+      },
+      "findings": [],
+      "next_action": "Proceed; code remains localized and tested."
+    },
+    "integration-readiness": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.1,
+        "contract-correctness": 4.1,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.1,
+        "merge-readiness": 4.1
+      },
+      "findings": [],
+      "next_action": "Proceed; external Cosmos access blocker is explicit and isolated."
+    },
+    "evidence-quality": {
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.3,
+        "reproducibility": 4.2,
+        "traceability": 4.3,
+        "consistency": 4.2,
+        "inspectability": 4.2,
+        "autonomy-readiness": 4.3
+      },
+      "findings": [],
+      "next_action": "Proceed; QA report and pre-push log now close the earlier evidence gap."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "User should accept/request Hugging Face access to nvidia/Cosmos-Reason2-8B, then rerun the load probe."
+}

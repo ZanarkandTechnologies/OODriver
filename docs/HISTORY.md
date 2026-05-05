@@ -80,3 +80,5 @@
 2026-05-05 23:07 +0800 | SHIP | TASK-049 added an offline Alpamayo policy rehearsal that writes input, trajectory, and PolicyDecision artifacts from saved pred_xyz
 2026-05-05 23:10 +0800 | QA | TASK-050 refreshed local CARLA 0.9.16 reachability through the Docker client and recorded Town10HD_Opt probe evidence
 2026-05-05 23:14 +0800 | SHIP | TASK-051 added live CARLA RGB/ego capture for Alpamayo-shaped input packages and recorded a 12-image local proof
+2026-05-05 23:35 +0800 | TASK | started TASK-052 RunPod Alpamayo bootstrap and probe after resolving the active direct TCP SSH mapping from RunPod REST metadata
+2026-05-05 23:50 +0800 | BLOCKER | TASK-052 proved RunPod RTX 6000 Ada bootstrap, Alpamayo snapshot download, and CUDA availability, then blocked live model load on gated access to nvidia/Cosmos-Reason2-8B
