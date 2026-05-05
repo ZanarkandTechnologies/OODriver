@@ -13,13 +13,10 @@ unblocked ticket when possible.
   download/load gated with `ALPAMAYO_DOWNLOAD=1` and `ALPAMAYO_LOAD=1` so a
   default run does not unexpectedly pull a large model.
 
-- 2026-05-05 18:58 +0800 | fail2drive,video | TASK-033 route-video
-  smoke planning is implemented, but the external Fail2Drive checkout does not
-  include `tools/generate_video.py`. The plan still writes the expected command
-  and output contract, and live route execution can produce `SAVE_PATH`
-  visualizations first. TASK-034 should accept an externally generated video or
-  add a DriverX-owned video assembler so this does not block evidence
-  normalization.
+- 2026-05-05 19:42 +0800 | fail2drive,video | TASK-041 removes the
+  hard dependency on Fail2Drive's missing `tools/generate_video.py` by adding
+  `python -m driverx assemble-route-video`, but live video evidence still needs
+  a route run to create the RGB frame folder under `SAVE_PATH`.
 
 - 2026-05-05 17:07 +0800 | h100,carla,vulkan | TASK-020 stock
   SimLingo H100 route run cannot reach policy execution because CARLA 0.9.15
@@ -35,6 +32,11 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-05 19:42 +0800 | fail2drive,video | The TASK-033 missing
+  `tools/generate_video.py` helper is mitigated by TASK-041's DriverX-owned
+  ffmpeg route-video assembler. Remaining live blocker is now missing RGB
+  frames, not missing assembler code.
 
 - 2026-05-05 15:19 +0800 | runpod,ssh | RunPod SSH initially rejected
   local keys because `/root/.ssh/authorized_keys` split the public key over two

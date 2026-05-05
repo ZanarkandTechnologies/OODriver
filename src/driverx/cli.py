@@ -877,6 +877,7 @@ def build_parser() -> argparse.ArgumentParser:
     from driverx.policies.runtime_matrix_cli import register_policy_runtime_matrix_parser
     from driverx.simulators.simlingo_cli import register_simlingo_parsers
     from driverx.simulators.gpu_host_cli import register_gpu_host_parser
+    from driverx.simulators.route_video_assembly_cli import register_route_video_assembly_parser
 
     register_generated_ood_suite_parser(subparsers)
     register_route_evidence_parser(subparsers)
@@ -884,6 +885,7 @@ def build_parser() -> argparse.ArgumentParser:
     register_policy_runtime_matrix_parser(subparsers)
     register_simlingo_parsers(subparsers)
     register_gpu_host_parser(subparsers)
+    register_route_video_assembly_parser(subparsers)
     register_submission_dossier_parser(subparsers)
     register_submission_demo_pack_parser(subparsers)
 

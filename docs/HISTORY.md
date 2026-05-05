@@ -68,3 +68,4 @@
 2026-05-05 19:18 +0800 | SHIP | TASK-037 added a policy runtime matrix that marks local/mock/basic/expert rows ready and isolates SimLingo/Alpamayo blockers
 2026-05-05 19:24 +0800 | SHIP | TASK-038 added an Alpamayo offline probe schema, artifact classifier, secret redaction, CLI report, and download-gated remote GPU probe script
 2026-05-05 19:32 +0800 | SHIP | TASK-040 added a submission demo pack with storyboard, artifact map, model/data declarations, write-up draft, and understood failure case
+2026-05-05 19:42 +0800 | SHIP | TASK-041 added a DriverX-owned ffmpeg route-video assembler so missing Fail2Drive video helper code no longer blocks future RGB-to-MP4 evidence

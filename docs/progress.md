@@ -52,6 +52,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-037 policy runtime matrix
 - [x] TASK-038 Alpamayo offline probe
 - [x] TASK-040 submission demo pack
+- [x] TASK-041 DriverX route video assembler
 
 ## Active Roadmap
 
@@ -192,6 +193,10 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - TASK-040 adds `build-demo-pack`, producing the judge-facing 1-5 minute demo
   outline, concrete artifact map, model/data declarations, short write-up
   draft, and a named failure case from the generated OOD suite.
+- TASK-041 adds `assemble-route-video`, a DriverX-owned ffmpeg route-video
+  assembler that replaces the missing Fail2Drive `tools/generate_video.py`
+  dependency once a route run writes RGB frames. Current evidence is blocked
+  only by the absent RGB folder.
 - TASK-024 adds `run-simlingo-sidecar`, a timed process runner for existing
   TASK-023 plans. Local evidence executed harmless SimLingo/overlay sample
   commands, wrote process logs, timings, exit codes, JSON, and Markdown.

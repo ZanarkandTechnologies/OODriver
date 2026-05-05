@@ -1,0 +1,16 @@
+{
+  "ticket": "TASK-041",
+  "review_type": "implementation",
+  "score": 4,
+  "findings": [],
+  "checks": [
+    "Focused route video assembly tests pass.",
+    "CLI writes JSON and Markdown evidence for planned or blocked assembly.",
+    "Missing RGB folder, missing frames, and missing ffmpeg are explicit blockers.",
+    "Live execution is opt-in via --run and does not occur by default."
+  ],
+  "residual_risks": [
+    "Actual MP4 encoding still depends on ffmpeg and real RGB frames from a route run.",
+    "The assembler uses a single image suffix pattern from the first sorted frame; mixed extensions should be avoided in live evidence folders."
+  ]
+}
