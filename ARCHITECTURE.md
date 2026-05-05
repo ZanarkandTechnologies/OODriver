@@ -34,10 +34,16 @@ flowchart TD
 - `docs/specs/minimal-shot-vla-roadmap.md`: end-to-end roadmap from live CARLA
   probing through generated assets, behavior scripts, policy adapters, and RAG
   comparison.
-- `tickets/TASK-007/ticket.md`: active implementation surface.
+- `tickets/TASK-039/ticket.md`: active-but-blocked Alpamayo CARLA adapter
+  surface.
 - `src/driverx/scenarios`: scenario seed and OOD recipe generation.
 - `src/driverx/memory`: failure-memory creation and retrieval.
-- `src/driverx/simulators`: CARLA smoke checks and Fail2Drive command planning.
+- `src/driverx/simulators`: CARLA smoke checks, Fail2Drive command planning,
+  overlay injection, sidecar planning, and route-video assembly.
+- `src/driverx/policies`: policy adapters, runtime readiness matrix, and
+  Alpamayo probe reporting.
+- `src/driverx/pipeline`: generated OOD suite execution, evidence reports, demo
+  pack, and submission dossier builders.
 - `src/driverx/datasets`, `planning`, `pipeline`, `submission`: preserved
   Waymo/open-loop support track.
 
@@ -72,7 +78,11 @@ Remote or Linux NVIDIA runtime:
 - TASK-007 does not run SimLingo, Alpamayo, or live Fail2Drive.
 - CARLA on Apple Silicon is treated as an optional smoke path until server,
   Python client, Fail2Drive, and policy execution work together.
-- Generated scenarios are recipes and dry-run plans first; executable XML export
-  is a follow-up after the route/toolbox adapter is proven.
-- Generated 3D assets and regional driving behavior are roadmap items, not
-  shipped runtime claims yet.
+- Generated scenarios now export stock-compatible Bench2Drive route XML plus
+  DriverX sidecar overlays; live route video is still blocked until the route
+  runner produces RGB frames.
+- Regional driving behavior traces and dry-run generated asset manifests are
+  shipped as local evidence; real generated mesh import remains a future
+  provider/runtime task.
+- Alpamayo CARLA control is blocked until the offline probe provides observed
+  model input/output shapes.

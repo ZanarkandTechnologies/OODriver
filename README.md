@@ -58,7 +58,7 @@ flowchart TD
 
 - `docs/prd.md`: current scenario-forge PRD.
 - `ARCHITECTURE.md`: top-level system map.
-- `tickets/TASK-007/ticket.md`: active scenario-forge implementation ticket.
+- `tickets/TASK-039/ticket.md`: currently blocked Alpamayo CARLA adapter ticket.
 - `tickets/archive/`: completed Waymo/fixture support-track tickets.
 - `src/driverx/scenarios/`: scenario seeds, recipes, and reports.
 - `src/driverx/memory/`: failure memory and retrieval.
@@ -73,10 +73,12 @@ fixture runs, optional real Waymo TFRecords through Docker, streaming batch
 reports, deterministic baselines, and a hybrid semantic-intent plus motion-prior
 planner.
 
-TASK-007 starts the closed-loop pivot: scenario generation, failure memory, and
-CARLA/Fail2Drive dry-run planning without requiring CARLA to be installed.
-TASK-008 adds the first live CARLA Python API proof through Docker when the
-local CARLA app is running.
+The current closed-loop pivot has scenario generation, failure memory,
+CARLA/Fail2Drive dry-run planning, local CARLA probing, route-pack export,
+overlay plans, sidecar orchestration, policy readiness reports, an Alpamayo
+offline probe, and a judge-facing demo pack. The only active ticket is the
+Alpamayo CARLA adapter, blocked until a live Alpamayo probe produces real
+input/output shape evidence.
 
 ## Quickstart: Scenario Forge
 
@@ -175,6 +177,42 @@ PYTHONPATH=src python3 -m driverx build-ood-suite-report \
 # `--simlingo-result` also accepts remote evidence from
 # `summarize-simlingo-evidence`, such as
 # tickets/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.json.
+
+# Run a generated OOD mini-suite and build per-recipe evidence bundles
+PYTHONPATH=src python3 -m driverx run-generated-ood-suite \
+  --config configs/scenario_forge.sample.yaml \
+  --carla-config configs/carla_local.sample.yaml \
+  --limit 1 \
+  --run-id task36-suite
+
+# Report which policy adapters are ready, dry-run-ready, or blocked
+PYTHONPATH=src python3 -m driverx build-policy-runtime-matrix \
+  --carla-config configs/carla_local.sample.yaml \
+  --simlingo-config configs/simlingo.sample.yaml \
+  --suite artifacts/runs/task36-suite/route-pack/bench2drive_routes/generated_routes.xml \
+  --run-id task37-policy-matrix
+
+# Summarize local or remote Alpamayo probe artifacts without leaking secrets
+PYTHONPATH=src python3 -m driverx probe-alpamayo \
+  --artifact-root artifacts/remote/alpamayo-probe/latest \
+  --run-id task38-alpamayo-probe
+
+# Build the judge-facing demo pack with storyboard, artifact map, declarations,
+# write-up draft, and first understood failure case
+PYTHONPATH=src python3 -m driverx build-demo-pack \
+  --generated-suite artifacts/runs/task36-suite/generated_ood_suite.json \
+  --policy-matrix artifacts/runs/task37-policy-matrix/policy_runtime_matrix.json \
+  --alpamayo-probe artifacts/runs/task38-alpamayo-probe/alpamayo_probe_report.json \
+  --blockers blockers.md \
+  --progress docs/progress.md \
+  --run-id task40-demo-pack
+
+# Once a live route run has written RGB frames under SAVE_PATH, assemble MP4
+# evidence without relying on Fail2Drive's missing tools/generate_video.py
+PYTHONPATH=src python3 -m driverx assemble-route-video \
+  --rgb-folder artifacts/runs/task36-suite/recipes/000_example/fail2drive_outputs/visualizations/RouteName/rgb \
+  --output-video artifacts/runs/task36-suite/RouteName.mp4 \
+  --run-id task41-route-video
 
 # Plan generated OOD assets and attach asset ids to scenario recipes
 PYTHONPATH=src python3 -m driverx plan-assets \
