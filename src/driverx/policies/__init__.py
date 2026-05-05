@@ -27,6 +27,12 @@ from driverx.policies.alpamayo_input import (
     build_alpamayo_input_package,
     write_alpamayo_input_package,
 )
+from driverx.policies.alpamayo_materializer import (
+    AlpamayoTensorManifest,
+    load_alpamayo_torch_tensors,
+    materialize_alpamayo_input,
+    write_alpamayo_tensor_materialization,
+)
 from driverx.policies.alpamayo_offline import run_alpamayo_offline_fixture
 from driverx.policies.alpamayo_release import (
     AlpamayoReleaseContract,
@@ -58,6 +64,7 @@ __all__ = [
     "MockPolicyAdapter",
     "AlpamayoInputPackage",
     "AlpamayoReleaseContract",
+    "AlpamayoTensorManifest",
     "DEFAULT_ALPAMAYO_RELEASE_ROOT",
     "DEFAULT_ALPAMAYO_MODEL_ID",
     "PolicyAction",
@@ -73,6 +80,8 @@ __all__ = [
     "build_alpamayo_input_package",
     "expected_alpamayo_schema",
     "inspect_alpamayo_release",
+    "load_alpamayo_torch_tensors",
+    "materialize_alpamayo_input",
     "memory_entries_from_json",
     "run_policy_fixture",
     "run_alpamayo_offline_fixture",
@@ -84,6 +93,7 @@ __all__ = [
     "write_alpamayo_probe_report",
     "write_alpamayo_shape_probe_report",
     "write_alpamayo_input_package",
+    "write_alpamayo_tensor_materialization",
     "write_alpamayo_release_contract",
     "write_alpamayo_trajectory_conversion",
     "write_policy_runtime_matrix",

@@ -1,0 +1,81 @@
+{
+  "work_type": ["backend", "integration", "evidence"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/policies/alpamayo_materializer.py",
+      "src/driverx/policies/alpamayo_materializer_cli.py",
+      "src/driverx/policies/__init__.py",
+      "src/driverx/cli.py",
+      "src/driverx/policies/README.md",
+      "tests/test_alpamayo_materializer.py",
+      "tickets/TASK-054/ticket.md"
+    ],
+    "neighboring_surfaces": [
+      "src/driverx/policies/alpamayo_input.py",
+      "src/driverx/simulators/carla_alpamayo_capture.py",
+      "tickets/TASK-053/ticket.md",
+      "tickets/TASK-054/artifacts/real-capture-materialization/alpamayo_tensor_manifest.md",
+      "tickets/TASK-054/artifacts/qa/focused_tests.log",
+      "tickets/TASK-054/artifacts/qa/pre_push_check.log"
+    ]
+  },
+  "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality"],
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.2,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.2,
+        "error-handling": 4.2,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Proceed to TASK-039 live adapter; reuse the lazy tensor loader on the remote runner."
+    },
+    "integration-readiness": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.2,
+        "contract-correctness": 4.3,
+        "dependency-readiness": 4.1,
+        "coupling-risk": 4.1,
+        "merge-readiness": 4.2
+      },
+      "findings": [],
+      "next_action": "Advance; torch remains a lazy remote dependency and local CLI/tests do not require CUDA."
+    },
+    "evidence-quality": {
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.3,
+        "reproducibility": 4.2,
+        "traceability": 4.3,
+        "consistency": 4.4,
+        "inspectability": 4.2,
+        "autonomy-readiness": 4.2
+      },
+      "findings": [],
+      "next_action": "Evidence is sufficient for this bridge ticket; live model execution belongs to TASK-039."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Mark TASK-054 done, commit it, then continue with TASK-039."
+}

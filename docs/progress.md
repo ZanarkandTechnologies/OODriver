@@ -65,10 +65,10 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-051 live CARLA Alpamayo input capture
 - [x] TASK-052 RunPod Alpamayo bootstrap, download, and eager load proof
 - [x] TASK-053 live Alpamayo inference shape probe
+- [x] TASK-054 Alpamayo tensor materializer from DriverX/CARLA captures
 
 ## Active Roadmap
 
-- [ ] TASK-054 Alpamayo tensor materializer from DriverX/CARLA captures
 - [ ] TASK-039 Alpamayo CARLA adapter
 
 ## Latest Evidence
@@ -258,6 +258,11 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   `sample_trajectories_from_data_with_vlm_rollout` path. Observed shapes are
   `pred_xyz=[1,1,1,64,3]`, `pred_rot=[1,1,1,64,3,3]`,
   `extra.cot=[1,1,1]`, with about `96.7s` live latency and `24.5GB` peak VRAM.
+- TASK-054 materializes live TASK-051 CARLA captures into a torch-ready
+  Alpamayo contract with `image_frames=[3,4,3,90,160]`,
+  `camera_indices=[3]`, `ego_history_xyz=[1,1,16,3]`, and
+  `ego_history_rot=[1,1,16,3,3]`; local validation does not require CUDA and
+  the actual tensor loader is lazy for the remote Alpamayo environment.
 - TASK-049 adds `run-alpamayo-offline`, an end-to-end adapter rehearsal that
   writes an Alpamayo input manifest, converts saved native `pred_xyz`, and
   emits a normal DriverX policy decision with `offline_replay=true`. This proves
@@ -318,8 +323,8 @@ Useful soon:
 - Meshy or equivalent API key for real TASK-012 asset generation
 - SimLingo checkpoint path or Hugging Face access
 - graphics-capable CARLA host for live route video proof
-- Keep the RunPod `/workspace` cache alive while TASK-053 captures live
-  Alpamayo inference shapes
+- Keep the RunPod `/workspace` cache alive while TASK-039 runs live Alpamayo
+  policy decisions from materialized CARLA captures
 
 Missing inputs should be logged as blockers on the relevant ticket while local
 mock/dry-run work continues.
