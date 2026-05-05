@@ -17,6 +17,7 @@ def build_submission_demo_pack(
     alpamayo_probe_path: Path | None = None,
     route_evidence_path: Path | None = None,
     alpamayo_comparison_path: Path | None = None,
+    cached_replay_path: Path | None = None,
     blockers_path: Path | None = None,
     progress_path: Path | None = None,
 ) -> dict[str, Any]:
@@ -25,6 +26,7 @@ def build_submission_demo_pack(
     alpamayo_probe = _load_json(alpamayo_probe_path)
     route_evidence = _load_json(route_evidence_path)
     alpamayo_comparison = _load_json(alpamayo_comparison_path)
+    cached_replay = _load_json(cached_replay_path)
     blockers = _parse_open_blockers(_read_text(blockers_path))
     progress_tail = _latest_lines(_read_text(progress_path), limit=12)
     payload = {
@@ -40,6 +42,7 @@ def build_submission_demo_pack(
             alpamayo_probe,
             route_evidence,
             alpamayo_comparison,
+            cached_replay,
             blockers,
         ),
         "failure_case": _failure_case(suite, route_evidence, blockers),
@@ -49,17 +52,20 @@ def build_submission_demo_pack(
             alpamayo_probe_path=alpamayo_probe_path,
             route_evidence_path=route_evidence_path,
             alpamayo_comparison_path=alpamayo_comparison_path,
+            cached_replay_path=cached_replay_path,
             blockers_path=blockers_path,
         ),
         "model_declarations": _model_declarations(policy_matrix, alpamayo_probe, alpamayo_comparison),
         "data_declarations": _data_declarations(suite, route_evidence),
-        "live_evidence": live_evidence(route_evidence, alpamayo_comparison),
+        "claim_boundaries": _claim_boundaries(alpamayo_comparison, cached_replay),
+        "live_evidence": live_evidence(route_evidence, alpamayo_comparison, cached_replay),
         "writeup_draft": _writeup_draft(
             suite,
             policy_matrix,
             alpamayo_probe,
             route_evidence,
             alpamayo_comparison,
+            cached_replay,
             blockers,
         ),
         "progress_tail": progress_tail,
@@ -69,6 +75,7 @@ def build_submission_demo_pack(
             "alpamayo_probe_path": _path_str(alpamayo_probe_path),
             "route_evidence_path": _path_str(route_evidence_path),
             "alpamayo_comparison_path": _path_str(alpamayo_comparison_path),
+            "cached_replay_path": _path_str(cached_replay_path),
             "blockers_path": _path_str(blockers_path),
             "progress_path": _path_str(progress_path),
         },
@@ -91,6 +98,7 @@ def _storyboard(
     alpamayo_probe: dict[str, Any],
     route_evidence: dict[str, Any],
     alpamayo_comparison: dict[str, Any],
+    cached_replay: dict[str, Any],
     blockers: list[str],
 ) -> list[dict[str, str]]:
     readiness = _mapping(suite.get("readiness"))
@@ -98,6 +106,8 @@ def _storyboard(
     alpamayo_status = _mapping(alpamayo_probe).get("status", "not provided")
     route_video = _mapping(route_evidence.get("video"))
     trajectory_delta = _mapping(alpamayo_comparison.get("trajectory_delta"))
+    replay_command_count = cached_replay.get("command_count", "unknown")
+    replay_mode = cached_replay.get("closed_loop_control", "not provided")
     blocker_line = preferred_blocker(blockers)
     return [
         {
@@ -128,7 +138,7 @@ def _storyboard(
             "time": "2:10-2:45",
             "beat": "Alpamayo Memory Test",
             "visual": "Show Alpamayo no-memory vs memory CoC snippets and trajectory delta.",
-            "narration": f"Alpamayo is now a live open-loop policy probe: status {alpamayo_status}, memory changed trajectory final L2 by {trajectory_delta.get('final_l2_m', 'unknown')}m.",
+            "narration": f"Alpamayo is now a live open-loop policy probe: status {alpamayo_status}, memory changed trajectory final L2 by {trajectory_delta.get('final_l2_m', 'unknown')}m, and cached replay produced {replay_command_count} bounded commands labeled {replay_mode}.",
         },
         {
             "time": "2:45-3:20",
@@ -196,6 +206,7 @@ def _artifact_map(
     alpamayo_probe_path: Path | None,
     route_evidence_path: Path | None,
     alpamayo_comparison_path: Path | None,
+    cached_replay_path: Path | None,
     blockers_path: Path | None,
 ) -> dict[str, Any]:
     recipe_artifacts = []
@@ -218,6 +229,7 @@ def _artifact_map(
         "alpamayo_probe_path": _path_str(alpamayo_probe_path),
         "route_evidence_path": _path_str(route_evidence_path),
         "alpamayo_comparison_path": _path_str(alpamayo_comparison_path),
+        "cached_replay_path": _path_str(cached_replay_path),
         "blockers_path": _path_str(blockers_path),
         "recipe_artifacts": recipe_artifacts,
     }
@@ -294,12 +306,34 @@ def _data_declarations(suite: dict[str, Any], route_evidence: dict[str, Any]) ->
     return declarations
 
 
+def _claim_boundaries(
+    alpamayo_comparison: dict[str, Any],
+    cached_replay: dict[str, Any],
+) -> list[str]:
+    boundaries = [
+        "Generated CARLA/Fail2Drive OOD scenarios and route artifacts are real repo outputs.",
+        "Alpamayo comparisons are open-loop trajectory-intent evaluations unless a route controller consumes them.",
+    ]
+    if alpamayo_comparison:
+        boundaries.append(
+            f"Alpamayo comparison closed_loop_control={alpamayo_comparison.get('closed_loop_control')}."
+        )
+    if cached_replay:
+        boundaries.append(
+            "Cached replay converts a saved policy decision into bounded controls, "
+            f"but dry_run={cached_replay.get('dry_run')} and it is not real-time VLA steering."
+        )
+    boundaries.append("Model weights, CARLA installs, videos, and credentials are not committed.")
+    return boundaries
+
+
 def _writeup_draft(
     suite: dict[str, Any],
     policy_matrix: dict[str, Any],
     alpamayo_probe: dict[str, Any],
     route_evidence: dict[str, Any],
     alpamayo_comparison: dict[str, Any],
+    cached_replay: dict[str, Any],
     blockers: list[str],
 ) -> dict[str, str]:
     failure = _failure_case(suite, route_evidence, blockers)
@@ -323,7 +357,9 @@ def _writeup_draft(
             f"policy runtime ready rows are `{ready_rows}`, and the Alpamayo probe status is "
             f"`{alpamayo_probe.get('status', 'not provided')}`. The live Alpamayo memory comparison "
             f"changed trajectory final L2 by `{trajectory_delta.get('final_l2_m', 'unknown')}` metres "
-            "while staying explicitly open-loop."
+            f"while staying explicitly open-loop. Cached replay produced "
+            f"`{cached_replay.get('command_count', 'unknown')}` bounded control command(s) from a saved "
+            "policy decision without claiming real-time VLA control."
         ),
         "what_did_not_work": (
             f"The current named failure is `{failure.get('summary')}`. This blocks a polished live route "
@@ -391,7 +427,47 @@ def _parse_open_blockers(text: str | None) -> list[str]:
 def _latest_lines(text: str | None, *, limit: int) -> list[str]:
     if text is None:
         return []
-    return [line for line in text.splitlines() if line.strip()][-limit:]
+    lines = text.splitlines()
+    latest = _section_lines(lines, "Latest Evidence")
+    if latest:
+        return _first_complete_bullets(latest, max_bullets=6, max_lines=limit)
+    return [line for line in lines if line.strip()][-limit:]
+
+
+def _first_complete_bullets(lines: list[str], *, max_bullets: int, max_lines: int) -> list[str]:
+    bullets: list[list[str]] = []
+    current: list[str] = []
+    for line in lines:
+        if line.startswith("- "):
+            if current:
+                bullets.append(current)
+            current = [line]
+        elif current and (line.startswith("  ") or line.startswith("\t")):
+            current.append(line)
+    if current:
+        bullets.append(current)
+    output: list[str] = []
+    for bullet in bullets[:max_bullets]:
+        if len(output) + len(bullet) > max_lines:
+            break
+        output.extend(bullet)
+    return output
+
+
+def _section_lines(lines: list[str], heading: str) -> list[str]:
+    target = f"## {heading}".lower()
+    in_section = False
+    output: list[str] = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped.lower() == target:
+            in_section = True
+            continue
+        if in_section and stripped.startswith("## "):
+            break
+        if in_section and stripped:
+            output.append(line)
+    return output
 
 
 def _mapping(value: Any) -> dict[str, Any]:
@@ -458,6 +534,7 @@ def _markdown(payload: dict[str, Any]) -> str:
     if live:
         route = _mapping(live.get("route"))
         comparison = _mapping(live.get("alpamayo_comparison"))
+        replay = _mapping(live.get("cached_replay"))
         lines.extend(
             [
                 "",
@@ -467,8 +544,11 @@ def _markdown(payload: dict[str, Any]) -> str:
                 f"- route_video: `{_mapping(route.get('video')).get('path')}`",
                 f"- alpamayo_open_loop: `{comparison.get('open_loop_policy_evaluation')}`",
                 f"- trajectory_delta: `{comparison.get('trajectory_delta')}`",
+                f"- cached_replay: `{replay}`",
             ]
         )
+    lines.extend(["", "## Claim Boundaries", ""])
+    lines.extend(f"- {item}" for item in list(payload.get("claim_boundaries", [])))
     lines.extend(["", "## Model Declarations", ""])
     for declaration in list(payload.get("model_declarations", [])):
         if isinstance(declaration, dict):

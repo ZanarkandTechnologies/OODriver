@@ -81,6 +81,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   (fake attach seam complete; live proof waits on TASK-060)
 - [x] TASK-062 trajectory intent to CARLA control dry run
 - [ ] TASK-063 final submission evidence refresh
+  (cached replay evidence wired; final route facts pending)
 
 ## Latest Evidence
 
@@ -101,6 +102,9 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   tests prove `capture-alpamayo-carla-input` can attach to a `role_name=hero`
   vehicle, avoid destroying it, and write route/capture metadata into the
   Alpamayo input package. Live route-aligned proof still waits on TASK-060.
+- TASK-063 demo-pack generation now accepts cached replay evidence and emits
+  explicit `claim_boundaries` so the final submission separates open-loop
+  Alpamayo reasoning, cached trajectory replay, and future closed-loop control.
 - TASK-062 added the cached trajectory replay seam. It converts a saved
   `alpamayo_policy_decision.json` into bounded CARLA-style control commands,
   reports `closed_loop_control=cached_replay` and `trajectory_frame=ego`, and

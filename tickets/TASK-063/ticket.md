@@ -1,7 +1,7 @@
 # TASK-063: Final Submission Evidence Refresh
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-059, TASK-060, TASK-061
@@ -11,7 +11,8 @@
   evidence or precise Town13 failure evidence exist
 - leave when: demo pack, dossier, progress, blockers, and canonical docs reflect
   the strongest current story
-- blockers: waits on the preceding evidence tickets for final inputs
+- blockers: final live Town13/route-aligned evidence still waits on TASK-058
+  through TASK-061; demo-pack schema now accepts cached replay evidence
 - spawned follow-ups: final video/deck assembly outside code if needed
 - complexity: S
 
@@ -129,7 +130,18 @@ Docs and report generators only. No new simulator/model runtime behavior.
   evidence generation.
 
 ## Evidence
-- Pending predecessor tickets.
+- 2026-05-06 03:34 +0800: Added cached replay evidence to the demo-pack
+  contract while Town13 was still downloading. The pack now records
+  `claim_boundaries`, `live_evidence.cached_replay`, and
+  `artifact_map.cached_replay_path` so final docs can separate open-loop
+  Alpamayo, cached replay, and future closed-loop control.
+- 2026-05-06 03:34 +0800: Generated partial demo-pack evidence at
+  `tickets/TASK-063/artifacts/cached-replay-demo-pack/submission_demo_pack.md`
+  using the PhysicalAI shape probe, Town10 route evidence, live Alpamayo memory
+  comparison, and cached replay report.
+- Review: `docs/reviews/TASK-063-cached-replay-demo-pack-review.md` passed the
+  partial cached-replay refresh at 4.0/5.0; final review still waits on
+  TASK-060/TASK-061 live evidence.
 
 ## Blockers
-- Waits on TASK-059/TASK-060/TASK-061 evidence.
+- Final refresh still waits on TASK-060/TASK-061 live route evidence.

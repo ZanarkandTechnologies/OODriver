@@ -263,6 +263,7 @@ PYTHONPATH=src python3 -m driverx build-demo-pack \
   --alpamayo-probe artifacts/runs/task38-alpamayo-probe/alpamayo_probe_report.json \
   --route-evidence tickets/archive/TASK-055/artifacts/town10-route-evidence/run_evidence.json \
   --alpamayo-comparison tickets/archive/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json \
+  --cached-replay tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json \
   --blockers blockers.md \
   --progress docs/progress.md \
   --run-id task40-demo-pack

@@ -5,7 +5,11 @@ from __future__ import annotations
 from typing import Any
 
 
-def live_evidence(route_evidence: dict[str, Any], alpamayo_comparison: dict[str, Any]) -> dict[str, Any]:
+def live_evidence(
+    route_evidence: dict[str, Any],
+    alpamayo_comparison: dict[str, Any],
+    cached_replay: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     return {
         "route": {
             "status": route_evidence.get("status"),
@@ -19,6 +23,7 @@ def live_evidence(route_evidence: dict[str, Any], alpamayo_comparison: dict[str,
             "reasoning_delta": _mapping(alpamayo_comparison.get("reasoning_delta")),
             "safety_flags": _mapping(alpamayo_comparison.get("safety_flags")),
         },
+        "cached_replay": _cached_replay_summary(cached_replay or {}),
     }
 
 
@@ -34,6 +39,21 @@ def preferred_blocker(blockers: list[str]) -> str:
 
 def _mapping(value: Any) -> dict[str, Any]:
     return dict(value) if isinstance(value, dict) else {}
+
+
+def _cached_replay_summary(payload: dict[str, Any]) -> dict[str, Any]:
+    trace = _mapping(payload.get("trace"))
+    return {
+        "available": bool(payload),
+        "closed_loop_control": payload.get("closed_loop_control"),
+        "trajectory_frame": trace.get("trajectory_frame"),
+        "command_count": payload.get("command_count"),
+        "applied_count": payload.get("applied_count"),
+        "dry_run": payload.get("dry_run"),
+        "safety_clamp_count": len(list(payload.get("safety_clamps", [])))
+        if isinstance(payload.get("safety_clamps"), list)
+        else 0,
+    }
 
 
 __all__ = ["live_evidence", "preferred_blocker"]

@@ -20,6 +20,7 @@ def command_build_submission_demo_pack(args: argparse.Namespace) -> int:
         alpamayo_probe_path=args.alpamayo_probe,
         route_evidence_path=args.route_evidence,
         alpamayo_comparison_path=args.alpamayo_comparison,
+        cached_replay_path=args.cached_replay,
         blockers_path=args.blockers,
         progress_path=args.progress,
     )
@@ -37,6 +38,7 @@ def register_submission_demo_pack_parser(subparsers: Any) -> None:
     parser.add_argument("--alpamayo-probe", type=Path)
     parser.add_argument("--route-evidence", type=Path)
     parser.add_argument("--alpamayo-comparison", type=Path)
+    parser.add_argument("--cached-replay", type=Path)
     parser.add_argument("--blockers", type=Path, default=Path("blockers.md"))
     parser.add_argument("--progress", type=Path, default=Path("docs/progress.md"))
     parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
