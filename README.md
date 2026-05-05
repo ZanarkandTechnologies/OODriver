@@ -197,6 +197,18 @@ PYTHONPATH=src python3 -m driverx probe-alpamayo \
   --artifact-root artifacts/remote/alpamayo-probe/latest \
   --run-id task38-alpamayo-probe
 
+# On the current RunPod RTX 6000 Ada lane, Alpamayo load probes should use
+# eager attention. The SDPA fallback path is rejected by Alpamayo's custom
+# architecture; flash-attn can be tested separately on hosts with nvcc.
+DRIVERX_ENV_FILE=.env \
+GPU_SSH_OPTS="-p 55050 -i ~/.ssh/id_ed25519_runpod" \
+PYTHON_BIN=/workspace/alpamayo1.5/a1_5_venv/bin/python \
+ALPAMAYO_LOAD=1 \
+ALPAMAYO_ATTN_IMPLEMENTATION=eager \
+REMOTE_CACHE_ROOT=/workspace/.cache/driverx \
+bash scripts/run_remote_alpamayo_probe.sh root@195.26.233.80 \
+  artifacts/remote/alpamayo-probe/latest
+
 # Build the judge-facing demo pack with storyboard, artifact map, declarations,
 # write-up draft, and first understood failure case
 PYTHONPATH=src python3 -m driverx build-demo-pack \

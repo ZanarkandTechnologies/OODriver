@@ -256,7 +256,7 @@ def _model_load_state(payload: Any) -> str | None:
 def _runtime_blocker(payload: Any) -> str | None:
     if not isinstance(payload, dict):
         return None
-    for key in ("error", "blocker", "exception"):
+    for key in ("alpamayo_class_error", "error", "blocker", "exception"):
         value = payload.get(key)
         if isinstance(value, str) and value.strip():
             return _redact_secrets(value.strip())

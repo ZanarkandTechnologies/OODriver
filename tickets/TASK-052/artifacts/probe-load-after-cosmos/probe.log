@@ -1,0 +1,63 @@
+Alpamayo1_5 load failed; trying transformers auto fallback.
+Traceback (most recent call last):
+  File "/workspace/0xdriver-artifacts/alpamayo-probe/task52-runpod-load-after-cosmos-20260505T160041Z/probe.py", line 117, in <module>
+    Alpamayo1_5.from_pretrained(
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 277, in _wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 4971, in from_pretrained
+    model = cls(config, *model_args, **model_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/alpamayo1.5/src/alpamayo1_5/models/alpamayo1_5.py", line 94, in __init__
+    super().__init__(config, pretrained_modules, original_vocab_size, print_param_count=False)
+  File "/workspace/alpamayo1.5/src/alpamayo1_5/models/base_model.py", line 302, in __init__
+    super().__init__(config)
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 2076, in __init__
+    self.config._attn_implementation_internal = self._check_and_adjust_attn_implementation(
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 2686, in _check_and_adjust_attn_implementation
+    applicable_attn_implementation = self.get_correct_attn_implementation(
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 2725, in get_correct_attn_implementation
+    raise e
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 2722, in get_correct_attn_implementation
+    self._sdpa_can_dispatch(is_init_check)
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 2574, in _sdpa_can_dispatch
+    raise ValueError(
+ValueError: Alpamayo1_5 does not support an attention implementation through torch.nn.functional.scaled_dot_product_attention yet. Please request the support for this architecture: https://github.com/huggingface/transformers/issues/28005. If you believe this error is a bug, please open an issue in Transformers GitHub repository and load your model with the argument `attn_implementation="eager"` meanwhile. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="eager")`
+
+Traceback (most recent call last):
+  File "/workspace/0xdriver-artifacts/alpamayo-probe/task52-runpod-load-after-cosmos-20260505T160041Z/probe.py", line 117, in <module>
+    Alpamayo1_5.from_pretrained(
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 277, in _wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 4971, in from_pretrained
+    model = cls(config, *model_args, **model_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/alpamayo1.5/src/alpamayo1_5/models/alpamayo1_5.py", line 94, in __init__
+    super().__init__(config, pretrained_modules, original_vocab_size, print_param_count=False)
+  File "/workspace/alpamayo1.5/src/alpamayo1_5/models/base_model.py", line 302, in __init__
+    super().__init__(config)
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 2076, in __init__
+    self.config._attn_implementation_internal = self._check_and_adjust_attn_implementation(
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 2686, in _check_and_adjust_attn_implementation
+    applicable_attn_implementation = self.get_correct_attn_implementation(
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 2725, in get_correct_attn_implementation
+    raise e
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 2722, in get_correct_attn_implementation
+    self._sdpa_can_dispatch(is_init_check)
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 2574, in _sdpa_can_dispatch
+    raise ValueError(
+ValueError: Alpamayo1_5 does not support an attention implementation through torch.nn.functional.scaled_dot_product_attention yet. Please request the support for this architecture: https://github.com/huggingface/transformers/issues/28005. If you believe this error is a bug, please open an issue in Transformers GitHub repository and load your model with the argument `attn_implementation="eager"` meanwhile. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="eager")`
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/0xdriver-artifacts/alpamayo-probe/task52-runpod-load-after-cosmos-20260505T160041Z/probe.py", line 130, in <module>
+    AutoProcessor.from_pretrained(model_id, token=os.environ.get("HF_TOKEN") or None, trust_remote_code=True)
+  File "/workspace/alpamayo1.5/a1_5_venv/lib/python3.12/site-packages/transformers/models/auto/processing_auto.py", line 424, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized processing class in nvidia/Alpamayo-1.5-10B. Can't instantiate a processor, a tokenizer, an image processor or a feature extractor for this model. Make sure the repository contains the files of at least one of those processing classes.

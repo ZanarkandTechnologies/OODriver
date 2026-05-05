@@ -1,15 +1,15 @@
 # TASK-052: RunPod Alpamayo Bootstrap And Probe
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-044, TASK-048
 - location: `scripts/`, `src/driverx/remote/`, `tickets/TASK-052/`
 - enter when: user confirms RunPod is the active GPU lane and the RunPod SSH key should be used
 - leave when: RunPod SSH is resolved from live pod metadata, Alpamayo remote setup/probe is attempted, and evidence or blockers are recorded
-- blockers: gated Hugging Face access to `nvidia/Cosmos-Reason2-8B` blocks load-only inference after Alpamayo snapshot download
-- spawned follow-ups:
+- blockers: none for load-only proof; TASK-053 owns live inference shape probing
+- spawned follow-ups: TASK-053 live Alpamayo inference shape probe
 - complexity: M
 
 ### Description
@@ -57,12 +57,20 @@ precise blocker that lets the next remote attempt resume without rediscovery.
   `/workspace/.cache/driverx/huggingface/hub/models--nvidia--Alpamayo-1.5-10B`.
 - Load-only probe failed on `403 Forbidden` for gated base model
   `nvidia/Cosmos-Reason2-8B`; this is now the live blocker.
+- After the gated access agreement was accepted, reran the load probe. SDPA
+  mode reached model construction but failed because Alpamayo's custom class
+  does not support PyTorch SDPA dispatch.
+- Added `ALPAMAYO_ATTN_IMPLEMENTATION` to `scripts/run_remote_alpamayo_probe.sh`
+  and reran with `ALPAMAYO_ATTN_IMPLEMENTATION=eager`.
+- Eager load succeeded on the RunPod RTX 6000 Ada. Evidence reports
+  `model_load_state=loaded`, `latency_ms=32108.99`, and
+  `vram_peak_mb=21141.57`.
 
 ### QA Reconciliation
 - AC-1: PASS
 - AC-2: PASS
 - AC-3: PASS
-- AC-4: PASS with external blocker
+- AC-4: PASS
 - AC-5: PASS
 
 ### Artifact Links
@@ -80,17 +88,24 @@ precise blocker that lets the next remote attempt resume without rediscovery.
   `tickets/TASK-052/artifacts/probe-download-summary/alpamayo_probe_report.md`
 - Load-only probe:
   `tickets/TASK-052/artifacts/probe-load-summary/alpamayo_probe_report.md`
+- Post-Cosmos SDPA blocker probe:
+  `tickets/TASK-052/artifacts/probe-load-after-cosmos-summary/alpamayo_probe_report.md`
+- Post-Cosmos eager load proof:
+  `tickets/TASK-052/artifacts/probe-load-eager-after-cosmos-summary/alpamayo_probe_report.md`
 - Review:
   `tickets/TASK-052/artifacts/review/20260505T235100-review.md`
+- Post-access review:
+  `tickets/TASK-052/artifacts/review/20260506T000800-review.md`
 - QA:
   `tickets/TASK-052/artifacts/qa/qa_report.md`
 
 ### User Evidence
-- Supporting evidence: RunPod SSH, bootstrap, model-info, download, and load
-  blocker reports listed above.
+- Supporting evidence: RunPod SSH, bootstrap, model-info, download, SDPA
+  blocker, and eager load proof reports listed above.
 - QA report: `tickets/TASK-052/artifacts/qa/qa_report.md`
-- Final verdict: RunPod setup and Alpamayo download path are working; live load
-  is blocked only by nested Hugging Face access to `nvidia/Cosmos-Reason2-8B`.
+- Final verdict: RunPod setup, Alpamayo download, nested Cosmos access, and
+  load-only execution are working. TASK-053 should capture real inference input
+  and output shapes before TASK-039 implements closed-loop CARLA adaptation.
 
 ### Required Evidence
 - [x] Unit/integration/e2e tests pass (as applicable)

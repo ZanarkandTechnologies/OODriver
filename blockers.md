@@ -6,16 +6,6 @@ unblocked ticket when possible.
 
 ## Open
 
-- 2026-05-05 23:50 +0800 | alpamayo,huggingface,cosmos | TASK-052
-  bootstrapped Alpamayo 1.5 on the RunPod RTX 6000 Ada pod, downloaded the
-  `nvidia/Alpamayo-1.5-10B` snapshot to `/workspace`, and verified CUDA
-  availability. Load-only inference is blocked because Alpamayo imports its
-  gated base model `nvidia/Cosmos-Reason2-8B`, and Hugging Face returned
-  `403 Forbidden` for `https://huggingface.co/nvidia/Cosmos-Reason2-8B/...`.
-  Next unblock path: request/accept access for
-  `https://hf.co/nvidia/Cosmos-Reason2-8B` on the same Hugging Face account
-  backing `HF_TOKEN`, then rerun the TASK-052 load probe.
-
 - 2026-05-05 22:33 +0800 | fail2drive,docker,network | TASK-043
   added the Dockerized Fail2Drive client path, but local image build stalled
   during the pip wheel download layer after the apt layer succeeded. The image
@@ -50,6 +40,15 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-06 00:05 +0800 | alpamayo,huggingface,cosmos,attention | The
+  TASK-052 nested Cosmos access blocker is resolved. After the user accepted
+  the gated agreement, the RunPod probe downloaded the nested files and loaded
+  `nvidia/Alpamayo-1.5-10B` on RTX 6000 Ada with
+  `ALPAMAYO_ATTN_IMPLEMENTATION=eager`. SDPA mode is incompatible with
+  Alpamayo's custom architecture, so future live probes should use `eager` or
+  install the upstream flash-attn path instead. Evidence:
+  `tickets/TASK-052/artifacts/probe-load-eager-after-cosmos-summary/alpamayo_probe_report.md`.
 
 - 2026-05-05 23:50 +0800 | alpamayo,probe,gpu | The TASK-038 generic
   "needs live Alpamayo probe" blocker is resolved by TASK-052 evidence:

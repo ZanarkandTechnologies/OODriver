@@ -38,6 +38,8 @@ class AlpamayoRemoteBootstrapScriptTest(unittest.TestCase):
         self.assertIn("falling back to ssh tar stream", script)
         self.assertIn("HF_HUB_CACHE", script)
         self.assertIn("rsync", script)
+        self.assertIn("ALPAMAYO_ATTN_IMPLEMENTATION", script)
+        self.assertIn("attn_implementation", script)
         completed = subprocess.run(
             ["bash", "-n", "scripts/run_remote_alpamayo_probe.sh"],
             check=False,

@@ -1,0 +1,64 @@
+{
+  "work_type": ["backend", "evidence", "runtime"],
+  "search_scope": {
+    "tickets": [
+      "tickets/TASK-052/ticket.md",
+      "tickets/TASK-039/ticket.md",
+      "tickets/TASK-053/ticket.md"
+    ],
+    "code": [
+      "scripts/run_remote_alpamayo_probe.sh",
+      "src/driverx/policies/alpamayo_probe.py"
+    ],
+    "tests": [
+      "tests/test_alpamayo_probe.py",
+      "tests/test_alpamayo_remote_bootstrap_script.py",
+      "tests/test_runpod_remote.py"
+    ],
+    "docs": [
+      "README.md",
+      "blockers.md",
+      "docs/HISTORY.md",
+      "docs/MEMORY.md",
+      "docs/progress.md",
+      "src/driverx/policies/AGENTS.md",
+      "src/driverx/policies/README.md"
+    ],
+    "evidence": [
+      "tickets/TASK-052/artifacts/probe-load-eager-after-cosmos-summary/alpamayo_probe_report.md",
+      "tickets/TASK-052/artifacts/qa/pre_push_check.log"
+    ]
+  },
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": {
+    "code_quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": []
+    },
+    "integration_readiness": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": []
+    },
+    "evidence_quality": {
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": []
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Proceed to TASK-053 live Alpamayo inference shape probe before unblocking TASK-039."
+}

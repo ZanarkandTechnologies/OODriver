@@ -63,10 +63,12 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-049 Alpamayo offline policy rehearsal
 - [x] TASK-050 live local CARLA 0.9.16 probe refresh
 - [x] TASK-051 live CARLA Alpamayo input capture
+- [x] TASK-052 RunPod Alpamayo bootstrap, download, and eager load proof
 
 ## Active Roadmap
 
-- [ ] TASK-039 Alpamayo CARLA adapter (blocked on live Alpamayo shape evidence)
+- [ ] TASK-053 live Alpamayo inference shape probe
+- [ ] TASK-039 Alpamayo CARLA adapter (blocked on TASK-053 shape evidence)
 
 ## Latest Evidence
 
@@ -244,8 +246,11 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   RunPod direct TCP SSH resolved from live pod metadata.
 - TASK-052 adds `resolve-runpod-ssh`, hardens remote Alpamayo cache placement
   on `/workspace`, bootstraps Alpamayo 1.5 on the RunPod RTX 6000 Ada pod,
-  downloads the `nvidia/Alpamayo-1.5-10B` snapshot, and records the remaining
-  load blocker as gated access to `nvidia/Cosmos-Reason2-8B`.
+  downloads the `nvidia/Alpamayo-1.5-10B` snapshot, resolves the nested
+  `nvidia/Cosmos-Reason2-8B` access gate, and proves load-only execution with
+  `ALPAMAYO_ATTN_IMPLEMENTATION=eager`. The successful eager load took about
+  `32.1s` and peaked at about `21.1GB` VRAM; SDPA mode is not compatible with
+  Alpamayo's custom architecture.
 - TASK-049 adds `run-alpamayo-offline`, an end-to-end adapter rehearsal that
   writes an Alpamayo input manifest, converts saved native `pred_xyz`, and
   emits a normal DriverX policy decision with `offline_replay=true`. This proves
@@ -306,8 +311,8 @@ Useful soon:
 - Meshy or equivalent API key for real TASK-012 asset generation
 - SimLingo checkpoint path or Hugging Face access
 - graphics-capable CARLA host for live route video proof
-- RTX 6000 Ada or equivalent GPU SSH plus Hugging Face access for Alpamayo
-  offline probe
+- Keep the RunPod `/workspace` cache alive while TASK-053 captures live
+  Alpamayo inference shapes
 
 Missing inputs should be logged as blockers on the relevant ticket while local
 mock/dry-run work continues.

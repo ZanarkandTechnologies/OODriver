@@ -79,6 +79,25 @@ class AlpamayoProbeTest(unittest.TestCase):
         self.assertEqual(summary["latency_ms"], 321.5)
         self.assertEqual(summary["observed_shape"], {"trajectory_shape": [20, 2]})
 
+    def test_classifier_prefers_alpamayo_class_error_for_runtime_blocker(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "alpamayo_probe.json").write_text(
+                json.dumps(
+                    {
+                        "model_load_state": "failed",
+                        "alpamayo_class_error": "ValueError: use eager attention",
+                        "error": "ValueError: processor fallback failed",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            summary = classify_alpamayo_probe_artifacts(root)
+
+        self.assertEqual(summary["status"], "runtime_blocked")
+        self.assertIn("eager attention", summary["blockers"][0])
+
     def test_classifier_treats_model_info_sha_as_metadata_not_auth_error(self) -> None:
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -146,6 +165,7 @@ class AlpamayoProbeTest(unittest.TestCase):
         self.assertIn("HF_TOKEN", script)
         self.assertIn("GPU_SSH_OPTS", script)
         self.assertIn("DRIVERX_ENV_FILE", script)
+        self.assertIn("ALPAMAYO_ATTN_IMPLEMENTATION", script)
         self.assertIn("rsync", script)
         self.assertNotIn("set -x", script)
         self.assertIn(".hf_token", script)

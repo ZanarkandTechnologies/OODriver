@@ -21,6 +21,8 @@ MODEL_ID="${ALPAMAYO_REPO_ID:-nvidia/Alpamayo-1.5-10B}"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 ALPAMAYO_DOWNLOAD="${ALPAMAYO_DOWNLOAD:-0}"
 ALPAMAYO_LOAD="${ALPAMAYO_LOAD:-0}"
+# MEM-0019: Alpamayo's custom class rejects SDPA on the current RunPod lane.
+ALPAMAYO_ATTN_IMPLEMENTATION="${ALPAMAYO_ATTN_IMPLEMENTATION:-eager}"
 REMOTE_CACHE_ROOT="${REMOTE_CACHE_ROOT:-/workspace/.cache/driverx}"
 SSH_OPTIONS="${GPU_SSH_OPTS:-${SSH_OPTS:-}}"
 SSH_RSH="ssh ${SSH_OPTIONS} -o StrictHostKeyChecking=accept-new"
@@ -68,6 +70,7 @@ remote_root = Path(os.environ["REMOTE_ROOT"])
 model_id = os.environ["MODEL_ID"]
 download = os.environ.get("ALPAMAYO_DOWNLOAD") == "1"
 load_model = os.environ.get("ALPAMAYO_LOAD") == "1"
+attn_implementation = os.environ.get("ALPAMAYO_ATTN_IMPLEMENTATION", "sdpa").strip() or "sdpa"
 token_file = remote_root / ".hf_token"
 if token_file.exists():
     os.environ["HF_TOKEN"] = token_file.read_text(encoding="utf-8").strip()
@@ -78,6 +81,7 @@ probe: dict[str, object] = {
     "model_load_state": "not_requested",
     "download_requested": download,
     "load_requested": load_model,
+    "attn_implementation": attn_implementation,
 }
 memory: dict[str, object] = {}
 
@@ -148,12 +152,13 @@ if load_model and probe.get("error") is None:
         try:
             from alpamayo1_5.models.alpamayo1_5 import Alpamayo1_5
 
-            Alpamayo1_5.from_pretrained(
-                model_id,
-                token=os.environ.get("HF_TOKEN") or None,
-                dtype=torch.bfloat16,
-                attn_implementation="sdpa",
-            ).to("cuda")
+            load_kwargs = {
+                "token": os.environ.get("HF_TOKEN") or None,
+                "dtype": torch.bfloat16,
+            }
+            if attn_implementation not in {"default", "none"}:
+                load_kwargs["attn_implementation"] = attn_implementation
+            Alpamayo1_5.from_pretrained(model_id, **load_kwargs).to("cuda")
             probe["model_class"] = "Alpamayo1_5"
         except Exception as alpamayo_exc:
             log_lines.append("Alpamayo1_5 load failed; trying transformers auto fallback.")
@@ -204,7 +209,7 @@ except Exception:
 (remote_root / "probe.log").write_text(redact("\n".join(log_lines)), encoding="utf-8")
 PY
 
-ssh ${SSH_OPTIONS} "$REMOTE" "PATH=\"\$HOME/.local/bin:\$PATH\" REMOTE_ROOT='$REMOTE_ROOT' MODEL_ID='$MODEL_ID' ALPAMAYO_DOWNLOAD='$ALPAMAYO_DOWNLOAD' ALPAMAYO_LOAD='$ALPAMAYO_LOAD' PYTHON_BIN='$PYTHON_BIN' XDG_CACHE_HOME='$REMOTE_CACHE_ROOT' UV_CACHE_DIR='$REMOTE_CACHE_ROOT/uv' HF_HOME='$REMOTE_CACHE_ROOT/huggingface' TRANSFORMERS_CACHE='$REMOTE_CACHE_ROOT/huggingface' HF_HUB_CACHE='$REMOTE_CACHE_ROOT/huggingface/hub' '$PYTHON_BIN' '$REMOTE_ROOT/probe.py'; rm -f '$REMOTE_ROOT/.hf_token'"
+ssh ${SSH_OPTIONS} "$REMOTE" "PATH=\"\$HOME/.local/bin:\$PATH\" REMOTE_ROOT='$REMOTE_ROOT' MODEL_ID='$MODEL_ID' ALPAMAYO_DOWNLOAD='$ALPAMAYO_DOWNLOAD' ALPAMAYO_LOAD='$ALPAMAYO_LOAD' ALPAMAYO_ATTN_IMPLEMENTATION='$ALPAMAYO_ATTN_IMPLEMENTATION' PYTHON_BIN='$PYTHON_BIN' XDG_CACHE_HOME='$REMOTE_CACHE_ROOT' UV_CACHE_DIR='$REMOTE_CACHE_ROOT/uv' HF_HOME='$REMOTE_CACHE_ROOT/huggingface' TRANSFORMERS_CACHE='$REMOTE_CACHE_ROOT/huggingface' HF_HUB_CACHE='$REMOTE_CACHE_ROOT/huggingface/hub' '$PYTHON_BIN' '$REMOTE_ROOT/probe.py'; rm -f '$REMOTE_ROOT/.hf_token'"
 
 mkdir -p "$LOCAL_OUTPUT"
 rsync -rltz --prune-empty-dirs \

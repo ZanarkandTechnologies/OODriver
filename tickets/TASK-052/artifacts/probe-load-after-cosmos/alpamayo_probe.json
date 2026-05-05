@@ -1,0 +1,17 @@
+{
+  "model_id": "nvidia/Alpamayo-1.5-10B",
+  "model_load_state": "failed",
+  "download_requested": false,
+  "load_requested": true,
+  "nvidia_smi_exit_code": 0,
+  "model_info_latency_ms": 115.15,
+  "model_info": {
+    "id": "nvidia/Alpamayo-1.5-10B",
+    "sha": "f11cd25b758ab560114019b555dde2a8b92d88b4",
+    "private": false,
+    "gated": false
+  },
+  "alpamayo_class_error": "ValueError: Alpamayo1_5 does not support an attention implementation through torch.nn.functional.scaled_dot_product_attention yet. Please request the support for this architecture: https://github.com/huggingface/transformers/issues/28005. If you believe this error is a bug, please open an issue in Transformers GitHub repository and load your model with the argument `attn_implementation=\"eager\"` meanwhile. Example: `model = AutoModel.from_pretrained(\"openai/whisper-tiny\", attn_implementation=\"eager\")`",
+  "error": "ValueError: Unrecognized processing class in nvidia/Alpamayo-1.5-10B. Can't instantiate a processor, a tokenizer, an image processor or a feature extractor for this model. Make sure the repository contains the files of at least one of those processing classes.",
+  "latency_ms": 76654.29
+}

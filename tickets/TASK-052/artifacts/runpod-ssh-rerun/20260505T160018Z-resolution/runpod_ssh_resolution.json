@@ -1,0 +1,34 @@
+{
+  "target": {
+    "pod_id": "zqqmn9ryopmmro",
+    "pod_name": "thundering_apricot_locust",
+    "host": "195.26.233.80",
+    "port": 55050,
+    "user": "root",
+    "key_file": "/Users/kenjipcx/.ssh/id_ed25519_runpod",
+    "source": "rest_port_mappings",
+    "gpu_ssh_host": "root@195.26.233.80",
+    "gpu_ssh_opts": "-p 55050 -i /Users/kenjipcx/.ssh/id_ed25519_runpod",
+    "ssh_command": "ssh -p 55050 -i /Users/kenjipcx/.ssh/id_ed25519_runpod root@195.26.233.80",
+    "warnings": []
+  },
+  "shell_exports": "export GPU_SSH_HOST='root@195.26.233.80'\nexport GPU_SSH_OPTS='-p 55050 -i /Users/kenjipcx/.ssh/id_ed25519_runpod'",
+  "pods": [
+    {
+      "id": "zqqmn9ryopmmro",
+      "name": "thundering_apricot_locust",
+      "desired_status": "RUNNING",
+      "public_ip": "195.26.233.80",
+      "port_mappings": {
+        "22": 55050
+      },
+      "runtime_ports": [],
+      "image_name": "runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04",
+      "gpu_count": 1,
+      "memory_in_gb": 62,
+      "vcpu_count": 16,
+      "container_disk_in_gb": 20,
+      "volume_in_gb": 200
+    }
+  ]
+}

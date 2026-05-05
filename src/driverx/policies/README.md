@@ -29,7 +29,12 @@ PYTHONPATH=src python3 -m driverx build-alpamayo-input --fixture construction_me
 PYTHONPATH=src python3 -m driverx inspect-alpamayo-release --repo ../external/alpamayo1.5
 PYTHONPATH=src python3 -m driverx convert-alpamayo-trajectory --prediction-json artifacts/sample_pred_xyz.json
 PYTHONPATH=src python3 -m driverx run-alpamayo-offline --prediction-json artifacts/sample_pred_xyz.json --with-memory
+ALPAMAYO_ATTN_IMPLEMENTATION=eager bash scripts/run_remote_alpamayo_probe.sh root@195.26.233.80 artifacts/remote/alpamayo-probe/latest
 ```
+
+For the current RunPod RTX 6000 Ada Alpamayo lane, use eager attention for
+load probes. SDPA is rejected by Alpamayo's custom architecture; this is tracked
+as `MEM-0019`.
 
 ## Test
 
