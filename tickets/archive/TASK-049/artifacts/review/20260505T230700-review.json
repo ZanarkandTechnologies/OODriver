@@ -1,0 +1,92 @@
+{
+  "work_type": ["backend", "integration"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/policies/alpamayo_offline.py",
+      "src/driverx/policies/alpamayo_offline_cli.py",
+      "src/driverx/policies/__init__.py",
+      "src/driverx/cli.py",
+      "tests/test_alpamayo_offline.py",
+      "tickets/TASK-049/ticket.md",
+      "docs/progress.md",
+      "docs/HISTORY.md"
+    ],
+    "related_files": [
+      "src/driverx/policies/alpamayo_input.py",
+      "src/driverx/policies/alpamayo_trajectory.py",
+      "src/driverx/policies/runner.py",
+      "src/driverx/policies/types.py",
+      "artifacts/runs/task49-alpamayo-offline-policy/alpamayo_offline_policy.json"
+    ],
+    "docs_checked": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "evidence-quality.md",
+      "integration-readiness.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "evidence-quality", "integration-readiness"],
+  "summary": "The offline Alpamayo rehearsal stitches input manifests, saved native trajectory conversion, and standard policy-decision writing into one auditable path. It clearly marks the run as saved-prediction/offline replay and preserves memory/nav metadata, avoiding a false live-model claim.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.5,
+        "error-handling": 4.0,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Swap saved pred_xyz for live Alpamayo pred_xyz once remote inference works."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.0,
+        "traceability": 4.0,
+        "consistency": 4.5,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.5
+      },
+      "findings": [],
+      "next_action": "Keep the offline policy artifact as a known-good adapter rehearsal."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.5,
+        "merge-readiness": 4.5
+      },
+      "findings": [],
+      "next_action": "Proceed to live CARLA sensor packaging or remote model execution when SSH is fixed."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Archive TASK-049 after the pre-push gate and commit."
+}

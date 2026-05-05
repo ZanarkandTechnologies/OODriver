@@ -60,6 +60,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-046 Alpamayo trajectory conversion
 - [x] TASK-047 Alpamayo input package manifest
 - [x] TASK-048 Alpamayo remote release bootstrap script
+- [x] TASK-049 Alpamayo offline policy rehearsal
 
 ## Active Roadmap
 
@@ -240,6 +241,10 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   Python 3.12 venv, choosing SDPA or flash-attn dependency sync, and optionally
   running upstream `test_inference.py`. The current A6000 endpoint still
   refuses SSH, so the script is validated locally but not yet executed remotely.
+- TASK-049 adds `run-alpamayo-offline`, an end-to-end adapter rehearsal that
+  writes an Alpamayo input manifest, converts saved native `pred_xyz`, and
+  emits a normal DriverX policy decision with `offline_replay=true`. This proves
+  the handoff path without claiming live model execution.
 - TASK-024 adds `run-simlingo-sidecar`, a timed process runner for existing
   TASK-023 plans. Local evidence executed harmless SimLingo/overlay sample
   commands, wrote process logs, timings, exit codes, JSON, and Markdown.

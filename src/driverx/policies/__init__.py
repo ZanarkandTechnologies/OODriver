@@ -23,6 +23,7 @@ from driverx.policies.alpamayo_input import (
     build_alpamayo_input_package,
     write_alpamayo_input_package,
 )
+from driverx.policies.alpamayo_offline import run_alpamayo_offline_fixture
 from driverx.policies.alpamayo_release import (
     AlpamayoReleaseContract,
     DEFAULT_ALPAMAYO_RELEASE_ROOT,
@@ -69,6 +70,7 @@ __all__ = [
     "inspect_alpamayo_release",
     "memory_entries_from_json",
     "run_policy_fixture",
+    "run_alpamayo_offline_fixture",
     "sample_memory_entries",
     "select_policy_adapter",
     "resample_alpamayo_xy",
