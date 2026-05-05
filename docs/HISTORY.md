@@ -79,3 +79,4 @@
 2026-05-05 23:03 +0800 | SHIP | TASK-048 added a remote Alpamayo release bootstrap script with SDPA/flash-attn sync modes and optional test-inference execution
 2026-05-05 23:07 +0800 | SHIP | TASK-049 added an offline Alpamayo policy rehearsal that writes input, trajectory, and PolicyDecision artifacts from saved pred_xyz
 2026-05-05 23:10 +0800 | QA | TASK-050 refreshed local CARLA 0.9.16 reachability through the Docker client and recorded Town10HD_Opt probe evidence
+2026-05-05 23:14 +0800 | SHIP | TASK-051 added live CARLA RGB/ego capture for Alpamayo-shaped input packages and recorded a 12-image local proof

@@ -34,6 +34,13 @@ from driverx.simulators.carla_ego import (
     run_ego_spawn_smoke,
     write_ego_smoke,
 )
+from driverx.simulators.carla_alpamayo_capture import (
+    ALPAMAYO_CARLA_CAMERA_INDICES,
+    CarlaAlpamayoCaptureConfig,
+    CarlaAlpamayoCaptureResult,
+    run_carla_alpamayo_capture,
+    write_carla_alpamayo_capture,
+)
 from driverx.simulators.carla_injection import (
     CarlaOverlayInjectionConfig,
     OverlayActorTrack,
@@ -119,6 +126,7 @@ from driverx.simulators.simlingo_sidecar_runner import (
 
 __all__ = [
     "CarlaCommandPlan",
+    "ALPAMAYO_CARLA_CAMERA_INDICES",
     "CarlaActorScript",
     "Bench2DriveRouteExport",
     "Bench2DriveRouteSuite",
@@ -129,6 +137,8 @@ __all__ = [
     "CarlaProbeConfig",
     "CarlaProbeResult",
     "CarlaOverlayInjectionConfig",
+    "CarlaAlpamayoCaptureConfig",
+    "CarlaAlpamayoCaptureResult",
     "CarlaRunConfig",
     "CarlaScriptPlan",
     "CarlaSensorScript",
@@ -173,6 +183,7 @@ __all__ = [
     "parse_simlingo_result",
     "probe_carla_client",
     "resolve_recipe_route_path",
+    "run_carla_alpamayo_capture",
     "run_ego_spawn_smoke",
     "run_fail2drive_route",
     "run_overlay_injection_plan",
@@ -186,6 +197,7 @@ __all__ = [
     "write_carla_script_plan",
     "write_bench2drive_route_suite",
     "write_carla_probe",
+    "write_carla_alpamayo_capture",
     "write_ego_smoke",
     "write_fail2drive_route_run",
     "write_overlay_injection_plan",

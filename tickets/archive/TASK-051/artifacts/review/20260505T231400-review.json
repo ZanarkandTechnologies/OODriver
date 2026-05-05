@@ -1,0 +1,91 @@
+{
+  "work_type": ["backend", "integration", "evidence"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/simulators/carla_alpamayo_capture.py",
+      "src/driverx/simulators/carla_alpamayo_capture_cli.py",
+      "src/driverx/simulators/__init__.py",
+      "src/driverx/cli.py",
+      "tests/test_carla_alpamayo_capture.py",
+      "tickets/TASK-051/ticket.md",
+      "docs/progress.md",
+      "docs/HISTORY.md"
+    ],
+    "related_files": [
+      "src/driverx/simulators/carla_ego.py",
+      "configs/fail2drive_docker.local.yaml",
+      "artifacts/runs/task51-live-alpamayo-capture/carla_alpamayo_capture.json",
+      "artifacts/runs/task51-live-alpamayo-capture/alpamayo_carla_input_package.json"
+    ],
+    "docs_checked": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "evidence-quality.md",
+      "integration-readiness.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "evidence-quality", "integration-readiness"],
+  "summary": "The live CARLA Alpamayo capture path is implemented and proved against the running local simulator through Docker. It captures three camera windows, writes ego history/package artifacts, and destroys all spawned actors. The fake-CARLA tests cover the core spawn/capture/cleanup path and missing-package guidance.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.0,
+        "error-handling": 4.0,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Use this capture package as the live image source for remote Alpamayo tensor loading."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.5,
+        "reproducibility": 4.0,
+        "traceability": 4.5,
+        "consistency": 4.5,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Keep the live PNG/package artifacts available for visual/demo review."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 4.5,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.5
+      },
+      "findings": [],
+      "next_action": "Proceed to remote Alpamayo tensor runner once GPU SSH is reachable."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Run the pre-push gate, archive TASK-051, and commit."
+}

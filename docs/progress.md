@@ -62,6 +62,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-048 Alpamayo remote release bootstrap script
 - [x] TASK-049 Alpamayo offline policy rehearsal
 - [x] TASK-050 live local CARLA 0.9.16 probe refresh
+- [x] TASK-051 live CARLA Alpamayo input capture
 
 ## Active Roadmap
 
@@ -250,6 +251,10 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   `scripts/run_carla_client_docker.sh`; Docker Python connected to
   `host.docker.internal:2000`, reporting `Carla/Maps/Town10HD_Opt`, `23`
   actors, and matching server/client version `0.9.16`.
+- TASK-051 adds `capture-alpamayo-carla-input` and live evidence from local
+  CARLA. The run spawned one ego vehicle plus three RGB cameras for Alpamayo ids
+  `[0, 1, 2]`, saved `12` PNG frames, wrote an Alpamayo-shaped input package
+  with tensor shape `3 x 4 x 3 x 90 x 160`, and cleaned up all spawned actors.
 - TASK-024 adds `run-simlingo-sidecar`, a timed process runner for existing
   TASK-023 plans. Local evidence executed harmless SimLingo/overlay sample
   commands, wrote process logs, timings, exit codes, JSON, and Markdown.
