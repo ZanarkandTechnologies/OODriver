@@ -1,0 +1,67 @@
+{
+  "work_type": ["evidence", "integration"],
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-050/ticket.md",
+      "docs/progress.md",
+      "docs/HISTORY.md"
+    ],
+    "related_files": [
+      "scripts/run_carla_client_docker.sh",
+      "configs/fail2drive_docker.local.yaml",
+      "artifacts/runs/task50-live-carla-probe/carla_probe.json"
+    ],
+    "docs_checked": [
+      "review-rubric-index.md",
+      "evidence-quality.md",
+      "integration-readiness.md"
+    ]
+  },
+  "rubrics_used": ["evidence-quality", "integration-readiness"],
+  "summary": "The live CARLA probe evidence is current, replayable, and clearly tied to the Docker client path. It proves local CARLA 0.9.16 is reachable from Linux amd64 Python without adding new runtime code.",
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": [
+    {
+      "name": "evidence-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.0,
+        "traceability": 4.0,
+        "consistency": 4.5,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Use this probe as the current local CARLA readiness artifact."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 4.5,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Proceed with local CARLA-facing adapter/evidence work."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Archive TASK-050 and commit docs/ticket evidence."
+}
