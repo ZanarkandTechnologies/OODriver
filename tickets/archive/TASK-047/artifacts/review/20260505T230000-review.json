@@ -1,0 +1,91 @@
+{
+  "work_type": ["backend", "integration"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/policies/alpamayo_input.py",
+      "src/driverx/policies/alpamayo_input_cli.py",
+      "src/driverx/policies/__init__.py",
+      "src/driverx/cli.py",
+      "tests/test_alpamayo_input.py",
+      "tickets/TASK-047/ticket.md",
+      "docs/progress.md",
+      "docs/HISTORY.md"
+    ],
+    "related_files": [
+      "src/driverx/core/types.py",
+      "src/driverx/datasets/fixtures.py",
+      "src/driverx/policies/alpamayo_release.py",
+      "artifacts/runs/task47-alpamayo-input-package/alpamayo_input_package.json"
+    ],
+    "docs_checked": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "evidence-quality.md",
+      "integration-readiness.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "evidence-quality", "integration-readiness"],
+  "summary": "The input package manifest cleanly maps DriverX frames into Alpamayo's camera/history/nav/memory contract without pretending to be a tensor runtime. It is covered by tests and a CLI artifact, while preserving the future live-CARLA temporal-capture boundary as an explicit note.",
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.0,
+        "error-handling": 4.0,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Use the manifest as the handoff shape for a live CARLA sensor package ticket."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.0,
+        "traceability": 4.0,
+        "consistency": 4.0,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.5
+      },
+      "findings": [],
+      "next_action": "Keep the CLI artifact visible; add real sensor frame paths in the live CARLA follow-up."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.5
+      },
+      "findings": [],
+      "next_action": "Proceed to CARLA sensor packaging or remote Alpamayo bootstrap when access is fixed."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Archive TASK-047 after the pre-push gate and commit."
+}
