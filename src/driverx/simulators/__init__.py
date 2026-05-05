@@ -51,8 +51,10 @@ from driverx.simulators.carla_ego import (
 )
 from driverx.simulators.carla_alpamayo_capture import (
     ALPAMAYO_CARLA_CAMERA_INDICES,
+    CarlaActorAttachConfig,
     CarlaAlpamayoCaptureConfig,
     CarlaAlpamayoCaptureResult,
+    find_capture_actor,
     run_carla_alpamayo_capture,
     write_carla_alpamayo_capture,
 )
@@ -149,6 +151,7 @@ __all__ = [
     "CarlaCommandPlan",
     "ALPAMAYO_CARLA_CAMERA_INDICES",
     "CarlaActorScript",
+    "CarlaActorAttachConfig",
     "Bench2DriveRouteExport",
     "Bench2DriveRouteSuite",
     "Fail2DriveVideoSmokeConfig",
@@ -218,6 +221,7 @@ __all__ = [
     "probe_carla_client",
     "probe_carla_map_inventory",
     "resolve_recipe_route_path",
+    "find_capture_actor",
     "run_carla_alpamayo_capture",
     "run_ego_spawn_smoke",
     "run_fail2drive_route",

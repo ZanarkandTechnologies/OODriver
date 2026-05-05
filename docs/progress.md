@@ -78,6 +78,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-059 PhysicalAI dataset-backed Alpamayo sample probe
 - [ ] TASK-060 stock Fail2Drive Town13 route score and video evidence
 - [ ] TASK-061 route-aligned Alpamayo OOD capture and memory comparison
+  (fake attach seam complete; live proof waits on TASK-060)
 - [x] TASK-062 trajectory intent to CARLA control dry run
 - [ ] TASK-063 final submission evidence refresh
 
@@ -96,6 +97,10 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   `Generalization_PedestriansOnRoad_1088.xml`; it now carries `TOWN=Town13`,
   `--timeout 900`, and expected result/debug/RGB/video paths, so live route
   execution can start as soon as TASK-058 makes Town13 loadable.
+- TASK-061 now has the local attach-to-existing-actor capture seam. Fake CARLA
+  tests prove `capture-alpamayo-carla-input` can attach to a `role_name=hero`
+  vehicle, avoid destroying it, and write route/capture metadata into the
+  Alpamayo input package. Live route-aligned proof still waits on TASK-060.
 - TASK-062 added the cached trajectory replay seam. It converts a saved
   `alpamayo_policy_decision.json` into bounded CARLA-style control commands,
   reports `closed_loop_control=cached_replay` and `trajectory_frame=ego`, and

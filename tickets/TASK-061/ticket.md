@@ -1,7 +1,7 @@
 # TASK-061: Route-Aligned Alpamayo OOD Capture And Comparison
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-059, TASK-060
@@ -11,7 +11,8 @@
   produce live CARLA evidence
 - leave when: a route-aligned CARLA capture is evaluated by Alpamayo with and
   without retrieved memory
-- blockers: waits on TASK-059 and TASK-060
+- blockers: live route-aligned proof waits on TASK-060; fake-CARLA attach seam
+  is implemented
 - spawned follow-ups: TASK-062 trajectory-control dry run, TASK-063 final pack
 - complexity: L
 
@@ -127,7 +128,7 @@ execution semantics.
   still open-loop and must be labeled as such.
 
 ## Acceptance Criteria
-- [ ] AC-1: Capture can attach to an existing CARLA vehicle in fake tests.
+- [x] AC-1: Capture can attach to an existing CARLA vehicle in fake tests.
 - [ ] AC-2: Live route-aligned package records map, route, actor id, camera
   windows, ego history, and memory context.
 - [ ] AC-3: Alpamayo no-memory and memory decisions both run on the same capture.
@@ -149,7 +150,13 @@ execution semantics.
 - Live proof depends on Town13 route availability and kept-alive RunPod.
 
 ## Evidence
-- Pending TASK-059 and TASK-060.
+- 2026-05-06 03:34 +0800: Implemented the local attach-to-existing-actor seam
+  while the Town13 package download was in progress. Focused test:
+  `PYTHONPATH=src python3 -m unittest tests.test_carla_alpamayo_capture` passed
+  with 5 tests. The capture package now records `route_context`,
+  `capture_actor.actor_id`, and whether the ego was `attached` or `spawned`.
+- Review: `docs/reviews/TASK-061-route-capture-attach-review.md` passed the
+  implemented AC-1 seam at 4.0/5.0 and keeps the live proof blocker on TASK-060.
 
 ## Blockers
-- Dataset-backed probe and stock Town13 route proof are prerequisites.
+- Stock Town13 route proof remains the live prerequisite for AC-2 through AC-4.

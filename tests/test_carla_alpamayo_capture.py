@@ -7,7 +7,9 @@ import unittest
 from unittest.mock import patch
 
 from driverx.simulators import (
+    CarlaActorAttachConfig,
     CarlaAlpamayoCaptureConfig,
+    find_capture_actor,
     run_carla_alpamayo_capture,
     write_carla_alpamayo_capture,
 )
@@ -39,9 +41,12 @@ class _FakeImage:
 
 
 class _FakeActor:
-    def __init__(self, actor_id: int, type_id: str) -> None:
+    def __init__(self, actor_id: int, type_id: str, *, role_name: str | None = None) -> None:
         self.id = actor_id
         self.type_id = type_id
+        self.attributes: dict[str, str] = {}
+        if role_name is not None:
+            self.attributes["role_name"] = role_name
         self.destroyed = False
         self.tick = 0
 
@@ -70,16 +75,29 @@ class _FakeMap:
         return [object()]
 
 
+class _FakeActorList(list):
+    def filter(self, pattern: str):
+        if pattern.endswith("*"):
+            prefix = pattern[:-1]
+            return [actor for actor in self if actor.type_id.startswith(prefix)]
+        return [actor for actor in self if actor.type_id == pattern]
+
+
 class _FakeWorld:
     def __init__(self) -> None:
         self.next_id = 100
-        self.actors: list[_FakeActor] = []
+        self.actors: _FakeActorList = _FakeActorList()
+        self.existing_hero = _FakeActor(42, "vehicle.tesla.model3", role_name="hero")
+        self.actors.append(self.existing_hero)
 
     def get_map(self):
         return _FakeMap()
 
     def get_blueprint_library(self):
         return _FakeBlueprints()
+
+    def get_actors(self):
+        return self.actors
 
     def try_spawn_actor(self, blueprint, spawn_point):
         return self._actor(blueprint.id)
@@ -151,6 +169,55 @@ class CarlaAlpamayoCaptureTest(unittest.TestCase):
         self.assertEqual(len(tracks), 4)
         self.assertEqual(result.destroyed_actor_ids, [104, 103, 102, 101])
         self.assertTrue(json_exists)
+
+    def test_find_capture_actor_matches_existing_role(self) -> None:
+        world = _FakeWorld()
+
+        actor = find_capture_actor(world, CarlaActorAttachConfig(role_name="hero"))
+
+        self.assertIs(actor, world.existing_hero)
+
+    def test_capture_can_attach_to_existing_actor_without_destroying_it(self) -> None:
+        with TemporaryDirectory() as tmp:
+            run_dir = Path(tmp)
+            result = run_carla_alpamayo_capture(
+                CarlaAlpamayoCaptureConfig(
+                    "host.docker.internal",
+                    2000,
+                    1.0,
+                    route_name="Generalization_PedestriansOnRoad_1088",
+                    route_evidence_path=Path("tickets/TASK-060/artifacts/run_evidence.json"),
+                ),
+                run_dir,
+                attach=CarlaActorAttachConfig(role_name="hero", fallback_spawn=False),
+                carla_module=_FakeCarla,
+            )
+            package = json.loads(Path(result.package_path or "").read_text(encoding="utf-8"))
+
+        self.assertTrue(result.connected)
+        self.assertEqual(result.ego_actor_id, 42)
+        self.assertEqual(result.capture_actor_source, "attached")
+        self.assertEqual(result.spawned_actor_ids, [101, 102, 103])
+        self.assertEqual(result.destroyed_actor_ids, [103, 102, 101])
+        self.assertEqual(package["capture_actor"]["actor_id"], 42)
+        self.assertEqual(package["capture_actor"]["source"], "attached")
+        self.assertEqual(package["route_context"]["route_name"], "Generalization_PedestriansOnRoad_1088")
+        self.assertEqual(
+            package["route_context"]["route_evidence_path"],
+            "tickets/TASK-060/artifacts/run_evidence.json",
+        )
+
+    def test_attach_without_fallback_reports_actionable_error(self) -> None:
+        with TemporaryDirectory() as tmp:
+            result = run_carla_alpamayo_capture(
+                CarlaAlpamayoCaptureConfig("host.docker.internal", 2000, 1.0),
+                Path(tmp),
+                attach=CarlaActorAttachConfig(role_name="missing", fallback_spawn=False),
+                carla_module=_FakeCarla,
+            )
+
+        self.assertFalse(result.connected)
+        self.assertIn("No existing CARLA actor matched attach config", result.error or "")
 
     def test_missing_carla_package_is_actionable(self) -> None:
         with patch.dict(sys.modules):

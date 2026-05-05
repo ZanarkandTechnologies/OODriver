@@ -30,6 +30,7 @@ dry-run command planning.
 - `write_simlingo_result_report(run_dir, record, ...)`
 - `scan_simlingo_evidence(artifact_root)`
 - `write_simlingo_evidence_report(run_dir, scan)`
+- `find_capture_actor(world, attach)`
 - `replay_policy_decision(config, actor=None)`
 - `write_carla_policy_replay(run_dir, result)`
 
@@ -87,6 +88,14 @@ PYTHONPATH=src python3 -m driverx assess-gpu-host \
   --torch-compatibility tickets/archive/TASK-020/artifacts/task20-remote/torch_cuda_compatibility.json \
   --carla-diagnostics tickets/archive/TASK-020/artifacts/task20-remote/carla_runtime_diagnostics.md \
   --simlingo-evidence tickets/archive/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.json
+bash scripts/run_carla_client_docker.sh python -m driverx capture-alpamayo-carla-input \
+  --config configs/carla_local.sample.yaml \
+  --host host.docker.internal \
+  --attach-role-name hero \
+  --no-fallback-spawn \
+  --route-name Generalization_PedestriansOnRoad_1088 \
+  --route-evidence tickets/TASK-060/artifacts/town13-route-evidence/run_evidence.json \
+  --run-id task61-route-aligned-capture
 PYTHONPATH=src python3 -m driverx replay-policy-decision \
   --decision tickets/archive/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json \
   --trajectory-frame ego \
@@ -111,4 +120,5 @@ PYTHONPATH=src python3 -m unittest tests.test_simlingo_evidence
 PYTHONPATH=src python3 -m unittest tests.test_gpu_host_suitability
 PYTHONPATH=src python3 -m unittest tests.test_carla_maps
 PYTHONPATH=src python3 -m unittest tests.test_carla_policy_replay
+PYTHONPATH=src python3 -m unittest tests.test_carla_alpamayo_capture
 ```

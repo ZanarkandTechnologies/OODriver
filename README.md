@@ -226,6 +226,17 @@ REMOTE_CACHE_ROOT=/workspace/.cache/driverx \
 bash scripts/run_remote_alpamayo_probe.sh root@195.26.233.80 \
   artifacts/remote/alpamayo-probe/latest
 
+# Capture Alpamayo-shaped camera windows from an existing CARLA route actor.
+# Use this during a Fail2Drive route run once Town13 is loadable.
+bash scripts/run_carla_client_docker.sh python -m driverx capture-alpamayo-carla-input \
+  --config configs/carla_local.sample.yaml \
+  --host host.docker.internal \
+  --attach-role-name hero \
+  --no-fallback-spawn \
+  --route-name Generalization_PedestriansOnRoad_1088 \
+  --route-evidence tickets/TASK-060/artifacts/town13-route-evidence/run_evidence.json \
+  --run-id task61-route-aligned-capture
+
 # Compare live Alpamayo open-loop policy decisions with and without retrieved
 # DriverX safety memory. The comparison is intentionally not a closed-loop
 # CARLA-control claim.
