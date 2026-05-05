@@ -89,7 +89,7 @@ def expected_alpamayo_schema(
             },
             {
                 "name": "trajectory",
-                "shape": "20 x 2 waypoints for 5 seconds at 4 Hz, or a backend-native trajectory convertible to that shape",
+                "shape": "backend-native 64 x 3 waypoints at 10 Hz, convertible to 20 x 2 waypoints for 5 seconds at 4 Hz",
                 "dtype": "float32",
                 "required": True,
                 "notes": "Primary handoff to CARLA control intent and Waymo-style offline scoring.",

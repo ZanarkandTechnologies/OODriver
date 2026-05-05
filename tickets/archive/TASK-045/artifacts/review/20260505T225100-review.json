@@ -1,0 +1,95 @@
+{
+  "work_type": ["backend", "integration"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/policies/alpamayo_release.py",
+      "src/driverx/policies/alpamayo_release_cli.py",
+      "src/driverx/policies/alpamayo_probe.py",
+      "src/driverx/policies/__init__.py",
+      "src/driverx/cli.py",
+      "tests/test_alpamayo_release.py",
+      "tickets/TASK-045/ticket.md",
+      "docs/progress.md",
+      "docs/HISTORY.md"
+    ],
+    "related_files": [
+      "../external/alpamayo1.5/README.md",
+      "../external/alpamayo1.5/src/alpamayo1_5/test_inference.py",
+      "../external/alpamayo1.5/src/alpamayo1_5/helper.py",
+      "../external/alpamayo1.5/src/alpamayo1_5/load_physical_aiavdataset.py",
+      "../external/alpamayo1.5/src/alpamayo1_5/models/alpamayo1_5.py",
+      "../external/alpamayo1.5/src/alpamayo1_5/models/base_model.py",
+      "artifacts/runs/task45-alpamayo-release-contract/alpamayo_release_contract.json"
+    ],
+    "docs_checked": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "evidence-quality.md",
+      "integration-readiness.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "evidence-quality", "integration-readiness"],
+  "summary": "The release inspector turns upstream Alpamayo docs/source into a structured, GPU-free contract and CLI artifact. It handles absent checkouts safely, is covered by fixture tests, and was run against the real local Alpamayo checkout to produce auditable adapter inputs for the later CARLA bridge.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.5,
+        "error-handling": 4.0,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "No code changes required before using this contract to build trajectory conversion."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.0,
+        "traceability": 4.5,
+        "consistency": 4.5,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.5
+      },
+      "findings": [],
+      "next_action": "Keep the generated contract artifact as the handoff input for the next adapter ticket."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.5,
+        "merge-readiness": 4.5
+      },
+      "findings": [],
+      "next_action": "Proceed to GPU-free trajectory conversion; keep live Alpamayo loading separate until SSH is fixed."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Archive TASK-045 after the pre-push gate and commit."
+}

@@ -56,6 +56,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-042 local Fail2Drive route runner
 - [x] TASK-043 Dockerized Fail2Drive client runner
 - [x] TASK-044 Alpamayo remote probe host prep
+- [x] TASK-045 Alpamayo release contract extractor
 
 ## Active Roadmap
 
@@ -216,6 +217,12 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   compact rsync artifact pullback. The supplied A6000 endpoint currently
   refuses SSH on port `36723`, so the next unblock is instance/network access,
   not more local probe code.
+- TASK-045 adds `inspect-alpamayo-release`, a GPU-free contract extractor over
+  the local `../external/alpamayo1.5` checkout. Current evidence records
+  commit `2eff703`, Python `3.12`, CUDA `12.x`, 22GB weights, 24/40/60GB VRAM
+  modes, default camera ids `[0, 1, 2, 6]`, four frames per camera, 16 history
+  steps, native 64-waypoint 10Hz trajectory output, CoC text output, VQA
+  support, and DriverX's 20-point 4Hz conversion target.
 - TASK-024 adds `run-simlingo-sidecar`, a timed process runner for existing
   TASK-023 plans. Local evidence executed harmless SimLingo/overlay sample
   commands, wrote process logs, timings, exit codes, JSON, and Markdown.
