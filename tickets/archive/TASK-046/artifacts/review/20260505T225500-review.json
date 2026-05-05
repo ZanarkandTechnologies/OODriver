@@ -1,0 +1,90 @@
+{
+  "work_type": ["backend", "integration"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/policies/alpamayo_trajectory.py",
+      "src/driverx/policies/alpamayo_trajectory_cli.py",
+      "src/driverx/policies/__init__.py",
+      "src/driverx/cli.py",
+      "tests/test_alpamayo_trajectory.py",
+      "tickets/TASK-046/ticket.md",
+      "docs/progress.md",
+      "docs/HISTORY.md"
+    ],
+    "related_files": [
+      "src/driverx/core/types.py",
+      "src/driverx/policies/alpamayo_release.py",
+      "artifacts/runs/task46-alpamayo-trajectory-conversion/alpamayo_trajectory.json"
+    ],
+    "docs_checked": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "evidence-quality.md",
+      "integration-readiness.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "evidence-quality", "integration-readiness"],
+  "summary": "The trajectory converter cleanly bridges Alpamayo's native 64-step 10Hz xyz output into the existing DriverX 20-point 4Hz xy contract. It supports common nested output ranks, fails explicitly on short horizons, and has both direct function and CLI artifact proof.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.5,
+        "error-handling": 4.0,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Use the converter from the Alpamayo adapter once live inference produces pred_xyz."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.0,
+        "traceability": 4.0,
+        "consistency": 4.5,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.5
+      },
+      "findings": [],
+      "next_action": "Keep the CLI fixture artifact available as a sanity check for future live model outputs."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.5,
+        "merge-readiness": 4.5
+      },
+      "findings": [],
+      "next_action": "Proceed to building Alpamayo input-package capture or adapter stubbing while GPU access remains blocked."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Archive TASK-046 after the pre-push gate and commit."
+}

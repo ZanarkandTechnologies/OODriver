@@ -74,3 +74,4 @@
 2026-05-05 22:45 +0800 | SHIP | TASK-044 hardened the Alpamayo remote probe for custom SSH options, local env token loading, secret-safe remote handoff, and compact rsync pullback
 2026-05-05 22:45 +0800 | BLOCKER | TASK-044 live A6000 probe could not start because the supplied endpoint refused SSH on port 36723
 2026-05-05 22:51 +0800 | SHIP | TASK-045 added a GPU-free Alpamayo release contract extractor and CLI over the local upstream checkout
+2026-05-05 22:55 +0800 | SHIP | TASK-046 added native Alpamayo pred_xyz selection and 10Hz-to-4Hz DriverX trajectory conversion

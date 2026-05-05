@@ -24,6 +24,12 @@ from driverx.policies.alpamayo_release import (
     inspect_alpamayo_release,
     write_alpamayo_release_contract,
 )
+from driverx.policies.alpamayo_trajectory import (
+    alpamayo_prediction_to_trajectory,
+    resample_alpamayo_xy,
+    select_alpamayo_xyz_sample,
+    write_alpamayo_trajectory_conversion,
+)
 from driverx.policies.runtime_matrix import (
     PolicyRuntimeRow,
     build_policy_runtime_matrix,
@@ -51,15 +57,19 @@ __all__ = [
     "PolicySetupError",
     "SetupCheckedStubPolicyAdapter",
     "classify_alpamayo_probe_artifacts",
+    "alpamayo_prediction_to_trajectory",
     "expected_alpamayo_schema",
     "inspect_alpamayo_release",
     "memory_entries_from_json",
     "run_policy_fixture",
     "sample_memory_entries",
     "select_policy_adapter",
+    "resample_alpamayo_xy",
+    "select_alpamayo_xyz_sample",
     "build_policy_runtime_matrix",
     "write_alpamayo_probe_report",
     "write_alpamayo_release_contract",
+    "write_alpamayo_trajectory_conversion",
     "write_policy_runtime_matrix",
     "write_policy_decision",
 ]

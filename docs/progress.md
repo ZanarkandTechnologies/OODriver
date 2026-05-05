@@ -57,6 +57,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-043 Dockerized Fail2Drive client runner
 - [x] TASK-044 Alpamayo remote probe host prep
 - [x] TASK-045 Alpamayo release contract extractor
+- [x] TASK-046 Alpamayo trajectory conversion
 
 ## Active Roadmap
 
@@ -223,6 +224,10 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   modes, default camera ids `[0, 1, 2, 6]`, four frames per camera, 16 history
   steps, native 64-waypoint 10Hz trajectory output, CoC text output, VQA
   support, and DriverX's 20-point 4Hz conversion target.
+- TASK-046 adds `convert-alpamayo-trajectory`, converting native Alpamayo
+  `pred_xyz` outputs into DriverX `TrajectoryCandidate` chunks by selecting one
+  sample and resampling 64 ego-local 10Hz xyz waypoints to 20 ego-local 4Hz xy
+  points over 5 seconds.
 - TASK-024 adds `run-simlingo-sidecar`, a timed process runner for existing
   TASK-023 plans. Local evidence executed harmless SimLingo/overlay sample
   commands, wrote process logs, timings, exit codes, JSON, and Markdown.
