@@ -54,6 +54,13 @@ from driverx.simulators.fail2drive_video import (
     plan_fail2drive_video_smoke,
     write_fail2drive_video_smoke_plan,
 )
+from driverx.simulators.fail2drive_route_runner import (
+    ExpectedOutputStatus,
+    Fail2DriveRouteRunConfig,
+    Fail2DriveRouteRunResult,
+    run_fail2drive_route,
+    write_fail2drive_route_run,
+)
 from driverx.simulators.route_video_assembly import (
     RouteVideoAssemblyPlan,
     RouteVideoAssemblyRun,
@@ -127,7 +134,10 @@ __all__ = [
     "CarlaSensorScript",
     "CarlaSmokeResult",
     "EntityTrack",
+    "ExpectedOutputStatus",
     "GpuHostSuitability",
+    "Fail2DriveRouteRunConfig",
+    "Fail2DriveRouteRunResult",
     "HostSuitabilityCheck",
     "OverlayActorTrack",
     "OverlayEvidenceInputs",
@@ -164,6 +174,7 @@ __all__ = [
     "probe_carla_client",
     "resolve_recipe_route_path",
     "run_ego_spawn_smoke",
+    "run_fail2drive_route",
     "run_overlay_injection_plan",
     "run_route_video_assembly",
     "run_simlingo_sidecar_processes",
@@ -176,6 +187,7 @@ __all__ = [
     "write_bench2drive_route_suite",
     "write_carla_probe",
     "write_ego_smoke",
+    "write_fail2drive_route_run",
     "write_overlay_injection_plan",
     "write_overlay_injection_run",
     "write_overlay_evidence",

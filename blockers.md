@@ -6,6 +6,13 @@ unblocked ticket when possible.
 
 ## Open
 
+- 2026-05-05 22:10 +0800 | fail2drive,local-deps | TASK-042 local
+  Fail2Drive route runner reached the evaluator, but native macOS Python failed
+  before CARLA connection with `ModuleNotFoundError: No module named 'numpy'`.
+  Evidence: `artifacts/runs/task42-route-run-numpy-blocker/fail2drive_route_run.md`.
+  Next unblock path: run Fail2Drive inside a Docker client environment that
+  mounts both `0xDriver` and `../external/fail2drive`.
+
 - 2026-05-05 19:24 +0800 | alpamayo,probe,gpu | TASK-038 shipped the
   local Alpamayo probe classifier and remote probe script, but live Alpamayo
   model proof still needs a confirmed checkpoint/repo id and an explicit remote

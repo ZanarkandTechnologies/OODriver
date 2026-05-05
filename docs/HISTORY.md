@@ -69,3 +69,4 @@
 2026-05-05 19:24 +0800 | SHIP | TASK-038 added an Alpamayo offline probe schema, artifact classifier, secret redaction, CLI report, and download-gated remote GPU probe script
 2026-05-05 19:32 +0800 | SHIP | TASK-040 added a submission demo pack with storyboard, artifact map, model/data declarations, write-up draft, and understood failure case
 2026-05-05 19:42 +0800 | SHIP | TASK-041 added a DriverX-owned ffmpeg route-video assembler so missing Fail2Drive video helper code no longer blocks future RGB-to-MP4 evidence
+2026-05-05 22:10 +0800 | SHIP | TASK-042 added a structured Fail2Drive route runner and proved local native execution reaches the evaluator but blocks on missing numpy before CARLA connection
