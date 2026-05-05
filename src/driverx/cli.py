@@ -870,6 +870,7 @@ def build_parser() -> argparse.ArgumentParser:
     ood_report_parser.set_defaults(func=_command_build_ood_suite_report)
 
     from driverx.pipeline.submission_dossier_cli import register_submission_dossier_parser
+    from driverx.pipeline.submission_demo_pack_cli import register_submission_demo_pack_parser
     from driverx.pipeline.generated_ood_suite_cli import register_generated_ood_suite_parser
     from driverx.pipeline.route_evidence_cli import register_route_evidence_parser
     from driverx.policies.alpamayo_probe_cli import register_alpamayo_probe_parser
@@ -884,6 +885,7 @@ def build_parser() -> argparse.ArgumentParser:
     register_simlingo_parsers(subparsers)
     register_gpu_host_parser(subparsers)
     register_submission_dossier_parser(subparsers)
+    register_submission_demo_pack_parser(subparsers)
 
     config_parser = subparsers.add_parser(
         "show-config",

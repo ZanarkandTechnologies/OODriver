@@ -50,12 +50,12 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-035 live OOD overlay injection evidence
 - [x] TASK-036 generated OOD suite runner
 - [x] TASK-037 policy runtime matrix
+- [x] TASK-038 Alpamayo offline probe
+- [x] TASK-040 submission demo pack
 
 ## Active Roadmap
 
-- [ ] TASK-038 Alpamayo offline probe
-- [ ] TASK-039 Alpamayo CARLA adapter
-- [ ] TASK-040 submission demo pack
+- [ ] TASK-039 Alpamayo CARLA adapter (blocked on live Alpamayo shape evidence)
 
 ## Latest Evidence
 
@@ -185,6 +185,13 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   and blocker. Current evidence marks `mock`, `mock-memory`, `hybrid`,
   `fail2drive-basic`, and `fail2drive-expert` ready or dry-run-ready while
   keeping SimLingo and Alpamayo blocked independently.
+- TASK-038 adds `probe-alpamayo` plus
+  `scripts/run_remote_alpamayo_probe.sh`, a download/load-gated offline probe
+  that records GPU snapshot, package versions, model load state, memory usage,
+  latency, expected adapter schema, and secret-redacted failure classification.
+- TASK-040 adds `build-demo-pack`, producing the judge-facing 1-5 minute demo
+  outline, concrete artifact map, model/data declarations, short write-up
+  draft, and a named failure case from the generated OOD suite.
 - TASK-024 adds `run-simlingo-sidecar`, a timed process runner for existing
   TASK-023 plans. Local evidence executed harmless SimLingo/overlay sample
   commands, wrote process logs, timings, exit codes, JSON, and Markdown.

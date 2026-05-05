@@ -67,3 +67,4 @@
 2026-05-05 19:13 +0800 | SHIP | TASK-036 added a generated OOD suite runner with per-recipe route/video plans, route evidence bundles, overlay evidence, aggregate blockers, and --limit ramping
 2026-05-05 19:18 +0800 | SHIP | TASK-037 added a policy runtime matrix that marks local/mock/basic/expert rows ready and isolates SimLingo/Alpamayo blockers
 2026-05-05 19:24 +0800 | SHIP | TASK-038 added an Alpamayo offline probe schema, artifact classifier, secret redaction, CLI report, and download-gated remote GPU probe script
+2026-05-05 19:32 +0800 | SHIP | TASK-040 added a submission demo pack with storyboard, artifact map, model/data declarations, write-up draft, and understood failure case

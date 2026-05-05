@@ -1,0 +1,16 @@
+{
+  "ticket": "TASK-040",
+  "review_type": "implementation",
+  "score": 4,
+  "findings": [],
+  "checks": [
+    "Focused submission demo pack tests pass.",
+    "CLI writes JSON and Markdown demo pack artifacts.",
+    "Demo pack includes a 1-5 minute storyboard, artifact map, model declarations, data declarations, write-up draft, and failure case.",
+    "Failure case is grounded in generated OOD suite blockers instead of hidden."
+  ],
+  "residual_risks": [
+    "Live route video remains missing and is correctly represented as an understood failure case.",
+    "The report references generated artifacts under artifacts/runs that are intentionally not committed."
+  ]
+}
