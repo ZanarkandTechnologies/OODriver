@@ -1,0 +1,38 @@
+{
+  "status": "blocked",
+  "connected": false,
+  "host": "host.docker.internal",
+  "port": 2000,
+  "recipe_id": "generated-base-animals-0076-regional-driving-behavior-000",
+  "behavior_id": "motorcycle_filtering",
+  "map_name": "Carla/Maps/Town10HD_Opt",
+  "frame_count": 0,
+  "duration_s": 0.0,
+  "tracks_path": null,
+  "rgb_folder": "/workspace/tickets/TASK-078/artifacts/task78-live-ood-capture/rgb",
+  "plan_path": "/workspace/tickets/TASK-078/artifacts/task78-live-ood-capture/carla_ood_demo_plan.json",
+  "spawned_actor_ids": [
+    24,
+    25,
+    26
+  ],
+  "destroyed_actor_ids": [
+    26,
+    25,
+    24
+  ],
+  "generated_asset_ids": [
+    "asset-fallen-cargo-sack",
+    "asset-roadside-food-cart",
+    "asset-reflective-flood-barrier"
+  ],
+  "blockers": [
+    "CARLA OOD demo failed: No CARLA blueprints matched static.prop.trafficcone."
+  ],
+  "error": "No CARLA blueprints matched static.prop.trafficcone.",
+  "claim_boundaries": [
+    "scripted_carla_ood_demo=true",
+    "stock_fail2drive_score=false",
+    "closed_loop_vla_control=false"
+  ]
+}

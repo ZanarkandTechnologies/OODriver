@@ -39,3 +39,5 @@
 2026-05-06 00:05 +0800 | RULE | MEM-0019 | alpamayo,runpod,attention | On the current RunPod RTX 6000 Ada Alpamayo lane, load probes must use `ALPAMAYO_ATTN_IMPLEMENTATION=eager`; SDPA mode is rejected by Alpamayo's custom architecture, while eager load has been proven at about 21.1GB peak VRAM. Flash-attn remains a separate optional bootstrap path for hosts with a working CUDA Toolkit and `nvcc`.
 
 2026-05-06 11:48 +0800 | RULE | MEM-0020 | carla,docker,paths | The two local Docker wrappers use different in-container repo roots: `scripts/run_carla_client_docker.sh` mounts the repo at `/workspace`, while `scripts/run_fail2drive_client_docker.sh` mounts it at `/workspace/0xDriver`; use the matching output-root path or artifacts may be written only inside the ephemeral container.
+
+2026-05-06 19:49 +0800 | RULE | MEM-0021 | carla,assets,blueprints | Local CARLA 0.9.16 scripted OOD asset proxies must prefer installed blueprint ids validated by TASK-078: `static.prop.dirtdebris01`, `static.prop.foodcart`, and `static.prop.constructioncone`; do not reintroduce absent `static.prop.trafficcone` placeholders without a target-install blueprint probe.

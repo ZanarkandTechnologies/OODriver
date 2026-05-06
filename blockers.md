@@ -6,20 +6,6 @@ unblocked ticket when possible.
 
 ## Open
 
-- 2026-05-06 19:20 +0800 | carla,docker,scripted-ood,video | TASK-072
-  scripted OOD runner implementation passed fake-CARLA tests, but the live
-  Docker client attempt timed out waiting for local CARLA at
-  `host.docker.internal:2000`. The runner wrote a clean blocked report with no
-  RGB frames. Evidence:
-  `tickets/TASK-072/artifacts/task72-live-candidate/carla_ood_demo.md`.
-  Next unblock path: keep `CARLA.app` open until the town is fully loaded, then
-  rerun `bash scripts/run_carla_client_docker.sh python -m driverx
-  run-carla-ood-demo --config configs/carla_ood_demo.local.sample.yaml
-  --tick-count 240 --run-id task72-live-retry`. If Docker still cannot reach
-  `host.docker.internal`, run the same command from inside the known-good
-  CARLA client container after verifying
-  `python -c "import carla; print(carla.Client('host.docker.internal', 2000).get_world().get_map().name)"`.
-
 - 2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060
   long-score attempt `town13-long-score-attempt-001` started the stock
   `Generalization_PedestriansOnRoad_1088` route and reached game time `0.600s`
@@ -61,6 +47,21 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-06 23:18 +0800 | carla,docker,scripted-ood,video | TASK-078
+  resolved the live DriverX scripted OOD capture blocker. Docker reached local
+  CARLA at `host.docker.internal:2000`; after replacing unavailable
+  `static.prop.trafficcone` with installed CARLA 0.9.16 proxy props, the runner
+  captured 120 RGB frames, 24.0s of scripted OOD video substrate, entity
+  tracks, generated stock props, and full cleanup evidence. Evidence:
+  `tickets/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.md`
+  and
+  `tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.md`.
+
+- 2026-05-06 19:20 +0800 | carla,docker,scripted-ood,video | TASK-072
+  original live Docker client timeout against local CARLA is superseded by
+  TASK-078. The old blocked report remains preserved at
+  `tickets/TASK-072/artifacts/task72-live-candidate/carla_ood_demo.md`.
 
 - 2026-05-06 11:34 +0800 | fail2drive,carla,town13,video | TASK-071 resolved
   the immediate "how far until we get a video" blocker. The runner now watches

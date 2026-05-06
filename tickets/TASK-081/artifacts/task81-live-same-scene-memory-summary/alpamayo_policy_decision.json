@@ -1,0 +1,375 @@
+{
+  "policy_decision": {
+    "policy_id": "alpamayo-live",
+    "adapter_kind": "alpamayo_open_loop",
+    "intent": {
+      "scene_type": "alpamayo_carla_capture:driverx_ood_generated-base-animals-0076-regional-driving-behavior-000",
+      "hazards": [
+        "open-loop live Alpamayo trajectory",
+        "1 retrieved DriverX memory entries were provided prompt-side"
+      ],
+      "ego_intent": "evaluate Alpamayo trajectory intent without closed-loop actuation",
+      "target_behavior": "open_loop_trajectory_eval",
+      "speed_profile": "trajectory_chunk",
+      "lateral_bias": "center",
+      "uncertainty": 0.4
+    },
+    "action": {
+      "mode": "trajectory_chunk_open_loop",
+      "trajectory": {
+        "points_xy": [
+          [
+            0.3404,
+            0.0043
+          ],
+          [
+            0.716,
+            0.0175
+          ],
+          [
+            1.2084,
+            0.0444
+          ],
+          [
+            1.858,
+            0.0811
+          ],
+          [
+            2.7809,
+            0.1126
+          ],
+          [
+            4.0215,
+            0.1208
+          ],
+          [
+            5.5858,
+            0.1027
+          ],
+          [
+            7.4099,
+            0.0756
+          ],
+          [
+            9.4757,
+            0.0492
+          ],
+          [
+            11.7367,
+            0.0232
+          ],
+          [
+            14.1378,
+            -0.0045
+          ],
+          [
+            16.583,
+            -0.0329
+          ],
+          [
+            19.0076,
+            -0.062
+          ],
+          [
+            21.3733,
+            -0.0914
+          ],
+          [
+            23.6593,
+            -0.121
+          ],
+          [
+            25.872,
+            -0.1502
+          ],
+          [
+            28.0131,
+            -0.1799
+          ],
+          [
+            30.1037,
+            -0.2105
+          ],
+          [
+            32.154,
+            -0.243
+          ],
+          [
+            34.1638,
+            -0.2766
+          ]
+        ],
+        "source": "alpamayo_live_open_loop",
+        "score": 0.0,
+        "metadata": {
+          "native_steps": 64,
+          "native_hz": 10.0,
+          "target_steps": 20,
+          "target_hz": 4.0,
+          "batch_index": 0,
+          "set_index": 0,
+          "sample_index": 0,
+          "reasoning": "[[['Keep distance to the lead scooter since it is directly ahead in our path']]]"
+        }
+      },
+      "control": {
+        "target_speed_mps": 1.5033,
+        "closed_loop_control": false,
+        "open_loop_policy_evaluation": true,
+        "model_latency_ms": 46129.12,
+        "vram_peak_mb": 23557.31
+      },
+      "safety_notes": [
+        "Alpamayo output is evaluated as trajectory intent only; CARLA steering is not enabled in TASK-039.",
+        "Trajectory is converted from native 64x3 at 10Hz to DriverX 20x2 at 4Hz."
+      ]
+    },
+    "latency_ms": 46129.12,
+    "reason_summary": "[[['Keep distance to the lead scooter since it is directly ahead in our path']]]",
+    "retrieved_memory_ids": [],
+    "setup_blocker": null
+  },
+  "tensor_manifest": {
+    "frame_name": "driverx_ood_generated-base-animals-0076-regional-driving-behavior-000",
+    "source_package": "tickets/TASK-081/artifacts/task81-live-same-scene-memory-package/alpamayo_carla_input_package.json",
+    "image_root": null,
+    "camera_indices": [
+      0,
+      1,
+      2
+    ],
+    "image_frames_shape": [
+      3,
+      4,
+      3,
+      360,
+      640
+    ],
+    "camera_indices_shape": [
+      3
+    ],
+    "ego_history_xyz_shape": [
+      1,
+      1,
+      16,
+      3
+    ],
+    "ego_history_rot_shape": [
+      1,
+      1,
+      16,
+      3,
+      3
+    ],
+    "materialized_frames": [
+      {
+        "camera_index": 0,
+        "frame_index": 0,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000025.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000025.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 0,
+        "frame_index": 1,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000026.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000026.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 0,
+        "frame_index": 2,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000027.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000027.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 0,
+        "frame_index": 3,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000028.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000028.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 1,
+        "frame_index": 0,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000025.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000025.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 1,
+        "frame_index": 1,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000026.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000026.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 1,
+        "frame_index": 2,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000027.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000027.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 1,
+        "frame_index": 3,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000028.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000028.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 2,
+        "frame_index": 0,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000025.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000025.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 2,
+        "frame_index": 1,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000026.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000026.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 2,
+        "frame_index": 2,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000027.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000027.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 2,
+        "frame_index": 3,
+        "original_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000028.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000028.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      }
+    ],
+    "nav_text": "Proceed through the generated OOD scene while checking for regional traffic behavior: motorcycle_filtering; scenario: generated-base-animals-0076-regional-driving-behavior-000.",
+    "memory_context_count": 1,
+    "torch_ready": true,
+    "validation_errors": [],
+    "warnings": [],
+    "torch_loader_contract": {
+      "image_frames": {
+        "shape": [
+          3,
+          4,
+          3,
+          360,
+          640
+        ],
+        "dtype": "torch.float32",
+        "layout": "[num_cameras, num_frames, channels, height, width]",
+        "normalization": "RGB pixels converted to float32 in [0, 1]",
+        "loader_note": "Use driverx.policies.load_alpamayo_torch_tensors(...) in the remote Alpamayo environment."
+      },
+      "camera_indices": {
+        "shape": [
+          3
+        ],
+        "dtype": "torch.long",
+        "values": [
+          0,
+          1,
+          2
+        ]
+      },
+      "ego_history_xyz": {
+        "shape": [
+          1,
+          1,
+          16,
+          3
+        ],
+        "dtype": "torch.float32"
+      },
+      "ego_history_rot": {
+        "shape": [
+          1,
+          1,
+          16,
+          3,
+          3
+        ],
+        "dtype": "torch.float32"
+      },
+      "message_context": {
+        "nav_text": "Proceed through the generated OOD scene while checking for regional traffic behavior: motorcycle_filtering; scenario: generated-base-animals-0076-regional-driving-behavior-000.",
+        "memory_context_count": 1,
+        "rule": "DriverX memory is prompt-side context only; it must not alter Alpamayo weights."
+      }
+    }
+  },
+  "prediction_summary": {
+    "prediction_json": "tickets/TASK-081/artifacts/task81-live-same-scene-memory/alpamayo_live_prediction.json",
+    "model_id": "nvidia/Alpamayo-1.5-10B",
+    "run_id": "task81-live-same-scene-memory",
+    "latency_ms": 46129.12,
+    "vram_peak_mb": 23557.31,
+    "output_shapes": {
+      "pred_xyz": [
+        1,
+        1,
+        1,
+        64,
+        3
+      ],
+      "pred_rot": [
+        1,
+        1,
+        1,
+        64,
+        3,
+        3
+      ],
+      "extra.cot": [
+        1,
+        1,
+        1
+      ]
+    },
+    "cot_summary": "[[['Keep distance to the lead scooter since it is directly ahead in our path']]]"
+  },
+  "open_loop_policy_evaluation": true,
+  "manifest_path": "tickets/TASK-081/artifacts/task81-live-same-scene-memory-summary/alpamayo_tensor_manifest.json",
+  "run_dir": "tickets/TASK-081/artifacts/task81-live-same-scene-memory-summary"
+}

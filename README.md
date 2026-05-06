@@ -83,12 +83,11 @@ policy reactions, converts trajectories into cached controls, and renders a
 local 2D simulator report. TASK-068 proved Town13 can load and the stock
 Fail2Drive route can start. TASK-071 then added the fast route-video path and
 produced a fresh Town13 MP4 from `Generalization_PedestriansOnRoad_1088` after
-CARLA was relaunched. TASK-072 through TASK-077 add the DriverX scripted CARLA
-OOD runner, stock CARLA proxy assets, OOD video overlays, scenario-linked
-Alpamayo reports, and V3 demo pack. The scripted runner is fake-CARLA tested,
-but the latest live Docker client attempt timed out against local CARLA, so the
-V3 pack keeps the runnable local simulator as the headline and labels the 20s
-fixture video as overlay-pipeline proof rather than live CARLA evidence.
+CARLA was relaunched. TASK-078 through TASK-082 are now the strongest
+submission evidence: a 24.0s live scripted CARLA OOD video, same-scene Alpamayo
+1.5 reasoning on that generated capture, a same-capture memory/no-memory
+comparison, and a V4 demo pack that keeps closed-loop VLA control claims out of
+scope until a route controller consumes the trajectory.
 
 ## Quickstart: End-To-End OOD Demo
 
@@ -297,49 +296,53 @@ PYTHONPATH=src python3 -m driverx build-demo-pack \
 # 0.9.16 client container while CARLA.app is fully loaded.
 bash scripts/run_carla_client_docker.sh python -m driverx run-carla-ood-demo \
   --config configs/carla_ood_demo.local.sample.yaml \
-  --tick-count 240 \
-  --run-id task72-live-retry
+  --tick-count 120 \
+  --run-id task78-live-retry
 
 # Assemble OOD video evidence from RGB frames and entity tracks. Use
 # source-kind=fixture only for synthetic/local proof frames; omit it for live
 # scripted CARLA frames.
 PYTHONPATH=src python3 -m driverx assemble-ood-video \
-  --rgb-folder tickets/TASK-073/artifacts/fixture-long-ood-source/rgb \
-  --tracks tickets/TASK-073/artifacts/fixture-long-ood-source/entity_tracks.json \
-  --scenario-id fixture-malaysia-motorcycle-filtering \
+  --rgb-folder tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb \
+  --tracks tickets/TASK-078/artifacts/task78-live-ood-capture-v3/entity_tracks.json \
+  --scenario-id generated-base-animals-0076-regional-driving-behavior-000 \
   --behavior-id motorcycle_filtering \
-  --ood-tags motorcycle,filtering,roadside_vendor,regional_context \
-  --source-kind fixture \
-  --claim-label fixture_video_evidence \
-  --fps 10 \
+  --ood-tags motorcycle,filtering,roadside_vendor,regional_context,generated_assets \
+  --source-kind live_carla \
+  --claim-label live_scripted_carla_ood_demo \
+  --fps 5 \
   --min-frames 120 \
-  --run-id fixture-long-ood-video
+  --run-id live-ood-video
 
-# Build a scenario-linked Alpamayo report. Without --policy-decision this is a
-# setup/blocker report; with a live Alpamayo decision it becomes open-loop
-# reasoning evidence for that scene.
-PYTHONPATH=src python3 -m driverx build-alpamayo-ood-scene \
-  --package tickets/TASK-074/artifacts/generated-scene-package/alpamayo_carla_input_package.json \
-  --video-evidence tickets/TASK-073/artifacts/fixture-long-ood-video-v2/ood_video_evidence.json \
-  --scenario-report tickets/TASK-072/artifacts/task72-live-candidate/carla_ood_demo.json \
-  --run-id generated-scene-open-loop-blocker
+# Build an Alpamayo package from the same live generated scene. This duplicates
+# the single CARLA ego RGB camera across Alpamayo's three camera slots and keeps
+# the claim explicitly open-loop.
+PYTHONPATH=src python3 -m driverx build-alpamayo-ood-package \
+  --rgb-folder tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb \
+  --tracks tickets/TASK-078/artifacts/task78-live-ood-capture-v3/entity_tracks.json \
+  --scenario-report tickets/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.json \
+  --video-evidence tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json \
+  --run-id live-same-scene-package
+PYTHONPATH=src python3 -m driverx materialize-alpamayo-input \
+  --package artifacts/runs/live-same-scene-package/alpamayo_carla_input_package.json \
+  --run-id live-same-scene-materialized
 
-# Build the V3 demo pack with the latest OOD video, Alpamayo, memory, and stock
-# proxy asset evidence.
+# Build the V4 demo pack with live CARLA OOD video, same-scene Alpamayo memory
+# comparison, and stock proxy asset evidence.
 PYTHONPATH=src python3 -m driverx build-demo-pack \
   --local-demo tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.json \
   --generated-suite tickets/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_summary.json \
   --policy-matrix tickets/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json \
   --alpamayo-probe tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json \
   --route-evidence tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json \
-  --alpamayo-comparison tickets/TASK-075/artifacts/scenario-linked-memory-comparison-v2/alpamayo_ood_comparison.json \
-  --ood-video-evidence tickets/TASK-073/artifacts/fixture-long-ood-video-v2/ood_video_evidence.json \
-  --alpamayo-scene tickets/TASK-074/artifacts/generated-scene-open-loop-blocker-v2/alpamayo_ood_scene.json \
-  --generated-asset-evidence tickets/TASK-076/artifacts/stock-proxy-assets/asset_summary.json \
+  --alpamayo-comparison tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json \
+  --ood-video-evidence tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json \
+  --alpamayo-scene tickets/TASK-080/artifacts/task80-live-same-scene-alpamayo-scene-v2/alpamayo_ood_scene.json \
+  --generated-asset-evidence tickets/TASK-076/artifacts/stock-proxy-assets-v2/asset_summary.json \
   --cached-replay tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json \
   --blockers blockers.md \
   --progress docs/progress.md \
-  --run-id submission-pack-v3
+  --run-id submission-pack-v4
 
 # Once a live route run has written RGB frames under SAVE_PATH, assemble MP4
 # evidence without relying on Fail2Drive's missing tools/generate_video.py

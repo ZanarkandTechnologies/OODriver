@@ -1,0 +1,10 @@
+{
+  "num_assets": 3,
+  "status_counts": {
+    "planned": 3
+  },
+  "validation_errors": {},
+  "manifest_path": "tickets/TASK-076/artifacts/stock-proxy-assets-v2/asset_manifests.json",
+  "summary_path": "tickets/TASK-076/artifacts/stock-proxy-assets-v2/asset_summary.json",
+  "report_path": "tickets/TASK-076/artifacts/stock-proxy-assets-v2/asset_report.md"
+}

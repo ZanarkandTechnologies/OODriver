@@ -1,0 +1,117 @@
+[
+  {
+    "asset_id": "asset-fallen-cargo-sack",
+    "provider": "dry_run",
+    "status": "planned",
+    "prompt": "weathered blue construction cargo sack lying partly in a driving lane, low-poly game-ready mesh, realistic road scale",
+    "semantic_tags": [
+      "debris",
+      "construction",
+      "lane_obstacle"
+    ],
+    "dimensions_m": {
+      "length": 1.4,
+      "width": 0.8,
+      "height": 0.5
+    },
+    "collision_proxy": {
+      "kind": "box",
+      "length": 1.4,
+      "width": 0.8,
+      "height": 0.5
+    },
+    "intended_placement": {
+      "surface": "road",
+      "relative_to": "ego_lane",
+      "x_m": 22.0,
+      "y_m": 0.4
+    },
+    "license": "generated-for-0xdriver-demo",
+    "source_recipe_id": null,
+    "local_path": "generated_assets/asset-fallen-cargo-sack.glb",
+    "external_uri": null,
+    "setup_guidance": null,
+    "metadata": {
+      "dry_run": true,
+      "placeholder_carla_blueprint": "static.prop.dirtdebris01",
+      "notes": "Manifest only; no mesh was generated in local dry-run mode."
+    }
+  },
+  {
+    "asset_id": "asset-roadside-food-cart",
+    "provider": "dry_run",
+    "status": "planned",
+    "prompt": "small Malaysian roadside food cart with umbrella wheels and metal counter, static prop, game-ready mesh",
+    "semantic_tags": [
+      "roadside_vendor",
+      "occlusion",
+      "regional_context"
+    ],
+    "dimensions_m": {
+      "length": 2.2,
+      "width": 1.2,
+      "height": 2.0
+    },
+    "collision_proxy": {
+      "kind": "box",
+      "length": 2.2,
+      "width": 1.2,
+      "height": 2.0
+    },
+    "intended_placement": {
+      "surface": "shoulder",
+      "relative_to": "curb",
+      "x_m": 14.0,
+      "y_m": -4.0
+    },
+    "license": "generated-for-0xdriver-demo",
+    "source_recipe_id": null,
+    "local_path": "generated_assets/asset-roadside-food-cart.glb",
+    "external_uri": null,
+    "setup_guidance": null,
+    "metadata": {
+      "dry_run": true,
+      "placeholder_carla_blueprint": "static.prop.foodcart",
+      "notes": "Manifest only; no mesh was generated in local dry-run mode."
+    }
+  },
+  {
+    "asset_id": "asset-reflective-flood-barrier",
+    "provider": "dry_run",
+    "status": "planned",
+    "prompt": "portable reflective flood barrier across part of a road after heavy rain, orange and white, game-ready mesh",
+    "semantic_tags": [
+      "flood",
+      "barrier",
+      "route_blockage",
+      "weather"
+    ],
+    "dimensions_m": {
+      "length": 3.0,
+      "width": 0.35,
+      "height": 0.7
+    },
+    "collision_proxy": {
+      "kind": "box",
+      "length": 3.0,
+      "width": 0.35,
+      "height": 0.7
+    },
+    "intended_placement": {
+      "surface": "road",
+      "relative_to": "lane_center",
+      "x_m": 18.0,
+      "y_m": -0.2
+    },
+    "license": "generated-for-0xdriver-demo",
+    "source_recipe_id": null,
+    "local_path": "generated_assets/asset-reflective-flood-barrier.glb",
+    "external_uri": null,
+    "setup_guidance": null,
+    "metadata": {
+      "dry_run": true,
+      "placeholder_carla_blueprint": "static.prop.constructioncone",
+      "notes": "Manifest only; no mesh was generated in local dry-run mode."
+    }
+  }
+]

@@ -41,10 +41,11 @@ flowchart TD
 - `docs/specs/minimal-shot-vla-roadmap.md`: end-to-end roadmap from live CARLA
   probing through generated assets, behavior scripts, policy adapters, and RAG
   comparison.
-- `tickets/TASK-064` and `tickets/TASK-070`: current runnable local OOD demo
-  and submission-pack evidence. TASK-072 through TASK-077 now own the scripted
-  CARLA OOD runner, fixture/live video evidence distinction, Alpamayo
-  scenario-link reports, stock proxy asset mapping, and V3 submission pack.
+- `tickets/TASK-064`, `tickets/TASK-070`, and `tickets/TASK-082`: current
+  runnable local OOD demo and submission-pack evidence. TASK-078 through
+  TASK-082 now own the live scripted CARLA OOD capture, long OOD video,
+  same-scene Alpamayo packaging, same-capture memory comparison, and V4
+  submission pack.
   TASK-060/TASK-069 remain live-runtime follow-up work for full Town13 route
   completion and route-aligned Alpamayo capture.
 - `src/driverx/scenarios`: scenario seed and OOD recipe generation.
@@ -96,17 +97,21 @@ Remote or Linux NVIDIA runtime:
   emits RGB frames. TASK-071 adds an early-video runner that captured a fresh
   0.5s MP4 from `Generalization_PedestriansOnRoad_1088`; full score/completion
   still needs a longer local run or faster graphics-capable CARLA host.
-- TASK-072 adds a DriverX-owned scripted CARLA OOD runner and stock-proxy
-  generated assets. Fake-CARLA tests pass, but the latest live Docker client
-  run timed out against `host.docker.internal:2000`, so live generated-scene
-  video remains blocked on the local CARLA client bridge.
-- TASK-073 adds reusable OOD overlays and MP4 assembly. Current 20s video
-  evidence is explicitly `source_kind=fixture`, not a live CARLA claim.
+- TASK-078 proves the DriverX-owned scripted CARLA OOD runner against live local
+  CARLA through the Docker client: 120 captured frames, 24.0s substrate, entity
+  tracks, generated stock proxy props, and cleanup evidence.
+- TASK-079 adds reusable OOD overlays and MP4 assembly for the live generated
+  scene. Current video evidence is explicitly `source_kind=live_carla`, but it
+  remains a scripted DriverX OOD demo rather than stock Fail2Drive route score.
 - TASK-064 provides a dependency-light end-to-end local simulator artifact. It
   is the current primary demo artifact, but it is not a live CARLA route score.
 - Regional driving behavior traces and dry-run generated asset manifests are
   shipped as local evidence; real generated mesh import remains a future
   provider/runtime task.
+- TASK-080/TASK-081 link that same generated scene to Alpamayo 1.5 open-loop
+  reasoning and a memory/no-memory comparison. The package duplicates one live
+  ego RGB camera into Alpamayo's three camera slots; this is valid for current
+  shape/proof evidence but is not a full multi-camera CARLA autonomy stack.
 - Alpamayo CARLA control remains open-loop today: live inference and memory
   comparison are proven, while TASK-062 owns the first cached trajectory replay
   bridge toward closed-loop control.

@@ -1,0 +1,29 @@
+{
+  "connected": true,
+  "host": "host.docker.internal",
+  "port": 2000,
+  "map_name": "Carla/Maps/Town10HD_Opt",
+  "actor_count": 23,
+  "weather": {
+    "cloudiness": 20.0,
+    "precipitation": 0.0,
+    "precipitation_deposits": 0.0,
+    "wind_intensity": 10.0,
+    "sun_azimuth_angle": 300.0,
+    "sun_altitude_angle": 45.0,
+    "fog_density": 2.0,
+    "wetness": 0.0
+  },
+  "settings": {
+    "synchronous_mode": false,
+    "fixed_delta_seconds": null,
+    "no_rendering_mode": false,
+    "substepping": true,
+    "max_substep_delta_time": 0.01,
+    "max_substeps": 10
+  },
+  "server_version": "0.9.16",
+  "client_version": "0.9.16",
+  "elapsed_seconds": 440.86676759272814,
+  "error": null
+}

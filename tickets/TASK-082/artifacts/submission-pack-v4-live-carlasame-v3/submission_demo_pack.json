@@ -1,0 +1,292 @@
+{
+  "title": "0xDriver Minimal-Shot OOD Driving Harness",
+  "submission_angle": "A randomized CARLA/Fail2Drive scenario forge plus retrieval-guided policy harness for testing frozen driving policies on weird but plausible long-tail situations without fine-tuning on those cases.",
+  "headline_artifact": "long_carla_ood_video",
+  "storyboard": [
+    {
+      "time": "0:00-0:20",
+      "beat": "Problem",
+      "visual": "Title over generated CARLA/Bench2Drive route and OOD tags.",
+      "narration": "Minimal-shot autonomy should be judged on new long-tail scenes, not only memorized routes."
+    },
+    {
+      "time": "0:20-0:55",
+      "beat": "Runnable Local OOD Demo",
+      "visual": "Open the generated local simulator HTML with actor, ego, baseline, memory, and hybrid tracks.",
+      "narration": "The dependency-light demo runs now: recipe generated-base-animals-0076-regional-driving-behavior-000 uses behavior motorcycle_filtering and finds worst risk near_miss_proxy at 1.9679m."
+    },
+    {
+      "time": "0:55-1:20",
+      "beat": "Scenario Forge",
+      "visual": "Show generated recipe ids, mutations, route pack, and overlay plan paths.",
+      "narration": "The harness generated 1 scenario recipe(s) with deterministic mutations and reusable route artifacts."
+    },
+    {
+      "time": "1:20-1:55",
+      "beat": "Policy Harness",
+      "visual": "Show policy runtime matrix and mock/memory/hybrid readiness rows.",
+      "narration": "Local policies and Fail2Drive dry-run adapters are ready while heavier VLA rows remain setup-gated; ready rows: 3."
+    },
+    {
+      "time": "1:55-2:25",
+      "beat": "Long CARLA OOD Video",
+      "visual": "Play the scripted CARLA OOD video with overlays and show entity risk evidence.",
+      "narration": "The DriverX scripted CARLA OOD demo produced a 24.0s video for generated-base-animals-0076-regional-driving-behavior-000 with worst risk {'tick': 27, 'actor_ref': 'generated_asset_asset_fallen_cargo_sack', 'distance_m': 0.1967}."
+    },
+    {
+      "time": "2:25-3:00",
+      "beat": "Alpamayo Memory Test",
+      "visual": "Show Alpamayo no-memory vs memory CoC snippets and trajectory delta.",
+      "narration": "The live Alpamayo memory comparison used the generated scene: latency 108765.59ms / 46129.12ms, CoC snippet available=True, memory changed trajectory final L2 by 2.6886m."
+    },
+    {
+      "time": "3:00-3:30",
+      "beat": "Next Run",
+      "visual": "Show blockers.md and the exact next live command.",
+      "narration": "2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060 long-score attempt `town13-long-score-attempt-001` started the stock `Generalization_PedestriansOnRoad_1088` route and reached game time `0.600s` at about `0.142x`, then stopped making observable progress. A concurrent route-aligned Alpamayo capture attempt with a 60s CARLA timeout also failed waiting for the simulator. I terminated the route evaluator cleanly to avoid burning the full 1200s timeout on a stalled local Mac/Wine simulation. Evidence: `tickets/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md` and `tickets/TASK-069/artifacts/town13-live-attach-attempt-004/carla_alpamayo_capture.json`. Next unblock path: use a graphics-capable Linux NVIDIA CARLA host for Fail2Drive scoring/capture, or rerun locally only after confirming CARLA can sustain route ticks and serve a second Python client during synchronous mode."
+    }
+  ],
+  "failure_case": {
+    "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml",
+    "status": "near_miss_proxy",
+    "summary": "Baseline `policy` policy reaches 1.9679m from the OOD actor in the motorcycle_filtering case; the memory-guided row slows/yields earlier, making this a concrete minimal-shot retrieval failure case.",
+    "why_it_matters": "This is the runnable failure surface for the submission: the generated scenario stresses a frozen policy without needing CARLA, GPU, or model weights.",
+    "artifact": "tickets/TASK-064/artifacts/local-ood-demo/local-sim/local_ood_sim.html",
+    "blockers": []
+  },
+  "artifact_map": {
+    "local_demo_path": "tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.json",
+    "local_sim_html": "tickets/TASK-064/artifacts/local-ood-demo/local-sim/local_ood_sim.html",
+    "local_sim_svg": "tickets/TASK-064/artifacts/local-ood-demo/local-sim/local_ood_sim.svg",
+    "local_sim_json": "tickets/TASK-064/artifacts/local-ood-demo/local-sim/local_ood_sim.json",
+    "scenario_summary_path": null,
+    "route_pack_path": null,
+    "overlay_plan_path": null,
+    "overlay_evidence_path": null,
+    "policy_matrix_path": "tickets/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json",
+    "alpamayo_probe_path": "tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json",
+    "route_evidence_path": "tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json",
+    "alpamayo_comparison_path": "tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json",
+    "ood_video_evidence_path": "tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json",
+    "alpamayo_scene_path": "tickets/TASK-080/artifacts/task80-live-same-scene-alpamayo-scene-v2/alpamayo_ood_scene.json",
+    "generated_asset_evidence_path": "tickets/TASK-076/artifacts/stock-proxy-assets-v2/asset_summary.json",
+    "cached_replay_path": "tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json",
+    "blockers_path": "blockers.md",
+    "recipe_artifacts": []
+  },
+  "model_declarations": [
+    {
+      "name": "mock",
+      "runtime_kind": "mock",
+      "state": "ready",
+      "base_model_or_policy": "DriverX local deterministic or mock policy",
+      "uses_public_model_pretraining": false,
+      "blocker": null
+    },
+    {
+      "name": "mock",
+      "runtime_kind": "mock_memory",
+      "state": "ready",
+      "base_model_or_policy": "DriverX local deterministic or mock policy",
+      "uses_public_model_pretraining": false,
+      "blocker": null
+    },
+    {
+      "name": "hybrid",
+      "runtime_kind": "local_hybrid",
+      "state": "ready",
+      "base_model_or_policy": "DriverX local deterministic or mock policy",
+      "uses_public_model_pretraining": false,
+      "blocker": null
+    },
+    {
+      "name": "alpamayo-probe",
+      "runtime_kind": "offline_model_probe",
+      "state": "dataset_shape_observed",
+      "base_model_or_policy": "nvidia/Alpamayo-1.5-10B",
+      "uses_public_model_pretraining": true,
+      "blocker": ""
+    },
+    {
+      "name": "alpamayo-live-ood-comparison",
+      "runtime_kind": "open_loop_vla_policy_evaluation",
+      "state": "same_capture_memory_comparison_ready",
+      "base_model_or_policy": "nvidia/Alpamayo-1.5-10B",
+      "uses_public_model_pretraining": true,
+      "blocker": null,
+      "open_loop_policy_evaluation": true,
+      "closed_loop_control": false,
+      "latency_ms": [
+        108765.59,
+        46129.12
+      ],
+      "vram_peak_mb": [
+        23507.7,
+        23557.31
+      ],
+      "evidence_warnings": []
+    },
+    {
+      "name": "alpamayo-generated-ood-scene",
+      "runtime_kind": "open_loop_vla_scene_reasoning",
+      "state": "ready",
+      "base_model_or_policy": "nvidia/Alpamayo-1.5-10B",
+      "uses_public_model_pretraining": true,
+      "blocker": null,
+      "open_loop_policy_evaluation": true,
+      "closed_loop_control": false,
+      "latency_ms": 108765.59,
+      "vram_peak_mb": 23507.7,
+      "linkage_warnings": []
+    }
+  ],
+  "data_declarations": [
+    "Fail2Drive-style route/scenario seeds are used as scenario references; external checkout is not vendored.",
+    "Generated OOD recipes, route packs, overlay plans, evidence reports, and blocker ledgers are small local artifacts.",
+    "Waymo E2E remains a supporting open-loop track; no dataset shards are committed.",
+    "Model weights, generated videos, CARLA installs, and credentials are excluded from git.",
+    "Current scripted CARLA OOD video evidence: tickets/TASK-079/artifacts/task79-live-ood-video/generated-base-animals-0076-regional-driving-behavior-000_ood.mp4 (24.0s)",
+    "Current generated object evidence uses stock CARLA proxy assets; artifact: tickets/TASK-076/artifacts/stock-proxy-assets-v2/asset_manifests.json",
+    "Current local end-to-end simulator evidence: tickets/TASK-064/artifacts/local-ood-demo/local-sim/local_ood_sim.html",
+    "Current local route video evidence: tickets/TASK-071/artifacts/town13-early-video-after-restart/Generalization_PedestriansOnRoad_1088_early.mp4 (0.5s, 507730 bytes)"
+  ],
+  "claim_boundaries": [
+    "Generated CARLA/Fail2Drive OOD scenarios and route artifacts are real repo outputs.",
+    "Alpamayo comparisons are open-loop trajectory-intent evaluations unless a route controller consumes them.",
+    "Alpamayo comparison closed_loop_control=False.",
+    "Scripted CARLA OOD video is generated simulator evidence, not an official Fail2Drive driving score.",
+    "Alpamayo scene reasoning closed_loop_control=False.",
+    "Cached replay converts a saved policy decision into bounded controls, but dry_run=True and it is not real-time VLA steering.",
+    "Model weights, CARLA installs, videos, and credentials are not committed."
+  ],
+  "live_evidence": {
+    "route": {
+      "status": "partial",
+      "video": {
+        "label": "video",
+        "path": "tickets/TASK-071/artifacts/town13-early-video-after-restart/Generalization_PedestriansOnRoad_1088_early.mp4",
+        "exists": true,
+        "size_bytes": 507730,
+        "duration_s": 0.5
+      },
+      "metrics": {
+        "driving_score": null,
+        "route_completion": null,
+        "infraction_penalty": null,
+        "duration_game_s": null,
+        "duration_system_s": null,
+        "track_count": null,
+        "actor_refs": [],
+        "video_duration_s": 0.5,
+        "video_size_bytes": 507730
+      }
+    },
+    "alpamayo_comparison": {
+      "open_loop_policy_evaluation": true,
+      "closed_loop_control": false,
+      "trajectory_delta": {
+        "available": true,
+        "point_count": 20,
+        "mean_l2_m": 1.0226,
+        "max_l2_m": 2.6886,
+        "final_l2_m": 2.6886
+      },
+      "reasoning_delta": {
+        "baseline_chars": 80,
+        "memory_chars": 80,
+        "changed": false,
+        "available": true
+      },
+      "safety_flags": {
+        "open_loop_only": true,
+        "closed_loop_control_claimed": false,
+        "memory_augmented_live_run_available": true,
+        "memory_augmented_decision_available": true,
+        "memory_augmented_same_capture_available": true,
+        "route_video_available": false,
+        "route_score_available": false
+      },
+      "evidence_warnings": []
+    },
+    "cached_replay": {
+      "available": true,
+      "closed_loop_control": "cached_replay",
+      "trajectory_frame": "ego",
+      "command_count": 20,
+      "applied_count": 0,
+      "dry_run": true,
+      "safety_clamp_count": 20
+    },
+    "ood_video": {
+      "status": "passed",
+      "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "source_kind": "live_carla",
+      "claim_label": "live_scripted_carla_ood_demo",
+      "video_path": "tickets/TASK-079/artifacts/task79-live-ood-video/generated-base-animals-0076-regional-driving-behavior-000_ood.mp4",
+      "duration_s": 24.0,
+      "worst_risk": {
+        "tick": 27,
+        "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+        "distance_m": 0.1967
+      }
+    },
+    "alpamayo_scene": {
+      "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "model_id": "nvidia/Alpamayo-1.5-10B",
+      "latency_ms": 108765.59,
+      "vram_peak_mb": 23507.7,
+      "cot_snippet": "[[['Keep distance to the lead scooter since it is directly ahead in our path']]]",
+      "trajectory_summary": {
+        "point_count": 20,
+        "start_xy": [
+          0.3533,
+          0.0044
+        ],
+        "end_xy": [
+          36.8431,
+          -0.0529
+        ],
+        "path_length_m": 36.4939
+      },
+      "open_loop_policy_evaluation": true,
+      "closed_loop_control": false,
+      "setup_blocker": null,
+      "linkage_warnings": []
+    }
+  },
+  "writeup_draft": {
+    "motivation": "Autonomy systems fail when they only work on distributions they have already seen. 0xDriver treats minimal-shot driving as an evaluation and orchestration problem: generate plausible out-of-distribution pressure cases, run frozen policies through the same artifact contract, and preserve the failures as retrieval memory.",
+    "architecture": "The current implementation builds deterministic scenario recipes, exports route-compatible CARLA/Bench2Drive artifacts, plans companion overlay actors, bundles route evidence, and tracks policy readiness. A retrieval layer can guide local policy decisions today, while SimLingo and Alpamayo remain swappable live-policy adapters.",
+    "what_worked": "The local harness is reproducible: local demo status is `ready`, behavior is `motorcycle_filtering`, policy runtime ready rows are `3`, and the Alpamayo probe status is `dataset_shape_observed`. Scripted CARLA OOD video duration is `24.0` seconds. Alpamayo scene reasoning latency is `108765.59` ms. The live Alpamayo memory comparison changed trajectory final L2 by `2.6886` metres while staying explicitly open-loop. Cached replay produced `20` bounded control command(s) from a saved policy decision without claiming real-time VLA control.",
+    "what_did_not_work": "The current CARLA route gap is `Generalization_PedestriansOnRoad_1088`: video evidence exists (0.5s) but driving_score=`None` and route_completion=`None` because the early-video run stops before full scoring. This keeps the submission claim bounded: we have visible CARLA/OOD evidence now, while full closed-loop score evidence remains the next runtime step.",
+    "next_funding_step": "Use the prize budget for a graphics-capable NVIDIA CARLA host, a confirmed reasoning-VLA checkpoint/runtime, and enough GPU hours to run generated OOD suites closed-loop with video, latency, infractions, and failure-memory comparisons."
+  },
+  "progress_tail": [
+    "- TASK-072 through TASK-077 have first implementation evidence. The new",
+    "  `run-carla-ood-demo` runner creates CARLA actor/camera/track plans and stock",
+    "  proxy OOD assets; fake-CARLA tests pass. A live Docker attempt against local",
+    "  CARLA timed out on `host.docker.internal:2000`, so live generated-scene video",
+    "  remains blocked by the local client bridge. The blocked live report is at",
+    "  `tickets/TASK-072/artifacts/task72-live-candidate/carla_ood_demo.md`.",
+    "- TASK-073 proved the video evidence path end-to-end with a clearly labeled",
+    "  fixture source: 200 overlay frames, 20.0s MP4, and worst-risk telemetry at",
+    "  `tickets/TASK-073/artifacts/fixture-long-ood-video-v2/ood_video_evidence.md`.",
+    "  This is fixture proof for the overlay/assembly pipeline, not a live CARLA",
+    "  claim."
+  ],
+  "inputs": {
+    "local_demo_path": "tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.json",
+    "generated_suite_path": "tickets/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_summary.json",
+    "policy_matrix_path": "tickets/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json",
+    "alpamayo_probe_path": "tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json",
+    "route_evidence_path": "tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json",
+    "alpamayo_comparison_path": "tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json",
+    "ood_video_evidence_path": "tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json",
+    "alpamayo_scene_path": "tickets/TASK-080/artifacts/task80-live-same-scene-alpamayo-scene-v2/alpamayo_ood_scene.json",
+    "generated_asset_evidence_path": "tickets/TASK-076/artifacts/stock-proxy-assets-v2/asset_summary.json",
+    "cached_replay_path": "tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json",
+    "blockers_path": "blockers.md",
+    "progress_path": "docs/progress.md"
+  }
+}

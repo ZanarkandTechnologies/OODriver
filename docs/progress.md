@@ -91,7 +91,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-070 submission pack v2 local plus CARLA evidence
 - [x] TASK-071 fast Town13 route video evidence runner
 - [x] TASK-072 DriverX CARLA scripted OOD demo runner
-  (fake-CARLA path complete; live Docker-to-local-CARLA bridge timed out)
+  (superseded by TASK-078 live capture retry)
 - [x] TASK-073 long video assembler and evidence overlay
 - [x] TASK-074 Alpamayo reasoning capture for CARLA OOD scenes
   (scenario-linked report complete; live generated-scene inference waits on capture)
@@ -99,37 +99,52 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   (cached live Alpamayo comparison linked with explicit evidence warnings)
 - [x] TASK-076 CARLA prop and object spawn pack v1
 - [x] TASK-077 submission demo pack v3 and final storyboard
+- [x] TASK-078 live scripted CARLA OOD capture retry
+- [x] TASK-079 live OOD video evidence assembly
+- [x] TASK-080 same-scene Alpamayo CARLA package
+- [x] TASK-081 same-capture Alpamayo memory comparison
+- [x] TASK-082 submission pack V4 live CARLA evidence refresh
 
 ## Latest Evidence
 
-- TASK-072 through TASK-077 have first implementation evidence. The new
-  `run-carla-ood-demo` runner creates CARLA actor/camera/track plans and stock
-  proxy OOD assets; fake-CARLA tests pass. A live Docker attempt against local
-  CARLA timed out on `host.docker.internal:2000`, so live generated-scene video
-  remains blocked by the local client bridge. The blocked live report is at
-  `tickets/TASK-072/artifacts/task72-live-candidate/carla_ood_demo.md`.
-- TASK-073 proved the video evidence path end-to-end with a clearly labeled
-  fixture source: 200 overlay frames, 20.0s MP4, and worst-risk telemetry at
-  `tickets/TASK-073/artifacts/fixture-long-ood-video-v2/ood_video_evidence.md`.
-  This is fixture proof for the overlay/assembly pipeline, not a live CARLA
-  claim.
-- TASK-074/TASK-075 now produce generated-scene-linked Alpamayo reports with
-  explicit claim boundaries. Because live CARLA capture did not succeed,
-  TASK-074 records the missing policy decision blocker, and TASK-075 links
-  cached live Alpamayo decisions with warnings that the comparison is not
-  same-capture proof. Current reports:
-  `tickets/TASK-074/artifacts/generated-scene-open-loop-blocker-v2/alpamayo_ood_scene.md`
+- TASK-078 resolved the live scripted-CARLA bridge for the DriverX OOD demo.
+  Docker reached local CARLA 0.9.16 at `host.docker.internal:2000`, the runner
+  spawned generated stock-proxy assets, captured 120 RGB frames and entity
+  tracks, and cleaned up all spawned actors. Evidence:
+  `tickets/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.md`.
+- TASK-079 assembled the first judge-visible long generated OOD video from
+  live CARLA frames: 120 overlay frames, 24.0s MP4, `source_kind=live_carla`,
+  and worst-risk telemetry at tick 27 around the generated fallen-cargo proxy.
+  Evidence:
+  `tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.md`.
+- TASK-080 materialized the same generated scene for Alpamayo. The package uses
+  one live ego RGB camera duplicated into Alpamayo's front-left/front/front-right
+  slots, four temporal frames around the worst-risk tick, scenario/video links,
+  and `torch_ready=true` validation. Evidence:
+  `tickets/TASK-080/artifacts/task80-live-same-scene-materialized-v2/alpamayo_tensor_manifest.md`
   and
-  `tickets/TASK-075/artifacts/scenario-linked-memory-comparison-v2/alpamayo_ood_comparison.md`.
-- TASK-076 maps dry-run generated assets to stock CARLA proxy blueprints
-  (`trafficcone`, `streetbarrier`, `constructioncone`) and wires default assets
-  into `run-carla-ood-demo` by default. Asset evidence:
-  `tickets/TASK-076/artifacts/stock-proxy-assets/asset_report.md`.
-- TASK-077 regenerated the V3 submission pack. It now refuses to treat fixture
-  video as the live CARLA headline; current headline remains the runnable local
-  OOD demo, with fixture video, Alpamayo setup blocker, cached comparison, and
-  stock asset evidence called out explicitly. Pack:
-  `tickets/TASK-077/artifacts/submission-pack-v3-v2/submission_demo_pack.md`.
+  `tickets/TASK-080/artifacts/task80-live-same-scene-alpamayo-scene-v2/alpamayo_ood_scene.md`.
+- TASK-081 ran baseline and memory-augmented Alpamayo 1.5 on the same generated
+  capture through the RunPod RTX 6000 Ada lane. The comparison is explicitly
+  open-loop, records CoC snippets, latency/VRAM, and shows memory changed the
+  final trajectory point by 2.6886m while reasoning text stayed unchanged.
+  Evidence:
+  `tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.md`.
+- TASK-082 refreshed the judge-facing V4 submission pack. The headline artifact
+  is now `long_carla_ood_video`, with live Alpamayo scene reasoning and
+  same-capture memory comparison as supporting evidence. Pack:
+  `tickets/TASK-082/artifacts/submission-pack-v4-live-carlasame-v3/submission_demo_pack.md`.
+- TASK-072 through TASK-077 remain useful historical scaffolding: they created
+  the scripted runner, fixture overlay proof, generated-scene report seams,
+  stock-proxy asset planning, and V3 pack. Their earlier live Docker timeout is
+  superseded by TASK-078.
+- TASK-076 stock-proxy asset mapping now uses installed CARLA 0.9.16 proxy
+  blueprints (`static.prop.dirtdebris01`, `static.prop.foodcart`,
+  `static.prop.constructioncone`) rather than unavailable `trafficcone`.
+  Current asset evidence:
+  `tickets/TASK-076/artifacts/stock-proxy-assets-v2/asset_report.md`.
+- TASK-077 regenerated the V3 submission pack before live proof was available;
+  it is superseded by TASK-082 V4.
 - TASK-072 through TASK-077 are now planned as the submission-first ticket
   train. The next build direction is a DriverX-owned long CARLA OOD demo video,
   Alpamayo open-loop reasoning on that generated scene, memory/no-memory

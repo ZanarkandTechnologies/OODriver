@@ -1,0 +1,494 @@
+{
+  "frame_name": "driverx_ood_generated-base-animals-0076-regional-driving-behavior-000",
+  "camera_windows": [
+    {
+      "camera_index": 0,
+      "camera_name": "Front left camera",
+      "frames": [
+        {
+          "frame_index": 0,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000025.png",
+          "width": 640,
+          "height": 360
+        },
+        {
+          "frame_index": 1,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000026.png",
+          "width": 640,
+          "height": 360
+        },
+        {
+          "frame_index": 2,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000027.png",
+          "width": 640,
+          "height": 360
+        },
+        {
+          "frame_index": 3,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000028.png",
+          "width": 640,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "camera_index": 1,
+      "camera_name": "Front camera",
+      "frames": [
+        {
+          "frame_index": 0,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000025.png",
+          "width": 640,
+          "height": 360
+        },
+        {
+          "frame_index": 1,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000026.png",
+          "width": 640,
+          "height": 360
+        },
+        {
+          "frame_index": 2,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000027.png",
+          "width": 640,
+          "height": 360
+        },
+        {
+          "frame_index": 3,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000028.png",
+          "width": 640,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "camera_index": 2,
+      "camera_name": "Front right camera",
+      "frames": [
+        {
+          "frame_index": 0,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000025.png",
+          "width": 640,
+          "height": 360
+        },
+        {
+          "frame_index": 1,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000026.png",
+          "width": 640,
+          "height": 360
+        },
+        {
+          "frame_index": 2,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000027.png",
+          "width": 640,
+          "height": 360
+        },
+        {
+          "frame_index": 3,
+          "source_name": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb/frame_000028.png",
+          "width": 640,
+          "height": 360
+        }
+      ]
+    }
+  ],
+  "camera_indices": [
+    0,
+    1,
+    2
+  ],
+  "ego_history_xyz": [
+    [
+      10.409,
+      0.0,
+      0.1757
+    ],
+    [
+      11.2074,
+      0.0,
+      0.1788
+    ],
+    [
+      12.0086,
+      0.0,
+      0.1758
+    ],
+    [
+      12.8082,
+      0.0,
+      0.1767
+    ],
+    [
+      13.6084,
+      0.0,
+      0.1767
+    ],
+    [
+      13.6745,
+      0.0,
+      0.1292
+    ],
+    [
+      15.2078,
+      0.0,
+      0.1775
+    ],
+    [
+      16.0726,
+      0.0007,
+      0.3228
+    ],
+    [
+      16.8772,
+      -0.017,
+      0.4059
+    ],
+    [
+      17.0894,
+      0.0258,
+      0.9514
+    ],
+    [
+      18.2377,
+      0.4907,
+      0.5419
+    ],
+    [
+      19.0364,
+      0.7283,
+      0.4853
+    ],
+    [
+      19.2611,
+      1.9138,
+      1.7987
+    ],
+    [
+      20.9067,
+      0.6014,
+      0.2046
+    ],
+    [
+      21.8114,
+      0.4525,
+      0.1816
+    ],
+    [
+      22.3202,
+      0.4304,
+      0.2609
+    ]
+  ],
+  "ego_history_rot": [
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  ],
+  "nav_text": "Proceed through the generated OOD scene while checking for regional traffic behavior: motorcycle_filtering; scenario: generated-base-animals-0076-regional-driving-behavior-000.\nDriverX retrieved safety memory, prompt-side only:\nmem-sample-motorcycle-filtering: Regional two-wheeler behavior should be treated as lateral occupancy uncertainty. Recommended behavior: Slow early, yield, and keep extra side clearance before committing.",
+  "memory_context": [
+    {
+      "entry_id": "mem-sample-motorcycle-filtering",
+      "situation": "regional two-wheeler filtering between lanes",
+      "observed_failure": "Policy committed to lane center while a fast motorcycle crossed laterally.",
+      "principle": "Regional two-wheeler behavior should be treated as lateral occupancy uncertainty.",
+      "recommended_behavior": "Slow early, yield, and keep extra side clearance before committing.",
+      "source_scenario": "fixture_memory_motorcycle_filtering",
+      "confidence": 0.82,
+      "tags": [
+        "motorcycle",
+        "filtering",
+        "lateral",
+        "regional"
+      ]
+    }
+  ],
+  "tensor_shapes": {
+    "image_frames": "3 x 4 x 3 x 360 x 640",
+    "camera_indices": "3",
+    "ego_history_xyz": "1 x 1 x 16 x 3",
+    "ego_history_rot": "1 x 1 x 16 x 3 x 3"
+  },
+  "notes": [
+    "Package was built from a live DriverX scripted CARLA OOD demo.",
+    "The source capture has one ego RGB camera; the four selected frames are duplicated across Alpamayo front-left/front/front-right camera indices for same-scene open-loop reasoning.",
+    "This package is for open-loop VLA reasoning evidence, not calibrated production multi-camera autonomy.",
+    "scenario_report_path=tickets/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.json",
+    "video_evidence_path=tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json",
+    "behavior_id=motorcycle_filtering"
+  ],
+  "source": {
+    "rgb_folder": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb",
+    "tracks_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/entity_tracks.json",
+    "scenario_report_path": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.json",
+    "video_evidence_path": "tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json"
+  }
+}
