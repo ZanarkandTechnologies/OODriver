@@ -15,6 +15,8 @@ Current design docs:
 - `minimal-shot-vla-roadmap.md` - TASK-008 through TASK-014 roadmap for CARLA,
   generated assets, regional driving behavior, policy adapters, and RAG
   comparison
+- `scenario-studio-data-engine.md` - TASK-103 product/data-engine design for
+  prompt-authored OOD scenarios, curation gates, and Alpamayo/RAG handoff
 
 Use this folder for:
 

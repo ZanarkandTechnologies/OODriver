@@ -124,3 +124,4 @@
 2026-05-07 02:04 +0800 | SHIP | TASK-100 completed live Alpamayo 1.5 inference on the RunPod hero CARLA OOD package, recording CoC reasoning, pred_xyz/pred_rot shapes, 111765.05ms latency, 23559.71MB peak VRAM, and a DriverX open-loop policy decision
 2026-05-07 02:31 +0800 | PLAN | created TASK-101 through TASK-106 as the final submission-focused train: evaluation matrix, high-fidelity CARLA evidence, prompt-to-scenario studio, Alpamayo+RAG batch, Fail2Drive extension report, and V7 submission pack
 2026-05-07 02:55 +0800 | MAINT | archived TASK-058 through TASK-100 out of the active board, preserving them as historical evidence and leaving TASK-101 through TASK-106 as the final submission sprint
+2026-05-07 03:05 +0800 | PLAN | expanded TASK-103 from prompt-to-OOD compilation into a Scenario Studio data-engine plan with parity research, curation gates, dataset records, and Alpamayo/RAG handoff

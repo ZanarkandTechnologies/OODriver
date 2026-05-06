@@ -1,0 +1,113 @@
+{
+  "work_type": ["planning", "spec"],
+  "ticket_id": "TASK-103",
+  "reviewed_at": "2026-05-07 03:05 +0800",
+  "reviewer_mode": "visible_review_lane",
+  "search_scope": {
+    "changed_files": [
+      "docs/specs/scenario-studio-data-engine.md",
+      "tickets/TASK-103/ticket.md",
+      "docs/specs/README.md",
+      "docs/MEMORY.md",
+      "docs/HISTORY.md"
+    ],
+    "related_files": [
+      "src/driverx/scenarios/types.py",
+      "src/driverx/scenarios/generator.py",
+      "src/driverx/scenarios/catalog.py",
+      "src/driverx/environments/library.py",
+      "src/driverx/environments/generator.py",
+      "src/driverx/behaviors/library.py",
+      "src/driverx/behaviors/dsl.py",
+      "src/driverx/pipeline/alpamayo_ood_batch.py",
+      "src/driverx/pipeline/alpamayo_ood_evaluation.py",
+      "src/driverx/pipeline/policy_evaluation_campaign.py"
+    ],
+    "external_sources": [
+      "https://www.asam.net/standards/detail/openscenario-dsl/",
+      "https://scenario-runner.readthedocs.io/en/latest/openscenario_support/",
+      "https://www.appliedintuition.com/physical-ai",
+      "https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator.html",
+      "https://scale.com/blog/physical-ai",
+      "https://research.nvidia.com/labs/toronto-ai/cosmos_drive_dreams/"
+    ],
+    "invariants_checked": ["MEM-0029", "MEM-0030", "MEM-0031"],
+    "rubric_docs_checked": [
+      "review-rubric-index.md",
+      "spec-contract.md",
+      "implementation-plan.md",
+      "evidence-quality.md"
+    ]
+  },
+  "rubrics_used": ["spec-contract", "implementation-plan", "evidence-quality"],
+  "summary": "The revised TASK-103 plan now frames Scenario Studio as a bounded data-engine loop with external parity, local code seams, curation gates, data contracts, and explicit now/later scope.",
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "medium",
+      "rubric": "implementation-plan",
+      "summary": "The plan intentionally defers live LLM generation and a full UI, so the final submission must describe V1 as deterministic prompt compilation unless a provider-backed run is added later.",
+      "file_refs": ["tickets/TASK-103/ticket.md", "docs/specs/scenario-studio-data-engine.md"],
+      "next_action": "During implementation, keep claim boundaries in generated reports and final browser rows."
+    }
+  ],
+  "rubric_sections": {
+    "spec-contract": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "story-coherence": 4.4,
+        "parallelization-fit": 4.0,
+        "ticket-sizing": 4.0,
+        "acceptance-testability": 4.2,
+        "scope-clarity": 4.3
+      },
+      "findings": [],
+      "next_action": "Proceed to implementation after TASK-101 produces or confirms selected scenario targets."
+    },
+    "implementation-plan": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "human-readability": 4.2,
+        "bloatability": 4.0,
+        "modularity": 4.1,
+        "proof-clarity": 4.1,
+        "execution-order": 4.1,
+        "risk-clarity": 4.0,
+        "decision-tone": 4.3,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Build the deterministic compiler, candidate expander, curation scorer, CLI, and gallery exactly in that order."
+    },
+    "evidence-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.0,
+        "traceability": 4.1,
+        "consistency": 4.0,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Implementation evidence should attach generated JSON, Markdown gallery, CLI smoke output, focused tests, and pre-push output."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Move TASK-101 through its quick matrix artifact, then implement TASK-103 as the first high-value build ticket."
+}
