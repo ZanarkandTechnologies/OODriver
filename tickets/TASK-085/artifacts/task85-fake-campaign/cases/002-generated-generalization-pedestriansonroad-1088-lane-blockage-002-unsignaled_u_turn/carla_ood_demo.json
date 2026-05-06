@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "connected": false,
+  "scripted_campaign_fake": true,
+  "recipe_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+  "scenario_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+  "behavior_id": "unsignaled_u_turn",
+  "frame_count": 0,
+  "duration_s": 5.0,
+  "tracks_path": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/002-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/entity_tracks.json",
+  "rgb_folder": null,
+  "blockers": [],
+  "claim_boundaries": [
+    "scripted_ood_campaign_fake=true",
+    "live_carla=false",
+    "stock_fail2drive_score=false"
+  ]
+}

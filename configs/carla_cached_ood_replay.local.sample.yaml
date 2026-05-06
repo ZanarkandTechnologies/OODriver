@@ -1,0 +1,15 @@
+cached_ood_replay:
+  decision_path: tickets/TASK-081/artifacts/task81-live-same-scene-memory-summary/alpamayo_policy_decision.json
+  carla_ood_config_path: configs/carla_ood_demo.local.sample.yaml
+  seeds_path: tests/fixtures/fail2drive_like/seeds.json
+  behavior_id: motorcycle_filtering
+  tick_count: 64
+  fps: 5
+  live: false
+  trajectory_frame: ego
+  max_speed_mps: 6.0
+  max_steer: 0.35
+  max_brake: 0.5
+  max_throttle: 0.45
+  lookahead_points: 3
+  dt_s: 0.25

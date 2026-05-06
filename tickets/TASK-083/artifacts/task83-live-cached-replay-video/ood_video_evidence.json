@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "scenario_id": "task83-live-cached-replay",
+  "behavior_id": "motorcycle_filtering",
+  "ood_tags": [],
+  "source_kind": "live_carla_cached_replay",
+  "claim_label": "cached_alpamayo_replay",
+  "input_rgb_folder": "tickets/TASK-083/artifacts/task83-live-cached-replay/carla/rgb",
+  "overlay": {
+    "status": "passed",
+    "input_frame_count": 40,
+    "overlay_frame_count": 40,
+    "output_frame_dir": "tickets/TASK-083/artifacts/task83-live-cached-replay-video/overlay_rgb",
+    "scenario_id": "task83-live-cached-replay",
+    "behavior_id": "motorcycle_filtering",
+    "worst_risk": {
+      "tick": 39,
+      "actor_ref": "generated_asset_asset_roadside_food_cart",
+      "distance_m": 62.4084
+    },
+    "blockers": []
+  },
+  "assembly": {
+    "status": "passed",
+    "plan": {
+      "rgb_folder": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-083/artifacts/task83-live-cached-replay-video/overlay_rgb",
+      "output_video": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-083/artifacts/task83-live-cached-replay-video/task83-live-cached-replay_ood.mp4",
+      "fps": 5,
+      "frame_count": 40,
+      "frame_pattern": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-083/artifacts/task83-live-cached-replay-video/overlay_rgb/*.png",
+      "ffmpeg_path": "/opt/homebrew/bin/ffmpeg",
+      "command": [
+        "/opt/homebrew/bin/ffmpeg",
+        "-y",
+        "-framerate",
+        "5",
+        "-pattern_type",
+        "glob",
+        "-i",
+        "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-083/artifacts/task83-live-cached-replay-video/overlay_rgb/*.png",
+        "-c:v",
+        "libx264",
+        "-pix_fmt",
+        "yuv420p",
+        "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-083/artifacts/task83-live-cached-replay-video/task83-live-cached-replay_ood.mp4"
+      ],
+      "live_blockers": [],
+      "dry_run": true
+    },
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "ffmpeg version 8.1 Copyright (c) 2000-2026 the FFmpeg developers\n  built with Apple clang version 21.0.0 (clang-2100.0.123.102)\n  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/8.1_1 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gpl --enable-libsvtav1 --enable-libopus --enable-libx264 --enable-libmp3lame --enable-libdav1d --enable-libvmaf --enable-libvpx --enable-libx265 --enable-openssl --enable-videotoolbox --enable-audiotoolbox --enable-neon\n  libavutil      60. 26.100 / 60. 26.100\n  libavcodec     62. 28.100 / 62. 28.100\n  libavformat    62. 12.100 / 62. 12.100\n  libavdevice    62.  3.100 / 62.  3.100\n  libavfilter    11. 14.100 / 11. 14.100\n  libswscale      9.  5.100 /  9.  5.100\n  libswresample   6.  3.100 /  6.  3.100\nInput #0, image2, from '/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-083/artifacts/task83-live-cached-replay-video/overlay_rgb/*.png':\n  Duration: 00:00:08.00, start: 0.000000, bitrate: N/A\n  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 640x360, 5 fps, 5 tbr, 5 tbn\nStream mapping:\n  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))\nPress [q] to stop, [?] for help\n[libx264 @ 0xbf6c30a80] using cpu capabilities: ARMv8 NEON DotProd I8MM\n[libx264 @ 0xbf6c30a80] profile High, level 2.2, 4:2:0, 8-bit\n[libx264 @ 0xbf6c30a80] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=11 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=5 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00\nOutput #0, mp4, to '/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-083/artifacts/task83-live-cached-replay-video/task83-live-cached-replay_ood.mp4':\n  Metadata:\n    encoder         : Lavf62.12.100\n  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 640x360, q=2-31, 5 fps, 10240 tbn\n    Metadata:\n      encoder         : Lavc62.28.100 libx264\n    Side data:\n      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A\n[out#0/mp4 @ 0xbf7008840] video:355KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.366052%\nframe=   40 fps=0.0 q=-1.0 Lsize=     357KiB time=00:00:07.60 bitrate= 384.4kbits/s speed=  53x elapsed=0:00:00.14    \n[libx264 @ 0xbf6c30a80] frame I:1     Avg QP:18.59  size: 67249\n[libx264 @ 0xbf6c30a80] frame P:10    Avg QP:18.36  size: 21708\n[libx264 @ 0xbf6c30a80] frame B:29    Avg QP:22.36  size:  2719\n[libx264 @ 0xbf6c30a80] consecutive B-frames:  2.5%  0.0%  7.5% 90.0%\n[libx264 @ 0xbf6c30a80] mb I  I16..4:  2.7% 34.5% 62.8%\n[libx264 @ 0xbf6c30a80] mb P  I16..4:  0.1%  3.5%  1.6%  P16..4: 30.6% 33.4% 24.0%  0.0%  0.0%    skip: 6.8%\n[libx264 @ 0xbf6c30a80] mb B  I16..4:  0.0%  0.1%  0.0%  B16..8: 37.2%  6.9%  3.3%  direct: 7.3%  skip:45.1%  L0:32.8% L1:43.8% BI:23.5%\n[libx264 @ 0xbf6c30a80] 8x8 transform intra:46.4% inter:53.0%\n[libx264 @ 0xbf6c30a80] coded y,uvDC,uvAC intra: 99.2% 67.8% 51.9% inter: 29.7% 14.2% 3.9%\n[libx264 @ 0xbf6c30a80] i16 v,h,dc,p:  6% 48% 27% 18%\n[libx264 @ 0xbf6c30a80] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 19% 23% 17%  5%  6%  4%  8%  7% 11%\n[libx264 @ 0xbf6c30a80] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 18% 25% 13%  6%  7%  6%  9%  6% 10%\n[libx264 @ 0xbf6c30a80] i8c dc,h,v,p: 48% 33% 16%  3%\n[libx264 @ 0xbf6c30a80] Weighted P-Frames: Y:10.0% UV:0.0%\n[libx264 @ 0xbf6c30a80] ref P L0: 71.6% 10.4% 14.1%  3.9%\n[libx264 @ 0xbf6c30a80] ref B L0: 95.3%  3.9%  0.8%\n[libx264 @ 0xbf6c30a80] ref B L1: 96.7%  3.3%\n[libx264 @ 0xbf6c30a80] kb/s:363.19\n",
+    "executed": true
+  },
+  "video_path": "tickets/TASK-083/artifacts/task83-live-cached-replay-video/task83-live-cached-replay_ood.mp4",
+  "duration_s": 8.0,
+  "worst_risk": {
+    "tick": 39,
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "distance_m": 62.4084
+  },
+  "claim_boundaries": [
+    "cached_alpamayo_replay=true",
+    "video_overlay_is_evidence_surface=true",
+    "closed_loop_vla_control=false"
+  ]
+}

@@ -48,6 +48,13 @@ unblocked ticket when possible.
 
 ## Resolved
 
+- 2026-05-06 20:41 +0800 | carla,docker,video,campaign | TASK-085 live
+  campaign captured two 24.0s CARLA cases through Docker. Docker-side video
+  assembly initially lacked Pillow/ffmpeg, so DriverX now falls back to copying
+  raw frames when Pillow is absent and the host assembled local MP4 evidence
+  from the captured RGB folders. Evidence:
+  `tickets/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.md`.
+
 - 2026-05-06 23:18 +0800 | carla,docker,scripted-ood,video | TASK-078
   resolved the live DriverX scripted OOD capture blocker. Docker reached local
   CARLA at `host.docker.internal:2000`; after replacing unavailable

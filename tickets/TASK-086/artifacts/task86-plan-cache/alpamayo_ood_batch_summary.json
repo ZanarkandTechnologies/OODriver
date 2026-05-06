@@ -1,0 +1,64 @@
+{
+  "batch_id": "task86-plan-cache",
+  "status": "passed",
+  "case_count": 1,
+  "passed_count": 1,
+  "planned_count": 0,
+  "blocked_count": 0,
+  "mean_trajectory_final_l2_m": 2.6886,
+  "mean_latency_ms": 77447.355,
+  "mean_vram_peak_mb": 23532.505,
+  "max_vram_peak_mb": 23557.31,
+  "records": [
+    {
+      "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "case_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "package_path": "tickets/TASK-080/artifacts/task80-live-same-scene-package-001/alpamayo_carla_input_package.json",
+      "baseline_decision_path": "tickets/TASK-081/artifacts/task81-live-same-scene-baseline-summary/alpamayo_policy_decision.json",
+      "memory_decision_path": "tickets/TASK-081/artifacts/task81-live-same-scene-memory-summary/alpamayo_policy_decision.json",
+      "comparison_path": "tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json",
+      "remote_command": {
+        "command": [
+          "bash",
+          "scripts/run_remote_alpamayo_carla_inference.sh",
+          "tickets/TASK-080/artifacts/task80-live-same-scene-package-001/alpamayo_carla_input_package.json",
+          "root@195.26.233.80",
+          "tickets/TASK-086/artifacts/task86-plan-cache/remote_outputs/generated-base-animals-0076-regional-driving-behavior-000"
+        ],
+        "env": {
+          "GPU_SSH_OPTS": "-p 55050 -i ~/.ssh/id_ed25519_runpod",
+          "PYTHON_BIN": "/workspace/alpamayo1.5/a1_5_venv/bin/python",
+          "ALPAMAYO_ATTN_IMPLEMENTATION": "eager",
+          "ALPAMAYO_NUM_TRAJ_SAMPLES": "1",
+          "RUN_ID": "generated-base-animals-0076-regional-driving-behavior-000"
+        },
+        "local_output_dir": "tickets/TASK-086/artifacts/task86-plan-cache/remote_outputs/generated-base-animals-0076-regional-driving-behavior-000",
+        "execute_remote": false
+      },
+      "remote_execution": null,
+      "latency_ms": [
+        108765.59,
+        46129.12
+      ],
+      "vram_peak_mb": [
+        23507.7,
+        23557.31
+      ],
+      "trajectory_final_l2_m": 2.6886,
+      "reasoning_changed": false,
+      "memory_ids": [
+        "mem-sample-motorcycle-filtering"
+      ],
+      "open_loop_policy_evaluation": true,
+      "status": "passed",
+      "blockers": []
+    }
+  ],
+  "blockers": [],
+  "claim_boundaries": [
+    "alpamayo_batch_open_loop_policy_evaluation=true",
+    "closed_loop_carla_control=false",
+    "real_time_vla_control=false",
+    "model_weights_frozen=true"
+  ]
+}

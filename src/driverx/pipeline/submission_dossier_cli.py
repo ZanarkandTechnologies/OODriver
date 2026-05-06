@@ -17,6 +17,11 @@ def command_build_submission_dossier(args: argparse.Namespace) -> int:
         run_dir,
         ood_suite_manifest_path=args.ood_suite_manifest,
         gpu_host_suitability_path=args.gpu_host_suitability,
+        demo_pack_path=args.demo_pack,
+        reasoning_pack_path=args.reasoning_pack,
+        campaign_summary_path=args.campaign_summary,
+        alpamayo_batch_path=args.alpamayo_batch,
+        cached_replay_path=args.cached_replay,
         progress_path=args.progress,
         blockers_path=args.blockers,
     )
@@ -31,6 +36,11 @@ def register_submission_dossier_parser(subparsers: Any) -> None:
     )
     parser.add_argument("--ood-suite-manifest", type=Path)
     parser.add_argument("--gpu-host-suitability", type=Path)
+    parser.add_argument("--demo-pack", type=Path)
+    parser.add_argument("--reasoning-pack", type=Path)
+    parser.add_argument("--campaign-summary", type=Path)
+    parser.add_argument("--alpamayo-batch", type=Path)
+    parser.add_argument("--cached-replay", type=Path)
     parser.add_argument("--progress", type=Path, default=Path("docs/progress.md"))
     parser.add_argument("--blockers", type=Path, default=Path("blockers.md"))
     parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))

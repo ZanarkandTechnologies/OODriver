@@ -1,14 +1,14 @@
 # TASK-087: Submission Dossier V5 And Deck Script
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-082, TASK-084, TASK-085, TASK-086
 - location: `src/driverx/pipeline`, docs, `tickets/TASK-087/artifacts`
 - enter when: the next evidence train has either replay/campaign/batch proof or precise blockers
 - leave when: the repo has a final submission dossier, 1-5 minute video script, slide outline, artifact checklist, and claim-boundary table
-- blockers: final quality depends on which evidence tickets land; can still build from current V4 evidence
+- blockers: none
 - spawned follow-ups: optional rendered PPTX/video editing
 - complexity: M
 
@@ -130,15 +130,15 @@ but the repo needs a durable source of truth first.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Dossier command writes JSON/Markdown plus `video_script.md`.
-- [ ] AC-2: Artifact checklist includes live video, reasoning pack, Alpamayo comparison, replay/campaign/batch evidence when available, and blockers.
-- [ ] AC-3: Claim-boundary table distinguishes scripted CARLA, cached replay, open-loop Alpamayo, stock Fail2Drive partial score, and future closed-loop work.
-- [ ] AC-4: README/progress point at the V5 packet as the final source of truth.
+- [x] AC-1: Dossier command writes JSON/Markdown plus `video_script.md`.
+- [x] AC-2: Artifact checklist includes live video, reasoning pack, Alpamayo comparison, replay/campaign/batch evidence when available, and blockers.
+- [x] AC-3: Claim-boundary table distinguishes scripted CARLA, cached replay, open-loop Alpamayo, stock Fail2Drive partial score, and future closed-loop work.
+- [x] AC-4: README/progress point at the V5 packet as the final source of truth.
 
 ### Verification
 
 - `PYTHONPATH=src python3 -m unittest tests.test_submission_dossier tests.test_submission_demo_pack`
-- `PYTHONPATH=src python3 -m driverx build-submission-dossier --demo-pack tickets/TASK-082/artifacts/submission-pack-v4-live-carlasame-v3/submission_demo_pack.json --blockers blockers.md --progress docs/progress.md --run-id submission-dossier-v5`
+- `PYTHONPATH=src python3 -m driverx build-submission-dossier --demo-pack tickets/TASK-082/artifacts/submission-pack-v4-live-carlasame-v3/submission_demo_pack.json --reasoning-pack tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.json --campaign-summary tickets/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.json --alpamayo-batch tickets/TASK-086/artifacts/task86-plan-cache/alpamayo_ood_batch_summary.json --cached-replay tickets/TASK-083/artifacts/task83-live-cached-replay/cached_ood_replay.json --blockers blockers.md --progress docs/progress.md --run-id submission-dossier-v5`
 - `bash scripts/pre_push_check.sh`
 
 ### Autonomy Readiness
@@ -151,8 +151,13 @@ but the repo needs a durable source of truth first.
 - Planned 2026-05-06 as the final consolidation ticket after current evidence
   train.
 - Plan review: `docs/reviews/TASK-083-088-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-083-088-implementation-review.md`.
+- QA report: `tickets/TASK-087/artifacts/qa/TASK-083-088-qa-report.md`.
+- Implemented 2026-05-06. Current V5 source of truth:
+  `tickets/TASK-087/artifacts/submission-dossier-v5-live/submission_dossier.md`
+  and
+  `tickets/TASK-087/artifacts/submission-dossier-v5-live/video_script.md`.
 
 ### Blockers
 
-- None for V4-based dossier. Richer V5 quality improves if TASK-083 through
-  TASK-086 land first.
+- None.

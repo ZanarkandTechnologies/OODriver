@@ -1,0 +1,4402 @@
+[
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 0,
+    "t_s": 0.0,
+    "location": {
+      "x": -64.64484405517578,
+      "y": 24.471010208129883,
+      "z": 0.392331063747406
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.15919795632362366,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -1.977998971939087
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 0,
+    "t_s": 0.0,
+    "location": {
+      "x": -3.8146957592744e-08,
+      "y": 1.75,
+      "z": 0.1915840059518814
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -4.450246535725455e-07,
+      "y": -5.214494080973964e-08,
+      "z": -0.35193297266960144
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 0,
+    "t_s": 0.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 0,
+    "t_s": 0.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 0,
+    "t_s": 0.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 1,
+    "t_s": 0.25,
+    "location": {
+      "x": -64.64484405517578,
+      "y": 24.471010208129883,
+      "z": -0.06831885874271393
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.15919795632362366,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 1.764659351977116e-08,
+      "y": 3.8662154366875257e-08,
+      "z": -0.8520731925964355
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 1,
+    "t_s": 0.25,
+    "location": {
+      "x": 3.25,
+      "y": 2.673879623413086,
+      "z": 0.185226172208786
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 5.543284893035889,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -1.1653964548941076e-07,
+      "y": -1.2601492471731035e-07,
+      "z": -0.5816978812217712
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 1,
+    "t_s": 0.25,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 1,
+    "t_s": 0.25,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 1,
+    "t_s": 0.25,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 2,
+    "t_s": 0.5,
+    "location": {
+      "x": -64.64484405517578,
+      "y": 24.471010208129883,
+      "z": -0.08063659816980362
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.15919795632362366,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 2.0071338369120895e-08,
+      "y": 5.470781161420746e-08,
+      "z": 0.23199626803398132
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 2,
+    "t_s": 0.5,
+    "location": {
+      "x": 6.5,
+      "y": 2.457106828689575,
+      "z": 0.18388380110263824
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 4.242642402648926,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -9.187524341314202e-08,
+      "y": -9.728414340770541e-08,
+      "z": -0.676956295967102
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 2,
+    "t_s": 0.5,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 2,
+    "t_s": 0.5,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 2,
+    "t_s": 0.5,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 3,
+    "t_s": 0.75,
+    "location": {
+      "x": -64.64484405517578,
+      "y": 24.471010208129883,
+      "z": -0.02915378473699093
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.15919795632362366,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 1.343060329617174e-08,
+      "y": 9.776933929117604e-09,
+      "z": 0.12630772590637207
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 3,
+    "t_s": 0.75,
+    "location": {
+      "x": 9.75,
+      "y": 1.3673166036605835,
+      "z": 0.18309608101844788
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": -2.296112298965454,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -1.300576997209646e-07,
+      "y": 1.6630467314371344e-07,
+      "z": -0.658077597618103
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 3,
+    "t_s": 0.75,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 3,
+    "t_s": 0.75,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 3,
+    "t_s": 0.75,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 4,
+    "t_s": 1.0,
+    "location": {
+      "x": -64.64484405517578,
+      "y": 24.471010208129883,
+      "z": -0.010524864308536053
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.15919795632362366,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 1.2676625971153044e-08,
+      "y": 1.2076089461743322e-08,
+      "z": 0.03538396209478378
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 4,
+    "t_s": 1.0,
+    "location": {
+      "x": 13.0,
+      "y": 0.75,
+      "z": 0.1839131861925125
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": -6.000004291534424,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -2.1112782633281313e-09,
+      "y": -3.389800085074057e-08,
+      "z": -0.6638163328170776
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 4,
+    "t_s": 1.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 4,
+    "t_s": 1.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 4,
+    "t_s": 1.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 5,
+    "t_s": 1.25,
+    "location": {
+      "x": -64.64484405517578,
+      "y": 24.471010208129883,
+      "z": -0.006361579522490501
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.15919795632362366,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 1.1908858787990084e-08,
+      "y": 1.8859087624889526e-09,
+      "z": 0.011896032840013504
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 5,
+    "t_s": 1.25,
+    "location": {
+      "x": 16.25,
+      "y": 1.3673166036605835,
+      "z": 0.18347829580307007
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": -2.296112298965454,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -5.1043556936747336e-08,
+      "y": 5.1888422447632365e-09,
+      "z": -0.7199282050132751
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 5,
+    "t_s": 1.25,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 5,
+    "t_s": 1.25,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 5,
+    "t_s": 1.25,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 6,
+    "t_s": 1.5,
+    "location": {
+      "x": -64.64484405517578,
+      "y": 24.471010208129883,
+      "z": -0.004925308283418417
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.15919795632362366,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 1.3775578011632206e-08,
+      "y": 1.0094773905677812e-09,
+      "z": 0.002866339636966586
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 6,
+    "t_s": 1.5,
+    "location": {
+      "x": 19.5,
+      "y": 2.457106828689575,
+      "z": 0.1818397045135498
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 4.242642402648926,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -3.432652206925013e-08,
+      "y": 6.389570472720152e-08,
+      "z": -0.691461443901062
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 6,
+    "t_s": 1.5,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 6,
+    "t_s": 1.5,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 6,
+    "t_s": 1.5,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 7,
+    "t_s": 1.75,
+    "location": {
+      "x": -64.64410400390625,
+      "y": 24.47101593017578,
+      "z": -0.004641151521354914
+    },
+    "rotation": {
+      "pitch": 0.0042620375752449036,
+      "yaw": 0.15914495289325714,
+      "roll": -6.103514533606358e-05
+    },
+    "velocity": {
+      "x": 0.08286962658166885,
+      "y": 0.0004960328806191683,
+      "z": 0.00021386146545410156
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 7,
+    "t_s": 1.75,
+    "location": {
+      "x": 22.75,
+      "y": 2.673879623413086,
+      "z": 0.18173657357692719
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 5.543284893035889,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 2.3127585180304777e-08,
+      "y": -7.463254547701581e-08,
+      "z": -0.6731109619140625
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 7,
+    "t_s": 1.75,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 7,
+    "t_s": 1.75,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 7,
+    "t_s": 1.75,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 8,
+    "t_s": 2.0,
+    "location": {
+      "x": -64.48978424072266,
+      "y": 24.4716796875,
+      "z": -0.005422515794634819
+    },
+    "rotation": {
+      "pitch": 0.24386505782604218,
+      "yaw": 0.17175336182117462,
+      "roll": -0.002532958984375
+    },
+    "velocity": {
+      "x": 0.9344134330749512,
+      "y": 0.004573727026581764,
+      "z": 0.0002988481428474188
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 8,
+    "t_s": 2.0,
+    "location": {
+      "x": 26.0,
+      "y": 1.75,
+      "z": 0.1816740185022354
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 2.2043638581972693e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -3.865232045541234e-08,
+      "y": -2.0757656926662094e-08,
+      "z": -0.6932981610298157
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 8,
+    "t_s": 2.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 8,
+    "t_s": 2.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 8,
+    "t_s": 2.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 9,
+    "t_s": 2.25,
+    "location": {
+      "x": -64.28790283203125,
+      "y": 24.472572326660156,
+      "z": -0.005157279781997204
+    },
+    "rotation": {
+      "pitch": 0.18146444857120514,
+      "yaw": 0.1855737417936325,
+      "roll": -0.0009765624417923391
+    },
+    "velocity": {
+      "x": 1.109217643737793,
+      "y": 0.0046740807592868805,
+      "z": 0.00018653868755791336
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 9,
+    "t_s": 2.25,
+    "location": {
+      "x": 29.25,
+      "y": 0.8261204957962036,
+      "z": 0.18062329292297363
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": -5.543277263641357,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 7.532459278536408e-08,
+      "y": 1.4761335265234266e-08,
+      "z": -0.7149519324302673
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 9,
+    "t_s": 2.25,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 9,
+    "t_s": 2.25,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 9,
+    "t_s": 2.25,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 10,
+    "t_s": 2.5,
+    "location": {
+      "x": -64.05147552490234,
+      "y": 24.47346305847168,
+      "z": -0.004957122728228569
+    },
+    "rotation": {
+      "pitch": 0.13354384899139404,
+      "yaw": 0.19033505022525787,
+      "roll": 0.00027519327704794705
+    },
+    "velocity": {
+      "x": 1.2804063558578491,
+      "y": 0.00450574466958642,
+      "z": -0.00010327339259674773
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 10,
+    "t_s": 2.5,
+    "location": {
+      "x": 32.5,
+      "y": 1.0428931713104248,
+      "z": 0.1798926144838333
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": -4.24264669418335,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -4.178610524263604e-08,
+      "y": 3.198941200821537e-08,
+      "z": -0.7207307815551758
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 10,
+    "t_s": 2.5,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 10,
+    "t_s": 2.5,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 10,
+    "t_s": 2.5,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 11,
+    "t_s": 2.75,
+    "location": {
+      "x": -63.73359680175781,
+      "y": 24.474496841430664,
+      "z": -0.004856719635426998
+    },
+    "rotation": {
+      "pitch": 0.10680366307497025,
+      "yaw": 0.18940986692905426,
+      "roll": 0.0008500324911437929
+    },
+    "velocity": {
+      "x": 1.4727075099945068,
+      "y": 0.004291884135454893,
+      "z": 0.00022542952501680702
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 11,
+    "t_s": 2.75,
+    "location": {
+      "x": 35.75,
+      "y": 2.132683515548706,
+      "z": 0.18114718794822693
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 2.296100616455078,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -2.728088865922018e-08,
+      "y": 1.1483240136556105e-08,
+      "z": -0.6941751837730408
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 11,
+    "t_s": 2.75,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 11,
+    "t_s": 2.75,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 11,
+    "t_s": 2.75,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 12,
+    "t_s": 3.0,
+    "location": {
+      "x": -63.40884017944336,
+      "y": 24.475385665893555,
+      "z": -0.004834709223359823
+    },
+    "rotation": {
+      "pitch": 0.09704332053661346,
+      "yaw": 0.18228140473365784,
+      "roll": 0.001308632898144424
+    },
+    "velocity": {
+      "x": 1.6301400661468506,
+      "y": 0.0038210402708500624,
+      "z": -0.0005552386865019798
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 12,
+    "t_s": 3.0,
+    "location": {
+      "x": 39.0,
+      "y": 2.75,
+      "z": 0.17850619554519653
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.000008583068848,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 1.524911539263485e-07,
+      "y": -9.980838200362996e-08,
+      "z": -0.6871050596237183
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 12,
+    "t_s": 3.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 12,
+    "t_s": 3.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 12,
+    "t_s": 3.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 13,
+    "t_s": 3.25,
+    "location": {
+      "x": -62.915618896484375,
+      "y": 24.47647476196289,
+      "z": -0.004806251265108585
+    },
+    "rotation": {
+      "pitch": 0.089086152613163,
+      "yaw": 0.16490888595581055,
+      "roll": 0.0013507370604202151
+    },
+    "velocity": {
+      "x": 1.839558720588684,
+      "y": 0.0035515951458364725,
+      "z": -0.0009751033503562212
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 13,
+    "t_s": 3.25,
+    "location": {
+      "x": 39.0,
+      "y": 2.749999523162842,
+      "z": 0.14233390986919403
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.000008583068848,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -6.377046446459644e-08,
+      "y": -3.4102921375733786e-08,
+      "z": 0.060394495725631714
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 13,
+    "t_s": 3.25,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 13,
+    "t_s": 3.25,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 13,
+    "t_s": 3.25,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 14,
+    "t_s": 3.5,
+    "location": {
+      "x": -62.423362731933594,
+      "y": 24.476470947265625,
+      "z": -0.004214134067296982
+    },
+    "rotation": {
+      "pitch": 0.1033066064119339,
+      "yaw": 0.11593007296323776,
+      "roll": -0.02575683407485485
+    },
+    "velocity": {
+      "x": 2.0266623497009277,
+      "y": 0.009393511340022087,
+      "z": -0.01046483963727951
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 14,
+    "t_s": 3.5,
+    "location": {
+      "x": 45.5,
+      "y": 1.0428931713104248,
+      "z": 0.18134760856628418
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": -4.24264669418335,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -4.154498967068321e-08,
+      "y": 3.044955576569919e-08,
+      "z": -0.6600334048271179
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 14,
+    "t_s": 3.5,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 14,
+    "t_s": 3.5,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 14,
+    "t_s": 3.5,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 15,
+    "t_s": 3.75,
+    "location": {
+      "x": -61.94620132446289,
+      "y": 24.47695541381836,
+      "z": -0.004856796003878117
+    },
+    "rotation": {
+      "pitch": 0.07483154535293579,
+      "yaw": 0.08904822170734406,
+      "roll": 0.010945925489068031
+    },
+    "velocity": {
+      "x": 2.169650077819824,
+      "y": 7.832580013200641e-05,
+      "z": -0.0005230903625488281
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 15,
+    "t_s": 3.75,
+    "location": {
+      "x": 48.75,
+      "y": 0.8261204957962036,
+      "z": 0.18084865808486938
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": -5.543277263641357,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 1.0322732890699626e-07,
+      "y": 7.570984728033636e-09,
+      "z": -0.6730860471725464
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 15,
+    "t_s": 3.75,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 15,
+    "t_s": 3.75,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 15,
+    "t_s": 3.75,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 16,
+    "t_s": 4.0,
+    "location": {
+      "x": -61.38737487792969,
+      "y": 24.47686767578125,
+      "z": -0.004774894565343857
+    },
+    "rotation": {
+      "pitch": 0.05970951169729233,
+      "yaw": 0.054782621562480927,
+      "roll": 0.006423315033316612
+    },
+    "velocity": {
+      "x": 2.2772514820098877,
+      "y": -0.0018873887602239847,
+      "z": -0.00035664558527059853
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 16,
+    "t_s": 4.0,
+    "location": {
+      "x": 52.0,
+      "y": 1.75,
+      "z": 0.1792636215686798
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -4.057918445710129e-08,
+      "y": 5.0252104699666234e-08,
+      "z": -0.6418946981430054
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 16,
+    "t_s": 4.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 16,
+    "t_s": 4.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 16,
+    "t_s": 4.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 17,
+    "t_s": 4.25,
+    "location": {
+      "x": -60.82265090942383,
+      "y": 24.476322174072266,
+      "z": -0.004735488910228014
+    },
+    "rotation": {
+      "pitch": 0.06109603866934776,
+      "yaw": 0.016259832307696342,
+      "roll": 0.004505036398768425
+    },
+    "velocity": {
+      "x": 2.4081943035125732,
+      "y": -0.0039839716628193855,
+      "z": -0.00033269880805164576
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 17,
+    "t_s": 4.25,
+    "location": {
+      "x": 55.25,
+      "y": 2.673879623413086,
+      "z": 0.17339417338371277
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 5.543284893035889,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 7.22950588283311e-08,
+      "y": 2.0690833935077535e-08,
+      "z": -0.5872322916984558
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 17,
+    "t_s": 4.25,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 17,
+    "t_s": 4.25,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 17,
+    "t_s": 4.25,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 18,
+    "t_s": 4.5,
+    "location": {
+      "x": -60.22077178955078,
+      "y": 24.475255966186523,
+      "z": -0.0047143553383648396
+    },
+    "rotation": {
+      "pitch": 0.06673094630241394,
+      "yaw": -0.02746581844985485,
+      "roll": 0.004026056732982397
+    },
+    "velocity": {
+      "x": 2.565035104751587,
+      "y": -0.006491031963378191,
+      "z": -0.00015337944205384701
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 18,
+    "t_s": 4.5,
+    "location": {
+      "x": 58.5,
+      "y": 2.457106828689575,
+      "z": 0.1806933581829071
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 4.242642402648926,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 7.700873538851738e-08,
+      "y": 5.5952650512836044e-08,
+      "z": -0.6510120034217834
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 18,
+    "t_s": 4.5,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 18,
+    "t_s": 4.5,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 18,
+    "t_s": 4.5,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 19,
+    "t_s": 4.75,
+    "location": {
+      "x": -59.55742645263672,
+      "y": 24.47342872619629,
+      "z": -0.004704055842012167
+    },
+    "rotation": {
+      "pitch": 0.0737387165427208,
+      "yaw": -0.0799560546875,
+      "roll": 0.004374062176793814
+    },
+    "velocity": {
+      "x": 2.7401669025421143,
+      "y": -0.009782038629055023,
+      "z": 1.0557174391578883e-05
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 19,
+    "t_s": 4.75,
+    "location": {
+      "x": 61.75,
+      "y": 1.3673166036605835,
+      "z": 0.18229089677333832
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": -2.296112298965454,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -2.24249738778326e-08,
+      "y": 3.2546334516325715e-09,
+      "z": -0.6609737873077393
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 19,
+    "t_s": 4.75,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 19,
+    "t_s": 4.75,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 19,
+    "t_s": 4.75,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 20,
+    "t_s": 5.0,
+    "location": {
+      "x": -58.91261672973633,
+      "y": 24.470991134643555,
+      "z": -0.004710006527602673
+    },
+    "rotation": {
+      "pitch": 0.06862973421812057,
+      "yaw": -0.1336975246667862,
+      "roll": 0.004695064388215542
+    },
+    "velocity": {
+      "x": 2.865661859512329,
+      "y": -0.012946253642439842,
+      "z": -0.00016498565673828125
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 20,
+    "t_s": 5.0,
+    "location": {
+      "x": 65.0,
+      "y": 0.75,
+      "z": 0.18082688748836517
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": -6.000004291534424,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 9.060808281446953e-08,
+      "y": -1.3577159840849617e-08,
+      "z": -0.6694459915161133
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 20,
+    "t_s": 5.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 20,
+    "t_s": 5.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 20,
+    "t_s": 5.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 21,
+    "t_s": 5.25,
+    "location": {
+      "x": -58.168582916259766,
+      "y": 24.46742820739746,
+      "z": -0.0046949004754424095
+    },
+    "rotation": {
+      "pitch": 0.07813052833080292,
+      "yaw": -0.195587158203125,
+      "roll": 0.005063820630311966
+    },
+    "velocity": {
+      "x": 3.0576720237731934,
+      "y": -0.01715117134153843,
+      "z": -2.3393629817292094e-05
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 21,
+    "t_s": 5.25,
+    "location": {
+      "x": 68.25,
+      "y": 1.3673166036605835,
+      "z": 0.18358175456523895
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": -2.296112298965454,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -7.296357296127098e-08,
+      "y": 1.0645062609171418e-08,
+      "z": -0.6751598715782166
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 21,
+    "t_s": 5.25,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 21,
+    "t_s": 5.25,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 21,
+    "t_s": 5.25,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 22,
+    "t_s": 5.5,
+    "location": {
+      "x": -57.4008674621582,
+      "y": 24.46292495727539,
+      "z": -0.0047029112465679646
+    },
+    "rotation": {
+      "pitch": 0.07370457053184509,
+      "yaw": -0.259246826171875,
+      "roll": 0.005437137559056282
+    },
+    "velocity": {
+      "x": 3.206278085708618,
+      "y": -0.021458037197589874,
+      "z": -0.0003431415534578264
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 22,
+    "t_s": 5.5,
+    "location": {
+      "x": 71.5,
+      "y": 2.457106828689575,
+      "z": 0.18246807157993317
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 4.242642402648926,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -8.160618136798803e-08,
+      "y": 1.3110397389937134e-07,
+      "z": -0.6703208684921265
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 22,
+    "t_s": 5.5,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 22,
+    "t_s": 5.5,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 22,
+    "t_s": 5.5,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 23,
+    "t_s": 5.75,
+    "location": {
+      "x": -56.55042266845703,
+      "y": 24.45694923400879,
+      "z": -0.0046929167583584785
+    },
+    "rotation": {
+      "pitch": 0.07130716741085052,
+      "yaw": -0.32958984375,
+      "roll": 0.005920202471315861
+    },
+    "velocity": {
+      "x": 3.369868040084839,
+      "y": -0.026669904589653015,
+      "z": 7.903575897216797e-05
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 23,
+    "t_s": 5.75,
+    "location": {
+      "x": 74.75,
+      "y": 2.673879623413086,
+      "z": 0.18362800776958466
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 5.543284893035889,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 7.341521524040218e-08,
+      "y": -8.177610766324506e-08,
+      "z": -0.666186511516571
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 23,
+    "t_s": 5.75,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 23,
+    "t_s": 5.75,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 23,
+    "t_s": 5.75,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 24,
+    "t_s": 6.0,
+    "location": {
+      "x": -55.74422073364258,
+      "y": 24.45033836364746,
+      "z": -0.004704971332103014
+    },
+    "rotation": {
+      "pitch": 0.07282347232103348,
+      "yaw": -0.39605712890625,
+      "roll": 0.006406088825315237
+    },
+    "velocity": {
+      "x": 3.521421432495117,
+      "y": -0.03189278393983841,
+      "z": 0.0002615642442833632
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 24,
+    "t_s": 6.0,
+    "location": {
+      "x": 74.75,
+      "y": 2.673879384994507,
+      "z": 0.1415538340806961
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 5.543284893035889,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -3.028566553098244e-08,
+      "y": 1.208850797240757e-08,
+      "z": 0.03393076732754707
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 24,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 24,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 24,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 25,
+    "t_s": 6.0,
+    "location": {
+      "x": -54.81450653076172,
+      "y": 24.44156265258789,
+      "z": -0.004715995863080025
+    },
+    "rotation": {
+      "pitch": 0.07567166537046432,
+      "yaw": -0.4724730849266052,
+      "roll": 0.007010912988334894
+    },
+    "velocity": {
+      "x": 3.6976840496063232,
+      "y": -0.038351256400346756,
+      "z": -8.124828309519216e-05
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 25,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.18252785503864288
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 6.191432078139769e-08,
+      "y": 5.230718969073678e-08,
+      "z": -0.6775729060173035
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 25,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 25,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 25,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 26,
+    "t_s": 6.0,
+    "location": {
+      "x": -53.84821701049805,
+      "y": 24.43115234375,
+      "z": -0.004719085525721312
+    },
+    "rotation": {
+      "pitch": 0.0767713189125061,
+      "yaw": -0.5516052842140198,
+      "roll": 0.007631403394043446
+    },
+    "velocity": {
+      "x": 3.8711001873016357,
+      "y": -0.045418091118335724,
+      "z": -0.0002522277645766735
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 26,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.18253523111343384
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -3.7947792463910446e-08,
+      "y": 1.367095325832679e-09,
+      "z": -0.6631777286529541
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 26,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 26,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 26,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 27,
+    "t_s": 6.0,
+    "location": {
+      "x": -52.92147445678711,
+      "y": 24.419931411743164,
+      "z": -0.004712791182100773
+    },
+    "rotation": {
+      "pitch": 0.07518671452999115,
+      "yaw": -0.6272887587547302,
+      "roll": 0.008214344270527363
+    },
+    "velocity": {
+      "x": 4.023407936096191,
+      "y": -0.0524459034204483,
+      "z": -0.0001488590205553919
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 27,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.18240003287792206
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 6.102577287947497e-08,
+      "y": -8.723427313839238e-09,
+      "z": -0.6773741841316223
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 27,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 27,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 27,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 28,
+    "t_s": 6.0,
+    "location": {
+      "x": -52.042884826660156,
+      "y": 24.408172607421875,
+      "z": -0.004715461749583483
+    },
+    "rotation": {
+      "pitch": 0.07269369810819626,
+      "yaw": -0.6988524794578552,
+      "roll": 0.008749127388000488
+    },
+    "velocity": {
+      "x": 4.156557083129883,
+      "y": -0.05930529907345772,
+      "z": 0.0002222442562924698
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 28,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.18232256174087524
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 6.97502997581978e-08,
+      "y": -1.135494898107936e-08,
+      "z": -0.7017923593521118
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 28,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 28,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 28,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 29,
+    "t_s": 6.0,
+    "location": {
+      "x": -51.140995025634766,
+      "y": 24.394975662231445,
+      "z": -0.004705772269517183
+    },
+    "rotation": {
+      "pitch": 0.06990697979927063,
+      "yaw": -0.772125244140625,
+      "roll": 0.009275407530367374
+    },
+    "velocity": {
+      "x": 4.283389568328857,
+      "y": -0.06652507930994034,
+      "z": -0.00028900144388899207
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 29,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.18075887858867645
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -7.380518951549675e-08,
+      "y": -4.547366927454277e-08,
+      "z": -0.7000907063484192
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 29,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 29,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 29,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 30,
+    "t_s": 6.0,
+    "location": {
+      "x": -50.31486892700195,
+      "y": 24.38188934326172,
+      "z": -0.004689368885010481
+    },
+    "rotation": {
+      "pitch": 0.06738664209842682,
+      "yaw": -0.8390806913375854,
+      "roll": 0.009740176610648632
+    },
+    "velocity": {
+      "x": 4.391872882843018,
+      "y": -0.07328372448682785,
+      "z": -4.606723814504221e-05
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 30,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.18086346983909607
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -1.4821421245869715e-07,
+      "y": 2.445583469068424e-08,
+      "z": -0.7298487424850464
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 30,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 30,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 30,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 31,
+    "t_s": 6.0,
+    "location": {
+      "x": -49.47850036621094,
+      "y": 24.3676700592041,
+      "z": -0.00467681884765625
+    },
+    "rotation": {
+      "pitch": 0.06495509296655655,
+      "yaw": -0.9067076444625854,
+      "roll": 0.010195478796958923
+    },
+    "velocity": {
+      "x": 4.495043754577637,
+      "y": -0.08025555312633514,
+      "z": 0.0002559709537308663
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 31,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.1815117448568344
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -7.88302116916384e-08,
+      "y": -4.9784457445412045e-08,
+      "z": -0.7509474754333496
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 31,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 31,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 31,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 32,
+    "t_s": 6.0,
+    "location": {
+      "x": -48.6082763671875,
+      "y": 24.351842880249023,
+      "z": -0.0046730805188417435
+    },
+    "rotation": {
+      "pitch": 0.06253720819950104,
+      "yaw": -0.9769591689109802,
+      "roll": 0.01065041869878769
+    },
+    "velocity": {
+      "x": 4.596007823944092,
+      "y": -0.08763493597507477,
+      "z": 0.0003800630511250347
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 32,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.18156053125858307
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -2.0063852801399662e-08,
+      "y": 7.4238606373455696e-09,
+      "z": -0.7552480101585388
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 32,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 32,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 32,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 33,
+    "t_s": 6.0,
+    "location": {
+      "x": -47.474365234375,
+      "y": 24.329626083374023,
+      "z": -0.004676627926528454
+    },
+    "rotation": {
+      "pitch": 0.05959339812397957,
+      "yaw": -1.0682984590530396,
+      "roll": 0.011219175532460213
+    },
+    "velocity": {
+      "x": 4.718832969665527,
+      "y": -0.09742576628923416,
+      "z": 0.00012021064321743324
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 33,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.18143247067928314
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -3.696604267133807e-08,
+      "y": 2.5710814810508964e-08,
+      "z": -0.6912057399749756
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 33,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 33,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 33,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 34,
+    "t_s": 6.0,
+    "location": {
+      "x": -46.79046630859375,
+      "y": 24.31536102294922,
+      "z": -0.004652786068618298
+    },
+    "rotation": {
+      "pitch": 0.057926829904317856,
+      "yaw": -1.1232911348342896,
+      "roll": 0.011549122631549835
+    },
+    "velocity": {
+      "x": 4.7886128425598145,
+      "y": -0.10342016071081161,
+      "z": 0.00010457515600137413
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 34,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.1800982803106308
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -4.3854878839511e-08,
+      "y": -5.95881832765599e-09,
+      "z": -0.7653897404670715
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 34,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 34,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 34,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 35,
+    "t_s": 6.0,
+    "location": {
+      "x": -45.72714614868164,
+      "y": 24.29189109802246,
+      "z": -0.004651031456887722
+    },
+    "rotation": {
+      "pitch": 0.055454302579164505,
+      "yaw": -1.208648920059204,
+      "roll": 0.012042837217450142
+    },
+    "velocity": {
+      "x": 4.891294956207275,
+      "y": -0.11285992711782455,
+      "z": 6.258964276639745e-05
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 35,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.18055379390716553
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 7.703447124640661e-08,
+      "y": 1.2395121373742768e-08,
+      "z": -0.7200694680213928
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 35,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 35,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 35,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 36,
+    "t_s": 6.0,
+    "location": {
+      "x": -44.620521545410156,
+      "y": 24.26579475402832,
+      "z": -0.004652175586670637
+    },
+    "rotation": {
+      "pitch": 0.053056906908750534,
+      "yaw": -1.2973023653030396,
+      "roll": 0.01253639254719019
+    },
+    "velocity": {
+      "x": 4.9913330078125,
+      "y": -0.1228272095322609,
+      "z": -0.0003460216394159943
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 36,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.1796608567237854
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 1.5982507761691522e-08,
+      "y": -1.1357094820141356e-07,
+      "z": -0.6906298398971558
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 36,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 36,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 36,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 37,
+    "t_s": 6.0,
+    "location": {
+      "x": -43.519989013671875,
+      "y": 24.23819351196289,
+      "z": -0.004403342958539724
+    },
+    "rotation": {
+      "pitch": 0.029171736910939217,
+      "yaw": -1.3858641386032104,
+      "roll": 0.012538791634142399
+    },
+    "velocity": {
+      "x": 4.998317241668701,
+      "y": -0.13040146231651306,
+      "z": -0.0030382631812244654
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 37,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.1391068398952484
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -1.4107335744029115e-08,
+      "y": 2.3248164282563266e-08,
+      "z": 0.03938283771276474
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 37,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 37,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 37,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 38,
+    "t_s": 6.0,
+    "location": {
+      "x": -42.66649627685547,
+      "y": 24.21562385559082,
+      "z": -0.004360999912023544
+    },
+    "rotation": {
+      "pitch": 0.01553867943584919,
+      "yaw": -1.4496461153030396,
+      "roll": 0.012660941109061241
+    },
+    "velocity": {
+      "x": 4.998575210571289,
+      "y": -0.13616204261779785,
+      "z": -0.0030510425567626953
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 38,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.1403190791606903
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": -5.4785463277085e-08,
+      "y": -6.110174410878244e-08,
+      "z": -0.05886326730251312
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 38,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 38,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 38,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 39,
+    "type_id": "vehicle.lincoln.mkz_2020",
+    "tick": 39,
+    "t_s": 6.0,
+    "location": {
+      "x": -41.6793212890625,
+      "y": 24.188385009765625,
+      "z": -0.004365463275462389
+    },
+    "rotation": {
+      "pitch": 0.011652301996946335,
+      "yaw": -1.556060791015625,
+      "roll": 0.013755282387137413
+    },
+    "velocity": {
+      "x": 5.026163578033447,
+      "y": -0.14492937922477722,
+      "z": 0.00019718169642146677
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 41,
+    "type_id": "vehicle.kawasaki.ninja",
+    "tick": 39,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.17896130681037903
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 6.613091574591808e-15,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 1.0522759197328924e-07,
+      "y": 2.9022411140999793e-08,
+      "z": -0.7535495758056641
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "actor_id": 42,
+    "type_id": "static.prop.dirtdebris01",
+    "tick": 39,
+    "t_s": 6.0,
+    "location": {
+      "x": 22.0,
+      "y": 0.3999999761581421,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_roadside_food_cart",
+    "actor_id": 43,
+    "type_id": "static.prop.foodcart",
+    "tick": 39,
+    "t_s": 6.0,
+    "location": {
+      "x": 14.0,
+      "y": -4.0,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+    "actor_id": 44,
+    "type_id": "static.prop.constructioncone",
+    "tick": 39,
+    "t_s": 6.0,
+    "location": {
+      "x": 18.0,
+      "y": -0.19999998807907104,
+      "z": 0.19999998807907104
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  }
+]

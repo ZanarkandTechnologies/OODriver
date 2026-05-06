@@ -1,0 +1,92 @@
+{
+  "campaign_id": "task85-live-campaign-2b",
+  "status": "passed",
+  "case_count": 2,
+  "live_case_count": 2,
+  "behavior_ids": [
+    "motorcycle_filtering",
+    "sudden_brake",
+    "unsignaled_u_turn"
+  ],
+  "best_case": {
+    "case_id": "000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering",
+    "recipe_id": "generated-base-animals-0076-visual-noise-000",
+    "behavior_id": "motorcycle_filtering",
+    "status": "passed",
+    "live": true,
+    "min_distance_m": 0.383,
+    "frame_count": 120,
+    "duration_s": 24.0,
+    "scenario_report_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla/carla_ood_demo.json",
+    "tracks_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla/entity_tracks.json",
+    "rgb_folder": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla/rgb",
+    "video_status": "passed",
+    "video_evidence_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/local-video/ood_video_evidence.json",
+    "video_evidence_report_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/local-video/ood_video_evidence.md",
+    "video_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/local-video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+    "blockers": []
+  },
+  "worst_case": {
+    "case_id": "001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake",
+    "recipe_id": "generated-generalization-customobstacles-1028-occlusion-001",
+    "behavior_id": "sudden_brake",
+    "status": "passed",
+    "live": true,
+    "min_distance_m": 0.1444,
+    "frame_count": 120,
+    "duration_s": 24.0,
+    "scenario_report_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla/carla_ood_demo.json",
+    "tracks_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla/entity_tracks.json",
+    "rgb_folder": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla/rgb",
+    "video_status": "passed",
+    "video_evidence_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/ood_video_evidence.json",
+    "video_evidence_report_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/ood_video_evidence.md",
+    "video_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/generated-generalization-customobstacles-1028-occlusion-001_ood.mp4",
+    "blockers": []
+  },
+  "mean_min_distance_m": 0.2637,
+  "cases": [
+    {
+      "case_id": "000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering",
+      "recipe_id": "generated-base-animals-0076-visual-noise-000",
+      "behavior_id": "motorcycle_filtering",
+      "status": "passed",
+      "live": true,
+      "min_distance_m": 0.383,
+      "frame_count": 120,
+      "duration_s": 24.0,
+      "scenario_report_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla/carla_ood_demo.json",
+      "tracks_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla/entity_tracks.json",
+      "rgb_folder": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla/rgb",
+      "video_status": "passed",
+      "video_evidence_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/local-video/ood_video_evidence.json",
+      "video_evidence_report_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/local-video/ood_video_evidence.md",
+      "video_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/local-video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+      "blockers": []
+    },
+    {
+      "case_id": "001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake",
+      "recipe_id": "generated-generalization-customobstacles-1028-occlusion-001",
+      "behavior_id": "sudden_brake",
+      "status": "passed",
+      "live": true,
+      "min_distance_m": 0.1444,
+      "frame_count": 120,
+      "duration_s": 24.0,
+      "scenario_report_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla/carla_ood_demo.json",
+      "tracks_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla/entity_tracks.json",
+      "rgb_folder": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla/rgb",
+      "video_status": "passed",
+      "video_evidence_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/ood_video_evidence.json",
+      "video_evidence_report_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/ood_video_evidence.md",
+      "video_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/generated-generalization-customobstacles-1028-occlusion-001_ood.mp4",
+      "blockers": []
+    }
+  ],
+  "blockers": [],
+  "claim_boundaries": [
+    "scripted_ood_campaign=true",
+    "stock_fail2drive_score=false",
+    "real_time_vla_control=false"
+  ]
+}

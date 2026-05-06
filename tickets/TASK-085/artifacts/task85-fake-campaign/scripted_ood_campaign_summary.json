@@ -1,0 +1,100 @@
+{
+  "campaign_id": "task85-fake-campaign",
+  "status": "passed",
+  "case_count": 3,
+  "live_case_count": 0,
+  "behavior_ids": [
+    "motorcycle_filtering",
+    "sudden_brake",
+    "unsignaled_u_turn"
+  ],
+  "best_case": {
+    "case_id": "000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering",
+    "recipe_id": "generated-base-animals-0076-visual-noise-000",
+    "behavior_id": "motorcycle_filtering",
+    "status": "passed",
+    "live": false,
+    "min_distance_m": 1.75,
+    "frame_count": 0,
+    "duration_s": 5.0,
+    "scenario_report_path": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla_ood_demo.json",
+    "tracks_path": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/entity_tracks.json",
+    "rgb_folder": null,
+    "video_evidence_path": null,
+    "video_path": null,
+    "blockers": []
+  },
+  "worst_case": {
+    "case_id": "001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake",
+    "recipe_id": "generated-generalization-customobstacles-1028-occlusion-001",
+    "behavior_id": "sudden_brake",
+    "status": "passed",
+    "live": false,
+    "min_distance_m": 0.0,
+    "frame_count": 0,
+    "duration_s": 5.0,
+    "scenario_report_path": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla_ood_demo.json",
+    "tracks_path": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/entity_tracks.json",
+    "rgb_folder": null,
+    "video_evidence_path": null,
+    "video_path": null,
+    "blockers": []
+  },
+  "mean_min_distance_m": 0.7595,
+  "cases": [
+    {
+      "case_id": "000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering",
+      "recipe_id": "generated-base-animals-0076-visual-noise-000",
+      "behavior_id": "motorcycle_filtering",
+      "status": "passed",
+      "live": false,
+      "min_distance_m": 1.75,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla_ood_demo.json",
+      "tracks_path": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/entity_tracks.json",
+      "rgb_folder": null,
+      "video_evidence_path": null,
+      "video_path": null,
+      "blockers": []
+    },
+    {
+      "case_id": "001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake",
+      "recipe_id": "generated-generalization-customobstacles-1028-occlusion-001",
+      "behavior_id": "sudden_brake",
+      "status": "passed",
+      "live": false,
+      "min_distance_m": 0.0,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla_ood_demo.json",
+      "tracks_path": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/entity_tracks.json",
+      "rgb_folder": null,
+      "video_evidence_path": null,
+      "video_path": null,
+      "blockers": []
+    },
+    {
+      "case_id": "002-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn",
+      "recipe_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+      "behavior_id": "unsignaled_u_turn",
+      "status": "passed",
+      "live": false,
+      "min_distance_m": 0.5285,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/002-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/carla_ood_demo.json",
+      "tracks_path": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/002-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/entity_tracks.json",
+      "rgb_folder": null,
+      "video_evidence_path": null,
+      "video_path": null,
+      "blockers": []
+    }
+  ],
+  "blockers": [],
+  "claim_boundaries": [
+    "scripted_ood_campaign=true",
+    "stock_fail2drive_score=false",
+    "real_time_vla_control=false"
+  ]
+}

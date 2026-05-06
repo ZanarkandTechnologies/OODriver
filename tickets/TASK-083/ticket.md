@@ -1,14 +1,14 @@
 # TASK-083: Cached Alpamayo Trajectory CARLA Replay Pilot
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-078, TASK-081, TASK-062
 - location: `src/driverx/simulators`, `src/driverx/policies`, `src/driverx/pipeline`, tests, `tickets/TASK-083/artifacts`
 - enter when: TASK-081 has a same-scene Alpamayo decision and local CARLA can run the scripted OOD scene
 - leave when: a cached Alpamayo trajectory can drive a CARLA ego actor through the scripted OOD scene, with RGB frames, entity tracks, controls, and claim boundaries
-- blockers: live CARLA must be reachable for final proof; fake-CARLA tests can proceed without it
+- blockers: none
 - spawned follow-ups: TASK-084, TASK-088
 - complexity: L
 
@@ -180,10 +180,10 @@ flowchart TD
 
 ### Acceptance Criteria
 
-- [ ] AC-1: `run-cached-ood-replay` accepts a TASK-081 policy decision and writes replay JSON/Markdown.
-- [ ] AC-2: Fake-CARLA tests prove controls are applied, ticks are counted, and cleanup/reporting works.
-- [ ] AC-3: Live or partial CARLA proof records frames/tracks, or a precise CARLA blocker.
-- [ ] AC-4: All evidence labels the result as cached trajectory replay, not real-time closed-loop VLA.
+- [x] AC-1: `run-cached-ood-replay` accepts a TASK-081 policy decision and writes replay JSON/Markdown.
+- [x] AC-2: Fake-CARLA tests prove controls are applied, ticks are counted, and cleanup/reporting works.
+- [x] AC-3: Live CARLA proof records frames/tracks and an 8.0s MP4 evidence video.
+- [x] AC-4: All evidence labels the result as cached trajectory replay, not real-time closed-loop VLA.
 
 ### Verification
 
@@ -203,7 +203,16 @@ flowchart TD
 - Planned 2026-05-06 after TASK-078 through TASK-082 produced live scripted
   CARLA and same-scene Alpamayo evidence.
 - Plan review: `docs/reviews/TASK-083-088-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-083-088-implementation-review.md`.
+- QA report: `tickets/TASK-087/artifacts/qa/TASK-083-088-qa-report.md`.
+- Implemented 2026-05-06. Local proof:
+  `tickets/TASK-083/artifacts/task83-cached-replay/cached_ood_replay.md`.
+- Live CARLA proof passed through Docker against local CARLA 0.9.16:
+  `tickets/TASK-083/artifacts/task83-live-cached-replay/cached_ood_replay.md`
+  with 40 RGB frames, 8.0s duration, and no blockers.
+- Video evidence assembled at
+  `tickets/TASK-083/artifacts/task83-live-cached-replay-video/ood_video_evidence.md`.
 
 ### Blockers
 
-- None for implementation. Live proof may block on local CARLA responsiveness.
+- None. The result remains a cached replay, not real-time VLA control.

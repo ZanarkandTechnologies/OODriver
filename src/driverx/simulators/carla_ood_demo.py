@@ -165,6 +165,7 @@ def run_carla_ood_demo(
     behavior: BehaviorTrace,
     asset_manifests: list[AssetManifest] | None = None,
     carla_module: object | None = None,
+    ego_control_trace: object | None = None,
 ) -> CarlaOodDemoResult:
     try:
         carla = carla_module or importlib.import_module("carla")
@@ -257,7 +258,9 @@ def run_carla_ood_demo(
 
         for tick in range(plan.tick_count):
             sample = behavior.samples[min(tick, len(behavior.samples) - 1)]
-            if config.ego_mode == "scripted":
+            if ego_control_trace is not None and tick < len(ego_control_trace.commands):
+                _safe_apply_control_command(ego, ego_control_trace.commands[tick], carla)
+            elif config.ego_mode == "scripted":
                 _safe_set_transform(
                     ego,
                     _carla_transform(
@@ -420,6 +423,27 @@ def _carla_transform(carla: object, payload: dict[str, dict[str, float]]) -> obj
 def _safe_set_transform(actor: object, transform: object) -> None:
     if hasattr(actor, "set_transform"):
         actor.set_transform(transform)
+
+
+def _safe_apply_control_command(actor: object, command: object, carla: object) -> None:
+    if not hasattr(actor, "apply_control"):
+        return
+    throttle = float(getattr(command, "throttle", 0.0))
+    steer = float(getattr(command, "steer", 0.0))
+    brake = float(getattr(command, "brake", 0.0))
+    if hasattr(carla, "VehicleControl"):
+        control = carla.VehicleControl(
+            throttle=throttle,
+            steer=steer,
+            brake=brake,
+        )
+    else:
+        control = {
+            "throttle": throttle,
+            "steer": steer,
+            "brake": brake,
+        }
+    actor.apply_control(control)
 
 
 def _next_image(

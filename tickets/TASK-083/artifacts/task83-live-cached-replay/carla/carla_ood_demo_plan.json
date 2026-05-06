@@ -1,0 +1,104 @@
+{
+  "recipe_id": "generated-base-animals-0076-regional-driving-behavior-000",
+  "behavior_id": "motorcycle_filtering",
+  "tick_count": 40,
+  "fps": 5,
+  "actor_refs": [
+    "ego",
+    "ego_rgb",
+    "ood_actor_0",
+    "generated_asset_asset_fallen_cargo_sack",
+    "generated_asset_asset_roadside_food_cart",
+    "generated_asset_asset_reflective_flood_barrier"
+  ],
+  "object_spawn_specs": [
+    {
+      "asset_id": "asset-fallen-cargo-sack",
+      "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+      "blueprint_filter": "static.prop.dirtdebris01",
+      "spawn_transform": {
+        "location": {
+          "x": 22.0,
+          "y": 0.4,
+          "z": 0.2
+        },
+        "rotation": {
+          "pitch": 0.0,
+          "yaw": 0.0,
+          "roll": 0.0
+        }
+      },
+      "collision_proxy": {
+        "kind": "box",
+        "length": 1.4,
+        "width": 0.8,
+        "height": 0.5
+      },
+      "semantic_tags": [
+        "debris",
+        "construction",
+        "lane_obstacle"
+      ],
+      "source_status": "planned"
+    },
+    {
+      "asset_id": "asset-roadside-food-cart",
+      "actor_ref": "generated_asset_asset_roadside_food_cart",
+      "blueprint_filter": "static.prop.foodcart",
+      "spawn_transform": {
+        "location": {
+          "x": 14.0,
+          "y": -4.0,
+          "z": 0.2
+        },
+        "rotation": {
+          "pitch": 0.0,
+          "yaw": 0.0,
+          "roll": 0.0
+        }
+      },
+      "collision_proxy": {
+        "kind": "box",
+        "length": 2.2,
+        "width": 1.2,
+        "height": 2.0
+      },
+      "semantic_tags": [
+        "roadside_vendor",
+        "occlusion",
+        "regional_context"
+      ],
+      "source_status": "planned"
+    },
+    {
+      "asset_id": "asset-reflective-flood-barrier",
+      "actor_ref": "generated_asset_asset_reflective_flood_barrier",
+      "blueprint_filter": "static.prop.constructioncone",
+      "spawn_transform": {
+        "location": {
+          "x": 18.0,
+          "y": -0.2,
+          "z": 0.2
+        },
+        "rotation": {
+          "pitch": 0.0,
+          "yaw": 0.0,
+          "roll": 0.0
+        }
+      },
+      "collision_proxy": {
+        "kind": "box",
+        "length": 3.0,
+        "width": 0.35,
+        "height": 0.7
+      },
+      "semantic_tags": [
+        "flood",
+        "barrier",
+        "route_blockage",
+        "weather"
+      ],
+      "source_status": "planned"
+    }
+  ]
+}

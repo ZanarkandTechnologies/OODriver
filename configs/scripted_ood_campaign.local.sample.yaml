@@ -1,0 +1,12 @@
+scripted_ood_campaign:
+  scenario_config_path: configs/scenario_forge.sample.yaml
+  carla_ood_config_path: configs/carla_ood_demo.local.sample.yaml
+  output_root: artifacts/runs
+  run_id: scripted-ood-campaign
+  behavior_ids: motorcycle_filtering,sudden_brake,unsignaled_u_turn
+  count: 3
+  seed: 7
+  live: false
+  assemble_video: false
+  resume: true
+  no_default_assets: false

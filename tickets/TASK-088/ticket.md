@@ -1,7 +1,7 @@
 # TASK-088: Stock Fail2Drive Full-Score Runtime Handoff
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-060, TASK-071
@@ -145,10 +145,10 @@ scripted CARLA evidence.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Host plan command writes JSON/Markdown with requirements, commands, expected outputs, and pullback policy.
-- [ ] AC-2: Classifier distinguishes CUDA-only inference suitability from CARLA graphics suitability.
-- [ ] AC-3: Blockers/docs state exactly what host is needed and why the current path is blocked.
-- [ ] AC-4: No external spend, deploy, or remote execution happens in this ticket.
+- [x] AC-1: Host plan command writes JSON/Markdown with requirements, commands, expected outputs, and pullback policy.
+- [x] AC-2: Classifier distinguishes CUDA-only inference suitability from CARLA graphics suitability.
+- [x] AC-3: Blockers/docs state exactly what host is needed and why the current path is blocked.
+- [x] AC-4: No external spend, deploy, or remote execution happens in this ticket.
 
 ### Verification
 
@@ -166,6 +166,10 @@ scripted CARLA evidence.
 
 - Planned 2026-05-06 from TASK-060/TASK-071 blockers.
 - Plan review: `docs/reviews/TASK-083-088-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-083-088-implementation-review.md`.
+- QA report: `tickets/TASK-087/artifacts/qa/TASK-083-088-qa-report.md`.
+- Implemented 2026-05-06. Evidence:
+  `tickets/TASK-088/artifacts/task88-host-plan/fail2drive_host_plan.md`.
 
 ### Blockers
 

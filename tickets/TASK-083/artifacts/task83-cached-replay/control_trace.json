@@ -1,0 +1,203 @@
+{
+  "source_policy_id": "alpamayo-live",
+  "closed_loop_control": "cached_replay",
+  "trajectory_frame": "ego",
+  "commands": [
+    {
+      "tick": 0,
+      "target_x": 0.3404,
+      "target_y": 0.0043,
+      "target_speed_mps": 1.3617,
+      "steer": 0.0056,
+      "throttle": 0.1021,
+      "brake": 0.0
+    },
+    {
+      "tick": 1,
+      "target_x": 0.716,
+      "target_y": 0.0175,
+      "target_speed_mps": 1.5033,
+      "steer": 0.0109,
+      "throttle": 0.1127,
+      "brake": 0.0
+    },
+    {
+      "tick": 2,
+      "target_x": 1.2084,
+      "target_y": 0.0444,
+      "target_speed_mps": 1.9725,
+      "steer": 0.0164,
+      "throttle": 0.1479,
+      "brake": 0.0
+    },
+    {
+      "tick": 3,
+      "target_x": 1.858,
+      "target_y": 0.0811,
+      "target_speed_mps": 2.6025,
+      "steer": 0.0194,
+      "throttle": 0.1952,
+      "brake": 0.0
+    },
+    {
+      "tick": 4,
+      "target_x": 2.7809,
+      "target_y": 0.1126,
+      "target_speed_mps": 3.6937,
+      "steer": 0.018,
+      "throttle": 0.277,
+      "brake": 0.0
+    },
+    {
+      "tick": 5,
+      "target_x": 4.0215,
+      "target_y": 0.1208,
+      "target_speed_mps": 4.9625,
+      "steer": 0.0134,
+      "throttle": 0.3722,
+      "brake": 0.0
+    },
+    {
+      "tick": 6,
+      "target_x": 5.5858,
+      "target_y": 0.1027,
+      "target_speed_mps": 6.0,
+      "steer": 0.0082,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 7,
+      "target_x": 7.4099,
+      "target_y": 0.0756,
+      "target_speed_mps": 6.0,
+      "steer": 0.0045,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 8,
+      "target_x": 9.4757,
+      "target_y": 0.0492,
+      "target_speed_mps": 6.0,
+      "steer": 0.0023,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 9,
+      "target_x": 11.7367,
+      "target_y": 0.0232,
+      "target_speed_mps": 6.0,
+      "steer": 0.0009,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 10,
+      "target_x": 14.1378,
+      "target_y": -0.0045,
+      "target_speed_mps": 6.0,
+      "steer": -0.0001,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 11,
+      "target_x": 16.583,
+      "target_y": -0.0329,
+      "target_speed_mps": 6.0,
+      "steer": -0.0009,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 12,
+      "target_x": 19.0076,
+      "target_y": -0.062,
+      "target_speed_mps": 6.0,
+      "steer": -0.0015,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 13,
+      "target_x": 21.3733,
+      "target_y": -0.0914,
+      "target_speed_mps": 6.0,
+      "steer": -0.0019,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 14,
+      "target_x": 23.6593,
+      "target_y": -0.121,
+      "target_speed_mps": 6.0,
+      "steer": -0.0023,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 15,
+      "target_x": 25.872,
+      "target_y": -0.1502,
+      "target_speed_mps": 6.0,
+      "steer": -0.0026,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 16,
+      "target_x": 28.0131,
+      "target_y": -0.1799,
+      "target_speed_mps": 6.0,
+      "steer": -0.0029,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 17,
+      "target_x": 30.1037,
+      "target_y": -0.2105,
+      "target_speed_mps": 6.0,
+      "steer": -0.0031,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 18,
+      "target_x": 32.154,
+      "target_y": -0.243,
+      "target_speed_mps": 6.0,
+      "steer": -0.0034,
+      "throttle": 0.45,
+      "brake": 0.0
+    },
+    {
+      "tick": 19,
+      "target_x": 34.1638,
+      "target_y": -0.2766,
+      "target_speed_mps": 6.0,
+      "steer": -0.0036,
+      "throttle": 0.45,
+      "brake": 0.0
+    }
+  ],
+  "safety_clamps": [
+    "tick 6: speed clamped from 6.258m/s",
+    "tick 7: speed clamped from 7.297m/s",
+    "tick 8: speed clamped from 8.264m/s",
+    "tick 9: speed clamped from 9.045m/s",
+    "tick 10: speed clamped from 9.605m/s",
+    "tick 11: speed clamped from 9.781m/s",
+    "tick 12: speed clamped from 9.699m/s",
+    "tick 13: speed clamped from 9.464m/s",
+    "tick 14: speed clamped from 9.145m/s",
+    "tick 15: speed clamped from 8.852m/s",
+    "tick 16: speed clamped from 8.565m/s",
+    "tick 17: speed clamped from 8.363m/s",
+    "tick 18: speed clamped from 8.202m/s",
+    "tick 19: speed clamped from 8.040m/s"
+  ]
+}

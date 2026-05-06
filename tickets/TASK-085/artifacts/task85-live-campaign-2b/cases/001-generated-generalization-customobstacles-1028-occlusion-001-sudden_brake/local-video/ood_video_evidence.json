@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "scenario_id": "generated-generalization-customobstacles-1028-occlusion-001",
+  "behavior_id": "sudden_brake",
+  "ood_tags": [],
+  "source_kind": "live_carla_campaign",
+  "claim_label": "scripted_carla_ood_campaign",
+  "input_rgb_folder": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla/rgb",
+  "overlay": {
+    "status": "passed",
+    "input_frame_count": 120,
+    "overlay_frame_count": 120,
+    "output_frame_dir": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/overlay_rgb",
+    "scenario_id": "generated-generalization-customobstacles-1028-occlusion-001",
+    "behavior_id": "sudden_brake",
+    "worst_risk": {
+      "tick": 27,
+      "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+      "distance_m": 0.2036
+    },
+    "blockers": []
+  },
+  "assembly": {
+    "status": "passed",
+    "plan": {
+      "rgb_folder": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/overlay_rgb",
+      "output_video": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/generated-generalization-customobstacles-1028-occlusion-001_ood.mp4",
+      "fps": 5,
+      "frame_count": 120,
+      "frame_pattern": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/overlay_rgb/*.png",
+      "ffmpeg_path": "/opt/homebrew/bin/ffmpeg",
+      "command": [
+        "/opt/homebrew/bin/ffmpeg",
+        "-y",
+        "-framerate",
+        "5",
+        "-pattern_type",
+        "glob",
+        "-i",
+        "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/overlay_rgb/*.png",
+        "-c:v",
+        "libx264",
+        "-pix_fmt",
+        "yuv420p",
+        "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/generated-generalization-customobstacles-1028-occlusion-001_ood.mp4"
+      ],
+      "live_blockers": [],
+      "dry_run": true
+    },
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "ffmpeg version 8.1 Copyright (c) 2000-2026 the FFmpeg developers\n  built with Apple clang version 21.0.0 (clang-2100.0.123.102)\n  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/8.1_1 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gpl --enable-libsvtav1 --enable-libopus --enable-libx264 --enable-libmp3lame --enable-libdav1d --enable-libvmaf --enable-libvpx --enable-libx265 --enable-openssl --enable-videotoolbox --enable-audiotoolbox --enable-neon\n  libavutil      60. 26.100 / 60. 26.100\n  libavcodec     62. 28.100 / 62. 28.100\n  libavformat    62. 12.100 / 62. 12.100\n  libavdevice    62.  3.100 / 62.  3.100\n  libavfilter    11. 14.100 / 11. 14.100\n  libswscale      9.  5.100 /  9.  5.100\n  libswresample   6.  3.100 /  6.  3.100\nInput #0, image2, from '/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/overlay_rgb/*.png':\n  Duration: 00:00:24.00, start: 0.000000, bitrate: N/A\n  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 640x360, 5 fps, 5 tbr, 5 tbn\nStream mapping:\n  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))\nPress [q] to stop, [?] for help\n[libx264 @ 0xb98c1ca80] using cpu capabilities: ARMv8 NEON DotProd I8MM\n[libx264 @ 0xb98c1ca80] profile High, level 2.2, 4:2:0, 8-bit\n[libx264 @ 0xb98c1ca80] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=11 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=5 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00\nOutput #0, mp4, to '/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/generated-generalization-customobstacles-1028-occlusion-001_ood.mp4':\n  Metadata:\n    encoder         : Lavf62.12.100\n  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 640x360, q=2-31, 5 fps, 10240 tbn\n    Metadata:\n      encoder         : Lavc62.28.100 libx264\n    Side data:\n      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A\nframe=   83 fps=0.0 q=23.0 size=    1280KiB time=00:00:16.20 bitrate= 647.3kbits/s speed=31.8x elapsed=0:00:00.50    \n[out#0/mp4 @ 0xb99410240] video:1650KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.132135%\nframe=  120 fps=0.0 q=-1.0 Lsize=    1652KiB time=00:00:23.60 bitrate= 573.4kbits/s speed=36.8x elapsed=0:00:00.64    \n[libx264 @ 0xb98c1ca80] frame I:3     Avg QP:19.33  size: 52178\n[libx264 @ 0xb98c1ca80] frame P:44    Avg QP:20.92  size: 21065\n[libx264 @ 0xb98c1ca80] frame B:73    Avg QP:23.12  size:  8289\n[libx264 @ 0xb98c1ca80] consecutive B-frames: 15.0% 10.0%  5.0% 70.0%\n[libx264 @ 0xb98c1ca80] mb I  I16..4:  2.8% 43.3% 53.8%\n[libx264 @ 0xb98c1ca80] mb P  I16..4:  1.7% 20.3% 11.6%  P16..4: 16.1% 29.3% 20.3%  0.0%  0.0%    skip: 0.8%\n[libx264 @ 0xb98c1ca80] mb B  I16..4:  0.1%  3.4%  2.7%  B16..8: 39.8% 23.4%  8.8%  direct: 6.3%  skip:15.6%  L0:40.5% L1:37.3% BI:22.2%\n[libx264 @ 0xb98c1ca80] 8x8 transform intra:57.0% inter:58.7%\n[libx264 @ 0xb98c1ca80] coded y,uvDC,uvAC intra: 91.5% 71.9% 40.5% inter: 48.4% 20.1% 2.8%\n[libx264 @ 0xb98c1ca80] i16 v,h,dc,p: 28% 38%  9% 25%\n[libx264 @ 0xb98c1ca80] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 21% 20% 12%  6%  7%  7%  9%  6% 12%\n[libx264 @ 0xb98c1ca80] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 16% 25% 13%  6%  8%  6% 10%  5% 10%\n[libx264 @ 0xb98c1ca80] i8c dc,h,v,p: 49% 29% 17%  5%\n[libx264 @ 0xb98c1ca80] Weighted P-Frames: Y:11.4% UV:4.5%\n[libx264 @ 0xb98c1ca80] ref P L0: 56.5% 27.1%  8.8%  6.9%  0.6%\n[libx264 @ 0xb98c1ca80] ref B L0: 95.9%  3.4%  0.8%\n[libx264 @ 0xb98c1ca80] ref B L1: 99.0%  1.0%\n[libx264 @ 0xb98c1ca80] kb/s:562.83\n",
+    "executed": true
+  },
+  "video_path": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/generated-generalization-customobstacles-1028-occlusion-001_ood.mp4",
+  "duration_s": 24.0,
+  "worst_risk": {
+    "tick": 27,
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "distance_m": 0.2036
+  },
+  "claim_boundaries": [
+    "scripted_carla_ood_campaign=true",
+    "video_overlay_is_evidence_surface=true",
+    "closed_loop_vla_control=false"
+  ]
+}

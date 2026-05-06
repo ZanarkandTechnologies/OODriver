@@ -41,3 +41,5 @@
 2026-05-06 11:48 +0800 | RULE | MEM-0020 | carla,docker,paths | The two local Docker wrappers use different in-container repo roots: `scripts/run_carla_client_docker.sh` mounts the repo at `/workspace`, while `scripts/run_fail2drive_client_docker.sh` mounts it at `/workspace/0xDriver`; use the matching output-root path or artifacts may be written only inside the ephemeral container.
 
 2026-05-06 19:49 +0800 | RULE | MEM-0021 | carla,assets,blueprints | Local CARLA 0.9.16 scripted OOD asset proxies must prefer installed blueprint ids validated by TASK-078: `static.prop.dirtdebris01`, `static.prop.foodcart`, and `static.prop.constructioncone`; do not reintroduce absent `static.prop.trafficcone` placeholders without a target-install blueprint probe.
+
+2026-05-06 20:41 +0800 | RULE | MEM-0022 | carla,docker,video | The minimal CARLA Docker client may not include Pillow or ffmpeg; live CARLA capture should still proceed, overlay rendering must fall back to raw-frame copying when Pillow is absent, and final MP4 assembly may be run on the host from captured RGB folders.

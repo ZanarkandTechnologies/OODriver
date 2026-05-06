@@ -1,0 +1,61 @@
+{
+  "target_route": "Generalization_PedestriansOnRoad_1088",
+  "suitability": {
+    "state": "blocked",
+    "blockers": [
+      "Need a host where CARLA 0.9.16 can render and tick, not just a CUDA-visible inference pod."
+    ],
+    "warnings": [],
+    "graphics_ready": false,
+    "cuda_ready": false
+  },
+  "required": [
+    "NVIDIA GPU with working Vulkan/OpenGL graphics exposure",
+    "CARLA 0.9.16 server can load Town13 and open the client port",
+    "Python client environment can import carla and numpy",
+    "Enough disk for CARLA, Fail2Drive checkout, logs, and route frames"
+  ],
+  "recommended_gpus": [
+    "RTX A6000",
+    "RTX 3090",
+    "RTX 4090",
+    "L40S",
+    "A40"
+  ],
+  "not_sufficient_alone": [
+    "CUDA visible through nvidia-smi",
+    "An inference-only RunPod pod without Vulkan/OpenGL ICD exposure",
+    "A local Wine/Kegworks CARLA run that cannot sustain full route cadence"
+  ],
+  "commands": [
+    "ssh <ssh-opts> <graphics-host> 'nvidia-smi && vulkaninfo --summary || true'",
+    "ssh <ssh-opts> <graphics-host> 'python3 - <<PY\\nimport carla, numpy\\nprint(\"carla client ok\")\\nPY'",
+    "bash scripts/sync_remote_gpu.sh <graphics-host> /workspace/0xdriver-artifacts/fail2drive-score # then run stock Fail2Drive route on the graphics host",
+    "PYTHONPATH=src python -m driverx run-fail2drive-route --route-id Generalization_PedestriansOnRoad_1088 --run-id full-score-town13"
+  ],
+  "expected_outputs": [
+    "route_results.json or Fail2Drive evaluator JSON",
+    "run_evidence.md",
+    "stdout/stderr log tail",
+    "short RGB/MP4 evidence only when explicitly pulled back"
+  ],
+  "pullback_policy": {
+    "include": [
+      "json",
+      "md",
+      "txt",
+      "log"
+    ],
+    "exclude": [
+      "model weights",
+      "datasets",
+      "full RGB folders",
+      "videos unless explicitly requested"
+    ]
+  },
+  "claim_boundaries": [
+    "stock_fail2drive_score_pending=true",
+    "no_external_spend_or_execution_in_this_ticket=true",
+    "graphics_host_required_for_full_score=true"
+  ]
+}

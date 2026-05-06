@@ -1,7 +1,7 @@
 # TASK-084: Reasoning And Trajectory Overlay Video Pack
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-079, TASK-080, TASK-081
@@ -142,10 +142,10 @@ inspect, and link; MP4 can remain ignored.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Builder writes JSON, Markdown, and HTML reasoning pack from existing TASK-079/TASK-081 artifacts.
-- [ ] AC-2: Pack includes CoC snippets, memory ids, trajectory delta, video/source labels, and claim boundaries.
-- [ ] AC-3: Optional MP4 generation is skipped or marked partial without failing the HTML pack.
-- [ ] AC-4: V5/demo surfaces can link the pack without requiring heavy artifacts in git.
+- [x] AC-1: Builder writes JSON, Markdown, and HTML reasoning pack from existing TASK-079/TASK-081 artifacts.
+- [x] AC-2: Pack includes CoC snippets, memory ids, trajectory delta, video/source labels, and claim boundaries.
+- [x] AC-3: Optional MP4 generation is skipped without failing the HTML pack.
+- [x] AC-4: V5/demo surfaces can link the pack without requiring heavy artifacts in git.
 
 ### Verification
 
@@ -161,6 +161,12 @@ inspect, and link; MP4 can remain ignored.
 
 - Planned 2026-05-06 from existing TASK-079/TASK-081 evidence.
 - Plan review: `docs/reviews/TASK-083-088-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-083-088-implementation-review.md`.
+- QA report: `tickets/TASK-087/artifacts/qa/TASK-083-088-qa-report.md`.
+- Implemented 2026-05-06. Evidence:
+  `tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.md`
+  and
+  `tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.html`.
 
 ### Blockers
 

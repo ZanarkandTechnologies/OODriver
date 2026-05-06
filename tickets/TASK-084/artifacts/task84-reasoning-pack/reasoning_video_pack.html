@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>DriverX Reasoning Video Pack</title>
+  <style>
+    body { font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif; margin: 32px; color: #111827; background: #f8fafc; }
+    h1 { font-size: 32px; margin-bottom: 8px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 24px 0; }
+    .card { background: white; border: 1px solid #d1d5db; border-radius: 8px; padding: 14px; }
+    .card h2 { font-size: 14px; text-transform: uppercase; color: #4b5563; margin: 0 0 8px; }
+    blockquote { background: white; border-left: 4px solid #2563eb; margin: 10px 0 22px; padding: 12px 16px; }
+    code { background: #e5e7eb; padding: 2px 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>DriverX Reasoning Video Pack</h1>
+  <p>CARLA OOD video evidence paired with frozen Alpamayo open-loop reasoning.</p>
+  <div class="grid"><section class="card"><h2>Scenario</h2><p>generated-base-animals-0076-regional-driving-behavior-000<br>motorcycle_filtering</p></section><section class="card"><h2>Video</h2><p>tickets/TASK-079/artifacts/task79-live-ood-video/generated-base-animals-0076-regional-driving-behavior-000_ood.mp4</p></section><section class="card"><h2>Worst Risk</h2><p>tick: 27<br>actor_ref: generated_asset_asset_fallen_cargo_sack<br>distance_m: 0.1967</p></section><section class="card"><h2>Trajectory Delta</h2><p>available: True<br>point_count: 20<br>mean_l2_m: 1.0226<br>max_l2_m: 2.6886<br>final_l2_m: 2.6886</p></section></div>
+  <section><h2>Retrieved Memory</h2><ul><li><strong>mem-sample-motorcycle-filtering</strong>: Slow early, yield, and keep extra side clearance before committing.</li></ul></section>
+  <section><h2>scene</h2><blockquote>[[[&#x27;Keep distance to the lead scooter since it is directly ahead in our path&#x27;]]]</blockquote></section><section><h2>baseline</h2><blockquote>[[[&#x27;Keep distance to the lead scooter since it is directly ahead in our path&#x27;]]]</blockquote></section><section><h2>memory</h2><blockquote>[[[&#x27;Keep distance to the lead scooter since it is directly ahead in our path&#x27;]]]</blockquote></section>
+  <section><h2>Claim Boundaries</h2><ul><li><code>reasoning_pack_is_evidence_surface=true</code></li><li><code>scripted_carla_video_may_be_live_or_cached=true</code></li><li><code>alpamayo_open_loop_policy_evaluation=true</code></li><li><code>real_time_vla_control=false</code></li></ul></section>
+</body>
+</html>

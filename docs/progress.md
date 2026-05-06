@@ -104,14 +104,28 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-080 same-scene Alpamayo CARLA package
 - [x] TASK-081 same-capture Alpamayo memory comparison
 - [x] TASK-082 submission pack V4 live CARLA evidence refresh
-- [ ] TASK-083 cached Alpamayo trajectory CARLA replay pilot
-- [ ] TASK-084 reasoning and trajectory overlay video pack
-- [ ] TASK-085 scripted OOD scenario campaign runner
-- [ ] TASK-086 Alpamayo batch OOD comparison over campaign
-- [ ] TASK-087 submission dossier V5 and deck script
-- [ ] TASK-088 stock Fail2Drive full-score runtime handoff
+- [x] TASK-083 cached Alpamayo trajectory CARLA replay pilot
+- [x] TASK-084 reasoning and trajectory overlay video pack
+- [x] TASK-085 scripted OOD scenario campaign runner
+- [x] TASK-086 Alpamayo batch OOD comparison over campaign
+- [x] TASK-087 submission dossier V5 and deck script
+- [x] TASK-088 stock Fail2Drive full-score runtime handoff
 
 ## Latest Evidence
+
+- TASK-083 through TASK-088 landed the next submission train. New strongest
+  artifacts: an 8.0s live CARLA cached-Alpamayo replay video at
+  `tickets/TASK-083/artifacts/task83-live-cached-replay-video/ood_video_evidence.md`,
+  a reasoning/trajectory HTML pack at
+  `tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.html`,
+  a two-case live scripted OOD campaign at
+  `tickets/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.md`,
+  a cached Alpamayo batch comparison at
+  `tickets/TASK-086/artifacts/task86-plan-cache/alpamayo_ood_batch_summary.md`,
+  a V5 dossier plus video script at
+  `tickets/TASK-087/artifacts/submission-dossier-v5-live/submission_dossier.md`,
+  and a stock Fail2Drive host handoff at
+  `tickets/TASK-088/artifacts/task88-host-plan/fail2drive_host_plan.md`.
 
 - TASK-083 through TASK-088 are now the next planned train. The recommendation
   is to start with cached Alpamayo replay in the scripted CARLA scene, then add

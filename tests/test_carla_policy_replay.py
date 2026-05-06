@@ -7,9 +7,14 @@ import unittest
 
 from driverx.cli import main
 from driverx.simulators import (
+    apply_control_trace,
     CarlaPolicyReplayConfig,
     replay_policy_decision,
     write_carla_policy_replay,
+)
+from driverx.policies.trajectory_control import (
+    load_policy_decision_trajectory,
+    trajectory_to_control_trace,
 )
 
 
@@ -19,6 +24,14 @@ class _FakeActor:
 
     def apply_control(self, control: dict[str, float]) -> None:
         self.controls.append(control)
+
+
+class _FakeWorld:
+    def __init__(self) -> None:
+        self.ticks = 0
+
+    def tick(self) -> None:
+        self.ticks += 1
 
 
 def _write_decision(path: Path) -> None:
@@ -58,6 +71,22 @@ class CarlaPolicyReplayTest(unittest.TestCase):
         self.assertEqual(result.applied_count, 20)
         self.assertEqual(len(actor.controls), 20)
         self.assertEqual(result.closed_loop_control, "cached_replay")
+
+    def test_apply_control_trace_ticks_fake_world(self) -> None:
+        with TemporaryDirectory() as tmp:
+            decision = Path(tmp) / "decision.json"
+            _write_decision(decision)
+            actor = _FakeActor()
+            world = _FakeWorld()
+            policy_id, trajectory = load_policy_decision_trajectory(decision)
+            trace = trajectory_to_control_trace(trajectory, source_policy_id=policy_id)
+
+            result = apply_control_trace(actor, trace, world=world, limit=4)
+
+        self.assertEqual(result.applied_count, 4)
+        self.assertEqual(result.tick_count, 4)
+        self.assertEqual(world.ticks, 4)
+        self.assertEqual(len(actor.controls), 4)
 
     def test_write_replay_outputs_json_and_markdown(self) -> None:
         with TemporaryDirectory() as tmp:

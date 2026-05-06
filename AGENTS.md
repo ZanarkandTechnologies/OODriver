@@ -13,6 +13,9 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   outputs under `/workspace`, while `scripts/run_fail2drive_client_docker.sh`
   writes under `/workspace/0xDriver`; keep output roots aligned with the wrapper
   in use. See `MEM-0020`.
+- The CARLA Docker client is intentionally minimal; capture can run there, but
+  video overlays/MP4 assembly may need host fallback when Pillow or ffmpeg is
+  absent. See `MEM-0022`.
 
 ## Validation
 

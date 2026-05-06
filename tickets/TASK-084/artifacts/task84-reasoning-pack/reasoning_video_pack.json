@@ -1,0 +1,78 @@
+{
+  "status": "ready",
+  "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+  "behavior_id": "motorcycle_filtering",
+  "video_path": "tickets/TASK-079/artifacts/task79-live-ood-video/generated-base-animals-0076-regional-driving-behavior-000_ood.mp4",
+  "source_rgb_folder": "tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb",
+  "duration_s": 24.0,
+  "worst_risk": {
+    "tick": 27,
+    "actor_ref": "generated_asset_asset_fallen_cargo_sack",
+    "distance_m": 0.1967
+  },
+  "cot_snippets": {
+    "scene": "[[['Keep distance to the lead scooter since it is directly ahead in our path']]]",
+    "baseline": "[[['Keep distance to the lead scooter since it is directly ahead in our path']]]",
+    "memory": "[[['Keep distance to the lead scooter since it is directly ahead in our path']]]"
+  },
+  "memory_ids": [
+    "mem-sample-motorcycle-filtering"
+  ],
+  "memory_context": [
+    {
+      "entry_id": "mem-sample-motorcycle-filtering",
+      "principle": "Regional two-wheeler behavior should be treated as lateral occupancy uncertainty.",
+      "recommended_behavior": "Slow early, yield, and keep extra side clearance before committing.",
+      "confidence": 0.82,
+      "tags": [
+        "motorcycle",
+        "filtering",
+        "lateral",
+        "regional"
+      ]
+    }
+  ],
+  "trajectory_delta": {
+    "available": true,
+    "point_count": 20,
+    "mean_l2_m": 1.0226,
+    "max_l2_m": 2.6886,
+    "final_l2_m": 2.6886
+  },
+  "reasoning_delta": {
+    "baseline_chars": 80,
+    "memory_chars": 80,
+    "changed": false,
+    "available": true
+  },
+  "latency": {
+    "scene_latency_ms": 108765.59,
+    "latency_delta_ms": -62636.47,
+    "records": [
+      {
+        "mode": "alpamayo",
+        "latency_ms": 108765.59,
+        "vram_peak_mb": 23507.7
+      },
+      {
+        "mode": "alpamayo+memory",
+        "latency_ms": 46129.12,
+        "vram_peak_mb": 23557.31
+      }
+    ]
+  },
+  "inputs": {
+    "ood_video_evidence_path": "tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json",
+    "alpamayo_scene_path": "tickets/TASK-080/artifacts/task80-live-same-scene-alpamayo-scene-v2/alpamayo_ood_scene.json",
+    "alpamayo_comparison_path": "tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json"
+  },
+  "claim_boundaries": [
+    "reasoning_pack_is_evidence_surface=true",
+    "scripted_carla_video_may_be_live_or_cached=true",
+    "alpamayo_open_loop_policy_evaluation=true",
+    "real_time_vla_control=false"
+  ],
+  "json_path": "tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.json",
+  "report_path": "tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.md",
+  "html_path": "tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.html"
+}

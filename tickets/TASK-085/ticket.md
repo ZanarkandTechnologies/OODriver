@@ -1,14 +1,14 @@
 # TASK-085: Scripted OOD Scenario Campaign Runner
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-078, TASK-079, TASK-066, TASK-076
 - location: `src/driverx/pipeline`, `src/driverx/simulators`, `src/driverx/scenarios`, tests, `tickets/TASK-085/artifacts`
 - enter when: one scripted CARLA OOD case works and the submission needs broader randomized scenario coverage
 - leave when: a small campaign can run or plan multiple generated OOD cases, aggregate risk/video evidence, and identify the best/worst case
-- blockers: live multi-case proof needs local CARLA stability; dry-run/fake path can proceed
+- blockers: none
 - spawned follow-ups: TASK-086, TASK-088
 - complexity: L
 
@@ -168,10 +168,10 @@ flowchart TD
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Campaign command produces deterministic case records from seed/config.
-- [ ] AC-2: Fake/dry-run campaign tests cover aggregation and best/worst ranking without CARLA.
-- [ ] AC-3: Live mode can run at least one case or records a precise CARLA blocker.
-- [ ] AC-4: Campaign report distinguishes scripted CARLA evidence from stock Fail2Drive scores.
+- [x] AC-1: Campaign command produces deterministic case records from seed/config.
+- [x] AC-2: Fake/dry-run campaign tests cover aggregation and best/worst ranking without CARLA.
+- [x] AC-3: Live mode ran two CARLA cases and recorded RGB/tracks/video evidence.
+- [x] AC-4: Campaign report distinguishes scripted CARLA evidence from stock Fail2Drive scores.
 
 ### Verification
 
@@ -190,7 +190,17 @@ flowchart TD
 
 - Planned 2026-05-06 after the first 24s live scripted OOD video landed.
 - Plan review: `docs/reviews/TASK-083-088-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-083-088-implementation-review.md`.
+- QA report: `tickets/TASK-087/artifacts/qa/TASK-083-088-qa-report.md`.
+- Implemented 2026-05-06. Fake campaign evidence:
+  `tickets/TASK-085/artifacts/task85-fake-campaign/scripted_ood_campaign_summary.md`.
+- Live campaign evidence:
+  `tickets/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.md`.
+  The live campaign ran two cases, captured 120 RGB frames per case, and
+  assembled local MP4 evidence for both cases. The campaign runner now has
+  resume-aware case/video evidence reuse, so the promoted `local-video` records
+  are reproducible from source.
 
 ### Blockers
 
-- None for implementation. Live multi-case proof may block on local CARLA.
+- None. Stock Fail2Drive full-route scoring remains TASK-088/TASK-060 scope.

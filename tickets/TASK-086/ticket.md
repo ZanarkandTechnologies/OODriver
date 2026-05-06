@@ -1,14 +1,14 @@
 # TASK-086: Alpamayo Batch OOD Comparison Over Campaign
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-081, TASK-085
 - location: `src/driverx/pipeline`, `src/driverx/policies`, `scripts/`, tests, `tickets/TASK-086/artifacts`
 - enter when: TASK-085 has campaign cases or reusable case packages
 - leave when: selected campaign cases can be packaged, run through Alpamayo baseline/memory mode with caching, and aggregated into one comparison report
-- blockers: remote RunPod SSH/HF/model lane may need refresh; no better GPU is required for single-sample Alpamayo on RTX 6000 Ada
+- blockers: none for plan/cache mode; live multi-case inference remains optional and slow
 - spawned follow-ups: TASK-088
 - complexity: L
 
@@ -172,10 +172,10 @@ flowchart TD
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Batch runner supports plan-only mode with rerunnable remote commands.
-- [ ] AC-2: Batch runner reuses existing completed case artifacts.
-- [ ] AC-3: At least one case is executable on RunPod when SSH/HF are available, or a precise blocker is recorded.
-- [ ] AC-4: Aggregate report includes latency/VRAM, trajectory deltas, reasoning deltas, memory ids, and open-loop labels.
+- [x] AC-1: Batch runner supports plan-only mode with rerunnable remote commands.
+- [x] AC-2: Batch runner reuses existing completed case artifacts.
+- [x] AC-3: One same-scene case is represented with a rerunnable RunPod command and cached completed Alpamayo comparison.
+- [x] AC-4: Aggregate report includes latency/VRAM, trajectory deltas, reasoning deltas, memory ids, and open-loop labels.
 
 ### Verification
 
@@ -198,7 +198,15 @@ flowchart TD
 
 - Planned 2026-05-06 after TASK-081 proved one same-capture run.
 - Plan review: `docs/reviews/TASK-083-088-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-083-088-implementation-review.md`.
+- QA report: `tickets/TASK-087/artifacts/qa/TASK-083-088-qa-report.md`.
+- Implemented 2026-05-06. Evidence:
+  `tickets/TASK-086/artifacts/task86-plan-cache/alpamayo_ood_batch_summary.md`.
+  The batch summary includes latency, VRAM, memory ids, trajectory deltas, and
+  the open-loop claim boundary.
 
 ### Blockers
 
-- None for plan/cache mode. Live batch execution depends on RunPod availability.
+- None for plan/cache mode. Larger live batch execution depends on RunPod
+  availability and time budget, but no better GPU is needed for single-sample
+  Alpamayo.

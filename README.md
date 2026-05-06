@@ -87,7 +87,24 @@ CARLA was relaunched. TASK-078 through TASK-082 are now the strongest
 submission evidence: a 24.0s live scripted CARLA OOD video, same-scene Alpamayo
 1.5 reasoning on that generated capture, a same-capture memory/no-memory
 comparison, and a V4 demo pack that keeps closed-loop VLA control claims out of
-scope until a route controller consumes the trajectory.
+scope until a route controller consumes the trajectory. TASK-083 through
+TASK-088 add the current final submission train: an 8.0s live CARLA cached
+Alpamayo replay video, a reasoning/trajectory HTML pack, a two-case live
+scripted OOD campaign, cached Alpamayo batch comparison, a V5 dossier/video
+script, and a stock Fail2Drive full-score host handoff.
+
+## Current Submission Packet
+
+- V5 dossier:
+  `tickets/TASK-087/artifacts/submission-dossier-v5-live/submission_dossier.md`
+- Video script:
+  `tickets/TASK-087/artifacts/submission-dossier-v5-live/video_script.md`
+- Reasoning pack:
+  `tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.html`
+- Live cached Alpamayo replay:
+  `tickets/TASK-083/artifacts/task83-live-cached-replay-video/ood_video_evidence.md`
+- Live generated OOD campaign:
+  `tickets/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.md`
 
 ## Quickstart: End-To-End OOD Demo
 

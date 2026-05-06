@@ -64,6 +64,80 @@ class SubmissionDossierTest(unittest.TestCase):
         self.assertTrue(report_exists)
         self.assertFalse(result["ood_readiness"]["live_policy_result_passed"])
 
+    def test_build_submission_dossier_v5_optional_evidence(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = _write_inputs(root)
+            reasoning = root / "reasoning.json"
+            campaign = root / "campaign.json"
+            batch = root / "batch.json"
+            replay = root / "replay.json"
+            reasoning.write_text(
+                json.dumps(
+                    {
+                        "scenario_id": "scene-1",
+                        "video_path": "scene.mp4",
+                        "html_path": "reasoning.html",
+                        "latency": {"scene_latency_ms": 10.0},
+                        "inputs": {
+                            "ood_video_evidence_path": "ood_video_evidence.json",
+                            "alpamayo_comparison_path": "alpamayo_ood_comparison.json",
+                        },
+                        "claim_boundaries": ["reasoning_pack_is_evidence_surface=true"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            campaign.write_text(
+                json.dumps(
+                    {
+                        "campaign_id": "camp-1",
+                        "status": "passed",
+                        "case_count": 3,
+                        "live_case_count": 2,
+                        "cases": [{"video_path": "case.mp4", "video_evidence_path": "case_video.json"}],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            batch.write_text(
+                json.dumps(
+                    {
+                        "status": "passed",
+                        "mean_latency_ms": 11.0,
+                        "mean_vram_peak_mb": 100.0,
+                        "max_vram_peak_mb": 120.0,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            replay.write_text(json.dumps({"status": "passed", "claim_boundaries": ["cached_alpamayo_replay=true"]}), encoding="utf-8")
+
+            dossier = build_submission_dossier(
+                root / "dossier",
+                ood_suite_manifest_path=paths["ood"],
+                gpu_host_suitability_path=paths["gpu"],
+                reasoning_pack_path=reasoning,
+                campaign_summary_path=campaign,
+                alpamayo_batch_path=batch,
+                cached_replay_path=replay,
+                progress_path=paths["progress"],
+                blockers_path=paths["blockers"],
+            )
+            script_exists = Path(dossier["video_script_path"]).exists()
+
+        self.assertTrue(script_exists)
+        self.assertIn("artifact_checklist", dossier)
+        labels = {item["label"] for item in dossier["artifact_checklist"]}
+        self.assertIn("Live OOD video evidence", labels)
+        self.assertIn("Live OOD MP4", labels)
+        self.assertIn("Alpamayo comparison artifact", labels)
+        self.assertIn("Blocker ledger", labels)
+        self.assertIn("cached_alpamayo_replay=true", dossier["claim_boundaries"])
+        self.assertEqual(dossier["metric_highlights"]["alpamayo_batch_mean_vram_peak_mb"], 100.0)
+        self.assertEqual(dossier["gpu_host"]["overall_state"], "blocked")
+        self.assertEqual(dossier["slide_outline"][1]["title"], "Randomized Scenario Forge")
+
 
 def _write_inputs(root: Path) -> dict[str, Path]:
     ood = root / "ood_suite_manifest.json"
