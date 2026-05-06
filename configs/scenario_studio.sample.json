@@ -1,0 +1,26 @@
+{
+  "scenario_studio": {
+    "seeds_path": "tests/fixtures/fail2drive_like/seeds.json",
+    "catalog_path": "tickets/archive/TASK-097/artifacts/task97-scenario-catalog-hero-v3/scenario_catalog.json",
+    "count_per_prompt": 2,
+    "severity": 4,
+    "random_seed": 17,
+    "provider": "deterministic",
+    "prompts": [
+      "Malaysian wet roadwork: motorbike filters between cars while a lorry brakes without signal",
+      "School-zone occlusion: parked van hides a child crossing while a dropped bag sits near the lane edge",
+      "Flooded urban road: low obstacle blends into water while traffic creeps around cones",
+      "Night rain glare: reflective sign distracts the policy near a lane closure",
+      "Double-parked market street: door-swerve vehicle intrudes while a scooter passes on the shoulder",
+      "Dense Malaysian traffic: wrong-way shoulder creep appears beside roadside food stalls",
+      "Construction merge: no-signal cut-in happens beside cone taper and stalled lorry proxy",
+      "Roadside market occlusion: informal right-of-way push from a side street behind food carts",
+      "Monsoon school zone: scooter filters through fog near an unsignalized crossing",
+      "Visual-noise stress: irrelevant UFO-like billboard appears outside the drivable corridor near debris"
+    ]
+  },
+  "output": {
+    "root": "artifacts/runs",
+    "run_id": "scenario-studio"
+  }
+}

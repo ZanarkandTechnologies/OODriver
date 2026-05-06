@@ -15,6 +15,8 @@ reasoning artifacts, quality gates, and promotion status for submission curation
 - `index_scenario_artifacts(artifact_roots)`
 - `filter_catalog(catalog, query)`
 - `promote_scenario(catalog, scenario_id, decision)`
+- `driverx.scenarios.studio.compile_scenario_prompt(prompt, seed=...)`
+- `driverx.scenarios.studio.generate_studio_batch(config)`
 
 ## Example
 
@@ -25,10 +27,14 @@ PYTHONPATH=src python3 -m driverx forge-scenarios \
 PYTHONPATH=src python3 -m driverx index-scenarios \
   --artifact-root artifacts/runs/scripted-ood-campaign \
   --run-id scenario-catalog
+
+PYTHONPATH=src python3 -m driverx generate-scenario-studio \
+  --config configs/scenario_studio.sample.json \
+  --run-id scenario-studio-v1
 ```
 
 ## Test
 
 ```bash
-PYTHONPATH=src python3 -m unittest tests.test_scenario_forge tests.test_scenario_catalog
+PYTHONPATH=src python3 -m unittest tests.test_scenario_forge tests.test_scenario_catalog tests.test_scenario_studio
 ```

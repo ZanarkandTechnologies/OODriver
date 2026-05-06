@@ -1,7 +1,7 @@
 # TASK-103: AI Scenario Studio Prompt-To-OOD DSL
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-090, TASK-091, TASK-092, TASK-101
@@ -65,7 +65,7 @@ agentic without betting the deadline on custom assets.
   a type.
 - `src/driverx/environments/library.py`: reuse existing environment families.
 - `src/driverx/behaviors/library.py`: reuse existing behavior variants.
-- `configs/scenario_studio.sample.yaml`: prompt batch examples.
+- `configs/scenario_studio.sample.json`: prompt batch examples.
 - Tests: `tests/test_scenario_studio.py`, CLI coverage.
 
 #### Inspect
@@ -205,19 +205,21 @@ memory. See `docs/specs/scenario-studio-data-engine.md`.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: At least 10 natural-language briefs compile into valid studio
+- [x] AC-1: At least 10 natural-language briefs compile into valid studio
   plans.
-- [ ] AC-2: Compiled plans include behavior, environment, assets, memory query,
+- [x] AC-2: Compiled plans include behavior, environment, assets, memory query,
   expected failure, and quality targets.
-- [ ] AC-3: Unknown/unsupported prompts fail with actionable validation errors.
-- [ ] AC-4: Studio batch writes JSON/Markdown suitable for the final browser.
-- [ ] AC-5: Each generated candidate has a curation status, score, gate
+- [x] AC-3: Unknown/unsupported prompts fail with actionable validation errors.
+- [x] AC-4: Studio batch writes JSON/Markdown suitable for the final browser.
+- [x] AC-5: Each generated candidate has a curation status, score, gate
   results, and `next_action` for TASK-102/TASK-104/TASK-105.
 
 ### Verification
 
 - `PYTHONPATH=src python3 -m unittest tests.test_scenario_studio`
-- CLI smoke over `configs/scenario_studio.sample.yaml`
+- `PYTHONPATH=src python3 -m unittest tests.test_scenario_studio tests.test_submission_eval_matrix tests.test_scenario_forge tests.test_environment_generator tests.test_behavior_dsl`
+- `python3 -m compileall -q src tests`
+- CLI smoke over `configs/scenario_studio.sample.json`
 - `bash scripts/pre_push_check.sh`
 
 ### Autonomy Readiness
@@ -231,9 +233,14 @@ memory. See `docs/specs/scenario-studio-data-engine.md`.
 
 - `docs/specs/scenario-studio-data-engine.md`
 - `tickets/TASK-103/artifacts/review/task103-scenario-studio-plan-review.json`
-- `tickets/TASK-103/artifacts/scenario_studio_batch.json`
-- `tickets/TASK-103/artifacts/scenario_studio_gallery.md`
-- validation report and tests
+- `tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json`
+- `tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_gallery.md`
+- `tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_recipes.json`
+- `tickets/TASK-103/artifacts/review/task103-implementation-review.json`
+- validation report and tests:
+  - 10 prompts compiled into 20 generated candidates.
+  - all candidates are marked `accept_partial` until high-fidelity CARLA and
+    Alpamayo+memory evidence promote them.
 
 ### Blockers
 

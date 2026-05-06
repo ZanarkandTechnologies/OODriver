@@ -1,0 +1,124 @@
+{
+  "work_type": ["backend", "evidence", "submission-infrastructure"],
+  "ticket_id": "TASK-103",
+  "reviewed_at": "2026-05-07 04:16 +0800",
+  "search_scope": {
+    "changed_files": [
+      "configs/scenario_studio.sample.json",
+      "src/driverx/scenarios/studio.py",
+      "src/driverx/scenarios/studio_cli.py",
+      "tests/test_scenario_studio.py",
+      "src/driverx/cli_extensions.py",
+      "src/driverx/scenarios/README.md",
+      "configs/README.md",
+      "tickets/TASK-103/ticket.md"
+    ],
+    "related_files": [
+      "docs/specs/scenario-studio-data-engine.md",
+      "src/driverx/environments/library.py",
+      "src/driverx/behaviors/library.py",
+      "src/driverx/scenarios/types.py",
+      "src/driverx/scenarios/catalog.py",
+      "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_gallery.md"
+    ],
+    "commands_checked": [
+      "PYTHONPATH=src python3 -m unittest tests.test_scenario_studio",
+      "PYTHONPATH=src python3 -m unittest tests.test_scenario_studio tests.test_submission_eval_matrix tests.test_scenario_forge tests.test_environment_generator tests.test_behavior_dsl",
+      "python3 -m compileall -q src tests",
+      "bash scripts/pre_push_check.sh"
+    ],
+    "rubric_references": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "integration-readiness.md",
+      "evidence-quality.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality"],
+  "summary": "TASK-103 adds a deterministic Scenario Studio compiler and curation batch over existing DriverX environment and behavior primitives. The implementation is localized, evidence is replayable, and claim boundaries correctly label generated cases as partial until CARLA and Alpamayo evidence promotes them.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "medium",
+      "rubric": "code-quality",
+      "summary": "Prompt classification is deterministic and intentionally simple, so future broadening should add table-driven compiler rules before keyword branches become hard to audit.",
+      "file_refs": ["src/driverx/scenarios/studio.py"],
+      "evidence": [
+        "The current final-sprint prompt set is covered by focused tests and generated artifacts.",
+        "Unsupported prompts are rejected, and claim boundaries avoid overstating provider-backed AI generation."
+      ],
+      "next_action": "When new prompt families are added, promote compiler rules into data tables or pattern objects and add targeted regression tests."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.2,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.2,
+        "error-handling": 4.1,
+        "maintainability": 4.0
+      },
+      "findings": [
+        "The studio module reuses existing scenario, environment, behavior, artifact, and catalog seams instead of forking a parallel generator.",
+        "Provider validation and unsupported prompt rejection keep failure paths explicit."
+      ],
+      "next_action": "Proceed; table-drive compiler rules only if the prompt taxonomy grows."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.3,
+        "contract-correctness": 4.2,
+        "dependency-readiness": 4.3,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.2
+      },
+      "findings": [
+        "The CLI is registered through the existing dynamic extension hub and does not mutate lower-level generator contracts.",
+        "The deterministic path has no live LLM, CARLA, GPU, or credential dependency."
+      ],
+      "next_action": "Advance TASK-103 and feed generated candidates into TASK-102/TASK-104/TASK-105."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.2,
+        "reproducibility": 4.4,
+        "traceability": 4.4,
+        "consistency": 4.2,
+        "inspectability": 4.3,
+        "autonomy-readiness": 4.3
+      },
+      "findings": [
+        "The batch artifact contains 10 plans, 20 candidates, curation records, and explicit claim boundaries.",
+        "The full local pre-push gate passed with 364 tests and 2 skips."
+      ],
+      "next_action": "Use the generated gallery and JSON batch as the Scenario Studio evidence source for the final submission sprint."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Commit TASK-103, then continue to TASK-105 or TASK-104 depending on whether the next pass is local-only or model-evidence-focused."
+}

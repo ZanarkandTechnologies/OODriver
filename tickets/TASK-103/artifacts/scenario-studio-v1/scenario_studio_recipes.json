@@ -1,0 +1,2170 @@
+[
+  {
+    "recipe_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between-v00",
+    "parent_seed_id": "Base_Animals_0076",
+    "mutation": "visual_noise",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_motorcycle_filtering",
+        "kind": "motorcycle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "motorcycle_filtering",
+        "expected_pressure": "Fast two-wheeler filters between lanes with lateral weave."
+      },
+      {
+        "actor_id": "environment_asset_construction-cone-line",
+        "kind": "static_asset",
+        "asset_id": "construction-cone-line",
+        "role": "lane_boundary",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 14.322,
+          "y_m": 2.28,
+          "yaw_deg": 4.167
+        }
+      },
+      {
+        "actor_id": "environment_asset_portable-work-barrier",
+        "kind": "static_asset",
+        "asset_id": "portable-work-barrier",
+        "role": "partial_blocker",
+        "placement": {
+          "relative_to": "lane_center",
+          "x_m": 26.756,
+          "y_m": 0.302,
+          "yaw_deg": 11.339
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between",
+      "environment_template_id": "construction_lane_closure",
+      "behavior_id": "motorcycle_filtering",
+      "behavior_tags": [
+        "filtering",
+        "lateral_uncertainty",
+        "motorcycle",
+        "severity_4",
+        "variant_17"
+      ],
+      "asset_tags": [
+        "debris",
+        "lorry_proxy",
+        "road_cones",
+        "work_barrier"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-construction-lane-closure-s4-0017",
+      "environment_family": "construction",
+      "environment_tags": [
+        "cones",
+        "construction",
+        "lane_closure",
+        "severity_4",
+        "work_zone"
+      ],
+      "weather": {
+        "cloudiness": 33.0,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 45.0,
+        "sun_azimuth_angle": 10.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.55,
+        "density_multiplier": 0.8
+      },
+      "generated_asset_ids": [
+        "construction-cone-line",
+        "portable-work-barrier"
+      ],
+      "meshy_prompts": [
+        "game-ready Malaysian roadwork barrier with reflective strips, low-poly GLB",
+        "cluster of worn construction cones with dirt and tropical road grime, GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `construction_lane_closure` while handling `motorcycle_filtering`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Slow down, bias away from closure, and avoid overreacting to cones outside the drivable corridor.",
+    "memory_query": [
+      "construction",
+      "malaysian_driving",
+      "motorcycle_filtering",
+      "roadwork",
+      "sudden_brake",
+      "visual_noise",
+      "wet_road",
+      "cones",
+      "construction",
+      "lane_closure",
+      "severity_4",
+      "work_zone"
+    ],
+    "solvability_assumption": "Safe behavior: slow early, keep lateral buffer, and avoid squeezing two-wheelers",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml"
+  },
+  {
+    "recipe_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between-v01",
+    "parent_seed_id": "Generalization_PedestriansOnRoad_1088",
+    "mutation": "visual_noise",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_motorcycle_filtering",
+        "kind": "motorcycle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "motorcycle_filtering",
+        "expected_pressure": "Fast two-wheeler filters between lanes with lateral weave."
+      },
+      {
+        "actor_id": "environment_asset_construction-cone-line",
+        "kind": "static_asset",
+        "asset_id": "construction-cone-line",
+        "role": "lane_boundary",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 11.397,
+          "y_m": 0.412,
+          "yaw_deg": 13.96
+        }
+      },
+      {
+        "actor_id": "environment_asset_portable-work-barrier",
+        "kind": "static_asset",
+        "asset_id": "portable-work-barrier",
+        "role": "partial_blocker",
+        "placement": {
+          "relative_to": "lane_center",
+          "x_m": 20.822,
+          "y_m": 0.924,
+          "yaw_deg": 3.467
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between",
+      "environment_template_id": "construction_lane_closure",
+      "behavior_id": "motorcycle_filtering",
+      "behavior_tags": [
+        "filtering",
+        "lateral_uncertainty",
+        "motorcycle",
+        "severity_4",
+        "variant_18"
+      ],
+      "asset_tags": [
+        "debris",
+        "lorry_proxy",
+        "road_cones",
+        "work_barrier"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-construction-lane-closure-s4-0018",
+      "environment_family": "construction",
+      "environment_tags": [
+        "cones",
+        "construction",
+        "lane_closure",
+        "severity_4",
+        "work_zone"
+      ],
+      "weather": {
+        "cloudiness": 33.0,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 45.0,
+        "sun_azimuth_angle": 10.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.55,
+        "density_multiplier": 0.8
+      },
+      "generated_asset_ids": [
+        "construction-cone-line",
+        "portable-work-barrier"
+      ],
+      "meshy_prompts": [
+        "game-ready Malaysian roadwork barrier with reflective strips, low-poly GLB",
+        "cluster of worn construction cones with dirt and tropical road grime, GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `construction_lane_closure` while handling `motorcycle_filtering`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Slow down, bias away from closure, and avoid overreacting to cones outside the drivable corridor.",
+    "memory_query": [
+      "construction",
+      "malaysian_driving",
+      "motorcycle_filtering",
+      "roadwork",
+      "sudden_brake",
+      "visual_noise",
+      "wet_road",
+      "cones",
+      "construction",
+      "lane_closure",
+      "severity_4",
+      "work_zone"
+    ],
+    "solvability_assumption": "Safe behavior: slow early, keep lateral buffer, and avoid squeezing two-wheelers",
+    "route_path": "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+  },
+  {
+    "recipe_id": "studio-0018-school-zone-occlusion-parked-van-hides-a-child-c-v00",
+    "parent_seed_id": "Base_Animals_0076",
+    "mutation": "occlusion",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_no_signal_cut_in",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "no_signal_cut_in",
+        "expected_pressure": "Actor cuts across lane without indicator or sufficient gap."
+      },
+      {
+        "actor_id": "environment_asset_school-crossing-board",
+        "kind": "static_asset",
+        "asset_id": "school-crossing-board",
+        "role": "yield_context",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 13.377,
+          "y_m": -4.992,
+          "yaw_deg": -3.558
+        }
+      },
+      {
+        "actor_id": "environment_asset_parked-van-occluder",
+        "kind": "static_asset",
+        "asset_id": "parked-van-occluder",
+        "role": "occluder",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 17.836,
+          "y_m": -2.99,
+          "yaw_deg": -3.121
+        }
+      },
+      {
+        "actor_id": "environment_asset_loose-school-bag",
+        "kind": "static_asset",
+        "asset_id": "loose-school-bag",
+        "role": "small_unknown_object",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 24.815,
+          "y_m": 0.343,
+          "yaw_deg": 7.579
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0018-school-zone-occlusion-parked-van-hides-a-child-c",
+      "environment_template_id": "school_zone_unstructured_crossing",
+      "behavior_id": "no_signal_cut_in",
+      "behavior_tags": [
+        "cut_in",
+        "lateral_aggression",
+        "no_signal",
+        "severity_4",
+        "variant_117"
+      ],
+      "asset_tags": [
+        "dropped_school_bag",
+        "parked_van",
+        "school_crossing_board"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-school-zone-unstructured-crossing-s4-0117",
+      "environment_family": "pedestrian_occlusion",
+      "environment_tags": [
+        "malaysian_driving",
+        "pedestrian_occlusion",
+        "regional_context",
+        "school_zone",
+        "severity_4",
+        "unsignalized_crossing"
+      ],
+      "weather": {
+        "cloudiness": 44.0,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 32.0,
+        "sun_azimuth_angle": 80.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.38,
+        "density_multiplier": 1.25,
+        "yield_pressure": "high"
+      },
+      "generated_asset_ids": [
+        "school-crossing-board",
+        "parked-van-occluder",
+        "loose-school-bag"
+      ],
+      "meshy_prompts": [
+        "temporary Malaysian school crossing board with reflective paint, game-ready GLB",
+        "parked delivery van occluding a crosswalk in a tropical street, low-poly GLB",
+        "small dropped school bag at road edge, game-ready GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `school_zone_unstructured_crossing` while handling `no_signal_cut_in`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Anticipate a hidden pedestrian near the crossing, slow early, and avoid swerving toward the dropped object.",
+    "memory_query": [
+      "no_signal_cut_in",
+      "occlusion",
+      "pedestrian_occlusion",
+      "school_zone",
+      "malaysian_driving",
+      "pedestrian_occlusion",
+      "regional_context",
+      "school_zone",
+      "severity_4",
+      "unsignalized_crossing"
+    ],
+    "solvability_assumption": "Safe behavior: creep around occlusion and yield before the hidden crossing point",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml"
+  },
+  {
+    "recipe_id": "studio-0018-school-zone-occlusion-parked-van-hides-a-child-c-v01",
+    "parent_seed_id": "Generalization_PedestriansOnRoad_1088",
+    "mutation": "occlusion",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_no_signal_cut_in",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "no_signal_cut_in",
+        "expected_pressure": "Actor cuts across lane without indicator or sufficient gap."
+      },
+      {
+        "actor_id": "environment_asset_school-crossing-board",
+        "kind": "static_asset",
+        "asset_id": "school-crossing-board",
+        "role": "yield_context",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 15.55,
+          "y_m": -4.344,
+          "yaw_deg": 6.626
+        }
+      },
+      {
+        "actor_id": "environment_asset_parked-van-occluder",
+        "kind": "static_asset",
+        "asset_id": "parked-van-occluder",
+        "role": "occluder",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 23.613,
+          "y_m": -4.751,
+          "yaw_deg": 6.064
+        }
+      },
+      {
+        "actor_id": "environment_asset_loose-school-bag",
+        "kind": "static_asset",
+        "asset_id": "loose-school-bag",
+        "role": "small_unknown_object",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 25.065,
+          "y_m": 0.341,
+          "yaw_deg": 13.218
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0018-school-zone-occlusion-parked-van-hides-a-child-c",
+      "environment_template_id": "school_zone_unstructured_crossing",
+      "behavior_id": "no_signal_cut_in",
+      "behavior_tags": [
+        "cut_in",
+        "lateral_aggression",
+        "no_signal",
+        "severity_4",
+        "variant_118"
+      ],
+      "asset_tags": [
+        "dropped_school_bag",
+        "parked_van",
+        "school_crossing_board"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-school-zone-unstructured-crossing-s4-0118",
+      "environment_family": "pedestrian_occlusion",
+      "environment_tags": [
+        "malaysian_driving",
+        "pedestrian_occlusion",
+        "regional_context",
+        "school_zone",
+        "severity_4",
+        "unsignalized_crossing"
+      ],
+      "weather": {
+        "cloudiness": 44.0,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 32.0,
+        "sun_azimuth_angle": 80.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.38,
+        "density_multiplier": 1.25,
+        "yield_pressure": "high"
+      },
+      "generated_asset_ids": [
+        "school-crossing-board",
+        "parked-van-occluder",
+        "loose-school-bag"
+      ],
+      "meshy_prompts": [
+        "temporary Malaysian school crossing board with reflective paint, game-ready GLB",
+        "parked delivery van occluding a crosswalk in a tropical street, low-poly GLB",
+        "small dropped school bag at road edge, game-ready GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `school_zone_unstructured_crossing` while handling `no_signal_cut_in`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Anticipate a hidden pedestrian near the crossing, slow early, and avoid swerving toward the dropped object.",
+    "memory_query": [
+      "no_signal_cut_in",
+      "occlusion",
+      "pedestrian_occlusion",
+      "school_zone",
+      "malaysian_driving",
+      "pedestrian_occlusion",
+      "regional_context",
+      "school_zone",
+      "severity_4",
+      "unsignalized_crossing"
+    ],
+    "solvability_assumption": "Safe behavior: creep around occlusion and yield before the hidden crossing point",
+    "route_path": "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+  },
+  {
+    "recipe_id": "studio-0019-flooded-urban-road-low-obstacle-blends-into-wate-v00",
+    "parent_seed_id": "Base_Animals_0076",
+    "mutation": "obstacle_substitution",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_informal_right_of_way_push",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "informal_right_of_way_push",
+        "expected_pressure": "Actor slowly pushes into a conflict zone instead of yielding."
+      },
+      {
+        "actor_id": "environment_asset_reflective-flood-barrier",
+        "kind": "static_asset",
+        "asset_id": "reflective-flood-barrier",
+        "role": "route_warning",
+        "placement": {
+          "relative_to": "lane_center",
+          "x_m": 18.995,
+          "y_m": 0.508,
+          "yaw_deg": 3.02
+        }
+      },
+      {
+        "actor_id": "environment_asset_waterlogged-cargo-sack",
+        "kind": "static_asset",
+        "asset_id": "waterlogged-cargo-sack",
+        "role": "low_obstacle",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 23.902,
+          "y_m": -0.399,
+          "yaw_deg": -12.01
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0019-flooded-urban-road-low-obstacle-blends-into-wate",
+      "environment_template_id": "flooded_road",
+      "behavior_id": "informal_right_of_way_push",
+      "behavior_tags": [
+        "assertive_gap",
+        "creep",
+        "right_of_way",
+        "severity_4",
+        "variant_217"
+      ],
+      "asset_tags": [
+        "flood_barrier",
+        "low_obstacle",
+        "waterlogged_debris"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-flooded-road-s4-0217",
+      "environment_family": "weather_surface",
+      "environment_tags": [
+        "flood",
+        "reduced_friction",
+        "severity_4",
+        "weather",
+        "wet_road"
+      ],
+      "weather": {
+        "cloudiness": 93.5,
+        "precipitation": 88.0,
+        "precipitation_deposits": 99.0,
+        "fog_density": 8.8
+      },
+      "lighting": {
+        "sun_altitude_angle": 18.0,
+        "sun_azimuth_angle": 45.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.45,
+        "density_multiplier": 0.7
+      },
+      "generated_asset_ids": [
+        "reflective-flood-barrier",
+        "waterlogged-cargo-sack"
+      ],
+      "meshy_prompts": [
+        "reflective flood barrier on wet tropical road, low-poly GLB",
+        "waterlogged cargo sack half submerged in shallow road water, GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `flooded_road` while handling `informal_right_of_way_push`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Reduce speed for wet surface and route around low-profile waterlogged obstacles.",
+    "memory_query": [
+      "flood",
+      "informal_right_of_way_push",
+      "obstacle_substitution",
+      "weather_surface",
+      "flood",
+      "reduced_friction",
+      "severity_4",
+      "weather",
+      "wet_road"
+    ],
+    "solvability_assumption": "Safe behavior: reduce speed, avoid low obstacles, and preserve a dry bypass when available",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml"
+  },
+  {
+    "recipe_id": "studio-0019-flooded-urban-road-low-obstacle-blends-into-wate-v01",
+    "parent_seed_id": "Generalization_PedestriansOnRoad_1088",
+    "mutation": "obstacle_substitution",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_informal_right_of_way_push",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "informal_right_of_way_push",
+        "expected_pressure": "Actor slowly pushes into a conflict zone instead of yielding."
+      },
+      {
+        "actor_id": "environment_asset_reflective-flood-barrier",
+        "kind": "static_asset",
+        "asset_id": "reflective-flood-barrier",
+        "role": "route_warning",
+        "placement": {
+          "relative_to": "lane_center",
+          "x_m": 16.883,
+          "y_m": -0.532,
+          "yaw_deg": -0.722
+        }
+      },
+      {
+        "actor_id": "environment_asset_waterlogged-cargo-sack",
+        "kind": "static_asset",
+        "asset_id": "waterlogged-cargo-sack",
+        "role": "low_obstacle",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 24.666,
+          "y_m": 0.42,
+          "yaw_deg": -8.811
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0019-flooded-urban-road-low-obstacle-blends-into-wate",
+      "environment_template_id": "flooded_road",
+      "behavior_id": "informal_right_of_way_push",
+      "behavior_tags": [
+        "assertive_gap",
+        "creep",
+        "right_of_way",
+        "severity_4",
+        "variant_218"
+      ],
+      "asset_tags": [
+        "flood_barrier",
+        "low_obstacle",
+        "waterlogged_debris"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-flooded-road-s4-0218",
+      "environment_family": "weather_surface",
+      "environment_tags": [
+        "flood",
+        "reduced_friction",
+        "severity_4",
+        "weather",
+        "wet_road"
+      ],
+      "weather": {
+        "cloudiness": 93.5,
+        "precipitation": 88.0,
+        "precipitation_deposits": 99.0,
+        "fog_density": 8.8
+      },
+      "lighting": {
+        "sun_altitude_angle": 18.0,
+        "sun_azimuth_angle": 45.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.45,
+        "density_multiplier": 0.7
+      },
+      "generated_asset_ids": [
+        "reflective-flood-barrier",
+        "waterlogged-cargo-sack"
+      ],
+      "meshy_prompts": [
+        "reflective flood barrier on wet tropical road, low-poly GLB",
+        "waterlogged cargo sack half submerged in shallow road water, GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `flooded_road` while handling `informal_right_of_way_push`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Reduce speed for wet surface and route around low-profile waterlogged obstacles.",
+    "memory_query": [
+      "flood",
+      "informal_right_of_way_push",
+      "obstacle_substitution",
+      "weather_surface",
+      "flood",
+      "reduced_friction",
+      "severity_4",
+      "weather",
+      "wet_road"
+    ],
+    "solvability_assumption": "Safe behavior: reduce speed, avoid low obstacles, and preserve a dry bypass when available",
+    "route_path": "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+  },
+  {
+    "recipe_id": "studio-0020-night-rain-glare-reflective-sign-distracts-the-p-v00",
+    "parent_seed_id": "Base_Animals_0076",
+    "mutation": "visual_noise",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_no_signal_cut_in",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "no_signal_cut_in",
+        "expected_pressure": "Actor cuts across lane without indicator or sufficient gap."
+      },
+      {
+        "actor_id": "environment_asset_glare-warning-board",
+        "kind": "static_asset",
+        "asset_id": "glare-warning-board",
+        "role": "visual_distractor",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 21.945,
+          "y_m": -3.677,
+          "yaw_deg": -27.288
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0020-night-rain-glare-reflective-sign-distracts-the-p",
+      "environment_template_id": "night_rain_fog",
+      "behavior_id": "no_signal_cut_in",
+      "behavior_tags": [
+        "cut_in",
+        "lateral_aggression",
+        "no_signal",
+        "severity_4",
+        "variant_317"
+      ],
+      "asset_tags": [
+        "glare_artifact",
+        "reflective_sign"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-night-rain-fog-s4-0317",
+      "environment_family": "visibility",
+      "environment_tags": [
+        "fog",
+        "glare",
+        "night",
+        "rain",
+        "severity_4",
+        "visibility"
+      ],
+      "weather": {
+        "cloudiness": 100.0,
+        "precipitation": 71.5,
+        "precipitation_deposits": 77.0,
+        "fog_density": 49.5
+      },
+      "lighting": {
+        "sun_altitude_angle": -12.0,
+        "sun_azimuth_angle": 0.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.5,
+        "density_multiplier": 0.9
+      },
+      "generated_asset_ids": [
+        "glare-warning-board"
+      ],
+      "meshy_prompts": [
+        "reflective warning board glowing in tropical rain at night, game-ready GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `night_rain_fog` while handling `no_signal_cut_in`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Maintain lane discipline despite glare and avoid treating reflective clutter as a drivable target.",
+    "memory_query": [
+      "glare",
+      "night",
+      "no_signal_cut_in",
+      "rain",
+      "visibility",
+      "visual_noise",
+      "fog",
+      "glare",
+      "night",
+      "rain",
+      "severity_4",
+      "visibility"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml"
+  },
+  {
+    "recipe_id": "studio-0020-night-rain-glare-reflective-sign-distracts-the-p-v01",
+    "parent_seed_id": "Generalization_PedestriansOnRoad_1088",
+    "mutation": "visual_noise",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_no_signal_cut_in",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "no_signal_cut_in",
+        "expected_pressure": "Actor cuts across lane without indicator or sufficient gap."
+      },
+      {
+        "actor_id": "environment_asset_glare-warning-board",
+        "kind": "static_asset",
+        "asset_id": "glare-warning-board",
+        "role": "visual_distractor",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 25.112,
+          "y_m": -5.111,
+          "yaw_deg": -0.018
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0020-night-rain-glare-reflective-sign-distracts-the-p",
+      "environment_template_id": "night_rain_fog",
+      "behavior_id": "no_signal_cut_in",
+      "behavior_tags": [
+        "cut_in",
+        "lateral_aggression",
+        "no_signal",
+        "severity_4",
+        "variant_318"
+      ],
+      "asset_tags": [
+        "glare_artifact",
+        "reflective_sign"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-night-rain-fog-s4-0318",
+      "environment_family": "visibility",
+      "environment_tags": [
+        "fog",
+        "glare",
+        "night",
+        "rain",
+        "severity_4",
+        "visibility"
+      ],
+      "weather": {
+        "cloudiness": 100.0,
+        "precipitation": 71.5,
+        "precipitation_deposits": 77.0,
+        "fog_density": 49.5
+      },
+      "lighting": {
+        "sun_altitude_angle": -12.0,
+        "sun_azimuth_angle": 0.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.5,
+        "density_multiplier": 0.9
+      },
+      "generated_asset_ids": [
+        "glare-warning-board"
+      ],
+      "meshy_prompts": [
+        "reflective warning board glowing in tropical rain at night, game-ready GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `night_rain_fog` while handling `no_signal_cut_in`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Maintain lane discipline despite glare and avoid treating reflective clutter as a drivable target.",
+    "memory_query": [
+      "glare",
+      "night",
+      "no_signal_cut_in",
+      "rain",
+      "visibility",
+      "visual_noise",
+      "fog",
+      "glare",
+      "night",
+      "rain",
+      "severity_4",
+      "visibility"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+  },
+  {
+    "recipe_id": "studio-0021-double-parked-market-street-door-swerve-vehicle--v00",
+    "parent_seed_id": "Base_Animals_0076",
+    "mutation": "obstacle_substitution",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_double_parked_door_swerve",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "double_parked_door_swerve",
+        "expected_pressure": "Double-parked actor abruptly intrudes into lane as if avoiding an opening door."
+      },
+      {
+        "actor_id": "environment_asset_roadside-food-cart",
+        "kind": "static_asset",
+        "asset_id": "roadside-food-cart",
+        "role": "occluder",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 17.391,
+          "y_m": -4.867,
+          "yaw_deg": 2.339
+        }
+      },
+      {
+        "actor_id": "environment_asset_market-plastic-crates",
+        "kind": "static_asset",
+        "asset_id": "market-plastic-crates",
+        "role": "distractor_clutter",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 16.265,
+          "y_m": -4.21,
+          "yaw_deg": 25.859
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0021-double-parked-market-street-door-swerve-vehicle-",
+      "environment_template_id": "roadside_market_occlusion",
+      "behavior_id": "double_parked_door_swerve",
+      "behavior_tags": [
+        "door_open",
+        "double_parked",
+        "severity_4",
+        "sudden_swerve",
+        "urban_clutter",
+        "variant_417"
+      ],
+      "asset_tags": [
+        "food_cart",
+        "market_crates",
+        "shoulder_clutter"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-roadside-market-occlusion-s4-0417",
+      "environment_family": "regional_market",
+      "environment_tags": [
+        "malaysian_driving",
+        "occlusion",
+        "regional_context",
+        "roadside_market",
+        "severity_4"
+      ],
+      "weather": {
+        "cloudiness": 49.5,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 35.0,
+        "sun_azimuth_angle": 25.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.65,
+        "density_multiplier": 1.35
+      },
+      "generated_asset_ids": [
+        "roadside-food-cart",
+        "market-plastic-crates"
+      ],
+      "meshy_prompts": [
+        "Malaysian roadside nasi lemak food cart with umbrella, game-ready GLB",
+        "stacked plastic market crates and sacks on road shoulder, low-poly GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `roadside_market_occlusion` while handling `double_parked_door_swerve`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Creep around occlusion and preserve clearance around shoulder clutter.",
+    "memory_query": [
+      "double_parked_door_swerve",
+      "motorcycle_filtering",
+      "obstacle_substitution",
+      "regional_market",
+      "roadside_market",
+      "malaysian_driving",
+      "occlusion",
+      "regional_context",
+      "roadside_market",
+      "severity_4"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml"
+  },
+  {
+    "recipe_id": "studio-0021-double-parked-market-street-door-swerve-vehicle--v01",
+    "parent_seed_id": "Generalization_PedestriansOnRoad_1088",
+    "mutation": "obstacle_substitution",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_double_parked_door_swerve",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "double_parked_door_swerve",
+        "expected_pressure": "Double-parked actor abruptly intrudes into lane as if avoiding an opening door."
+      },
+      {
+        "actor_id": "environment_asset_roadside-food-cart",
+        "kind": "static_asset",
+        "asset_id": "roadside-food-cart",
+        "role": "occluder",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 17.14,
+          "y_m": -4.152,
+          "yaw_deg": -3.153
+        }
+      },
+      {
+        "actor_id": "environment_asset_market-plastic-crates",
+        "kind": "static_asset",
+        "asset_id": "market-plastic-crates",
+        "role": "distractor_clutter",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 19.124,
+          "y_m": -2.665,
+          "yaw_deg": -2.998
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0021-double-parked-market-street-door-swerve-vehicle-",
+      "environment_template_id": "roadside_market_occlusion",
+      "behavior_id": "double_parked_door_swerve",
+      "behavior_tags": [
+        "door_open",
+        "double_parked",
+        "severity_4",
+        "sudden_swerve",
+        "urban_clutter",
+        "variant_418"
+      ],
+      "asset_tags": [
+        "food_cart",
+        "market_crates",
+        "shoulder_clutter"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-roadside-market-occlusion-s4-0418",
+      "environment_family": "regional_market",
+      "environment_tags": [
+        "malaysian_driving",
+        "occlusion",
+        "regional_context",
+        "roadside_market",
+        "severity_4"
+      ],
+      "weather": {
+        "cloudiness": 49.5,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 35.0,
+        "sun_azimuth_angle": 25.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.65,
+        "density_multiplier": 1.35
+      },
+      "generated_asset_ids": [
+        "roadside-food-cart",
+        "market-plastic-crates"
+      ],
+      "meshy_prompts": [
+        "Malaysian roadside nasi lemak food cart with umbrella, game-ready GLB",
+        "stacked plastic market crates and sacks on road shoulder, low-poly GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `roadside_market_occlusion` while handling `double_parked_door_swerve`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Creep around occlusion and preserve clearance around shoulder clutter.",
+    "memory_query": [
+      "double_parked_door_swerve",
+      "motorcycle_filtering",
+      "obstacle_substitution",
+      "regional_market",
+      "roadside_market",
+      "malaysian_driving",
+      "occlusion",
+      "regional_context",
+      "roadside_market",
+      "severity_4"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+  },
+  {
+    "recipe_id": "studio-0022-dense-malaysian-traffic-wrong-way-shoulder-creep-v00",
+    "parent_seed_id": "Base_Animals_0076",
+    "mutation": "regional_driving_behavior",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_wrong_way_shoulder_creep",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "wrong_way_shoulder_creep",
+        "expected_pressure": "Actor creeps against route direction along the shoulder."
+      },
+      {
+        "actor_id": "environment_asset_roadside-food-cart",
+        "kind": "static_asset",
+        "asset_id": "roadside-food-cart",
+        "role": "occluder",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 15.464,
+          "y_m": -3.662,
+          "yaw_deg": -8.565
+        }
+      },
+      {
+        "actor_id": "environment_asset_market-plastic-crates",
+        "kind": "static_asset",
+        "asset_id": "market-plastic-crates",
+        "role": "distractor_clutter",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 21.015,
+          "y_m": -3.232,
+          "yaw_deg": 25.967
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0022-dense-malaysian-traffic-wrong-way-shoulder-creep",
+      "environment_template_id": "roadside_market_occlusion",
+      "behavior_id": "wrong_way_shoulder_creep",
+      "behavior_tags": [
+        "creep",
+        "severity_4",
+        "shoulder",
+        "variant_517",
+        "wrong_way"
+      ],
+      "asset_tags": [
+        "food_cart",
+        "market_crates",
+        "shoulder_clutter"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-roadside-market-occlusion-s4-0517",
+      "environment_family": "regional_market",
+      "environment_tags": [
+        "malaysian_driving",
+        "occlusion",
+        "regional_context",
+        "roadside_market",
+        "severity_4"
+      ],
+      "weather": {
+        "cloudiness": 49.5,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 35.0,
+        "sun_azimuth_angle": 25.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.65,
+        "density_multiplier": 1.35
+      },
+      "generated_asset_ids": [
+        "roadside-food-cart",
+        "market-plastic-crates"
+      ],
+      "meshy_prompts": [
+        "Malaysian roadside nasi lemak food cart with umbrella, game-ready GLB",
+        "stacked plastic market crates and sacks on road shoulder, low-poly GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `roadside_market_occlusion` while handling `wrong_way_shoulder_creep`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Creep around occlusion and preserve clearance around shoulder clutter.",
+    "memory_query": [
+      "malaysian_driving",
+      "regional_driving_behavior",
+      "regional_market",
+      "wrong_way",
+      "wrong_way_shoulder_creep",
+      "malaysian_driving",
+      "occlusion",
+      "regional_context",
+      "roadside_market",
+      "severity_4"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml"
+  },
+  {
+    "recipe_id": "studio-0022-dense-malaysian-traffic-wrong-way-shoulder-creep-v01",
+    "parent_seed_id": "Generalization_PedestriansOnRoad_1088",
+    "mutation": "regional_driving_behavior",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_wrong_way_shoulder_creep",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "wrong_way_shoulder_creep",
+        "expected_pressure": "Actor creeps against route direction along the shoulder."
+      },
+      {
+        "actor_id": "environment_asset_roadside-food-cart",
+        "kind": "static_asset",
+        "asset_id": "roadside-food-cart",
+        "role": "occluder",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 15.859,
+          "y_m": -4.594,
+          "yaw_deg": 10.065
+        }
+      },
+      {
+        "actor_id": "environment_asset_market-plastic-crates",
+        "kind": "static_asset",
+        "asset_id": "market-plastic-crates",
+        "role": "distractor_clutter",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 16.383,
+          "y_m": -2.541,
+          "yaw_deg": -1.069
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0022-dense-malaysian-traffic-wrong-way-shoulder-creep",
+      "environment_template_id": "roadside_market_occlusion",
+      "behavior_id": "wrong_way_shoulder_creep",
+      "behavior_tags": [
+        "creep",
+        "severity_4",
+        "shoulder",
+        "variant_518",
+        "wrong_way"
+      ],
+      "asset_tags": [
+        "food_cart",
+        "market_crates",
+        "shoulder_clutter"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-roadside-market-occlusion-s4-0518",
+      "environment_family": "regional_market",
+      "environment_tags": [
+        "malaysian_driving",
+        "occlusion",
+        "regional_context",
+        "roadside_market",
+        "severity_4"
+      ],
+      "weather": {
+        "cloudiness": 49.5,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 35.0,
+        "sun_azimuth_angle": 25.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.65,
+        "density_multiplier": 1.35
+      },
+      "generated_asset_ids": [
+        "roadside-food-cart",
+        "market-plastic-crates"
+      ],
+      "meshy_prompts": [
+        "Malaysian roadside nasi lemak food cart with umbrella, game-ready GLB",
+        "stacked plastic market crates and sacks on road shoulder, low-poly GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `roadside_market_occlusion` while handling `wrong_way_shoulder_creep`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Creep around occlusion and preserve clearance around shoulder clutter.",
+    "memory_query": [
+      "malaysian_driving",
+      "regional_driving_behavior",
+      "regional_market",
+      "wrong_way",
+      "wrong_way_shoulder_creep",
+      "malaysian_driving",
+      "occlusion",
+      "regional_context",
+      "roadside_market",
+      "severity_4"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+  },
+  {
+    "recipe_id": "studio-0023-construction-merge-no-signal-cut-in-happens-besi-v00",
+    "parent_seed_id": "Base_Animals_0076",
+    "mutation": "visual_noise",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_no_signal_cut_in",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "no_signal_cut_in",
+        "expected_pressure": "Actor cuts across lane without indicator or sufficient gap."
+      },
+      {
+        "actor_id": "environment_asset_construction-cone-line",
+        "kind": "static_asset",
+        "asset_id": "construction-cone-line",
+        "role": "lane_boundary",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 16.87,
+          "y_m": 1.741,
+          "yaw_deg": -5.648
+        }
+      },
+      {
+        "actor_id": "environment_asset_portable-work-barrier",
+        "kind": "static_asset",
+        "asset_id": "portable-work-barrier",
+        "role": "partial_blocker",
+        "placement": {
+          "relative_to": "lane_center",
+          "x_m": 26.673,
+          "y_m": 1.736,
+          "yaw_deg": 22.125
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0023-construction-merge-no-signal-cut-in-happens-besi",
+      "environment_template_id": "construction_lane_closure",
+      "behavior_id": "no_signal_cut_in",
+      "behavior_tags": [
+        "cut_in",
+        "lateral_aggression",
+        "no_signal",
+        "severity_4",
+        "variant_617"
+      ],
+      "asset_tags": [
+        "debris",
+        "lorry_proxy",
+        "road_cones",
+        "work_barrier"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-construction-lane-closure-s4-0617",
+      "environment_family": "construction",
+      "environment_tags": [
+        "cones",
+        "construction",
+        "lane_closure",
+        "severity_4",
+        "work_zone"
+      ],
+      "weather": {
+        "cloudiness": 33.0,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 45.0,
+        "sun_azimuth_angle": 10.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.55,
+        "density_multiplier": 0.8
+      },
+      "generated_asset_ids": [
+        "construction-cone-line",
+        "portable-work-barrier"
+      ],
+      "meshy_prompts": [
+        "game-ready Malaysian roadwork barrier with reflective strips, low-poly GLB",
+        "cluster of worn construction cones with dirt and tropical road grime, GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `construction_lane_closure` while handling `no_signal_cut_in`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Slow down, bias away from closure, and avoid overreacting to cones outside the drivable corridor.",
+    "memory_query": [
+      "construction",
+      "no_signal_cut_in",
+      "visual_noise",
+      "cones",
+      "construction",
+      "lane_closure",
+      "severity_4",
+      "work_zone"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml"
+  },
+  {
+    "recipe_id": "studio-0023-construction-merge-no-signal-cut-in-happens-besi-v01",
+    "parent_seed_id": "Generalization_PedestriansOnRoad_1088",
+    "mutation": "visual_noise",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_no_signal_cut_in",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "no_signal_cut_in",
+        "expected_pressure": "Actor cuts across lane without indicator or sufficient gap."
+      },
+      {
+        "actor_id": "environment_asset_construction-cone-line",
+        "kind": "static_asset",
+        "asset_id": "construction-cone-line",
+        "role": "lane_boundary",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 17.099,
+          "y_m": 1.036,
+          "yaw_deg": 14.166
+        }
+      },
+      {
+        "actor_id": "environment_asset_portable-work-barrier",
+        "kind": "static_asset",
+        "asset_id": "portable-work-barrier",
+        "role": "partial_blocker",
+        "placement": {
+          "relative_to": "lane_center",
+          "x_m": 22.527,
+          "y_m": 0.369,
+          "yaw_deg": 16.75
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0023-construction-merge-no-signal-cut-in-happens-besi",
+      "environment_template_id": "construction_lane_closure",
+      "behavior_id": "no_signal_cut_in",
+      "behavior_tags": [
+        "cut_in",
+        "lateral_aggression",
+        "no_signal",
+        "severity_4",
+        "variant_618"
+      ],
+      "asset_tags": [
+        "debris",
+        "lorry_proxy",
+        "road_cones",
+        "work_barrier"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-construction-lane-closure-s4-0618",
+      "environment_family": "construction",
+      "environment_tags": [
+        "cones",
+        "construction",
+        "lane_closure",
+        "severity_4",
+        "work_zone"
+      ],
+      "weather": {
+        "cloudiness": 33.0,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 45.0,
+        "sun_azimuth_angle": 10.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.55,
+        "density_multiplier": 0.8
+      },
+      "generated_asset_ids": [
+        "construction-cone-line",
+        "portable-work-barrier"
+      ],
+      "meshy_prompts": [
+        "game-ready Malaysian roadwork barrier with reflective strips, low-poly GLB",
+        "cluster of worn construction cones with dirt and tropical road grime, GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `construction_lane_closure` while handling `no_signal_cut_in`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Slow down, bias away from closure, and avoid overreacting to cones outside the drivable corridor.",
+    "memory_query": [
+      "construction",
+      "no_signal_cut_in",
+      "visual_noise",
+      "cones",
+      "construction",
+      "lane_closure",
+      "severity_4",
+      "work_zone"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+  },
+  {
+    "recipe_id": "studio-0024-roadside-market-occlusion-informal-right-of-way--v00",
+    "parent_seed_id": "Base_Animals_0076",
+    "mutation": "occlusion",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_informal_right_of_way_push",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "informal_right_of_way_push",
+        "expected_pressure": "Actor slowly pushes into a conflict zone instead of yielding."
+      },
+      {
+        "actor_id": "environment_asset_roadside-food-cart",
+        "kind": "static_asset",
+        "asset_id": "roadside-food-cart",
+        "role": "occluder",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 14.071,
+          "y_m": -4.745,
+          "yaw_deg": -10.917
+        }
+      },
+      {
+        "actor_id": "environment_asset_market-plastic-crates",
+        "kind": "static_asset",
+        "asset_id": "market-plastic-crates",
+        "role": "distractor_clutter",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 17.351,
+          "y_m": -2.885,
+          "yaw_deg": 19.946
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0024-roadside-market-occlusion-informal-right-of-way-",
+      "environment_template_id": "roadside_market_occlusion",
+      "behavior_id": "informal_right_of_way_push",
+      "behavior_tags": [
+        "assertive_gap",
+        "creep",
+        "right_of_way",
+        "severity_4",
+        "variant_717"
+      ],
+      "asset_tags": [
+        "food_cart",
+        "market_crates",
+        "shoulder_clutter"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-roadside-market-occlusion-s4-0717",
+      "environment_family": "regional_market",
+      "environment_tags": [
+        "malaysian_driving",
+        "occlusion",
+        "regional_context",
+        "roadside_market",
+        "severity_4"
+      ],
+      "weather": {
+        "cloudiness": 49.5,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 35.0,
+        "sun_azimuth_angle": 25.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.65,
+        "density_multiplier": 1.35
+      },
+      "generated_asset_ids": [
+        "roadside-food-cart",
+        "market-plastic-crates"
+      ],
+      "meshy_prompts": [
+        "Malaysian roadside nasi lemak food cart with umbrella, game-ready GLB",
+        "stacked plastic market crates and sacks on road shoulder, low-poly GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `roadside_market_occlusion` while handling `informal_right_of_way_push`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Creep around occlusion and preserve clearance around shoulder clutter.",
+    "memory_query": [
+      "informal_right_of_way_push",
+      "occlusion",
+      "regional_market",
+      "roadside_market",
+      "malaysian_driving",
+      "occlusion",
+      "regional_context",
+      "roadside_market",
+      "severity_4"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml"
+  },
+  {
+    "recipe_id": "studio-0024-roadside-market-occlusion-informal-right-of-way--v01",
+    "parent_seed_id": "Generalization_PedestriansOnRoad_1088",
+    "mutation": "occlusion",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_informal_right_of_way_push",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "informal_right_of_way_push",
+        "expected_pressure": "Actor slowly pushes into a conflict zone instead of yielding."
+      },
+      {
+        "actor_id": "environment_asset_roadside-food-cart",
+        "kind": "static_asset",
+        "asset_id": "roadside-food-cart",
+        "role": "occluder",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 13.646,
+          "y_m": -4.93,
+          "yaw_deg": 1.715
+        }
+      },
+      {
+        "actor_id": "environment_asset_market-plastic-crates",
+        "kind": "static_asset",
+        "asset_id": "market-plastic-crates",
+        "role": "distractor_clutter",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 18.825,
+          "y_m": -4.003,
+          "yaw_deg": 4.87
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0024-roadside-market-occlusion-informal-right-of-way-",
+      "environment_template_id": "roadside_market_occlusion",
+      "behavior_id": "informal_right_of_way_push",
+      "behavior_tags": [
+        "assertive_gap",
+        "creep",
+        "right_of_way",
+        "severity_4",
+        "variant_718"
+      ],
+      "asset_tags": [
+        "food_cart",
+        "market_crates",
+        "shoulder_clutter"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-roadside-market-occlusion-s4-0718",
+      "environment_family": "regional_market",
+      "environment_tags": [
+        "malaysian_driving",
+        "occlusion",
+        "regional_context",
+        "roadside_market",
+        "severity_4"
+      ],
+      "weather": {
+        "cloudiness": 49.5,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 35.0,
+        "sun_azimuth_angle": 25.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.65,
+        "density_multiplier": 1.35
+      },
+      "generated_asset_ids": [
+        "roadside-food-cart",
+        "market-plastic-crates"
+      ],
+      "meshy_prompts": [
+        "Malaysian roadside nasi lemak food cart with umbrella, game-ready GLB",
+        "stacked plastic market crates and sacks on road shoulder, low-poly GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `roadside_market_occlusion` while handling `informal_right_of_way_push`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Creep around occlusion and preserve clearance around shoulder clutter.",
+    "memory_query": [
+      "informal_right_of_way_push",
+      "occlusion",
+      "regional_market",
+      "roadside_market",
+      "malaysian_driving",
+      "occlusion",
+      "regional_context",
+      "roadside_market",
+      "severity_4"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+  },
+  {
+    "recipe_id": "studio-0025-monsoon-school-zone-scooter-filters-through-fog--v00",
+    "parent_seed_id": "Base_Animals_0076",
+    "mutation": "visual_noise",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_motorcycle_filtering",
+        "kind": "motorcycle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "motorcycle_filtering",
+        "expected_pressure": "Fast two-wheeler filters between lanes with lateral weave."
+      },
+      {
+        "actor_id": "environment_asset_school-crossing-board",
+        "kind": "static_asset",
+        "asset_id": "school-crossing-board",
+        "role": "yield_context",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 16.796,
+          "y_m": -4.412,
+          "yaw_deg": -9.292
+        }
+      },
+      {
+        "actor_id": "environment_asset_parked-van-occluder",
+        "kind": "static_asset",
+        "asset_id": "parked-van-occluder",
+        "role": "occluder",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 23.249,
+          "y_m": -4.696,
+          "yaw_deg": -7.784
+        }
+      },
+      {
+        "actor_id": "environment_asset_loose-school-bag",
+        "kind": "static_asset",
+        "asset_id": "loose-school-bag",
+        "role": "small_unknown_object",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 22.859,
+          "y_m": -0.023,
+          "yaw_deg": 14.498
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0025-monsoon-school-zone-scooter-filters-through-fog-",
+      "environment_template_id": "school_zone_unstructured_crossing",
+      "behavior_id": "motorcycle_filtering",
+      "behavior_tags": [
+        "filtering",
+        "lateral_uncertainty",
+        "motorcycle",
+        "severity_4",
+        "variant_817"
+      ],
+      "asset_tags": [
+        "dropped_school_bag",
+        "parked_van",
+        "school_crossing_board"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-school-zone-unstructured-crossing-s4-0817",
+      "environment_family": "pedestrian_occlusion",
+      "environment_tags": [
+        "malaysian_driving",
+        "pedestrian_occlusion",
+        "regional_context",
+        "school_zone",
+        "severity_4",
+        "unsignalized_crossing"
+      ],
+      "weather": {
+        "cloudiness": 44.0,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 32.0,
+        "sun_azimuth_angle": 80.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.38,
+        "density_multiplier": 1.25,
+        "yield_pressure": "high"
+      },
+      "generated_asset_ids": [
+        "school-crossing-board",
+        "parked-van-occluder",
+        "loose-school-bag"
+      ],
+      "meshy_prompts": [
+        "temporary Malaysian school crossing board with reflective paint, game-ready GLB",
+        "parked delivery van occluding a crosswalk in a tropical street, low-poly GLB",
+        "small dropped school bag at road edge, game-ready GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `school_zone_unstructured_crossing` while handling `motorcycle_filtering`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Anticipate a hidden pedestrian near the crossing, slow early, and avoid swerving toward the dropped object.",
+    "memory_query": [
+      "monsoon",
+      "motorcycle_filtering",
+      "pedestrian_occlusion",
+      "school_zone",
+      "visual_noise",
+      "malaysian_driving",
+      "pedestrian_occlusion",
+      "regional_context",
+      "school_zone",
+      "severity_4",
+      "unsignalized_crossing"
+    ],
+    "solvability_assumption": "Safe behavior: slow early, keep lateral buffer, and avoid squeezing two-wheelers",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml"
+  },
+  {
+    "recipe_id": "studio-0025-monsoon-school-zone-scooter-filters-through-fog--v01",
+    "parent_seed_id": "Generalization_PedestriansOnRoad_1088",
+    "mutation": "visual_noise",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_motorcycle_filtering",
+        "kind": "motorcycle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "motorcycle_filtering",
+        "expected_pressure": "Fast two-wheeler filters between lanes with lateral weave."
+      },
+      {
+        "actor_id": "environment_asset_school-crossing-board",
+        "kind": "static_asset",
+        "asset_id": "school-crossing-board",
+        "role": "yield_context",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 14.152,
+          "y_m": -4.444,
+          "yaw_deg": -10.879
+        }
+      },
+      {
+        "actor_id": "environment_asset_parked-van-occluder",
+        "kind": "static_asset",
+        "asset_id": "parked-van-occluder",
+        "role": "occluder",
+        "placement": {
+          "relative_to": "curb",
+          "x_m": 22.832,
+          "y_m": -4.608,
+          "yaw_deg": -5.3
+        }
+      },
+      {
+        "actor_id": "environment_asset_loose-school-bag",
+        "kind": "static_asset",
+        "asset_id": "loose-school-bag",
+        "role": "small_unknown_object",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 27.758,
+          "y_m": -0.652,
+          "yaw_deg": 18.963
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0025-monsoon-school-zone-scooter-filters-through-fog-",
+      "environment_template_id": "school_zone_unstructured_crossing",
+      "behavior_id": "motorcycle_filtering",
+      "behavior_tags": [
+        "filtering",
+        "lateral_uncertainty",
+        "motorcycle",
+        "severity_4",
+        "variant_818"
+      ],
+      "asset_tags": [
+        "dropped_school_bag",
+        "parked_van",
+        "school_crossing_board"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-school-zone-unstructured-crossing-s4-0818",
+      "environment_family": "pedestrian_occlusion",
+      "environment_tags": [
+        "malaysian_driving",
+        "pedestrian_occlusion",
+        "regional_context",
+        "school_zone",
+        "severity_4",
+        "unsignalized_crossing"
+      ],
+      "weather": {
+        "cloudiness": 44.0,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 32.0,
+        "sun_azimuth_angle": 80.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.38,
+        "density_multiplier": 1.25,
+        "yield_pressure": "high"
+      },
+      "generated_asset_ids": [
+        "school-crossing-board",
+        "parked-van-occluder",
+        "loose-school-bag"
+      ],
+      "meshy_prompts": [
+        "temporary Malaysian school crossing board with reflective paint, game-ready GLB",
+        "parked delivery van occluding a crosswalk in a tropical street, low-poly GLB",
+        "small dropped school bag at road edge, game-ready GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `school_zone_unstructured_crossing` while handling `motorcycle_filtering`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Anticipate a hidden pedestrian near the crossing, slow early, and avoid swerving toward the dropped object.",
+    "memory_query": [
+      "monsoon",
+      "motorcycle_filtering",
+      "pedestrian_occlusion",
+      "school_zone",
+      "visual_noise",
+      "malaysian_driving",
+      "pedestrian_occlusion",
+      "regional_context",
+      "school_zone",
+      "severity_4",
+      "unsignalized_crossing"
+    ],
+    "solvability_assumption": "Safe behavior: slow early, keep lateral buffer, and avoid squeezing two-wheelers",
+    "route_path": "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+  },
+  {
+    "recipe_id": "studio-0026-visual-noise-stress-irrelevant-ufo-like-billboar-v00",
+    "parent_seed_id": "Base_Animals_0076",
+    "mutation": "visual_noise",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_no_signal_cut_in",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "no_signal_cut_in",
+        "expected_pressure": "Actor cuts across lane without indicator or sufficient gap."
+      },
+      {
+        "actor_id": "environment_asset_construction-cone-line",
+        "kind": "static_asset",
+        "asset_id": "construction-cone-line",
+        "role": "lane_boundary",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 15.992,
+          "y_m": 1.487,
+          "yaw_deg": 4.078
+        }
+      },
+      {
+        "actor_id": "environment_asset_portable-work-barrier",
+        "kind": "static_asset",
+        "asset_id": "portable-work-barrier",
+        "role": "partial_blocker",
+        "placement": {
+          "relative_to": "lane_center",
+          "x_m": 22.115,
+          "y_m": 1.438,
+          "yaw_deg": 23.989
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0026-visual-noise-stress-irrelevant-ufo-like-billboar",
+      "environment_template_id": "construction_lane_closure",
+      "behavior_id": "no_signal_cut_in",
+      "behavior_tags": [
+        "cut_in",
+        "lateral_aggression",
+        "no_signal",
+        "severity_4",
+        "variant_917"
+      ],
+      "asset_tags": [
+        "debris",
+        "irrelevant_visual_artifact",
+        "road_cones",
+        "work_barrier"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-construction-lane-closure-s4-0917",
+      "environment_family": "construction",
+      "environment_tags": [
+        "cones",
+        "construction",
+        "lane_closure",
+        "severity_4",
+        "work_zone"
+      ],
+      "weather": {
+        "cloudiness": 33.0,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 45.0,
+        "sun_azimuth_angle": 10.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.55,
+        "density_multiplier": 0.8
+      },
+      "generated_asset_ids": [
+        "construction-cone-line",
+        "portable-work-barrier"
+      ],
+      "meshy_prompts": [
+        "game-ready Malaysian roadwork barrier with reflective strips, low-poly GLB",
+        "cluster of worn construction cones with dirt and tropical road grime, GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `construction_lane_closure` while handling `no_signal_cut_in`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Slow down, bias away from closure, and avoid overreacting to cones outside the drivable corridor.",
+    "memory_query": [
+      "construction",
+      "debris",
+      "no_signal_cut_in",
+      "visual_noise",
+      "cones",
+      "construction",
+      "lane_closure",
+      "severity_4",
+      "work_zone"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Base_Animals_0076.xml"
+  },
+  {
+    "recipe_id": "studio-0026-visual-noise-stress-irrelevant-ufo-like-billboar-v01",
+    "parent_seed_id": "Generalization_PedestriansOnRoad_1088",
+    "mutation": "visual_noise",
+    "actors": [
+      {
+        "actor_id": "behavior_actor_no_signal_cut_in",
+        "kind": "vehicle",
+        "role": "dynamic_ood_actor",
+        "behavior_id": "no_signal_cut_in",
+        "expected_pressure": "Actor cuts across lane without indicator or sufficient gap."
+      },
+      {
+        "actor_id": "environment_asset_construction-cone-line",
+        "kind": "static_asset",
+        "asset_id": "construction-cone-line",
+        "role": "lane_boundary",
+        "placement": {
+          "relative_to": "ego_lane",
+          "x_m": 15.573,
+          "y_m": 1.566,
+          "yaw_deg": 8.211
+        }
+      },
+      {
+        "actor_id": "environment_asset_portable-work-barrier",
+        "kind": "static_asset",
+        "asset_id": "portable-work-barrier",
+        "role": "partial_blocker",
+        "placement": {
+          "relative_to": "lane_center",
+          "x_m": 22.705,
+          "y_m": 1.405,
+          "yaw_deg": 1.945
+        }
+      }
+    ],
+    "environment": {
+      "studio_plan_id": "studio-0026-visual-noise-stress-irrelevant-ufo-like-billboar",
+      "environment_template_id": "construction_lane_closure",
+      "behavior_id": "no_signal_cut_in",
+      "behavior_tags": [
+        "cut_in",
+        "lateral_aggression",
+        "no_signal",
+        "severity_4",
+        "variant_918"
+      ],
+      "asset_tags": [
+        "debris",
+        "irrelevant_visual_artifact",
+        "road_cones",
+        "work_barrier"
+      ],
+      "quality_targets": {
+        "min_duration_s": 45.0,
+        "require_conflict": true,
+        "require_road_alignment": true,
+        "min_ood_stressor_count": 2
+      },
+      "environment_recipe_id": "env-construction-lane-closure-s4-0918",
+      "environment_family": "construction",
+      "environment_tags": [
+        "cones",
+        "construction",
+        "lane_closure",
+        "severity_4",
+        "work_zone"
+      ],
+      "weather": {
+        "cloudiness": 33.0,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 45.0,
+        "sun_azimuth_angle": 10.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.55,
+        "density_multiplier": 0.8
+      },
+      "generated_asset_ids": [
+        "construction-cone-line",
+        "portable-work-barrier"
+      ],
+      "meshy_prompts": [
+        "game-ready Malaysian roadwork barrier with reflective strips, low-poly GLB",
+        "cluster of worn construction cones with dirt and tropical road grime, GLB"
+      ]
+    },
+    "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `construction_lane_closure` while handling `no_signal_cut_in`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Slow down, bias away from closure, and avoid overreacting to cones outside the drivable corridor.",
+    "memory_query": [
+      "construction",
+      "debris",
+      "no_signal_cut_in",
+      "visual_noise",
+      "cones",
+      "construction",
+      "lane_closure",
+      "severity_4",
+      "work_zone"
+    ],
+    "solvability_assumption": "Safe behavior: slow, yield, and choose the locally safest route around the hazard",
+    "route_path": "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+  }
+]
