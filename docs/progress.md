@@ -90,9 +90,21 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [ ] TASK-069 route-aligned Alpamayo live capture resume
 - [x] TASK-070 submission pack v2 local plus CARLA evidence
 - [x] TASK-071 fast Town13 route video evidence runner
+- [ ] TASK-072 DriverX CARLA scripted OOD demo runner
+- [ ] TASK-073 long video assembler and evidence overlay
+- [ ] TASK-074 Alpamayo reasoning capture for CARLA OOD scenes
+- [ ] TASK-075 memory versus no-memory Alpamayo OOD experiment report
+- [ ] TASK-076 CARLA prop and object spawn pack v1
+- [ ] TASK-077 submission demo pack v3 and final storyboard
 
 ## Latest Evidence
 
+- TASK-072 through TASK-077 are now planned as the submission-first ticket
+  train. The next build direction is a DriverX-owned long CARLA OOD demo video,
+  Alpamayo open-loop reasoning on that generated scene, memory/no-memory
+  comparison evidence, stock CARLA prop proxies for visible object novelty, and
+  a V3 submission pack. TASK-060/TASK-069 remain benchmark-purity follow-ups
+  rather than the critical path for the next judge-visible artifact.
 - TASK-071 produced the first fresh stock Town13 Fail2Drive MP4 after the
   CARLA restart. The runner streams route logs, watches RGB frames, and can stop
   after early video capture; the latest run captured 5 frames from
