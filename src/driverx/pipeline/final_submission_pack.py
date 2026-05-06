@@ -133,7 +133,7 @@ def _scorecard(
         "fail2drive_extension_cases": fail2drive.get("generated_case_count"),
         "fail2drive_reference_count": fail2drive.get("reference_count"),
         "hero_video_duration_s": hero_video.get("duration_s"),
-        "hero_video_path": hero_video.get("video_path"),
+        "hero_video_path": _hero_video_path(hero_video),
     }
 
 
@@ -156,8 +156,8 @@ def _evidence_rows(
         },
         {
             "claim": "We have a judge-visible CARLA OOD video for the generated simulator path.",
-            "status": "proved" if hero_video.get("video_path") else "partial",
-            "artifact": hero_video.get("video_path") or artifact_map.get("hero_video_evidence_path"),
+            "status": "proved" if _hero_video_path(hero_video) else "partial",
+            "artifact": _hero_video_path(hero_video) or artifact_map.get("hero_video_evidence_path"),
             "why_it_matters": f"Hero video duration is {hero_video.get('duration_s', 'unknown')} seconds.",
             "claim_boundary": "scripted simulator evidence; not an official Fail2Drive route score.",
         },
@@ -313,9 +313,14 @@ def _claim_boundaries(
     boundaries.extend(str(item) for item in list(studio.get("claim_boundaries", [])))
     boundaries.extend(str(item) for item in list(alpamayo_batch.get("claim_boundaries", [])))
     boundaries.extend(str(item) for item in list(fail2drive.get("claim_boundaries", [])))
-    if hero_video.get("video_path"):
+    if _hero_video_path(hero_video):
         boundaries.append("Hero video is generated simulator evidence and may be shown in the final demo.")
     return sorted(set(boundaries))
+
+
+def _hero_video_path(hero_video: dict[str, Any]) -> str | None:
+    path = hero_video.get("remote_video_path") or hero_video.get("video_path")
+    return str(path) if path else None
 
 
 def _load_json(path: Path | None) -> dict[str, Any]:

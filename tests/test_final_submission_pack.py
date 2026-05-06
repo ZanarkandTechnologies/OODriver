@@ -39,7 +39,8 @@ class FinalSubmissionPackTest(unittest.TestCase):
             self.assertIn("official Fail2Drive route score", report)
             self.assertIn("Frozen Alpamayo", writeup)
             self.assertIn("Evidence Rows", browser)
-            self.assertIn("hero.mp4", browser)
+            self.assertEqual(summary["scorecard"]["hero_video_path"], "/remote/hero.mp4")
+            self.assertIn("/remote/hero.mp4", browser)
 
     def test_final_pack_cli(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -126,6 +127,7 @@ def _write_inputs(root: Path) -> dict[str, Path]:
         json.dumps(
             {
                 "video_path": "hero.mp4",
+                "remote_video_path": "/remote/hero.mp4",
                 "duration_s": 60.0,
             }
         ),

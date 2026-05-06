@@ -167,10 +167,15 @@ creates that final surface.
 - `tickets/TASK-106/artifacts/final-submission-pack-v7/video_script_v7.md`
 - `tickets/TASK-106/artifacts/final-submission-pack-v7/writeup_2page_draft.md`
 - `tickets/TASK-106/artifacts/final-submission-pack-v7/artifact_map_v7.json`
+- TASK-102 refresh:
+  `tickets/TASK-106/artifacts/final-submission-pack-v7-task102/final_submission_pack_v7.json`
+- TASK-102 refresh browser:
+  `tickets/TASK-106/artifacts/final-submission-pack-v7-task102/scenario_browser_v7.html`
 - `tickets/TASK-106/artifacts/review/task106-implementation-review.json`
 - Scorecard: 6 selected cases, 1 hero, 10 Scenario Studio prompts, 20
   candidates, 3 Alpamayo+memory comparisons, 2 reasoning changes, 26
-  Fail2Drive extension cases, 4 Fail2Drive references, and 60s hero video.
+  Fail2Drive extension cases, 4 Fail2Drive references, and 84s TASK-102 hero
+  video.
 
 ### Blockers
 

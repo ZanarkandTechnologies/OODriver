@@ -1,0 +1,9 @@
+{
+  "eval_matrix_path": "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+  "scenario_studio_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+  "alpamayo_rag_batch_path": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json",
+  "fail2drive_extension_path": "tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json",
+  "hero_video_evidence_path": "tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/ood_video_evidence.json",
+  "scenario_browser_path": "tickets/archive/TASK-097/artifacts/task97-submission-browser-runpod-v4/scenario_browser.html",
+  "blockers_path": "blockers.md"
+}

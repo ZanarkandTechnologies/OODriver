@@ -6,19 +6,6 @@ unblocked ticket when possible.
 
 ## Open
 
-- 2026-05-07 01:40 +0800 | alpamayo,runpod,kasm,huggingface,secrets |
-  TASK-099 prepared the RunPod hero video as a torch-ready Alpamayo package and
-  proved the Kasm Alpamayo env has CUDA on RTX 6000 Ada, but live inference
-  cannot proceed safely through the current SSH proxy because it requires a PTY
-  and echoes command input. Probe evidence shows no token file at
-  `/home/kasm-user/.cache/huggingface/token`,
-  `/workspace/.cache/driverx/huggingface/token`, or
-  `/workspace/alpamayo1.5/.hf_token`. User unblock path: run
-  `cd /workspace/alpamayo1.5 && source a1_5_venv/bin/activate && hf auth login`
-  inside the Kasm web terminal, or provide a direct TCP SSH endpoint that
-  supports non-PTY file transfer. Evidence:
-  `tickets/TASK-099/artifacts/runpod-kasm-alpamayo-env/alpamayo_env_probe.md`.
-
 - 2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060
   long-score attempt `town13-long-score-attempt-001` started the stock
   `Generalization_PedestriansOnRoad_1088` route and reached game time `0.600s`
@@ -60,6 +47,12 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-07 02:04 +0800 | alpamayo,runpod,kasm,huggingface |
+  TASK-100 resolved the TASK-099 live Alpamayo blocker. The Kasm RunPod lane ran
+  Alpamayo 1.5 on the hero CARLA OOD package and produced CoC reasoning,
+  trajectory tensor shapes, 111765.05ms latency, and 23559.71MB peak VRAM.
+  Evidence: `tickets/archive/TASK-100/ticket.md`.
 
 - 2026-05-07 05:42 +0800 | carla,runpod,video,scenario-quality |
   TASK-102 resolved the "better video" blocker for the submission path. The

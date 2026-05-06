@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>0xDriver: Scenario Studio For Minimal-Shot Driving Evaluation</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 32px; line-height: 1.45; color: #172026; background: #f8faf9; }
+    main { max-width: 1180px; margin: 0 auto; }
+    h1 { font-size: 34px; margin-bottom: 8px; }
+    h2 { margin-top: 32px; }
+    table { border-collapse: collapse; width: 100%; background: white; }
+    th, td { border: 1px solid #d8e0dd; padding: 10px 12px; vertical-align: top; }
+    th { background: #e8f0ed; text-align: left; }
+    code { background: #eef3f1; padding: 1px 4px; border-radius: 4px; }
+    .status { display: inline-block; padding: 4px 8px; background: #dff2e3; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>0xDriver: Scenario Studio For Minimal-Shot Driving Evaluation</h1>
+  <p class="status">submission_ready</p>
+  <p>0xDriver contributes a randomized OOD scenario-generation and evidence-management harness for testing frozen reasoning VLAs on weird but plausible driving cases without fine-tuning.</p>
+  <h2>Scorecard</h2>
+  <ul><li><code>selected_cases</code>: 6</li>
+<li><code>hero_cases</code>: 1</li>
+<li><code>scenario_studio_prompts</code>: 10</li>
+<li><code>scenario_studio_candidates</code>: 20</li>
+<li><code>alpamayo_rag_cases</code>: 3</li>
+<li><code>alpamayo_rag_passed</code>: 3</li>
+<li><code>alpamayo_reasoning_changed</code>: 2</li>
+<li><code>alpamayo_mean_latency_ms</code>: 92550.1317</li>
+<li><code>alpamayo_max_vram_peak_mb</code>: 23557.31</li>
+<li><code>fail2drive_extension_cases</code>: 26</li>
+<li><code>fail2drive_reference_count</code>: 4</li>
+<li><code>hero_video_duration_s</code>: 84.0</li>
+<li><code>hero_video_path</code>: /workspace/0xDriver/artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4</li></ul>
+  <h2>Evidence Rows</h2>
+  <table>
+    <thead><tr><th>Status</th><th>Claim</th><th>Artifact</th><th>Why It Matters</th><th>Boundary</th></tr></thead>
+    <tbody><tr><td>proved</td><td>We can author randomized minimal-shot driving cases from short briefs.</td><td><a href="tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json">tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json</a></td><td>10 prompts generated 20 candidate cases with curation rows.</td><td>deterministic prompt compiler; live LLM/Meshy generation is not claimed.</td></tr>
+<tr><td>proved</td><td>We have a judge-visible CARLA OOD video for the generated simulator path.</td><td><a href="/workspace/0xDriver/artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4">/workspace/0xDriver/artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4</a></td><td>Hero video duration is 84.0 seconds.</td><td>scripted simulator evidence; not an official Fail2Drive route score.</td></tr>
+<tr><td>proved</td><td>Frozen Alpamayo can be evaluated with and without retrieved memory on OOD cases.</td><td><a href="tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json">tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json</a></td><td>3 passed comparisons; 2 changed reasoning.</td><td>open-loop trajectory-intent evaluation; not closed-loop VLA steering.</td></tr>
+<tr><td>proved</td><td>DriverX generated cases extend Fail2Drive-style OOD families.</td><td><a href="tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json">tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json</a></td><td>26 generated cases linked to 4 references and 2 memory entries.</td><td>reference layer only; official Fail2Drive score is false.</td></tr>
+<tr><td>proved</td><td>The final submission scope is selected and auditable.</td><td><a href="tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json">tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json</a></td><td>6 cases are role-classified for the submission.</td><td>selection matrix is planning/evidence management, not runtime execution.</td></tr></tbody>
+  </table>
+  <h2>Artifact Map</h2>
+  <ul><li><code>eval_matrix_path</code>: <a href="tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json">tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json</a></li>
+<li><code>scenario_studio_path</code>: <a href="tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json">tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json</a></li>
+<li><code>alpamayo_rag_batch_path</code>: <a href="tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json">tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json</a></li>
+<li><code>fail2drive_extension_path</code>: <a href="tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json">tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json</a></li>
+<li><code>hero_video_evidence_path</code>: <a href="tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/ood_video_evidence.json">tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/ood_video_evidence.json</a></li>
+<li><code>scenario_browser_path</code>: <a href="tickets/archive/TASK-097/artifacts/task97-submission-browser-runpod-v4/scenario_browser.html">tickets/archive/TASK-097/artifacts/task97-submission-browser-runpod-v4/scenario_browser.html</a></li>
+<li><code>blockers_path</code>: <a href="blockers.md">blockers.md</a></li></ul>
+  <h2>Claim Boundaries</h2>
+  <ul><li>Alpamayo evidence is open-loop trajectory-intent and reasoning evaluation, not closed-loop car control.</li>
+<li>Fail2Drive linkage is a benchmark reference layer, not an official leaderboard score.</li>
+<li>Generated candidates marked accept_partial still need live CARLA/model evidence before becoming accepted dataset rows.</li>
+<li>Hero video is generated simulator evidence and may be shown in the final demo.</li>
+<li>Scenario Studio is deterministic unless a future provider-backed generator is explicitly configured.</li>
+<li>ai_scenario_authoring=false_without_provider_run</li>
+<li>alpamayo_batch_open_loop_policy_evaluation=true</li>
+<li>closed_loop_carla_control=false</li>
+<li>closed_loop_carla_execution=false</li>
+<li>dataset_curation_heuristic=true</li>
+<li>deterministic_reproducible_generation=true</li>
+<li>fail2drive_reference_layer=true</li>
+<li>generated_cases_are_driverx_extensions=true</li>
+<li>live_fail2drive_execution=false</li>
+<li>model_weights_frozen=true</li>
+<li>official_fail2drive_score_claim=false</li>
+<li>prompt_to_ood_compiler=true</li>
+<li>real_time_vla_control=false</li></ul>
+</main>
+</body>
+</html>

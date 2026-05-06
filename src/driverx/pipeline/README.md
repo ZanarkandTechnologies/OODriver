@@ -69,9 +69,9 @@ PYTHONPATH=src python3 -m driverx build-final-submission-pack \
   --scenario-studio tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json \
   --alpamayo-rag-batch tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json \
   --fail2drive-extension tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json \
-  --hero-video-evidence tickets/archive/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-overlay-v2/ood_video_evidence.json \
+  --hero-video-evidence tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/ood_video_evidence.json \
   --scenario-browser tickets/archive/TASK-097/artifacts/task97-submission-browser-runpod-v4/scenario_browser.html \
-  --run-id final-submission-pack-v7
+  --run-id final-submission-pack-v7-task102
 ```
 
 ```bash
