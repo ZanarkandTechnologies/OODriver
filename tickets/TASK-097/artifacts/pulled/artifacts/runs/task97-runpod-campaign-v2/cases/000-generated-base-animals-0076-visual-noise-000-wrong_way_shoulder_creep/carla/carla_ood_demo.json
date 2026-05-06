@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "connected": true,
+  "host": "127.0.0.1",
+  "port": 2000,
+  "recipe_id": "generated-base-animals-0076-visual-noise-000",
+  "behavior_id": "wrong_way_shoulder_creep",
+  "map_name": "Carla/Maps/Town10HD_Opt",
+  "frame_count": 300,
+  "duration_s": 60.0,
+  "tracks_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/entity_tracks.json",
+  "rgb_folder": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/rgb",
+  "plan_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/carla_ood_demo_plan.json",
+  "road_alignment_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/road_alignment_report.json",
+  "spawned_actor_ids": [
+    112,
+    113,
+    114
+  ],
+  "destroyed_actor_ids": [
+    114,
+    113,
+    112
+  ],
+  "generated_asset_ids": [],
+  "blockers": [],
+  "error": null,
+  "claim_boundaries": [
+    "scripted_carla_ood_demo=true",
+    "stock_fail2drive_score=false",
+    "closed_loop_vla_control=false"
+  ]
+}

@@ -27,6 +27,7 @@ def command_build_alpamayo_ood_package(args: argparse.Namespace) -> int:
         AlpamayoOodPackageInputs(
             rgb_folder=args.rgb_folder,
             tracks_path=args.tracks,
+            video_path=args.video,
             scenario_report_path=args.scenario_report,
             video_evidence_path=args.video_evidence,
             scenario_id=args.scenario_id,
@@ -34,6 +35,7 @@ def command_build_alpamayo_ood_package(args: argparse.Namespace) -> int:
             center_frame=args.center_frame,
             nav_text=args.nav_text,
             memory_context=memory_context,
+            ffmpeg_bin=args.ffmpeg_bin,
         )
     )
     summary = write_alpamayo_ood_package(
@@ -41,6 +43,7 @@ def command_build_alpamayo_ood_package(args: argparse.Namespace) -> int:
         package,
         source={
             "rgb_folder": str(args.rgb_folder),
+            "video_path": str(args.video) if args.video else None,
             "tracks_path": str(args.tracks),
             "scenario_report_path": str(args.scenario_report) if args.scenario_report else None,
             "video_evidence_path": str(args.video_evidence) if args.video_evidence else None,
@@ -56,6 +59,7 @@ def register_alpamayo_ood_package_parser(subparsers: Any) -> None:
         help="Build an Alpamayo package from live DriverX CARLA OOD frames.",
     )
     parser.add_argument("--rgb-folder", type=Path, required=True)
+    parser.add_argument("--video", type=Path)
     parser.add_argument("--tracks", type=Path, required=True)
     parser.add_argument("--scenario-report", type=Path)
     parser.add_argument("--video-evidence", type=Path)
@@ -65,6 +69,7 @@ def register_alpamayo_ood_package_parser(subparsers: Any) -> None:
     parser.add_argument("--nav-text")
     parser.add_argument("--with-memory", action="store_true")
     parser.add_argument("--memory", type=Path)
+    parser.add_argument("--ffmpeg-bin", default="ffmpeg")
     parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
     parser.add_argument("--run-id", default="alpamayo-ood-package")
     parser.set_defaults(func=command_build_alpamayo_ood_package)

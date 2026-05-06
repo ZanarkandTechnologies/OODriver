@@ -1,0 +1,35 @@
+{
+  "thresholds": {
+    "min_duration_s": 20.0,
+    "min_frame_count": 80,
+    "max_min_distance_m": 6.0,
+    "require_video": true,
+    "require_road_alignment": true,
+    "require_conflict": true
+  },
+  "report_count": 1,
+  "passed_count": 1,
+  "blocked_count": 0,
+  "passed_case_ids": [
+    "000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep"
+  ],
+  "reports": [
+    {
+      "scenario_id": "generated-base-animals-0076-visual-noise-000",
+      "case_id": "000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep",
+      "passes": true,
+      "status": "passed",
+      "metrics": {
+        "duration_s": 60.0,
+        "frame_count": 300,
+        "min_distance_m": 5.2264,
+        "has_video": true,
+        "road_aligned": true
+      },
+      "blockers": [],
+      "warnings": []
+    }
+  ],
+  "json_path": "artifacts/runs/task97-runpod-campaign-v2/quality/scenario_quality_summary.json",
+  "report_path": "artifacts/runs/task97-runpod-campaign-v2/quality/scenario_quality_summary.md"
+}

@@ -13,6 +13,14 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   outputs under `/workspace`, while `scripts/run_fail2drive_client_docker.sh`
   writes under `/workspace/0xDriver`; keep output roots aligned with the wrapper
   in use. See `MEM-0020`.
+- RunPod CARLA rendering invariant: use the Kasm desktop path from
+  `scripts/setup_runpod_carla_0916_graphics.sh`, with per-process NVIDIA
+  Vulkan ICD and Python 3.12 CARLA client venv under `/workspace`; avoid the
+  old non-desktop RTX 6000 Ada container path for CARLA rendering. See
+  `MEM-0025`.
+- RunPod evidence video invariant: fresh Kasm pods need `ffmpeg` and Pillow in
+  `/workspace/driverx_py312` before judge-facing overlay videos are assembled.
+  See `MEM-0026`.
 - The CARLA Docker client is intentionally minimal; capture can run there, but
   video overlays/MP4 assembly may need host fallback when Pillow or ffmpeg is
   absent. See `MEM-0022`.
@@ -71,6 +79,10 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   selection must honor propagated `quality_status`; legacy/open-loop artifacts
   can support context but cannot become hero or closed-loop policy proof. See
   `MEM-0024`.
+- Do not transmit HF tokens or other secrets through Kasm RunPod proxy SSH
+  heredocs/base64 streams because the proxy requires a PTY and echoes command
+  input; install tokens through the web terminal or direct TCP SSH/SFTP. See
+  `MEM-0027`.
 - For stock SimLingo/CARLA 0.9.15 live runs, prefer H100/H200-class `sm_90`
   hosts; Blackwell `sm_120` requires a separate PyTorch/CARLA rebuild path
   before it can run the upstream Python 3.8 + torch 2.2 stack. See `MEM-0017`.

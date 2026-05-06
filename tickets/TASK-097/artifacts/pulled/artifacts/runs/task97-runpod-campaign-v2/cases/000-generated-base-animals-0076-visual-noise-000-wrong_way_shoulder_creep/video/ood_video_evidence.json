@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "scenario_id": "generated-base-animals-0076-visual-noise-000",
+  "behavior_id": "wrong_way_shoulder_creep",
+  "ood_tags": [],
+  "source_kind": "live_carla_campaign",
+  "claim_label": "scripted_carla_ood_campaign",
+  "input_rgb_folder": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/rgb",
+  "overlay": {
+    "status": "passed",
+    "input_frame_count": 300,
+    "overlay_frame_count": 300,
+    "output_frame_dir": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/overlay_rgb",
+    "scenario_id": "generated-base-animals-0076-visual-noise-000",
+    "behavior_id": "wrong_way_shoulder_creep",
+    "worst_risk": null,
+    "blockers": [
+      "Pillow is unavailable for text overlay rendering: No module named 'PIL'. Copied raw frames as fallback."
+    ]
+  },
+  "assembly": {
+    "status": "passed",
+    "plan": {
+      "rgb_folder": "/workspace/0xDriver/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/overlay_rgb",
+      "output_video": "/workspace/0xDriver/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+      "fps": 5,
+      "frame_count": 300,
+      "frame_pattern": "/workspace/0xDriver/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/overlay_rgb/*.png",
+      "ffmpeg_path": "/usr/bin/ffmpeg",
+      "command": [
+        "/usr/bin/ffmpeg",
+        "-y",
+        "-framerate",
+        "5",
+        "-pattern_type",
+        "glob",
+        "-i",
+        "/workspace/0xDriver/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/overlay_rgb/*.png",
+        "-c:v",
+        "libx264",
+        "-pix_fmt",
+        "yuv420p",
+        "/workspace/0xDriver/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/generated-base-animals-0076-visual-noise-000_ood.mp4"
+      ],
+      "live_blockers": [],
+      "dry_run": true
+    },
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "ffmpeg version 4.2.7-0ubuntu0.1 Copyright (c) 2000-2022 the FFmpeg developers\n  built with gcc 9 (Ubuntu 9.4.0-1ubuntu1~20.04.1)\n  configuration: --prefix=/usr --extra-version=0ubuntu0.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-avresample --disable-filter=resample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librsvg --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-nvenc --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared\n  libavutil      56. 31.100 / 56. 31.100\n  libavcodec     58. 54.100 / 58. 54.100\n  libavformat    58. 29.100 / 58. 29.100\n  libavdevice    58.  8.100 / 58.  8.100\n  libavfilter     7. 57.100 /  7. 57.100\n  libavresample   4.  0.  0 /  4.  0.  0\n  libswscale      5.  5.100 /  5.  5.100\n  libswresample   3.  5.100 /  3.  5.100\n  libpostproc    55.  5.100 / 55.  5.100\nInput #0, image2, from '/workspace/0xDriver/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/overlay_rgb/*.png':\n  Duration: 00:01:00.00, start: 0.000000, bitrate: N/A\n    Stream #0:0: Video: png, rgba(pc), 640x360, 5 fps, 5 tbr, 5 tbn, 5 tbc\nStream mapping:\n  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))\nPress [q] to stop, [?] for help\n[libx264 @ 0x59da08e1be80] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2\n[libx264 @ 0x59da08e1be80] profile High, level 2.2\n[libx264 @ 0x59da08e1be80] 264 - core 155 r2917 0a84d98 - H.264/MPEG-4 AVC codec - Copyleft 2003-2018 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=11 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=5 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00\nOutput #0, mp4, to '/workspace/0xDriver/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/generated-base-animals-0076-visual-noise-000_ood.mp4':\n  Metadata:\n    encoder         : Lavf58.29.100\n    Stream #0:0: Video: h264 (libx264) (avc1 / 0x31637661), yuv420p, 640x360, q=-1--1, 5 fps, 10240 tbn, 5 tbc\n    Metadata:\n      encoder         : Lavc58.54.100 libx264\n    Side data:\n      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: -1\nframe=  104 fps=0.0 q=23.0 size=    2816kB time=00:00:09.20 bitrate=2507.5kbits/s speed=18.2x    \nframe=  210 fps=209 q=23.0 size=    9216kB time=00:00:30.40 bitrate=2483.5kbits/s speed=30.2x    \nframe=  300 fps=193 q=-1.0 Lsize=   17945kB time=00:00:59.40 bitrate=2474.8kbits/s speed=38.1x    \nvideo:17940kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.024909%\n[libx264 @ 0x59da08e1be80] frame I:4     Avg QP:21.17  size:101491\n[libx264 @ 0x59da08e1be80] frame P:77    Avg QP:23.81  size: 73329\n[libx264 @ 0x59da08e1be80] frame B:219   Avg QP:25.44  size: 56246\n[libx264 @ 0x59da08e1be80] consecutive B-frames:  2.0%  1.3%  2.0% 94.7%\n[libx264 @ 0x59da08e1be80] mb I  I16..4:  5.0% 14.9% 80.1%\n[libx264 @ 0x59da08e1be80] mb P  I16..4:  2.6% 17.9% 31.5%  P16..4:  7.3% 18.4% 22.3%  0.0%  0.0%    skip: 0.1%\n[libx264 @ 0x59da08e1be80] mb B  I16..4:  1.0% 10.6% 13.8%  B16..8: 17.2% 21.6% 23.0%  direct:11.7%  skip: 1.1%  L0:36.4% L1:30.1% BI:33.6%\n[libx264 @ 0x59da08e1be80] 8x8 transform intra:37.8% inter:10.0%\n[libx264 @ 0x59da08e1be80] coded y,uvDC,uvAC intra: 98.8% 43.3% 31.1% inter: 83.0% 32.1% 20.7%\n[libx264 @ 0x59da08e1be80] i16 v,h,dc,p:  0% 25% 63% 11%\n[libx264 @ 0x59da08e1be80] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu:  7% 11% 43%  6%  6%  5%  7%  5%  9%\n[libx264 @ 0x59da08e1be80] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 13% 14% 23%  9%  8%  8%  9%  7% 10%\n[libx264 @ 0x59da08e1be80] i8c dc,h,v,p: 72% 19%  7%  3%\n[libx264 @ 0x59da08e1be80] Weighted P-Frames: Y:7.8% UV:2.6%\n[libx264 @ 0x59da08e1be80] ref P L0: 39.4% 12.2% 21.9% 24.3%  2.1%\n[libx264 @ 0x59da08e1be80] ref B L0: 77.5% 17.0%  5.4%\n[libx264 @ 0x59da08e1be80] ref B L1: 90.4%  9.6%\n[libx264 @ 0x59da08e1be80] kb/s:2449.35\n",
+    "executed": true
+  },
+  "video_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+  "duration_s": 60.0,
+  "worst_risk": null,
+  "claim_boundaries": [
+    "scripted_carla_ood_campaign=true",
+    "video_overlay_is_evidence_surface=true",
+    "closed_loop_vla_control=false"
+  ]
+}

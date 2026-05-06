@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>0xDriver Scenario Browser</title>
+  <style>
+    body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111; background: #f6f5f1; }
+    header { padding: 32px clamp(20px, 5vw, 72px); background: #101820; color: #fff; }
+    h1 { margin: 0 0 8px; font-size: 32px; letter-spacing: 0; }
+    p { line-height: 1.5; }
+    main { padding: 24px clamp(20px, 5vw, 72px) 48px; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 20px 0; }
+    .stat { background: #fff; border: 1px solid #dedbd2; border-radius: 8px; padding: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .card { background: #fff; border: 1px solid #dedbd2; border-radius: 8px; padding: 16px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+    .chip { border: 1px solid #c7c2b8; border-radius: 999px; padding: 3px 8px; font-size: 12px; }
+    .ok { color: #106b3f; }
+    .warn { color: #9a5b00; }
+    a { color: #0058a3; }
+    code { font-size: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>0xDriver Scenario Browser</h1>
+    <p>Randomized OOD scenario generation, quality gates, and minimal-shot VLA policy evidence for CARLA.</p>
+  </header>
+  <main>
+    <section class="stats">
+      <div class="stat"><strong>1</strong><br />cataloged scenarios</div>
+      <div class="stat"><strong>1</strong><br />with video evidence</div>
+      <div class="stat"><strong>0</strong><br />with VLA reasoning</div>
+      <div class="stat"><strong>0</strong><br />passed policy evals</div>
+      <div class="stat"><strong>0</strong><br />planned policy evals</div>
+      <div class="stat"><strong>0</strong><br />blocked policy evals</div>
+      <div class="stat"><strong>0</strong><br />decision artifacts</div>
+    </section>
+    <section class="grid"><article class="card">
+  <h2>generated-base-animals-0076-visual-noise-000</h2>
+  <p><strong>Behavior:</strong> wrong_way_shoulder_creep</p>
+  <p><strong>Quality:</strong> <span class="ok">quality_status=passed</span>, video=True, reasoning=False, road_aligned=True</p>
+  <p><strong>Promotion:</strong> <span class="ok">promotion=hero</span>, reason=RunPod-hosted 60s road-aligned CARLA OOD video with quality gates and visible overlay evidence</p>
+  <div class="chips"><span class='chip'>animals</span><span class='chip'>visual-noise</span><span class='chip'>creep</span><span class='chip'>live_carla</span><span class='chip'>passed</span><span class='chip'>shoulder</span><span class='chip'>video</span><span class='chip'>visual_noise</span><span class='chip'>wrong_way</span><span class='chip'>wrong_way_shoulder_creep</span></div>
+  <p><strong>Artifacts:</strong> <a href='../pulled/artifacts/runs/task97-runpod-overlay-v2/generated-base-animals-0076-visual-noise-000_ood.mp4'>video</a>, <a href='../pulled/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/entity_tracks.json'>tracks</a>, <a href='../pulled/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/road_alignment_report.json'>quality</a></p>
+  <ul><li>not evaluated</li></ul>
+</article></section>
+    <section>
+      <h2>Open Blockers</h2>
+      <ul><li>2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060 long-score attempt `town13-long-score-attempt-001` started the stock `Generalization_PedestriansOnRoad_1088` route and reached game time `0.600s` at about `0.142x`, then stopped making observable progress. A concurrent route-aligned Alpamayo capture attempt with a 60s CARLA timeout also failed waiting for the simulator. I terminated the route evaluator cleanly to avoid burning the full 1200s timeout on a stalled local Mac/Wine simulation. Evidence: `tickets/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md` and `tickets/TASK-069/artifacts/town13-live-attach-attempt-004/carla_alpamayo_capture.json`. Next unblock path: use a graphics-capable Linux NVIDIA CARLA host for Fail2Drive scoring/capture, or rerun locally only after confirming CARLA can sustain route ticks and serve a second Python client during synchronous mode.</li><li>2026-05-06 11:34 +0800 | fail2drive,carla,town13,score | TASK-071 produced fresh Town13 MP4 evidence from the stock Fail2Drive `Generalization_PedestriansOnRoad_1088` route, but full route score/completion remains open because the run intentionally stops after early video capture. Restarted CARLA improved route speed to about `0.23x`, but the local Mac/Kegworks/Wine path is still not a fast full-suite scoring runtime. Evidence: `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`. Next unblock path: rerun without `--stop-after-video` for a long local route scoring attempt, or move the route to a faster graphics-capable Linux NVIDIA CARLA host.</li><li>2026-05-05 17:07 +0800 | h100,carla,vulkan | TASK-020 stock SimLingo H100 route run cannot reach policy execution because CARLA 0.9.15 exits before opening port `20000` on the RunPod H100 container. CUDA is compatible for SimLingo (`sm_90`), but CARLA needs a working graphics/Vulkan runtime; diagnostics show default Vulkan only exposes `llvmpipe`, forcing the NVIDIA ICD fails with `ERROR_INCOMPATIBLE_DRIVER`, and CARLA exits with status `1`. Evidence: `tickets/archive/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.md` and `tickets/archive/TASK-020/artifacts/task20-remote/carla_runtime_diagnostics.md`. Next unblock path: move the stock route to a graphics-capable Ampere host such as RTX 3090 / RTX A6000 / A40 / A10, or rebuild the SimLingo torch stack for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.</li></ul>
+    </section>
+  </main>
+</body>
+</html>

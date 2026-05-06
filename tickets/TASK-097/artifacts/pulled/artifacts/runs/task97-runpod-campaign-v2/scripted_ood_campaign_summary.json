@@ -1,0 +1,150 @@
+{
+  "campaign_id": "task97-runpod-campaign-v2",
+  "status": "passed",
+  "requested_case_count": 1,
+  "case_count": 1,
+  "attempt_count": 1,
+  "quality_retry_limit": 2,
+  "quality_retried_case_count": 0,
+  "quality_selected_passed_count": 1,
+  "live_case_count": 1,
+  "behavior_ids": [
+    "wrong_way_shoulder_creep",
+    "informal_right_of_way_push",
+    "unsignaled_u_turn"
+  ],
+  "best_case": {
+    "case_id": "000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep",
+    "recipe_id": "generated-base-animals-0076-visual-noise-000",
+    "behavior_id": "wrong_way_shoulder_creep",
+    "status": "passed",
+    "live": true,
+    "min_distance_m": 5.2264,
+    "frame_count": 300,
+    "duration_s": 60.0,
+    "scenario_report_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/carla_ood_demo.json",
+    "road_alignment_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/road_alignment_report.json",
+    "tracks_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/entity_tracks.json",
+    "rgb_folder": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/rgb",
+    "video_status": "passed",
+    "video_evidence_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/ood_video_evidence.json",
+    "video_evidence_report_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/ood_video_evidence.md",
+    "video_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+    "blockers": [],
+    "attempt_index": 0,
+    "quality_status": "passed",
+    "quality_blockers": []
+  },
+  "worst_case": {
+    "case_id": "000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep",
+    "recipe_id": "generated-base-animals-0076-visual-noise-000",
+    "behavior_id": "wrong_way_shoulder_creep",
+    "status": "passed",
+    "live": true,
+    "min_distance_m": 5.2264,
+    "frame_count": 300,
+    "duration_s": 60.0,
+    "scenario_report_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/carla_ood_demo.json",
+    "road_alignment_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/road_alignment_report.json",
+    "tracks_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/entity_tracks.json",
+    "rgb_folder": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/rgb",
+    "video_status": "passed",
+    "video_evidence_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/ood_video_evidence.json",
+    "video_evidence_report_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/ood_video_evidence.md",
+    "video_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+    "blockers": [],
+    "attempt_index": 0,
+    "quality_status": "passed",
+    "quality_blockers": []
+  },
+  "mean_min_distance_m": 5.2264,
+  "cases": [
+    {
+      "case_id": "000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep",
+      "recipe_id": "generated-base-animals-0076-visual-noise-000",
+      "behavior_id": "wrong_way_shoulder_creep",
+      "status": "passed",
+      "live": true,
+      "min_distance_m": 5.2264,
+      "frame_count": 300,
+      "duration_s": 60.0,
+      "scenario_report_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/carla_ood_demo.json",
+      "road_alignment_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/road_alignment_report.json",
+      "tracks_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/entity_tracks.json",
+      "rgb_folder": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/rgb",
+      "video_status": "passed",
+      "video_evidence_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/ood_video_evidence.json",
+      "video_evidence_report_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/ood_video_evidence.md",
+      "video_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+      "blockers": [],
+      "attempt_index": 0,
+      "quality_status": "passed",
+      "quality_blockers": []
+    }
+  ],
+  "quality_attempts": [
+    {
+      "case_id": "000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep",
+      "recipe_id": "generated-base-animals-0076-visual-noise-000",
+      "behavior_id": "wrong_way_shoulder_creep",
+      "status": "passed",
+      "live": true,
+      "min_distance_m": 5.2264,
+      "frame_count": 300,
+      "duration_s": 60.0,
+      "scenario_report_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/carla_ood_demo.json",
+      "road_alignment_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/road_alignment_report.json",
+      "tracks_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/entity_tracks.json",
+      "rgb_folder": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/rgb",
+      "video_status": "passed",
+      "video_evidence_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/ood_video_evidence.json",
+      "video_evidence_report_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/ood_video_evidence.md",
+      "video_path": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+      "blockers": [],
+      "attempt_index": 0,
+      "quality_status": "passed",
+      "quality_blockers": []
+    }
+  ],
+  "quality": {
+    "thresholds": {
+      "min_duration_s": 20.0,
+      "min_frame_count": 80,
+      "max_min_distance_m": 6.0,
+      "require_video": true,
+      "require_road_alignment": true,
+      "require_conflict": true
+    },
+    "report_count": 1,
+    "passed_count": 1,
+    "blocked_count": 0,
+    "passed_case_ids": [
+      "000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep"
+    ],
+    "reports": [
+      {
+        "scenario_id": "generated-base-animals-0076-visual-noise-000",
+        "case_id": "000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep",
+        "passes": true,
+        "status": "passed",
+        "metrics": {
+          "duration_s": 60.0,
+          "frame_count": 300,
+          "min_distance_m": 5.2264,
+          "has_video": true,
+          "road_aligned": true
+        },
+        "blockers": [],
+        "warnings": []
+      }
+    ],
+    "json_path": "artifacts/runs/task97-runpod-campaign-v2/quality/scenario_quality_summary.json",
+    "report_path": "artifacts/runs/task97-runpod-campaign-v2/quality/scenario_quality_summary.md"
+  },
+  "blockers": [],
+  "claim_boundaries": [
+    "scripted_ood_campaign=true",
+    "stock_fail2drive_score=false",
+    "real_time_vla_control=false"
+  ]
+}

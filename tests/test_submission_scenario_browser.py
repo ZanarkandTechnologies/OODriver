@@ -1,4 +1,6 @@
 import json
+import os
+import re
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
@@ -49,6 +51,37 @@ class SubmissionScenarioBrowserTest(unittest.TestCase):
             self.assertEqual(summary["policy_passed_count"], 1)
             self.assertEqual(summary["policy_planned_count"], 1)
             self.assertEqual(summary["policy_blocked_count"], 0)
+
+    def test_browser_artifact_links_resolve_from_output_directory(self) -> None:
+        with TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            evidence_dir = tmp_path / "evidence"
+            evidence_dir.mkdir()
+            for name in [
+                "hero.mp4",
+                "tracks.json",
+                "reasoning.json",
+                "package.json",
+                "road_alignment_report.json",
+            ]:
+                (evidence_dir / name).write_text("ok", encoding="utf-8")
+            original_cwd = Path.cwd()
+            try:
+                os.chdir(tmp_path)
+                catalog_path = _write_browser_catalog(Path("."), artifact_prefix="evidence")
+                outputs = build_submission_scenario_browser(
+                    SubmissionBrowserInputs(catalog_path=catalog_path),
+                    Path("browser"),
+                )
+                browser_path = Path(outputs.browser_html)
+                browser = browser_path.read_text(encoding="utf-8")
+                hrefs = re.findall(r"href='([^']+)'", browser)
+                resolved = [(browser_path.parent / href).resolve() for href in hrefs]
+            finally:
+                os.chdir(original_cwd)
+
+            self.assertGreaterEqual(len(resolved), 5)
+            self.assertTrue(all(path.exists() for path in resolved))
 
     def test_browser_cli_writes_summary(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -131,7 +164,15 @@ class SubmissionScenarioBrowserTest(unittest.TestCase):
             self.assertIn("policy evaluations by status: passed `0`, planned `9`, blocked `18`", dossier)
 
 
-def _write_browser_catalog(root: Path, *, promotion_status: str = "hero") -> Path:
+def _write_browser_catalog(
+    root: Path,
+    *,
+    promotion_status: str = "hero",
+    artifact_prefix: str = "",
+) -> Path:
+    def artifact(name: str) -> str:
+        return str(Path(artifact_prefix) / name) if artifact_prefix else name
+
     record = ScenarioCatalogRecord(
         scenario_id="generated-hero",
         recipe_id="generated-hero",
@@ -148,11 +189,11 @@ def _write_browser_catalog(root: Path, *, promotion_status: str = "hero") -> Pat
             status="passed",
         ),
         artifacts=ScenarioArtifacts(
-            video="hero.mp4",
-            tracks="tracks.json",
-            reasoning="reasoning.json",
-            package="package.json",
-            quality_report="road_alignment_report.json",
+            video=artifact("hero.mp4"),
+            tracks=artifact("tracks.json"),
+            reasoning=artifact("reasoning.json"),
+            package=artifact("package.json"),
+            quality_report=artifact("road_alignment_report.json"),
         ),
         promotion=PromotionDecision(status=promotion_status),
         source_artifacts=["fixture.json"],

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import struct
+import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -21,6 +22,7 @@ from driverx.policies.alpamayo_release import (
 class AlpamayoOodPackageInputs:
     rgb_folder: Path
     tracks_path: Path
+    video_path: Path | None = None
     scenario_report_path: Path | None = None
     video_evidence_path: Path | None = None
     scenario_id: str | None = None
@@ -28,6 +30,7 @@ class AlpamayoOodPackageInputs:
     center_frame: int | None = None
     nav_text: str | None = None
     memory_context: list[dict[str, Any]] = field(default_factory=list)
+    ffmpeg_bin: str = "ffmpeg"
 
 
 def build_alpamayo_package_from_ood_demo(
@@ -35,7 +38,7 @@ def build_alpamayo_package_from_ood_demo(
 ) -> AlpamayoInputPackage:
     """Create a same-scene Alpamayo input package from OOD demo frames/tracks."""
 
-    frames = sorted(inputs.rgb_folder.expanduser().glob("*.png"))
+    frames = _available_or_extracted_frames(inputs)
     if len(frames) < DEFAULT_NUM_FRAMES_PER_CAMERA:
         raise ValueError(
             f"Need at least {DEFAULT_NUM_FRAMES_PER_CAMERA} RGB frames; found {len(frames)} in {inputs.rgb_folder}."
@@ -143,12 +146,48 @@ def _select_frame_window(
 ) -> list[Path]:
     if center_frame is None:
         worst = video_evidence.get("worst_risk")
+        if not isinstance(worst, dict):
+            overlay = video_evidence.get("overlay")
+            if isinstance(overlay, dict):
+                worst = overlay.get("worst_risk")
         if isinstance(worst, dict) and isinstance(worst.get("tick"), int):
             center_frame = int(worst["tick"])
     if center_frame is None:
         center_frame = len(frames) - 1
     start = max(0, min(len(frames) - DEFAULT_NUM_FRAMES_PER_CAMERA, center_frame - 2))
     return frames[start : start + DEFAULT_NUM_FRAMES_PER_CAMERA]
+
+
+def _available_or_extracted_frames(inputs: AlpamayoOodPackageInputs) -> list[Path]:
+    rgb_folder = inputs.rgb_folder.expanduser()
+    frames = sorted(rgb_folder.glob("*.png"))
+    if len(frames) >= DEFAULT_NUM_FRAMES_PER_CAMERA or inputs.video_path is None:
+        return frames
+    video_path = inputs.video_path.expanduser()
+    if not video_path.exists():
+        return frames
+    rgb_folder.mkdir(parents=True, exist_ok=True)
+    pattern = rgb_folder / "frame_%06d.png"
+    completed = subprocess.run(
+        [
+            inputs.ffmpeg_bin,
+            "-y",
+            "-i",
+            str(video_path),
+            str(pattern),
+        ],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        timeout=300,
+    )
+    if completed.returncode != 0:
+        raise RuntimeError(
+            "ffmpeg could not extract Alpamayo package frames from video: "
+            + completed.stdout[-1000:]
+        )
+    return sorted(rgb_folder.glob("*.png"))
 
 
 def _load_tracks(path: Path) -> list[dict[str, Any]]:

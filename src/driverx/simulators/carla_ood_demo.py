@@ -5,7 +5,7 @@ from __future__ import annotations
 import importlib
 import json
 import queue
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any
 
@@ -27,6 +27,9 @@ from driverx.simulators.carla_road_frame import (
     transform_payload_to_road_frame,
     validate_road_aligned_track,
 )
+
+
+ROAD_ACTOR_SPAWN_Z_M = 0.6
 
 
 @dataclass(frozen=True)
@@ -258,13 +261,16 @@ def run_carla_ood_demo(
         world_map = world.get_map()
         map_name = str(getattr(world_map, "name", "")) or None
         blueprints = world.get_blueprint_library()
-        road_frame = resolve_road_frame(world_map, config.road_frame_selector())
-
         ego_blueprint = _find_vehicle_blueprint(blueprints)
         if hasattr(ego_blueprint, "set_attribute"):
             ego_blueprint.set_attribute("role_name", "driverx_ood_ego")
-        ego_spawn_payload = _road_transform(config, road_frame, 0.0, 0.0, 0.0, 0.0)
-        ego = _spawn_actor(world, ego_blueprint, _carla_transform(carla, ego_spawn_payload))
+        ego, road_frame, ego_spawn_payload = _spawn_ego_with_retry(
+            world,
+            world_map,
+            carla,
+            config,
+            ego_blueprint,
+        )
         spawned.append(ego)
         actor_by_ref["ego"] = ego
         alignment_transforms["ego"].append(ego_spawn_payload)
@@ -291,7 +297,7 @@ def run_carla_ood_demo(
             road_frame,
             behavior.samples[0].x_m,
             behavior.samples[0].y_m,
-            0.0,
+            ROAD_ACTOR_SPAWN_Z_M,
             behavior.samples[0].heading_deg,
         )
         ood_actor = world.spawn_actor(
@@ -324,7 +330,7 @@ def run_carla_ood_demo(
                     road_frame,
                     config.ego_speed_mps * tick / max(config.fps, 1),
                     0.0,
-                    0.0,
+                    ROAD_ACTOR_SPAWN_Z_M,
                     0.0,
                 )
                 _safe_set_transform(
@@ -339,7 +345,7 @@ def run_carla_ood_demo(
                 road_frame,
                 sample.x_m,
                 sample.y_m,
-                0.0,
+                ROAD_ACTOR_SPAWN_Z_M,
                 sample.heading_deg,
             )
             _safe_set_transform(
@@ -482,6 +488,51 @@ def _spawn_actor(world: object, blueprint: object, transform: object) -> object:
         if actor is not None:
             return actor
     return world.spawn_actor(blueprint, transform)
+
+
+def _spawn_ego_with_retry(
+    world: object,
+    world_map: object,
+    carla: object,
+    config: CarlaOodDemoConfig,
+    blueprint: object,
+) -> tuple[object, RoadFrame, dict[str, dict[str, float]]]:
+    selector = config.road_frame_selector()
+    spawn_points = list(world_map.get_spawn_points())
+    if not spawn_points:
+        raise RuntimeError("CARLA map has no spawn points.")
+    start_index = max(0, min(selector.spawn_index, len(spawn_points) - 1))
+    candidate_indices = [
+        (start_index + offset) % len(spawn_points)
+        for offset in range(min(len(spawn_points), 40))
+    ]
+    last_error: Exception | None = None
+    for spawn_index in candidate_indices:
+        candidate_selector = replace(selector, spawn_index=spawn_index)
+        road_frame = resolve_road_frame(world_map, candidate_selector)
+        spawn_payload = _road_transform(
+            config,
+            road_frame,
+            0.0,
+            0.0,
+            ROAD_ACTOR_SPAWN_Z_M,
+            0.0,
+        )
+        transform = _carla_transform(carla, spawn_payload)
+        try:
+            if hasattr(world, "try_spawn_actor"):
+                actor = world.try_spawn_actor(blueprint, transform)
+                if actor is not None:
+                    return actor, road_frame, spawn_payload
+            else:
+                actor = world.spawn_actor(blueprint, transform)
+                return actor, road_frame, spawn_payload
+        except Exception as exc:
+            last_error = exc
+    detail = f": {last_error}" if last_error is not None else ""
+    raise RuntimeError(
+        f"Unable to spawn ego actor at {len(candidate_indices)} road-frame candidates{detail}"
+    )
 
 
 def _carla_transform(carla: object, payload: dict[str, dict[str, float]]) -> object:

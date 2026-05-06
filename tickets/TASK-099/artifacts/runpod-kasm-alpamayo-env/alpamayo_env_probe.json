@@ -1,0 +1,17 @@
+{
+  "python": "/workspace/alpamayo1.5/a1_5_venv/bin/python",
+  "torch": "2.8.0+cu128",
+  "transformers": "4.57.1",
+  "huggingface_hub": "0.36.0",
+  "PIL": "12.0.0",
+  "cuda_available": true,
+  "cuda_device": "NVIDIA RTX 6000 Ada Generation",
+  "cuda_capability": [
+    8,
+    9
+  ],
+  "token_file_exists:/home/kasm-user/.cache/huggingface/token": false,
+  "token_file_exists:/workspace/.cache/driverx/huggingface/token": false,
+  "token_file_exists:/workspace/alpamayo1.5/.hf_token": false,
+  "alpamayo_repo_exists": true
+}

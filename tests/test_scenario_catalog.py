@@ -33,10 +33,12 @@ class ScenarioCatalogTest(unittest.TestCase):
         self.assertTrue(record.quality.has_video)
         self.assertTrue(record.quality.has_model_reasoning)
         self.assertTrue(record.quality.road_aligned)
+        self.assertTrue(record.quality.has_conflict)
         self.assertIn("video", record.ood_tags)
         self.assertIn("memory-case-7", record.ood_tags)
         self.assertEqual(record.promotion.status, "candidate")
-        self.assertEqual(len(record.source_artifacts), 3)
+        self.assertEqual(Path(record.artifacts.video or "").name, "overlay.mp4")
+        self.assertEqual(len(record.source_artifacts), 4)
 
     def test_filters_promotes_and_writes_selection_outputs(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -195,6 +197,23 @@ def _write_catalog_fixture(root: Path) -> Path:
     }
     (campaign_dir / "scripted_ood_campaign_summary.json").write_text(
         json.dumps(campaign_summary),
+        encoding="utf-8",
+    )
+    overlay_dir = campaign_dir / "overlay"
+    overlay_dir.mkdir(parents=True, exist_ok=True)
+    overlay_video_path = overlay_dir / "overlay.mp4"
+    overlay_video_path.write_bytes(b"fake video")
+    (overlay_dir / "ood_video_evidence.json").write_text(
+        json.dumps(
+            {
+                "status": "passed",
+                "scenario_id": "seed-regional-driving-behavior-001",
+                "behavior_id": "sudden_brake",
+                "ood_tags": ["regional-driving-behavior", "overlay"],
+                "video_path": "remote/artifacts/overlay.mp4",
+                "overlay": {"worst_risk": {"distance_m": 2.4}},
+            }
+        ),
         encoding="utf-8",
     )
 

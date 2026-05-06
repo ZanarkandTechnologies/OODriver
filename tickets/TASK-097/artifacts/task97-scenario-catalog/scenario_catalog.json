@@ -1,0 +1,67 @@
+{
+  "record_count": 1,
+  "source_roots": [
+    "tickets/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-campaign-v2",
+    "tickets/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-overlay-v2"
+  ],
+  "records": [
+    {
+      "scenario_id": "generated-base-animals-0076-visual-noise-000",
+      "recipe_id": "generated-base-animals-0076-visual-noise-000",
+      "case_id": null,
+      "family": "visual",
+      "behavior_id": "wrong_way_shoulder_creep",
+      "environment_tags": [
+        "animals",
+        "visual-noise"
+      ],
+      "ood_tags": [
+        "creep",
+        "live_carla",
+        "passed",
+        "shoulder",
+        "video",
+        "visual_noise",
+        "wrong_way",
+        "wrong_way_shoulder_creep"
+      ],
+      "quality": {
+        "road_aligned": null,
+        "has_conflict": false,
+        "has_video": true,
+        "has_model_reasoning": false,
+        "status": "passed"
+      },
+      "artifacts": {
+        "video": "tickets/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-overlay-v2/generated-base-animals-0076-visual-noise-000_ood.mp4",
+        "tracks": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/entity_tracks.json",
+        "reasoning": null,
+        "quality_report": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/road_alignment_report.json",
+        "scenario_report": "tickets/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/carla_ood_demo.json",
+        "rgb_folder": "artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/rgb",
+        "package": null,
+        "comparison": null
+      },
+      "promotion": {
+        "status": "blocked",
+        "reason": "quality_status=passed"
+      },
+      "source_artifacts": [
+        "tickets/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/carla_ood_demo.json",
+        "tickets/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/video/ood_video_evidence.json",
+        "tickets/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-campaign-v2/scripted_ood_campaign_summary.json",
+        "tickets/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-overlay-v2/ood_video_evidence.json"
+      ],
+      "blockers": []
+    }
+  ],
+  "promotion_counts": {
+    "blocked": 1
+  },
+  "quality_counts": {
+    "has_video": 1,
+    "has_model_reasoning": 0,
+    "road_aligned_true": 0,
+    "road_aligned_unknown": 1
+  }
+}

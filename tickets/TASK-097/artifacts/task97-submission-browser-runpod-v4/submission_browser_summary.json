@@ -1,0 +1,19 @@
+{
+  "scenario_count": 1,
+  "hero_scenarios": [
+    "generated-base-animals-0076-visual-noise-000"
+  ],
+  "failure_scenarios": [],
+  "policy_evaluation_row_count": 0,
+  "policy_status_counts": {},
+  "policy_passed_count": 0,
+  "policy_planned_count": 0,
+  "policy_blocked_count": 0,
+  "policy_decision_artifact_count": 0,
+  "catalog_path": "tickets/TASK-097/artifacts/task97-scenario-catalog-hero-v3/scenario_catalog.json",
+  "policy_evaluation_path": null,
+  "browser_html": "tickets/TASK-097/artifacts/task97-submission-browser-runpod-v4/scenario_browser.html",
+  "dossier_md": "tickets/TASK-097/artifacts/task97-submission-browser-runpod-v4/submission_dossier_v6.md",
+  "video_script_md": "tickets/TASK-097/artifacts/task97-submission-browser-runpod-v4/video_script_v6.md",
+  "summary_json": "tickets/TASK-097/artifacts/task97-submission-browser-runpod-v4/submission_browser_summary.json"
+}

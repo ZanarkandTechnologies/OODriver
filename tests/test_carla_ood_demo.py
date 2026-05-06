@@ -114,6 +114,31 @@ class _FakeWorld:
         return None
 
 
+class _RetryFakeMap:
+    name = "Carla/Maps/Town10HD_Opt"
+
+    def get_spawn_points(self):
+        return [
+            _FakeTransform(_FakeLocation(100.0, 200.0, 0.2), _FakeRotation(0.0, 90.0, 0.0)),
+            _FakeTransform(_FakeLocation(120.0, 240.0, 0.2), _FakeRotation(0.0, 0.0, 0.0)),
+        ]
+
+
+class _RetryFakeWorld(_FakeWorld):
+    def __init__(self) -> None:
+        super().__init__()
+        self.try_count = 0
+
+    def get_map(self):
+        return _RetryFakeMap()
+
+    def try_spawn_actor(self, blueprint, transform):
+        self.try_count += 1
+        if blueprint.id.startswith("vehicle.") and self.try_count == 1:
+            return None
+        return self.spawn_actor(blueprint, transform)
+
+
 class _FakeClient:
     def __init__(self, world: _FakeWorld) -> None:
         self.world = world
@@ -160,6 +185,11 @@ class _FakeCarla:
 
     def Client(self, host: str, port: int):
         return _FakeClient(self.world)
+
+
+class _RetryFakeCarla(_FakeCarla):
+    def __init__(self) -> None:
+        self.world = _RetryFakeWorld()
 
 
 def _recipe() -> ScenarioRecipe:
@@ -248,6 +278,23 @@ class CarlaOodDemoTest(unittest.TestCase):
         self.assertNotEqual(ood_track["location"]["x"], 0.0)
         self.assertAlmostEqual(ood_track["location"]["x"], 98.25)
         self.assertAlmostEqual(ood_track["location"]["y"], 200.0)
+
+    def test_run_carla_ood_demo_retries_blocked_ego_spawn_points(self) -> None:
+        with TemporaryDirectory() as tmp:
+            run_dir = Path(tmp)
+            carla = _RetryFakeCarla()
+            result = run_carla_ood_demo(
+                CarlaOodDemoConfig(tick_count=1, fps=1),
+                run_dir,
+                recipe=_recipe(),
+                behavior=_behavior(),
+                carla_module=carla,
+            )
+            alignment = json.loads(Path(result.road_alignment_path or "").read_text(encoding="utf-8"))
+
+        self.assertEqual(result.status, "passed")
+        self.assertGreater(carla.world.try_count, 1)
+        self.assertEqual(alignment["road_frame"]["spawn_index"], 1)
 
     def test_missing_carla_package_reports_blocker(self) -> None:
         with TemporaryDirectory() as tmp:

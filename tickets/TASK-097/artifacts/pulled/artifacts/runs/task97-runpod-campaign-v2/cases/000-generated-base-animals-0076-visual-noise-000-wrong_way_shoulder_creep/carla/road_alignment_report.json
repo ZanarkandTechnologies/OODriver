@@ -1,0 +1,87 @@
+{
+  "coordinate_frame": "road_local",
+  "road_frame": {
+    "origin": {
+      "x": -67.254662,
+      "y": 27.997168,
+      "z": 0.0
+    },
+    "yaw_deg": 0.15919755399227142,
+    "lane_width_m": 3.5,
+    "road_id": null,
+    "lane_id": null,
+    "spawn_index": 1,
+    "selector": {
+      "spawn_index": 1,
+      "forward_offset_m": 0.0,
+      "lateral_offset_m": 0.0,
+      "yaw_delta_deg": 0.0,
+      "lane_width_m": 3.5,
+      "max_lateral_offset_m": 6.0
+    },
+    "source": "waypoint"
+  },
+  "actors": {
+    "ego": {
+      "actor_ref": "ego",
+      "num_samples": 301,
+      "offroad_samples": 0,
+      "max_abs_lateral_m": 4.984800838214731e-07,
+      "starts_on_road": true,
+      "passes": true,
+      "max_lateral_offset_m": 6.0,
+      "road_frame": {
+        "origin": {
+          "x": -67.254662,
+          "y": 27.997168,
+          "z": 0.0
+        },
+        "yaw_deg": 0.15919755399227142,
+        "lane_width_m": 3.5,
+        "road_id": null,
+        "lane_id": null,
+        "spawn_index": 1,
+        "selector": {
+          "spawn_index": 1,
+          "forward_offset_m": 0.0,
+          "lateral_offset_m": 0.0,
+          "yaw_delta_deg": 0.0,
+          "lane_width_m": 3.5,
+          "max_lateral_offset_m": 6.0
+        },
+        "source": "waypoint"
+      }
+    },
+    "ood_actor_0": {
+      "actor_ref": "ood_actor_0",
+      "num_samples": 301,
+      "offroad_samples": 0,
+      "max_abs_lateral_m": 5.200000495586612,
+      "starts_on_road": true,
+      "passes": true,
+      "max_lateral_offset_m": 6.0,
+      "road_frame": {
+        "origin": {
+          "x": -67.254662,
+          "y": 27.997168,
+          "z": 0.0
+        },
+        "yaw_deg": 0.15919755399227142,
+        "lane_width_m": 3.5,
+        "road_id": null,
+        "lane_id": null,
+        "spawn_index": 1,
+        "selector": {
+          "spawn_index": 1,
+          "forward_offset_m": 0.0,
+          "lateral_offset_m": 0.0,
+          "yaw_delta_deg": 0.0,
+          "lane_width_m": 3.5,
+          "max_lateral_offset_m": 6.0
+        },
+        "source": "waypoint"
+      }
+    }
+  },
+  "passes": true
+}

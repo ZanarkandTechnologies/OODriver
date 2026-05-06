@@ -1,0 +1,173 @@
+{
+  "work_type": ["backend", "integration", "evidence", "video"],
+  "reviewed_at": "2026-05-07 01:41 +0800",
+  "tickets": ["TASK-097", "TASK-098"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/scenarios/catalog.py",
+      "src/driverx/pipeline/submission_scenario_browser.py",
+      "tests/test_carla_ood_demo.py",
+      "tests/test_scenario_catalog.py",
+      "tests/test_submission_scenario_browser.py",
+      "configs/carla_ood_demo.runpod.sample.yaml",
+      "configs/scripted_ood_campaign.runpod.sample.yaml",
+      "scripts/setup_runpod_carla_0916_graphics.sh",
+      "scripts/sync_runpod_proxy_workspace.sh",
+      "tickets/TASK-097/ticket.md",
+      "tickets/TASK-098/ticket.md",
+      "blockers.md",
+      "docs/HISTORY.md",
+      "docs/MEMORY.md",
+      "AGENTS.md"
+    ],
+    "related_artifacts": [
+      "tickets/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-campaign-v2/scripted_ood_campaign_summary.json",
+      "tickets/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-overlay-v2/ood_video_evidence.json",
+      "tickets/TASK-097/artifacts/task97-scenario-catalog-hero-v3/scenario_catalog.json",
+      "tickets/TASK-097/artifacts/task97-submission-browser-runpod-v4/submission_browser_summary.json",
+      "tickets/TASK-097/artifacts/task97-submission-browser-runpod-v4/scenario_browser.html",
+      "tickets/TASK-097/artifacts/pulled/previews/task97_overlay_t05.png"
+    ],
+    "invariants_checked": ["MEM-0023", "MEM-0024", "MEM-0025", "MEM-0026"],
+    "commands_checked": [
+      "PYTHONPATH=src python3 -m unittest tests.test_scenario_catalog tests.test_submission_scenario_browser",
+      "bash scripts/pre_push_check.sh",
+      "DRIVERX_REMOTE_TEST=1 scripts/sync_runpod_proxy_workspace.sh poz4gv6ryu2571-644111cc@ssh.runpod.io ~/.ssh/id_ed25519_runpod /workspace/0xDriver"
+    ]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "evidence-quality",
+    "integration-readiness",
+    "demo-quality",
+    "video-quality"
+  ],
+  "summary": "TASK-097 now has real RunPod CARLA campaign evidence and TASK-098 makes that evidence discoverable as a submission hero. Reviewer-found issues were fixed before this review: browser artifact links now resolve relative to the generated HTML directory, and ood_video_evidence parsing reads nested overlay.worst_risk as well as top-level worst_risk. The evidence packet is strong: remote tests pass, local pre-push passes, the overlay MP4 is 60s/300 frames, browser links resolve locally, and the scenario catalog records road_aligned=true, has_conflict=true, has_video=true, status=passed.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "resolved_review_findings": [
+    {
+      "finding": "Generated browser links did not resolve from the HTML output directory.",
+      "fix": "submission_scenario_browser now emits relative hrefs for existing local artifacts and test_browser_artifact_links_resolve_from_output_directory verifies the behavior."
+    },
+    {
+      "finding": "ood_video_evidence parser ignored nested overlay.worst_risk.",
+      "fix": "catalog indexing now falls back to payload.overlay.worst_risk and the catalog fixture uses nested risk data."
+    }
+  ],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "The catalog/browser path is submission-ready for generated OOD evidence, but it still has no Alpamayo reasoning attached to the hero scenario.",
+      "file_refs": [
+        "tickets/TASK-097/artifacts/task97-submission-browser-runpod-v4/submission_browser_summary.json"
+      ],
+      "evidence": [
+        "policy_evaluation_row_count is 0 and scenarios with VLA reasoning is 0."
+      ],
+      "next_action": "Use TASK-099 to run Alpamayo reasoning on the hero scenario or explicitly keep the current submission claim as simulator-generation evidence."
+    },
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "code-quality",
+      "summary": "The touched catalog module is approaching the repo's large-file warning threshold, but remains under the hard gate and the added helpers are localized.",
+      "file_refs": ["src/driverx/scenarios/catalog.py"],
+      "evidence": [
+        "pre_push_check warns that catalog.py is 762 lines; the hard failure threshold is 1000 lines."
+      ],
+      "next_action": "Defer extraction until the next catalog feature adds another substantial artifact family."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.1,
+        "bloatability": 3.8,
+        "readability": 4.0,
+        "boundary-clarity": 4.2,
+        "error-handling": 4.1,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Pass; watch catalog file size on the next feature."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.3,
+        "reproducibility": 4.1,
+        "traceability": 4.4,
+        "consistency": 4.3,
+        "inspectability": 4.2,
+        "autonomy-readiness": 4.1
+      },
+      "findings": [],
+      "next_action": "Pass; attach Alpamayo reasoning in the next ticket for a stronger final submission."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.2,
+        "contract-correctness": 4.2,
+        "dependency-readiness": 4.1,
+        "coupling-risk": 4.1,
+        "merge-readiness": 4.3
+      },
+      "findings": [],
+      "next_action": "Pass."
+    },
+    {
+      "name": "video-quality",
+      "score": 4.0,
+      "threshold": 3.5,
+      "pass": true,
+      "dimension_scores": {
+        "legibility": 4.0,
+        "coverage": 4.0,
+        "pacing": 4.0,
+        "faithfulness": 4.2,
+        "verification-value": 4.1
+      },
+      "findings": [],
+      "next_action": "Pass."
+    },
+    {
+      "name": "demo-quality",
+      "score": 3.8,
+      "threshold": 3.5,
+      "pass": true,
+      "dimension_scores": {
+        "fidelity": 4.0,
+        "realism": 3.8,
+        "workflow-coverage": 3.6,
+        "trustworthiness": 4.0,
+        "communication-clarity": 3.8
+      },
+      "findings": [],
+      "next_action": "Pass; policy reasoning coverage is the next improvement."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Proceed to TASK-099: attach Alpamayo reasoning/comparison to the RunPod hero scenario."
+}

@@ -192,6 +192,7 @@ def index_scenario_artifacts(artifact_roots: list[Path]) -> ScenarioCatalog:
                 "scripted_ood_campaign_summary.json",
                 "alpamayo_ood_batch_summary.json",
                 "carla_ood_demo.json",
+                "ood_video_evidence.json",
             }:
                 _index_artifact_file(path, records)
     return ScenarioCatalog(records=sorted(records.values(), key=lambda item: item.scenario_id), source_roots=source_roots)
@@ -284,13 +285,15 @@ def _index_artifact_file(path: Path, records: dict[str, ScenarioCatalogRecord]) 
                 _merge_record(records, _record_from_alpamayo_record(path, record))
     elif path.name == "carla_ood_demo.json":
         _merge_record(records, _record_from_carla_demo(path, payload))
+    elif path.name == "ood_video_evidence.json":
+        _merge_record(records, _record_from_ood_video_evidence(path, payload))
 
 
 def _record_from_campaign_case(path: Path, case: dict[str, Any]) -> ScenarioCatalogRecord:
     recipe_id = _optional_str(case.get("recipe_id"))
     scenario_id = recipe_id or str(case.get("case_id", path.parent.name))
-    video = _optional_str(case.get("video_path"))
-    quality_report = _road_alignment_path_from_case(case)
+    video = _resolved_artifact_path(path, _optional_str(case.get("video_path")))
+    quality_report = _road_alignment_path_from_case(path, case)
     road_aligned = _road_aligned_from_report(quality_report)
     blockers = sorted(
         set(_string_list(case.get("blockers", [])))
@@ -318,10 +321,10 @@ def _record_from_campaign_case(path: Path, case: dict[str, Any]) -> ScenarioCata
         ),
         artifacts=ScenarioArtifacts(
             video=video,
-            tracks=_optional_str(case.get("tracks_path")),
+            tracks=_resolved_artifact_path(path, _optional_str(case.get("tracks_path"))),
             quality_report=quality_report,
-            scenario_report=_optional_str(case.get("scenario_report_path")),
-            rgb_folder=_optional_str(case.get("rgb_folder")),
+            scenario_report=_resolved_artifact_path(path, _optional_str(case.get("scenario_report_path"))),
+            rgb_folder=_resolved_artifact_path(path, _optional_str(case.get("rgb_folder"))),
         ),
         promotion=PromotionDecision(status=_default_promotion(status, has_video, blockers), reason=_default_reason(status, blockers)),
         source_artifacts=[str(path)],
@@ -362,7 +365,7 @@ def _record_from_alpamayo_record(path: Path, record: dict[str, Any]) -> Scenario
 
 def _record_from_carla_demo(path: Path, payload: dict[str, Any]) -> ScenarioCatalogRecord:
     scenario_id = str(payload.get("scenario_id") or payload.get("recipe_id") or path.parent.name)
-    quality_report = _optional_str(payload.get("road_alignment_path"))
+    quality_report = _resolved_artifact_path(path, _optional_str(payload.get("road_alignment_path")))
     road_aligned = _road_aligned_from_report(quality_report)
     blockers = _string_list(payload.get("blockers", []))
     has_video = bool(payload.get("rgb_folder")) and int(payload.get("frame_count", 0) or 0) > 0
@@ -383,10 +386,45 @@ def _record_from_carla_demo(path: Path, payload: dict[str, Any]) -> ScenarioCata
             status=status,
         ),
         artifacts=ScenarioArtifacts(
-            tracks=_optional_str(payload.get("tracks_path")),
+            tracks=_resolved_artifact_path(path, _optional_str(payload.get("tracks_path"))),
             quality_report=quality_report,
             scenario_report=str(path),
-            rgb_folder=_optional_str(payload.get("rgb_folder")),
+            rgb_folder=_resolved_artifact_path(path, _optional_str(payload.get("rgb_folder"))),
+        ),
+        promotion=PromotionDecision(status=_default_promotion(status, has_video, blockers), reason=_default_reason(status, blockers)),
+        source_artifacts=[str(path)],
+        blockers=blockers,
+    )
+
+
+def _record_from_ood_video_evidence(path: Path, payload: dict[str, Any]) -> ScenarioCatalogRecord:
+    scenario_id = str(payload.get("scenario_id") or path.parent.name)
+    behavior_id = _optional_str(payload.get("behavior_id"))
+    raw_status = str(payload.get("status", "unknown"))
+    blockers = _string_list(payload.get("blockers", []))
+    video = _resolved_artifact_path(path, _optional_str(payload.get("video_path")))
+    min_distance = _video_worst_risk_distance(payload)
+    has_conflict = bool(min_distance is not None and min_distance <= 6.0)
+    has_video = bool(video) or raw_status == "passed"
+    status = raw_status if raw_status != "unknown" else ("passed" if has_video else "unknown")
+    return ScenarioCatalogRecord(
+        scenario_id=scenario_id,
+        recipe_id=scenario_id,
+        case_id=None,
+        family=_family_from_recipe_id(scenario_id),
+        behavior_id=behavior_id,
+        environment_tags=_environment_tags_from_id(scenario_id),
+        ood_tags=sorted(set(_string_list(payload.get("ood_tags", [])) + ([behavior_id] if behavior_id else []) + ["video"])),
+        quality=ScenarioQuality(
+            road_aligned=None,
+            has_conflict=has_conflict,
+            has_video=has_video,
+            has_model_reasoning=False,
+            status=status,
+        ),
+        artifacts=ScenarioArtifacts(
+            video=video,
+            quality_report=str(path),
         ),
         promotion=PromotionDecision(status=_default_promotion(status, has_video, blockers), reason=_default_reason(status, blockers)),
         source_artifacts=[str(path)],
@@ -401,13 +439,13 @@ def _merge_record(records: dict[str, ScenarioCatalogRecord], update: ScenarioCat
         return
     quality = ScenarioQuality(
         road_aligned=_prefer_bool(existing.quality.road_aligned, update.quality.road_aligned),
-        has_conflict=_prefer_bool(existing.quality.has_conflict, update.quality.has_conflict),
+        has_conflict=_prefer_conflict(existing.quality.has_conflict, update.quality.has_conflict),
         has_video=existing.quality.has_video or update.quality.has_video,
         has_model_reasoning=existing.quality.has_model_reasoning or update.quality.has_model_reasoning,
         status=_merge_quality_status(existing.quality.status, update.quality.status),
     )
     artifacts = ScenarioArtifacts(
-        video=existing.artifacts.video or update.artifacts.video,
+        video=_preferred_video(existing, update),
         tracks=existing.artifacts.tracks or update.artifacts.tracks,
         reasoning=existing.artifacts.reasoning or update.artifacts.reasoning,
         quality_report=existing.artifacts.quality_report or update.artifacts.quality_report,
@@ -429,6 +467,28 @@ def _merge_record(records: dict[str, ScenarioCatalogRecord], update: ScenarioCat
         source_artifacts=sorted(set(existing.source_artifacts) | set(update.source_artifacts)),
         blockers=blockers,
     )
+
+
+def _preferred_video(existing: ScenarioCatalogRecord, update: ScenarioCatalogRecord) -> str | None:
+    if update.artifacts.video and _is_overlay_video_record(update):
+        return update.artifacts.video
+    return existing.artifacts.video or update.artifacts.video
+
+
+def _is_overlay_video_record(record: ScenarioCatalogRecord) -> bool:
+    return any(Path(source).name == "ood_video_evidence.json" for source in record.source_artifacts)
+
+
+def _video_worst_risk_distance(payload: dict[str, Any]) -> float | None:
+    top_level = payload.get("worst_risk")
+    if isinstance(top_level, dict):
+        return _safe_float(top_level.get("distance_m"))
+    overlay = payload.get("overlay")
+    if isinstance(overlay, dict):
+        nested = overlay.get("worst_risk")
+        if isinstance(nested, dict):
+            return _safe_float(nested.get("distance_m"))
+    return None
 
 
 def _catalog_markdown(catalog: ScenarioCatalog) -> str:
@@ -473,11 +533,11 @@ def _selection_markdown(selection_id: str, records: list[ScenarioCatalogRecord])
     return "\n".join(lines)
 
 
-def _road_alignment_path_from_case(case: dict[str, Any]) -> str | None:
-    explicit_path = _optional_str(case.get("road_alignment_path"))
+def _road_alignment_path_from_case(path: Path, case: dict[str, Any]) -> str | None:
+    explicit_path = _resolved_artifact_path(path, _optional_str(case.get("road_alignment_path")))
     if explicit_path:
         return explicit_path
-    report_path = _optional_str(case.get("scenario_report_path"))
+    report_path = _resolved_artifact_path(path, _optional_str(case.get("scenario_report_path")))
     if not report_path:
         return None
     candidate = Path(report_path).with_name("road_alignment_report.json")
@@ -494,6 +554,32 @@ def _road_aligned_from_report(path: str | None) -> bool | None:
     if isinstance(payload, dict):
         return bool(payload.get("passes")) if "passes" in payload else None
     return None
+
+
+def _resolved_artifact_path(source_path: Path, raw_path: str | None) -> str | None:
+    if not raw_path:
+        return None
+    candidate = Path(raw_path)
+    if candidate.is_absolute() or candidate.exists():
+        return str(candidate)
+    for parent in [source_path.parent, *source_path.parents]:
+        relative_candidate = parent / candidate
+        if relative_candidate.exists():
+            return str(relative_candidate)
+    parts = candidate.parts
+    for parent in [source_path.parent, *source_path.parents]:
+        if parent.name not in parts:
+            continue
+        index = parts.index(parent.name)
+        if index + 1 >= len(parts):
+            continue
+        suffix_candidate = parent / Path(*parts[index + 1 :])
+        if suffix_candidate.exists():
+            return str(suffix_candidate)
+    sibling = source_path.parent / candidate.name
+    if sibling.exists():
+        return str(sibling)
+    return raw_path
 
 
 def _family_from_recipe_id(recipe_id: str) -> str:
@@ -645,6 +731,12 @@ def _safe_float(value: object) -> float | None:
 
 
 def _prefer_bool(left: bool | None, right: bool | None) -> bool | None:
+    return left if left is not None else right
+
+
+def _prefer_conflict(left: bool | None, right: bool | None) -> bool | None:
+    if left is True or right is True:
+        return True
     return left if left is not None else right
 
 

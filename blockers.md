@@ -6,18 +6,18 @@ unblocked ticket when possible.
 
 ## Open
 
-- 2026-05-06 22:21 +0800 | runpod,carla,vulkan,gpu | TASK-089 installed
-  CARLA 0.9.16 on the RTX 6000 Ada RunPod host at
-  `/workspace/carla/CARLA_0.9.16` and synced DriverX to
-  `/workspace/0xDriver`. Remote Python imports `carla`, and focused DriverX
-  tests pass on the GPU host. Live CARLA server launch is still blocked because
-  the container NVIDIA Vulkan ICD fails with `ERROR_INCOMPATIBLE_DRIVER` for
-  `libGLX_nvidia.so.0`; non-root CARLA launch never opens port `2000`.
-  Evidence:
-  `tickets/TASK-089/artifacts/remote-carla-setup/remote_carla_setup.md`.
-  Next unblock path: use a RunPod template/host with graphics-capable NVIDIA
-  Vulkan exposed, or keep CARLA local for rendering while using the GPU host for
-  Alpamayo inference and repo tests.
+- 2026-05-07 01:40 +0800 | alpamayo,runpod,kasm,huggingface,secrets |
+  TASK-099 prepared the RunPod hero video as a torch-ready Alpamayo package and
+  proved the Kasm Alpamayo env has CUDA on RTX 6000 Ada, but live inference
+  cannot proceed safely through the current SSH proxy because it requires a PTY
+  and echoes command input. Probe evidence shows no token file at
+  `/home/kasm-user/.cache/huggingface/token`,
+  `/workspace/.cache/driverx/huggingface/token`, or
+  `/workspace/alpamayo1.5/.hf_token`. User unblock path: run
+  `cd /workspace/alpamayo1.5 && source a1_5_venv/bin/activate && hf auth login`
+  inside the Kasm web terminal, or provide a direct TCP SSH endpoint that
+  supports non-PTY file transfer. Evidence:
+  `tickets/TASK-099/artifacts/runpod-kasm-alpamayo-env/alpamayo_env_probe.md`.
 
 - 2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060
   long-score attempt `town13-long-score-attempt-001` started the stock
@@ -60,6 +60,22 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-07 01:22 +0800 | runpod,carla,campaign,video,catalog |
+  TASK-097/TASK-098 resolved the "credible long video" blocker. The Kasm
+  RunPod CARLA host ran a quality-gated scripted OOD campaign, selected one
+  road-aligned live case, produced 300 frames / 60.0s of video substrate, and
+  regenerated an overlay MP4 after installing Pillow in `/workspace/driverx_py312`.
+  The pulled evidence now indexes as a `hero` scenario in the submission
+  browser. Evidence: `tickets/TASK-097/ticket.md` and
+  `tickets/TASK-098/ticket.md`.
+
+- 2026-05-07 00:52 +0800 | runpod,carla,vulkan,gpu | TASK-096 resolved the
+  prior RTX 6000 Ada container graphics blocker by moving to a RunPod Kasm
+  desktop pod, using a per-process NVIDIA Vulkan ICD, installing CARLA 0.9.16
+  on `/workspace/carla`, launching CARLA headlessly on port `2000`, and
+  connecting with a Python 3.12 CARLA client. Evidence:
+  `tickets/TASK-096/ticket.md`.
 
 - 2026-05-06 20:41 +0800 | carla,docker,video,campaign | TASK-085 live
   campaign captured two 24.0s CARLA cases through Docker. Docker-side video

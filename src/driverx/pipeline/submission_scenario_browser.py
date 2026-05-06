@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import html
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -53,7 +54,10 @@ def build_submission_scenario_browser(
     dossier_path = output_dir / "submission_dossier_v6.md"
     script_path = output_dir / "video_script_v6.md"
     summary_path = output_dir / "submission_browser_summary.json"
-    browser_path.write_text(_browser_html(catalog, policy, policy_summary, blockers), encoding="utf-8")
+    browser_path.write_text(
+        _browser_html(catalog, policy, policy_summary, blockers, browser_path.parent),
+        encoding="utf-8",
+    )
     dossier_path.write_text(
         _dossier_markdown(catalog, policy_summary, blockers, hero_records, failure_records),
         encoding="utf-8",
@@ -138,8 +142,9 @@ def _browser_html(
     policy: dict[str, Any],
     policy_summary: dict[str, Any],
     blockers: list[str],
+    output_dir: Path,
 ) -> str:
-    cards = "\n".join(_scenario_card(record, policy) for record in catalog.records)
+    cards = "\n".join(_scenario_card(record, policy, output_dir) for record in catalog.records)
     blockers_html = "".join(f"<li>{html.escape(blocker)}</li>" for blocker in blockers[:12]) or "<li>none</li>"
     return f"""<!doctype html>
 <html lang="en">
@@ -191,7 +196,7 @@ def _browser_html(
 """
 
 
-def _scenario_card(record: ScenarioCatalogRecord, policy: dict[str, Any]) -> str:
+def _scenario_card(record: ScenarioCatalogRecord, policy: dict[str, Any], output_dir: Path) -> str:
     evaluations = [
         evaluation
         for evaluation in list(policy.get("evaluations", []))
@@ -205,7 +210,7 @@ def _scenario_card(record: ScenarioCatalogRecord, policy: dict[str, Any]) -> str
         f"<span class='chip'>{html.escape(tag)}</span>"
         for tag in [*record.environment_tags, *record.ood_tags][:10]
     )
-    links = _artifact_links(record)
+    links = _artifact_links(record, output_dir)
     return f"""<article class="card">
   <h2>{html.escape(record.scenario_id)}</h2>
   <p><strong>Behavior:</strong> {html.escape(str(record.behavior_id or "unknown"))}</p>
@@ -217,7 +222,7 @@ def _scenario_card(record: ScenarioCatalogRecord, policy: dict[str, Any]) -> str
 </article>"""
 
 
-def _artifact_links(record: ScenarioCatalogRecord) -> str:
+def _artifact_links(record: ScenarioCatalogRecord, output_dir: Path) -> str:
     pairs = [
         ("video", record.artifacts.video),
         ("tracks", record.artifacts.tracks),
@@ -226,11 +231,22 @@ def _artifact_links(record: ScenarioCatalogRecord) -> str:
         ("quality", record.artifacts.quality_report),
     ]
     links = [
-        f"<a href='{html.escape(path)}'>{label}</a>"
+        f"<a href='{html.escape(_artifact_href(path, output_dir))}'>{label}</a>"
         for label, path in pairs
         if path
     ]
     return ", ".join(links) if links else "none"
+
+
+def _artifact_href(path: str, output_dir: Path) -> str:
+    candidate = Path(path)
+    if not candidate.is_absolute() and not candidate.exists():
+        return path
+    target = candidate.resolve()
+    try:
+        return Path(os.path.relpath(target, output_dir.resolve())).as_posix()
+    except ValueError:
+        return target.as_posix()
 
 
 def _dossier_markdown(
@@ -283,6 +299,7 @@ def _dossier_markdown(
             "- This is a scenario-generation and open-loop VLA evaluation harness.",
             "- Closed-loop VLA driving remains future work unless a later run explicitly routes model output into CARLA control.",
             "- Custom GLB generation is represented by Meshy-ready prompts and stock CARLA proxies in this version.",
+            "- RunPod CARLA rendering is unblocked for DriverX scripted OOD campaigns; stock Fail2Drive long-route scoring remains a separate runtime lane.",
             "",
             "## Open Blockers",
             "",
@@ -308,6 +325,11 @@ def _video_script_markdown(
         if failure_records
         else f"5. Show VLA policy status counts honestly: passed `{policy_summary['passed']}`, planned `{policy_summary['planned']}`, blocked `{policy_summary['blocked']}`; no quality-passed failure case is selected yet."
     )
+    close_line = (
+        "6. Close with next step: attach Alpamayo reasoning to this hero scenario, route conservative trajectory replay through CARLA, and scale the OOD generator to more regional behaviors and generated meshes."
+        if hero_records
+        else "6. Close with next step: produce the first quality-passed RunPod CARLA hero video, then attach Alpamayo reasoning and generated meshes."
+    )
     return "\n".join(
         [
             "# 0xDriver 1-5 Minute Video Script V6",
@@ -317,7 +339,7 @@ def _video_script_markdown(
             hero_line,
             "4. Show quality gates: road alignment, conflict, duration, video, and artifact checks.",
             failure_line,
-            "6. Close with next step: unblock graphics-host CARLA rendering, plug live Alpamayo trajectory proposals into a conservative CARLA controller, and add custom generated meshes.",
+            close_line,
             "",
         ]
     )

@@ -1,0 +1,19 @@
+scripted_ood_campaign:
+  scenario_config_path: configs/scenario_forge.sample.yaml
+  carla_ood_config_path: configs/carla_ood_demo.runpod.sample.yaml
+  output_root: artifacts/runs
+  run_id: scripted-ood-campaign-runpod
+  behavior_ids: wrong_way_shoulder_creep,informal_right_of_way_push,unsignaled_u_turn
+  count: 2
+  seed: 7
+  live: true
+  assemble_video: true
+  resume: true
+  no_default_assets: true
+  quality_min_duration_s: 20.0
+  quality_min_frame_count: 80
+  quality_max_min_distance_m: 6.0
+  quality_require_video: true
+  quality_require_road_alignment: true
+  quality_require_conflict: true
+  quality_retry_limit: 3
