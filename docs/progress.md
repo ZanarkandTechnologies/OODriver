@@ -100,6 +100,12 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   partial route evidence at
   `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`.
   Full driving score/route completion remains TASK-060 scope.
+- TASK-060 long-score attempt `town13-long-score-attempt-001` confirms the next
+  blocker is simulator cadence/second-client responsiveness, not missing setup:
+  the route reached game time `0.600s` at about `0.142x`, then stopped making
+  observable progress, and TASK-069 capture timed out after 60s while the route
+  owned CARLA. Evidence:
+  `tickets/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md`.
 - TASK-070 refreshed the judge-facing demo pack around the runnable TASK-064
   local OOD simulator first, then includes current CARLA and Alpamayo evidence
   with explicit claim boundaries. It now points at the TASK-071 Town13 video

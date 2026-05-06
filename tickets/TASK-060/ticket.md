@@ -166,8 +166,21 @@ ignored by `.gitignore`.
   `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`.
   This resolves the video proof gap but intentionally leaves score/completion
   open because the route stopped after early video capture.
+- 2026-05-06 11:48 +0800: Long local route attempt
+  `town13-long-score-attempt-001` ran without `--stop-after-video`. It started
+  the stock Town13 route, wrote a checkpoint/result JSON, reached game time
+  `0.600s` at about `0.142x`, then stopped making observable progress. A
+  concurrent TASK-069 route-aligned capture attempt timed out after 60s waiting
+  for CARLA, so I terminated the evaluator instead of burning the full 1200s
+  timeout. Evidence:
+  `tickets/TASK-060/artifacts/town13-long-score-attempt-001/fail2drive_route_run.md`
+  and
+  `tickets/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md`.
+- Review:
+  `docs/reviews/TASK-060-069-long-route-attempt-review.md`.
 
 ## Blockers
 - Route completion/score now needs either a faster graphics-capable Linux
-  NVIDIA CARLA host or a much longer local run without `--stop-after-video`.
-  This is no longer a Town13 map install or video blocker.
+  NVIDIA CARLA host or a local CARLA mode that can sustain route ticks and
+  serve the capture client during synchronous execution. This is no longer a
+  Town13 map install, dependency, or video blocker.

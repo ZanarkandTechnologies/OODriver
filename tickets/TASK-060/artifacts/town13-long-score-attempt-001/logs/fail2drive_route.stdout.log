@@ -1,0 +1,68 @@
+
+[1m========= Preparing RouteScenario_1088 (repetition 0) =========[0m
+[1m> Loading the world[0m
+[1m> Setting up the agent[0m
+[1m> Running the route[0m
+=== [Agent] -- Wallclock = 2026-05-06 03:42:55.183 -- System time = 0.000 -- Game time = 0.050 -- Ratio = 0.000x
+Sparse Waypoints: 2
+Dense Waypoints: 180
+WARNING: Not all actors were spawned
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!
+=== [Agent] -- Wallclock = 2026-05-06 03:42:56.280 -- System time = 1.097 -- Game time = 0.100 -- Ratio = 0.091x
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!
+=== [Agent] -- Wallclock = 2026-05-06 03:42:56.606 -- System time = 1.423 -- Game time = 0.150 -- Ratio = 0.105x
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!
+=== [Agent] -- Wallclock = 2026-05-06 03:42:56.868 -- System time = 1.685 -- Game time = 0.200 -- Ratio = 0.119x
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!
+=== [Agent] -- Wallclock = 2026-05-06 03:42:57.160 -- System time = 1.977 -- Game time = 0.250 -- Ratio = 0.126x
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!
+=== [Agent] -- Wallclock = 2026-05-06 03:42:57.469 -- System time = 2.286 -- Game time = 0.300 -- Ratio = 0.131x
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!
+=== [Agent] -- Wallclock = 2026-05-06 03:42:57.863 -- System time = 2.681 -- Game time = 0.350 -- Ratio = 0.131x
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!
+=== [Agent] -- Wallclock = 2026-05-06 03:42:58.202 -- System time = 3.019 -- Game time = 0.400 -- Ratio = 0.132x
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!
+=== [Agent] -- Wallclock = 2026-05-06 03:42:58.514 -- System time = 3.331 -- Game time = 0.450 -- Ratio = 0.135x
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!
+=== [Agent] -- Wallclock = 2026-05-06 03:42:58.799 -- System time = 3.616 -- Game time = 0.500 -- Ratio = 0.138x
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!
+=== [Agent] -- Wallclock = 2026-05-06 03:42:59.080 -- System time = 3.897 -- Game time = 0.550 -- Ratio = 0.141x
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!
+=== [Agent] -- Wallclock = 2026-05-06 03:42:59.403 -- System time = 4.220 -- Game time = 0.600 -- Ratio = 0.142x
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!
+srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!

@@ -9,6 +9,10 @@ stack-specific details and commands in `PROJECT_RULES.md`.
 - Install: optional `python3 -m pip install -e .`; local commands use `PYTHONPATH=src`.
 - Dev: `PYTHONPATH=src python3 -m driverx run-scene --config configs/mock.yaml`
 - QA path: `bash scripts/pre_push_check.sh`
+- Docker path invariant: `scripts/run_carla_client_docker.sh` writes repo
+  outputs under `/workspace`, while `scripts/run_fail2drive_client_docker.sh`
+  writes under `/workspace/0xDriver`; keep output roots aligned with the wrapper
+  in use. See `MEM-0020`.
 
 ## Validation
 

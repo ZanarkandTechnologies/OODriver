@@ -1,0 +1,147 @@
+{
+  "status": "partial",
+  "plan": {
+    "path": "tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_video_smoke_plan.json",
+    "run_command": [
+      "python",
+      "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py",
+      "--routes",
+      "/workspace/fail2drive/fail2drive_split/Generalization_PedestriansOnRoad_1088.xml",
+      "--repetitions",
+      "1",
+      "--track",
+      "MAP",
+      "--checkpoint",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+      "--debug-checkpoint",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_debug.txt",
+      "--timeout",
+      "900",
+      "--agent",
+      "/workspace/fail2drive/team_code/viz_path_agent.py",
+      "--host",
+      "host.docker.internal",
+      "--port",
+      "2000"
+    ],
+    "video_command": [
+      "python",
+      "/workspace/fail2drive/tools/generate_video.py",
+      "-f",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+      "-o",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088.mp4"
+    ],
+    "expected_outputs": {
+      "result": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+      "debug": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_debug.txt",
+      "save_path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations",
+      "rgb_folder": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+      "video": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088.mp4"
+    },
+    "live_blockers": [
+      "Fail2Drive video tool not found: /workspace/fail2drive/tools/generate_video.py",
+      "RGB folder does not exist yet; run the route command with SAVE_PATH before generating video: /workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb"
+    ]
+  },
+  "route_run": {
+    "label": "route_run",
+    "path": "tickets/TASK-060/artifacts/town13-long-score-attempt-001/fail2drive_route_run.json",
+    "exists": true,
+    "size_bytes": 4306,
+    "summary": {
+      "status": "blocked",
+      "timeout_s": 1200.0,
+      "duration_s": 257.791649,
+      "exit_code": -15,
+      "error": null,
+      "route_blockers": [
+        "Fail2Drive route command exited non-zero: -15."
+      ]
+    }
+  },
+  "result": {
+    "label": "route_result",
+    "path": "tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+    "exists": true,
+    "size_bytes": 361,
+    "summary": {
+      "status": null,
+      "success": false,
+      "driving_score": null,
+      "route_completion": null,
+      "infraction_penalty": null,
+      "duration_game_s": null,
+      "duration_system_s": null,
+      "route_count": 0,
+      "primary_route": null,
+      "infraction_counts": {}
+    }
+  },
+  "entity_tracks": {
+    "label": "entity_tracks",
+    "path": null,
+    "exists": false,
+    "size_bytes": null,
+    "summary": null
+  },
+  "video": {
+    "label": "video",
+    "path": "tickets/TASK-071/artifacts/town13-early-video-after-restart/Generalization_PedestriansOnRoad_1088_early.mp4",
+    "exists": true,
+    "size_bytes": 507730,
+    "duration_s": 0.5
+  },
+  "screenshots": [],
+  "logs": [
+    {
+      "label": "log",
+      "path": "tickets/TASK-060/artifacts/town13-long-score-attempt-001/logs/fail2drive_route.stdout.log",
+      "exists": true,
+      "size_bytes": 7030,
+      "tail": [
+        "=== [Agent] -- Wallclock = 2026-05-06 03:42:58.514 -- System time = 3.331 -- Game time = 0.450 -- Ratio = 0.135x",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:42:58.799 -- System time = 3.616 -- Game time = 0.500 -- Ratio = 0.138x",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:42:59.080 -- System time = 3.897 -- Game time = 0.550 -- Ratio = 0.141x",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:42:59.403 -- System time = 4.220 -- Game time = 0.600 -- Ratio = 0.142x",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4717, type=vehicle.mini.cooper_s_2021) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4716, type=vehicle.chevrolet.impala) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4715, type=vehicle.audi.tt) not found!",
+        "srunner.scenariomanager.carla_data_provider.get_velocity: Actor(id=4714, type=vehicle.lincoln.mkz_2020) not found!"
+      ]
+    },
+    {
+      "label": "log",
+      "path": "tickets/TASK-060/artifacts/town13-long-score-attempt-001/logs/fail2drive_route.stderr.log",
+      "exists": true,
+      "size_bytes": 0,
+      "tail": []
+    }
+  ],
+  "blockers": [
+    "Fail2Drive route command exited non-zero: -15."
+  ],
+  "metrics": {
+    "driving_score": null,
+    "route_completion": null,
+    "infraction_penalty": null,
+    "duration_game_s": null,
+    "duration_system_s": null,
+    "track_count": null,
+    "actor_refs": [],
+    "video_duration_s": 0.5,
+    "video_size_bytes": 507730
+  }
+}

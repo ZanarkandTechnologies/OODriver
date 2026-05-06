@@ -1,0 +1,16 @@
+{
+  "connected": false,
+  "host": "host.docker.internal",
+  "port": 2000,
+  "map_name": null,
+  "ego_actor_id": null,
+  "camera_actor_ids": [],
+  "spawned_actor_ids": [],
+  "destroyed_actor_ids": [],
+  "image_count": 0,
+  "capture_actor_source": null,
+  "tracks_path": null,
+  "package_path": null,
+  "report_path": null,
+  "error": "CARLA Alpamayo capture failed: time-out of 10000ms while waiting for the simulator, make sure the simulator is ready and connected to host.docker.internal:2000"
+}
