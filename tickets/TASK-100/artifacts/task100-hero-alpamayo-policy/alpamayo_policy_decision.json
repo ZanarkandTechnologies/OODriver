@@ -1,0 +1,375 @@
+{
+  "policy_decision": {
+    "policy_id": "alpamayo-live",
+    "adapter_kind": "alpamayo_open_loop",
+    "intent": {
+      "scene_type": "alpamayo_carla_capture:driverx_ood_generated-base-animals-0076-visual-noise-000",
+      "hazards": [
+        "open-loop live Alpamayo trajectory",
+        "1 retrieved DriverX memory entries were provided prompt-side"
+      ],
+      "ego_intent": "evaluate Alpamayo trajectory intent without closed-loop actuation",
+      "target_behavior": "open_loop_trajectory_eval",
+      "speed_profile": "trajectory_chunk",
+      "lateral_bias": "center",
+      "uncertainty": 0.4
+    },
+    "action": {
+      "mode": "trajectory_chunk_open_loop",
+      "trajectory": {
+        "points_xy": [
+          [
+            1.9914,
+            0.0035
+          ],
+          [
+            3.9991,
+            0.0101
+          ],
+          [
+            6.0384,
+            0.018
+          ],
+          [
+            8.0386,
+            0.026
+          ],
+          [
+            9.8262,
+            0.033
+          ],
+          [
+            11.3439,
+            0.0396
+          ],
+          [
+            12.6186,
+            0.0458
+          ],
+          [
+            13.7229,
+            0.052
+          ],
+          [
+            14.6885,
+            0.0578
+          ],
+          [
+            15.5526,
+            0.0633
+          ],
+          [
+            16.3379,
+            0.0684
+          ],
+          [
+            17.0791,
+            0.073
+          ],
+          [
+            17.7952,
+            0.077
+          ],
+          [
+            18.5531,
+            0.0807
+          ],
+          [
+            19.4544,
+            0.0843
+          ],
+          [
+            20.4833,
+            0.0874
+          ],
+          [
+            21.6277,
+            0.0895
+          ],
+          [
+            22.9201,
+            0.0913
+          ],
+          [
+            24.4207,
+            0.094
+          ],
+          [
+            26.1181,
+            0.1002
+          ]
+        ],
+        "source": "alpamayo_live_open_loop",
+        "score": 0.0,
+        "metadata": {
+          "native_steps": 64,
+          "native_hz": 10.0,
+          "target_steps": 20,
+          "target_hz": 4.0,
+          "batch_index": 0,
+          "set_index": 0,
+          "sample_index": 0,
+          "reasoning": "[[['Yield to the cut-in vehicle since it is turning into our lane ahead']]]"
+        }
+      },
+      "control": {
+        "target_speed_mps": 8.0308,
+        "closed_loop_control": false,
+        "open_loop_policy_evaluation": true,
+        "model_latency_ms": 111765.05,
+        "vram_peak_mb": 23559.71
+      },
+      "safety_notes": [
+        "Alpamayo output is evaluated as trajectory intent only; CARLA steering is not enabled in TASK-039.",
+        "Trajectory is converted from native 64x3 at 10Hz to DriverX 20x2 at 4Hz."
+      ]
+    },
+    "latency_ms": 111765.05,
+    "reason_summary": "[[['Yield to the cut-in vehicle since it is turning into our lane ahead']]]",
+    "retrieved_memory_ids": [],
+    "setup_blocker": null
+  },
+  "tensor_manifest": {
+    "frame_name": "driverx_ood_generated-base-animals-0076-visual-noise-000",
+    "source_package": "tickets/TASK-097/artifacts/task99-hero-alpamayo-package/alpamayo_carla_input_package.json",
+    "image_root": null,
+    "camera_indices": [
+      0,
+      1,
+      2
+    ],
+    "image_frames_shape": [
+      3,
+      4,
+      3,
+      360,
+      640
+    ],
+    "camera_indices_shape": [
+      3
+    ],
+    "ego_history_xyz_shape": [
+      1,
+      1,
+      16,
+      3
+    ],
+    "ego_history_rot_shape": [
+      1,
+      1,
+      16,
+      3,
+      3
+    ],
+    "materialized_frames": [
+      {
+        "camera_index": 0,
+        "frame_index": 0,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 0,
+        "frame_index": 1,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 0,
+        "frame_index": 2,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 0,
+        "frame_index": 3,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 1,
+        "frame_index": 0,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 1,
+        "frame_index": 1,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 1,
+        "frame_index": 2,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 1,
+        "frame_index": 3,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 2,
+        "frame_index": 0,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 2,
+        "frame_index": 1,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 2,
+        "frame_index": 2,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      },
+      {
+        "camera_index": 2,
+        "frame_index": 3,
+        "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+        "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+        "width": 640,
+        "height": 360,
+        "file_width": 640,
+        "file_height": 360
+      }
+    ],
+    "nav_text": "Proceed through the generated OOD scene while checking for regional traffic behavior: wrong_way_shoulder_creep; scenario: generated-base-animals-0076-visual-noise-000.",
+    "memory_context_count": 1,
+    "torch_ready": true,
+    "validation_errors": [],
+    "warnings": [],
+    "torch_loader_contract": {
+      "image_frames": {
+        "shape": [
+          3,
+          4,
+          3,
+          360,
+          640
+        ],
+        "dtype": "torch.float32",
+        "layout": "[num_cameras, num_frames, channels, height, width]",
+        "normalization": "RGB pixels converted to float32 in [0, 1]",
+        "loader_note": "Use driverx.policies.load_alpamayo_torch_tensors(...) in the remote Alpamayo environment."
+      },
+      "camera_indices": {
+        "shape": [
+          3
+        ],
+        "dtype": "torch.long",
+        "values": [
+          0,
+          1,
+          2
+        ]
+      },
+      "ego_history_xyz": {
+        "shape": [
+          1,
+          1,
+          16,
+          3
+        ],
+        "dtype": "torch.float32"
+      },
+      "ego_history_rot": {
+        "shape": [
+          1,
+          1,
+          16,
+          3,
+          3
+        ],
+        "dtype": "torch.float32"
+      },
+      "message_context": {
+        "nav_text": "Proceed through the generated OOD scene while checking for regional traffic behavior: wrong_way_shoulder_creep; scenario: generated-base-animals-0076-visual-noise-000.",
+        "memory_context_count": 1,
+        "rule": "DriverX memory is prompt-side context only; it must not alter Alpamayo weights."
+      }
+    }
+  },
+  "prediction_summary": {
+    "prediction_json": "tickets/TASK-100/artifacts/hero-alpamayo-live/alpamayo_live_prediction.json",
+    "model_id": "nvidia/Alpamayo-1.5-10B",
+    "run_id": "task100-hero-alpamayo-live",
+    "latency_ms": 111765.05,
+    "vram_peak_mb": 23559.71,
+    "output_shapes": {
+      "pred_xyz": [
+        1,
+        1,
+        1,
+        64,
+        3
+      ],
+      "pred_rot": [
+        1,
+        1,
+        1,
+        64,
+        3,
+        3
+      ],
+      "extra.cot": [
+        1,
+        1,
+        1
+      ]
+    },
+    "cot_summary": "[[['Yield to the cut-in vehicle since it is turning into our lane ahead']]]"
+  },
+  "open_loop_policy_evaluation": true,
+  "manifest_path": "tickets/TASK-100/artifacts/task100-hero-alpamayo-policy/alpamayo_tensor_manifest.json",
+  "run_dir": "tickets/TASK-100/artifacts/task100-hero-alpamayo-policy"
+}

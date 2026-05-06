@@ -121,3 +121,4 @@
 2026-05-07 01:41 +0800 | REVIEW | TASK-098 fixed reviewer-found browser link resolution and nested overlay risk parsing, then regenerated the hero catalog/browser with locally resolvable artifact links
 2026-05-07 01:40 +0800 | BUILD | TASK-099 converted the RunPod hero CARLA OOD MP4 into a torch-ready Alpamayo input package, planned a hero open-loop batch, and probed the Kasm Alpamayo env with CUDA visible on RTX 6000 Ada
 2026-05-07 01:40 +0800 | BLOCKER | TASK-099 live Alpamayo inference on the Kasm pod is blocked only by secret-safe HF token installation because the proxy SSH path requires a PTY and echoes command input
+2026-05-07 02:04 +0800 | SHIP | TASK-100 completed live Alpamayo 1.5 inference on the RunPod hero CARLA OOD package, recording CoC reasoning, pred_xyz/pred_rot shapes, 111765.05ms latency, 23559.71MB peak VRAM, and a DriverX open-loop policy decision

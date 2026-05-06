@@ -1,15 +1,15 @@
 # TASK-099: Alpamayo Package From RunPod Hero Video
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-097, TASK-098
 - location: `src/driverx/policies/alpamayo_ood_package.py`, `scripts`, `tickets/TASK-097/artifacts`, `tickets/TASK-099/artifacts`
 - enter when: RunPod has produced one quality-passed hero CARLA OOD video and the submission needs latest-VLA reaction evidence for that exact scenario
 - leave when: the hero MP4 can be converted into a torch-ready Alpamayo package, the RunPod Alpamayo environment is probed on the Kasm pod, and live inference is either attempted or blocked only by a concrete secret/access gate
-- blockers: live Alpamayo inference on the Kasm proxy needs a secret-safe HF token path or direct TCP SSH/SFTP; no token file exists on the pod
-- spawned follow-ups: TASK-100 proxy-safe Alpamayo live inference runner or user-provided HF token installation handoff
+- blockers: none; live inference was completed in TASK-100 after user installed Hugging Face auth through the Kasm web terminal
+- spawned follow-ups: TASK-100 live Alpamayo reasoning on the hero scenario, TASK-101 high-fidelity CARLA scenario runner, TASK-102 AI scenario studio
 - complexity: M
 
 ### Summary
@@ -42,8 +42,8 @@ leaking Hugging Face credentials through the PTY-only SSH proxy.
 - [x] AC-4: `run-alpamayo-ood-batch` produces a rerunnable open-loop plan for
   the hero package.
 - [x] AC-5: The Kasm RunPod Alpamayo runtime is probed with CUDA visible on
-  RTX 6000 Ada, and live inference is blocked only on secret-safe HF token
-  installation for the PTY-only proxy path.
+  RTX 6000 Ada, and the follow-up TASK-100 records live inference after
+  Hugging Face auth was installed through the Kasm web terminal.
 
 ### Build Notes
 
@@ -80,6 +80,10 @@ leaking Hugging Face credentials through the PTY-only SSH proxy.
   `tickets/TASK-099/artifacts/runpod-kasm-alpamayo-env/alpamayo_env_probe.json`.
 - RunPod Kasm Alpamayo env report:
   `tickets/TASK-099/artifacts/runpod-kasm-alpamayo-env/alpamayo_env_probe.md`.
+- Follow-up live Alpamayo proof:
+  `tickets/TASK-100/artifacts/hero-alpamayo-live/alpamayo_live_prediction.json`.
+- Follow-up live Alpamayo policy conversion:
+  `tickets/TASK-100/artifacts/task100-hero-alpamayo-policy/alpamayo_policy_decision.json`.
 - Final RunPod proxy sync:
   `DRIVERX_REMOTE_TEST=1 scripts/sync_runpod_proxy_workspace.sh
   poz4gv6ryu2571-644111cc@ssh.runpod.io ~/.ssh/id_ed25519_runpod
@@ -102,13 +106,5 @@ leaking Hugging Face credentials through the PTY-only SSH proxy.
 
 ### Blockers
 
-- Live Alpamayo inference from the Kasm pod is blocked on secret-safe HF token
-  installation. The current proxy SSH path requires `ssh -tt` and echoes command
-  input, so Codex cannot safely transmit the token. Current probe shows no token
-  file at `/home/kasm-user/.cache/huggingface/token`,
-  `/workspace/.cache/driverx/huggingface/token`, or
-  `/workspace/alpamayo1.5/.hf_token`.
-- User unblock path: in the Kasm web terminal, run
-  `cd /workspace/alpamayo1.5 && source a1_5_venv/bin/activate && hf auth login`
-  and paste the Hugging Face token there, or provide a direct TCP SSH endpoint
-  that supports non-PTY file transfer.
+- Resolved. User installed Hugging Face auth through the Kasm web terminal, and
+  TASK-100 records live Alpamayo inference plus DriverX policy conversion.

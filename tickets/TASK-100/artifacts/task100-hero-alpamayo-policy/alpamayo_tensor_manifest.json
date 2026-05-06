@@ -1,0 +1,210 @@
+{
+  "frame_name": "driverx_ood_generated-base-animals-0076-visual-noise-000",
+  "source_package": "tickets/TASK-097/artifacts/task99-hero-alpamayo-package/alpamayo_carla_input_package.json",
+  "image_root": null,
+  "camera_indices": [
+    0,
+    1,
+    2
+  ],
+  "image_frames_shape": [
+    3,
+    4,
+    3,
+    360,
+    640
+  ],
+  "camera_indices_shape": [
+    3
+  ],
+  "ego_history_xyz_shape": [
+    1,
+    1,
+    16,
+    3
+  ],
+  "ego_history_rot_shape": [
+    1,
+    1,
+    16,
+    3,
+    3
+  ],
+  "materialized_frames": [
+    {
+      "camera_index": 0,
+      "frame_index": 0,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    },
+    {
+      "camera_index": 0,
+      "frame_index": 1,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    },
+    {
+      "camera_index": 0,
+      "frame_index": 2,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    },
+    {
+      "camera_index": 0,
+      "frame_index": 3,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    },
+    {
+      "camera_index": 1,
+      "frame_index": 0,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    },
+    {
+      "camera_index": 1,
+      "frame_index": 1,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    },
+    {
+      "camera_index": 1,
+      "frame_index": 2,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    },
+    {
+      "camera_index": 1,
+      "frame_index": 3,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    },
+    {
+      "camera_index": 2,
+      "frame_index": 0,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000012.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    },
+    {
+      "camera_index": 2,
+      "frame_index": 1,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000013.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    },
+    {
+      "camera_index": 2,
+      "frame_index": 2,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000014.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    },
+    {
+      "camera_index": 2,
+      "frame_index": 3,
+      "original_path": "tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+      "resolved_path": "/Users/kenjipcx/SOTA/0xDriver/tickets/TASK-097/artifacts/task99-hero-video-frames/rgb/frame_000015.png",
+      "width": 640,
+      "height": 360,
+      "file_width": 640,
+      "file_height": 360
+    }
+  ],
+  "nav_text": "Proceed through the generated OOD scene while checking for regional traffic behavior: wrong_way_shoulder_creep; scenario: generated-base-animals-0076-visual-noise-000.",
+  "memory_context_count": 1,
+  "torch_ready": true,
+  "validation_errors": [],
+  "warnings": [],
+  "torch_loader_contract": {
+    "image_frames": {
+      "shape": [
+        3,
+        4,
+        3,
+        360,
+        640
+      ],
+      "dtype": "torch.float32",
+      "layout": "[num_cameras, num_frames, channels, height, width]",
+      "normalization": "RGB pixels converted to float32 in [0, 1]",
+      "loader_note": "Use driverx.policies.load_alpamayo_torch_tensors(...) in the remote Alpamayo environment."
+    },
+    "camera_indices": {
+      "shape": [
+        3
+      ],
+      "dtype": "torch.long",
+      "values": [
+        0,
+        1,
+        2
+      ]
+    },
+    "ego_history_xyz": {
+      "shape": [
+        1,
+        1,
+        16,
+        3
+      ],
+      "dtype": "torch.float32"
+    },
+    "ego_history_rot": {
+      "shape": [
+        1,
+        1,
+        16,
+        3,
+        3
+      ],
+      "dtype": "torch.float32"
+    },
+    "message_context": {
+      "nav_text": "Proceed through the generated OOD scene while checking for regional traffic behavior: wrong_way_shoulder_creep; scenario: generated-base-animals-0076-visual-noise-000.",
+      "memory_context_count": 1,
+      "rule": "DriverX memory is prompt-side context only; it must not alter Alpamayo weights."
+    }
+  }
+}
