@@ -1,0 +1,128 @@
+{
+  "work_type": ["submission-packaging", "evidence", "static-html"],
+  "ticket_id": "TASK-106",
+  "reviewed_at": "2026-05-07 04:35 +0800",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/pipeline/final_submission_pack.py",
+      "src/driverx/pipeline/final_submission_pack_cli.py",
+      "tests/test_final_submission_pack.py",
+      "src/driverx/cli_extensions.py",
+      "src/driverx/pipeline/__init__.py",
+      "src/driverx/pipeline/README.md",
+      "tickets/TASK-106/ticket.md"
+    ],
+    "related_files": [
+      "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+      "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json",
+      "tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json",
+      "tickets/archive/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-overlay-v2/ood_video_evidence.json",
+      "tickets/TASK-106/artifacts/final-submission-pack-v7/scenario_browser_v7.html",
+      "tickets/TASK-106/artifacts/final-submission-pack-v7/final_submission_pack_v7.md",
+      "tickets/TASK-106/artifacts/final-submission-pack-v7/writeup_2page_draft.md",
+      "tickets/TASK-106/artifacts/final-submission-pack-v7/video_script_v7.md"
+    ],
+    "commands_checked": [
+      "PYTHONPATH=src python3 -m unittest tests.test_final_submission_pack tests.test_submission_demo_pack tests.test_submission_dossier tests.test_submission_scenario_browser",
+      "python3 -m compileall -q src tests",
+      "python3 -m json.tool tickets/TASK-106/artifacts/final-submission-pack-v7/final_submission_pack_v7.json",
+      "python3 -m json.tool tickets/TASK-106/artifacts/final-submission-pack-v7/artifact_map_v7.json",
+      "bash scripts/pre_push_check.sh",
+      "HTML parser structural check: 1 table, 12 links, html/body present"
+    ],
+    "rubric_references": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "integration-readiness.md",
+      "evidence-quality.md",
+      "visual-qa/SKILL.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality", "demo-quality"],
+  "summary": "TASK-106 adds a compact final V7 pack builder and produces a judge-facing browser, dossier, video script, two-page write-up, artifact map, and evidence scorecard from the final sprint artifacts. The generated evidence rows label every major claim as proved and preserve explicit claim boundaries.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "demo-quality",
+      "summary": "The V7 browser is a static evidence browser, not a polished web product UI; this is acceptable for the submission pack but should not be mistaken for the future Scenario Studio app.",
+      "file_refs": ["tickets/TASK-106/artifacts/final-submission-pack-v7/scenario_browser_v7.html"],
+      "evidence": [
+        "HTML structural check found html/body, one evidence table, and 12 links.",
+        "The browser links all major evidence rows and artifacts."
+      ],
+      "next_action": "Use this static browser for submission evidence; build a richer Scenario Studio UI only after the deadline."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.2,
+        "bloatability": 4.1,
+        "readability": 4.1,
+        "boundary-clarity": 4.2,
+        "error-handling": 4.0,
+        "maintainability": 4.0
+      },
+      "findings": [
+        "The final pack builder is separated from the older broad demo-pack module, reducing risk while preserving CLI integration.",
+        "The generated browser escapes text and keeps links as artifact references."
+      ],
+      "next_action": "Proceed."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.2,
+        "contract-correctness": 4.2,
+        "dependency-readiness": 4.3,
+        "coupling-risk": 4.2,
+        "merge-readiness": 4.2
+      },
+      "findings": [
+        "All inputs are optional paths, so the builder can regenerate with partial evidence if an upstream artifact is unavailable.",
+        "Current run used TASK-101, TASK-103, TASK-104, TASK-105, and TASK-097 evidence."
+      ],
+      "next_action": "Archive/close after final packaging decision."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.3,
+        "reproducibility": 4.4,
+        "traceability": 4.4,
+        "consistency": 4.2,
+        "inspectability": 4.3,
+        "autonomy-readiness": 4.2
+      },
+      "findings": [
+        "The scorecard captures 6 selected cases, 20 Scenario Studio candidates, 3 Alpamayo+memory comparisons, 26 Fail2Drive extension cases, and the 60s hero video.",
+        "The full pre-push gate passed with 369 tests and 2 skips."
+      ],
+      "next_action": "Use V7 artifacts as the current submission surface."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Commit TASK-106, then decide whether to attempt TASK-102 high-fidelity video polish or stop feature work and prepare final submission."
+}

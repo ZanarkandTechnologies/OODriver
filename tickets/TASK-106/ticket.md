@@ -1,7 +1,7 @@
 # TASK-106: Final SoTA Submission Pack V7
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-101, TASK-102, TASK-103, TASK-104, TASK-105
@@ -135,19 +135,19 @@ creates that final surface.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: V7 browser links hero video, Alpamayo/RAG evidence, scenario studio
+- [x] AC-1: V7 browser links hero video, Alpamayo/RAG evidence, scenario studio
   batch, and Fail2Drive extension report.
-- [ ] AC-2: Dossier includes model declarations, hardware/latency facts, and
+- [x] AC-2: Dossier includes model declarations, hardware/latency facts, and
   no-fine-tuning claim.
-- [ ] AC-3: Video script fits 1-5 minutes and includes at least one understood
+- [x] AC-3: Video script fits 1-5 minutes and includes at least one understood
   failure case.
-- [ ] AC-4: Every major claim is labeled proved, partial, or blocked.
+- [x] AC-4: Every major claim is labeled proved, partial, or blocked.
 
 ### Verification
 
-- Focused submission-pack tests.
-- Link-resolution test for browser artifacts.
-- Secret/heavy-artifact scan.
+- `PYTHONPATH=src python3 -m unittest tests.test_final_submission_pack tests.test_submission_demo_pack tests.test_submission_dossier tests.test_submission_scenario_browser`
+- `python3 -m compileall -q src tests`
+- JSON validation over `final_submission_pack_v7.json` and `artifact_map_v7.json`.
 - `bash scripts/pre_push_check.sh`
 - Review with evidence-quality and demo/video-quality rubrics.
 
@@ -161,10 +161,16 @@ creates that final surface.
 
 ### Evidence
 
-- `tickets/TASK-106/artifacts/final_submission_pack_v7/scenario_browser.html`
-- `tickets/TASK-106/artifacts/final_submission_pack_v7/submission_dossier_v7.md`
-- `tickets/TASK-106/artifacts/final_submission_pack_v7/video_script_v7.md`
-- `tickets/TASK-106/artifacts/final_submission_pack_v7/writeup_2page_draft.md`
+- `tickets/TASK-106/artifacts/final-submission-pack-v7/scenario_browser_v7.html`
+- `tickets/TASK-106/artifacts/final-submission-pack-v7/final_submission_pack_v7.md`
+- `tickets/TASK-106/artifacts/final-submission-pack-v7/final_submission_pack_v7.json`
+- `tickets/TASK-106/artifacts/final-submission-pack-v7/video_script_v7.md`
+- `tickets/TASK-106/artifacts/final-submission-pack-v7/writeup_2page_draft.md`
+- `tickets/TASK-106/artifacts/final-submission-pack-v7/artifact_map_v7.json`
+- `tickets/TASK-106/artifacts/review/task106-implementation-review.json`
+- Scorecard: 6 selected cases, 1 hero, 10 Scenario Studio prompts, 20
+  candidates, 3 Alpamayo+memory comparisons, 2 reasoning changes, 26
+  Fail2Drive extension cases, 4 Fail2Drive references, and 60s hero video.
 
 ### Blockers
 

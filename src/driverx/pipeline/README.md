@@ -17,6 +17,7 @@ evaluator, renderer, and submission packager.
 - `build_alpamayo_ood_evaluation(run_dir, inputs)`
 - `build_alpamayo_ood_scene_report(run_dir, inputs)`
 - `build_fail2drive_extension_report(generated_source_paths=..., output_dir=...)`
+- `build_final_submission_pack(run_dir, eval_matrix_path=..., scenario_studio_path=..., ...)`
 - `build_ood_video_evidence(run_dir, inputs)`
 - `build_submission_demo_pack(run_dir, ...)`
 - `build_ood_suite_report(run_dir, scenario_summary_path=..., route_pack_path=..., ...)`
@@ -63,6 +64,17 @@ PYTHONPATH=src python3 -m driverx build-alpamayo-ood-scene \
 ```
 
 ```bash
+PYTHONPATH=src python3 -m driverx build-final-submission-pack \
+  --eval-matrix tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json \
+  --scenario-studio tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json \
+  --alpamayo-rag-batch tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json \
+  --fail2drive-extension tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json \
+  --hero-video-evidence tickets/archive/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-overlay-v2/ood_video_evidence.json \
+  --scenario-browser tickets/archive/TASK-097/artifacts/task97-submission-browser-runpod-v4/scenario_browser.html \
+  --run-id final-submission-pack-v7
+```
+
+```bash
 PYTHONPATH=src python3 -m driverx build-fail2drive-extension-report \
   --source tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json \
   --source tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json \
@@ -81,5 +93,5 @@ PYTHONPATH=src python3 -m driverx build-ood-suite-report \
 ## Test
 
 ```bash
-PYTHONPATH=src python3 -m unittest tests.test_pipeline_mock tests.test_batch tests.test_rag_comparison tests.test_end_to_end_ood_demo tests.test_alpamayo_ood_evaluation tests.test_alpamayo_ood_scene tests.test_fail2drive_extension_report tests.test_ood_video_evidence tests.test_ood_suite_report
+PYTHONPATH=src python3 -m unittest tests.test_pipeline_mock tests.test_batch tests.test_rag_comparison tests.test_end_to_end_ood_demo tests.test_alpamayo_ood_evaluation tests.test_alpamayo_ood_scene tests.test_fail2drive_extension_report tests.test_final_submission_pack tests.test_ood_video_evidence tests.test_ood_suite_report
 ```

@@ -7,6 +7,10 @@ from driverx.pipeline.fail2drive_extension_report import (
     build_fail2drive_extension_report,
     run_fail2drive_extension_report,
 )
+from driverx.pipeline.final_submission_pack import (
+    build_final_submission_pack,
+    run_final_submission_pack,
+)
 from driverx.pipeline.generated_ood_suite import GeneratedOodSuiteConfig, run_generated_ood_suite
 from driverx.pipeline.end_to_end_ood_demo import (
     EndToEndOodDemoConfig,
@@ -38,6 +42,7 @@ __all__ = [
     "build_alpamayo_ood_evaluation",
     "build_alpamayo_ood_scene_report",
     "build_fail2drive_extension_report",
+    "build_final_submission_pack",
     "build_ood_suite_report",
     "build_route_evidence",
     "GeneratedOodSuiteConfig",
@@ -49,6 +54,7 @@ __all__ = [
     "run_batch",
     "run_experiment",
     "run_fail2drive_extension_report",
+    "run_final_submission_pack",
     "run_generated_ood_suite",
     "run_end_to_end_ood_demo",
     "build_ood_video_evidence",

@@ -1,0 +1,153 @@
+{
+  "title": "0xDriver: Scenario Studio For Minimal-Shot Driving Evaluation",
+  "thesis": "0xDriver contributes a randomized OOD scenario-generation and evidence-management harness for testing frozen reasoning VLAs on weird but plausible driving cases without fine-tuning.",
+  "submission_status": "submission_ready",
+  "scorecard": {
+    "selected_cases": 6,
+    "hero_cases": 1,
+    "scenario_studio_prompts": 10,
+    "scenario_studio_candidates": 20,
+    "alpamayo_rag_cases": 3,
+    "alpamayo_rag_passed": 3,
+    "alpamayo_reasoning_changed": 2,
+    "alpamayo_mean_latency_ms": 92550.1317,
+    "alpamayo_max_vram_peak_mb": 23557.31,
+    "fail2drive_extension_cases": 26,
+    "fail2drive_reference_count": 4,
+    "hero_video_duration_s": 60.0,
+    "hero_video_path": "artifacts/runs/task97-runpod-overlay-v2/generated-base-animals-0076-visual-noise-000_ood.mp4"
+  },
+  "evidence_rows": [
+    {
+      "claim": "We can author randomized minimal-shot driving cases from short briefs.",
+      "status": "proved",
+      "artifact": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "why_it_matters": "10 prompts generated 20 candidate cases with curation rows.",
+      "claim_boundary": "deterministic prompt compiler; live LLM/Meshy generation is not claimed."
+    },
+    {
+      "claim": "We have a judge-visible CARLA OOD video for the generated simulator path.",
+      "status": "proved",
+      "artifact": "artifacts/runs/task97-runpod-overlay-v2/generated-base-animals-0076-visual-noise-000_ood.mp4",
+      "why_it_matters": "Hero video duration is 60.0 seconds.",
+      "claim_boundary": "scripted simulator evidence; not an official Fail2Drive route score."
+    },
+    {
+      "claim": "Frozen Alpamayo can be evaluated with and without retrieved memory on OOD cases.",
+      "status": "proved",
+      "artifact": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json",
+      "why_it_matters": "3 passed comparisons; 2 changed reasoning.",
+      "claim_boundary": "open-loop trajectory-intent evaluation; not closed-loop VLA steering."
+    },
+    {
+      "claim": "DriverX generated cases extend Fail2Drive-style OOD families.",
+      "status": "proved",
+      "artifact": "tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json",
+      "why_it_matters": "26 generated cases linked to 4 references and 2 memory entries.",
+      "claim_boundary": "reference layer only; official Fail2Drive score is false."
+    },
+    {
+      "claim": "The final submission scope is selected and auditable.",
+      "status": "proved",
+      "artifact": "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+      "why_it_matters": "6 cases are role-classified for the submission.",
+      "claim_boundary": "selection matrix is planning/evidence management, not runtime execution."
+    }
+  ],
+  "artifact_map": {
+    "eval_matrix_path": "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+    "scenario_studio_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+    "alpamayo_rag_batch_path": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json",
+    "fail2drive_extension_path": "tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json",
+    "hero_video_evidence_path": "tickets/archive/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-overlay-v2/ood_video_evidence.json",
+    "scenario_browser_path": "tickets/archive/TASK-097/artifacts/task97-submission-browser-runpod-v4/scenario_browser.html",
+    "blockers_path": "blockers.md"
+  },
+  "video_script": [
+    {
+      "time": "0:00-0:25",
+      "beat": "Minimal-shot problem",
+      "visual": "Title over CARLA hero video and scenario tags.",
+      "narration": "The submission asks whether autonomy can handle new long-tail scenes without collecting a bespoke dataset for every corner case."
+    },
+    {
+      "time": "0:25-1:10",
+      "beat": "Scenario Studio",
+      "visual": "Show scenario_studio_gallery.md and generated candidates.",
+      "narration": "Scenario Studio turns 10 human briefs into 20 deterministic OOD candidates with assets, behaviors, memory queries, and curation gates."
+    },
+    {
+      "time": "1:10-1:50",
+      "beat": "CARLA evidence",
+      "visual": "Play hero video.",
+      "narration": "The hero CARLA run is 60.0 seconds and demonstrates the generated OOD simulator path."
+    },
+    {
+      "time": "1:50-2:40",
+      "beat": "Alpamayo plus memory",
+      "visual": "Show Alpamayo batch table.",
+      "narration": "Frozen Alpamayo was evaluated on 3 OOD cases with memory; 2 cases changed reasoning and all remain explicitly open-loop."
+    },
+    {
+      "time": "2:40-3:20",
+      "beat": "Fail2Drive extension",
+      "visual": "Show extension matrix.",
+      "narration": "DriverX links 26 generated cases to Fail2Drive-style families while avoiding an official-score claim."
+    },
+    {
+      "time": "3:20-4:00",
+      "beat": "Submission claim",
+      "visual": "Show evidence matrix and blockers.",
+      "narration": "The final matrix contains 6 judge-facing cases; the contribution is the generator plus evidence flywheel, not a production AV stack."
+    }
+  ],
+  "two_page_writeup": {
+    "motivation": "If autonomy depends on collecting examples of every weird road situation, it will always lag reality. 0xDriver reframes minimal-shot driving as a stress-test and memory problem: generate plausible OOD cases, run frozen policies through them, and preserve failures as reusable context.",
+    "architecture": "The system has a Scenario Studio compiler, deterministic environment and behavior generators, CARLA/Fail2Drive-compatible evidence paths, a failure-memory bank, and an Alpamayo open-loop evaluation harness. Scenario Studio emits the curation queue; CARLA produces video and tracks; Alpamayo is evaluated with and without retrieved memory; final reports keep claim boundaries explicit.",
+    "what_worked": "The final sprint generated 20 OOD candidates from 10 briefs, selected 6 judge-facing cases, linked 26 cases to Fail2Drive references, and summarized 3 Frozen Alpamayo+memory comparisons. The hero video evidence is 60.0 seconds.",
+    "what_did_not_work": "The model evidence is open-loop and slow, not real-time closed-loop control. Full official Fail2Drive scoring remains a future runtime task. Current open blockers: 2026-05-07 01:40 +0800 | alpamayo,runpod,kasm,huggingface,secrets | TASK-099 prepared the RunPod hero video as a torch-ready Alpamayo package and proved the Kasm Alpamayo env has CUDA on RTX 6000 Ada, but live inference cannot proceed safely through the current SSH proxy because it requires a PTY and echoes command input. Probe evidence shows no token file at `/home/kasm-user/.cache/huggingface/token`, `/workspace/.cache/driverx/huggingface/token`, or `/workspace/alpamayo1.5/.hf_token`. User unblock path: run `cd /workspace/alpamayo1.5 && source a1_5_venv/bin/activate && hf auth login` inside the Kasm web terminal, or provide a direct TCP SSH endpoint that supports non-PTY file transfer. Evidence: `tickets/TASK-099/artifacts/runpod-kasm-alpamayo-env/alpamayo_env_probe.md`.",
+    "where_prize_money_goes": "The next prototype step is a persistent graphics-capable CARLA host plus GPU time for closed-loop VLA experiments, higher-fidelity generated assets, and enough repeated runs to convert partial candidates into accepted dataset rows."
+  },
+  "model_and_data_declarations": [
+    "Base model: nvidia/Alpamayo-1.5-10B, used as a frozen non-commercial research model.",
+    "No AV fine-tuning is performed for these generated scenarios.",
+    "Alpamayo batch status: passed; open-loop only.",
+    "Fail2Drive reference sources: ['fixture_result', 'fixture_seed']; official score claim is false.",
+    "Model weights, datasets, videos, credentials, CARLA installs, and remote caches are excluded from git."
+  ],
+  "claim_boundaries": [
+    "Alpamayo evidence is open-loop trajectory-intent and reasoning evaluation, not closed-loop car control.",
+    "Fail2Drive linkage is a benchmark reference layer, not an official leaderboard score.",
+    "Generated candidates marked accept_partial still need live CARLA/model evidence before becoming accepted dataset rows.",
+    "Hero video is generated simulator evidence and may be shown in the final demo.",
+    "Scenario Studio is deterministic unless a future provider-backed generator is explicitly configured.",
+    "ai_scenario_authoring=false_without_provider_run",
+    "alpamayo_batch_open_loop_policy_evaluation=true",
+    "closed_loop_carla_control=false",
+    "closed_loop_carla_execution=false",
+    "dataset_curation_heuristic=true",
+    "deterministic_reproducible_generation=true",
+    "fail2drive_reference_layer=true",
+    "generated_cases_are_driverx_extensions=true",
+    "live_fail2drive_execution=false",
+    "model_weights_frozen=true",
+    "official_fail2drive_score_claim=false",
+    "prompt_to_ood_compiler=true",
+    "real_time_vla_control=false"
+  ],
+  "open_blockers": [
+    "2026-05-07 01:40 +0800 | alpamayo,runpod,kasm,huggingface,secrets | TASK-099 prepared the RunPod hero video as a torch-ready Alpamayo package and proved the Kasm Alpamayo env has CUDA on RTX 6000 Ada, but live inference cannot proceed safely through the current SSH proxy because it requires a PTY and echoes command input. Probe evidence shows no token file at `/home/kasm-user/.cache/huggingface/token`, `/workspace/.cache/driverx/huggingface/token`, or `/workspace/alpamayo1.5/.hf_token`. User unblock path: run `cd /workspace/alpamayo1.5 && source a1_5_venv/bin/activate && hf auth login` inside the Kasm web terminal, or provide a direct TCP SSH endpoint that supports non-PTY file transfer. Evidence: `tickets/TASK-099/artifacts/runpod-kasm-alpamayo-env/alpamayo_env_probe.md`.",
+    "2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060 long-score attempt `town13-long-score-attempt-001` started the stock `Generalization_PedestriansOnRoad_1088` route and reached game time `0.600s` at about `0.142x`, then stopped making observable progress. A concurrent route-aligned Alpamayo capture attempt with a 60s CARLA timeout also failed waiting for the simulator. I terminated the route evaluator cleanly to avoid burning the full 1200s timeout on a stalled local Mac/Wine simulation. Evidence: `tickets/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md` and `tickets/TASK-069/artifacts/town13-live-attach-attempt-004/carla_alpamayo_capture.json`. Next unblock path: use a graphics-capable Linux NVIDIA CARLA host for Fail2Drive scoring/capture, or rerun locally only after confirming CARLA can sustain route ticks and serve a second Python client during synchronous mode.",
+    "2026-05-06 11:34 +0800 | fail2drive,carla,town13,score | TASK-071 produced fresh Town13 MP4 evidence from the stock Fail2Drive `Generalization_PedestriansOnRoad_1088` route, but full route score/completion remains open because the run intentionally stops after early video capture. Restarted CARLA improved route speed to about `0.23x`, but the local Mac/Kegworks/Wine path is still not a fast full-suite scoring runtime. Evidence: `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`. Next unblock path: rerun without `--stop-after-video` for a long local route scoring attempt, or move the route to a faster graphics-capable Linux NVIDIA CARLA host.",
+    "2026-05-05 17:07 +0800 | h100,carla,vulkan | TASK-020 stock SimLingo H100 route run cannot reach policy execution because CARLA 0.9.15 exits before opening port `20000` on the RunPod H100 container. CUDA is compatible for SimLingo (`sm_90`), but CARLA needs a working graphics/Vulkan runtime; diagnostics show default Vulkan only exposes `llvmpipe`, forcing the NVIDIA ICD fails with `ERROR_INCOMPATIBLE_DRIVER`, and CARLA exits with status `1`. Evidence: `tickets/archive/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.md` and `tickets/archive/TASK-020/artifacts/task20-remote/carla_runtime_diagnostics.md`. Next unblock path: move the stock route to a graphics-capable Ampere host such as RTX 3090 / RTX A6000 / A40 / A10, or rebuild the SimLingo torch stack for the earlier RTX PRO 6000 Blackwell host where CARLA did launch."
+  ],
+  "inputs": {
+    "eval_matrix_path": "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+    "scenario_studio_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+    "alpamayo_rag_batch_path": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json",
+    "fail2drive_extension_path": "tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json",
+    "hero_video_evidence_path": "tickets/archive/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-overlay-v2/ood_video_evidence.json",
+    "scenario_browser_path": "tickets/archive/TASK-097/artifacts/task97-submission-browser-runpod-v4/scenario_browser.html",
+    "blockers_path": "blockers.md"
+  }
+}
