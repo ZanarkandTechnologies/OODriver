@@ -118,6 +118,9 @@ bash scripts/run_carla_client_docker.sh python -m driverx run-carla-ood-demo \
   --config configs/carla_ood_demo.local.sample.yaml \
   --tick-count 240 \
   --run-id task72-live-retry
+PYTHONPATH=src python3 -m driverx run-scripted-ood-campaign \
+  --config configs/scripted_ood_campaign.runpod.high_fidelity.yaml \
+  --run-id task102-high-fidelity-hero
 PYTHONPATH=src python3 -m driverx assemble-ood-video \
   --rgb-folder tickets/TASK-073/artifacts/fixture-long-ood-source/rgb \
   --tracks tickets/TASK-073/artifacts/fixture-long-ood-source/entity_tracks.json \

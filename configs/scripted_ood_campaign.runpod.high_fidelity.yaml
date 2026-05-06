@@ -1,0 +1,21 @@
+scripted_ood_campaign:
+  scenario_config_path: configs/scenario_forge.sample.yaml
+  carla_ood_config_path: configs/carla_ood_demo.runpod.high_fidelity.yaml
+  output_root: artifacts/runs
+  run_id: task102-high-fidelity-hero
+  behavior_ids: motorcycle_filtering,wrong_way_shoulder_creep,informal_right_of_way_push
+  count: 1
+  seed: 17
+  live: true
+  assemble_video: true
+  resume: false
+  no_default_assets: false
+  quality_min_duration_s: 45.0
+  quality_min_frame_count: 180
+  quality_max_min_distance_m: 6.0
+  quality_min_visible_actor_count: 6.0
+  quality_max_ood_step_m: 1.25
+  quality_require_video: true
+  quality_require_road_alignment: true
+  quality_require_conflict: true
+  quality_retry_limit: 2

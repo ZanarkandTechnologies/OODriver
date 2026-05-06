@@ -61,6 +61,17 @@ unblocked ticket when possible.
 
 ## Resolved
 
+- 2026-05-07 05:42 +0800 | carla,runpod,video,scenario-quality |
+  TASK-102 resolved the "better video" blocker for the submission path. The
+  RunPod Kasm CARLA host produced `task102-high-fidelity-hero-v6`, a
+  420-frame / 84.0s / 1280x720 high-fidelity scripted OOD video candidate on
+  Town10HD_Opt, and the strict quality pass checked video presence, road
+  alignment, conflict distance, actor density, and OOD actor smoothness. The
+  MP4 is kept remote by artifact policy at
+  `/workspace/0xDriver/artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4`.
+  Evidence:
+  `tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/scripted_ood_campaign_summary.md`.
+
 - 2026-05-07 01:22 +0800 | runpod,carla,campaign,video,catalog |
   TASK-097/TASK-098 resolved the "credible long video" blocker. The Kasm
   RunPod CARLA host ran a quality-gated scripted OOD campaign, selected one

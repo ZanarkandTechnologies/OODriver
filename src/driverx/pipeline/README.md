@@ -75,6 +75,12 @@ PYTHONPATH=src python3 -m driverx build-final-submission-pack \
 ```
 
 ```bash
+PYTHONPATH=src python3 -m driverx run-scripted-ood-campaign \
+  --config configs/scripted_ood_campaign.runpod.high_fidelity.yaml \
+  --run-id task102-high-fidelity-hero
+```
+
+```bash
 PYTHONPATH=src python3 -m driverx build-fail2drive-extension-report \
   --source tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json \
   --source tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json \

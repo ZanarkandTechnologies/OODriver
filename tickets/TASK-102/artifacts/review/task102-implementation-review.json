@@ -1,0 +1,177 @@
+{
+  "work_type": [
+    "backend",
+    "simulation",
+    "evidence",
+    "video"
+  ],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/simulators/carla_ood_fidelity.py",
+      "src/driverx/pipeline/scripted_ood_campaign.py",
+      "src/driverx/scenarios/quality.py",
+      "src/driverx/simulators/route_video_assembly.py",
+      "configs/carla_ood_demo.runpod.high_fidelity.yaml",
+      "configs/scripted_ood_campaign.runpod.high_fidelity.yaml",
+      "tests/test_carla_ood_demo.py",
+      "tests/test_scripted_ood_campaign.py",
+      "tests/test_scenario_quality.py",
+      "tickets/TASK-102/ticket.md",
+      "tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/*"
+    ],
+    "related_files": [
+      "src/driverx/pipeline/README.md",
+      "src/driverx/simulators/README.md",
+      "src/driverx/pipeline/AGENTS.md",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md",
+      "blockers.md"
+    ],
+    "invariants_checked": [
+      "MEM-0023",
+      "MEM-0024",
+      "MEM-0025",
+      "MEM-0032"
+    ],
+    "commands_checked": [
+      "PYTHONPATH=src python3 -m unittest tests.test_carla_ood_demo tests.test_scripted_ood_campaign tests.test_scenario_quality tests.test_route_video_assembly",
+      "bash scripts/pre_push_check.sh",
+      "RunPod: /workspace/driverx_py312/bin/python -m driverx run-scripted-ood-campaign --config /tmp/task102_v6_resume.yaml --run-id task102-high-fidelity-hero-v6"
+    ]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "evidence-quality",
+    "integration-readiness",
+    "video-quality",
+    "demo-quality"
+  ],
+  "summary": "TASK-102 is pass-worthy: the simulator has a high-fidelity mode, density and smoothness metrics are quality-gated, local tests and the full pre-push gate pass, and RunPod produced a strict-quality 84s CARLA video candidate. The main caveat is that the generated MP4 remains remote by artifact policy, and CARLA accepted fewer live background actors than requested on the selected road frame.",
+  "overall_score": 4.0,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "video-quality",
+      "summary": "The promoted MP4 is not committed locally, so reviewers must inspect it on the RunPod host or copy it out of band.",
+      "file_refs": [
+        "tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/ood_video_evidence.md",
+        "tickets/TASK-102/ticket.md"
+      ],
+      "evidence": [
+        "The remote video path is attached and the compact JSON records 420 frames / 84.0s / 1280x720.",
+        "Generated videos are intentionally not committed by repo artifact policy."
+      ],
+      "next_action": "For final submission packaging, export or externally host only the chosen compressed MP4 rather than committing it to git."
+    },
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "demo-quality",
+      "summary": "The selected CARLA frame accepted only 1 live background actor despite 10 requested background actors.",
+      "file_refs": [
+        "tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/scripted_ood_campaign_summary.json",
+        "src/driverx/simulators/carla_ood_fidelity.py"
+      ],
+      "evidence": [
+        "The quality gate passed with visible_actor_count_mean=6.0 because ego, OOD actor, generated assets, and the accepted background actor were visible.",
+        "The implementation now tries broader spawn candidates for future reruns."
+      ],
+      "next_action": "If there is time before final video export, rerun the same case after the broader background spawn search to try for denser traffic."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.2,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.1,
+        "error-handling": 4.0,
+        "maintainability": 4.1
+      },
+      "findings": [],
+      "next_action": "No code-blocking follow-up required; keep future CARLA fidelity helpers in carla_ood_fidelity.py to avoid regrowing carla_ood_demo.py."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.1,
+        "reproducibility": 3.8,
+        "traceability": 4.2,
+        "consistency": 4.0,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "For final handoff, copy or externally host the selected MP4 while preserving the compact repo evidence."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.1,
+        "contract-correctness": 4.1,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.1,
+        "merge-readiness": 4.1
+      },
+      "findings": [],
+      "next_action": "Advance the ticket; the remaining runtime dependency is only final MP4 extraction/hosting."
+    },
+    {
+      "name": "video-quality",
+      "score": 3.7,
+      "threshold": 3.5,
+      "pass": true,
+      "dimension_scores": {
+        "legibility": 3.7,
+        "coverage": 3.8,
+        "pacing": 3.8,
+        "faithfulness": 4.0,
+        "verification-value": 3.8
+      },
+      "findings": [
+        "Remote-only MP4 inspection is a final packaging caveat, not a code blocker."
+      ],
+      "next_action": "Use the remote v6 MP4 as a candidate, or rerun once for denser accepted background actors if time remains."
+    },
+    {
+      "name": "demo-quality",
+      "score": 3.8,
+      "threshold": 3.5,
+      "pass": true,
+      "dimension_scores": {
+        "fidelity": 3.8,
+        "realism": 3.6,
+        "workflow-coverage": 3.8,
+        "trustworthiness": 4.0,
+        "communication-clarity": 3.9
+      },
+      "findings": [
+        "The demo is still scripted scenario evidence rather than closed-loop VLA driving, and the claim boundaries state that clearly."
+      ],
+      "next_action": "Keep the closed-loop limitation visible in the final submission script."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Commit TASK-102 and then refresh the final submission pack or video export queue with the v6 hero candidate."
+}

@@ -1,0 +1,304 @@
+{
+  "campaign_id": "high-fidelity-fake-quality-gate",
+  "status": "quality_blocked",
+  "requested_case_count": 1,
+  "case_count": 1,
+  "attempt_count": 3,
+  "quality_retry_limit": 2,
+  "quality_retried_case_count": 1,
+  "quality_selected_passed_count": 0,
+  "live_case_count": 0,
+  "behavior_ids": [
+    "motorcycle_filtering",
+    "wrong_way_shoulder_creep",
+    "informal_right_of_way_push"
+  ],
+  "best_case": {
+    "case_id": "000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push",
+    "recipe_id": "generated-generalization-pedestriansonroad-1088-visual-noise-002",
+    "behavior_id": "informal_right_of_way_push",
+    "status": "blocked",
+    "live": false,
+    "min_distance_m": 5.3151,
+    "frame_count": 0,
+    "duration_s": 5.0,
+    "scenario_report_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push/carla_ood_demo.json",
+    "road_alignment_path": null,
+    "tracks_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push/entity_tracks.json",
+    "rgb_folder": null,
+    "video_status": null,
+    "video_evidence_path": null,
+    "video_evidence_report_path": null,
+    "video_path": null,
+    "blockers": [
+      "behavior_validation:max_acceleration_mps2 10.00 exceeds 8.00"
+    ],
+    "attempt_index": 2,
+    "quality_status": "blocked",
+    "quality_blockers": [
+      "duration_s 5.00 below 45.00",
+      "frame_count 0 below 180",
+      "visible_actor_count_mean 2.00 below 6.00"
+    ],
+    "fidelity_metrics": {
+      "fidelity_mode": "fake",
+      "background_actor_count": 0,
+      "camera_preset": "synthetic",
+      "mean_ood_step_m": 0.5948,
+      "max_ood_step_m": 0.8276,
+      "ego_route_progress_m": 30.0,
+      "visible_actor_count_mean": 2.0
+    }
+  },
+  "worst_case": {
+    "case_id": "000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push",
+    "recipe_id": "generated-generalization-pedestriansonroad-1088-visual-noise-002",
+    "behavior_id": "informal_right_of_way_push",
+    "status": "blocked",
+    "live": false,
+    "min_distance_m": 5.3151,
+    "frame_count": 0,
+    "duration_s": 5.0,
+    "scenario_report_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push/carla_ood_demo.json",
+    "road_alignment_path": null,
+    "tracks_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push/entity_tracks.json",
+    "rgb_folder": null,
+    "video_status": null,
+    "video_evidence_path": null,
+    "video_evidence_report_path": null,
+    "video_path": null,
+    "blockers": [
+      "behavior_validation:max_acceleration_mps2 10.00 exceeds 8.00"
+    ],
+    "attempt_index": 2,
+    "quality_status": "blocked",
+    "quality_blockers": [
+      "duration_s 5.00 below 45.00",
+      "frame_count 0 below 180",
+      "visible_actor_count_mean 2.00 below 6.00"
+    ],
+    "fidelity_metrics": {
+      "fidelity_mode": "fake",
+      "background_actor_count": 0,
+      "camera_preset": "synthetic",
+      "mean_ood_step_m": 0.5948,
+      "max_ood_step_m": 0.8276,
+      "ego_route_progress_m": 30.0,
+      "visible_actor_count_mean": 2.0
+    }
+  },
+  "mean_min_distance_m": 5.3151,
+  "fidelity": {
+    "mean_visible_actor_count": 2.0,
+    "mean_ego_route_progress_m": 30.0,
+    "max_ood_step_m": 0.8276,
+    "background_actor_count": 0,
+    "camera_presets": [
+      "synthetic"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push",
+      "recipe_id": "generated-generalization-pedestriansonroad-1088-visual-noise-002",
+      "behavior_id": "informal_right_of_way_push",
+      "status": "blocked",
+      "live": false,
+      "min_distance_m": 5.3151,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [
+        "behavior_validation:max_acceleration_mps2 10.00 exceeds 8.00"
+      ],
+      "attempt_index": 2,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "duration_s 5.00 below 45.00",
+        "frame_count 0 below 180",
+        "visible_actor_count_mean 2.00 below 6.00"
+      ],
+      "fidelity_metrics": {
+        "fidelity_mode": "fake",
+        "background_actor_count": 0,
+        "camera_preset": "synthetic",
+        "mean_ood_step_m": 0.5948,
+        "max_ood_step_m": 0.8276,
+        "ego_route_progress_m": 30.0,
+        "visible_actor_count_mean": 2.0
+      }
+    }
+  ],
+  "quality_attempts": [
+    {
+      "case_id": "000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering",
+      "recipe_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "behavior_id": "motorcycle_filtering",
+      "status": "passed",
+      "live": false,
+      "min_distance_m": 1.75,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [],
+      "attempt_index": 0,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "duration_s 5.00 below 45.00",
+        "frame_count 0 below 180",
+        "visible_actor_count_mean 2.00 below 6.00",
+        "max_ood_step_m 3.43 exceeds 1.25"
+      ],
+      "fidelity_metrics": {
+        "fidelity_mode": "fake",
+        "background_actor_count": 0,
+        "camera_preset": "synthetic",
+        "mean_ood_step_m": 3.343,
+        "max_ood_step_m": 3.4279,
+        "ego_route_progress_m": 30.0,
+        "visible_actor_count_mean": 2.0
+      }
+    },
+    {
+      "case_id": "000-retry01-generated-generalization-customobstacles-1028-lane-blockage-001-wrong_way_shoulder_creep",
+      "recipe_id": "generated-generalization-customobstacles-1028-lane-blockage-001",
+      "behavior_id": "wrong_way_shoulder_creep",
+      "status": "passed",
+      "live": false,
+      "min_distance_m": 5.2538,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-retry01-generated-generalization-customobstacles-1028-lane-blockage-001-wrong_way_shoulder_creep/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-retry01-generated-generalization-customobstacles-1028-lane-blockage-001-wrong_way_shoulder_creep/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [],
+      "attempt_index": 1,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "duration_s 5.00 below 45.00",
+        "frame_count 0 below 180",
+        "visible_actor_count_mean 2.00 below 6.00"
+      ],
+      "fidelity_metrics": {
+        "fidelity_mode": "fake",
+        "background_actor_count": 0,
+        "camera_preset": "synthetic",
+        "mean_ood_step_m": 0.625,
+        "max_ood_step_m": 0.625,
+        "ego_route_progress_m": 30.0,
+        "visible_actor_count_mean": 2.0
+      }
+    },
+    {
+      "case_id": "000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push",
+      "recipe_id": "generated-generalization-pedestriansonroad-1088-visual-noise-002",
+      "behavior_id": "informal_right_of_way_push",
+      "status": "blocked",
+      "live": false,
+      "min_distance_m": 5.3151,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/cases/000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [
+        "behavior_validation:max_acceleration_mps2 10.00 exceeds 8.00"
+      ],
+      "attempt_index": 2,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "duration_s 5.00 below 45.00",
+        "frame_count 0 below 180",
+        "visible_actor_count_mean 2.00 below 6.00"
+      ],
+      "fidelity_metrics": {
+        "fidelity_mode": "fake",
+        "background_actor_count": 0,
+        "camera_preset": "synthetic",
+        "mean_ood_step_m": 0.5948,
+        "max_ood_step_m": 0.8276,
+        "ego_route_progress_m": 30.0,
+        "visible_actor_count_mean": 2.0
+      }
+    }
+  ],
+  "quality": {
+    "thresholds": {
+      "min_duration_s": 45.0,
+      "min_frame_count": 180,
+      "max_min_distance_m": 6.0,
+      "min_visible_actor_count": 6.0,
+      "max_ood_step_m": 1.25,
+      "require_video": false,
+      "require_road_alignment": false,
+      "require_conflict": true
+    },
+    "report_count": 1,
+    "passed_count": 0,
+    "blocked_count": 1,
+    "passed_case_ids": [],
+    "reports": [
+      {
+        "scenario_id": "generated-generalization-pedestriansonroad-1088-visual-noise-002",
+        "case_id": "000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push",
+        "passes": false,
+        "status": "blocked",
+        "metrics": {
+          "duration_s": 5.0,
+          "frame_count": 0,
+          "min_distance_m": 5.3151,
+          "has_video": false,
+          "road_aligned": null,
+          "visible_actor_count_mean": 2.0,
+          "max_ood_step_m": 0.8276
+        },
+        "blockers": [
+          "duration_s 5.00 below 45.00",
+          "frame_count 0 below 180",
+          "visible_actor_count_mean 2.00 below 6.00"
+        ],
+        "warnings": [
+          "video evidence is missing",
+          "road alignment is unknown or failed"
+        ]
+      }
+    ],
+    "json_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/quality/scenario_quality_summary.json",
+    "report_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/quality/scenario_quality_summary.md"
+  },
+  "blockers": [
+    "000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push: behavior_validation:max_acceleration_mps2 10.00 exceeds 8.00",
+    "000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push: duration_s 5.00 below 45.00",
+    "000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push: frame_count 0 below 180",
+    "000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push: visible_actor_count_mean 2.00 below 6.00"
+  ],
+  "claim_boundaries": [
+    "scripted_ood_campaign=true",
+    "stock_fail2drive_score=false",
+    "real_time_vla_control=false"
+  ]
+}

@@ -197,8 +197,14 @@ def plan_route_video_assembly(
             pattern or str(folder / "*.png"),
             "-c:v",
             "libx264",
+            "-preset",
+            "veryfast",
+            "-crf",
+            "26",
             "-pix_fmt",
             "yuv420p",
+            "-movflags",
+            "+faststart",
             str(video),
         ]
         if pattern is not None

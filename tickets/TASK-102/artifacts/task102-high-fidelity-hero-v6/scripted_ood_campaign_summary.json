@@ -1,0 +1,149 @@
+{
+  "campaign_id": "task102-high-fidelity-hero-v6",
+  "status": "passed",
+  "requested_case_count": 1,
+  "case_count": 1,
+  "attempt_count": 1,
+  "quality_retry_limit": 0,
+  "quality_retried_case_count": 0,
+  "quality_selected_passed_count": 1,
+  "live_case_count": 1,
+  "behavior_ids": [
+    "motorcycle_filtering",
+    "wrong_way_shoulder_creep",
+    "informal_right_of_way_push"
+  ],
+  "best_case": {
+    "case_id": "000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering",
+    "recipe_id": "generated-base-animals-0076-regional-driving-behavior-000",
+    "behavior_id": "motorcycle_filtering",
+    "status": "passed",
+    "live": true,
+    "min_distance_m": 0.2,
+    "frame_count": 420,
+    "duration_s": 84.0,
+    "video_status": "passed",
+    "video_path": "artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4",
+    "quality_status": "passed",
+    "quality_blockers": [],
+    "fidelity_metrics": {
+      "fidelity_mode": "high_fidelity",
+      "background_vehicle_count": 6,
+      "background_pedestrian_count": 4,
+      "background_actor_count": 1,
+      "background_actor_ids": [
+        207
+      ],
+      "camera_preset": "wide_context",
+      "ood_motion_smoothing": "limit_step",
+      "mean_ood_step_m": 0.1747,
+      "max_ood_step_m": 1.2,
+      "ego_route_progress_m": 418.0,
+      "visible_actor_count_mean": 6.0
+    }
+  },
+  "worst_case": {
+    "case_id": "000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering",
+    "recipe_id": "generated-base-animals-0076-regional-driving-behavior-000",
+    "behavior_id": "motorcycle_filtering",
+    "status": "passed",
+    "live": true,
+    "min_distance_m": 0.2,
+    "frame_count": 420,
+    "duration_s": 84.0,
+    "video_status": "passed",
+    "video_path": "artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4",
+    "quality_status": "passed",
+    "quality_blockers": [],
+    "fidelity_metrics": {
+      "fidelity_mode": "high_fidelity",
+      "background_vehicle_count": 6,
+      "background_pedestrian_count": 4,
+      "background_actor_count": 1,
+      "background_actor_ids": [
+        207
+      ],
+      "camera_preset": "wide_context",
+      "ood_motion_smoothing": "limit_step",
+      "mean_ood_step_m": 0.1747,
+      "max_ood_step_m": 1.2,
+      "ego_route_progress_m": 418.0,
+      "visible_actor_count_mean": 6.0
+    }
+  },
+  "mean_min_distance_m": 0.2,
+  "fidelity": {
+    "mean_visible_actor_count": 6.0,
+    "mean_ego_route_progress_m": 418.0,
+    "max_ood_step_m": 1.2,
+    "background_actor_count": 1,
+    "camera_presets": [
+      "wide_context"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering",
+      "recipe_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "behavior_id": "motorcycle_filtering",
+      "status": "passed",
+      "live": true,
+      "min_distance_m": 0.2,
+      "frame_count": 420,
+      "duration_s": 84.0,
+      "scenario_report_path": "artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/carla/carla_ood_demo.json",
+      "road_alignment_path": "artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/carla/road_alignment_report.json",
+      "tracks_path": "artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/carla/entity_tracks.json",
+      "rgb_folder": "artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/carla/rgb",
+      "video_status": "passed",
+      "video_evidence_path": "artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/ood_video_evidence.json",
+      "video_evidence_report_path": "artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/ood_video_evidence.md",
+      "video_path": "artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4",
+      "blockers": [],
+      "attempt_index": 0,
+      "quality_status": "passed",
+      "quality_blockers": [],
+      "fidelity_metrics": {
+        "fidelity_mode": "high_fidelity",
+        "background_vehicle_count": 6,
+        "background_pedestrian_count": 4,
+        "background_actor_count": 1,
+        "background_actor_ids": [
+          207
+        ],
+        "camera_preset": "wide_context",
+        "ood_motion_smoothing": "limit_step",
+        "mean_ood_step_m": 0.1747,
+        "max_ood_step_m": 1.2,
+        "ego_route_progress_m": 418.0,
+        "visible_actor_count_mean": 6.0
+      }
+    }
+  ],
+  "quality": {
+    "thresholds": {
+      "min_duration_s": 45.0,
+      "min_frame_count": 180,
+      "max_min_distance_m": 6.0,
+      "min_visible_actor_count": 6.0,
+      "max_ood_step_m": 1.25,
+      "require_video": true,
+      "require_road_alignment": true,
+      "require_conflict": true
+    },
+    "report_count": 1,
+    "passed_count": 1,
+    "blocked_count": 0,
+    "passed_case_ids": [
+      "000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering"
+    ]
+  },
+  "blockers": [],
+  "claim_boundaries": [
+    "scripted_ood_campaign=true",
+    "stock_fail2drive_score=false",
+    "real_time_vla_control=false"
+  ],
+  "remote_video_path": "/workspace/0xDriver/artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4",
+  "artifact_note": "Compact local evidence copied from RunPod Kasm logs. The MP4 is intentionally kept remote because generated videos are not committed."
+}

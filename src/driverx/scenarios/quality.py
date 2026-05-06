@@ -13,6 +13,8 @@ class ScenarioQualityThresholds:
     min_duration_s: float = 5.0
     min_frame_count: int = 0
     max_min_distance_m: float = 6.0
+    min_visible_actor_count: float = 0.0
+    max_ood_step_m: float | None = None
     require_video: bool = True
     require_road_alignment: bool = True
     require_conflict: bool = True
@@ -22,6 +24,8 @@ class ScenarioQualityThresholds:
             "min_duration_s": self.min_duration_s,
             "min_frame_count": self.min_frame_count,
             "max_min_distance_m": self.max_min_distance_m,
+            "min_visible_actor_count": self.min_visible_actor_count,
+            "max_ood_step_m": self.max_ood_step_m,
             "require_video": self.require_video,
             "require_road_alignment": self.require_road_alignment,
             "require_conflict": self.require_conflict,
@@ -65,6 +69,9 @@ def evaluate_scenario_quality(
     has_video = bool(case.get("video_path")) or str(case.get("video_status")) == "passed"
     road_alignment_path = _optional_str(case.get("road_alignment_path"))
     road_aligned = _road_aligned(road_alignment_path)
+    fidelity_metrics = _mapping(case.get("fidelity_metrics"))
+    visible_actor_count = _optional_float(fidelity_metrics.get("visible_actor_count_mean"))
+    max_ood_step = _optional_float(fidelity_metrics.get("max_ood_step_m"))
 
     if duration_s < limits.min_duration_s:
         blockers.append(f"duration_s {duration_s:.2f} below {limits.min_duration_s:.2f}")
@@ -85,6 +92,18 @@ def evaluate_scenario_quality(
             blockers.append(
                 f"min_distance_m {min_distance:.2f} exceeds {limits.max_min_distance_m:.2f}"
             )
+    if limits.min_visible_actor_count > 0:
+        if visible_actor_count is None:
+            blockers.append("visible_actor_count_mean is required for density validation")
+        elif visible_actor_count < limits.min_visible_actor_count:
+            blockers.append(
+                f"visible_actor_count_mean {visible_actor_count:.2f} below {limits.min_visible_actor_count:.2f}"
+            )
+    if limits.max_ood_step_m is not None:
+        if max_ood_step is None:
+            blockers.append("max_ood_step_m is required for smoothness validation")
+        elif max_ood_step > limits.max_ood_step_m:
+            blockers.append(f"max_ood_step_m {max_ood_step:.2f} exceeds {limits.max_ood_step_m:.2f}")
 
     status = "passed" if not blockers else "blocked"
     return ScenarioQualityReport(
@@ -98,6 +117,8 @@ def evaluate_scenario_quality(
             "min_distance_m": min_distance,
             "has_video": has_video,
             "road_aligned": road_aligned,
+            "visible_actor_count_mean": visible_actor_count,
+            "max_ood_step_m": max_ood_step,
         },
         blockers=blockers,
         warnings=warnings,
@@ -156,8 +177,8 @@ def _quality_markdown(payload: dict[str, Any]) -> str:
         f"- passed: `{payload.get('passed_count')}`",
         f"- blocked: `{payload.get('blocked_count')}`",
         "",
-        "| case | passes | duration | frames | min distance | blockers |",
-        "|---|---|---|---|---|---|",
+        "| case | passes | duration | frames | min distance | visible actors | max OOD step | blockers |",
+        "|---|---|---|---|---|---|---|---|",
     ]
     for report in list(payload.get("reports", [])):
         metrics = dict(report.get("metrics", {}))
@@ -170,6 +191,8 @@ def _quality_markdown(payload: dict[str, Any]) -> str:
                     _cell(metrics.get("duration_s")),
                     _cell(metrics.get("frame_count")),
                     _cell(metrics.get("min_distance_m")),
+                    _cell(metrics.get("visible_actor_count_mean")),
+                    _cell(metrics.get("max_ood_step_m")),
                     _cell("; ".join(str(item) for item in list(report.get("blockers", [])))),
                 ]
             )
@@ -202,6 +225,10 @@ def _optional_str(value: object) -> str | None:
         return None
     text = str(value)
     return text if text else None
+
+
+def _mapping(value: Any) -> dict[str, Any]:
+    return dict(value) if isinstance(value, dict) else {}
 
 
 __all__ = [

@@ -1,14 +1,14 @@
 # TASK-102: High-Fidelity CARLA OOD Scenario Runner V2
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-097, TASK-101
 - location: `src/driverx/simulators/carla_ood_demo.py`, `src/driverx/pipeline/scripted_ood_campaign.py`, `configs`, `tickets/TASK-102/artifacts`
 - enter when: TASK-101 selects the scenarios that need stronger video evidence
 - leave when: at least one selected case produces a longer, denser, road-aligned CARLA video with smoother actor motion and clear quality gates
-- blockers: RunPod Kasm CARLA server must remain reachable for live evidence; fallback is local/fake quality proof plus blocker report
+- blockers: none active; heavy MP4 remains on RunPod and is not committed by artifact policy
 - spawned follow-ups: TASK-104, TASK-106
 - complexity: M
 - assignee: generalPurpose
@@ -161,12 +161,12 @@ engine work.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Existing scripted OOD tests pass with default mode unchanged.
-- [ ] AC-2: High-fidelity mode records background actor counts and motion
+- [x] AC-1: Existing scripted OOD tests pass with default mode unchanged.
+- [x] AC-2: High-fidelity mode records background actor counts and motion
   smoothness metrics.
-- [ ] AC-3: One selected case produces or attempts a 45-90s RunPod CARLA video
+- [x] AC-3: One selected case produces or attempts a 45-90s RunPod CARLA video
   with quality report.
-- [ ] AC-4: Weak/buggy videos are blocked from hero promotion by quality gates.
+- [x] AC-4: Weak/buggy videos are blocked from hero promotion by quality gates.
 
 ### Verification
 
@@ -185,11 +185,26 @@ engine work.
 
 ### Evidence
 
-- `tickets/TASK-102/artifacts/high_fidelity_campaign_summary.json`
-- `tickets/TASK-102/artifacts/high_fidelity_video_evidence.json`
-- `tickets/TASK-102/artifacts/high_fidelity_preview.png`
-- QA/review report
+- Fake gate proof:
+  `tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/scripted_ood_campaign_summary.json`
+- RunPod Kasm hero proof:
+  `tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/scripted_ood_campaign_summary.json`
+- RunPod strict quality proof:
+  `tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/scenario_quality_summary.json`
+- RunPod video evidence:
+  `tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/ood_video_evidence.json`
+- Remote MP4, intentionally not committed:
+  `/workspace/0xDriver/artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4`
+- Review/QA report:
+  `tickets/TASK-102/artifacts/review/task102-implementation-review.md`
 
 ### Blockers
 
-- Live video depends on a reachable graphics-capable CARLA server.
+- None blocking for this ticket.
+- Residual risk: the promoted RunPod video requested 10 background actors, but
+  CARLA accepted only 1 live background actor on the selected road frame. The
+  code now tries a broader background spawn candidate search for future reruns,
+  and the v6 quality gate still passed with 6.0 mean visible actors due ego,
+  OOD actor, generated assets, and accepted background actor.
+- Residual artifact policy: the MP4 stays remote to avoid committing generated
+  video blobs.

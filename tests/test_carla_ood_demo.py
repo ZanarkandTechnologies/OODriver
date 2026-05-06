@@ -10,6 +10,7 @@ from driverx.scenarios import ScenarioRecipe
 from driverx.simulators import (
     CarlaOodDemoConfig,
     build_carla_ood_demo_plan,
+    load_carla_ood_demo_config,
     run_carla_ood_demo,
     write_carla_ood_demo,
 )
@@ -63,6 +64,8 @@ class _FakeActor:
         self.transform = transform
         self.velocity = _FakeVector3D(0.0, 0.0, 0.0)
         self.destroyed = False
+        self.physics_enabled = True
+        self.autopilot_enabled = None
 
     def listen(self, callback) -> None:
         for index in range(16):
@@ -76,6 +79,12 @@ class _FakeActor:
 
     def get_velocity(self):
         return self.velocity
+
+    def set_simulate_physics(self, enabled: bool) -> None:
+        self.physics_enabled = enabled
+
+    def set_autopilot(self, enabled: bool) -> None:
+        self.autopilot_enabled = enabled
 
     def destroy(self) -> None:
         self.destroyed = True
@@ -139,6 +148,19 @@ class _RetryFakeWorld(_FakeWorld):
         return self.spawn_actor(blueprint, transform)
 
 
+class _OodCollisionRetryWorld(_FakeWorld):
+    def __init__(self) -> None:
+        super().__init__()
+        self.ood_try_count = 0
+
+    def try_spawn_actor(self, blueprint, transform):
+        if blueprint.id == "vehicle.kawasaki.ninja":
+            self.ood_try_count += 1
+            if self.ood_try_count == 1:
+                return None
+        return self.spawn_actor(blueprint, transform)
+
+
 class _FakeClient:
     def __init__(self, world: _FakeWorld) -> None:
         self.world = world
@@ -190,6 +212,11 @@ class _FakeCarla:
 class _RetryFakeCarla(_FakeCarla):
     def __init__(self) -> None:
         self.world = _RetryFakeWorld()
+
+
+class _OodCollisionRetryCarla(_FakeCarla):
+    def __init__(self) -> None:
+        self.world = _OodCollisionRetryWorld()
 
 
 def _recipe() -> ScenarioRecipe:
@@ -261,6 +288,83 @@ class CarlaOodDemoTest(unittest.TestCase):
         self.assertTrue(json_exists)
         self.assertTrue(report_exists)
 
+    def test_high_fidelity_mode_records_density_and_smoothness_metrics(self) -> None:
+        with TemporaryDirectory() as tmp:
+            run_dir = Path(tmp)
+            carla = _FakeCarla()
+            result = run_carla_ood_demo(
+                CarlaOodDemoConfig(
+                    tick_count=6,
+                    fps=3,
+                    background_vehicle_count=2,
+                    background_pedestrian_count=1,
+                    camera_preset="wide_context",
+                    fidelity_mode="high_fidelity",
+                    ood_motion_smoothing="limit_step",
+                    ood_max_step_m=0.5,
+                ),
+                run_dir,
+                recipe=_recipe(),
+                behavior=_behavior(),
+                asset_manifests=generate_assets_dry_run(default_asset_requests()),
+                carla_module=carla,
+            )
+            summary = write_carla_ood_demo(run_dir, result)
+            report = Path(summary["report_path"]).read_text(encoding="utf-8")
+            tracks = json.loads(Path(result.tracks_path or "").read_text(encoding="utf-8"))
+
+        self.assertEqual(result.status, "passed")
+        self.assertEqual(len(result.background_actor_ids), 3)
+        self.assertEqual(len(tracks), 6 * 8)
+        self.assertEqual(result.fidelity_metrics["fidelity_mode"], "high_fidelity")
+        self.assertEqual(result.fidelity_metrics["camera_preset"], "wide_context")
+        self.assertEqual(result.fidelity_metrics["background_actor_count"], 3)
+        self.assertLessEqual(result.fidelity_metrics["max_ood_step_m"], 0.5)
+        self.assertEqual(result.fidelity_metrics["visible_actor_count_mean"], 8.0)
+        self.assertIn("fidelity_metrics", report)
+        scripted_actor_types = {
+            "vehicle.lincoln.mkz_2020",
+            "vehicle.kawasaki.ninja",
+            "static.prop.dirtdebris01",
+            "static.prop.foodcart",
+            "static.prop.constructioncone",
+        }
+        self.assertTrue(
+            all(
+                not actor.physics_enabled
+                for actor in carla.world.spawned
+                if actor.type_id in scripted_actor_types
+            )
+        )
+
+    def test_load_carla_ood_demo_config_accepts_high_fidelity_fields(self) -> None:
+        with TemporaryDirectory() as tmp:
+            config_path = Path(tmp) / "carla_ood_demo.json"
+            config_path.write_text(
+                json.dumps(
+                    {
+                        "carla_ood_demo": {
+                            "fidelity_mode": "high_fidelity",
+                            "background_vehicle_count": 4,
+                            "background_pedestrian_count": 2,
+                            "camera_preset": "chase",
+                            "ood_motion_smoothing": "limit_step",
+                            "ood_max_step_m": 0.75,
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            config = load_carla_ood_demo_config(config_path)
+
+        self.assertEqual(config.fidelity_mode, "high_fidelity")
+        self.assertEqual(config.background_vehicle_count, 4)
+        self.assertEqual(config.background_pedestrian_count, 2)
+        self.assertEqual(config.camera_preset, "chase")
+        self.assertEqual(config.ood_motion_smoothing, "limit_step")
+        self.assertEqual(config.ood_max_step_m, 0.75)
+
     def test_run_carla_ood_demo_uses_road_local_not_absolute_xy(self) -> None:
         with TemporaryDirectory() as tmp:
             run_dir = Path(tmp)
@@ -295,6 +399,27 @@ class CarlaOodDemoTest(unittest.TestCase):
         self.assertEqual(result.status, "passed")
         self.assertGreater(carla.world.try_count, 1)
         self.assertEqual(alignment["road_frame"]["spawn_index"], 1)
+
+    def test_run_carla_ood_demo_retries_blocked_ood_spawn_pose(self) -> None:
+        with TemporaryDirectory() as tmp:
+            run_dir = Path(tmp)
+            carla = _OodCollisionRetryCarla()
+            result = run_carla_ood_demo(
+                CarlaOodDemoConfig(
+                    tick_count=2,
+                    fps=1,
+                    ood_motion_smoothing="limit_step",
+                    ood_max_step_m=1.0,
+                ),
+                run_dir,
+                recipe=_recipe(),
+                behavior=_behavior(),
+                carla_module=carla,
+            )
+
+        self.assertEqual(result.status, "passed")
+        self.assertGreater(carla.world.ood_try_count, 1)
+        self.assertLessEqual(result.fidelity_metrics["max_ood_step_m"], 1.0)
 
     def test_missing_carla_package_reports_blocker(self) -> None:
         with TemporaryDirectory() as tmp:

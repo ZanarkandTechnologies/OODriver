@@ -1,0 +1,44 @@
+{
+  "thresholds": {
+    "min_duration_s": 45.0,
+    "min_frame_count": 180,
+    "max_min_distance_m": 6.0,
+    "min_visible_actor_count": 6.0,
+    "max_ood_step_m": 1.25,
+    "require_video": false,
+    "require_road_alignment": false,
+    "require_conflict": true
+  },
+  "report_count": 1,
+  "passed_count": 0,
+  "blocked_count": 1,
+  "passed_case_ids": [],
+  "reports": [
+    {
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-visual-noise-002",
+      "case_id": "000-retry02-generated-generalization-pedestriansonroad-1088-visual-noise-002-informal_right_of_way_push",
+      "passes": false,
+      "status": "blocked",
+      "metrics": {
+        "duration_s": 5.0,
+        "frame_count": 0,
+        "min_distance_m": 5.3151,
+        "has_video": false,
+        "road_aligned": null,
+        "visible_actor_count_mean": 2.0,
+        "max_ood_step_m": 0.8276
+      },
+      "blockers": [
+        "duration_s 5.00 below 45.00",
+        "frame_count 0 below 180",
+        "visible_actor_count_mean 2.00 below 6.00"
+      ],
+      "warnings": [
+        "video evidence is missing",
+        "road alignment is unknown or failed"
+      ]
+    }
+  ],
+  "json_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/quality/scenario_quality_summary.json",
+  "report_path": "tickets/TASK-102/artifacts/high-fidelity-fake-quality-gate/quality/scenario_quality_summary.md"
+}

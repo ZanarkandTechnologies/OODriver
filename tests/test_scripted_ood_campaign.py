@@ -35,6 +35,8 @@ class ScriptedOodCampaignTest(unittest.TestCase):
         self.assertIsNotNone(result["best_case"])
         self.assertEqual(len(cases), 3)
         self.assertTrue(all(case["tracks_path"] for case in cases))
+        self.assertEqual(result["fidelity"]["mean_visible_actor_count"], 2.0)
+        self.assertTrue(all(case["fidelity_metrics"] for case in cases))
 
     def test_campaign_cli_honors_limit(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -141,6 +143,27 @@ class ScriptedOodCampaignTest(unittest.TestCase):
         self.assertEqual(second["cases"][0]["video_status"], "passed")
         self.assertIn("local-video", second["cases"][0]["video_evidence_path"])
         self.assertEqual(second["cases"][0]["video_path"], str(video_dir / "case.mp4"))
+
+    def test_quality_gate_can_block_sparse_scenario_density(self) -> None:
+        with TemporaryDirectory() as tmp:
+            result = run_scripted_ood_campaign(
+                ScriptedOodCampaignConfig(
+                    scenario_config_path=Path("configs/scenario_forge.sample.yaml"),
+                    carla_ood_config_path=Path("configs/carla_ood_demo.local.sample.yaml"),
+                    output_root=Path(tmp),
+                    run_id="campaign",
+                    count=1,
+                    live=False,
+                    resume=False,
+                    quality_min_duration_s=0.0,
+                    quality_require_video=False,
+                    quality_require_road_alignment=False,
+                    quality_min_visible_actor_count=3.0,
+                )
+            )
+
+        self.assertEqual(result["status"], "quality_blocked")
+        self.assertIn("visible_actor_count_mean", " ".join(result["blockers"]))
 
 
 if __name__ == "__main__":

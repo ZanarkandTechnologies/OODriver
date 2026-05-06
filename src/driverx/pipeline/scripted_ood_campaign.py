@@ -46,6 +46,8 @@ class ScriptedOodCampaignConfig:
     quality_require_video: bool = True
     quality_require_road_alignment: bool = True
     quality_require_conflict: bool = True
+    quality_min_visible_actor_count: float = 0.0
+    quality_max_ood_step_m: float | None = None
     quality_retry_limit: int = 0
 
     def quality_thresholds(self) -> ScenarioQualityThresholds:
@@ -53,6 +55,8 @@ class ScriptedOodCampaignConfig:
             min_duration_s=self.quality_min_duration_s,
             min_frame_count=self.quality_min_frame_count,
             max_min_distance_m=self.quality_max_min_distance_m,
+            min_visible_actor_count=self.quality_min_visible_actor_count,
+            max_ood_step_m=self.quality_max_ood_step_m,
             require_video=self.quality_require_video,
             require_road_alignment=self.quality_require_road_alignment,
             require_conflict=self.quality_require_conflict,
@@ -81,6 +85,7 @@ class CampaignCaseRecord:
     attempt_index: int = 0
     quality_status: str | None = None
     quality_blockers: tuple[str, ...] = field(default_factory=tuple)
+    fidelity_metrics: dict[str, Any] = field(default_factory=dict)
 
     def to_jsonable(self) -> dict[str, Any]:
         return {
@@ -104,6 +109,7 @@ class CampaignCaseRecord:
             "attempt_index": self.attempt_index,
             "quality_status": self.quality_status,
             "quality_blockers": list(self.quality_blockers),
+            "fidelity_metrics": self.fidelity_metrics,
         }
 
 
@@ -130,6 +136,8 @@ def load_scripted_ood_campaign_config(path: Path) -> ScriptedOodCampaignConfig:
         quality_require_video=bool(campaign.get("quality_require_video", True)),
         quality_require_road_alignment=bool(campaign.get("quality_require_road_alignment", True)),
         quality_require_conflict=bool(campaign.get("quality_require_conflict", True)),
+        quality_min_visible_actor_count=_optional_float(campaign.get("quality_min_visible_actor_count")) or 0.0,
+        quality_max_ood_step_m=_optional_float(campaign.get("quality_max_ood_step_m")),
         quality_retry_limit=max(0, int(campaign.get("quality_retry_limit", 0))),
     )
 
@@ -249,6 +257,7 @@ def _run_case(
         video_evidence_report_path=str(video_summary.get("report_path")) if video_summary else None,
         video_path=str(video_summary.get("video_path")) if video_summary and video_summary.get("video_path") else None,
         blockers=tuple(result.blockers),
+        fidelity_metrics=result.fidelity_metrics,
     )
 
 
@@ -276,6 +285,12 @@ def _fake_case(
         "tracks_path": str(tracks_path),
         "rgb_folder": None,
         "blockers": [],
+        "fidelity_metrics": _fidelity_metrics_from_tracks(
+            tracks,
+            camera_preset="synthetic",
+            fidelity_mode="fake",
+            background_actor_count=0,
+        ),
         "claim_boundaries": [
             "scripted_ood_campaign_fake=true",
             "live_carla=false",
@@ -303,6 +318,7 @@ def _fake_case(
         tracks_path=str(tracks_path),
         rgb_folder=None,
         video_status=None,
+        fidelity_metrics=_mapping(scenario.get("fidelity_metrics")),
     )
 
 
@@ -350,6 +366,7 @@ def _resume_case(
         video_evidence_report_path=str(video_summary.get("report_path")) if video_summary else None,
         video_path=str(video_summary.get("video_path")) if video_summary and video_summary.get("video_path") else None,
         blockers=tuple(str(blocker) for blocker in list(scenario.get("blockers", []))),
+        fidelity_metrics=_mapping(scenario.get("fidelity_metrics")),
     )
 
 
@@ -426,6 +443,7 @@ def _campaign_payload(
         "best_case": ranked[-1] if ranked else None,
         "worst_case": ranked[0] if ranked else None,
         "mean_min_distance_m": _mean([float(record["min_distance_m"]) for record in ranked]),
+        "fidelity": _fidelity_summary(json_records),
         "cases": json_records,
         "quality_attempts": json_attempts,
         "quality": _quality_payload(run_dir, config, json_records),
@@ -494,6 +512,98 @@ def _fake_tracks(behavior: BehaviorTrace, *, ego_speed_mps: float) -> list[dict[
     return tracks
 
 
+def _fidelity_metrics_from_tracks(
+    tracks: list[dict[str, Any]],
+    *,
+    camera_preset: str,
+    fidelity_mode: str,
+    background_actor_count: int,
+) -> dict[str, Any]:
+    visible_counts: dict[int, set[str]] = {}
+    ood_tracks = []
+    ego_tracks = []
+    for track in tracks:
+        actor_ref = str(track.get("actor_ref"))
+        visible_counts.setdefault(int(track.get("tick", 0)), set()).add(actor_ref)
+        if actor_ref == "ood_actor_0":
+            ood_tracks.append(track)
+        if actor_ref == "ego":
+            ego_tracks.append(track)
+    return {
+        "fidelity_mode": fidelity_mode,
+        "background_actor_count": background_actor_count,
+        "camera_preset": camera_preset,
+        "mean_ood_step_m": _mean(_step_distances(ood_tracks)),
+        "max_ood_step_m": max(_step_distances(ood_tracks), default=0.0),
+        "ego_route_progress_m": _route_progress(ego_tracks),
+        "visible_actor_count_mean": (
+            round(sum(len(refs) for refs in visible_counts.values()) / len(visible_counts), 4)
+            if visible_counts
+            else None
+        ),
+    }
+
+
+def _fidelity_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
+    metrics = [_mapping(record.get("fidelity_metrics")) for record in records]
+    return {
+        "mean_visible_actor_count": _mean(
+            [
+                float(metric["visible_actor_count_mean"])
+                for metric in metrics
+                if metric.get("visible_actor_count_mean") is not None
+            ]
+        ),
+        "mean_ego_route_progress_m": _mean(
+            [
+                float(metric["ego_route_progress_m"])
+                for metric in metrics
+                if metric.get("ego_route_progress_m") is not None
+            ]
+        ),
+        "max_ood_step_m": max(
+            [
+                float(metric["max_ood_step_m"])
+                for metric in metrics
+                if metric.get("max_ood_step_m") is not None
+            ],
+            default=None,
+        ),
+        "background_actor_count": sum(
+            int(float(metric.get("background_actor_count", 0) or 0))
+            for metric in metrics
+        ),
+        "camera_presets": sorted(
+            {
+                str(metric["camera_preset"])
+                for metric in metrics
+                if metric.get("camera_preset")
+            }
+        ),
+    }
+
+
+def _step_distances(tracks: list[dict[str, Any]]) -> list[float]:
+    distances: list[float] = []
+    for previous, current in zip(tracks, tracks[1:]):
+        prev_location = _mapping(previous.get("location"))
+        curr_location = _mapping(current.get("location"))
+        dx = float(curr_location.get("x", 0.0)) - float(prev_location.get("x", 0.0))
+        dy = float(curr_location.get("y", 0.0)) - float(prev_location.get("y", 0.0))
+        distances.append(round((dx * dx + dy * dy) ** 0.5, 4))
+    return distances
+
+
+def _route_progress(tracks: list[dict[str, Any]]) -> float:
+    if len(tracks) < 2:
+        return 0.0
+    start = _mapping(tracks[0].get("location"))
+    end = _mapping(tracks[-1].get("location"))
+    dx = float(end.get("x", 0.0)) - float(start.get("x", 0.0))
+    dy = float(end.get("y", 0.0)) - float(start.get("y", 0.0))
+    return round((dx * dx + dy * dy) ** 0.5, 4)
+
+
 def _track(actor_ref: str, tick: int, t_s: float, x: float, y: float, speed: float) -> dict[str, Any]:
     return {
         "actor_ref": actor_ref,
@@ -551,6 +661,15 @@ def _csv_tuple(value: object, default: tuple[str, ...]) -> tuple[str, ...]:
     return items or default
 
 
+def _optional_float(value: object) -> float | None:
+    try:
+        if value is None or value == "":
+            return None
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def _mapping(value: Any) -> dict[str, Any]:
     return dict(value) if isinstance(value, dict) else {}
 
@@ -572,6 +691,7 @@ def _markdown(payload: dict[str, Any]) -> str:
         f"- quality_selected_passed_count: `{payload.get('quality_selected_passed_count')}`",
         f"- live_case_count: `{payload.get('live_case_count')}`",
         f"- mean_min_distance_m: `{payload.get('mean_min_distance_m')}`",
+        f"- fidelity: `{payload.get('fidelity')}`",
         f"- worst_case: `{_mapping(payload.get('worst_case')).get('case_id')}`",
         f"- quality_passed_count: `{_mapping(payload.get('quality')).get('passed_count')}`",
         "",
@@ -579,9 +699,12 @@ def _markdown(payload: dict[str, Any]) -> str:
         "",
     ]
     for record in list(payload.get("cases", [])):
+        fidelity = _mapping(record.get("fidelity_metrics"))
         lines.append(
             f"- `{record.get('case_id')}`: behavior=`{record.get('behavior_id')}`, "
             f"status=`{record.get('status')}`, min_distance_m=`{record.get('min_distance_m')}`, "
+            f"visible_actors=`{fidelity.get('visible_actor_count_mean')}`, "
+            f"max_ood_step_m=`{fidelity.get('max_ood_step_m')}`, "
             f"video_status=`{record.get('video_status')}`, "
             f"road_alignment=`{record.get('road_alignment_path')}`, "
             f"video=`{record.get('video_path')}`"

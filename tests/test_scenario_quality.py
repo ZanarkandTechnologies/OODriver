@@ -52,6 +52,33 @@ class ScenarioQualityTest(unittest.TestCase):
         self.assertFalse(report.passes)
         self.assertGreaterEqual(len(report.blockers), 5)
 
+    def test_quality_report_blocks_weak_density_and_motion_smoothness(self) -> None:
+        report = evaluate_scenario_quality(
+            {
+                "case_id": "case-density",
+                "recipe_id": "scenario-density",
+                "duration_s": 12.0,
+                "frame_count": 120,
+                "min_distance_m": 2.0,
+                "video_status": "passed",
+                "fidelity_metrics": {
+                    "visible_actor_count_mean": 2.0,
+                    "max_ood_step_m": 4.2,
+                },
+            },
+            ScenarioQualityThresholds(
+                min_duration_s=10.0,
+                min_frame_count=100,
+                min_visible_actor_count=5.0,
+                max_ood_step_m=1.5,
+                require_road_alignment=False,
+            ),
+        )
+
+        self.assertFalse(report.passes)
+        self.assertIn("visible_actor_count_mean", " ".join(report.blockers))
+        self.assertIn("max_ood_step_m", " ".join(report.blockers))
+
     def test_writes_quality_outputs_and_selects_passed_cases(self) -> None:
         with TemporaryDirectory() as tmp:
             alignment_path = Path(tmp) / "road_alignment_report.json"

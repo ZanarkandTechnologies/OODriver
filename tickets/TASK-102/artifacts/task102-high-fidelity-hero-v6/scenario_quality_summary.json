@@ -1,0 +1,37 @@
+{
+  "thresholds": {
+    "min_duration_s": 45.0,
+    "min_frame_count": 180,
+    "max_min_distance_m": 6.0,
+    "min_visible_actor_count": 6.0,
+    "max_ood_step_m": 1.25,
+    "require_video": true,
+    "require_road_alignment": true,
+    "require_conflict": true
+  },
+  "report_count": 1,
+  "passed_count": 1,
+  "blocked_count": 0,
+  "passed_case_ids": [
+    "000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering"
+  ],
+  "reports": [
+    {
+      "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "case_id": "000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering",
+      "passes": true,
+      "status": "passed",
+      "metrics": {
+        "duration_s": 84.0,
+        "frame_count": 420,
+        "min_distance_m": 0.2,
+        "has_video": true,
+        "road_aligned": true,
+        "visible_actor_count_mean": 6.0,
+        "max_ood_step_m": 1.2
+      },
+      "blockers": [],
+      "warnings": []
+    }
+  ]
+}

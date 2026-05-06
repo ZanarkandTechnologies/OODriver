@@ -19,6 +19,13 @@ from driverx.core.config import read_config_mapping
 from driverx.scenarios import ScenarioRecipe
 from driverx.simulators.carla_ego import _find_vehicle_blueprint, _rotation_payload, _vector_payload
 from driverx.simulators.carla_script import _blueprint_for, _transform
+from driverx.simulators.carla_ood_fidelity import (
+    ROAD_ACTOR_SPAWN_Z_M,
+    fidelity_metrics as build_fidelity_metrics,
+    camera_transform,
+    smoothed_ood_pose,
+    spawn_background_actors,
+)
 from driverx.simulators.carla_road_frame import (
     RoadFrame,
     RoadFrameSelector,
@@ -27,9 +34,6 @@ from driverx.simulators.carla_road_frame import (
     transform_payload_to_road_frame,
     validate_road_aligned_track,
 )
-
-
-ROAD_ACTOR_SPAWN_Z_M = 0.6
 
 
 @dataclass(frozen=True)
@@ -54,6 +58,12 @@ class CarlaOodDemoConfig:
     road_anchor_yaw_delta_deg: float = 0.0
     road_lane_width_m: float = 3.5
     road_max_lateral_offset_m: float = 6.0
+    fidelity_mode: str = "scripted"
+    background_vehicle_count: int = 0
+    background_pedestrian_count: int = 0
+    camera_preset: str = "ego_front"
+    ood_motion_smoothing: str = "linear"
+    ood_max_step_m: float = 3.0
     cleanup: bool = True
 
     def road_frame_selector(self) -> RoadFrameSelector:
@@ -77,6 +87,8 @@ class CarlaOodDemoPlan:
     coordinate_frame: str = "road_local"
     road_frame_selector: RoadFrameSelector = field(default_factory=RoadFrameSelector)
     object_spawn_specs: list[CarlaObjectSpawnSpec] = field(default_factory=list)
+    fidelity_mode: str = "scripted"
+    camera_preset: str = "ego_front"
 
     def to_jsonable(self) -> dict[str, Any]:
         return {
@@ -90,6 +102,8 @@ class CarlaOodDemoPlan:
             "object_spawn_specs": [
                 spec.to_jsonable() for spec in self.object_spawn_specs
             ],
+            "fidelity_mode": self.fidelity_mode,
+            "camera_preset": self.camera_preset,
         }
 
 
@@ -109,6 +123,8 @@ class CarlaOodDemoResult:
     road_alignment_path: str | None = None
     spawned_actor_ids: list[int] = field(default_factory=list)
     destroyed_actor_ids: list[int] = field(default_factory=list)
+    background_actor_ids: list[int] = field(default_factory=list)
+    fidelity_metrics: dict[str, Any] = field(default_factory=dict)
     generated_asset_ids: list[str] = field(default_factory=list)
     blockers: list[str] = field(default_factory=list)
     error: str | None = None
@@ -134,6 +150,8 @@ class CarlaOodDemoResult:
             "road_alignment_path": self.road_alignment_path,
             "spawned_actor_ids": self.spawned_actor_ids,
             "destroyed_actor_ids": self.destroyed_actor_ids,
+            "background_actor_ids": self.background_actor_ids,
+            "fidelity_metrics": self.fidelity_metrics,
             "generated_asset_ids": self.generated_asset_ids,
             "blockers": self.blockers,
             "error": self.error,
@@ -171,6 +189,12 @@ def load_carla_ood_demo_config(path: Path) -> CarlaOodDemoConfig:
         road_anchor_yaw_delta_deg=float(demo.get("road_anchor_yaw_delta_deg", 0.0)),
         road_lane_width_m=float(demo.get("road_lane_width_m", 3.5)),
         road_max_lateral_offset_m=float(demo.get("road_max_lateral_offset_m", 6.0)),
+        fidelity_mode=str(demo.get("fidelity_mode", "scripted")),
+        background_vehicle_count=max(0, int(demo.get("background_vehicle_count", 0))),
+        background_pedestrian_count=max(0, int(demo.get("background_pedestrian_count", 0))),
+        camera_preset=str(demo.get("camera_preset", "ego_front")),
+        ood_motion_smoothing=str(demo.get("ood_motion_smoothing", "linear")),
+        ood_max_step_m=max(0.1, float(demo.get("ood_max_step_m", 3.0))),
         cleanup=bool(demo.get("cleanup", True)),
     )
 
@@ -197,6 +221,8 @@ def build_carla_ood_demo_plan(
         coordinate_frame=config.coordinate_frame,
         road_frame_selector=config.road_frame_selector(),
         object_spawn_specs=object_specs,
+        fidelity_mode=config.fidelity_mode,
+        camera_preset=config.camera_preset,
     )
 
 
@@ -250,6 +276,8 @@ def run_carla_ood_demo(
     last_image: object | None = None
     actor_by_ref: dict[str, object] = {}
     road_frame: RoadFrame | None = None
+    background_actor_ids: list[int] = []
+    fidelity_metrics: dict[str, Any] = {}
     alignment_transforms: dict[str, list[dict[str, dict[str, float]]]] = {
         "ego": [],
         "ood_actor_0": [],
@@ -274,6 +302,8 @@ def run_carla_ood_demo(
         spawned.append(ego)
         actor_by_ref["ego"] = ego
         alignment_transforms["ego"].append(ego_spawn_payload)
+        if ego_control_trace is None and config.ego_mode == "scripted":
+            _disable_actor_physics(ego)
 
         camera_blueprint = blueprints.find("sensor.camera.rgb")
         camera_blueprint.set_attribute("image_size_x", str(config.camera_width))
@@ -281,10 +311,7 @@ def run_carla_ood_demo(
         camera_blueprint.set_attribute("fov", str(config.camera_fov))
         camera = world.spawn_actor(
             camera_blueprint,
-            carla.Transform(
-                carla.Location(x=1.6, z=2.3),
-                carla.Rotation(pitch=-8.0),
-            ),
+            camera_transform(carla, config.camera_preset),
             attach_to=ego,
         )
         spawned.append(camera)
@@ -292,18 +319,22 @@ def run_carla_ood_demo(
         camera.listen(camera_queue.put)
 
         ood_blueprint = _find_blueprint(blueprints, _blueprint_for(behavior.plan.actor_kind))
-        ood_spawn_payload = _road_transform(
+        ood_spawn = _spawn_road_actor_with_offsets(
+            world,
+            ood_blueprint,
+            carla,
             config,
             road_frame,
             behavior.samples[0].x_m,
             behavior.samples[0].y_m,
             ROAD_ACTOR_SPAWN_Z_M,
             behavior.samples[0].heading_deg,
+            offsets=_ood_spawn_offsets(config),
         )
-        ood_actor = world.spawn_actor(
-            ood_blueprint,
-            _carla_transform(carla, ood_spawn_payload),
-        )
+        if ood_spawn is None:
+            raise RuntimeError("Unable to spawn OOD actor without a collision.")
+        ood_actor, ood_spawn_payload, ood_spawn_local_pose = ood_spawn
+        _disable_actor_physics(ood_actor)
         spawned.append(ood_actor)
         actor_by_ref["ood_actor_0"] = ood_actor
         alignment_transforms["ood_actor_0"].append(ood_spawn_payload)
@@ -311,14 +342,34 @@ def run_carla_ood_demo(
         for spec in plan.object_spawn_specs:
             blueprint = _find_blueprint(blueprints, spec.blueprint_filter)
             spawn_transform = _spawn_transform_for_spec(config, road_frame, spec)
-            actor = world.spawn_actor(
-                blueprint,
-                _carla_transform(carla, spawn_transform),
-            )
+            actor = _spawn_actor_safely(world, blueprint, _carla_transform(carla, spawn_transform))
+            if actor is None:
+                blockers.append(f"Skipped generated asset {spec.asset_id}: spawn collided.")
+                continue
+            _disable_actor_physics(actor)
             spawned.append(actor)
             actor_by_ref[spec.actor_ref] = actor
             alignment_transforms[spec.actor_ref] = [spawn_transform]
 
+        background_actor_ids = spawn_background_actors(
+            world,
+            blueprints,
+            carla,
+            config,
+            road_frame,
+            spawned,
+            actor_by_ref,
+            alignment_transforms,
+            find_vehicle_blueprint=_find_vehicle_blueprint,
+            find_blueprint=_find_blueprint,
+            road_transform=_road_transform,
+            carla_transform=_carla_transform,
+            spawn_actor_safely=_spawn_actor_safely,
+            disable_actor_physics=_disable_actor_physics,
+        )
+        last_ood_local_pose: tuple[float, float, float] | None = (
+            ood_spawn_local_pose if config.ood_motion_smoothing != "linear" else None
+        )
         for tick in range(plan.tick_count):
             sample = behavior.samples[min(tick, len(behavior.samples) - 1)]
             if ego_control_trace is not None and tick < len(ego_control_trace.commands):
@@ -340,13 +391,21 @@ def run_carla_ood_demo(
             else:
                 ego_payload = _payload_from_actor(ego)
             alignment_transforms["ego"].append(ego_payload)
+            local_x, local_y, local_heading = smoothed_ood_pose(
+                sample.x_m,
+                sample.y_m,
+                sample.heading_deg,
+                last_ood_local_pose,
+                config,
+            )
+            last_ood_local_pose = (local_x, local_y, local_heading)
             ood_payload = _road_transform(
                 config,
                 road_frame,
-                sample.x_m,
-                sample.y_m,
+                local_x,
+                local_y,
                 ROAD_ACTOR_SPAWN_Z_M,
-                sample.heading_deg,
+                local_heading,
             )
             _safe_set_transform(
                 ood_actor,
@@ -389,6 +448,11 @@ def run_carla_ood_demo(
             report = alignment_payload.get("actors", {}).get(actor_ref, {})
             if report and not report.get("starts_on_road", False):
                 blockers.append(f"{actor_ref} did not start inside the road-aligned corridor.")
+        fidelity_metrics = build_fidelity_metrics(
+            config,
+            tracks,
+            background_actor_ids=background_actor_ids,
+        )
         _write_live_checkpoint(
             checkpoint_path,
             config=config,
@@ -420,6 +484,8 @@ def run_carla_ood_demo(
             road_alignment_path=str(road_alignment_path) if road_alignment_path.exists() else None,
             spawned_actor_ids=_actor_ids(spawned),
             destroyed_actor_ids=destroyed,
+            background_actor_ids=background_actor_ids,
+            fidelity_metrics=build_fidelity_metrics(config, tracks, background_actor_ids=background_actor_ids),
             generated_asset_ids=[spec.asset_id for spec in plan.object_spawn_specs],
             blockers=blockers,
             error=str(exc),
@@ -449,6 +515,8 @@ def run_carla_ood_demo(
         road_alignment_path=str(road_alignment_path),
         spawned_actor_ids=_actor_ids(spawned),
         destroyed_actor_ids=destroyed,
+        background_actor_ids=background_actor_ids,
+        fidelity_metrics=fidelity_metrics,
         generated_asset_ids=[spec.asset_id for spec in plan.object_spawn_specs],
         blockers=blockers,
     )
@@ -488,6 +556,28 @@ def _spawn_actor(world: object, blueprint: object, transform: object) -> object:
         if actor is not None:
             return actor
     return world.spawn_actor(blueprint, transform)
+
+
+def _spawn_actor_safely(world: object, blueprint: object, transform: object) -> object | None:
+    try:
+        if hasattr(world, "try_spawn_actor"):
+            return world.try_spawn_actor(blueprint, transform)
+        return world.spawn_actor(blueprint, transform)
+    except Exception:
+        return None
+
+
+def _disable_actor_physics(actor: object) -> None:
+    if hasattr(actor, "set_autopilot"):
+        try:
+            actor.set_autopilot(False)
+        except Exception:
+            pass
+    if hasattr(actor, "set_simulate_physics"):
+        try:
+            actor.set_simulate_physics(False)
+        except Exception:
+            pass
 
 
 def _spawn_ego_with_retry(
@@ -533,6 +623,50 @@ def _spawn_ego_with_retry(
     raise RuntimeError(
         f"Unable to spawn ego actor at {len(candidate_indices)} road-frame candidates{detail}"
     )
+
+
+def _spawn_road_actor_with_offsets(
+    world: object,
+    blueprint: object,
+    carla: object,
+    config: CarlaOodDemoConfig,
+    road_frame: RoadFrame,
+    x_m: float,
+    y_m: float,
+    z_m: float,
+    yaw_delta_deg: float,
+    *,
+    offsets: list[tuple[float, float]],
+) -> tuple[object, dict[str, dict[str, float]], tuple[float, float, float]] | None:
+    for forward_offset, lateral_offset in offsets:
+        local_x = x_m + forward_offset
+        local_y = y_m + lateral_offset
+        payload = _road_transform(
+            config,
+            road_frame,
+            local_x,
+            local_y,
+            z_m,
+            yaw_delta_deg,
+        )
+        actor = _spawn_actor_safely(world, blueprint, _carla_transform(carla, payload))
+        if actor is not None:
+            return actor, payload, (local_x, local_y, yaw_delta_deg)
+    return None
+
+
+def _ood_spawn_offsets(config: CarlaOodDemoConfig) -> list[tuple[float, float]]:
+    lane = config.road_lane_width_m
+    return [
+        (0.0, 0.0),
+        (8.0, 0.0),
+        (14.0, 0.0),
+        (-8.0, 0.0),
+        (8.0, lane),
+        (8.0, -lane),
+        (18.0, lane),
+        (18.0, -lane),
+    ]
 
 
 def _carla_transform(carla: object, payload: dict[str, dict[str, float]]) -> object:
@@ -737,6 +871,8 @@ def _markdown(payload: dict[str, Any]) -> str:
         f"- generated_asset_ids: `{', '.join(payload['generated_asset_ids'])}`",
         f"- spawned_actor_ids: `{payload['spawned_actor_ids']}`",
         f"- destroyed_actor_ids: `{payload['destroyed_actor_ids']}`",
+        f"- background_actor_ids: `{payload['background_actor_ids']}`",
+        f"- fidelity_metrics: `{payload['fidelity_metrics']}`",
         "",
         "## Claim Boundaries",
         "",
