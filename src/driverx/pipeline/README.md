@@ -16,6 +16,7 @@ evaluator, renderer, and submission packager.
 - `run_end_to_end_ood_demo(config)`
 - `build_alpamayo_ood_evaluation(run_dir, inputs)`
 - `build_alpamayo_ood_scene_report(run_dir, inputs)`
+- `build_fail2drive_extension_report(generated_source_paths=..., output_dir=...)`
 - `build_ood_video_evidence(run_dir, inputs)`
 - `build_submission_demo_pack(run_dir, ...)`
 - `build_ood_suite_report(run_dir, scenario_summary_path=..., route_pack_path=..., ...)`
@@ -62,6 +63,13 @@ PYTHONPATH=src python3 -m driverx build-alpamayo-ood-scene \
 ```
 
 ```bash
+PYTHONPATH=src python3 -m driverx build-fail2drive-extension-report \
+  --source tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json \
+  --source tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json \
+  --run-id fail2drive-extension-report
+```
+
+```bash
 PYTHONPATH=src python3 -m driverx build-ood-suite-report \
   --scenario-summary artifacts/runs/scenario-forge/scenario_suite_summary.json \
   --route-pack artifacts/runs/bench2drive-route-pack/bench2drive_route_pack.json \
@@ -73,5 +81,5 @@ PYTHONPATH=src python3 -m driverx build-ood-suite-report \
 ## Test
 
 ```bash
-PYTHONPATH=src python3 -m unittest tests.test_pipeline_mock tests.test_batch tests.test_rag_comparison tests.test_end_to_end_ood_demo tests.test_alpamayo_ood_evaluation tests.test_alpamayo_ood_scene tests.test_ood_video_evidence tests.test_ood_suite_report
+PYTHONPATH=src python3 -m unittest tests.test_pipeline_mock tests.test_batch tests.test_rag_comparison tests.test_end_to_end_ood_demo tests.test_alpamayo_ood_evaluation tests.test_alpamayo_ood_scene tests.test_fail2drive_extension_report tests.test_ood_video_evidence tests.test_ood_suite_report
 ```

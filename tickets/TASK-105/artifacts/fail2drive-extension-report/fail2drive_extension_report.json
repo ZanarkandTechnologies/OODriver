@@ -1,0 +1,1349 @@
+{
+  "report_id": "fail2drive-extension-report",
+  "generated_case_count": 26,
+  "reference_count": 4,
+  "memory_entry_count": 2,
+  "claim_counts": {
+    "generated_extension": 26
+  },
+  "reference_sources": [
+    "fixture_result",
+    "fixture_seed"
+  ],
+  "generated_sources": [
+    "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+    "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json"
+  ],
+  "fail2drive_root": null,
+  "generated_cases": [
+    {
+      "scenario_id": "generated-base-animals-0076-obstacle-substitution-003",
+      "source_path": "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+      "source_kind": "submission_eval_matrix",
+      "family": "obstacle",
+      "behavior_id": "motorcycle_filtering",
+      "tags": [
+        "animals",
+        "motorcycle_filtering",
+        "obstacle",
+        "passed"
+      ],
+      "route_refs": [
+        "road alignment is required but missing or failed",
+        "video evidence is required but missing"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "source_path": "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+      "source_kind": "submission_eval_matrix",
+      "family": "regional",
+      "behavior_id": null,
+      "tags": [
+        "animals",
+        "mem-sample-motorcycle-filtering",
+        "regional",
+        "regional-driving-behavior"
+      ],
+      "route_refs": []
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-visual-noise-000",
+      "source_path": "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+      "source_kind": "submission_eval_matrix",
+      "family": "visual",
+      "behavior_id": "wrong_way_shoulder_creep",
+      "tags": [
+        "animals",
+        "asset-fallen-cargo-sack",
+        "asset-reflective-flood-barrier",
+        "asset-roadside-food-cart",
+        "creep",
+        "live_carla",
+        "motorcycle_filtering",
+        "passed",
+        "shoulder",
+        "video",
+        "visual",
+        "visual-noise",
+        "visual_noise",
+        "wrong_way",
+        "wrong_way_shoulder_creep"
+      ],
+      "route_refs": []
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-occlusion-001",
+      "source_path": "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+      "source_kind": "submission_eval_matrix",
+      "family": "occlusion",
+      "behavior_id": "sudden_brake",
+      "tags": [
+        "asset-fallen-cargo-sack",
+        "asset-reflective-flood-barrier",
+        "asset-roadside-food-cart",
+        "customobstacles",
+        "live_carla",
+        "occlusion",
+        "passed",
+        "sudden_brake",
+        "video"
+      ],
+      "route_refs": []
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+      "source_path": "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+      "source_kind": "submission_eval_matrix",
+      "family": "visual",
+      "behavior_id": "sudden_brake",
+      "tags": [
+        "blocked",
+        "customobstacles",
+        "sudden_brake",
+        "visual",
+        "visual-noise"
+      ],
+      "route_refs": [
+        "behavior_validation:max_deceleration_mps2 13.60 exceeds 9.00",
+        "behavior_validation:time_to_conflict_s 0.00 is too early for a solvable setup",
+        "road alignment is required but missing or failed",
+        "video evidence is required but missing"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+      "source_path": "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+      "source_kind": "submission_eval_matrix",
+      "family": "lane",
+      "behavior_id": "unsignaled_u_turn",
+      "tags": [
+        "lane",
+        "passed",
+        "pedestrians",
+        "unsignaled_u_turn"
+      ],
+      "route_refs": []
+    },
+    {
+      "scenario_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between-v00",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "construction",
+      "behavior_id": "motorcycle_filtering",
+      "tags": [
+        "cones",
+        "construction",
+        "debris",
+        "filtering",
+        "lane_closure",
+        "lateral_uncertainty",
+        "lorry_proxy",
+        "malaysian_driving",
+        "motorcycle",
+        "motorcycle_filtering",
+        "road_cones",
+        "roadwork",
+        "severity_4",
+        "sudden_brake",
+        "variant_17",
+        "visual_noise",
+        "wet_road",
+        "work_barrier",
+        "work_zone"
+      ],
+      "route_refs": [
+        "fail2drive_split/Base_Animals_0076.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between-v01",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "construction",
+      "behavior_id": "motorcycle_filtering",
+      "tags": [
+        "cones",
+        "construction",
+        "debris",
+        "filtering",
+        "lane_closure",
+        "lateral_uncertainty",
+        "lorry_proxy",
+        "malaysian_driving",
+        "motorcycle",
+        "motorcycle_filtering",
+        "road_cones",
+        "roadwork",
+        "severity_4",
+        "sudden_brake",
+        "variant_18",
+        "visual_noise",
+        "wet_road",
+        "work_barrier",
+        "work_zone"
+      ],
+      "route_refs": [
+        "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0018-school-zone-occlusion-parked-van-hides-a-child-c-v00",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "pedestrian_occlusion",
+      "behavior_id": "no_signal_cut_in",
+      "tags": [
+        "cut_in",
+        "dropped_school_bag",
+        "lateral_aggression",
+        "malaysian_driving",
+        "no_signal",
+        "no_signal_cut_in",
+        "occlusion",
+        "parked_van",
+        "pedestrian_occlusion",
+        "regional_context",
+        "school_crossing_board",
+        "school_zone",
+        "severity_4",
+        "unsignalized_crossing",
+        "variant_117"
+      ],
+      "route_refs": [
+        "fail2drive_split/Base_Animals_0076.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0018-school-zone-occlusion-parked-van-hides-a-child-c-v01",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "pedestrian_occlusion",
+      "behavior_id": "no_signal_cut_in",
+      "tags": [
+        "cut_in",
+        "dropped_school_bag",
+        "lateral_aggression",
+        "malaysian_driving",
+        "no_signal",
+        "no_signal_cut_in",
+        "occlusion",
+        "parked_van",
+        "pedestrian_occlusion",
+        "regional_context",
+        "school_crossing_board",
+        "school_zone",
+        "severity_4",
+        "unsignalized_crossing",
+        "variant_118"
+      ],
+      "route_refs": [
+        "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0019-flooded-urban-road-low-obstacle-blends-into-wate-v00",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "weather_surface",
+      "behavior_id": "informal_right_of_way_push",
+      "tags": [
+        "assertive_gap",
+        "creep",
+        "flood",
+        "flood_barrier",
+        "informal_right_of_way_push",
+        "low_obstacle",
+        "obstacle_substitution",
+        "reduced_friction",
+        "right_of_way",
+        "severity_4",
+        "variant_217",
+        "waterlogged_debris",
+        "weather",
+        "weather_surface",
+        "wet_road"
+      ],
+      "route_refs": [
+        "fail2drive_split/Base_Animals_0076.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0019-flooded-urban-road-low-obstacle-blends-into-wate-v01",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "weather_surface",
+      "behavior_id": "informal_right_of_way_push",
+      "tags": [
+        "assertive_gap",
+        "creep",
+        "flood",
+        "flood_barrier",
+        "informal_right_of_way_push",
+        "low_obstacle",
+        "obstacle_substitution",
+        "reduced_friction",
+        "right_of_way",
+        "severity_4",
+        "variant_218",
+        "waterlogged_debris",
+        "weather",
+        "weather_surface",
+        "wet_road"
+      ],
+      "route_refs": [
+        "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0020-night-rain-glare-reflective-sign-distracts-the-p-v00",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "visibility",
+      "behavior_id": "no_signal_cut_in",
+      "tags": [
+        "cut_in",
+        "fog",
+        "glare",
+        "glare_artifact",
+        "lateral_aggression",
+        "night",
+        "no_signal",
+        "no_signal_cut_in",
+        "rain",
+        "reflective_sign",
+        "severity_4",
+        "variant_317",
+        "visibility",
+        "visual_noise"
+      ],
+      "route_refs": [
+        "fail2drive_split/Base_Animals_0076.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0020-night-rain-glare-reflective-sign-distracts-the-p-v01",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "visibility",
+      "behavior_id": "no_signal_cut_in",
+      "tags": [
+        "cut_in",
+        "fog",
+        "glare",
+        "glare_artifact",
+        "lateral_aggression",
+        "night",
+        "no_signal",
+        "no_signal_cut_in",
+        "rain",
+        "reflective_sign",
+        "severity_4",
+        "variant_318",
+        "visibility",
+        "visual_noise"
+      ],
+      "route_refs": [
+        "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0021-double-parked-market-street-door-swerve-vehicle--v00",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "regional_market",
+      "behavior_id": "double_parked_door_swerve",
+      "tags": [
+        "door_open",
+        "double_parked",
+        "double_parked_door_swerve",
+        "food_cart",
+        "malaysian_driving",
+        "market_crates",
+        "motorcycle_filtering",
+        "obstacle_substitution",
+        "occlusion",
+        "regional_context",
+        "regional_market",
+        "roadside_market",
+        "severity_4",
+        "shoulder_clutter",
+        "sudden_swerve",
+        "urban_clutter",
+        "variant_417"
+      ],
+      "route_refs": [
+        "fail2drive_split/Base_Animals_0076.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0021-double-parked-market-street-door-swerve-vehicle--v01",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "regional_market",
+      "behavior_id": "double_parked_door_swerve",
+      "tags": [
+        "door_open",
+        "double_parked",
+        "double_parked_door_swerve",
+        "food_cart",
+        "malaysian_driving",
+        "market_crates",
+        "motorcycle_filtering",
+        "obstacle_substitution",
+        "occlusion",
+        "regional_context",
+        "regional_market",
+        "roadside_market",
+        "severity_4",
+        "shoulder_clutter",
+        "sudden_swerve",
+        "urban_clutter",
+        "variant_418"
+      ],
+      "route_refs": [
+        "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0022-dense-malaysian-traffic-wrong-way-shoulder-creep-v00",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "regional_market",
+      "behavior_id": "wrong_way_shoulder_creep",
+      "tags": [
+        "creep",
+        "food_cart",
+        "malaysian_driving",
+        "market_crates",
+        "occlusion",
+        "regional_context",
+        "regional_driving_behavior",
+        "regional_market",
+        "roadside_market",
+        "severity_4",
+        "shoulder",
+        "shoulder_clutter",
+        "variant_517",
+        "wrong_way",
+        "wrong_way_shoulder_creep"
+      ],
+      "route_refs": [
+        "fail2drive_split/Base_Animals_0076.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0022-dense-malaysian-traffic-wrong-way-shoulder-creep-v01",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "regional_market",
+      "behavior_id": "wrong_way_shoulder_creep",
+      "tags": [
+        "creep",
+        "food_cart",
+        "malaysian_driving",
+        "market_crates",
+        "occlusion",
+        "regional_context",
+        "regional_driving_behavior",
+        "regional_market",
+        "roadside_market",
+        "severity_4",
+        "shoulder",
+        "shoulder_clutter",
+        "variant_518",
+        "wrong_way",
+        "wrong_way_shoulder_creep"
+      ],
+      "route_refs": [
+        "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0023-construction-merge-no-signal-cut-in-happens-besi-v00",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "construction",
+      "behavior_id": "no_signal_cut_in",
+      "tags": [
+        "cones",
+        "construction",
+        "cut_in",
+        "debris",
+        "lane_closure",
+        "lateral_aggression",
+        "lorry_proxy",
+        "no_signal",
+        "no_signal_cut_in",
+        "road_cones",
+        "severity_4",
+        "variant_617",
+        "visual_noise",
+        "work_barrier",
+        "work_zone"
+      ],
+      "route_refs": [
+        "fail2drive_split/Base_Animals_0076.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0023-construction-merge-no-signal-cut-in-happens-besi-v01",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "construction",
+      "behavior_id": "no_signal_cut_in",
+      "tags": [
+        "cones",
+        "construction",
+        "cut_in",
+        "debris",
+        "lane_closure",
+        "lateral_aggression",
+        "lorry_proxy",
+        "no_signal",
+        "no_signal_cut_in",
+        "road_cones",
+        "severity_4",
+        "variant_618",
+        "visual_noise",
+        "work_barrier",
+        "work_zone"
+      ],
+      "route_refs": [
+        "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0024-roadside-market-occlusion-informal-right-of-way--v00",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "regional_market",
+      "behavior_id": "informal_right_of_way_push",
+      "tags": [
+        "assertive_gap",
+        "creep",
+        "food_cart",
+        "informal_right_of_way_push",
+        "malaysian_driving",
+        "market_crates",
+        "occlusion",
+        "regional_context",
+        "regional_market",
+        "right_of_way",
+        "roadside_market",
+        "severity_4",
+        "shoulder_clutter",
+        "variant_717"
+      ],
+      "route_refs": [
+        "fail2drive_split/Base_Animals_0076.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0024-roadside-market-occlusion-informal-right-of-way--v01",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "regional_market",
+      "behavior_id": "informal_right_of_way_push",
+      "tags": [
+        "assertive_gap",
+        "creep",
+        "food_cart",
+        "informal_right_of_way_push",
+        "malaysian_driving",
+        "market_crates",
+        "occlusion",
+        "regional_context",
+        "regional_market",
+        "right_of_way",
+        "roadside_market",
+        "severity_4",
+        "shoulder_clutter",
+        "variant_718"
+      ],
+      "route_refs": [
+        "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0025-monsoon-school-zone-scooter-filters-through-fog--v00",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "pedestrian_occlusion",
+      "behavior_id": "motorcycle_filtering",
+      "tags": [
+        "dropped_school_bag",
+        "filtering",
+        "lateral_uncertainty",
+        "malaysian_driving",
+        "monsoon",
+        "motorcycle",
+        "motorcycle_filtering",
+        "parked_van",
+        "pedestrian_occlusion",
+        "regional_context",
+        "school_crossing_board",
+        "school_zone",
+        "severity_4",
+        "unsignalized_crossing",
+        "variant_817",
+        "visual_noise"
+      ],
+      "route_refs": [
+        "fail2drive_split/Base_Animals_0076.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0025-monsoon-school-zone-scooter-filters-through-fog--v01",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "pedestrian_occlusion",
+      "behavior_id": "motorcycle_filtering",
+      "tags": [
+        "dropped_school_bag",
+        "filtering",
+        "lateral_uncertainty",
+        "malaysian_driving",
+        "monsoon",
+        "motorcycle",
+        "motorcycle_filtering",
+        "parked_van",
+        "pedestrian_occlusion",
+        "regional_context",
+        "school_crossing_board",
+        "school_zone",
+        "severity_4",
+        "unsignalized_crossing",
+        "variant_818",
+        "visual_noise"
+      ],
+      "route_refs": [
+        "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0026-visual-noise-stress-irrelevant-ufo-like-billboar-v00",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "construction",
+      "behavior_id": "no_signal_cut_in",
+      "tags": [
+        "cones",
+        "construction",
+        "cut_in",
+        "debris",
+        "irrelevant_visual_artifact",
+        "lane_closure",
+        "lateral_aggression",
+        "no_signal",
+        "no_signal_cut_in",
+        "road_cones",
+        "severity_4",
+        "variant_917",
+        "visual_noise",
+        "work_barrier",
+        "work_zone"
+      ],
+      "route_refs": [
+        "fail2drive_split/Base_Animals_0076.xml"
+      ]
+    },
+    {
+      "scenario_id": "studio-0026-visual-noise-stress-irrelevant-ufo-like-billboar-v01",
+      "source_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+      "source_kind": "scenario_studio",
+      "family": "construction",
+      "behavior_id": "no_signal_cut_in",
+      "tags": [
+        "cones",
+        "construction",
+        "cut_in",
+        "debris",
+        "irrelevant_visual_artifact",
+        "lane_closure",
+        "lateral_aggression",
+        "no_signal",
+        "no_signal_cut_in",
+        "road_cones",
+        "severity_4",
+        "variant_918",
+        "visual_noise",
+        "work_barrier",
+        "work_zone"
+      ],
+      "route_refs": [
+        "fail2drive_split/Generalization_PedestriansOnRoad_1088.xml"
+      ]
+    }
+  ],
+  "fail2drive_references": [
+    {
+      "ref_id": "Base_Animals_0076",
+      "split": "Base",
+      "scenario_class": "Animals",
+      "route_id": "0076",
+      "route_path": "fail2drive_split/Base_Animals_0076.xml",
+      "tags": [
+        "0076",
+        "Animals",
+        "animals",
+        "base",
+        "occupied_space",
+        "unknown_obstacle"
+      ],
+      "failure_summary": null,
+      "source": "fixture_seed"
+    },
+    {
+      "ref_id": "Generalization_Animals_1078",
+      "split": "Generalization",
+      "scenario_class": "Animals",
+      "route_id": "1078",
+      "route_path": null,
+      "tags": [
+        "1078",
+        "an",
+        "and",
+        "animal",
+        "animals",
+        "as",
+        "generalization",
+        "ignored",
+        "like",
+        "noise",
+        "object",
+        "obstacle",
+        "occupied",
+        "on",
+        "policy",
+        "route",
+        "space",
+        "the",
+        "treated",
+        "unknown",
+        "visual"
+      ],
+      "failure_summary": "Policy ignored an unknown animal-like object on the route and treated occupied space as visual noise.",
+      "source": "fixture_result"
+    },
+    {
+      "ref_id": "Generalization_CustomObstacles_1028",
+      "split": "Generalization",
+      "scenario_class": "CustomObstacles",
+      "route_id": "1028",
+      "route_path": "fail2drive_split/Generalization_CustomObstacles_1028.xml",
+      "tags": [
+        "1028",
+        "CustomObstacles",
+        "custom",
+        "customobstacles",
+        "generalization",
+        "obstacle",
+        "visual"
+      ],
+      "failure_summary": null,
+      "source": "fixture_seed"
+    },
+    {
+      "ref_id": "Generalization_PedestriansOnRoad_1088",
+      "split": "Generalization",
+      "scenario_class": "PedestriansOnRoad",
+      "route_id": "1088",
+      "route_path": null,
+      "tags": [
+        "1088",
+        "a",
+        "and",
+        "around",
+        "committed",
+        "creep",
+        "crossing",
+        "early",
+        "failed",
+        "generalization",
+        "hazard",
+        "hidden",
+        "occlusion",
+        "pedestrian",
+        "pedestriansonroad",
+        "policy",
+        "through",
+        "to",
+        "too"
+      ],
+      "failure_summary": "Policy committed too early around a hidden pedestrian crossing and failed to creep through occlusion.",
+      "source": "fixture_result"
+    }
+  ],
+  "extension_records": [
+    {
+      "generated_scenario_id": "generated-base-animals-0076-obstacle-substitution-003",
+      "driverx_behavior_id": "motorcycle_filtering",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Base_Animals_0076",
+        "Generalization_Animals_1078",
+        "Generalization_CustomObstacles_1028"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `motorcycle_filtering` under tags: animals, motorcycle_filtering, obstacle, passed.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 6.0
+    },
+    {
+      "generated_scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "driverx_behavior_id": null,
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml"
+      ],
+      "matched_reference_ids": [
+        "Base_Animals_0076",
+        "Generalization_Animals_1078"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `unspecified behavior` under tags: animals, mem-sample-motorcycle-filtering, regional, regional-driving-behavior.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078",
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 5.0
+    },
+    {
+      "generated_scenario_id": "generated-base-animals-0076-visual-noise-000",
+      "driverx_behavior_id": "wrong_way_shoulder_creep",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Base_Animals_0076",
+        "Generalization_Animals_1078",
+        "Generalization_CustomObstacles_1028"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `wrong_way_shoulder_creep` under tags: animals, asset-fallen-cargo-sack, asset-reflective-flood-barrier, asset-roadside-food-cart, creep, live_carla.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078",
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 5.0
+    },
+    {
+      "generated_scenario_id": "generated-generalization-customobstacles-1028-occlusion-001",
+      "driverx_behavior_id": "sudden_brake",
+      "fail2drive_seed_family": "CustomObstacles",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "Generalization_PedestriansOnRoad_1088",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_CustomObstacles_1028",
+        "Generalization_PedestriansOnRoad_1088",
+        "Generalization_Animals_1078"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `CustomObstacles` references with `sudden_brake` under tags: asset-fallen-cargo-sack, asset-reflective-flood-barrier, asset-roadside-food-cart, customobstacles, live_carla, occlusion.",
+      "memory_entry_ids": [
+        "mem-0001-generalization-pedestriansonroad-1088",
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 5.0
+    },
+    {
+      "generated_scenario_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+      "driverx_behavior_id": "sudden_brake",
+      "fail2drive_seed_family": "CustomObstacles",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_CustomObstacles_1028",
+        "Generalization_Animals_1078",
+        "Base_Animals_0076"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `CustomObstacles` references with `sudden_brake` under tags: blocked, customobstacles, sudden_brake, visual, visual-noise.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078",
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 6.0
+    },
+    {
+      "generated_scenario_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+      "driverx_behavior_id": "unsignaled_u_turn",
+      "fail2drive_seed_family": "PedestriansOnRoad",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "Generalization_PedestriansOnRoad_1088",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_PedestriansOnRoad_1088",
+        "Generalization_Animals_1078",
+        "Generalization_CustomObstacles_1028"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `PedestriansOnRoad` references with `unsignaled_u_turn` under tags: lane, passed, pedestrians, unsignaled_u_turn.",
+      "memory_entry_ids": [
+        "mem-0001-generalization-pedestriansonroad-1088",
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 3.0
+    },
+    {
+      "generated_scenario_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between-v00",
+      "driverx_behavior_id": "motorcycle_filtering",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_Animals_1078",
+        "Base_Animals_0076",
+        "Generalization_CustomObstacles_1028"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `motorcycle_filtering` under tags: cones, construction, debris, filtering, lane_closure, lateral_uncertainty.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 4.0
+    },
+    {
+      "generated_scenario_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between-v01",
+      "driverx_behavior_id": "motorcycle_filtering",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_Animals_1078",
+        "Generalization_CustomObstacles_1028",
+        "Base_Animals_0076"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `motorcycle_filtering` under tags: cones, construction, debris, filtering, lane_closure, lateral_uncertainty.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 4.0
+    },
+    {
+      "generated_scenario_id": "studio-0018-school-zone-occlusion-parked-van-hides-a-child-c-v00",
+      "driverx_behavior_id": "no_signal_cut_in",
+      "fail2drive_seed_family": "PedestriansOnRoad",
+      "fail2drive_route_refs": [
+        "Generalization_PedestriansOnRoad_1088",
+        "fail2drive_split/Base_Animals_0076.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_PedestriansOnRoad_1088",
+        "Base_Animals_0076"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `PedestriansOnRoad` references with `no_signal_cut_in` under tags: cut_in, dropped_school_bag, lateral_aggression, malaysian_driving, no_signal, no_signal_cut_in.",
+      "memory_entry_ids": [
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 6.0
+    },
+    {
+      "generated_scenario_id": "studio-0018-school-zone-occlusion-parked-van-hides-a-child-c-v01",
+      "driverx_behavior_id": "no_signal_cut_in",
+      "fail2drive_seed_family": "PedestriansOnRoad",
+      "fail2drive_route_refs": [
+        "Generalization_PedestriansOnRoad_1088"
+      ],
+      "matched_reference_ids": [
+        "Generalization_PedestriansOnRoad_1088"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `PedestriansOnRoad` references with `no_signal_cut_in` under tags: cut_in, dropped_school_bag, lateral_aggression, malaysian_driving, no_signal, no_signal_cut_in.",
+      "memory_entry_ids": [
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 7.5
+    },
+    {
+      "generated_scenario_id": "studio-0019-flooded-urban-road-low-obstacle-blends-into-wate-v00",
+      "driverx_behavior_id": "informal_right_of_way_push",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Base_Animals_0076",
+        "Generalization_Animals_1078",
+        "Generalization_CustomObstacles_1028"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `informal_right_of_way_push` under tags: assertive_gap, creep, flood, flood_barrier, informal_right_of_way_push, low_obstacle.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078",
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 4.5
+    },
+    {
+      "generated_scenario_id": "studio-0019-flooded-urban-road-low-obstacle-blends-into-wate-v01",
+      "driverx_behavior_id": "informal_right_of_way_push",
+      "fail2drive_seed_family": "PedestriansOnRoad",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "Generalization_PedestriansOnRoad_1088",
+        "fail2drive_split/Base_Animals_0076.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_PedestriansOnRoad_1088",
+        "Base_Animals_0076",
+        "Generalization_Animals_1078"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `PedestriansOnRoad` references with `informal_right_of_way_push` under tags: assertive_gap, creep, flood, flood_barrier, informal_right_of_way_push, low_obstacle.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078",
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 4.5
+    },
+    {
+      "generated_scenario_id": "studio-0020-night-rain-glare-reflective-sign-distracts-the-p-v00",
+      "driverx_behavior_id": "no_signal_cut_in",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_Animals_1078",
+        "Base_Animals_0076",
+        "Generalization_CustomObstacles_1028"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `no_signal_cut_in` under tags: cut_in, fog, glare, glare_artifact, lateral_aggression, night.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 5.0
+    },
+    {
+      "generated_scenario_id": "studio-0020-night-rain-glare-reflective-sign-distracts-the-p-v01",
+      "driverx_behavior_id": "no_signal_cut_in",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_Animals_1078",
+        "Generalization_CustomObstacles_1028",
+        "Base_Animals_0076"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `no_signal_cut_in` under tags: cut_in, fog, glare, glare_artifact, lateral_aggression, night.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 5.0
+    },
+    {
+      "generated_scenario_id": "studio-0021-double-parked-market-street-door-swerve-vehicle--v00",
+      "driverx_behavior_id": "double_parked_door_swerve",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Base_Animals_0076",
+        "Generalization_Animals_1078",
+        "Generalization_CustomObstacles_1028"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `double_parked_door_swerve` under tags: door_open, double_parked, double_parked_door_swerve, food_cart, malaysian_driving, market_crates.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078",
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 4.5
+    },
+    {
+      "generated_scenario_id": "studio-0021-double-parked-market-street-door-swerve-vehicle--v01",
+      "driverx_behavior_id": "double_parked_door_swerve",
+      "fail2drive_seed_family": "PedestriansOnRoad",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "Generalization_PedestriansOnRoad_1088",
+        "fail2drive_split/Base_Animals_0076.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_PedestriansOnRoad_1088",
+        "Base_Animals_0076",
+        "Generalization_Animals_1078"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `PedestriansOnRoad` references with `double_parked_door_swerve` under tags: door_open, double_parked, double_parked_door_swerve, food_cart, malaysian_driving, market_crates.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078",
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 4.5
+    },
+    {
+      "generated_scenario_id": "studio-0022-dense-malaysian-traffic-wrong-way-shoulder-creep-v00",
+      "driverx_behavior_id": "wrong_way_shoulder_creep",
+      "fail2drive_seed_family": "PedestriansOnRoad",
+      "fail2drive_route_refs": [
+        "Generalization_PedestriansOnRoad_1088",
+        "fail2drive_split/Base_Animals_0076.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_PedestriansOnRoad_1088",
+        "Base_Animals_0076"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `PedestriansOnRoad` references with `wrong_way_shoulder_creep` under tags: creep, food_cart, malaysian_driving, market_crates, occlusion, regional_context.",
+      "memory_entry_ids": [
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 4.0
+    },
+    {
+      "generated_scenario_id": "studio-0022-dense-malaysian-traffic-wrong-way-shoulder-creep-v01",
+      "driverx_behavior_id": "wrong_way_shoulder_creep",
+      "fail2drive_seed_family": "PedestriansOnRoad",
+      "fail2drive_route_refs": [
+        "Generalization_PedestriansOnRoad_1088"
+      ],
+      "matched_reference_ids": [
+        "Generalization_PedestriansOnRoad_1088"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `PedestriansOnRoad` references with `wrong_way_shoulder_creep` under tags: creep, food_cart, malaysian_driving, market_crates, occlusion, regional_context.",
+      "memory_entry_ids": [
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 5.5
+    },
+    {
+      "generated_scenario_id": "studio-0023-construction-merge-no-signal-cut-in-happens-besi-v00",
+      "driverx_behavior_id": "no_signal_cut_in",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_Animals_1078",
+        "Base_Animals_0076",
+        "Generalization_CustomObstacles_1028"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `no_signal_cut_in` under tags: cones, construction, cut_in, debris, lane_closure, lateral_aggression.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 4.0
+    },
+    {
+      "generated_scenario_id": "studio-0023-construction-merge-no-signal-cut-in-happens-besi-v01",
+      "driverx_behavior_id": "no_signal_cut_in",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_Animals_1078",
+        "Generalization_CustomObstacles_1028",
+        "Base_Animals_0076"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `no_signal_cut_in` under tags: cones, construction, cut_in, debris, lane_closure, lateral_aggression.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 4.0
+    },
+    {
+      "generated_scenario_id": "studio-0024-roadside-market-occlusion-informal-right-of-way--v00",
+      "driverx_behavior_id": "informal_right_of_way_push",
+      "fail2drive_seed_family": "PedestriansOnRoad",
+      "fail2drive_route_refs": [
+        "Generalization_PedestriansOnRoad_1088",
+        "fail2drive_split/Base_Animals_0076.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_PedestriansOnRoad_1088",
+        "Base_Animals_0076"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `PedestriansOnRoad` references with `informal_right_of_way_push` under tags: assertive_gap, creep, food_cart, informal_right_of_way_push, malaysian_driving, market_crates.",
+      "memory_entry_ids": [
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 4.0
+    },
+    {
+      "generated_scenario_id": "studio-0024-roadside-market-occlusion-informal-right-of-way--v01",
+      "driverx_behavior_id": "informal_right_of_way_push",
+      "fail2drive_seed_family": "PedestriansOnRoad",
+      "fail2drive_route_refs": [
+        "Generalization_PedestriansOnRoad_1088"
+      ],
+      "matched_reference_ids": [
+        "Generalization_PedestriansOnRoad_1088"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `PedestriansOnRoad` references with `informal_right_of_way_push` under tags: assertive_gap, creep, food_cart, informal_right_of_way_push, malaysian_driving, market_crates.",
+      "memory_entry_ids": [
+        "mem-0001-generalization-pedestriansonroad-1088"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 5.5
+    },
+    {
+      "generated_scenario_id": "studio-0025-monsoon-school-zone-scooter-filters-through-fog--v00",
+      "driverx_behavior_id": "motorcycle_filtering",
+      "fail2drive_seed_family": "PedestriansOnRoad",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "Generalization_PedestriansOnRoad_1088",
+        "fail2drive_split/Base_Animals_0076.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_PedestriansOnRoad_1088",
+        "Generalization_Animals_1078",
+        "Base_Animals_0076"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `PedestriansOnRoad` references with `motorcycle_filtering` under tags: dropped_school_bag, filtering, lateral_uncertainty, malaysian_driving, monsoon, motorcycle.",
+      "memory_entry_ids": [
+        "mem-0001-generalization-pedestriansonroad-1088",
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 6.0
+    },
+    {
+      "generated_scenario_id": "studio-0025-monsoon-school-zone-scooter-filters-through-fog--v01",
+      "driverx_behavior_id": "motorcycle_filtering",
+      "fail2drive_seed_family": "PedestriansOnRoad",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "Generalization_PedestriansOnRoad_1088",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_PedestriansOnRoad_1088",
+        "Generalization_Animals_1078",
+        "Generalization_CustomObstacles_1028"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `PedestriansOnRoad` references with `motorcycle_filtering` under tags: dropped_school_bag, filtering, lateral_uncertainty, malaysian_driving, monsoon, motorcycle.",
+      "memory_entry_ids": [
+        "mem-0001-generalization-pedestriansonroad-1088",
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 7.5
+    },
+    {
+      "generated_scenario_id": "studio-0026-visual-noise-stress-irrelevant-ufo-like-billboar-v00",
+      "driverx_behavior_id": "no_signal_cut_in",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_Animals_1078",
+        "Base_Animals_0076",
+        "Generalization_CustomObstacles_1028"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `no_signal_cut_in` under tags: cones, construction, cut_in, debris, irrelevant_visual_artifact, lane_closure.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 5.0
+    },
+    {
+      "generated_scenario_id": "studio-0026-visual-noise-stress-irrelevant-ufo-like-billboar-v01",
+      "driverx_behavior_id": "no_signal_cut_in",
+      "fail2drive_seed_family": "Animals",
+      "fail2drive_route_refs": [
+        "Generalization_Animals_1078",
+        "fail2drive_split/Base_Animals_0076.xml",
+        "fail2drive_split/Generalization_CustomObstacles_1028.xml"
+      ],
+      "matched_reference_ids": [
+        "Generalization_Animals_1078",
+        "Generalization_CustomObstacles_1028",
+        "Base_Animals_0076"
+      ],
+      "mutation_summary": "DriverX extends Fail2Drive `Animals` references with `no_signal_cut_in` under tags: cones, construction, cut_in, debris, irrelevant_visual_artifact, lane_closure.",
+      "memory_entry_ids": [
+        "mem-0000-generalization-animals-1078"
+      ],
+      "claim": "generated_extension",
+      "official_score_claim": "reference_only_no_official_fail2drive_score",
+      "match_score": 5.0
+    }
+  ],
+  "claim_boundaries": [
+    "fail2drive_reference_layer=true",
+    "generated_cases_are_driverx_extensions=true",
+    "official_fail2drive_score_claim=false",
+    "live_fail2drive_execution=false"
+  ]
+}

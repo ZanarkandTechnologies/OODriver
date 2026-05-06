@@ -126,3 +126,4 @@
 2026-05-07 02:55 +0800 | MAINT | archived TASK-058 through TASK-100 out of the active board, preserving them as historical evidence and leaving TASK-101 through TASK-106 as the final submission sprint
 2026-05-07 03:05 +0800 | PLAN | expanded TASK-103 from prompt-to-OOD compilation into a Scenario Studio data-engine plan with parity research, curation gates, dataset records, and Alpamayo/RAG handoff
 2026-05-07 04:16 +0800 | SHIP | TASK-103 added a deterministic Scenario Studio prompt compiler and curation batch that turns 10 natural-language OOD briefs into 20 scenario candidates with environment, behavior, assets, memory query, quality targets, and partial-evidence promotion gates
+2026-05-07 04:23 +0800 | SHIP | TASK-105 added a Fail2Drive extension report layer that links generated DriverX OOD cases to fixture Fail2Drive seed/result families, failure-memory entries, and explicit no-official-score claim boundaries

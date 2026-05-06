@@ -1,7 +1,7 @@
 # TASK-105: Fail2Drive Reference Layer And Generated Extension Report
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-007, TASK-088, TASK-101, TASK-103
@@ -137,17 +137,19 @@ without pretending to be an official benchmark submission.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Report links generated cases to Fail2Drive families or labels them
+- [x] AC-1: Report links generated cases to Fail2Drive families or labels them
   unlinked.
-- [ ] AC-2: Report distinguishes benchmark reference, generated extension, and
+- [x] AC-2: Report distinguishes benchmark reference, generated extension, and
   official-score claim boundary.
-- [ ] AC-3: Memory entries are connected to referenced failures when available.
-- [ ] AC-4: Fixture tests pass without external Fail2Drive checkout.
+- [x] AC-3: Memory entries are connected to referenced failures when available.
+- [x] AC-4: Fixture tests pass without external Fail2Drive checkout.
 
 ### Verification
 
-- Focused tests for fixture matching and missing-checkout fallback.
-- CLI smoke over current generated catalog.
+- `PYTHONPATH=src python3 -m unittest tests.test_fail2drive_extension_report`
+- `PYTHONPATH=src python3 -m unittest tests.test_fail2drive_extension_report tests.test_submission_eval_matrix tests.test_scenario_studio`
+- `python3 -m compileall -q src tests`
+- CLI smoke over current TASK-101 matrix and TASK-103 Scenario Studio batch.
 - `bash scripts/pre_push_check.sh`
 
 ### Autonomy Readiness
@@ -159,8 +161,11 @@ without pretending to be an official benchmark submission.
 
 ### Evidence
 
-- `tickets/TASK-105/artifacts/fail2drive_extension_report.json`
-- `tickets/TASK-105/artifacts/fail2drive_extension_report.md`
+- `tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json`
+- `tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.md`
+- `tickets/TASK-105/artifacts/review/task105-implementation-review.json`
+- Report summary: 26 generated cases, 4 fixture Fail2Drive references, 2 memory
+  entries, and explicit `official_fail2drive_score_claim=false` boundary.
 
 ### Blockers
 

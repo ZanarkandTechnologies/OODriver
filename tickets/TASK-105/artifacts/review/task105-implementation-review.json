@@ -1,0 +1,123 @@
+{
+  "work_type": ["backend", "evidence", "submission-infrastructure"],
+  "ticket_id": "TASK-105",
+  "reviewed_at": "2026-05-07 04:24 +0800",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/pipeline/fail2drive_extension_report.py",
+      "src/driverx/pipeline/fail2drive_extension_report_cli.py",
+      "tests/test_fail2drive_extension_report.py",
+      "src/driverx/cli_extensions.py",
+      "src/driverx/pipeline/__init__.py",
+      "src/driverx/pipeline/README.md",
+      "tickets/TASK-105/ticket.md"
+    ],
+    "related_files": [
+      "tests/fixtures/fail2drive_like/seeds.json",
+      "tests/fixtures/fail2drive_like/results.json",
+      "src/driverx/scenarios/loader.py",
+      "src/driverx/scenarios/catalog.py",
+      "src/driverx/memory/bank.py",
+      "tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json",
+      "tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.md"
+    ],
+    "commands_checked": [
+      "PYTHONPATH=src python3 -m unittest tests.test_fail2drive_extension_report",
+      "PYTHONPATH=src python3 -m unittest tests.test_fail2drive_extension_report tests.test_submission_eval_matrix tests.test_scenario_studio",
+      "python3 -m compileall -q src tests",
+      "bash scripts/pre_push_check.sh"
+    ],
+    "rubric_references": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "integration-readiness.md",
+      "evidence-quality.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality"],
+  "summary": "TASK-105 adds a local, reproducible Fail2Drive extension report that connects generated DriverX OOD cases to benchmark-style fixture references and safety memories while explicitly refusing an official Fail2Drive score claim.",
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "medium",
+      "rubric": "code-quality",
+      "summary": "The matching heuristic is intentionally transparent but still heuristic; future official benchmark integration should replace it with route metadata from the external Fail2Drive checkout when available.",
+      "file_refs": ["src/driverx/pipeline/fail2drive_extension_report.py"],
+      "evidence": [
+        "Fixture fallback tests cover missing external checkout and matching behavior.",
+        "The generated report clearly labels claim boundaries and does not claim official scoring."
+      ],
+      "next_action": "Keep this as the final-sprint reference layer; add external route metadata only if live Fail2Drive assets become reliable before submission."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.1,
+        "bloatability": 3.9,
+        "readability": 4.0,
+        "boundary-clarity": 4.1,
+        "error-handling": 4.0,
+        "maintainability": 3.9
+      },
+      "findings": [
+        "The pipeline is report-only and reuses catalog, scenario-loader, and memory-bank contracts.",
+        "The module is moderately long but still cohesive around one output artifact."
+      ],
+      "next_action": "Proceed; split matching helpers only if the reference layer grows after submission."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.3,
+        "contract-correctness": 4.2,
+        "dependency-readiness": 4.3,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.2
+      },
+      "findings": [
+        "The CLI works without an external Fail2Drive checkout by using fixture seeds and result memory.",
+        "Optional external route scanning is bounded and not required for the ticket pass."
+      ],
+      "next_action": "Advance TASK-105 and feed the report into the final V7 pack."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.2,
+        "reproducibility": 4.3,
+        "traceability": 4.3,
+        "consistency": 4.2,
+        "inspectability": 4.1,
+        "autonomy-readiness": 4.2
+      },
+      "findings": [
+        "The report artifact covers 26 generated cases, 4 reference rows, 2 memory entries, claim counts, source lists, and claim boundaries.",
+        "The full local pre-push gate passed with 367 tests and 2 skips."
+      ],
+      "next_action": "Use the generated JSON/Markdown as the submission's Fail2Drive-extension evidence."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Commit TASK-105, then continue with TASK-104 if Alpamayo evidence is available or TASK-106 packaging if evidence needs to freeze."
+}

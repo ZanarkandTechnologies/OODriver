@@ -11,6 +11,7 @@ def register_dynamic_parsers(subparsers: argparse._SubParsersAction) -> None:
     from driverx.pipeline.alpamayo_ood_evaluation_cli import register_alpamayo_ood_evaluation_parser
     from driverx.pipeline.alpamayo_ood_scene_cli import register_alpamayo_ood_scene_parser
     from driverx.pipeline.end_to_end_ood_demo_cli import register_end_to_end_ood_demo_parser
+    from driverx.pipeline.fail2drive_extension_report_cli import register_fail2drive_extension_report_parser
     from driverx.pipeline.generated_ood_suite_cli import register_generated_ood_suite_parser
     from driverx.pipeline.ood_video_evidence_cli import register_ood_video_evidence_parser
     from driverx.pipeline.policy_evaluation_campaign_cli import register_policy_evaluation_campaign_parser
@@ -46,6 +47,7 @@ def register_dynamic_parsers(subparsers: argparse._SubParsersAction) -> None:
     from driverx.simulators.simlingo_cli import register_simlingo_parsers
 
     register_generated_ood_suite_parser(subparsers)
+    register_fail2drive_extension_report_parser(subparsers)
     register_policy_evaluation_campaign_parser(subparsers)
     register_end_to_end_ood_demo_parser(subparsers)
     register_ood_video_evidence_parser(subparsers)
