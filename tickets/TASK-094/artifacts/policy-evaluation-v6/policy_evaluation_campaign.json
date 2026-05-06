@@ -1,0 +1,811 @@
+{
+  "campaign_id": "policy-evaluation-v6",
+  "scenario_count": 9,
+  "evaluation_count": 27,
+  "passed_evaluation_count": 0,
+  "planned_evaluation_count": 9,
+  "blocked_evaluation_count": 18,
+  "decision_artifact_count": 0,
+  "policy_modes": [
+    "deterministic-baseline",
+    "memory-guided",
+    "alpamayo-open-loop"
+  ],
+  "status_counts": {
+    "blocked": 18,
+    "planned": 9
+  },
+  "evaluations": [
+    {
+      "scenario_id": "generated-base-animals-0076-obstacle-substitution-003",
+      "policy_mode": "deterministic-baseline",
+      "status": "blocked",
+      "open_loop_policy_evaluation": false,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "blocked",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 1.75,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: blocked"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-obstacle-substitution-003",
+      "policy_mode": "memory-guided",
+      "status": "blocked",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "blocked",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 1.75,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: blocked"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-obstacle-substitution-003",
+      "policy_mode": "alpamayo-open-loop",
+      "status": "planned",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "blocked",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 1.75,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: blocked",
+        "Alpamayo package artifact missing",
+        "Alpamayo reasoning artifact missing"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-obstacle-substitution-006",
+      "policy_mode": "deterministic-baseline",
+      "status": "blocked",
+      "open_loop_policy_evaluation": false,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry02-generated-base-animals-0076-obstacle-substitution-006-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 1.75,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-obstacle-substitution-006",
+      "policy_mode": "memory-guided",
+      "status": "blocked",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry02-generated-base-animals-0076-obstacle-substitution-006-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 1.75,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-obstacle-substitution-006",
+      "policy_mode": "alpamayo-open-loop",
+      "status": "planned",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry02-generated-base-animals-0076-obstacle-substitution-006-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 1.75,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed",
+        "Alpamayo package artifact missing",
+        "Alpamayo reasoning artifact missing"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "policy_mode": "deterministic-baseline",
+      "status": "blocked",
+      "open_loop_policy_evaluation": false,
+      "artifacts": {
+        "video": null,
+        "tracks": null,
+        "reasoning": "tickets/TASK-081/artifacts/task81-live-same-scene-memory-summary/alpamayo_policy_decision.json",
+        "package": "tickets/TASK-080/artifacts/task80-live-same-scene-package-001/alpamayo_carla_input_package.json",
+        "comparison": "tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json",
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": true,
+        "road_aligned": null,
+        "scenario_quality_status": "open_loop_only"
+      },
+      "blockers": [
+        "scenario quality is not passed: open_loop_only",
+        "tracks artifact missing for policy evaluation"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "policy_mode": "memory-guided",
+      "status": "blocked",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": null,
+        "reasoning": "tickets/TASK-081/artifacts/task81-live-same-scene-memory-summary/alpamayo_policy_decision.json",
+        "package": "tickets/TASK-080/artifacts/task80-live-same-scene-package-001/alpamayo_carla_input_package.json",
+        "comparison": "tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json",
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": true,
+        "road_aligned": null,
+        "scenario_quality_status": "open_loop_only"
+      },
+      "blockers": [
+        "scenario quality is not passed: open_loop_only",
+        "tracks artifact missing for policy evaluation"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "policy_mode": "alpamayo-open-loop",
+      "status": "planned",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": null,
+        "reasoning": "tickets/TASK-081/artifacts/task81-live-same-scene-memory-summary/alpamayo_policy_decision.json",
+        "package": "tickets/TASK-080/artifacts/task80-live-same-scene-package-001/alpamayo_carla_input_package.json",
+        "comparison": "tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json",
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": true,
+        "road_aligned": null,
+        "scenario_quality_status": "open_loop_only"
+      },
+      "blockers": [
+        "scenario quality is not passed: open_loop_only"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-visual-noise-000",
+      "policy_mode": "deterministic-baseline",
+      "status": "blocked",
+      "open_loop_policy_evaluation": false,
+      "artifacts": {
+        "video": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/local-video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": true,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 1.75,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-visual-noise-000",
+      "policy_mode": "memory-guided",
+      "status": "blocked",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/local-video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": true,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 1.75,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-visual-noise-000",
+      "policy_mode": "alpamayo-open-loop",
+      "status": "planned",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/local-video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": true,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 1.75,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed",
+        "Alpamayo package artifact missing",
+        "Alpamayo reasoning artifact missing"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-obstacle-substitution-004",
+      "policy_mode": "deterministic-baseline",
+      "status": "blocked",
+      "open_loop_policy_evaluation": false,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-generated-generalization-customobstacles-1028-obstacle-substitution-004-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.0,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-obstacle-substitution-004",
+      "policy_mode": "memory-guided",
+      "status": "blocked",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-generated-generalization-customobstacles-1028-obstacle-substitution-004-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.0,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-obstacle-substitution-004",
+      "policy_mode": "alpamayo-open-loop",
+      "status": "planned",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-generated-generalization-customobstacles-1028-obstacle-substitution-004-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.0,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed",
+        "Alpamayo package artifact missing",
+        "Alpamayo reasoning artifact missing"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-occlusion-001",
+      "policy_mode": "deterministic-baseline",
+      "status": "blocked",
+      "open_loop_policy_evaluation": false,
+      "artifacts": {
+        "video": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/generated-generalization-customobstacles-1028-occlusion-001_ood.mp4",
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": true,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.0,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-occlusion-001",
+      "policy_mode": "memory-guided",
+      "status": "blocked",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/generated-generalization-customobstacles-1028-occlusion-001_ood.mp4",
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": true,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.0,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-occlusion-001",
+      "policy_mode": "alpamayo-open-loop",
+      "status": "planned",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/generated-generalization-customobstacles-1028-occlusion-001_ood.mp4",
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": true,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.0,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed",
+        "Alpamayo package artifact missing",
+        "Alpamayo reasoning artifact missing"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+      "policy_mode": "deterministic-baseline",
+      "status": "blocked",
+      "open_loop_policy_evaluation": false,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "blocked",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.0,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: blocked"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+      "policy_mode": "memory-guided",
+      "status": "blocked",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "blocked",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.0,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: blocked"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+      "policy_mode": "alpamayo-open-loop",
+      "status": "planned",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "blocked",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.0,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: blocked",
+        "Alpamayo package artifact missing",
+        "Alpamayo reasoning artifact missing"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+      "policy_mode": "deterministic-baseline",
+      "status": "blocked",
+      "open_loop_policy_evaluation": false,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/002-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.5285,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+      "policy_mode": "memory-guided",
+      "status": "blocked",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/002-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.5285,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+      "policy_mode": "alpamayo-open-loop",
+      "status": "planned",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/002-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.5285,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed",
+        "Alpamayo package artifact missing",
+        "Alpamayo reasoning artifact missing"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005",
+      "policy_mode": "deterministic-baseline",
+      "status": "blocked",
+      "open_loop_policy_evaluation": false,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry01-generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005-unsignaled_u_turn/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.5285,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005",
+      "policy_mode": "memory-guided",
+      "status": "blocked",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry01-generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005-unsignaled_u_turn/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.5285,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005",
+      "policy_mode": "alpamayo-open-loop",
+      "status": "planned",
+      "open_loop_policy_evaluation": true,
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry01-generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005-unsignaled_u_turn/entity_tracks.json",
+        "reasoning": null,
+        "package": null,
+        "comparison": null,
+        "quality_report": null,
+        "policy_decision": null
+      },
+      "metrics": {
+        "has_video": false,
+        "has_model_reasoning": false,
+        "road_aligned": null,
+        "scenario_quality_status": "legacy_passed",
+        "track_tick_count": 25.0,
+        "track_min_distance_m": 0.5285,
+        "track_has_conflict": true
+      },
+      "blockers": [
+        "scenario quality is not passed: legacy_passed",
+        "Alpamayo package artifact missing",
+        "Alpamayo reasoning artifact missing"
+      ]
+    }
+  ],
+  "blockers": [
+    "generated-base-animals-0076-obstacle-substitution-003/deterministic-baseline: scenario quality is not passed: blocked",
+    "generated-base-animals-0076-obstacle-substitution-003/memory-guided: scenario quality is not passed: blocked",
+    "generated-base-animals-0076-obstacle-substitution-003/alpamayo-open-loop: scenario quality is not passed: blocked",
+    "generated-base-animals-0076-obstacle-substitution-003/alpamayo-open-loop: Alpamayo package artifact missing",
+    "generated-base-animals-0076-obstacle-substitution-003/alpamayo-open-loop: Alpamayo reasoning artifact missing",
+    "generated-base-animals-0076-obstacle-substitution-006/deterministic-baseline: scenario quality is not passed: legacy_passed",
+    "generated-base-animals-0076-obstacle-substitution-006/memory-guided: scenario quality is not passed: legacy_passed",
+    "generated-base-animals-0076-obstacle-substitution-006/alpamayo-open-loop: scenario quality is not passed: legacy_passed",
+    "generated-base-animals-0076-obstacle-substitution-006/alpamayo-open-loop: Alpamayo package artifact missing",
+    "generated-base-animals-0076-obstacle-substitution-006/alpamayo-open-loop: Alpamayo reasoning artifact missing",
+    "generated-base-animals-0076-regional-driving-behavior-000/deterministic-baseline: scenario quality is not passed: open_loop_only",
+    "generated-base-animals-0076-regional-driving-behavior-000/deterministic-baseline: tracks artifact missing for policy evaluation",
+    "generated-base-animals-0076-regional-driving-behavior-000/memory-guided: scenario quality is not passed: open_loop_only",
+    "generated-base-animals-0076-regional-driving-behavior-000/memory-guided: tracks artifact missing for policy evaluation",
+    "generated-base-animals-0076-regional-driving-behavior-000/alpamayo-open-loop: scenario quality is not passed: open_loop_only",
+    "generated-base-animals-0076-visual-noise-000/deterministic-baseline: scenario quality is not passed: legacy_passed",
+    "generated-base-animals-0076-visual-noise-000/memory-guided: scenario quality is not passed: legacy_passed",
+    "generated-base-animals-0076-visual-noise-000/alpamayo-open-loop: scenario quality is not passed: legacy_passed",
+    "generated-base-animals-0076-visual-noise-000/alpamayo-open-loop: Alpamayo package artifact missing",
+    "generated-base-animals-0076-visual-noise-000/alpamayo-open-loop: Alpamayo reasoning artifact missing",
+    "generated-generalization-customobstacles-1028-obstacle-substitution-004/deterministic-baseline: scenario quality is not passed: legacy_passed",
+    "generated-generalization-customobstacles-1028-obstacle-substitution-004/memory-guided: scenario quality is not passed: legacy_passed",
+    "generated-generalization-customobstacles-1028-obstacle-substitution-004/alpamayo-open-loop: scenario quality is not passed: legacy_passed",
+    "generated-generalization-customobstacles-1028-obstacle-substitution-004/alpamayo-open-loop: Alpamayo package artifact missing",
+    "generated-generalization-customobstacles-1028-obstacle-substitution-004/alpamayo-open-loop: Alpamayo reasoning artifact missing",
+    "generated-generalization-customobstacles-1028-occlusion-001/deterministic-baseline: scenario quality is not passed: legacy_passed",
+    "generated-generalization-customobstacles-1028-occlusion-001/memory-guided: scenario quality is not passed: legacy_passed",
+    "generated-generalization-customobstacles-1028-occlusion-001/alpamayo-open-loop: scenario quality is not passed: legacy_passed",
+    "generated-generalization-customobstacles-1028-occlusion-001/alpamayo-open-loop: Alpamayo package artifact missing",
+    "generated-generalization-customobstacles-1028-occlusion-001/alpamayo-open-loop: Alpamayo reasoning artifact missing",
+    "generated-generalization-customobstacles-1028-visual-noise-007/deterministic-baseline: scenario quality is not passed: blocked",
+    "generated-generalization-customobstacles-1028-visual-noise-007/memory-guided: scenario quality is not passed: blocked",
+    "generated-generalization-customobstacles-1028-visual-noise-007/alpamayo-open-loop: scenario quality is not passed: blocked",
+    "generated-generalization-customobstacles-1028-visual-noise-007/alpamayo-open-loop: Alpamayo package artifact missing",
+    "generated-generalization-customobstacles-1028-visual-noise-007/alpamayo-open-loop: Alpamayo reasoning artifact missing",
+    "generated-generalization-pedestriansonroad-1088-lane-blockage-002/deterministic-baseline: scenario quality is not passed: legacy_passed",
+    "generated-generalization-pedestriansonroad-1088-lane-blockage-002/memory-guided: scenario quality is not passed: legacy_passed",
+    "generated-generalization-pedestriansonroad-1088-lane-blockage-002/alpamayo-open-loop: scenario quality is not passed: legacy_passed",
+    "generated-generalization-pedestriansonroad-1088-lane-blockage-002/alpamayo-open-loop: Alpamayo package artifact missing",
+    "generated-generalization-pedestriansonroad-1088-lane-blockage-002/alpamayo-open-loop: Alpamayo reasoning artifact missing",
+    "generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005/deterministic-baseline: scenario quality is not passed: legacy_passed",
+    "generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005/memory-guided: scenario quality is not passed: legacy_passed",
+    "generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005/alpamayo-open-loop: scenario quality is not passed: legacy_passed",
+    "generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005/alpamayo-open-loop: Alpamayo package artifact missing",
+    "generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005/alpamayo-open-loop: Alpamayo reasoning artifact missing"
+  ],
+  "claim_boundaries": [
+    "policy_evaluation_campaign=true",
+    "open_loop_policy_evaluation_may_be_true",
+    "closed_loop_vla_control=false",
+    "model_weights_frozen=true"
+  ]
+}

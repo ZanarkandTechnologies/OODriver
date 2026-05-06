@@ -1,0 +1,403 @@
+{
+  "campaign_id": "quality-gated-fake-campaign-v3",
+  "status": "quality_blocked",
+  "requested_case_count": 2,
+  "case_count": 2,
+  "attempt_count": 8,
+  "quality_retry_limit": 3,
+  "quality_retried_case_count": 2,
+  "quality_selected_passed_count": 0,
+  "live_case_count": 0,
+  "behavior_ids": [
+    "motorcycle_filtering",
+    "sudden_brake",
+    "unsignaled_u_turn"
+  ],
+  "best_case": {
+    "case_id": "000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering",
+    "recipe_id": "generated-base-animals-0076-obstacle-substitution-003",
+    "behavior_id": "motorcycle_filtering",
+    "status": "passed",
+    "live": false,
+    "min_distance_m": 1.75,
+    "frame_count": 0,
+    "duration_s": 5.0,
+    "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/carla_ood_demo.json",
+    "road_alignment_path": null,
+    "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/entity_tracks.json",
+    "rgb_folder": null,
+    "video_status": null,
+    "video_evidence_path": null,
+    "video_evidence_report_path": null,
+    "video_path": null,
+    "blockers": [],
+    "attempt_index": 3,
+    "quality_status": "blocked",
+    "quality_blockers": [
+      "video evidence is required but missing",
+      "road alignment is required but missing or failed"
+    ]
+  },
+  "worst_case": {
+    "case_id": "001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake",
+    "recipe_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+    "behavior_id": "sudden_brake",
+    "status": "blocked",
+    "live": false,
+    "min_distance_m": 0.0,
+    "frame_count": 0,
+    "duration_s": 5.0,
+    "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/carla_ood_demo.json",
+    "road_alignment_path": null,
+    "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/entity_tracks.json",
+    "rgb_folder": null,
+    "video_status": null,
+    "video_evidence_path": null,
+    "video_evidence_report_path": null,
+    "video_path": null,
+    "blockers": [
+      "behavior_validation:max_deceleration_mps2 13.60 exceeds 9.00",
+      "behavior_validation:time_to_conflict_s 0.00 is too early for a solvable setup"
+    ],
+    "attempt_index": 3,
+    "quality_status": "blocked",
+    "quality_blockers": [
+      "video evidence is required but missing",
+      "road alignment is required but missing or failed"
+    ]
+  },
+  "mean_min_distance_m": 0.875,
+  "cases": [
+    {
+      "case_id": "000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering",
+      "recipe_id": "generated-base-animals-0076-obstacle-substitution-003",
+      "behavior_id": "motorcycle_filtering",
+      "status": "passed",
+      "live": false,
+      "min_distance_m": 1.75,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [],
+      "attempt_index": 3,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "video evidence is required but missing",
+        "road alignment is required but missing or failed"
+      ]
+    },
+    {
+      "case_id": "001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake",
+      "recipe_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+      "behavior_id": "sudden_brake",
+      "status": "blocked",
+      "live": false,
+      "min_distance_m": 0.0,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [
+        "behavior_validation:max_deceleration_mps2 13.60 exceeds 9.00",
+        "behavior_validation:time_to_conflict_s 0.00 is too early for a solvable setup"
+      ],
+      "attempt_index": 3,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "video evidence is required but missing",
+        "road alignment is required but missing or failed"
+      ]
+    }
+  ],
+  "quality_attempts": [
+    {
+      "case_id": "000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering",
+      "recipe_id": "generated-base-animals-0076-visual-noise-000",
+      "behavior_id": "motorcycle_filtering",
+      "status": "passed",
+      "live": false,
+      "min_distance_m": 1.75,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [],
+      "attempt_index": 0,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "video evidence is required but missing",
+        "road alignment is required but missing or failed"
+      ]
+    },
+    {
+      "case_id": "000-retry01-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake",
+      "recipe_id": "generated-generalization-customobstacles-1028-occlusion-001",
+      "behavior_id": "sudden_brake",
+      "status": "blocked",
+      "live": false,
+      "min_distance_m": 0.0,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry01-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry01-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [
+        "behavior_validation:max_deceleration_mps2 13.60 exceeds 9.00",
+        "behavior_validation:time_to_conflict_s 0.00 is too early for a solvable setup"
+      ],
+      "attempt_index": 1,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "video evidence is required but missing",
+        "road alignment is required but missing or failed"
+      ]
+    },
+    {
+      "case_id": "000-retry02-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn",
+      "recipe_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+      "behavior_id": "unsignaled_u_turn",
+      "status": "passed",
+      "live": false,
+      "min_distance_m": 0.5285,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry02-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry02-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [],
+      "attempt_index": 2,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "video evidence is required but missing",
+        "road alignment is required but missing or failed"
+      ]
+    },
+    {
+      "case_id": "000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering",
+      "recipe_id": "generated-base-animals-0076-obstacle-substitution-003",
+      "behavior_id": "motorcycle_filtering",
+      "status": "passed",
+      "live": false,
+      "min_distance_m": 1.75,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [],
+      "attempt_index": 3,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "video evidence is required but missing",
+        "road alignment is required but missing or failed"
+      ]
+    },
+    {
+      "case_id": "001-generated-generalization-customobstacles-1028-obstacle-substitution-004-sudden_brake",
+      "recipe_id": "generated-generalization-customobstacles-1028-obstacle-substitution-004",
+      "behavior_id": "sudden_brake",
+      "status": "blocked",
+      "live": false,
+      "min_distance_m": 0.0,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-generated-generalization-customobstacles-1028-obstacle-substitution-004-sudden_brake/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-generated-generalization-customobstacles-1028-obstacle-substitution-004-sudden_brake/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [
+        "behavior_validation:max_deceleration_mps2 13.60 exceeds 9.00",
+        "behavior_validation:time_to_conflict_s 0.00 is too early for a solvable setup"
+      ],
+      "attempt_index": 0,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "video evidence is required but missing",
+        "road alignment is required but missing or failed"
+      ]
+    },
+    {
+      "case_id": "001-retry01-generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005-unsignaled_u_turn",
+      "recipe_id": "generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005",
+      "behavior_id": "unsignaled_u_turn",
+      "status": "passed",
+      "live": false,
+      "min_distance_m": 0.5285,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry01-generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005-unsignaled_u_turn/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry01-generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005-unsignaled_u_turn/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [],
+      "attempt_index": 1,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "video evidence is required but missing",
+        "road alignment is required but missing or failed"
+      ]
+    },
+    {
+      "case_id": "001-retry02-generated-base-animals-0076-obstacle-substitution-006-motorcycle_filtering",
+      "recipe_id": "generated-base-animals-0076-obstacle-substitution-006",
+      "behavior_id": "motorcycle_filtering",
+      "status": "passed",
+      "live": false,
+      "min_distance_m": 1.75,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry02-generated-base-animals-0076-obstacle-substitution-006-motorcycle_filtering/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry02-generated-base-animals-0076-obstacle-substitution-006-motorcycle_filtering/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [],
+      "attempt_index": 2,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "video evidence is required but missing",
+        "road alignment is required but missing or failed"
+      ]
+    },
+    {
+      "case_id": "001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake",
+      "recipe_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+      "behavior_id": "sudden_brake",
+      "status": "blocked",
+      "live": false,
+      "min_distance_m": 0.0,
+      "frame_count": 0,
+      "duration_s": 5.0,
+      "scenario_report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/carla_ood_demo.json",
+      "road_alignment_path": null,
+      "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/entity_tracks.json",
+      "rgb_folder": null,
+      "video_status": null,
+      "video_evidence_path": null,
+      "video_evidence_report_path": null,
+      "video_path": null,
+      "blockers": [
+        "behavior_validation:max_deceleration_mps2 13.60 exceeds 9.00",
+        "behavior_validation:time_to_conflict_s 0.00 is too early for a solvable setup"
+      ],
+      "attempt_index": 3,
+      "quality_status": "blocked",
+      "quality_blockers": [
+        "video evidence is required but missing",
+        "road alignment is required but missing or failed"
+      ]
+    }
+  ],
+  "quality": {
+    "thresholds": {
+      "min_duration_s": 5.0,
+      "min_frame_count": 0,
+      "max_min_distance_m": 6.0,
+      "require_video": true,
+      "require_road_alignment": true,
+      "require_conflict": true
+    },
+    "report_count": 2,
+    "passed_count": 0,
+    "blocked_count": 2,
+    "passed_case_ids": [],
+    "reports": [
+      {
+        "scenario_id": "generated-base-animals-0076-obstacle-substitution-003",
+        "case_id": "000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering",
+        "passes": false,
+        "status": "blocked",
+        "metrics": {
+          "duration_s": 5.0,
+          "frame_count": 0,
+          "min_distance_m": 1.75,
+          "has_video": false,
+          "road_aligned": null
+        },
+        "blockers": [
+          "video evidence is required but missing",
+          "road alignment is required but missing or failed"
+        ],
+        "warnings": []
+      },
+      {
+        "scenario_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+        "case_id": "001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake",
+        "passes": false,
+        "status": "blocked",
+        "metrics": {
+          "duration_s": 5.0,
+          "frame_count": 0,
+          "min_distance_m": 0.0,
+          "has_video": false,
+          "road_aligned": null
+        },
+        "blockers": [
+          "video evidence is required but missing",
+          "road alignment is required but missing or failed"
+        ],
+        "warnings": []
+      }
+    ],
+    "json_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/quality/scenario_quality_summary.json",
+    "report_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/quality/scenario_quality_summary.md"
+  },
+  "blockers": [
+    "001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake: behavior_validation:max_deceleration_mps2 13.60 exceeds 9.00",
+    "001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake: behavior_validation:time_to_conflict_s 0.00 is too early for a solvable setup",
+    "000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering: video evidence is required but missing",
+    "000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering: road alignment is required but missing or failed",
+    "001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake: video evidence is required but missing",
+    "001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake: road alignment is required but missing or failed"
+  ],
+  "claim_boundaries": [
+    "scripted_ood_campaign=true",
+    "stock_fail2drive_score=false",
+    "real_time_vla_control=false"
+  ]
+}

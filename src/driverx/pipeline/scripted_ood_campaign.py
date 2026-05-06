@@ -4,16 +4,21 @@ from __future__ import annotations
 
 import json
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any
 
 from driverx.assets import default_asset_requests, generate_assets_dry_run
-from driverx.behaviors import BehaviorTrace, default_behavior_plans, simulate_behavior
+from driverx.behaviors import BehaviorConstraints, BehaviorTrace, default_behavior_plans, simulate_behavior, validate_behavior_trace
 from driverx.core.artifacts import prepare_run_dir
 from driverx.core.config import read_config_mapping
 from driverx.pipeline.ood_video_evidence import OodVideoEvidenceInputs, build_ood_video_evidence
 from driverx.scenarios import MutationPolicy, ScenarioRecipe, generate_scenario_recipes, load_scenario_seeds
+from driverx.scenarios import (
+    ScenarioQualityThresholds,
+    evaluate_scenario_quality,
+    write_scenario_quality_outputs,
+)
 from driverx.simulators.carla_ood_demo import (
     CarlaOodDemoConfig,
     load_carla_ood_demo_config,
@@ -35,6 +40,23 @@ class ScriptedOodCampaignConfig:
     assemble_video: bool = False
     resume: bool = True
     no_default_assets: bool = False
+    quality_min_duration_s: float = 5.0
+    quality_min_frame_count: int = 0
+    quality_max_min_distance_m: float = 6.0
+    quality_require_video: bool = True
+    quality_require_road_alignment: bool = True
+    quality_require_conflict: bool = True
+    quality_retry_limit: int = 0
+
+    def quality_thresholds(self) -> ScenarioQualityThresholds:
+        return ScenarioQualityThresholds(
+            min_duration_s=self.quality_min_duration_s,
+            min_frame_count=self.quality_min_frame_count,
+            max_min_distance_m=self.quality_max_min_distance_m,
+            require_video=self.quality_require_video,
+            require_road_alignment=self.quality_require_road_alignment,
+            require_conflict=self.quality_require_conflict,
+        )
 
 
 @dataclass(frozen=True)
@@ -48,6 +70,7 @@ class CampaignCaseRecord:
     frame_count: int
     duration_s: float
     scenario_report_path: str | None
+    road_alignment_path: str | None
     tracks_path: str | None
     rgb_folder: str | None
     video_status: str | None = None
@@ -55,6 +78,9 @@ class CampaignCaseRecord:
     video_evidence_report_path: str | None = None
     video_path: str | None = None
     blockers: tuple[str, ...] = field(default_factory=tuple)
+    attempt_index: int = 0
+    quality_status: str | None = None
+    quality_blockers: tuple[str, ...] = field(default_factory=tuple)
 
     def to_jsonable(self) -> dict[str, Any]:
         return {
@@ -67,6 +93,7 @@ class CampaignCaseRecord:
             "frame_count": self.frame_count,
             "duration_s": self.duration_s,
             "scenario_report_path": self.scenario_report_path,
+            "road_alignment_path": self.road_alignment_path,
             "tracks_path": self.tracks_path,
             "rgb_folder": self.rgb_folder,
             "video_status": self.video_status,
@@ -74,6 +101,9 @@ class CampaignCaseRecord:
             "video_evidence_report_path": self.video_evidence_report_path,
             "video_path": self.video_path,
             "blockers": list(self.blockers),
+            "attempt_index": self.attempt_index,
+            "quality_status": self.quality_status,
+            "quality_blockers": list(self.quality_blockers),
         }
 
 
@@ -94,46 +124,66 @@ def load_scripted_ood_campaign_config(path: Path) -> ScriptedOodCampaignConfig:
         assemble_video=bool(campaign.get("assemble_video", False)),
         resume=bool(campaign.get("resume", True)),
         no_default_assets=bool(campaign.get("no_default_assets", False)),
+        quality_min_duration_s=float(campaign.get("quality_min_duration_s", 5.0)),
+        quality_min_frame_count=int(campaign.get("quality_min_frame_count", 0)),
+        quality_max_min_distance_m=float(campaign.get("quality_max_min_distance_m", 6.0)),
+        quality_require_video=bool(campaign.get("quality_require_video", True)),
+        quality_require_road_alignment=bool(campaign.get("quality_require_road_alignment", True)),
+        quality_require_conflict=bool(campaign.get("quality_require_conflict", True)),
+        quality_retry_limit=max(0, int(campaign.get("quality_retry_limit", 0))),
     )
 
 
 def run_scripted_ood_campaign(config: ScriptedOodCampaignConfig) -> dict[str, Any]:
     run_dir = _prepare_campaign_run_dir(config)
-    recipes = _load_recipes(config)
+    attempt_limit = config.quality_retry_limit + 1
+    recipes = _load_recipes(config, count=config.count * attempt_limit)
     plans = {plan.behavior_id: plan for plan in default_behavior_plans()}
     carla_config = load_carla_ood_demo_config(config.carla_ood_config_path)
     records: list[CampaignCaseRecord] = []
-    for index, recipe in enumerate(recipes[: config.count]):
-        behavior_id = config.behavior_ids[index % len(config.behavior_ids)]
-        if behavior_id not in plans:
-            raise ValueError(f"Unknown behavior id: {behavior_id}")
-        case_id = f"{index:03d}-{_slug(recipe.recipe_id)}-{behavior_id}"
-        case_dir = run_dir / "cases" / case_id
-        case_dir.mkdir(parents=True, exist_ok=True)
-        if config.resume:
-            resumed = _resume_case(
-                case_id=case_id,
-                case_dir=case_dir,
-                recipe=recipe,
-                behavior_id=behavior_id,
-                carla_config=carla_config,
-                config=config,
-            )
-            if resumed is not None:
-                records.append(resumed)
-                continue
-        records.append(
-            _run_case(
-                case_id=case_id,
-                case_dir=case_dir,
-                recipe=recipe,
-                behavior=simulate_behavior(plans[behavior_id]),
-                behavior_id=behavior_id,
-                carla_config=carla_config,
-                config=config,
-            )
-        )
-    payload = _campaign_payload(run_dir, config, records)
+    attempts: list[CampaignCaseRecord] = []
+    recipe_cursor = 0
+    for index in range(config.count):
+        selected: CampaignCaseRecord | None = None
+        for attempt_index in range(attempt_limit):
+            recipe = recipes[recipe_cursor % len(recipes)]
+            recipe_cursor += 1
+            behavior_id = config.behavior_ids[(index + attempt_index) % len(config.behavior_ids)]
+            if behavior_id not in plans:
+                raise ValueError(f"Unknown behavior id: {behavior_id}")
+            case_id = _case_id(index, attempt_index, recipe.recipe_id, behavior_id)
+            case_dir = run_dir / "cases" / case_id
+            case_dir.mkdir(parents=True, exist_ok=True)
+            record = None
+            if config.resume:
+                record = _resume_case(
+                    case_id=case_id,
+                    case_dir=case_dir,
+                    recipe=recipe,
+                    behavior_id=behavior_id,
+                    carla_config=carla_config,
+                    config=config,
+                )
+            behavior = simulate_behavior(plans[behavior_id])
+            if record is None:
+                record = _run_case(
+                    case_id=case_id,
+                    case_dir=case_dir,
+                    recipe=recipe,
+                    behavior=behavior,
+                    behavior_id=behavior_id,
+                    carla_config=carla_config,
+                    config=config,
+                )
+            record = _with_behavior_validation(record, behavior)
+            annotated = _annotate_quality(record, config, attempt_index=attempt_index)
+            attempts.append(annotated)
+            selected = annotated
+            if annotated.quality_status == "passed":
+                break
+        if selected is not None:
+            records.append(selected)
+    payload = _campaign_payload(run_dir, config, records, attempts=attempts)
     return write_scripted_ood_campaign(run_dir, payload)
 
 
@@ -191,6 +241,7 @@ def _run_case(
         frame_count=result.frame_count,
         duration_s=result.duration_s,
         scenario_report_path=str(summary.get("json_path")),
+        road_alignment_path=result.road_alignment_path,
         tracks_path=result.tracks_path,
         rgb_folder=result.rgb_folder,
         video_status=str(video_summary.get("status")) if video_summary else None,
@@ -248,6 +299,7 @@ def _fake_case(
         frame_count=0,
         duration_s=float(scenario["duration_s"]),
         scenario_report_path=str(scenario_path),
+        road_alignment_path=None,
         tracks_path=str(tracks_path),
         rgb_folder=None,
         video_status=None,
@@ -290,6 +342,7 @@ def _resume_case(
         frame_count=int(scenario.get("frame_count") or 0),
         duration_s=float(scenario.get("duration_s") or 0.0),
         scenario_report_path=str(report_path),
+        road_alignment_path=str(scenario.get("road_alignment_path")) if scenario.get("road_alignment_path") else None,
         tracks_path=str(tracks_path) if tracks_path else None,
         rgb_folder=str(scenario.get("rgb_folder")) if scenario.get("rgb_folder") else None,
         video_status=str(video_summary.get("status")) if video_summary else None,
@@ -319,7 +372,7 @@ def _best_video_summary(case_dir: Path, generated: dict[str, Any] | None) -> dic
     return passed[-1] if passed else candidates[-1]
 
 
-def _load_recipes(config: ScriptedOodCampaignConfig) -> list[ScenarioRecipe]:
+def _load_recipes(config: ScriptedOodCampaignConfig, *, count: int | None = None) -> list[ScenarioRecipe]:
     scenario = read_config_mapping(config.scenario_config_path)
     section = scenario.get("scenario", scenario)
     seeds_path = Path(str(_mapping(section).get("seeds_path", "tests/fixtures/fail2drive_like/seeds.json")))
@@ -327,7 +380,7 @@ def _load_recipes(config: ScriptedOodCampaignConfig) -> list[ScenarioRecipe]:
     return generate_scenario_recipes(
         load_scenario_seeds(seeds_path),
         MutationPolicy(mutations=mutations),
-        count=config.count,
+        count=count or config.count,
         random_seed=config.seed,
     )
 
@@ -336,8 +389,11 @@ def _campaign_payload(
     run_dir: Path,
     config: ScriptedOodCampaignConfig,
     records: list[CampaignCaseRecord],
+    *,
+    attempts: list[CampaignCaseRecord] | None = None,
 ) -> dict[str, Any]:
     json_records = [record.to_jsonable() for record in records]
+    json_attempts = [record.to_jsonable() for record in (attempts or records)]
     ranked = [record for record in json_records if record.get("min_distance_m") is not None]
     ranked.sort(key=lambda item: float(item["min_distance_m"]))
     blockers = [
@@ -345,23 +401,84 @@ def _campaign_payload(
         for record in json_records
         for blocker in list(record.get("blockers", []))
     ]
+    quality_blockers = [
+        f"{record['case_id']}: {blocker}"
+        for record in json_records
+        for blocker in list(record.get("quality_blockers", []))
+    ]
+    selected_quality_passed = [
+        record
+        for record in json_records
+        if record.get("quality_status") == "passed"
+    ]
+    campaign_status = "passed" if len(selected_quality_passed) == len(json_records) and not blockers else "quality_blocked"
     return {
         "campaign_id": run_dir.name,
-        "status": "passed" if not blockers else "partial",
+        "status": campaign_status,
+        "requested_case_count": config.count,
         "case_count": len(json_records),
+        "attempt_count": len(json_attempts),
+        "quality_retry_limit": config.quality_retry_limit,
+        "quality_retried_case_count": sum(1 for record in json_records if int(record.get("attempt_index", 0)) > 0),
+        "quality_selected_passed_count": len(selected_quality_passed),
         "live_case_count": sum(1 for record in json_records if record.get("live")),
         "behavior_ids": list(config.behavior_ids),
         "best_case": ranked[-1] if ranked else None,
         "worst_case": ranked[0] if ranked else None,
         "mean_min_distance_m": _mean([float(record["min_distance_m"]) for record in ranked]),
         "cases": json_records,
-        "blockers": blockers,
+        "quality_attempts": json_attempts,
+        "quality": _quality_payload(run_dir, config, json_records),
+        "blockers": [*blockers, *quality_blockers],
         "claim_boundaries": [
             "scripted_ood_campaign=true",
             "stock_fail2drive_score=false",
             "real_time_vla_control=false",
         ],
     }
+
+
+def _annotate_quality(
+    record: CampaignCaseRecord,
+    config: ScriptedOodCampaignConfig,
+    *,
+    attempt_index: int,
+) -> CampaignCaseRecord:
+    quality = evaluate_scenario_quality(record.to_jsonable(), config.quality_thresholds())
+    return replace(
+        record,
+        attempt_index=attempt_index,
+        quality_status=quality.status,
+        quality_blockers=tuple(quality.blockers),
+    )
+
+
+def _with_behavior_validation(record: CampaignCaseRecord, behavior: BehaviorTrace) -> CampaignCaseRecord:
+    validation = validate_behavior_trace(behavior, BehaviorConstraints())
+    if validation.passes:
+        return record
+    blockers = [
+        *record.blockers,
+        *[f"behavior_validation:{blocker}" for blocker in validation.blockers],
+    ]
+    return replace(record, blockers=tuple(blockers), status="blocked")
+
+
+def _case_id(index: int, attempt_index: int, recipe_id: str, behavior_id: str) -> str:
+    suffix = f"{_slug(recipe_id)}-{behavior_id}"
+    if attempt_index <= 0:
+        return f"{index:03d}-{suffix}"
+    return f"{index:03d}-retry{attempt_index:02d}-{suffix}"
+
+
+def _quality_payload(
+    run_dir: Path,
+    config: ScriptedOodCampaignConfig,
+    json_records: list[dict[str, Any]],
+) -> dict[str, Any]:
+    thresholds = config.quality_thresholds()
+    reports = [evaluate_scenario_quality(record, thresholds) for record in json_records]
+    return write_scenario_quality_outputs(reports, run_dir / "quality", thresholds=thresholds)
 
 
 def _fake_tracks(behavior: BehaviorTrace, *, ego_speed_mps: float) -> list[dict[str, Any]]:
@@ -447,10 +564,16 @@ def _markdown(payload: dict[str, Any]) -> str:
         "# Scripted OOD Campaign",
         "",
         f"- status: `{payload.get('status')}`",
+        f"- requested_case_count: `{payload.get('requested_case_count')}`",
         f"- case_count: `{payload.get('case_count')}`",
+        f"- attempt_count: `{payload.get('attempt_count')}`",
+        f"- quality_retry_limit: `{payload.get('quality_retry_limit')}`",
+        f"- quality_retried_case_count: `{payload.get('quality_retried_case_count')}`",
+        f"- quality_selected_passed_count: `{payload.get('quality_selected_passed_count')}`",
         f"- live_case_count: `{payload.get('live_case_count')}`",
         f"- mean_min_distance_m: `{payload.get('mean_min_distance_m')}`",
         f"- worst_case: `{_mapping(payload.get('worst_case')).get('case_id')}`",
+        f"- quality_passed_count: `{_mapping(payload.get('quality')).get('passed_count')}`",
         "",
         "## Cases",
         "",
@@ -459,7 +582,9 @@ def _markdown(payload: dict[str, Any]) -> str:
         lines.append(
             f"- `{record.get('case_id')}`: behavior=`{record.get('behavior_id')}`, "
             f"status=`{record.get('status')}`, min_distance_m=`{record.get('min_distance_m')}`, "
-            f"video_status=`{record.get('video_status')}`, video=`{record.get('video_path')}`"
+            f"video_status=`{record.get('video_status')}`, "
+            f"road_alignment=`{record.get('road_alignment_path')}`, "
+            f"video=`{record.get('video_path')}`"
         )
     blockers = list(payload.get("blockers", []))
     lines.extend(["", "## Blockers", ""])

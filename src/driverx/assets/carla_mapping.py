@@ -17,6 +17,7 @@ class CarlaObjectSpawnSpec:
     collision_proxy: dict[str, Any]
     semantic_tags: list[str]
     source_status: str
+    coordinate_frame: str = "road_local"
 
     def to_jsonable(self) -> dict[str, Any]:
         return {
@@ -24,6 +25,7 @@ class CarlaObjectSpawnSpec:
             "actor_ref": self.actor_ref,
             "blueprint_filter": self.blueprint_filter,
             "spawn_transform": self.spawn_transform,
+            "coordinate_frame": self.coordinate_frame,
             "collision_proxy": self.collision_proxy,
             "semantic_tags": self.semantic_tags,
             "source_status": self.source_status,

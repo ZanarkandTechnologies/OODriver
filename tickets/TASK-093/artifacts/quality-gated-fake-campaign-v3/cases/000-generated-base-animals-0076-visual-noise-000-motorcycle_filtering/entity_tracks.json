@@ -1,0 +1,1102 @@
+[
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 0,
+    "t_s": 0.0,
+    "location": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 0,
+    "t_s": 0.0,
+    "location": {
+      "x": 0.0,
+      "y": 1.75,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 1,
+    "t_s": 0.25,
+    "location": {
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 1,
+    "t_s": 0.25,
+    "location": {
+      "x": 3.25,
+      "y": 2.6739,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 2,
+    "t_s": 0.5,
+    "location": {
+      "x": 2.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 2,
+    "t_s": 0.5,
+    "location": {
+      "x": 6.5,
+      "y": 2.4571,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 3,
+    "t_s": 0.75,
+    "location": {
+      "x": 3.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 3,
+    "t_s": 0.75,
+    "location": {
+      "x": 9.75,
+      "y": 1.3673,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 4,
+    "t_s": 1.0,
+    "location": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 4,
+    "t_s": 1.0,
+    "location": {
+      "x": 13.0,
+      "y": 0.75,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 5,
+    "t_s": 1.25,
+    "location": {
+      "x": 5.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 5,
+    "t_s": 1.25,
+    "location": {
+      "x": 16.25,
+      "y": 1.3673,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 6,
+    "t_s": 1.5,
+    "location": {
+      "x": 6.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 6,
+    "t_s": 1.5,
+    "location": {
+      "x": 19.5,
+      "y": 2.4571,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 7,
+    "t_s": 1.75,
+    "location": {
+      "x": 7.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 7,
+    "t_s": 1.75,
+    "location": {
+      "x": 22.75,
+      "y": 2.6739,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 8,
+    "t_s": 2.0,
+    "location": {
+      "x": 8.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 8,
+    "t_s": 2.0,
+    "location": {
+      "x": 26.0,
+      "y": 1.75,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 9,
+    "t_s": 2.25,
+    "location": {
+      "x": 9.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 9,
+    "t_s": 2.25,
+    "location": {
+      "x": 29.25,
+      "y": 0.8261,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 10,
+    "t_s": 2.5,
+    "location": {
+      "x": 10.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 10,
+    "t_s": 2.5,
+    "location": {
+      "x": 32.5,
+      "y": 1.0429,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 11,
+    "t_s": 2.75,
+    "location": {
+      "x": 11.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 11,
+    "t_s": 2.75,
+    "location": {
+      "x": 35.75,
+      "y": 2.1327,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 12,
+    "t_s": 3.0,
+    "location": {
+      "x": 12.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 12,
+    "t_s": 3.0,
+    "location": {
+      "x": 39.0,
+      "y": 2.75,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 13,
+    "t_s": 3.25,
+    "location": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 13,
+    "t_s": 3.25,
+    "location": {
+      "x": 42.25,
+      "y": 2.1327,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 14,
+    "t_s": 3.5,
+    "location": {
+      "x": 14.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 14,
+    "t_s": 3.5,
+    "location": {
+      "x": 45.5,
+      "y": 1.0429,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 15,
+    "t_s": 3.75,
+    "location": {
+      "x": 15.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 15,
+    "t_s": 3.75,
+    "location": {
+      "x": 48.75,
+      "y": 0.8261,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 16,
+    "t_s": 4.0,
+    "location": {
+      "x": 16.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 16,
+    "t_s": 4.0,
+    "location": {
+      "x": 52.0,
+      "y": 1.75,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 17,
+    "t_s": 4.25,
+    "location": {
+      "x": 17.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 17,
+    "t_s": 4.25,
+    "location": {
+      "x": 55.25,
+      "y": 2.6739,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 18,
+    "t_s": 4.5,
+    "location": {
+      "x": 18.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 18,
+    "t_s": 4.5,
+    "location": {
+      "x": 58.5,
+      "y": 2.4571,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 19,
+    "t_s": 4.75,
+    "location": {
+      "x": 19.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 19,
+    "t_s": 4.75,
+    "location": {
+      "x": 61.75,
+      "y": 1.3673,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 20,
+    "t_s": 5.0,
+    "location": {
+      "x": 20.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 20,
+    "t_s": 5.0,
+    "location": {
+      "x": 65.0,
+      "y": 0.75,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 21,
+    "t_s": 5.25,
+    "location": {
+      "x": 21.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 21,
+    "t_s": 5.25,
+    "location": {
+      "x": 68.25,
+      "y": 1.3673,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 22,
+    "t_s": 5.5,
+    "location": {
+      "x": 22.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 22,
+    "t_s": 5.5,
+    "location": {
+      "x": 71.5,
+      "y": 2.4571,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 23,
+    "t_s": 5.75,
+    "location": {
+      "x": 23.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 23,
+    "t_s": 5.75,
+    "location": {
+      "x": 74.75,
+      "y": 2.6739,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ego",
+    "actor_id": 0,
+    "type_id": "driverx.synthetic.ego",
+    "tick": 24,
+    "t_s": 6.0,
+    "location": {
+      "x": 24.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "actor_ref": "ood_actor_0",
+    "actor_id": 1,
+    "type_id": "driverx.synthetic.ood_actor_0",
+    "tick": 24,
+    "t_s": 6.0,
+    "location": {
+      "x": 78.0,
+      "y": 1.75,
+      "z": 0.0
+    },
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 0.0,
+      "roll": 0.0
+    },
+    "velocity": {
+      "x": 13.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  }
+]

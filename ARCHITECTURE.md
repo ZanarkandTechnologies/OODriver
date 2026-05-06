@@ -18,10 +18,14 @@ flowchart TD
     A["Fail2Drive route XML or fixture seeds"] --> B["Scenario seed loader"]
     B --> C["Deterministic OOD recipe generator"]
     C --> D["Scenario suite report"]
+    C --> S["Environment packs + behavior DSL"]
+    S --> O
     C --> N["Local 2D OOD simulator"]
     C --> O["DriverX scripted CARLA OOD demo"]
     O --> P["RGB frames + entity tracks"]
     P --> Q["OOD overlay video evidence"]
+    P --> T["Scenario quality gates"]
+    T --> U["Scenario Studio catalog"]
     E["Fail2Drive result records"] --> F["Failure memory builder"]
     F --> G["Retrieval memory bank"]
     C --> H["Memory retrieval"]
@@ -30,6 +34,9 @@ flowchart TD
     I --> N
     I --> R["Alpamayo open-loop scene report"]
     Q --> R
+    R --> U
+    U --> V["Policy evaluation campaign"]
+    V --> W["V6 scenario browser + dossier"]
     C --> J["CARLA/Fail2Drive command planner"]
     J --> K["Local Mac smoke path or Linux NVIDIA runtime"]
     L["Waymo E2E support track"] --> M["Open-loop ADE and trajectory evidence"]
@@ -48,7 +55,12 @@ flowchart TD
   submission pack.
   TASK-060/TASK-069 remain live-runtime follow-up work for full Town13 route
   completion and route-aligned Alpamayo capture.
-- `src/driverx/scenarios`: scenario seed and OOD recipe generation.
+- `src/driverx/scenarios`: scenario seed generation, Scenario Studio catalog,
+  and quality gates.
+- `src/driverx/environments`: deterministic environment packs and stock-proxy
+  asset request generation.
+- `src/driverx/behaviors`: behavior library, behavior DSL variants, and
+  solvability/conflict validators.
 - `src/driverx/memory`: failure-memory creation and retrieval.
 - `src/driverx/simulators`: CARLA smoke checks, Fail2Drive command planning,
   overlay injection, sidecar planning, route-video assembly, and the local 2D
@@ -115,3 +127,12 @@ Remote or Linux NVIDIA runtime:
 - Alpamayo CARLA control remains open-loop today: live inference and memory
   comparison are proven, while TASK-062 owns the first cached trajectory replay
   bridge toward closed-loop control.
+- TASK-089 through TASK-095 shift the contribution from setup to simulator
+  infrastructure: road-local actor placement, catalog management, environment
+  and behavior generation, quality gates, policy evaluation, and a V6 static
+  scenario browser.
+- CARLA 0.9.16 is installed on the RTX 6000 Ada RunPod host and DriverX tests
+  pass there, but live CARLA rendering on that pod is blocked by the container's
+  NVIDIA Vulkan ICD (`ERROR_INCOMPATIBLE_DRIVER`). Use local CARLA for rendering
+  until a graphics-capable host is available; use the GPU host for Alpamayo and
+  code verification.

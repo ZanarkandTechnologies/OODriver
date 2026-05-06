@@ -3,6 +3,7 @@
 from driverx.assets.pipeline import (
     attach_assets_to_recipes,
     default_asset_requests,
+    environment_recipe_to_asset_requests,
     generate_assets_dry_run,
     generate_assets_with_provider,
     validate_asset_manifest,
@@ -24,6 +25,7 @@ __all__ = [
     "CarlaObjectSpawnSpec",
     "attach_assets_to_recipes",
     "default_asset_requests",
+    "environment_recipe_to_asset_requests",
     "generate_assets_dry_run",
     "generate_assets_with_provider",
     "map_asset_to_carla_spawn",

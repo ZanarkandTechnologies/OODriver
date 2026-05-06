@@ -1,0 +1,20 @@
+{
+  "scenario_count": 9,
+  "hero_scenarios": [],
+  "failure_scenarios": [],
+  "policy_evaluation_row_count": 27,
+  "policy_status_counts": {
+    "blocked": 18,
+    "planned": 9
+  },
+  "policy_passed_count": 0,
+  "policy_planned_count": 9,
+  "policy_blocked_count": 18,
+  "policy_decision_artifact_count": 0,
+  "catalog_path": "tickets/TASK-090/artifacts/scenario-catalog-v4/scenario_catalog.json",
+  "policy_evaluation_path": "tickets/TASK-094/artifacts/policy-evaluation-v6/policy_evaluation_campaign.json",
+  "browser_html": "tickets/TASK-095/artifacts/submission-browser-v11/scenario_browser.html",
+  "dossier_md": "tickets/TASK-095/artifacts/submission-browser-v11/submission_dossier_v6.md",
+  "video_script_md": "tickets/TASK-095/artifacts/submission-browser-v11/video_script_v6.md",
+  "summary_json": "tickets/TASK-095/artifacts/submission-browser-v11/submission_browser_summary.json"
+}

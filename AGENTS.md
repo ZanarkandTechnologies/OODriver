@@ -64,6 +64,13 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   blueprints (`static.prop.dirtdebris01`, `static.prop.foodcart`,
   `static.prop.constructioncone`) and do not rely on absent `trafficcone`
   placeholders. See `MEM-0021`.
+- Promote CARLA OOD evidence only after road-alignment, visibility, conflict,
+  duration, and artifact-completeness checks pass; setup-only or off-road
+  videos are partial/legacy evidence, not hero artifacts. See `MEM-0023`.
+- Scenario catalog promotion, policy evaluation, and submission browser hero
+  selection must honor propagated `quality_status`; legacy/open-loop artifacts
+  can support context but cannot become hero or closed-loop policy proof. See
+  `MEM-0024`.
 - For stock SimLingo/CARLA 0.9.15 live runs, prefer H100/H200-class `sm_90`
   hosts; Blackwell `sm_120` requires a separate PyTorch/CARLA rebuild path
   before it can run the upstream Python 3.8 + torch 2.2 stack. See `MEM-0017`.

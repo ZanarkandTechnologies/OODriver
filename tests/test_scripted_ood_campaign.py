@@ -27,8 +27,9 @@ class ScriptedOodCampaignTest(unittest.TestCase):
             )
             cases = result["cases"]
 
-        self.assertEqual(result["status"], "passed")
+        self.assertEqual(result["status"], "quality_blocked")
         self.assertEqual(result["case_count"], 3)
+        self.assertEqual(result["quality_selected_passed_count"], 0)
         self.assertEqual(result["live_case_count"], 0)
         self.assertIsNotNone(result["worst_case"])
         self.assertIsNotNone(result["best_case"])
@@ -69,6 +70,31 @@ class ScriptedOodCampaignTest(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertEqual(result["case_count"], 2)
         self.assertEqual(result["behavior_ids"], ["motorcycle_filtering", "sudden_brake"])
+
+    def test_quality_retry_resamples_until_retry_limit(self) -> None:
+        with TemporaryDirectory() as tmp:
+            result = run_scripted_ood_campaign(
+                ScriptedOodCampaignConfig(
+                    scenario_config_path=Path("configs/scenario_forge.sample.yaml"),
+                    carla_ood_config_path=Path("configs/carla_ood_demo.local.sample.yaml"),
+                    output_root=Path(tmp),
+                    run_id="campaign",
+                    count=1,
+                    live=False,
+                    resume=False,
+                    quality_min_duration_s=999.0,
+                    quality_retry_limit=2,
+                )
+            )
+
+        self.assertEqual(result["case_count"], 1)
+        self.assertEqual(result["attempt_count"], 3)
+        self.assertEqual(result["status"], "quality_blocked")
+        self.assertEqual(result["quality_retry_limit"], 2)
+        self.assertEqual(result["quality_retried_case_count"], 1)
+        self.assertEqual(result["cases"][0]["attempt_index"], 2)
+        self.assertEqual(len(result["quality_attempts"]), 3)
+        self.assertEqual(result["quality"]["blocked_count"], 1)
 
     def test_resume_reuses_existing_case_and_video_evidence(self) -> None:
         with TemporaryDirectory() as tmp:

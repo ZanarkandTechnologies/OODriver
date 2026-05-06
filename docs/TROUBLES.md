@@ -1,3 +1,4 @@
 # Troubles
 
-No repeated misses logged yet.
+2026-05-06 21:34 +0800 | planning,simulation,submission | request | prioritize actual simulator contribution for minimal-shot testing | miss | prior work overemphasized setup/model/runtime proof and allowed CARLA videos where ego/OOD actors could start off-road or look inconsistent | correction | next batch starts with road-aligned scenario frames, then generator/catalog/quality gates before promoting more evidence | prevention | enforce MEM-0023 quality gates and mark old off-road evidence as partial or failed instead of submission-grade
+2026-05-06 22:35 +0800 | review,evidence,submission | request | make the simulator contribution ICLR-grade, not just setup-heavy | miss | first TASK-089 through TASK-095 implementation overclaimed quality-passed scenarios, policy evaluation, and hero selection from artifacts that lacked strict road-aligned video proof | correction | reviewer failed the pass, then quality status became authoritative across campaign, catalog, policy evaluation, and browser packaging | prevention | enforce MEM-0024 and require review to challenge evidence claims before completion

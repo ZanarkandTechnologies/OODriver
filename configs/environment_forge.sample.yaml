@@ -1,0 +1,9 @@
+environment:
+  template_ids: construction_lane_closure,roadside_market_occlusion,flooded_road,night_rain_fog,dense_regional_traffic,school_zone_unstructured_crossing
+  severity: 3
+  count: 6
+  random_seed: 7
+
+output:
+  root: artifacts/runs
+  run_id: environment-forge

@@ -60,7 +60,13 @@ flowchart TD
 - `ARCHITECTURE.md`: top-level system map.
 - `tickets/archive/`: completed ticket records and compact evidence artifacts,
   including the live Alpamayo and CARLA route proofs.
-- `src/driverx/scenarios/`: scenario seeds, recipes, and reports.
+- `src/driverx/scenarios/`: scenario seeds, recipes, catalog, quality gates,
+  and reports.
+- `src/driverx/environments/`: deterministic construction, roadside-market,
+  flood, visibility, regional-traffic, and pedestrian-occlusion environment
+  packs.
+- `src/driverx/behaviors/`: deterministic and parameterized OOD actor behavior
+  traces.
 - `src/driverx/memory/`: failure memory and retrieval.
 - `src/driverx/simulators/`: CARLA smoke checks and Fail2Drive command plans.
 - `src/driverx/datasets/`, `planning/`, `pipeline/`, `submission/`: Waymo and
@@ -88,17 +94,31 @@ submission evidence: a 24.0s live scripted CARLA OOD video, same-scene Alpamayo
 1.5 reasoning on that generated capture, a same-capture memory/no-memory
 comparison, and a V4 demo pack that keeps closed-loop VLA control claims out of
 scope until a route controller consumes the trajectory. TASK-083 through
-TASK-088 add the current final submission train: an 8.0s live CARLA cached
-Alpamayo replay video, a reasoning/trajectory HTML pack, a two-case live
-scripted OOD campaign, cached Alpamayo batch comparison, a V5 dossier/video
-script, and a stock Fail2Drive full-score host handoff.
+TASK-088 add an 8.0s live CARLA cached Alpamayo replay video, a
+reasoning/trajectory HTML pack, a two-case live scripted OOD campaign, cached
+Alpamayo batch comparison, a V5 dossier/video script, and a stock Fail2Drive
+full-score host handoff. TASK-089 through TASK-095 add the current simulator
+contribution layer: road-local CARLA placement, Scenario Studio catalog,
+environment packs, behavior DSL variants, strict scenario quality gates, policy
+evaluation campaign, and submission scenario browser. CARLA 0.9.16 is installed on the
+RTX 6000 Ada RunPod host, but that container still blocks live server launch on
+NVIDIA Vulkan ICD initialization; local CARLA remains the rendering path until
+the graphics host is fixed.
 
 ## Current Submission Packet
 
-- V5 dossier:
-  `tickets/TASK-087/artifacts/submission-dossier-v5-live/submission_dossier.md`
+- Scenario browser:
+  `tickets/TASK-095/artifacts/submission-browser-v11/scenario_browser.html`
+- Dossier:
+  `tickets/TASK-095/artifacts/submission-browser-v11/submission_dossier_v6.md`
 - Video script:
-  `tickets/TASK-087/artifacts/submission-dossier-v5-live/video_script.md`
+  `tickets/TASK-095/artifacts/submission-browser-v11/video_script_v6.md`
+- Scenario catalog:
+  `tickets/TASK-090/artifacts/scenario-catalog-v4/scenario_catalog.md`
+- Policy evaluation campaign:
+  `tickets/TASK-094/artifacts/policy-evaluation-v6/policy_evaluation_campaign.md`
+  (current status counts: passed `0`, planned `9`, blocked `18`; no policy row
+  is counted as completed unless its scenario passes strict quality gates)
 - Reasoning pack:
   `tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.html`
 - Live cached Alpamayo replay:
@@ -130,6 +150,36 @@ PYTHONPATH=src python3 -m driverx forge-scenarios \
   --config configs/scenario_forge.sample.yaml \
   --count 8 \
   --seed 7
+
+# Generate deterministic environment packs and stock CARLA proxy assets
+PYTHONPATH=src python3 -m driverx forge-environments \
+  --config configs/environment_forge.sample.yaml \
+  --run-id environment-forge
+
+# Generate parameterized behavior variants with validation
+PYTHONPATH=src python3 -m driverx generate-behaviors \
+  --template-id motorcycle_filtering \
+  --count 6 \
+  --severity 4 \
+  --validate \
+  --run-id behavior-dsl
+
+# Index generated evidence into a Scenario Studio catalog
+PYTHONPATH=src python3 -m driverx index-scenarios \
+  --artifact-root tickets/TASK-085/artifacts \
+  --artifact-root tickets/TASK-086/artifacts \
+  --run-id scenario-catalog
+
+# Build a policy matrix over cataloged scenarios
+PYTHONPATH=src python3 -m driverx run-policy-evaluation-campaign \
+  --catalog artifacts/runs/scenario-catalog/scenario_catalog.json \
+  --run-id policy-evaluation
+
+# Build the judge-facing static browser and dossier/script
+PYTHONPATH=src python3 -m driverx build-submission-scenario-browser \
+  --catalog artifacts/runs/scenario-catalog/scenario_catalog.json \
+  --policy-evaluation artifacts/runs/policy-evaluation/policy_evaluation_campaign.json \
+  --run-id submission-browser
 
 # Build compact safety memory from fixture policy failures
 PYTHONPATH=src python3 -m driverx build-memory \

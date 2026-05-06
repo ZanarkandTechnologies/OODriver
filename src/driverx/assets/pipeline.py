@@ -6,9 +6,24 @@ import json
 import os
 from dataclasses import replace
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from driverx.assets.types import AssetManifest, AssetProviderName, AssetRequest
 from driverx.scenarios import ScenarioRecipe
+
+if TYPE_CHECKING:
+    from driverx.environments import EnvironmentRecipe, RoadFrameHint
+
+
+def environment_recipe_to_asset_requests(
+    environment_recipe: EnvironmentRecipe,
+    road_frame_hint: RoadFrameHint | None = None,
+) -> list[AssetRequest]:
+    """Convert an environment recipe into runnable stock-proxy asset requests."""
+
+    from driverx.environments import environment_to_asset_requests
+
+    return environment_to_asset_requests(environment_recipe, road_frame_hint)
 
 
 def default_asset_requests() -> list[AssetRequest]:

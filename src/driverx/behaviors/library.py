@@ -271,13 +271,22 @@ def simulate_behavior(plan: BehaviorPlan) -> BehaviorTrace:
 
 
 def summarize_behavior_suite(traces: list[BehaviorTrace]) -> dict[str, object]:
+    metric_records = [
+        {
+            "trace_id": _trace_id(trace, index),
+            "behavior_id": trace.plan.behavior_id,
+            "metrics": trace.metrics,
+        }
+        for index, trace in enumerate(traces)
+    ]
     return {
         "num_behaviors": len(traces),
         "behavior_ids": [trace.plan.behavior_id for trace in traces],
         "metrics": {
-            trace.plan.behavior_id: trace.metrics
-            for trace in traces
+            record["trace_id"]: record["metrics"]
+            for record in metric_records
         },
+        "metric_records": metric_records,
     }
 
 
@@ -318,3 +327,9 @@ def write_behavior_suite(run_dir: Path, traces: list[BehaviorTrace]) -> dict[str
         "summary_path": str(summary_path),
         "report_path": str(report_path),
     }
+
+
+def _trace_id(trace: BehaviorTrace, index: int) -> str:
+    variant_tags = [tag for tag in trace.plan.tags if tag.startswith("variant_")]
+    suffix = variant_tags[-1] if variant_tags else f"trace_{index:03d}"
+    return f"{trace.plan.behavior_id}:{suffix}"

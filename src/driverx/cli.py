@@ -424,13 +424,35 @@ def _command_spawn_ego_smoke(args: argparse.Namespace) -> int:
 
 
 def _command_generate_behaviors(args: argparse.Namespace) -> int:
-    from driverx.behaviors import default_behavior_plans, simulate_behavior
-    from driverx.behaviors import write_behavior_suite
+    from driverx.behaviors import (
+        default_behavior_plans,
+        BehaviorConstraints,
+        generate_behavior_variants,
+        simulate_behavior,
+        validate_behavior_trace,
+    )
+    from driverx.behaviors import write_behavior_suite, write_behavior_validation_report
     from driverx.core.artifacts import prepare_run_dir
 
-    traces = [simulate_behavior(plan) for plan in default_behavior_plans()]
+    plans = (
+        generate_behavior_variants(
+            args.template_id,
+            count=args.count,
+            random_seed=args.seed,
+            severity=args.severity,
+        )
+        if args.template_id
+        else default_behavior_plans()
+    )
+    traces = [simulate_behavior(plan) for plan in plans]
     run_dir = prepare_run_dir(args.output_root, args.run_id)
     summary = write_behavior_suite(run_dir, traces)
+    if args.validate:
+        validation = write_behavior_validation_report(
+            run_dir / "validation",
+            [validate_behavior_trace(trace, BehaviorConstraints()) for trace in traces],
+        )
+        summary = {**summary, "validation_path": validation["json_path"]}
     print(json.dumps(summary, indent=2))
     return 0
 
@@ -814,6 +836,11 @@ def build_parser() -> argparse.ArgumentParser:
         "generate-behaviors",
         help="Generate deterministic OOD behavior traces and metrics.",
     )
+    behavior_parser.add_argument("--template-id")
+    behavior_parser.add_argument("--count", type=int, default=3)
+    behavior_parser.add_argument("--seed", type=int, default=7)
+    behavior_parser.add_argument("--severity", type=int, default=3)
+    behavior_parser.add_argument("--validate", action="store_true")
     behavior_parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
     behavior_parser.add_argument("--run-id", default="behavior-suite")
     behavior_parser.set_defaults(func=_command_generate_behaviors)
@@ -889,71 +916,9 @@ def build_parser() -> argparse.ArgumentParser:
     ood_report_parser.add_argument("--run-id", default="ood-suite-report")
     ood_report_parser.set_defaults(func=_command_build_ood_suite_report)
 
-    from driverx.pipeline.submission_dossier_cli import register_submission_dossier_parser
-    from driverx.pipeline.submission_demo_pack_cli import register_submission_demo_pack_parser
-    from driverx.pipeline.alpamayo_ood_evaluation_cli import register_alpamayo_ood_evaluation_parser
-    from driverx.pipeline.alpamayo_ood_batch_cli import register_alpamayo_ood_batch_parser
-    from driverx.pipeline.alpamayo_ood_scene_cli import register_alpamayo_ood_scene_parser
-    from driverx.pipeline.end_to_end_ood_demo_cli import register_end_to_end_ood_demo_parser
-    from driverx.pipeline.generated_ood_suite_cli import register_generated_ood_suite_parser
-    from driverx.pipeline.ood_video_evidence_cli import register_ood_video_evidence_parser
-    from driverx.pipeline.reasoning_video_pack_cli import register_reasoning_video_pack_parser
-    from driverx.pipeline.scripted_ood_campaign_cli import register_scripted_ood_campaign_parser
-    from driverx.pipeline.route_evidence_cli import register_route_evidence_parser
-    from driverx.policies.alpamayo_input_cli import register_alpamayo_input_parser
-    from driverx.policies.alpamayo_live_cli import register_alpamayo_live_parser
-    from driverx.policies.alpamayo_materializer_cli import register_alpamayo_materializer_parser
-    from driverx.policies.alpamayo_offline_cli import register_alpamayo_offline_parser
-    from driverx.policies.alpamayo_ood_package_cli import register_alpamayo_ood_package_parser
-    from driverx.policies.alpamayo_probe_cli import register_alpamayo_probe_parser
-    from driverx.policies.alpamayo_release_cli import register_alpamayo_release_parser
-    from driverx.policies.alpamayo_shape_probe_cli import register_alpamayo_shape_probe_parser
-    from driverx.policies.alpamayo_trajectory_cli import register_alpamayo_trajectory_parser
-    from driverx.policies.runtime_matrix_cli import register_policy_runtime_matrix_parser
-    from driverx.remote.runpod_cli import register_runpod_remote_parser
-    from driverx.simulators.simlingo_cli import register_simlingo_parsers
-    from driverx.simulators.carla_alpamayo_capture_cli import register_carla_alpamayo_capture_parser
-    from driverx.simulators.gpu_host_cli import register_gpu_host_parser
-    from driverx.simulators.carla_maps_cli import register_carla_maps_parser
-    from driverx.simulators.carla_cached_ood_replay_cli import register_carla_cached_ood_replay_parser
-    from driverx.simulators.carla_policy_replay_cli import register_carla_policy_replay_parser
-    from driverx.simulators.carla_ood_demo_cli import register_carla_ood_demo_parser
-    from driverx.simulators.route_video_assembly_cli import register_route_video_assembly_parser
-    from driverx.simulators.fail2drive_route_runner_cli import register_fail2drive_route_runner_parser
-    from driverx.simulators.fail2drive_host_plan_cli import register_fail2drive_host_plan_parser
+    from driverx.cli_extensions import register_dynamic_parsers
 
-    register_generated_ood_suite_parser(subparsers)
-    register_end_to_end_ood_demo_parser(subparsers)
-    register_ood_video_evidence_parser(subparsers)
-    register_reasoning_video_pack_parser(subparsers)
-    register_scripted_ood_campaign_parser(subparsers)
-    register_route_evidence_parser(subparsers)
-    register_alpamayo_ood_evaluation_parser(subparsers)
-    register_alpamayo_ood_batch_parser(subparsers)
-    register_alpamayo_ood_scene_parser(subparsers)
-    register_alpamayo_input_parser(subparsers)
-    register_alpamayo_ood_package_parser(subparsers)
-    register_alpamayo_live_parser(subparsers)
-    register_alpamayo_materializer_parser(subparsers)
-    register_alpamayo_offline_parser(subparsers)
-    register_alpamayo_probe_parser(subparsers)
-    register_alpamayo_shape_probe_parser(subparsers)
-    register_alpamayo_release_parser(subparsers)
-    register_alpamayo_trajectory_parser(subparsers)
-    register_policy_runtime_matrix_parser(subparsers)
-    register_runpod_remote_parser(subparsers)
-    register_simlingo_parsers(subparsers)
-    register_carla_alpamayo_capture_parser(subparsers)
-    register_carla_maps_parser(subparsers)
-    register_carla_cached_ood_replay_parser(subparsers)
-    register_carla_policy_replay_parser(subparsers)
-    register_carla_ood_demo_parser(subparsers)
-    register_gpu_host_parser(subparsers)
-    register_route_video_assembly_parser(subparsers)
-    register_fail2drive_route_runner_parser(subparsers)
-    register_fail2drive_host_plan_parser(subparsers)
-    register_submission_dossier_parser(subparsers)
-    register_submission_demo_pack_parser(subparsers)
+    register_dynamic_parsers(subparsers)
 
     config_parser = subparsers.add_parser(
         "show-config",

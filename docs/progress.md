@@ -110,8 +110,41 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-086 Alpamayo batch OOD comparison over campaign
 - [x] TASK-087 submission dossier V5 and deck script
 - [x] TASK-088 stock Fail2Drive full-score runtime handoff
+- [x] TASK-089 road-aligned CARLA scenario frame and placement validator
+  (remote CARLA installed; live GPU launch blocked by Vulkan ICD)
+- [x] TASK-090 scenario studio catalog and management CLI
+- [x] TASK-091 environment and roadwork generator pack
+- [x] TASK-092 behavior scenario DSL and solvability validator
+- [x] TASK-093 scenario campaign quality gates and auto-rerun
+  (quality gates implemented; live rerun waits on graphics host)
+- [x] TASK-094 policy evaluation harness over quality-gated generated scenarios
+- [x] TASK-095 submission scenario browser and demo pack V6
 
 ## Latest Evidence
+
+- TASK-089 through TASK-095 landed the new simulator-contribution train:
+  road-local CARLA placement, Scenario Studio catalog, environment packs,
+  behavior DSL variants, scenario quality gates, policy evaluation campaign,
+  and V6 static scenario browser/dossier. Current strongest new artifacts:
+  `tickets/TASK-090/artifacts/scenario-catalog-v4/scenario_catalog.md`,
+  `tickets/TASK-091/artifacts/environment-forge-v2/environment_suite_report.md`,
+  `tickets/TASK-092/artifacts/behavior-dsl-v2/behavior_report.md`,
+  `tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/quality/scenario_quality_summary.md`,
+  `tickets/TASK-093/artifacts/quality-retry-proof-v2/scripted_ood_campaign_summary.md`,
+  `tickets/TASK-094/artifacts/policy-evaluation-v6/policy_evaluation_campaign.md`,
+  and
+  `tickets/TASK-095/artifacts/submission-browser-v11/scenario_browser.html`.
+  Review follow-up made the evidence stricter: current generated/fake or legacy
+  CARLA cases are cataloged but not promoted as heroes unless they have strict
+  road-aligned video proof, so the latest browser intentionally reports no hero
+  selected yet. The policy evidence is now surfaced as passed/planned/blocked
+  counts (`0/9/18`) instead of a raw completed-evaluation count. Final
+  implementation review passed at `4.0/5.0`; the follow-up also renamed the
+  machine summary field to `policy_evaluation_row_count` and added regression
+  tests for failure-case/blocked-policy evidence semantics.
+  CARLA 0.9.16 is installed on the RTX 6000 Ada RunPod host and focused tests
+  pass there, but live CARLA server launch is blocked by that container's
+  NVIDIA Vulkan ICD.
 
 - TASK-083 through TASK-088 landed the next submission train. New strongest
   artifacts: an 8.0s live CARLA cached-Alpamayo replay video at
@@ -127,13 +160,6 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   and a stock Fail2Drive host handoff at
   `tickets/TASK-088/artifacts/task88-host-plan/fail2drive_host_plan.md`.
 
-- TASK-083 through TASK-088 are now the next planned train. The recommendation
-  is to start with cached Alpamayo replay in the scripted CARLA scene, then add
-  a reasoning overlay pack, scale to a small scripted OOD campaign, optionally
-  batch Alpamayo over selected campaign cases on the RTX 6000 Ada lane, and
-  finish with a V5 submission dossier. TASK-088 keeps the benchmark-pure stock
-  Fail2Drive full-score path prepared but blocked on a graphics-capable Linux
-  CARLA host.
 - TASK-078 resolved the live scripted-CARLA bridge for the DriverX OOD demo.
   Docker reached local CARLA 0.9.16 at `host.docker.internal:2000`, the runner
   spawned generated stock-proxy assets, captured 120 RGB frames and entity

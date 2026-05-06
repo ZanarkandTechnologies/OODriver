@@ -19,6 +19,14 @@ from driverx.core.config import read_config_mapping
 from driverx.scenarios import ScenarioRecipe
 from driverx.simulators.carla_ego import _find_vehicle_blueprint, _rotation_payload, _vector_payload
 from driverx.simulators.carla_script import _blueprint_for, _transform
+from driverx.simulators.carla_road_frame import (
+    RoadFrame,
+    RoadFrameSelector,
+    local_pose_to_payload,
+    resolve_road_frame,
+    transform_payload_to_road_frame,
+    validate_road_aligned_track,
+)
 
 
 @dataclass(frozen=True)
@@ -36,7 +44,24 @@ class CarlaOodDemoConfig:
     behavior_id: str = "motorcycle_filtering"
     ego_mode: str = "scripted"
     ego_speed_mps: float = 4.0
+    coordinate_frame: str = "road_local"
+    road_anchor_spawn_index: int = 0
+    road_anchor_forward_m: float = 0.0
+    road_anchor_lateral_m: float = 0.0
+    road_anchor_yaw_delta_deg: float = 0.0
+    road_lane_width_m: float = 3.5
+    road_max_lateral_offset_m: float = 6.0
     cleanup: bool = True
+
+    def road_frame_selector(self) -> RoadFrameSelector:
+        return RoadFrameSelector(
+            spawn_index=self.road_anchor_spawn_index,
+            forward_offset_m=self.road_anchor_forward_m,
+            lateral_offset_m=self.road_anchor_lateral_m,
+            yaw_delta_deg=self.road_anchor_yaw_delta_deg,
+            lane_width_m=self.road_lane_width_m,
+            max_lateral_offset_m=self.road_max_lateral_offset_m,
+        )
 
 
 @dataclass(frozen=True)
@@ -46,6 +71,8 @@ class CarlaOodDemoPlan:
     tick_count: int
     fps: int
     actor_refs: list[str]
+    coordinate_frame: str = "road_local"
+    road_frame_selector: RoadFrameSelector = field(default_factory=RoadFrameSelector)
     object_spawn_specs: list[CarlaObjectSpawnSpec] = field(default_factory=list)
 
     def to_jsonable(self) -> dict[str, Any]:
@@ -55,6 +82,8 @@ class CarlaOodDemoPlan:
             "tick_count": self.tick_count,
             "fps": self.fps,
             "actor_refs": self.actor_refs,
+            "coordinate_frame": self.coordinate_frame,
+            "road_frame_selector": self.road_frame_selector.to_jsonable(),
             "object_spawn_specs": [
                 spec.to_jsonable() for spec in self.object_spawn_specs
             ],
@@ -74,6 +103,7 @@ class CarlaOodDemoResult:
     tracks_path: str | None = None
     rgb_folder: str | None = None
     plan_path: str | None = None
+    road_alignment_path: str | None = None
     spawned_actor_ids: list[int] = field(default_factory=list)
     destroyed_actor_ids: list[int] = field(default_factory=list)
     generated_asset_ids: list[str] = field(default_factory=list)
@@ -98,6 +128,7 @@ class CarlaOodDemoResult:
             "tracks_path": self.tracks_path,
             "rgb_folder": self.rgb_folder,
             "plan_path": self.plan_path,
+            "road_alignment_path": self.road_alignment_path,
             "spawned_actor_ids": self.spawned_actor_ids,
             "destroyed_actor_ids": self.destroyed_actor_ids,
             "generated_asset_ids": self.generated_asset_ids,
@@ -130,6 +161,13 @@ def load_carla_ood_demo_config(path: Path) -> CarlaOodDemoConfig:
         behavior_id=str(demo.get("behavior_id", "motorcycle_filtering")),
         ego_mode=str(demo.get("ego_mode", "scripted")),
         ego_speed_mps=float(demo.get("ego_speed_mps", 4.0)),
+        coordinate_frame=str(demo.get("coordinate_frame", "road_local")),
+        road_anchor_spawn_index=int(demo.get("road_anchor_spawn_index", 0)),
+        road_anchor_forward_m=float(demo.get("road_anchor_forward_m", 0.0)),
+        road_anchor_lateral_m=float(demo.get("road_anchor_lateral_m", 0.0)),
+        road_anchor_yaw_delta_deg=float(demo.get("road_anchor_yaw_delta_deg", 0.0)),
+        road_lane_width_m=float(demo.get("road_lane_width_m", 3.5)),
+        road_max_lateral_offset_m=float(demo.get("road_max_lateral_offset_m", 6.0)),
         cleanup=bool(demo.get("cleanup", True)),
     )
 
@@ -153,6 +191,8 @@ def build_carla_ood_demo_plan(
             "ood_actor_0",
             *[spec.actor_ref for spec in object_specs],
         ],
+        coordinate_frame=config.coordinate_frame,
+        road_frame_selector=config.road_frame_selector(),
         object_spawn_specs=object_specs,
     )
 
@@ -187,6 +227,7 @@ def run_carla_ood_demo(
     rgb_folder.mkdir(parents=True, exist_ok=True)
     tracks_path = run_dir / "entity_tracks.json"
     plan_path = run_dir / "carla_ood_demo_plan.json"
+    road_alignment_path = run_dir / "road_alignment_report.json"
     checkpoint_path = run_dir / "carla_ood_demo_live_checkpoint.json"
     plan = build_carla_ood_demo_plan(
         recipe,
@@ -205,6 +246,11 @@ def run_carla_ood_demo(
     camera_queue: "queue.Queue[object]" = queue.Queue()
     last_image: object | None = None
     actor_by_ref: dict[str, object] = {}
+    road_frame: RoadFrame | None = None
+    alignment_transforms: dict[str, list[dict[str, dict[str, float]]]] = {
+        "ego": [],
+        "ood_actor_0": [],
+    }
     try:
         client = carla.Client(config.host, config.port)
         client.set_timeout(config.timeout_s)
@@ -212,16 +258,16 @@ def run_carla_ood_demo(
         world_map = world.get_map()
         map_name = str(getattr(world_map, "name", "")) or None
         blueprints = world.get_blueprint_library()
+        road_frame = resolve_road_frame(world_map, config.road_frame_selector())
 
         ego_blueprint = _find_vehicle_blueprint(blueprints)
         if hasattr(ego_blueprint, "set_attribute"):
             ego_blueprint.set_attribute("role_name", "driverx_ood_ego")
-        spawn_points = list(world_map.get_spawn_points())
-        if not spawn_points:
-            raise RuntimeError("CARLA map has no spawn points.")
-        ego = _spawn_actor(world, ego_blueprint, spawn_points[0])
+        ego_spawn_payload = _road_transform(config, road_frame, 0.0, 0.0, 0.0, 0.0)
+        ego = _spawn_actor(world, ego_blueprint, _carla_transform(carla, ego_spawn_payload))
         spawned.append(ego)
         actor_by_ref["ego"] = ego
+        alignment_transforms["ego"].append(ego_spawn_payload)
 
         camera_blueprint = blueprints.find("sensor.camera.rgb")
         camera_blueprint.set_attribute("image_size_x", str(config.camera_width))
@@ -240,46 +286,67 @@ def run_carla_ood_demo(
         camera.listen(camera_queue.put)
 
         ood_blueprint = _find_blueprint(blueprints, _blueprint_for(behavior.plan.actor_kind))
+        ood_spawn_payload = _road_transform(
+            config,
+            road_frame,
+            behavior.samples[0].x_m,
+            behavior.samples[0].y_m,
+            0.0,
+            behavior.samples[0].heading_deg,
+        )
         ood_actor = world.spawn_actor(
             ood_blueprint,
-            _carla_transform(carla, _transform(behavior.samples[0].x_m, behavior.samples[0].y_m)),
+            _carla_transform(carla, ood_spawn_payload),
         )
         spawned.append(ood_actor)
         actor_by_ref["ood_actor_0"] = ood_actor
+        alignment_transforms["ood_actor_0"].append(ood_spawn_payload)
 
         for spec in plan.object_spawn_specs:
             blueprint = _find_blueprint(blueprints, spec.blueprint_filter)
+            spawn_transform = _spawn_transform_for_spec(config, road_frame, spec)
             actor = world.spawn_actor(
                 blueprint,
-                _carla_transform(carla, spec.spawn_transform),
+                _carla_transform(carla, spawn_transform),
             )
             spawned.append(actor)
             actor_by_ref[spec.actor_ref] = actor
+            alignment_transforms[spec.actor_ref] = [spawn_transform]
 
         for tick in range(plan.tick_count):
             sample = behavior.samples[min(tick, len(behavior.samples) - 1)]
             if ego_control_trace is not None and tick < len(ego_control_trace.commands):
                 _safe_apply_control_command(ego, ego_control_trace.commands[tick], carla)
+                ego_payload = _payload_from_actor(ego)
             elif config.ego_mode == "scripted":
+                ego_payload = _road_transform(
+                    config,
+                    road_frame,
+                    config.ego_speed_mps * tick / max(config.fps, 1),
+                    0.0,
+                    0.0,
+                    0.0,
+                )
                 _safe_set_transform(
                     ego,
-                    _carla_transform(
-                        carla,
-                        _transform(
-                            config.ego_speed_mps * tick / max(config.fps, 1),
-                            0.0,
-                            0.2,
-                            0.0,
-                        ),
-                    ),
+                    _carla_transform(carla, ego_payload),
                 )
+            else:
+                ego_payload = _payload_from_actor(ego)
+            alignment_transforms["ego"].append(ego_payload)
+            ood_payload = _road_transform(
+                config,
+                road_frame,
+                sample.x_m,
+                sample.y_m,
+                0.0,
+                sample.heading_deg,
+            )
             _safe_set_transform(
                 ood_actor,
-                _carla_transform(
-                    carla,
-                    _transform(sample.x_m, sample.y_m, 0.2, sample.heading_deg),
-                ),
+                _carla_transform(carla, ood_payload),
             )
+            alignment_transforms["ood_actor_0"].append(ood_payload)
             try:
                 world.wait_for_tick(config.timeout_s)
             except TypeError:
@@ -298,6 +365,7 @@ def run_carla_ood_demo(
                 frame_count=frame_count,
                 tracks_path=tracks_path,
                 rgb_folder=rgb_folder,
+                road_alignment_path=road_alignment_path,
                 spawned=spawned,
                 destroyed=destroyed,
                 blockers=blockers,
@@ -305,6 +373,16 @@ def run_carla_ood_demo(
         if frame_count == 0:
             blockers.append("No RGB frames were captured from the CARLA camera.")
         tracks_path.write_text(json.dumps(tracks, indent=2), encoding="utf-8")
+        alignment_payload = _write_road_alignment_report(
+            road_alignment_path,
+            road_frame=road_frame,
+            alignment_transforms=alignment_transforms,
+            config=config,
+        )
+        for actor_ref in ("ego", "ood_actor_0"):
+            report = alignment_payload.get("actors", {}).get(actor_ref, {})
+            if report and not report.get("starts_on_road", False):
+                blockers.append(f"{actor_ref} did not start inside the road-aligned corridor.")
         _write_live_checkpoint(
             checkpoint_path,
             config=config,
@@ -313,6 +391,7 @@ def run_carla_ood_demo(
             frame_count=frame_count,
             tracks_path=tracks_path,
             rgb_folder=rgb_folder,
+            road_alignment_path=road_alignment_path,
             spawned=spawned,
             destroyed=destroyed,
             blockers=blockers,
@@ -332,6 +411,7 @@ def run_carla_ood_demo(
             tracks_path=str(tracks_path) if tracks_path.exists() else None,
             rgb_folder=str(rgb_folder),
             plan_path=str(plan_path),
+            road_alignment_path=str(road_alignment_path) if road_alignment_path.exists() else None,
             spawned_actor_ids=_actor_ids(spawned),
             destroyed_actor_ids=destroyed,
             generated_asset_ids=[spec.asset_id for spec in plan.object_spawn_specs],
@@ -360,6 +440,7 @@ def run_carla_ood_demo(
         tracks_path=str(tracks_path),
         rgb_folder=str(rgb_folder),
         plan_path=str(plan_path),
+        road_alignment_path=str(road_alignment_path),
         spawned_actor_ids=_actor_ids(spawned),
         destroyed_actor_ids=destroyed,
         generated_asset_ids=[spec.asset_id for spec in plan.object_spawn_specs],
@@ -418,6 +499,67 @@ def _carla_transform(carla: object, payload: dict[str, dict[str, float]]) -> obj
             roll=float(rotation.get("roll", 0.0)),
         ),
     )
+
+
+def _road_transform(
+    config: CarlaOodDemoConfig,
+    road_frame: RoadFrame,
+    x_m: float,
+    y_m: float,
+    z_m: float = 0.0,
+    yaw_delta_deg: float = 0.0,
+) -> dict[str, dict[str, float]]:
+    if config.coordinate_frame == "absolute_world":
+        return _transform(x_m, y_m, z_m, yaw_delta_deg)
+    return local_pose_to_payload(road_frame, x_m, y_m, z_m, yaw_delta_deg)
+
+
+def _spawn_transform_for_spec(
+    config: CarlaOodDemoConfig,
+    road_frame: RoadFrame,
+    spec: CarlaObjectSpawnSpec,
+) -> dict[str, dict[str, float]]:
+    if config.coordinate_frame == "absolute_world" or spec.coordinate_frame == "absolute_world":
+        return spec.spawn_transform
+    return transform_payload_to_road_frame(road_frame, spec.spawn_transform)
+
+
+def _payload_from_actor(actor: object) -> dict[str, dict[str, float]]:
+    try:
+        transform = actor.get_transform()
+    except Exception:
+        return _transform(0.0, 0.0, 0.0, 0.0)
+    return {
+        "location": _vector_payload(transform.location),
+        "rotation": _rotation_payload(transform.rotation),
+    }
+
+
+def _write_road_alignment_report(
+    path: Path,
+    *,
+    road_frame: RoadFrame,
+    alignment_transforms: dict[str, list[dict[str, dict[str, float]]]],
+    config: CarlaOodDemoConfig,
+) -> dict[str, Any]:
+    actors = {
+        actor_ref: validate_road_aligned_track(
+            road_frame,
+            transforms,
+            actor_ref=actor_ref,
+            max_lateral_offset_m=config.road_max_lateral_offset_m,
+        ).to_jsonable()
+        for actor_ref, transforms in sorted(alignment_transforms.items())
+        if transforms
+    }
+    payload = {
+        "coordinate_frame": config.coordinate_frame,
+        "road_frame": road_frame.to_jsonable(),
+        "actors": actors,
+        "passes": all(report["passes"] for report in actors.values()),
+    }
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    return payload
 
 
 def _safe_set_transform(actor: object, transform: object) -> None:
@@ -497,6 +639,7 @@ def _write_live_checkpoint(
     frame_count: int,
     tracks_path: Path,
     rgb_folder: Path,
+    road_alignment_path: Path,
     spawned: list[object],
     destroyed: list[int],
     blockers: list[str],
@@ -512,6 +655,7 @@ def _write_live_checkpoint(
         "duration_s": round(frame_count / max(config.fps, 1), 4),
         "tracks_path": str(tracks_path),
         "rgb_folder": str(rgb_folder),
+        "road_alignment_path": str(road_alignment_path),
         "spawned_actor_ids": _actor_ids(spawned),
         "destroyed_actor_ids": destroyed,
         "generated_asset_ids": [spec.asset_id for spec in plan.object_spawn_specs],

@@ -9,6 +9,7 @@ from typing import Any
 
 from driverx.behaviors import BehaviorTrace
 from driverx.scenarios import ScenarioRecipe
+from driverx.simulators.carla_road_frame import RoadFrameSelector, transform_payload
 
 
 @dataclass(frozen=True)
@@ -57,6 +58,8 @@ class CarlaScriptPlan:
     recipe_id: str
     behavior_id: str
     route_path: Path
+    coordinate_frame: str
+    road_frame_selector: RoadFrameSelector
     actors: list[CarlaActorScript]
     sensors: list[CarlaSensorScript]
     ticks: list[dict[str, Any]]
@@ -69,6 +72,8 @@ class CarlaScriptPlan:
             "recipe_id": self.recipe_id,
             "behavior_id": self.behavior_id,
             "route_path": str(self.route_path),
+            "coordinate_frame": self.coordinate_frame,
+            "road_frame_selector": self.road_frame_selector.to_jsonable(),
             "actors": [actor.to_jsonable() for actor in self.actors],
             "sensors": [sensor.to_jsonable() for sensor in self.sensors],
             "ticks": self.ticks,
@@ -78,10 +83,7 @@ class CarlaScriptPlan:
 
 
 def _transform(x: float, y: float, z: float = 0.2, yaw: float = 0.0) -> dict[str, dict[str, float]]:
-    return {
-        "location": {"x": x, "y": y, "z": z},
-        "rotation": {"pitch": 0.0, "yaw": yaw, "roll": 0.0},
-    }
+    return transform_payload(x, y, z, yaw)
 
 
 def _blueprint_for(actor_kind: str) -> str:
@@ -96,6 +98,8 @@ def compile_carla_script_plan(
     recipe: ScenarioRecipe,
     behavior_trace: BehaviorTrace,
     output_dir: Path,
+    *,
+    road_frame_selector: RoadFrameSelector | None = None,
 ) -> CarlaScriptPlan:
     if recipe.route_path is None:
         raise ValueError("ScenarioRecipe.route_path is required for CARLA script compilation.")
@@ -103,6 +107,7 @@ def compile_carla_script_plan(
         raise ValueError("BehaviorTrace must contain samples.")
 
     script_id = f"{recipe.recipe_id}__{behavior_trace.plan.behavior_id}"
+    selector = road_frame_selector or RoadFrameSelector()
     behavior_actor_ref = "ood_actor_0"
     ego_actor_ref = "ego"
     camera_ref = "ego_rgb"
@@ -112,7 +117,7 @@ def compile_carla_script_plan(
             actor_ref=ego_actor_ref,
             role="ego",
             blueprint_filter="vehicle.lincoln.mkz_2020",
-            spawn_transform=_transform(0.0, 0.0, 0.2, 0.0),
+            spawn_transform=_transform(0.0, 0.0, 0.0, 0.0),
         ),
         CarlaActorScript(
             actor_ref=behavior_actor_ref,
@@ -121,7 +126,7 @@ def compile_carla_script_plan(
             spawn_transform=_transform(
                 first_sample.x_m,
                 first_sample.y_m,
-                0.2,
+                0.0,
                 first_sample.heading_deg,
             ),
             behavior_id=behavior_trace.plan.behavior_id,
@@ -142,7 +147,7 @@ def compile_carla_script_plan(
         {
             "t_s": sample.t_s,
             "actor_ref": behavior_actor_ref,
-            "target_transform": _transform(sample.x_m, sample.y_m, 0.2, sample.heading_deg),
+            "target_transform": _transform(sample.x_m, sample.y_m, 0.0, sample.heading_deg),
             "target_speed_mps": sample.speed_mps,
         }
         for sample in behavior_trace.samples
@@ -152,6 +157,8 @@ def compile_carla_script_plan(
         recipe_id=recipe.recipe_id,
         behavior_id=behavior_trace.plan.behavior_id,
         route_path=recipe.route_path,
+        coordinate_frame="road_local",
+        road_frame_selector=selector,
         actors=actors,
         sensors=sensors,
         ticks=ticks,
@@ -206,6 +213,8 @@ def _script_markdown(plan: CarlaScriptPlan) -> str:
         f"- recipe_id: `{plan.recipe_id}`",
         f"- behavior_id: `{plan.behavior_id}`",
         f"- route_path: `{plan.route_path}`",
+        f"- coordinate_frame: `{plan.coordinate_frame}`",
+        f"- road_anchor_spawn_index: `{plan.road_frame_selector.spawn_index}`",
         f"- actors: `{len(plan.actors)}`",
         f"- sensors: `{len(plan.sensors)}`",
         f"- ticks: `{len(plan.ticks)}`",

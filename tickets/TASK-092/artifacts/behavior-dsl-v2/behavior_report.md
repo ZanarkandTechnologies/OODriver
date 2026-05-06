@@ -1,0 +1,66 @@
+# Behavior Suite
+
+## motorcycle_filtering
+
+- actor_kind: `motorcycle`
+- tags: `filtering, lateral_uncertainty, motorcycle, severity_4, variant_7`
+- expected_pressure: Fast two-wheeler filters between lanes with lateral weave.
+- samples: `25`
+- `lateral_displacement_m`: `2.632`
+- `longitudinal_displacement_m`: `82.8324`
+- `max_lateral_speed_mps`: `5.7367`
+- `max_deceleration_mps2`: `0.0`
+- `max_heading_abs_deg`: `6.0`
+- `wrong_way_distance_m`: `0.0`
+
+## motorcycle_filtering
+
+- actor_kind: `motorcycle`
+- tags: `filtering, lateral_uncertainty, motorcycle, severity_4, variant_8`
+- expected_pressure: Fast two-wheeler filters between lanes with lateral weave.
+- samples: `25`
+- `lateral_displacement_m`: `1.8526`
+- `longitudinal_displacement_m`: `108.3918`
+- `max_lateral_speed_mps`: `4.0379`
+- `max_deceleration_mps2`: `0.0`
+- `max_heading_abs_deg`: `6.0`
+- `wrong_way_distance_m`: `0.0`
+
+## motorcycle_filtering
+
+- actor_kind: `motorcycle`
+- tags: `filtering, lateral_uncertainty, motorcycle, severity_4, variant_9`
+- expected_pressure: Fast two-wheeler filters between lanes with lateral weave.
+- samples: `25`
+- `lateral_displacement_m`: `2.024`
+- `longitudinal_displacement_m`: `93.7518`
+- `max_lateral_speed_mps`: `4.4115`
+- `max_deceleration_mps2`: `0.0`
+- `max_heading_abs_deg`: `6.0`
+- `wrong_way_distance_m`: `0.0`
+
+## motorcycle_filtering
+
+- actor_kind: `motorcycle`
+- tags: `filtering, lateral_uncertainty, motorcycle, severity_4, variant_10`
+- expected_pressure: Fast two-wheeler filters between lanes with lateral weave.
+- samples: `25`
+- `lateral_displacement_m`: `2.1272`
+- `longitudinal_displacement_m`: `100.6824`
+- `max_lateral_speed_mps`: `4.6364`
+- `max_deceleration_mps2`: `0.0`
+- `max_heading_abs_deg`: `6.0`
+- `wrong_way_distance_m`: `0.0`
+
+## motorcycle_filtering
+
+- actor_kind: `motorcycle`
+- tags: `filtering, lateral_uncertainty, motorcycle, severity_4, variant_11`
+- expected_pressure: Fast two-wheeler filters between lanes with lateral weave.
+- samples: `25`
+- `lateral_displacement_m`: `2.2818`
+- `longitudinal_displacement_m`: `88.4394`
+- `max_lateral_speed_mps`: `4.9734`
+- `max_deceleration_mps2`: `0.0`
+- `max_heading_abs_deg`: `6.0`
+- `wrong_way_distance_m`: `0.0`

@@ -6,6 +6,19 @@ unblocked ticket when possible.
 
 ## Open
 
+- 2026-05-06 22:21 +0800 | runpod,carla,vulkan,gpu | TASK-089 installed
+  CARLA 0.9.16 on the RTX 6000 Ada RunPod host at
+  `/workspace/carla/CARLA_0.9.16` and synced DriverX to
+  `/workspace/0xDriver`. Remote Python imports `carla`, and focused DriverX
+  tests pass on the GPU host. Live CARLA server launch is still blocked because
+  the container NVIDIA Vulkan ICD fails with `ERROR_INCOMPATIBLE_DRIVER` for
+  `libGLX_nvidia.so.0`; non-root CARLA launch never opens port `2000`.
+  Evidence:
+  `tickets/TASK-089/artifacts/remote-carla-setup/remote_carla_setup.md`.
+  Next unblock path: use a RunPod template/host with graphics-capable NVIDIA
+  Vulkan exposed, or keep CARLA local for rendering while using the GPU host for
+  Alpamayo inference and repo tests.
+
 - 2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060
   long-score attempt `town13-long-score-attempt-001` started the stock
   `Generalization_PedestriansOnRoad_1088` route and reached game time `0.600s`

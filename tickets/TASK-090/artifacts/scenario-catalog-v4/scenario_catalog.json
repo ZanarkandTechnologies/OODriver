@@ -1,0 +1,398 @@
+{
+  "record_count": 9,
+  "source_roots": [
+    "tickets/TASK-085/artifacts",
+    "tickets/TASK-086/artifacts",
+    "tickets/TASK-087/artifacts",
+    "tickets/TASK-088/artifacts",
+    "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3"
+  ],
+  "records": [
+    {
+      "scenario_id": "generated-base-animals-0076-obstacle-substitution-003",
+      "recipe_id": "generated-base-animals-0076-obstacle-substitution-003",
+      "case_id": null,
+      "family": "obstacle",
+      "behavior_id": "motorcycle_filtering",
+      "environment_tags": [
+        "animals"
+      ],
+      "ood_tags": [
+        "motorcycle_filtering",
+        "passed"
+      ],
+      "quality": {
+        "road_aligned": null,
+        "has_conflict": true,
+        "has_video": false,
+        "has_model_reasoning": false,
+        "status": "blocked"
+      },
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "quality_report": null,
+        "scenario_report": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/carla_ood_demo.json",
+        "rgb_folder": null,
+        "package": null,
+        "comparison": null
+      },
+      "promotion": {
+        "status": "blocked",
+        "reason": "road alignment is required but missing or failed; video evidence is required but missing"
+      },
+      "source_artifacts": [
+        "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/carla_ood_demo.json",
+        "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/scripted_ood_campaign_summary.json"
+      ],
+      "blockers": [
+        "road alignment is required but missing or failed",
+        "video evidence is required but missing"
+      ]
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-obstacle-substitution-006",
+      "recipe_id": "generated-base-animals-0076-obstacle-substitution-006",
+      "case_id": null,
+      "family": "obstacle",
+      "behavior_id": "motorcycle_filtering",
+      "environment_tags": [
+        "animals"
+      ],
+      "ood_tags": [],
+      "quality": {
+        "road_aligned": null,
+        "has_conflict": null,
+        "has_video": false,
+        "has_model_reasoning": false,
+        "status": "legacy_passed"
+      },
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry02-generated-base-animals-0076-obstacle-substitution-006-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "quality_report": null,
+        "scenario_report": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry02-generated-base-animals-0076-obstacle-substitution-006-motorcycle_filtering/carla_ood_demo.json",
+        "rgb_folder": null,
+        "package": null,
+        "comparison": null
+      },
+      "promotion": {
+        "status": "blocked",
+        "reason": "status=legacy_passed"
+      },
+      "source_artifacts": [
+        "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry02-generated-base-animals-0076-obstacle-substitution-006-motorcycle_filtering/carla_ood_demo.json"
+      ],
+      "blockers": []
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "recipe_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "case_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "family": "regional",
+      "behavior_id": null,
+      "environment_tags": [
+        "animals",
+        "regional-driving-behavior"
+      ],
+      "ood_tags": [
+        "mem-sample-motorcycle-filtering"
+      ],
+      "quality": {
+        "road_aligned": null,
+        "has_conflict": null,
+        "has_video": false,
+        "has_model_reasoning": true,
+        "status": "open_loop_only"
+      },
+      "artifacts": {
+        "video": null,
+        "tracks": null,
+        "reasoning": "tickets/TASK-081/artifacts/task81-live-same-scene-memory-summary/alpamayo_policy_decision.json",
+        "quality_report": null,
+        "scenario_report": null,
+        "rgb_folder": null,
+        "package": "tickets/TASK-080/artifacts/task80-live-same-scene-package-001/alpamayo_carla_input_package.json",
+        "comparison": "tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json"
+      },
+      "promotion": {
+        "status": "rejected",
+        "reason": "status=open_loop_only"
+      },
+      "source_artifacts": [
+        "tickets/TASK-086/artifacts/task86-plan-cache/alpamayo_ood_batch_summary.json"
+      ],
+      "blockers": []
+    },
+    {
+      "scenario_id": "generated-base-animals-0076-visual-noise-000",
+      "recipe_id": "generated-base-animals-0076-visual-noise-000",
+      "case_id": null,
+      "family": "visual",
+      "behavior_id": "motorcycle_filtering",
+      "environment_tags": [
+        "animals",
+        "visual-noise"
+      ],
+      "ood_tags": [
+        "asset-fallen-cargo-sack",
+        "asset-reflective-flood-barrier",
+        "asset-roadside-food-cart",
+        "live_carla",
+        "motorcycle_filtering",
+        "passed",
+        "video"
+      ],
+      "quality": {
+        "road_aligned": null,
+        "has_conflict": true,
+        "has_video": true,
+        "has_model_reasoning": false,
+        "status": "legacy_passed"
+      },
+      "artifacts": {
+        "video": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/local-video/generated-base-animals-0076-visual-noise-000_ood.mp4",
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/entity_tracks.json",
+        "reasoning": null,
+        "quality_report": null,
+        "scenario_report": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla_ood_demo.json",
+        "rgb_folder": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla/rgb",
+        "package": null,
+        "comparison": null
+      },
+      "promotion": {
+        "status": "blocked",
+        "reason": "quality_status=legacy_passed"
+      },
+      "source_artifacts": [
+        "tickets/TASK-085/artifacts/task85-fake-campaign/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla_ood_demo.json",
+        "tickets/TASK-085/artifacts/task85-fake-campaign/scripted_ood_campaign_summary.json",
+        "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla/carla_ood_demo.json",
+        "tickets/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.json",
+        "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-generated-base-animals-0076-visual-noise-000-motorcycle_filtering/carla_ood_demo.json"
+      ],
+      "blockers": []
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-obstacle-substitution-004",
+      "recipe_id": "generated-generalization-customobstacles-1028-obstacle-substitution-004",
+      "case_id": null,
+      "family": "obstacle",
+      "behavior_id": "sudden_brake",
+      "environment_tags": [
+        "customobstacles"
+      ],
+      "ood_tags": [],
+      "quality": {
+        "road_aligned": null,
+        "has_conflict": null,
+        "has_video": false,
+        "has_model_reasoning": false,
+        "status": "legacy_passed"
+      },
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-generated-generalization-customobstacles-1028-obstacle-substitution-004-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "quality_report": null,
+        "scenario_report": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-generated-generalization-customobstacles-1028-obstacle-substitution-004-sudden_brake/carla_ood_demo.json",
+        "rgb_folder": null,
+        "package": null,
+        "comparison": null
+      },
+      "promotion": {
+        "status": "blocked",
+        "reason": "status=legacy_passed"
+      },
+      "source_artifacts": [
+        "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-generated-generalization-customobstacles-1028-obstacle-substitution-004-sudden_brake/carla_ood_demo.json"
+      ],
+      "blockers": []
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-occlusion-001",
+      "recipe_id": "generated-generalization-customobstacles-1028-occlusion-001",
+      "case_id": null,
+      "family": "occlusion",
+      "behavior_id": "sudden_brake",
+      "environment_tags": [
+        "customobstacles",
+        "occlusion"
+      ],
+      "ood_tags": [
+        "asset-fallen-cargo-sack",
+        "asset-reflective-flood-barrier",
+        "asset-roadside-food-cart",
+        "live_carla",
+        "passed",
+        "sudden_brake",
+        "video"
+      ],
+      "quality": {
+        "road_aligned": null,
+        "has_conflict": true,
+        "has_video": true,
+        "has_model_reasoning": false,
+        "status": "legacy_passed"
+      },
+      "artifacts": {
+        "video": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/generated-generalization-customobstacles-1028-occlusion-001_ood.mp4",
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "quality_report": null,
+        "scenario_report": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla_ood_demo.json",
+        "rgb_folder": "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla/rgb",
+        "package": null,
+        "comparison": null
+      },
+      "promotion": {
+        "status": "blocked",
+        "reason": "quality_status=legacy_passed"
+      },
+      "source_artifacts": [
+        "tickets/TASK-085/artifacts/task85-fake-campaign/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla_ood_demo.json",
+        "tickets/TASK-085/artifacts/task85-fake-campaign/scripted_ood_campaign_summary.json",
+        "tickets/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla/carla_ood_demo.json",
+        "tickets/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.json",
+        "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry01-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/carla_ood_demo.json"
+      ],
+      "blockers": []
+    },
+    {
+      "scenario_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+      "recipe_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+      "case_id": null,
+      "family": "visual",
+      "behavior_id": "sudden_brake",
+      "environment_tags": [
+        "customobstacles",
+        "visual-noise"
+      ],
+      "ood_tags": [
+        "blocked",
+        "sudden_brake"
+      ],
+      "quality": {
+        "road_aligned": null,
+        "has_conflict": true,
+        "has_video": false,
+        "has_model_reasoning": false,
+        "status": "blocked"
+      },
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/entity_tracks.json",
+        "reasoning": null,
+        "quality_report": null,
+        "scenario_report": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/carla_ood_demo.json",
+        "rgb_folder": null,
+        "package": null,
+        "comparison": null
+      },
+      "promotion": {
+        "status": "blocked",
+        "reason": "behavior_validation:max_deceleration_mps2 13.60 exceeds 9.00; behavior_validation:time_to_conflict_s 0.00 is too early for a solvable setup; road alignment is required but missing or failed; video evidence is required but missing"
+      },
+      "source_artifacts": [
+        "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/carla_ood_demo.json",
+        "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/scripted_ood_campaign_summary.json"
+      ],
+      "blockers": [
+        "behavior_validation:max_deceleration_mps2 13.60 exceeds 9.00",
+        "behavior_validation:time_to_conflict_s 0.00 is too early for a solvable setup",
+        "road alignment is required but missing or failed",
+        "video evidence is required but missing"
+      ]
+    },
+    {
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+      "recipe_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+      "case_id": null,
+      "family": "lane",
+      "behavior_id": "unsignaled_u_turn",
+      "environment_tags": [
+        "pedestrians"
+      ],
+      "ood_tags": [
+        "passed",
+        "unsignaled_u_turn"
+      ],
+      "quality": {
+        "road_aligned": null,
+        "has_conflict": true,
+        "has_video": false,
+        "has_model_reasoning": false,
+        "status": "legacy_passed"
+      },
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/002-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/entity_tracks.json",
+        "reasoning": null,
+        "quality_report": null,
+        "scenario_report": "tickets/TASK-085/artifacts/task85-fake-campaign/cases/002-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/carla_ood_demo.json",
+        "rgb_folder": null,
+        "package": null,
+        "comparison": null
+      },
+      "promotion": {
+        "status": "blocked",
+        "reason": "quality_status=legacy_passed"
+      },
+      "source_artifacts": [
+        "tickets/TASK-085/artifacts/task85-fake-campaign/cases/002-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/carla_ood_demo.json",
+        "tickets/TASK-085/artifacts/task85-fake-campaign/scripted_ood_campaign_summary.json",
+        "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry02-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/carla_ood_demo.json"
+      ],
+      "blockers": []
+    },
+    {
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005",
+      "recipe_id": "generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005",
+      "case_id": null,
+      "family": "regional",
+      "behavior_id": "unsignaled_u_turn",
+      "environment_tags": [
+        "pedestrians",
+        "regional-driving-behavior"
+      ],
+      "ood_tags": [],
+      "quality": {
+        "road_aligned": null,
+        "has_conflict": null,
+        "has_video": false,
+        "has_model_reasoning": false,
+        "status": "legacy_passed"
+      },
+      "artifacts": {
+        "video": null,
+        "tracks": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry01-generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005-unsignaled_u_turn/entity_tracks.json",
+        "reasoning": null,
+        "quality_report": null,
+        "scenario_report": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry01-generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005-unsignaled_u_turn/carla_ood_demo.json",
+        "rgb_folder": null,
+        "package": null,
+        "comparison": null
+      },
+      "promotion": {
+        "status": "blocked",
+        "reason": "status=legacy_passed"
+      },
+      "source_artifacts": [
+        "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry01-generated-generalization-pedestriansonroad-1088-regional-driving-behavior-005-unsignaled_u_turn/carla_ood_demo.json"
+      ],
+      "blockers": []
+    }
+  ],
+  "promotion_counts": {
+    "blocked": 8,
+    "rejected": 1
+  },
+  "quality_counts": {
+    "has_video": 2,
+    "has_model_reasoning": 1,
+    "road_aligned_true": 0,
+    "road_aligned_unknown": 9
+  }
+}

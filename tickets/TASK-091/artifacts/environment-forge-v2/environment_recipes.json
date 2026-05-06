@@ -1,0 +1,521 @@
+[
+  {
+    "recipe_id": "env-construction-lane-closure-s3-0007",
+    "template_id": "construction_lane_closure",
+    "family": "construction",
+    "severity": 3,
+    "random_seed": 7,
+    "tags": [
+      "cones",
+      "construction",
+      "lane_closure",
+      "severity_3",
+      "work_zone"
+    ],
+    "weather": {
+      "cloudiness": 30.0,
+      "precipitation": 0.0,
+      "fog_density": 0.0
+    },
+    "lighting": {
+      "sun_altitude_angle": 45.0,
+      "sun_azimuth_angle": 10.0
+    },
+    "traffic": {
+      "target_speed_multiplier": 0.55,
+      "density_multiplier": 0.8
+    },
+    "assets": [
+      {
+        "asset_id": "construction-cone-line",
+        "role": "lane_boundary",
+        "semantic_tags": [
+          "construction",
+          "barrier",
+          "lane_obstacle"
+        ],
+        "dimensions_m": {
+          "length": 0.35,
+          "width": 0.35,
+          "height": 0.7
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 0.35,
+          "width": 0.35,
+          "height": 0.7
+        },
+        "base_placement": {
+          "relative_to": "ego_lane",
+          "x_m": 14.639,
+          "y_m": 1.323,
+          "yaw_deg": 4.339
+        },
+        "prompt": "orange construction cones forming a taper into one lane, game-ready prop set",
+        "blueprint_hint": "static.prop.constructioncone"
+      },
+      {
+        "asset_id": "portable-work-barrier",
+        "role": "partial_blocker",
+        "semantic_tags": [
+          "construction",
+          "barrier",
+          "route_blockage"
+        ],
+        "dimensions_m": {
+          "length": 2.4,
+          "width": 0.35,
+          "height": 1.0
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 2.4,
+          "width": 0.35,
+          "height": 1.0
+        },
+        "base_placement": {
+          "relative_to": "lane_center",
+          "x_m": 23.386,
+          "y_m": 0.337,
+          "yaw_deg": 12.331
+        },
+        "prompt": "portable orange and white road-work barrier blocking part of a lane",
+        "blueprint_hint": "static.prop.constructioncone"
+      }
+    ],
+    "expected_policy_pressure": "Slow down, bias away from closure, and avoid overreacting to cones outside the drivable corridor.",
+    "meshy_prompts": [
+      "game-ready Malaysian roadwork barrier with reflective strips, low-poly GLB",
+      "cluster of worn construction cones with dirt and tropical road grime, GLB"
+    ]
+  },
+  {
+    "recipe_id": "env-roadside-market-occlusion-s3-0008",
+    "template_id": "roadside_market_occlusion",
+    "family": "regional_market",
+    "severity": 3,
+    "random_seed": 8,
+    "tags": [
+      "malaysian_driving",
+      "occlusion",
+      "regional_context",
+      "roadside_market",
+      "severity_3"
+    ],
+    "weather": {
+      "cloudiness": 45.0,
+      "precipitation": 0.0,
+      "fog_density": 0.0
+    },
+    "lighting": {
+      "sun_altitude_angle": 35.0,
+      "sun_azimuth_angle": 25.0
+    },
+    "traffic": {
+      "target_speed_multiplier": 0.65,
+      "density_multiplier": 1.35
+    },
+    "assets": [
+      {
+        "asset_id": "roadside-food-cart",
+        "role": "occluder",
+        "semantic_tags": [
+          "roadside_vendor",
+          "occlusion",
+          "regional_context"
+        ],
+        "dimensions_m": {
+          "length": 2.2,
+          "width": 1.1,
+          "height": 2.1
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 2.2,
+          "width": 1.1,
+          "height": 2.1
+        },
+        "base_placement": {
+          "relative_to": "curb",
+          "x_m": 13.757,
+          "y_m": -4.253,
+          "yaw_deg": 1.536
+        },
+        "prompt": "small Malaysian roadside food cart with umbrella and metal counter, static game prop",
+        "blueprint_hint": "static.prop.foodcart"
+      },
+      {
+        "asset_id": "market-plastic-crates",
+        "role": "distractor_clutter",
+        "semantic_tags": [
+          "unknown_object",
+          "roadside_vendor",
+          "occlusion"
+        ],
+        "dimensions_m": {
+          "length": 1.2,
+          "width": 0.8,
+          "height": 0.6
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 1.2,
+          "width": 0.8,
+          "height": 0.6
+        },
+        "base_placement": {
+          "relative_to": "curb",
+          "x_m": 21.228,
+          "y_m": -4.229,
+          "yaw_deg": 22.206
+        },
+        "prompt": "stack of colorful plastic market crates near curb, game-ready prop",
+        "blueprint_hint": "static.prop.dirtdebris01"
+      }
+    ],
+    "expected_policy_pressure": "Creep around occlusion and preserve clearance around shoulder clutter.",
+    "meshy_prompts": [
+      "Malaysian roadside nasi lemak food cart with umbrella, game-ready GLB",
+      "stacked plastic market crates and sacks on road shoulder, low-poly GLB"
+    ]
+  },
+  {
+    "recipe_id": "env-flooded-road-s3-0009",
+    "template_id": "flooded_road",
+    "family": "weather_surface",
+    "severity": 3,
+    "random_seed": 9,
+    "tags": [
+      "flood",
+      "reduced_friction",
+      "severity_3",
+      "weather",
+      "wet_road"
+    ],
+    "weather": {
+      "cloudiness": 85.0,
+      "precipitation": 80.0,
+      "precipitation_deposits": 90.0,
+      "fog_density": 8.0
+    },
+    "lighting": {
+      "sun_altitude_angle": 18.0,
+      "sun_azimuth_angle": 45.0
+    },
+    "traffic": {
+      "target_speed_multiplier": 0.45,
+      "density_multiplier": 0.7
+    },
+    "assets": [
+      {
+        "asset_id": "reflective-flood-barrier",
+        "role": "route_warning",
+        "semantic_tags": [
+          "flood",
+          "barrier",
+          "route_blockage"
+        ],
+        "dimensions_m": {
+          "length": 3.0,
+          "width": 0.35,
+          "height": 0.7
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 3.0,
+          "width": 0.35,
+          "height": 0.7
+        },
+        "base_placement": {
+          "relative_to": "lane_center",
+          "x_m": 18.418,
+          "y_m": -0.089,
+          "yaw_deg": 6.519
+        },
+        "prompt": "portable reflective flood warning barrier across part of a wet road",
+        "blueprint_hint": "static.prop.constructioncone"
+      },
+      {
+        "asset_id": "waterlogged-cargo-sack",
+        "role": "low_obstacle",
+        "semantic_tags": [
+          "debris",
+          "flood",
+          "unknown_object",
+          "lane_obstacle"
+        ],
+        "dimensions_m": {
+          "length": 1.4,
+          "width": 0.8,
+          "height": 0.35
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 1.4,
+          "width": 0.8,
+          "height": 0.35
+        },
+        "base_placement": {
+          "relative_to": "ego_lane",
+          "x_m": 27.569,
+          "y_m": 0.096,
+          "yaw_deg": -4.3
+        },
+        "prompt": "waterlogged cargo sack lying in shallow flood water on a road",
+        "blueprint_hint": "static.prop.dirtdebris01"
+      }
+    ],
+    "expected_policy_pressure": "Reduce speed for wet surface and route around low-profile waterlogged obstacles.",
+    "meshy_prompts": [
+      "reflective flood barrier on wet tropical road, low-poly GLB",
+      "waterlogged cargo sack half submerged in shallow road water, GLB"
+    ]
+  },
+  {
+    "recipe_id": "env-night-rain-fog-s3-0010",
+    "template_id": "night_rain_fog",
+    "family": "visibility",
+    "severity": 3,
+    "random_seed": 10,
+    "tags": [
+      "fog",
+      "glare",
+      "night",
+      "rain",
+      "severity_3",
+      "visibility"
+    ],
+    "weather": {
+      "cloudiness": 100.0,
+      "precipitation": 65.0,
+      "precipitation_deposits": 70.0,
+      "fog_density": 45.0
+    },
+    "lighting": {
+      "sun_altitude_angle": -12.0,
+      "sun_azimuth_angle": 0.0
+    },
+    "traffic": {
+      "target_speed_multiplier": 0.5,
+      "density_multiplier": 0.9
+    },
+    "assets": [
+      {
+        "asset_id": "glare-warning-board",
+        "role": "visual_distractor",
+        "semantic_tags": [
+          "visual_noise",
+          "signage",
+          "glare"
+        ],
+        "dimensions_m": {
+          "length": 1.8,
+          "width": 0.2,
+          "height": 1.3
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 1.8,
+          "width": 0.2,
+          "height": 1.3
+        },
+        "base_placement": {
+          "relative_to": "curb",
+          "x_m": 21.284,
+          "y_m": -4.688,
+          "yaw_deg": -14.768
+        },
+        "prompt": "bright reflective temporary warning sign in rain and fog",
+        "blueprint_hint": "static.prop.constructioncone"
+      }
+    ],
+    "expected_policy_pressure": "Maintain lane discipline despite glare and avoid treating reflective clutter as a drivable target.",
+    "meshy_prompts": [
+      "reflective warning board glowing in tropical rain at night, game-ready GLB"
+    ]
+  },
+  {
+    "recipe_id": "env-dense-regional-traffic-s3-0011",
+    "template_id": "dense_regional_traffic",
+    "family": "regional_traffic",
+    "severity": 3,
+    "random_seed": 11,
+    "tags": [
+      "dense_traffic",
+      "low_lane_discipline",
+      "malaysian_driving",
+      "motorcycle_filtering",
+      "severity_3"
+    ],
+    "weather": {
+      "cloudiness": 55.0,
+      "precipitation": 5.0,
+      "fog_density": 0.0
+    },
+    "lighting": {
+      "sun_altitude_angle": 38.0,
+      "sun_azimuth_angle": 65.0
+    },
+    "traffic": {
+      "target_speed_multiplier": 0.6,
+      "density_multiplier": 1.8,
+      "lane_discipline": "low"
+    },
+    "assets": [
+      {
+        "asset_id": "parked-scooter-cluster",
+        "role": "shoulder_clutter",
+        "semantic_tags": [
+          "motorcycle",
+          "two_wheeler",
+          "occlusion",
+          "regional_context"
+        ],
+        "dimensions_m": {
+          "length": 2.0,
+          "width": 1.4,
+          "height": 1.2
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 2.0,
+          "width": 1.4,
+          "height": 1.2
+        },
+        "base_placement": {
+          "relative_to": "curb",
+          "x_m": 15.125,
+          "y_m": -4.537,
+          "yaw_deg": 9.283
+        },
+        "prompt": "cluster of parked scooters on a busy Malaysian road shoulder",
+        "blueprint_hint": "vehicle.kawasaki.ninja"
+      }
+    ],
+    "expected_policy_pressure": "Account for unsignaled lateral motion and two-wheelers appearing in small gaps.",
+    "meshy_prompts": [
+      "parked scooter cluster beside Malaysian urban road, low-poly GLB"
+    ]
+  },
+  {
+    "recipe_id": "env-school-zone-unstructured-crossing-s3-0012",
+    "template_id": "school_zone_unstructured_crossing",
+    "family": "pedestrian_occlusion",
+    "severity": 3,
+    "random_seed": 12,
+    "tags": [
+      "malaysian_driving",
+      "pedestrian_occlusion",
+      "regional_context",
+      "school_zone",
+      "severity_3",
+      "unsignalized_crossing"
+    ],
+    "weather": {
+      "cloudiness": 40.0,
+      "precipitation": 0.0,
+      "fog_density": 0.0
+    },
+    "lighting": {
+      "sun_altitude_angle": 32.0,
+      "sun_azimuth_angle": 80.0
+    },
+    "traffic": {
+      "target_speed_multiplier": 0.38,
+      "density_multiplier": 1.25,
+      "yield_pressure": "high"
+    },
+    "assets": [
+      {
+        "asset_id": "school-crossing-board",
+        "role": "yield_context",
+        "semantic_tags": [
+          "school_zone",
+          "signage",
+          "pedestrian_occlusion"
+        ],
+        "dimensions_m": {
+          "length": 1.2,
+          "width": 0.18,
+          "height": 1.6
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 1.2,
+          "width": 0.18,
+          "height": 1.6
+        },
+        "base_placement": {
+          "relative_to": "curb",
+          "x_m": 14.039,
+          "y_m": -4.216,
+          "yaw_deg": -9.581
+        },
+        "prompt": "temporary school crossing warning board beside tropical urban road, game-ready prop",
+        "blueprint_hint": "static.prop.warningconstruction"
+      },
+      {
+        "asset_id": "parked-van-occluder",
+        "role": "occluder",
+        "semantic_tags": [
+          "parked_vehicle",
+          "pedestrian_occlusion",
+          "regional_context"
+        ],
+        "dimensions_m": {
+          "length": 4.8,
+          "width": 1.9,
+          "height": 2.2
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 4.8,
+          "width": 1.9,
+          "height": 2.2
+        },
+        "base_placement": {
+          "relative_to": "curb",
+          "x_m": 21.96,
+          "y_m": -4.153,
+          "yaw_deg": 4.349
+        },
+        "prompt": "parked white delivery van partly blocking view of a school crossing, game-ready vehicle prop",
+        "blueprint_hint": "vehicle.ford.ambulance"
+      },
+      {
+        "asset_id": "loose-school-bag",
+        "role": "small_unknown_object",
+        "semantic_tags": [
+          "unknown_object",
+          "school_zone",
+          "low_obstacle"
+        ],
+        "dimensions_m": {
+          "length": 0.55,
+          "width": 0.35,
+          "height": 0.28
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 0.55,
+          "width": 0.35,
+          "height": 0.28
+        },
+        "base_placement": {
+          "relative_to": "ego_lane",
+          "x_m": 28.024,
+          "y_m": -0.404,
+          "yaw_deg": 24.175
+        },
+        "prompt": "small colorful school bag dropped near a lane edge, low-poly road prop",
+        "blueprint_hint": "static.prop.dirtdebris01"
+      }
+    ],
+    "expected_policy_pressure": "Anticipate a hidden pedestrian near the crossing, slow early, and avoid swerving toward the dropped object.",
+    "meshy_prompts": [
+      "temporary Malaysian school crossing board with reflective paint, game-ready GLB",
+      "parked delivery van occluding a crosswalk in a tropical street, low-poly GLB",
+      "small dropped school bag at road edge, game-ready GLB"
+    ]
+  }
+]

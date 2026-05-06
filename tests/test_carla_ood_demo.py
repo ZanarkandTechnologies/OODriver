@@ -85,7 +85,7 @@ class _FakeMap:
     name = "Carla/Maps/Town13/Town13"
 
     def get_spawn_points(self):
-        return [_FakeTransform(_FakeLocation(0.0, 0.0, 0.2), _FakeRotation(0.0, 0.0, 0.0))]
+        return [_FakeTransform(_FakeLocation(100.0, 200.0, 0.2), _FakeRotation(0.0, 90.0, 0.0))]
 
 
 class _FakeWorld:
@@ -207,6 +207,7 @@ class CarlaOodDemoTest(unittest.TestCase):
             )
             summary = write_carla_ood_demo(run_dir, result)
             tracks = json.loads(Path(result.tracks_path or "").read_text(encoding="utf-8"))
+            alignment = json.loads(Path(result.road_alignment_path or "").read_text(encoding="utf-8"))
             frames = sorted(Path(result.rgb_folder or "").glob("*.png"))
             json_exists = Path(summary["json_path"]).exists()
             report_exists = Path(summary["report_path"]).exists()
@@ -214,6 +215,11 @@ class CarlaOodDemoTest(unittest.TestCase):
         self.assertEqual(result.status, "passed")
         self.assertEqual(result.frame_count, 6)
         self.assertEqual(result.duration_s, 2.0)
+        self.assertEqual(alignment["coordinate_frame"], "road_local")
+        self.assertTrue(alignment["actors"]["ego"]["starts_on_road"])
+        self.assertTrue(alignment["actors"]["ood_actor_0"]["starts_on_road"])
+        self.assertAlmostEqual(alignment["road_frame"]["origin"]["x"], 100.0)
+        self.assertAlmostEqual(alignment["road_frame"]["origin"]["y"], 200.0)
         self.assertEqual(len(frames), 6)
         self.assertEqual(len(tracks), 6 * 5)
         self.assertEqual(result.generated_asset_ids, [
@@ -224,6 +230,24 @@ class CarlaOodDemoTest(unittest.TestCase):
         self.assertTrue(all(actor.destroyed for actor in carla.world.spawned))
         self.assertTrue(json_exists)
         self.assertTrue(report_exists)
+
+    def test_run_carla_ood_demo_uses_road_local_not_absolute_xy(self) -> None:
+        with TemporaryDirectory() as tmp:
+            run_dir = Path(tmp)
+            carla = _FakeCarla()
+            result = run_carla_ood_demo(
+                CarlaOodDemoConfig(tick_count=1, fps=1),
+                run_dir,
+                recipe=_recipe(),
+                behavior=_behavior(),
+                carla_module=carla,
+            )
+            tracks = json.loads(Path(result.tracks_path or "").read_text(encoding="utf-8"))
+
+        ood_track = next(track for track in tracks if track["actor_ref"] == "ood_actor_0")
+        self.assertNotEqual(ood_track["location"]["x"], 0.0)
+        self.assertAlmostEqual(ood_track["location"]["x"], 98.25)
+        self.assertAlmostEqual(ood_track["location"]["y"], 200.0)
 
     def test_missing_carla_package_reports_blocker(self) -> None:
         with TemporaryDirectory() as tmp:

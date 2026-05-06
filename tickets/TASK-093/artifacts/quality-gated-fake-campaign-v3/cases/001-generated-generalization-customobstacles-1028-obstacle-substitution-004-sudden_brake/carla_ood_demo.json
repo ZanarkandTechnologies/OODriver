@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "connected": false,
+  "scripted_campaign_fake": true,
+  "recipe_id": "generated-generalization-customobstacles-1028-obstacle-substitution-004",
+  "scenario_id": "generated-generalization-customobstacles-1028-obstacle-substitution-004",
+  "behavior_id": "sudden_brake",
+  "frame_count": 0,
+  "duration_s": 5.0,
+  "tracks_path": "tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-generated-generalization-customobstacles-1028-obstacle-substitution-004-sudden_brake/entity_tracks.json",
+  "rgb_folder": null,
+  "blockers": [],
+  "claim_boundaries": [
+    "scripted_ood_campaign_fake=true",
+    "live_carla=false",
+    "stock_fail2drive_score=false"
+  ]
+}

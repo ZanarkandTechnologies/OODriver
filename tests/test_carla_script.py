@@ -28,8 +28,12 @@ class CarlaScriptCompilerTest(unittest.TestCase):
 
         self.assertEqual(plan.recipe_id, recipe.recipe_id)
         self.assertEqual(plan.behavior_id, "motorcycle_filtering")
+        self.assertEqual(plan.coordinate_frame, "road_local")
+        self.assertEqual(plan.road_frame_selector.spawn_index, 0)
         self.assertEqual(validate_carla_script_plan(plan), [])
         self.assertEqual(plan.actors[0].role, "ego")
+        self.assertEqual(plan.actors[0].spawn_transform["location"]["x"], 0.0)
+        self.assertEqual(plan.actors[1].spawn_transform["location"]["y"], behavior.samples[0].y_m)
         self.assertEqual(plan.actors[1].sample_count, len(behavior.samples))
         self.assertEqual(plan.cleanup_order[-1], "ego")
 
@@ -60,6 +64,8 @@ class CarlaScriptCompilerTest(unittest.TestCase):
             report = Path(summary["report_path"]).read_text(encoding="utf-8")
 
         self.assertEqual(payload["behavior_id"], behavior.plan.behavior_id)
+        self.assertEqual(payload["coordinate_frame"], "road_local")
+        self.assertIn("road_frame_selector", payload)
         self.assertEqual(summary["validation_errors"], [])
         self.assertIn("# CARLA Script Plan", report)
 

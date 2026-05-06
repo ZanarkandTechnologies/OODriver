@@ -1,0 +1,37 @@
+{
+  "thresholds": {
+    "min_duration_s": 999.0,
+    "min_frame_count": 0,
+    "max_min_distance_m": 6.0,
+    "require_video": true,
+    "require_road_alignment": true,
+    "require_conflict": true
+  },
+  "report_count": 1,
+  "passed_count": 0,
+  "blocked_count": 1,
+  "passed_case_ids": [],
+  "reports": [
+    {
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+      "case_id": "000-retry02-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn",
+      "passes": false,
+      "status": "blocked",
+      "metrics": {
+        "duration_s": 5.0,
+        "frame_count": 0,
+        "min_distance_m": 0.5285,
+        "has_video": false,
+        "road_aligned": null
+      },
+      "blockers": [
+        "duration_s 5.00 below 999.00",
+        "video evidence is required but missing",
+        "road alignment is required but missing or failed"
+      ],
+      "warnings": []
+    }
+  ],
+  "json_path": "tickets/TASK-093/artifacts/quality-retry-proof-v2/quality/scenario_quality_summary.json",
+  "report_path": "tickets/TASK-093/artifacts/quality-retry-proof-v2/quality/scenario_quality_summary.md"
+}

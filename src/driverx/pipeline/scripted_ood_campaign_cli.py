@@ -22,6 +22,8 @@ def command_run_scripted_ood_campaign(args: argparse.Namespace) -> int:
         updates["live"] = True
     if args.assemble_video:
         updates["assemble_video"] = True
+    if args.quality_retry_limit is not None:
+        updates["quality_retry_limit"] = args.quality_retry_limit
     if args.run_id:
         updates["run_id"] = args.run_id
     if args.output_root is not None:
@@ -30,7 +32,7 @@ def command_run_scripted_ood_campaign(args: argparse.Namespace) -> int:
         config = type(config)(**{**config.__dict__, **updates})
     summary = run_scripted_ood_campaign(config)
     print(json.dumps(summary, indent=2))
-    return 0 if summary.get("status") in {"passed", "partial"} else 2
+    return 0 if summary.get("status") in {"passed", "partial", "quality_blocked"} else 2
 
 
 def register_scripted_ood_campaign_parser(subparsers: Any) -> None:
@@ -42,6 +44,7 @@ def register_scripted_ood_campaign_parser(subparsers: Any) -> None:
     parser.add_argument("--limit", type=int)
     parser.add_argument("--live", action="store_true")
     parser.add_argument("--assemble-video", action="store_true")
+    parser.add_argument("--quality-retry-limit", type=int)
     parser.add_argument("--output-root", type=Path)
     parser.add_argument("--run-id", default=None)
     parser.set_defaults(func=command_run_scripted_ood_campaign)

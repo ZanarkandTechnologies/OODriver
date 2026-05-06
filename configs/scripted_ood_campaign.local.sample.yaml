@@ -10,3 +10,10 @@ scripted_ood_campaign:
   assemble_video: false
   resume: true
   no_default_assets: false
+  quality_min_duration_s: 5.0
+  quality_min_frame_count: 0
+  quality_max_min_distance_m: 6.0
+  quality_require_video: true
+  quality_require_road_alignment: true
+  quality_require_conflict: true
+  quality_retry_limit: 3
