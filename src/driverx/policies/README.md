@@ -14,6 +14,7 @@ fallbacks, API VLMs, SimLingo/CarLLaVA, or Alpamayo later.
 - `classify_alpamayo_probe_artifacts(...)`
 - `build_alpamayo_input_package(...)`
 - `materialize_alpamayo_input(...)`
+- `build_alpamayo_package_from_ood_demo(...)`
 - `load_alpamayo_torch_tensors(...)`
 - `run_alpamayo_live_package(...)`
 - `inspect_alpamayo_release(...)`
@@ -31,6 +32,7 @@ fallbacks, API VLMs, SimLingo/CarLLaVA, or Alpamayo later.
 PYTHONPATH=src python3 -m driverx run-policy-fixture --policy mock --run-id task13-policy
 PYTHONPATH=src python3 -m driverx probe-alpamayo --artifact-root artifacts/remote/alpamayo-probe/latest
 PYTHONPATH=src python3 -m driverx build-alpamayo-input --fixture construction_merge --with-memory
+PYTHONPATH=src python3 -m driverx build-alpamayo-ood-package --rgb-folder tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb --tracks tickets/TASK-078/artifacts/task78-live-ood-capture-v3/entity_tracks.json --scenario-report tickets/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.json --video-evidence tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json
 PYTHONPATH=src python3 -m driverx materialize-alpamayo-input --package artifacts/runs/task51-live-alpamayo-capture/alpamayo_carla_input_package.json
 PYTHONPATH=src python3 -m driverx run-alpamayo-live --package artifacts/runs/task51-live-alpamayo-capture/alpamayo_carla_input_package.json --prediction-json artifacts/remote/alpamayo-live/latest/alpamayo_live_prediction.json
 PYTHONPATH=src python3 -m driverx inspect-alpamayo-release --repo ../external/alpamayo1.5

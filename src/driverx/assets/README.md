@@ -25,8 +25,11 @@ PYTHONPATH=src python3 -m driverx plan-assets --run-id task12-assets
 
 The first CARLA object-spawn path uses stock proxy blueprints rather than
 custom Meshy/GLB imports. Dry-run manifests map deterministically to traffic
-cones, street barriers, construction cones, walkers, or motorcycles depending
-on their semantic tags.
+`static.prop.dirtdebris01`, `static.prop.foodcart`,
+`static.prop.constructioncone`, walkers, or motorcycles depending on their
+semantic tags. These proxy names are validated against the local CARLA 0.9.16
+blueprint library; avoid older `trafficcone` placeholders unless a target CARLA
+install proves they exist.
 
 ## Test
 

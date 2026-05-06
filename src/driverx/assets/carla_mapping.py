@@ -31,9 +31,9 @@ class CarlaObjectSpawnSpec:
 
 
 BLUEPRINT_BY_TAG: tuple[tuple[set[str], str], ...] = (
-    ({"debris", "lane_obstacle", "unknown_object"}, "static.prop.trafficcone"),
+    ({"debris", "lane_obstacle", "unknown_object"}, "static.prop.dirtdebris01"),
     ({"barrier", "route_blockage", "flood", "construction"}, "static.prop.constructioncone"),
-    ({"roadside_vendor", "occlusion", "regional_context"}, "static.prop.streetbarrier"),
+    ({"roadside_vendor", "occlusion", "regional_context"}, "static.prop.foodcart"),
     ({"pedestrian", "walker"}, "walker.pedestrian.*"),
     ({"motorcycle", "two_wheeler"}, "vehicle.kawasaki.ninja"),
 )
@@ -95,7 +95,7 @@ def _blueprint_for_manifest(manifest: AssetManifest) -> str:
     for expected_tags, blueprint in BLUEPRINT_BY_TAG:
         if tags & expected_tags:
             return blueprint
-    return "static.prop.trafficcone"
+    return "static.prop.dirtdebris01"
 
 
 def _transform_from_manifest(

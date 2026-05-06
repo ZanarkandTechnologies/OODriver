@@ -4,10 +4,10 @@ carla_ood_demo:
   timeout_s: 20
   map_name: Town13
   load_map: false
-  tick_count: 240
-  fps: 10
-  camera_width: 1280
-  camera_height: 720
+  tick_count: 120
+  fps: 5
+  camera_width: 640
+  camera_height: 360
   camera_fov: 90
   behavior_id: motorcycle_filtering
   ego_mode: scripted

@@ -29,8 +29,8 @@ class _FakeBlueprints:
         "sensor.camera.rgb",
         "vehicle.lincoln.mkz_2020",
         "vehicle.kawasaki.ninja",
-        "static.prop.trafficcone",
-        "static.prop.streetbarrier",
+        "static.prop.dirtdebris01",
+        "static.prop.foodcart",
         "static.prop.constructioncone",
     }
 

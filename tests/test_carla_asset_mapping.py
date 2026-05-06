@@ -17,8 +17,8 @@ class CarlaAssetMappingTest(unittest.TestCase):
 
         self.assertEqual(len(specs), 3)
         self.assertEqual(specs[0].asset_id, "asset-fallen-cargo-sack")
-        self.assertEqual(specs[0].blueprint_filter, "static.prop.trafficcone")
-        self.assertEqual(specs[1].blueprint_filter, "static.prop.streetbarrier")
+        self.assertEqual(specs[0].blueprint_filter, "static.prop.dirtdebris01")
+        self.assertEqual(specs[1].blueprint_filter, "static.prop.foodcart")
         self.assertEqual(specs[2].blueprint_filter, "static.prop.constructioncone")
         self.assertEqual(specs[2].spawn_transform["location"]["x"], 18.0)
         self.assertEqual(specs[2].spawn_transform["location"]["y"], -0.2)
@@ -40,17 +40,17 @@ class CarlaAssetMappingTest(unittest.TestCase):
 
         spec = map_asset_to_carla_spawn(stripped)
 
-        self.assertEqual(spec.blueprint_filter, "static.prop.trafficcone")
+        self.assertEqual(spec.blueprint_filter, "static.prop.dirtdebris01")
 
     def test_validates_blueprint_availability(self) -> None:
         manifests = generate_assets_dry_run(default_asset_requests())
 
-        missing = validate_carla_asset_mappings(manifests, ["static.prop.trafficcone"])
+        missing = validate_carla_asset_mappings(manifests, ["static.prop.dirtdebris01"])
         present = validate_carla_asset_mappings(
             manifests,
             [
-                "static.prop.trafficcone",
-                "static.prop.streetbarrier",
+                "static.prop.dirtdebris01",
+                "static.prop.foodcart",
                 "static.prop.constructioncone",
             ],
         )

@@ -901,6 +901,7 @@ def build_parser() -> argparse.ArgumentParser:
     from driverx.policies.alpamayo_live_cli import register_alpamayo_live_parser
     from driverx.policies.alpamayo_materializer_cli import register_alpamayo_materializer_parser
     from driverx.policies.alpamayo_offline_cli import register_alpamayo_offline_parser
+    from driverx.policies.alpamayo_ood_package_cli import register_alpamayo_ood_package_parser
     from driverx.policies.alpamayo_probe_cli import register_alpamayo_probe_parser
     from driverx.policies.alpamayo_release_cli import register_alpamayo_release_parser
     from driverx.policies.alpamayo_shape_probe_cli import register_alpamayo_shape_probe_parser
@@ -923,6 +924,7 @@ def build_parser() -> argparse.ArgumentParser:
     register_alpamayo_ood_evaluation_parser(subparsers)
     register_alpamayo_ood_scene_parser(subparsers)
     register_alpamayo_input_parser(subparsers)
+    register_alpamayo_ood_package_parser(subparsers)
     register_alpamayo_live_parser(subparsers)
     register_alpamayo_materializer_parser(subparsers)
     register_alpamayo_offline_parser(subparsers)

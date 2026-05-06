@@ -151,12 +151,23 @@ def _storyboard(
         else "The live Alpamayo memory comparison"
     )
     trajectory_delta = _mapping(alpamayo_comparison.get("trajectory_delta"))
+    comparison_summary = _comparison_story_summary(alpamayo_comparison)
     replay_command_count = cached_replay.get("command_count", "unknown")
     replay_mode = cached_replay.get("closed_loop_control", "not provided")
     blocker_line = preferred_blocker(blockers)
     local_recipe = _mapping(local_demo.get("recipe"))
     local_sim = _mapping(local_demo.get("local_sim"))
     local_worst = _local_worst_track(local_demo)
+    alpamayo_memory_narration = _alpamayo_memory_narration(
+        alpamayo_comparison=alpamayo_comparison,
+        comparison_label=comparison_label,
+        comparison_summary=comparison_summary,
+        alpamayo_scene_compact=alpamayo_scene_compact,
+        trajectory_delta=trajectory_delta,
+        alpamayo_status=str(alpamayo_status),
+        replay_command_count=replay_command_count,
+        replay_mode=str(replay_mode),
+    )
     return [
         {
             "time": "0:00-0:20",
@@ -220,12 +231,7 @@ def _storyboard(
             "time": "2:25-3:00",
             "beat": "Alpamayo Memory Test",
             "visual": "Show Alpamayo no-memory vs memory CoC snippets and trajectory delta.",
-            "narration": (
-                f"Alpamayo is linked to the generated scene: latency {_display_metric(alpamayo_scene_compact.get('latency_ms'), 'ms')}, "
-                f"CoC snippet available={bool(alpamayo_scene_compact.get('cot_snippet'))}, memory changed trajectory final L2 by {trajectory_delta.get('final_l2_m', 'unknown')}m."
-                if alpamayo_scene_compact
-                else f"Alpamayo is now a live open-loop policy probe: status {alpamayo_status}, memory changed trajectory final L2 by {trajectory_delta.get('final_l2_m', 'unknown')}m, and cached replay produced {replay_command_count} bounded commands labeled {replay_mode}."
-            ),
+            "narration": alpamayo_memory_narration,
         },
         {
             "time": "3:00-3:30",
@@ -653,6 +659,61 @@ def _compact_alpamayo_scene(payload: dict[str, Any]) -> dict[str, Any]:
         "setup_blocker": payload.get("setup_blocker"),
         "linkage_warnings": list(payload.get("linkage_warnings", [])),
     }
+
+
+def _comparison_story_summary(payload: dict[str, Any]) -> dict[str, Any]:
+    records = [
+        dict(record)
+        for record in list(payload.get("records", []))
+        if isinstance(record, dict)
+    ]
+    latencies = [
+        record.get("latency_ms")
+        for record in records
+        if record.get("latency_ms") is not None
+    ]
+    latency_label = (
+        " / ".join(_display_metric(value, "ms") for value in latencies)
+        if latencies
+        else "not available"
+    )
+    return {
+        "latency_label": latency_label,
+        "cot_available": any(bool(record.get("cot_snippet")) for record in records),
+    }
+
+
+def _alpamayo_memory_narration(
+    *,
+    alpamayo_comparison: dict[str, Any],
+    comparison_label: str,
+    comparison_summary: dict[str, Any],
+    alpamayo_scene_compact: dict[str, Any],
+    trajectory_delta: dict[str, Any],
+    alpamayo_status: str,
+    replay_command_count: Any,
+    replay_mode: str,
+) -> str:
+    final_delta = trajectory_delta.get("final_l2_m", "unknown")
+    if alpamayo_comparison:
+        return (
+            f"{comparison_label} used the generated scene: latency "
+            f"{comparison_summary['latency_label']}, CoC snippet available="
+            f"{comparison_summary['cot_available']}, memory changed trajectory "
+            f"final L2 by {final_delta}m."
+        )
+    if alpamayo_scene_compact:
+        return (
+            "Alpamayo is linked to the generated scene: latency "
+            f"{_display_metric(alpamayo_scene_compact.get('latency_ms'), 'ms')}, "
+            f"CoC snippet available={bool(alpamayo_scene_compact.get('cot_snippet'))}, "
+            f"memory changed trajectory final L2 by {final_delta}m."
+        )
+    return (
+        f"Alpamayo is now a live open-loop policy probe: status {alpamayo_status}, "
+        f"memory changed trajectory final L2 by {final_delta}m, and cached replay "
+        f"produced {replay_command_count} bounded commands labeled {replay_mode}."
+    )
 
 
 def _display_value(value: Any) -> str:

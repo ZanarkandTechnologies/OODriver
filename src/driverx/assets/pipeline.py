@@ -235,8 +235,8 @@ def _placeholder_blueprint(tags: list[str]) -> str:
     if "barrier" in lowered:
         return "static.prop.constructioncone"
     if "roadside_vendor" in lowered:
-        return "static.prop.streetbarrier"
-    return "static.prop.trafficcone"
+        return "static.prop.foodcart"
+    return "static.prop.dirtdebris01"
 
 
 def _asset_markdown(

@@ -186,6 +186,7 @@ def run_carla_ood_demo(
     rgb_folder.mkdir(parents=True, exist_ok=True)
     tracks_path = run_dir / "entity_tracks.json"
     plan_path = run_dir / "carla_ood_demo_plan.json"
+    checkpoint_path = run_dir / "carla_ood_demo_live_checkpoint.json"
     plan = build_carla_ood_demo_plan(
         recipe,
         behavior,
@@ -286,9 +287,33 @@ def run_carla_ood_demo(
                 last_image = image
                 image.save_to_disk(str(rgb_folder / f"frame_{frame_count:06d}.png"))
                 frame_count += 1
+            _write_live_checkpoint(
+                checkpoint_path,
+                config=config,
+                plan=plan,
+                map_name=map_name,
+                frame_count=frame_count,
+                tracks_path=tracks_path,
+                rgb_folder=rgb_folder,
+                spawned=spawned,
+                destroyed=destroyed,
+                blockers=blockers,
+            )
         if frame_count == 0:
             blockers.append("No RGB frames were captured from the CARLA camera.")
         tracks_path.write_text(json.dumps(tracks, indent=2), encoding="utf-8")
+        _write_live_checkpoint(
+            checkpoint_path,
+            config=config,
+            plan=plan,
+            map_name=map_name,
+            frame_count=frame_count,
+            tracks_path=tracks_path,
+            rgb_folder=rgb_folder,
+            spawned=spawned,
+            destroyed=destroyed,
+            blockers=blockers,
+        )
     except Exception as exc:
         blockers.append(f"CARLA OOD demo failed: {exc}")
         status = "partial" if frame_count > 0 else "blocked"
@@ -437,6 +462,44 @@ def _tracks_for(
 
 def _actor_ids(actors: list[object]) -> list[int]:
     return [int(getattr(actor, "id")) for actor in actors if hasattr(actor, "id")]
+
+
+def _write_live_checkpoint(
+    path: Path,
+    *,
+    config: CarlaOodDemoConfig,
+    plan: CarlaOodDemoPlan,
+    map_name: str | None,
+    frame_count: int,
+    tracks_path: Path,
+    rgb_folder: Path,
+    spawned: list[object],
+    destroyed: list[int],
+    blockers: list[str],
+) -> None:
+    payload = {
+        "status": "running",
+        "host": config.host,
+        "port": config.port,
+        "map_name": map_name,
+        "recipe_id": plan.recipe_id,
+        "behavior_id": plan.behavior_id,
+        "frame_count": frame_count,
+        "duration_s": round(frame_count / max(config.fps, 1), 4),
+        "tracks_path": str(tracks_path),
+        "rgb_folder": str(rgb_folder),
+        "spawned_actor_ids": _actor_ids(spawned),
+        "destroyed_actor_ids": destroyed,
+        "generated_asset_ids": [spec.asset_id for spec in plan.object_spawn_specs],
+        "blockers": blockers,
+        "claim_boundaries": [
+            "scripted_carla_ood_demo=true",
+            "stock_fail2drive_score=false",
+            "closed_loop_vla_control=false",
+            "checkpoint_only=true",
+        ],
+    }
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
 def _markdown(payload: dict[str, Any]) -> str:

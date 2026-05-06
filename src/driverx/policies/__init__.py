@@ -39,6 +39,11 @@ from driverx.policies.alpamayo_live import (
     build_alpamayo_live_decision,
     run_alpamayo_live_package,
 )
+from driverx.policies.alpamayo_ood_package import (
+    AlpamayoOodPackageInputs,
+    build_alpamayo_package_from_ood_demo,
+    write_alpamayo_ood_package,
+)
 from driverx.policies.alpamayo_offline import run_alpamayo_offline_fixture
 from driverx.policies.alpamayo_release import (
     AlpamayoReleaseContract,
@@ -81,6 +86,7 @@ __all__ = [
     "AlpamayoInputPackage",
     "AlpamayoReleaseContract",
     "AlpamayoTensorManifest",
+    "AlpamayoOodPackageInputs",
     "ControlCommand",
     "ControlTrace",
     "DEFAULT_ALPAMAYO_RELEASE_ROOT",
@@ -99,6 +105,7 @@ __all__ = [
     "alpamayo_prediction_to_trajectory",
     "build_alpamayo_input_package",
     "build_alpamayo_live_decision",
+    "build_alpamayo_package_from_ood_demo",
     "expected_alpamayo_schema",
     "inspect_alpamayo_release",
     "load_alpamayo_torch_tensors",
@@ -117,6 +124,7 @@ __all__ = [
     "write_alpamayo_probe_report",
     "write_alpamayo_shape_probe_report",
     "write_alpamayo_input_package",
+    "write_alpamayo_ood_package",
     "write_alpamayo_tensor_materialization",
     "write_alpamayo_release_contract",
     "write_alpamayo_trajectory_conversion",
