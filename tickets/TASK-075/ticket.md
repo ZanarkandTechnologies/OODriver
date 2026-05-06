@@ -1,7 +1,7 @@
 # TASK-075: Memory Versus No-Memory Alpamayo OOD Experiment Report
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-014, TASK-074
@@ -160,6 +160,16 @@ experiment framework until one scenario has polished evidence.
 ### Evidence
 - Planning created 2026-05-06 18:16 +0800.
 - Review: `docs/reviews/TASK-072-077-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-072-077-implementation-review.md`.
+- Build: `src/driverx/pipeline/alpamayo_ood_evaluation.py`,
+  `src/driverx/pipeline/alpamayo_ood_evaluation_cli.py`, and
+  `tests/test_alpamayo_ood_evaluation.py`.
+- Focused tests:
+  `PYTHONPATH=src python3 -m unittest tests.test_alpamayo_ood_evaluation`.
+- Scenario-linked comparison:
+  `tickets/TASK-075/artifacts/scenario-linked-memory-comparison-v2/alpamayo_ood_comparison.md`.
 
 ### Blockers
-- Live two-run Alpamayo comparison needs reachable GPU runtime.
+- Same-capture live comparison waits on a successful generated-scene CARLA
+  capture package. Current report links cached live Alpamayo decisions to the
+  generated-scene evidence with explicit `evidence_warnings`.

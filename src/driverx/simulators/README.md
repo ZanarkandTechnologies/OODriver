@@ -38,6 +38,9 @@ simulator used to prove the full generated-scenario policy loop without CARLA.
 - `assemble_route_video_from_watch(watch, output_video, fps=..., ffmpeg_path=...)`
 - `run_local_ood_sim(recipe, behavior, decisions, control_traces, output_dir)`
 - `write_local_ood_sim_result(run_dir, result)`
+- `run_carla_ood_demo(config, run_dir, recipe=..., behavior=..., asset_manifests=...)`
+- `write_carla_ood_demo(run_dir, result)`
+- `render_ood_video_overlay(config)`
 
 ## Example
 
@@ -111,6 +114,17 @@ PYTHONPATH=src python3 -m driverx assemble-route-video \
   --run
 PYTHONPATH=src python3 -m driverx run-end-to-end-ood-demo \
   --run-id local-ood-demo
+bash scripts/run_carla_client_docker.sh python -m driverx run-carla-ood-demo \
+  --config configs/carla_ood_demo.local.sample.yaml \
+  --tick-count 240 \
+  --run-id task72-live-retry
+PYTHONPATH=src python3 -m driverx assemble-ood-video \
+  --rgb-folder tickets/TASK-073/artifacts/fixture-long-ood-source/rgb \
+  --tracks tickets/TASK-073/artifacts/fixture-long-ood-source/entity_tracks.json \
+  --scenario-id fixture-malaysia-motorcycle-filtering \
+  --behavior-id motorcycle_filtering \
+  --source-kind fixture \
+  --claim-label fixture_video_evidence
 ```
 
 When local CARLA is too slow for full route scoring, `run-fail2drive-route` can
@@ -140,4 +154,5 @@ PYTHONPATH=src python3 -m unittest tests.test_carla_alpamayo_capture
 PYTHONPATH=src python3 -m unittest tests.test_local_ood_sim
 PYTHONPATH=src python3 -m unittest tests.test_route_video_assembly
 PYTHONPATH=src python3 -m unittest tests.test_fail2drive_route_runner
+PYTHONPATH=src python3 -m unittest tests.test_carla_ood_demo tests.test_ood_video_evidence
 ```

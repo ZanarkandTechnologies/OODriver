@@ -18,6 +18,9 @@ def build_submission_demo_pack(
     alpamayo_probe_path: Path | None = None,
     route_evidence_path: Path | None = None,
     alpamayo_comparison_path: Path | None = None,
+    ood_video_evidence_path: Path | None = None,
+    alpamayo_scene_path: Path | None = None,
+    generated_asset_evidence_path: Path | None = None,
     cached_replay_path: Path | None = None,
     blockers_path: Path | None = None,
     progress_path: Path | None = None,
@@ -28,6 +31,9 @@ def build_submission_demo_pack(
     alpamayo_probe = _load_json(alpamayo_probe_path)
     route_evidence = _load_json(route_evidence_path)
     alpamayo_comparison = _load_json(alpamayo_comparison_path)
+    ood_video_evidence = _load_json(ood_video_evidence_path)
+    alpamayo_scene = _load_json(alpamayo_scene_path)
+    generated_asset_evidence = _load_json(generated_asset_evidence_path)
     cached_replay = _load_json(cached_replay_path)
     blockers = _parse_open_blockers(_read_text(blockers_path))
     progress_tail = _latest_lines(_read_text(progress_path), limit=12)
@@ -38,6 +44,7 @@ def build_submission_demo_pack(
             "policy harness for testing frozen driving policies on weird but "
             "plausible long-tail situations without fine-tuning on those cases."
         ),
+        "headline_artifact": _headline_artifact(ood_video_evidence, local_demo, route_evidence),
         "storyboard": _storyboard(
             local_demo,
             suite,
@@ -45,6 +52,8 @@ def build_submission_demo_pack(
             alpamayo_probe,
             route_evidence,
             alpamayo_comparison,
+            ood_video_evidence,
+            alpamayo_scene,
             cached_replay,
             blockers,
         ),
@@ -57,13 +66,20 @@ def build_submission_demo_pack(
             alpamayo_probe_path=alpamayo_probe_path,
             route_evidence_path=route_evidence_path,
             alpamayo_comparison_path=alpamayo_comparison_path,
+            ood_video_evidence_path=ood_video_evidence_path,
+            alpamayo_scene_path=alpamayo_scene_path,
+            generated_asset_evidence_path=generated_asset_evidence_path,
             cached_replay_path=cached_replay_path,
             blockers_path=blockers_path,
         ),
-        "model_declarations": _model_declarations(policy_matrix, alpamayo_probe, alpamayo_comparison),
-        "data_declarations": _data_declarations(local_demo, suite, route_evidence),
-        "claim_boundaries": _claim_boundaries(alpamayo_comparison, cached_replay),
-        "live_evidence": live_evidence(route_evidence, alpamayo_comparison, cached_replay),
+        "model_declarations": _model_declarations(policy_matrix, alpamayo_probe, alpamayo_comparison, alpamayo_scene),
+        "data_declarations": _data_declarations(local_demo, suite, route_evidence, ood_video_evidence, generated_asset_evidence),
+        "claim_boundaries": _claim_boundaries(alpamayo_comparison, cached_replay, ood_video_evidence, alpamayo_scene),
+        "live_evidence": {
+            **live_evidence(route_evidence, alpamayo_comparison, cached_replay),
+            "ood_video": _compact_ood_video(ood_video_evidence),
+            "alpamayo_scene": _compact_alpamayo_scene(alpamayo_scene),
+        },
         "writeup_draft": _writeup_draft(
             local_demo,
             suite,
@@ -71,6 +87,8 @@ def build_submission_demo_pack(
             alpamayo_probe,
             route_evidence,
             alpamayo_comparison,
+            ood_video_evidence,
+            alpamayo_scene,
             cached_replay,
             blockers,
         ),
@@ -82,6 +100,9 @@ def build_submission_demo_pack(
             "alpamayo_probe_path": _path_str(alpamayo_probe_path),
             "route_evidence_path": _path_str(route_evidence_path),
             "alpamayo_comparison_path": _path_str(alpamayo_comparison_path),
+            "ood_video_evidence_path": _path_str(ood_video_evidence_path),
+            "alpamayo_scene_path": _path_str(alpamayo_scene_path),
+            "generated_asset_evidence_path": _path_str(generated_asset_evidence_path),
             "cached_replay_path": _path_str(cached_replay_path),
             "blockers_path": _path_str(blockers_path),
             "progress_path": _path_str(progress_path),
@@ -106,6 +127,8 @@ def _storyboard(
     alpamayo_probe: dict[str, Any],
     route_evidence: dict[str, Any],
     alpamayo_comparison: dict[str, Any],
+    ood_video_evidence: dict[str, Any],
+    alpamayo_scene: dict[str, Any],
     cached_replay: dict[str, Any],
     blockers: list[str],
 ) -> list[dict[str, str]]:
@@ -114,6 +137,19 @@ def _storyboard(
     alpamayo_status = _mapping(alpamayo_probe).get("status", "not provided")
     route_video = _mapping(route_evidence.get("video"))
     route_label = _route_label(route_evidence)
+    ood_video = _compact_ood_video(ood_video_evidence)
+    ood_video_label = (
+        "Fixture OOD video"
+        if ood_video.get("source_kind") == "fixture"
+        else "Scripted CARLA OOD video"
+    )
+    alpamayo_scene_compact = _compact_alpamayo_scene(alpamayo_scene)
+    comparison_warnings = list(alpamayo_comparison.get("evidence_warnings", []))
+    comparison_label = (
+        "The linked cached Alpamayo memory comparison"
+        if comparison_warnings
+        else "The live Alpamayo memory comparison"
+    )
     trajectory_delta = _mapping(alpamayo_comparison.get("trajectory_delta"))
     replay_command_count = cached_replay.get("command_count", "unknown")
     replay_mode = cached_replay.get("closed_loop_control", "not provided")
@@ -153,9 +189,29 @@ def _storyboard(
         },
         {
             "time": "1:55-2:25",
-            "beat": "Route Video Evidence",
-            "visual": f"Play the {route_label} CARLA route video and show the route evidence report.",
+            "beat": (
+                "Long CARLA OOD Video"
+                if ood_video.get("video_path") and ood_video.get("source_kind") != "fixture"
+                else "Fixture OOD Video Proof"
+                if ood_video.get("video_path")
+                else "Route Video Evidence"
+            ),
+            "visual": (
+                "Play the scripted CARLA OOD video with overlays and show entity risk evidence."
+                if ood_video.get("video_path") and ood_video.get("source_kind") != "fixture"
+                else "Play the fixture OOD video proving overlays, risk tracks, and MP4 assembly while the live CARLA bridge is fixed."
+                if ood_video.get("video_path")
+                else f"Play the {route_label} CARLA route video and show the route evidence report."
+            ),
             "narration": (
+                f"The DriverX scripted CARLA OOD demo produced a {ood_video.get('duration_s')}s video "
+                f"for {ood_video.get('scenario_id')} with worst risk {ood_video.get('worst_risk')}."
+                if ood_video.get("video_path") and ood_video.get("source_kind") != "fixture"
+                else
+                f"The fixture video path produced {ood_video.get('duration_s')}s of annotated OOD evidence "
+                f"for {ood_video.get('scenario_id')}; live CARLA frame capture remains the next runtime blocker."
+                if ood_video.get("video_path")
+                else
                 f"The local route proof produced video={route_video.get('exists', False)} "
                 f"for {route_label} while keeping route-score/entity-track limitations explicit."
             ),
@@ -164,7 +220,12 @@ def _storyboard(
             "time": "2:25-3:00",
             "beat": "Alpamayo Memory Test",
             "visual": "Show Alpamayo no-memory vs memory CoC snippets and trajectory delta.",
-            "narration": f"Alpamayo is now a live open-loop policy probe: status {alpamayo_status}, memory changed trajectory final L2 by {trajectory_delta.get('final_l2_m', 'unknown')}m, and cached replay produced {replay_command_count} bounded commands labeled {replay_mode}.",
+            "narration": (
+                f"Alpamayo is linked to the generated scene: latency {_display_metric(alpamayo_scene_compact.get('latency_ms'), 'ms')}, "
+                f"CoC snippet available={bool(alpamayo_scene_compact.get('cot_snippet'))}, memory changed trajectory final L2 by {trajectory_delta.get('final_l2_m', 'unknown')}m."
+                if alpamayo_scene_compact
+                else f"Alpamayo is now a live open-loop policy probe: status {alpamayo_status}, memory changed trajectory final L2 by {trajectory_delta.get('final_l2_m', 'unknown')}m, and cached replay produced {replay_command_count} bounded commands labeled {replay_mode}."
+            ),
         },
         {
             "time": "3:00-3:30",
@@ -257,6 +318,9 @@ def _artifact_map(
     alpamayo_probe_path: Path | None,
     route_evidence_path: Path | None,
     alpamayo_comparison_path: Path | None,
+    ood_video_evidence_path: Path | None,
+    alpamayo_scene_path: Path | None,
+    generated_asset_evidence_path: Path | None,
     cached_replay_path: Path | None,
     blockers_path: Path | None,
 ) -> dict[str, Any]:
@@ -284,6 +348,9 @@ def _artifact_map(
         "alpamayo_probe_path": _path_str(alpamayo_probe_path),
         "route_evidence_path": _path_str(route_evidence_path),
         "alpamayo_comparison_path": _path_str(alpamayo_comparison_path),
+        "ood_video_evidence_path": _path_str(ood_video_evidence_path),
+        "alpamayo_scene_path": _path_str(alpamayo_scene_path),
+        "generated_asset_evidence_path": _path_str(generated_asset_evidence_path),
         "cached_replay_path": _path_str(cached_replay_path),
         "blockers_path": _path_str(blockers_path),
         "recipe_artifacts": recipe_artifacts,
@@ -294,6 +361,7 @@ def _model_declarations(
     policy_matrix: dict[str, Any],
     alpamayo_probe: dict[str, Any],
     alpamayo_comparison: dict[str, Any],
+    alpamayo_scene: dict[str, Any],
 ) -> list[dict[str, Any]]:
     declarations: list[dict[str, Any]] = []
     rows = list(policy_matrix.get("rows", [])) if isinstance(policy_matrix.get("rows"), list) else []
@@ -327,18 +395,47 @@ def _model_declarations(
             for record in list(alpamayo_comparison.get("records", []))
             if isinstance(record, dict)
         ]
+        warnings = [str(item) for item in list(alpamayo_comparison.get("evidence_warnings", []))]
+        flags = _mapping(alpamayo_comparison.get("safety_flags"))
+        comparison_ready = bool(
+            flags.get(
+                "memory_augmented_same_capture_available",
+                flags.get("memory_augmented_live_run_available"),
+            )
+        )
         declarations.append(
             {
                 "name": "alpamayo-live-ood-comparison",
                 "runtime_kind": "open_loop_vla_policy_evaluation",
-                "state": "live_memory_comparison_ready",
+                "state": (
+                    "same_capture_memory_comparison_ready"
+                    if comparison_ready
+                    else "linked_cached_evidence_with_warnings"
+                ),
                 "base_model_or_policy": "nvidia/Alpamayo-1.5-10B",
                 "uses_public_model_pretraining": True,
-                "blocker": None,
+                "blocker": "; ".join(warnings) if warnings else None,
                 "open_loop_policy_evaluation": alpamayo_comparison.get("open_loop_policy_evaluation"),
                 "closed_loop_control": alpamayo_comparison.get("closed_loop_control"),
                 "latency_ms": [record.get("latency_ms") for record in records],
                 "vram_peak_mb": [record.get("vram_peak_mb") for record in records],
+                "evidence_warnings": warnings,
+            }
+        )
+    if alpamayo_scene:
+        declarations.append(
+            {
+                "name": "alpamayo-generated-ood-scene",
+                "runtime_kind": "open_loop_vla_scene_reasoning",
+                "state": "ready" if alpamayo_scene.get("setup_blocker") is None else "blocked",
+                "base_model_or_policy": alpamayo_scene.get("model_id") or "nvidia/Alpamayo-1.5-10B",
+                "uses_public_model_pretraining": True,
+                "blocker": alpamayo_scene.get("setup_blocker"),
+                "open_loop_policy_evaluation": alpamayo_scene.get("open_loop_policy_evaluation"),
+                "closed_loop_control": alpamayo_scene.get("closed_loop_control"),
+                "latency_ms": alpamayo_scene.get("latency_ms"),
+                "vram_peak_mb": alpamayo_scene.get("vram_peak_mb"),
+                "linkage_warnings": list(alpamayo_scene.get("linkage_warnings", [])),
             }
         )
     return declarations
@@ -348,6 +445,8 @@ def _data_declarations(
     local_demo: dict[str, Any],
     suite: dict[str, Any],
     route_evidence: dict[str, Any],
+    ood_video_evidence: dict[str, Any],
+    generated_asset_evidence: dict[str, Any],
 ) -> list[str]:
     declarations = [
         "Fail2Drive-style route/scenario seeds are used as scenario references; external checkout is not vendored.",
@@ -357,6 +456,21 @@ def _data_declarations(
     ]
     if suite.get("route_pack_path"):
         declarations.append(f"Current route pack evidence: {suite.get('route_pack_path')}")
+    if ood_video_evidence.get("video_path"):
+        source_label = (
+            "fixture OOD video evidence"
+            if ood_video_evidence.get("source_kind") == "fixture"
+            else "scripted CARLA OOD video evidence"
+        )
+        declarations.append(
+            f"Current {source_label}: {ood_video_evidence.get('video_path')} "
+            f"({ood_video_evidence.get('duration_s')}s)"
+        )
+    if generated_asset_evidence:
+        declarations.append(
+            "Current generated object evidence uses stock CARLA proxy assets; "
+            f"artifact: {generated_asset_evidence.get('json_path') or generated_asset_evidence.get('manifest_path')}"
+        )
     local_artifacts = _mapping(local_demo.get("artifact_map"))
     if local_artifacts.get("local_sim_html"):
         declarations.append(f"Current local end-to-end simulator evidence: {local_artifacts.get('local_sim_html')}")
@@ -372,6 +486,8 @@ def _data_declarations(
 def _claim_boundaries(
     alpamayo_comparison: dict[str, Any],
     cached_replay: dict[str, Any],
+    ood_video_evidence: dict[str, Any],
+    alpamayo_scene: dict[str, Any],
 ) -> list[str]:
     boundaries = [
         "Generated CARLA/Fail2Drive OOD scenarios and route artifacts are real repo outputs.",
@@ -380,6 +496,19 @@ def _claim_boundaries(
     if alpamayo_comparison:
         boundaries.append(
             f"Alpamayo comparison closed_loop_control={alpamayo_comparison.get('closed_loop_control')}."
+        )
+    if ood_video_evidence:
+        if ood_video_evidence.get("source_kind") == "fixture":
+            boundaries.append(
+                "Current OOD video is fixture evidence for the overlay/video pipeline, not a live CARLA run."
+            )
+        else:
+            boundaries.append(
+                "Scripted CARLA OOD video is generated simulator evidence, not an official Fail2Drive driving score."
+            )
+    if alpamayo_scene:
+        boundaries.append(
+            f"Alpamayo scene reasoning closed_loop_control={alpamayo_scene.get('closed_loop_control')}."
         )
     if cached_replay:
         boundaries.append(
@@ -397,6 +526,8 @@ def _writeup_draft(
     alpamayo_probe: dict[str, Any],
     route_evidence: dict[str, Any],
     alpamayo_comparison: dict[str, Any],
+    ood_video_evidence: dict[str, Any],
+    alpamayo_scene: dict[str, Any],
     cached_replay: dict[str, Any],
     blockers: list[str],
 ) -> dict[str, str]:
@@ -407,6 +538,19 @@ def _writeup_draft(
     route_video = _mapping(route_evidence.get("video"))
     route_metrics = _mapping(route_evidence.get("metrics"))
     route_label = _route_label(route_evidence)
+    ood_video = _compact_ood_video(ood_video_evidence)
+    ood_video_label = (
+        "Fixture OOD video"
+        if ood_video.get("source_kind") == "fixture"
+        else "Scripted CARLA OOD video"
+    )
+    alpamayo_scene_compact = _compact_alpamayo_scene(alpamayo_scene)
+    comparison_warnings = list(alpamayo_comparison.get("evidence_warnings", []))
+    comparison_label = (
+        "The linked cached Alpamayo memory comparison"
+        if comparison_warnings
+        else "The live Alpamayo memory comparison"
+    )
     route_failure = (
         f"The current CARLA route gap is `{route_label}`: video evidence exists "
         f"({route_video.get('duration_s')}s) but driving_score="
@@ -433,7 +577,10 @@ def _writeup_draft(
             f"The local harness is reproducible: local demo status is `{local_demo.get('status', 'not provided')}`, "
             f"behavior is `{local_sim.get('behavior_id', 'not provided')}`, "
             f"policy runtime ready rows are `{ready_rows}`, and the Alpamayo probe status is "
-            f"`{alpamayo_probe.get('status', 'not provided')}`. The live Alpamayo memory comparison "
+            f"`{alpamayo_probe.get('status', 'not provided')}`. "
+            f"{ood_video_label} duration is `{ood_video.get('duration_s', 'not provided')}` seconds. "
+            f"Alpamayo scene reasoning latency is `{_display_value(alpamayo_scene_compact.get('latency_ms'))}` ms. "
+            f"{comparison_label} "
             f"changed trajectory final L2 by `{trajectory_delta.get('final_l2_m', 'unknown')}` metres "
             f"while staying explicitly open-loop. Cached replay produced "
             f"`{cached_replay.get('command_count', 'unknown')}` bounded control command(s) from a saved "
@@ -460,6 +607,64 @@ def _base_policy_label(row: dict[str, Any]) -> str:
     if policy == "alpamayo":
         return "Alpamayo reasoning VLA, setup-gated"
     return "DriverX local deterministic or mock policy"
+
+
+def _headline_artifact(
+    ood_video_evidence: dict[str, Any],
+    local_demo: dict[str, Any],
+    route_evidence: dict[str, Any],
+) -> str:
+    ood_video = _compact_ood_video(ood_video_evidence)
+    if ood_video.get("video_path") and ood_video.get("source_kind") != "fixture":
+        return "long_carla_ood_video"
+    if local_demo:
+        return "local_ood_demo"
+    if _mapping(route_evidence.get("video")).get("exists"):
+        return "partial_route_video"
+    return "artifact_pending"
+
+
+def _compact_ood_video(payload: dict[str, Any]) -> dict[str, Any]:
+    if not payload:
+        return {}
+    return {
+        "status": payload.get("status"),
+        "scenario_id": payload.get("scenario_id"),
+        "source_kind": payload.get("source_kind"),
+        "claim_label": payload.get("claim_label"),
+        "video_path": payload.get("video_path"),
+        "duration_s": payload.get("duration_s"),
+        "worst_risk": payload.get("worst_risk"),
+    }
+
+
+def _compact_alpamayo_scene(payload: dict[str, Any]) -> dict[str, Any]:
+    if not payload:
+        return {}
+    return {
+        "scenario_id": payload.get("scenario_id"),
+        "model_id": payload.get("model_id"),
+        "latency_ms": payload.get("latency_ms"),
+        "vram_peak_mb": payload.get("vram_peak_mb"),
+        "cot_snippet": payload.get("cot_snippet"),
+        "trajectory_summary": payload.get("trajectory_summary"),
+        "open_loop_policy_evaluation": payload.get("open_loop_policy_evaluation"),
+        "closed_loop_control": payload.get("closed_loop_control"),
+        "setup_blocker": payload.get("setup_blocker"),
+        "linkage_warnings": list(payload.get("linkage_warnings", [])),
+    }
+
+
+def _display_value(value: Any) -> str:
+    if value is None:
+        return "not provided"
+    return str(value)
+
+
+def _display_metric(value: Any, suffix: str) -> str:
+    if value is None:
+        return "not available"
+    return f"{value}{suffix}"
 
 
 def _route_label(route_evidence: dict[str, Any]) -> str:

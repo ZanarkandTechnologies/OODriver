@@ -1,7 +1,7 @@
 # TASK-077: Submission Demo Pack V3 And Final Storyboard
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-072, TASK-073, TASK-074, TASK-075
@@ -151,6 +151,16 @@ not keep patching TASK-070 repeatedly.
 ### Evidence
 - Planning created 2026-05-06 18:16 +0800.
 - Review: `docs/reviews/TASK-072-077-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-072-077-implementation-review.md`.
+- Build: `src/driverx/pipeline/submission_demo_pack.py`,
+  `src/driverx/pipeline/submission_demo_pack_cli.py`, and
+  `tests/test_submission_demo_pack.py`.
+- Focused tests:
+  `PYTHONPATH=src python3 -m unittest tests.test_submission_demo_pack`.
+- V3 pack:
+  `tickets/TASK-077/artifacts/submission-pack-v3-v2/submission_demo_pack.md`.
 
 ### Blockers
-- Waits for the strongest available evidence from TASK-072 through TASK-075.
+- Final live-CARLA headline waits for TASK-072 frame capture. Current V3 pack
+  correctly keeps fixture video as non-live evidence and uses the local OOD
+  simulator as the strongest headline artifact.

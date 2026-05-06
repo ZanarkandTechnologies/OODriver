@@ -23,6 +23,8 @@ def command_build_alpamayo_ood_comparison(args: argparse.Namespace) -> int:
             memory_decision_path=args.memory_decision,
             source_package_path=args.source_package,
             route_evidence_path=args.route_evidence,
+            scenario_report_path=args.scenario_report,
+            video_evidence_path=args.video_evidence,
             memory_entries_path=args.memory,
         ),
     )
@@ -39,6 +41,8 @@ def register_alpamayo_ood_evaluation_parser(subparsers: Any) -> None:
     parser.add_argument("--memory-decision", type=Path)
     parser.add_argument("--source-package", type=Path)
     parser.add_argument("--route-evidence", type=Path)
+    parser.add_argument("--scenario-report", type=Path)
+    parser.add_argument("--video-evidence", type=Path)
     parser.add_argument("--memory", type=Path)
     parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
     parser.add_argument("--run-id", default="alpamayo-ood-comparison")

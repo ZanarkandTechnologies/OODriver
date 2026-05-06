@@ -15,6 +15,9 @@ evaluator, renderer, and submission packager.
 - `run_rag_comparison(policy, fixture, behavior_id, output_root, run_id)`
 - `run_end_to_end_ood_demo(config)`
 - `build_alpamayo_ood_evaluation(run_dir, inputs)`
+- `build_alpamayo_ood_scene_report(run_dir, inputs)`
+- `build_ood_video_evidence(run_dir, inputs)`
+- `build_submission_demo_pack(run_dir, ...)`
 - `build_ood_suite_report(run_dir, scenario_summary_path=..., route_pack_path=..., ...)`
 
 ## Minimal Example
@@ -52,6 +55,13 @@ PYTHONPATH=src python3 -m driverx build-alpamayo-ood-comparison \
 ```
 
 ```bash
+PYTHONPATH=src python3 -m driverx build-alpamayo-ood-scene \
+  --package tickets/TASK-074/artifacts/generated-scene-package/alpamayo_carla_input_package.json \
+  --video-evidence tickets/TASK-073/artifacts/fixture-long-ood-video-v2/ood_video_evidence.json \
+  --scenario-report tickets/TASK-072/artifacts/task72-live-candidate/carla_ood_demo.json
+```
+
+```bash
 PYTHONPATH=src python3 -m driverx build-ood-suite-report \
   --scenario-summary artifacts/runs/scenario-forge/scenario_suite_summary.json \
   --route-pack artifacts/runs/bench2drive-route-pack/bench2drive_route_pack.json \
@@ -63,5 +73,5 @@ PYTHONPATH=src python3 -m driverx build-ood-suite-report \
 ## Test
 
 ```bash
-PYTHONPATH=src python3 -m unittest tests.test_pipeline_mock tests.test_batch tests.test_rag_comparison tests.test_end_to_end_ood_demo tests.test_alpamayo_ood_evaluation tests.test_ood_suite_report
+PYTHONPATH=src python3 -m unittest tests.test_pipeline_mock tests.test_batch tests.test_rag_comparison tests.test_end_to_end_ood_demo tests.test_alpamayo_ood_evaluation tests.test_alpamayo_ood_scene tests.test_ood_video_evidence tests.test_ood_suite_report
 ```

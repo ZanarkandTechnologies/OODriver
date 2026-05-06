@@ -1,7 +1,7 @@
 # TASK-076: CARLA Prop And Object Spawn Pack V1
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-012, TASK-072
@@ -144,6 +144,15 @@ needed to demonstrate generated OOD scenarios.
 ### Evidence
 - Planning created 2026-05-06 18:16 +0800.
 - Review: `docs/reviews/TASK-072-077-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-072-077-implementation-review.md`.
+- Build: `src/driverx/assets/carla_mapping.py`,
+  `src/driverx/simulators/carla_ood_demo_cli.py`, and
+  `tests/test_carla_asset_mapping.py`.
+- Focused tests:
+  `PYTHONPATH=src python3 -m unittest tests.test_carla_asset_mapping tests.test_carla_ood_demo`.
+- Asset plan:
+  `tickets/TASK-076/artifacts/stock-proxy-assets/asset_report.md`.
 
 ### Blockers
-- None for stock-proxy implementation. Real Meshy import is explicitly follow-up.
+- None for stock-proxy implementation. Real Meshy/custom GLB import remains an
+  explicit follow-up outside this ticket.

@@ -93,6 +93,111 @@ class SubmissionDemoPackTest(unittest.TestCase):
         self.assertEqual(summary["artifact_map"]["route_pack_path"], "routes/generated.xml")
         self.assertEqual(summary["artifact_map"]["cached_replay_path"], str(paths["cached_replay"]))
 
+    def test_demo_pack_v3_prefers_long_carla_ood_video(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = _write_inputs(root)
+            ood_video = root / "ood_video_evidence.json"
+            ood_video.write_text(
+                json.dumps(
+                    {
+                        "status": "passed",
+                        "scenario_id": "scenario-001",
+                        "video_path": "scenario-001.mp4",
+                        "duration_s": 24.0,
+                        "worst_risk": {"distance_m": 1.1},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            alpamayo_scene = root / "alpamayo_ood_scene.json"
+            alpamayo_scene.write_text(
+                json.dumps(
+                    {
+                        "scenario_id": "scenario-001",
+                        "model_id": "nvidia/Alpamayo-1.5-10B",
+                        "latency_ms": 120000.0,
+                        "vram_peak_mb": 24881.0,
+                        "cot_snippet": "Slow for filtering motorcycle.",
+                        "trajectory_summary": {"point_count": 20},
+                        "open_loop_policy_evaluation": True,
+                        "closed_loop_control": False,
+                        "setup_blocker": None,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            asset_evidence = root / "asset_summary.json"
+            asset_evidence.write_text(
+                json.dumps({"json_path": "asset_summary.json", "num_assets": 3}),
+                encoding="utf-8",
+            )
+
+            summary = build_submission_demo_pack(
+                root / "demo-pack",
+                local_demo_path=paths["local_demo"],
+                generated_suite_path=paths["suite"],
+                policy_matrix_path=paths["policy"],
+                alpamayo_probe_path=paths["alpamayo"],
+                route_evidence_path=paths["route"],
+                alpamayo_comparison_path=paths["comparison"],
+                ood_video_evidence_path=ood_video,
+                alpamayo_scene_path=alpamayo_scene,
+                generated_asset_evidence_path=asset_evidence,
+                cached_replay_path=paths["cached_replay"],
+                blockers_path=paths["blockers"],
+                progress_path=paths["progress"],
+            )
+
+        self.assertEqual(summary["headline_artifact"], "long_carla_ood_video")
+        self.assertEqual(summary["artifact_map"]["ood_video_evidence_path"], str(ood_video))
+        self.assertEqual(summary["live_evidence"]["ood_video"]["duration_s"], 24.0)
+        self.assertEqual(summary["live_evidence"]["alpamayo_scene"]["latency_ms"], 120000.0)
+        self.assertTrue(
+            any(item["name"] == "alpamayo-generated-ood-scene" for item in summary["model_declarations"])
+        )
+        self.assertTrue(
+            any("Scripted CARLA OOD video" in item for item in summary["claim_boundaries"])
+        )
+
+    def test_demo_pack_does_not_treat_fixture_video_as_live_carla_headline(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = _write_inputs(root)
+            ood_video = root / "ood_video_evidence.json"
+            ood_video.write_text(
+                json.dumps(
+                    {
+                        "status": "passed",
+                        "scenario_id": "fixture-001",
+                        "source_kind": "fixture",
+                        "claim_label": "fixture_video_evidence",
+                        "video_path": "fixture-001.mp4",
+                        "duration_s": 20.0,
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            summary = build_submission_demo_pack(
+                root / "demo-pack",
+                local_demo_path=paths["local_demo"],
+                generated_suite_path=paths["suite"],
+                policy_matrix_path=paths["policy"],
+                alpamayo_probe_path=paths["alpamayo"],
+                route_evidence_path=paths["route"],
+                alpamayo_comparison_path=paths["comparison"],
+                ood_video_evidence_path=ood_video,
+                cached_replay_path=paths["cached_replay"],
+                blockers_path=paths["blockers"],
+                progress_path=paths["progress"],
+            )
+
+        self.assertEqual(summary["headline_artifact"], "local_ood_demo")
+        self.assertTrue(
+            any("fixture evidence" in item for item in summary["claim_boundaries"])
+        )
+
 
 def _write_inputs(root: Path) -> dict[str, Path]:
     local_demo = root / "end_to_end_demo.json"

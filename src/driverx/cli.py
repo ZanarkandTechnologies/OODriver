@@ -892,8 +892,10 @@ def build_parser() -> argparse.ArgumentParser:
     from driverx.pipeline.submission_dossier_cli import register_submission_dossier_parser
     from driverx.pipeline.submission_demo_pack_cli import register_submission_demo_pack_parser
     from driverx.pipeline.alpamayo_ood_evaluation_cli import register_alpamayo_ood_evaluation_parser
+    from driverx.pipeline.alpamayo_ood_scene_cli import register_alpamayo_ood_scene_parser
     from driverx.pipeline.end_to_end_ood_demo_cli import register_end_to_end_ood_demo_parser
     from driverx.pipeline.generated_ood_suite_cli import register_generated_ood_suite_parser
+    from driverx.pipeline.ood_video_evidence_cli import register_ood_video_evidence_parser
     from driverx.pipeline.route_evidence_cli import register_route_evidence_parser
     from driverx.policies.alpamayo_input_cli import register_alpamayo_input_parser
     from driverx.policies.alpamayo_live_cli import register_alpamayo_live_parser
@@ -910,13 +912,16 @@ def build_parser() -> argparse.ArgumentParser:
     from driverx.simulators.gpu_host_cli import register_gpu_host_parser
     from driverx.simulators.carla_maps_cli import register_carla_maps_parser
     from driverx.simulators.carla_policy_replay_cli import register_carla_policy_replay_parser
+    from driverx.simulators.carla_ood_demo_cli import register_carla_ood_demo_parser
     from driverx.simulators.route_video_assembly_cli import register_route_video_assembly_parser
     from driverx.simulators.fail2drive_route_runner_cli import register_fail2drive_route_runner_parser
 
     register_generated_ood_suite_parser(subparsers)
     register_end_to_end_ood_demo_parser(subparsers)
+    register_ood_video_evidence_parser(subparsers)
     register_route_evidence_parser(subparsers)
     register_alpamayo_ood_evaluation_parser(subparsers)
+    register_alpamayo_ood_scene_parser(subparsers)
     register_alpamayo_input_parser(subparsers)
     register_alpamayo_live_parser(subparsers)
     register_alpamayo_materializer_parser(subparsers)
@@ -931,6 +936,7 @@ def build_parser() -> argparse.ArgumentParser:
     register_carla_alpamayo_capture_parser(subparsers)
     register_carla_maps_parser(subparsers)
     register_carla_policy_replay_parser(subparsers)
+    register_carla_ood_demo_parser(subparsers)
     register_gpu_host_parser(subparsers)
     register_route_video_assembly_parser(subparsers)
     register_fail2drive_route_runner_parser(subparsers)

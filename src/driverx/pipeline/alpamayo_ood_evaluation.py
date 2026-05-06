@@ -20,6 +20,8 @@ class AlpamayoOodEvaluationInputs:
     memory_decision_path: Path | None = None
     source_package_path: Path | None = None
     route_evidence_path: Path | None = None
+    scenario_report_path: Path | None = None
+    video_evidence_path: Path | None = None
     memory_entries_path: Path | None = None
 
 
@@ -61,10 +63,12 @@ def build_alpamayo_ood_evaluation(
         memory_record = _missing_memory_record(memories, memory_package)
 
     route_evidence = _load_json(inputs.route_evidence_path) if inputs.route_evidence_path else None
+    scenario_report = _load_json(inputs.scenario_report_path) if inputs.scenario_report_path else None
+    video_evidence = _load_json(inputs.video_evidence_path) if inputs.video_evidence_path else None
     comparison = {
         "open_loop_policy_evaluation": True,
         "closed_loop_control": False,
-        "scenario_id": _scenario_id(baseline, route_evidence),
+        "scenario_id": _scenario_id(baseline, route_evidence, scenario_report, video_evidence),
         "records": [baseline, memory_record],
         "memory_ids": [memory.entry_id for memory in memories],
         "memory_context": [_memory_summary(memory) for memory in memories],
@@ -75,8 +79,9 @@ def build_alpamayo_ood_evaluation(
         "reasoning_delta": _reasoning_delta(baseline, memory_record),
         "latency_delta_ms": _latency_delta(baseline, memory_record),
         "route_evidence": _compact_route_evidence(route_evidence, inputs.route_evidence_path),
+        "scenario_report": _compact_scenario_report(scenario_report, inputs.scenario_report_path),
+        "video_evidence": _compact_video_evidence(video_evidence, inputs.video_evidence_path),
         "memory_augmented_package": memory_package,
-        "safety_flags": _safety_flags(baseline, memory_record, route_evidence),
         "inputs": {
             "baseline_decision_path": str(inputs.baseline_decision_path),
             "memory_decision_path": str(inputs.memory_decision_path)
@@ -88,11 +93,24 @@ def build_alpamayo_ood_evaluation(
             "route_evidence_path": str(inputs.route_evidence_path)
             if inputs.route_evidence_path is not None
             else None,
+            "scenario_report_path": str(inputs.scenario_report_path)
+            if inputs.scenario_report_path is not None
+            else None,
+            "video_evidence_path": str(inputs.video_evidence_path)
+            if inputs.video_evidence_path is not None
+            else None,
             "memory_entries_path": str(inputs.memory_entries_path)
             if inputs.memory_entries_path is not None
             else None,
         },
     }
+    comparison["evidence_warnings"] = _evidence_warnings(comparison)
+    comparison["safety_flags"] = _safety_flags(
+        baseline,
+        memory_record,
+        route_evidence,
+        comparison,
+    )
     return write_alpamayo_ood_evaluation(run_dir, comparison)
 
 
@@ -360,13 +378,76 @@ def _compact_route_evidence(
     }
 
 
+def _compact_scenario_report(
+    payload: dict[str, Any] | None,
+    path: Path | None,
+) -> dict[str, Any] | None:
+    if payload is None:
+        return None
+    return {
+        "path": str(path) if path is not None else None,
+        "scenario_id": payload.get("scenario_id") or payload.get("recipe_id"),
+        "recipe_id": payload.get("recipe_id"),
+        "behavior_id": payload.get("behavior_id"),
+        "status": payload.get("status"),
+        "duration_s": payload.get("duration_s"),
+    }
+
+
+def _compact_video_evidence(
+    payload: dict[str, Any] | None,
+    path: Path | None,
+) -> dict[str, Any] | None:
+    if payload is None:
+        return None
+    return {
+        "path": str(path) if path is not None else None,
+        "status": payload.get("status"),
+        "scenario_id": payload.get("scenario_id"),
+        "source_kind": payload.get("source_kind"),
+        "claim_label": payload.get("claim_label"),
+        "video_path": payload.get("video_path"),
+        "duration_s": payload.get("duration_s"),
+        "worst_risk": payload.get("worst_risk"),
+    }
+
+
+def _evidence_warnings(payload: dict[str, Any]) -> list[str]:
+    warnings: list[str] = []
+    scenario = _mapping(payload.get("scenario_report"))
+    video = _mapping(payload.get("video_evidence"))
+    package = _mapping(payload.get("memory_augmented_package"))
+    if scenario and scenario.get("status") not in {None, "passed", "partial"}:
+        warnings.append(
+            "Generated-scene CARLA run did not pass; Alpamayo records should be treated as cached open-loop evidence."
+        )
+    scenario_id = scenario.get("scenario_id") or scenario.get("recipe_id")
+    video_id = video.get("scenario_id")
+    if scenario_id and video_id and str(scenario_id) != str(video_id):
+        warnings.append(
+            "Scenario report id and video evidence id differ; this comparison is linked evidence, not same-capture proof."
+        )
+    if package and package.get("torch_ready") is False:
+        warnings.append(
+            "Memory-augmented package is not torch-ready yet; live rerun requires a successful CARLA capture package."
+        )
+    return warnings
+
+
 def _scenario_id(
     baseline: dict[str, Any],
     route_evidence: dict[str, Any] | None,
+    scenario_report: dict[str, Any] | None = None,
+    video_evidence: dict[str, Any] | None = None,
 ) -> str:
-    route_id = _mapping(route_evidence or {}).get("route_id")
-    if route_id:
-        return str(route_id)
+    for value in (
+        _mapping(scenario_report or {}).get("scenario_id"),
+        _mapping(scenario_report or {}).get("recipe_id"),
+        _mapping(video_evidence or {}).get("scenario_id"),
+        _mapping(route_evidence or {}).get("route_id"),
+    ):
+        if value:
+            return str(value)
     return f"alpamayo-open-loop::{baseline.get('policy_id') or 'unknown'}"
 
 
@@ -374,14 +455,22 @@ def _safety_flags(
     baseline: dict[str, Any],
     memory: dict[str, Any],
     route_evidence: dict[str, Any] | None,
+    comparison: dict[str, Any],
 ) -> dict[str, Any]:
     route_metrics = _mapping(_mapping(route_evidence or {}).get("metrics"))
+    warnings = list(comparison.get("evidence_warnings", []))
+    package = _mapping(comparison.get("memory_augmented_package"))
+    memory_decision_available = memory.get("setup_blocker") is None
+    package_ready = package.get("torch_ready") is not False
+    same_capture_available = memory_decision_available and package_ready and not warnings
     return {
         "open_loop_only": True,
         "closed_loop_control_claimed": bool(
             baseline.get("closed_loop_control") or memory.get("closed_loop_control")
         ),
-        "memory_augmented_live_run_available": memory.get("setup_blocker") is None,
+        "memory_augmented_live_run_available": same_capture_available,
+        "memory_augmented_decision_available": memory_decision_available,
+        "memory_augmented_same_capture_available": same_capture_available,
         "route_video_available": bool(_mapping(_mapping(route_evidence or {}).get("video")).get("exists")),
         "route_score_available": any(
             route_metrics.get(key) is not None
@@ -436,6 +525,8 @@ def _markdown(payload: dict[str, Any]) -> str:
         f"- closed_loop_control: `{payload.get('closed_loop_control')}`",
         f"- memory_augmented_live_run_available: `{flags.get('memory_augmented_live_run_available')}`",
         f"- route_video_available: `{flags.get('route_video_available')}`",
+        f"- video_evidence_path: `{_mapping(payload.get('video_evidence')).get('path')}`",
+        f"- scenario_report_path: `{_mapping(payload.get('scenario_report')).get('path')}`",
         "",
         "## Trajectory Delta",
         "",
@@ -483,6 +574,11 @@ def _markdown(payload: dict[str, Any]) -> str:
                 "",
             ]
         )
+    warnings = list(payload.get("evidence_warnings", []))
+    if warnings:
+        lines.extend(["## Evidence Warnings", ""])
+        lines.extend(f"- {warning}" for warning in warnings)
+        lines.append("")
     return "\n".join(lines)
 
 

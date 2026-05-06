@@ -22,6 +22,9 @@ def live_evidence(
             "trajectory_delta": _mapping(alpamayo_comparison.get("trajectory_delta")),
             "reasoning_delta": _mapping(alpamayo_comparison.get("reasoning_delta")),
             "safety_flags": _mapping(alpamayo_comparison.get("safety_flags")),
+            "evidence_warnings": list(alpamayo_comparison.get("evidence_warnings", []))
+            if isinstance(alpamayo_comparison.get("evidence_warnings"), list)
+            else [],
         },
         "cached_replay": _cached_replay_summary(cached_replay or {}),
     }
@@ -30,7 +33,15 @@ def live_evidence(
 def preferred_blocker(blockers: list[str]) -> str:
     if not blockers:
         return "No open blocker in the provided blocker ledger."
-    for keyword in ("Town13", "fail2drive,carla,map", "CARLA package containing Town13"):
+    for keyword in (
+        "TASK-072",
+        "run-carla-ood-demo",
+        "host.docker.internal:2000",
+        "scripted OOD",
+        "Town13",
+        "fail2drive,carla,map",
+        "CARLA package containing Town13",
+    ):
         for blocker in blockers:
             if keyword.lower() in blocker.lower():
                 return blocker

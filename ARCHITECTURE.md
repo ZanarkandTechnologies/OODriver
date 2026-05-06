@@ -19,12 +19,17 @@ flowchart TD
     B --> C["Deterministic OOD recipe generator"]
     C --> D["Scenario suite report"]
     C --> N["Local 2D OOD simulator"]
+    C --> O["DriverX scripted CARLA OOD demo"]
+    O --> P["RGB frames + entity tracks"]
+    P --> Q["OOD overlay video evidence"]
     E["Fail2Drive result records"] --> F["Failure memory builder"]
     F --> G["Retrieval memory bank"]
     C --> H["Memory retrieval"]
     G --> H
     H --> I["Policy prompt or adapter context"]
     I --> N
+    I --> R["Alpamayo open-loop scene report"]
+    Q --> R
     C --> J["CARLA/Fail2Drive command planner"]
     J --> K["Local Mac smoke path or Linux NVIDIA runtime"]
     L["Waymo E2E support track"] --> M["Open-loop ADE and trajectory evidence"]
@@ -37,8 +42,11 @@ flowchart TD
   probing through generated assets, behavior scripts, policy adapters, and RAG
   comparison.
 - `tickets/TASK-064` and `tickets/TASK-070`: current runnable local OOD demo
-  and submission-pack evidence. TASK-060/TASK-069 remain live-runtime follow-up
-  work for full Town13 route completion and route-aligned Alpamayo capture.
+  and submission-pack evidence. TASK-072 through TASK-077 now own the scripted
+  CARLA OOD runner, fixture/live video evidence distinction, Alpamayo
+  scenario-link reports, stock proxy asset mapping, and V3 submission pack.
+  TASK-060/TASK-069 remain live-runtime follow-up work for full Town13 route
+  completion and route-aligned Alpamayo capture.
 - `src/driverx/scenarios`: scenario seed and OOD recipe generation.
 - `src/driverx/memory`: failure-memory creation and retrieval.
 - `src/driverx/simulators`: CARLA smoke checks, Fail2Drive command planning,
@@ -88,6 +96,12 @@ Remote or Linux NVIDIA runtime:
   emits RGB frames. TASK-071 adds an early-video runner that captured a fresh
   0.5s MP4 from `Generalization_PedestriansOnRoad_1088`; full score/completion
   still needs a longer local run or faster graphics-capable CARLA host.
+- TASK-072 adds a DriverX-owned scripted CARLA OOD runner and stock-proxy
+  generated assets. Fake-CARLA tests pass, but the latest live Docker client
+  run timed out against `host.docker.internal:2000`, so live generated-scene
+  video remains blocked on the local CARLA client bridge.
+- TASK-073 adds reusable OOD overlays and MP4 assembly. Current 20s video
+  evidence is explicitly `source_kind=fixture`, not a live CARLA claim.
 - TASK-064 provides a dependency-light end-to-end local simulator artifact. It
   is the current primary demo artifact, but it is not a live CARLA route score.
 - Regional driving behavior traces and dry-run generated asset manifests are

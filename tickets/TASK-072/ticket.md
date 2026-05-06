@@ -1,7 +1,7 @@
 # TASK-072: DriverX CARLA Scripted OOD Demo Runner
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-064, TASK-066, TASK-071
@@ -208,6 +208,17 @@ slow Mac/Wine benchmark loop.
 ### Evidence
 - Planning created 2026-05-06 18:16 +0800.
 - Review: `docs/reviews/TASK-072-077-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-072-077-implementation-review.md`.
+- Build: `src/driverx/simulators/carla_ood_demo.py`,
+  `src/driverx/simulators/carla_ood_demo_cli.py`,
+  `configs/carla_ood_demo.local.sample.yaml`, and
+  `tests/test_carla_ood_demo.py`.
+- Focused tests:
+  `PYTHONPATH=src python3 -m unittest tests.test_carla_ood_demo tests.test_carla_asset_mapping`.
+- Live attempt:
+  `tickets/TASK-072/artifacts/task72-live-candidate/carla_ood_demo.md`.
 
 ### Blockers
-- Optional live proof depends on local CARLA staying responsive.
+- Optional live proof depends on local CARLA staying responsive. The latest
+  Docker client attempt timed out waiting for `host.docker.internal:2000`, so
+  no live RGB frames were captured.

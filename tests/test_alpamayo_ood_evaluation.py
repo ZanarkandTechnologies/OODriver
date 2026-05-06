@@ -96,6 +96,98 @@ class AlpamayoOodEvaluationTest(unittest.TestCase):
         self.assertIn("Alpamayo OOD Evaluation", report)
         self.assertEqual(summary["records"][0]["policy_id"], "alpamayo-live")
 
+    def test_comparison_can_link_generated_scenario_and_video(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            baseline = _write_decision(root / "baseline.json", offset_y=0.0, reason="Proceed.")
+            memory = _write_decision(root / "memory.json", offset_y=0.5, reason="Slow and yield.")
+            scenario = root / "scenario.json"
+            scenario.write_text(
+                json.dumps(
+                    {
+                        "scenario_id": "scenario-001",
+                        "recipe_id": "recipe-001",
+                        "behavior_id": "motorcycle_filtering",
+                        "status": "passed",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            video = root / "video.json"
+            video.write_text(
+                json.dumps(
+                    {
+                        "status": "passed",
+                        "scenario_id": "scenario-001",
+                        "video_path": "scenario-001.mp4",
+                        "duration_s": 20.0,
+                        "worst_risk": {"distance_m": 1.1},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            summary = build_alpamayo_ood_evaluation(
+                root / "out",
+                AlpamayoOodEvaluationInputs(
+                    baseline_decision_path=baseline,
+                    memory_decision_path=memory,
+                    scenario_report_path=scenario,
+                    video_evidence_path=video,
+                ),
+            )
+
+        self.assertEqual(summary["scenario_id"], "scenario-001")
+        self.assertEqual(summary["scenario_report"]["recipe_id"], "recipe-001")
+        self.assertEqual(summary["video_evidence"]["duration_s"], 20.0)
+        self.assertEqual(summary["video_evidence"]["worst_risk"], {"distance_m": 1.1})
+        self.assertEqual(summary["evidence_warnings"], [])
+
+    def test_comparison_warns_when_linked_evidence_is_not_same_capture(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            baseline = _write_decision(root / "baseline.json", offset_y=0.0, reason="Proceed.")
+            memory = _write_decision(root / "memory.json", offset_y=0.5, reason="Slow and yield.")
+            package = root / "package.json"
+            package.write_text(
+                json.dumps(
+                    {
+                        "frame_name": "fixture",
+                        "camera_windows": [],
+                        "camera_indices": [],
+                        "ego_history_xyz": [],
+                        "ego_history_rot": [],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            scenario = root / "scenario.json"
+            scenario.write_text(
+                json.dumps({"recipe_id": "recipe-001", "status": "failed"}),
+                encoding="utf-8",
+            )
+            video = root / "video.json"
+            video.write_text(
+                json.dumps({"status": "passed", "scenario_id": "video-001"}),
+                encoding="utf-8",
+            )
+
+            summary = build_alpamayo_ood_evaluation(
+                root / "out",
+                AlpamayoOodEvaluationInputs(
+                    baseline_decision_path=baseline,
+                    memory_decision_path=memory,
+                    source_package_path=package,
+                    scenario_report_path=scenario,
+                    video_evidence_path=video,
+                ),
+            )
+
+        self.assertEqual(len(summary["evidence_warnings"]), 3)
+        self.assertIn("did not pass", summary["evidence_warnings"][0])
+        self.assertFalse(summary["safety_flags"]["memory_augmented_live_run_available"])
+        self.assertTrue(summary["safety_flags"]["memory_augmented_decision_available"])
+
 
 def _write_decision(path: Path, *, offset_y: float, reason: str) -> Path:
     points = [[round(index * 0.2, 4), round(offset_y, 4)] for index in range(20)]

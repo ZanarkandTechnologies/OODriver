@@ -12,26 +12,42 @@ from driverx.pipeline.alpamayo_ood_evaluation import (
     AlpamayoOodEvaluationInputs,
     build_alpamayo_ood_evaluation,
 )
+from driverx.pipeline.alpamayo_ood_scene import (
+    AlpamayoOodSceneInputs,
+    build_alpamayo_ood_scene_report,
+    write_alpamayo_ood_scene_report,
+)
 from driverx.pipeline.ood_suite_report import build_ood_suite_report
+from driverx.pipeline.ood_video_evidence import (
+    OodVideoEvidenceInputs,
+    build_ood_video_evidence,
+    write_ood_video_evidence,
+)
 from driverx.pipeline.rag_comparison import run_rag_comparison
 from driverx.pipeline.route_evidence import RouteEvidenceInputs, build_route_evidence
 from driverx.pipeline.scene_run import inspect_scene, run_loaded_scene, run_scene
 
 __all__ = [
     "AlpamayoOodEvaluationInputs",
+    "AlpamayoOodSceneInputs",
     "build_alpamayo_ood_evaluation",
+    "build_alpamayo_ood_scene_report",
     "build_ood_suite_report",
     "build_route_evidence",
     "GeneratedOodSuiteConfig",
     "EndToEndOodDemoConfig",
+    "OodVideoEvidenceInputs",
     "inspect_scene",
     "RouteEvidenceInputs",
     "run_batch",
     "run_experiment",
     "run_generated_ood_suite",
     "run_end_to_end_ood_demo",
+    "build_ood_video_evidence",
     "run_loaded_scene",
     "run_rag_comparison",
     "run_scene",
     "write_end_to_end_ood_demo",
+    "write_ood_video_evidence",
+    "write_alpamayo_ood_scene_report",
 ]

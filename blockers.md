@@ -6,6 +6,20 @@ unblocked ticket when possible.
 
 ## Open
 
+- 2026-05-06 19:20 +0800 | carla,docker,scripted-ood,video | TASK-072
+  scripted OOD runner implementation passed fake-CARLA tests, but the live
+  Docker client attempt timed out waiting for local CARLA at
+  `host.docker.internal:2000`. The runner wrote a clean blocked report with no
+  RGB frames. Evidence:
+  `tickets/TASK-072/artifacts/task72-live-candidate/carla_ood_demo.md`.
+  Next unblock path: keep `CARLA.app` open until the town is fully loaded, then
+  rerun `bash scripts/run_carla_client_docker.sh python -m driverx
+  run-carla-ood-demo --config configs/carla_ood_demo.local.sample.yaml
+  --tick-count 240 --run-id task72-live-retry`. If Docker still cannot reach
+  `host.docker.internal`, run the same command from inside the known-good
+  CARLA client container after verifying
+  `python -c "import carla; print(carla.Client('host.docker.internal', 2000).get_world().get_map().name)"`.
+
 - 2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060
   long-score attempt `town13-long-score-attempt-001` started the stock
   `Generalization_PedestriansOnRoad_1088` route and reached game time `0.600s`

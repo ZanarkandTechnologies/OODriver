@@ -1,0 +1,12 @@
+{
+  "recipe_id": "generated-base-animals-0076-regional-driving-behavior-000",
+  "behavior_id": "motorcycle_filtering",
+  "tick_count": 60,
+  "fps": 10,
+  "actor_refs": [
+    "ego",
+    "ego_rgb",
+    "ood_actor_0"
+  ],
+  "object_spawn_specs": []
+}

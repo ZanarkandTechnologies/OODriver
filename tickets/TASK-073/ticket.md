@@ -1,7 +1,7 @@
 # TASK-073: Long Video Assembler And Evidence Overlay
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-072
@@ -161,6 +161,17 @@ also improve Fail2Drive and Alpamayo reasoning videos later.
 ### Evidence
 - Planning created 2026-05-06 18:16 +0800.
 - Review: `docs/reviews/TASK-072-077-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-072-077-implementation-review.md`.
+- Build: `src/driverx/simulators/ood_video_overlay.py`,
+  `src/driverx/pipeline/ood_video_evidence.py`,
+  `src/driverx/pipeline/ood_video_evidence_cli.py`, and
+  `tests/test_ood_video_evidence.py`.
+- Focused tests:
+  `PYTHONPATH=src python3 -m unittest tests.test_ood_video_evidence`.
+- Fixture proof:
+  `tickets/TASK-073/artifacts/fixture-long-ood-video-v2/ood_video_evidence.md`
+  produced a 20.0s MP4 with `source_kind=fixture`.
 
 ### Blockers
-- Live long video artifact waits on TASK-072 frame output.
+- Live long video artifact waits on TASK-072 frame output. Fixture overlay and
+  assembly proof is complete and explicitly labeled as non-live evidence.

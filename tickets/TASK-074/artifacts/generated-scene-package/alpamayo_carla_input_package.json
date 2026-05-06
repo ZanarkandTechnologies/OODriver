@@ -1,0 +1,13 @@
+{
+  "frame_name": "fixture-malaysia-motorcycle-filtering",
+  "map_name": "Carla/Maps/Town13/Town13",
+  "scenario_id": "fixture-malaysia-motorcycle-filtering",
+  "notes": [
+    "Scenario-linked placeholder package for TASK-074.",
+    "Live Alpamayo inference on this generated scene is blocked until CARLA capture succeeds."
+  ],
+  "tensor_shapes": {},
+  "camera_windows": [],
+  "ego_history_xyz": [],
+  "ego_history_rot": []
+}

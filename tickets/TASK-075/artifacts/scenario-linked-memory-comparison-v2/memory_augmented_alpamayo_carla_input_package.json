@@ -1,0 +1,31 @@
+{
+  "frame_name": "fixture-malaysia-motorcycle-filtering",
+  "map_name": "Carla/Maps/Town13/Town13",
+  "scenario_id": "fixture-malaysia-motorcycle-filtering",
+  "notes": [
+    "Scenario-linked placeholder package for TASK-074.",
+    "Live Alpamayo inference on this generated scene is blocked until CARLA capture succeeds."
+  ],
+  "tensor_shapes": {},
+  "camera_windows": [],
+  "ego_history_xyz": [],
+  "ego_history_rot": [],
+  "memory_context": [
+    {
+      "entry_id": "mem-sample-motorcycle-filtering",
+      "situation": "regional two-wheeler filtering between lanes",
+      "observed_failure": "Policy committed to lane center while a fast motorcycle crossed laterally.",
+      "principle": "Regional two-wheeler behavior should be treated as lateral occupancy uncertainty.",
+      "recommended_behavior": "Slow early, yield, and keep extra side clearance before committing.",
+      "source_scenario": "fixture_memory_motorcycle_filtering",
+      "confidence": 0.82,
+      "tags": [
+        "motorcycle",
+        "filtering",
+        "lateral",
+        "regional"
+      ]
+    }
+  ],
+  "nav_text": "follow the route safely\nDriverX retrieved safety memory, prompt-side only:\nmem-sample-motorcycle-filtering: Regional two-wheeler behavior should be treated as lateral occupancy uncertainty. Recommended behavior: Slow early, yield, and keep extra side clearance before committing."
+}

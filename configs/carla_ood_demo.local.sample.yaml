@@ -1,0 +1,15 @@
+carla_ood_demo:
+  host: host.docker.internal
+  port: 2000
+  timeout_s: 20
+  map_name: Town13
+  load_map: false
+  tick_count: 240
+  fps: 10
+  camera_width: 1280
+  camera_height: 720
+  camera_fov: 90
+  behavior_id: motorcycle_filtering
+  ego_mode: scripted
+  ego_speed_mps: 4.0
+  cleanup: true

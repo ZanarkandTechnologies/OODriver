@@ -1,7 +1,7 @@
 # TASK-074: Alpamayo Reasoning Capture For CARLA OOD Scenes
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-052, TASK-059, TASK-072
@@ -172,6 +172,16 @@ ticket.
 ### Evidence
 - Planning created 2026-05-06 18:16 +0800.
 - Review: `docs/reviews/TASK-072-077-impl-plan-review.md`.
+- Implementation review: `docs/reviews/TASK-072-077-implementation-review.md`.
+- Build: `src/driverx/pipeline/alpamayo_ood_scene.py`,
+  `src/driverx/pipeline/alpamayo_ood_scene_cli.py`, and
+  `tests/test_alpamayo_ood_scene.py`.
+- Focused tests:
+  `PYTHONPATH=src python3 -m unittest tests.test_alpamayo_ood_scene`.
+- Scenario-linked setup report:
+  `tickets/TASK-074/artifacts/generated-scene-open-loop-blocker-v2/alpamayo_ood_scene.md`.
 
 ### Blockers
-- Live proof depends on a reachable Alpamayo GPU lane.
+- Live proof depends on a successful generated-scene CARLA capture package and
+  a supplied Alpamayo policy decision. Current report is intentionally a setup
+  blocker because the TASK-072 live CARLA run did not capture frames.

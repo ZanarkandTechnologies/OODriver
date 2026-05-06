@@ -83,10 +83,12 @@ policy reactions, converts trajectories into cached controls, and renders a
 local 2D simulator report. TASK-068 proved Town13 can load and the stock
 Fail2Drive route can start. TASK-071 then added the fast route-video path and
 produced a fresh Town13 MP4 from `Generalization_PedestriansOnRoad_1088` after
-CARLA was relaunched. Full route score/completion still needs a longer local
-run or a faster graphics-capable CARLA host, so TASK-070 leads the submission
-pack with the runnable local simulator and treats CARLA/Town13 and Alpamayo as
-measured supporting evidence.
+CARLA was relaunched. TASK-072 through TASK-077 add the DriverX scripted CARLA
+OOD runner, stock CARLA proxy assets, OOD video overlays, scenario-linked
+Alpamayo reports, and V3 demo pack. The scripted runner is fake-CARLA tested,
+but the latest live Docker client attempt timed out against local CARLA, so the
+V3 pack keeps the runnable local simulator as the headline and labels the 20s
+fixture video as overlay-pipeline proof rather than live CARLA evidence.
 
 ## Quickstart: End-To-End OOD Demo
 
@@ -290,6 +292,54 @@ PYTHONPATH=src python3 -m driverx build-demo-pack \
   --blockers blockers.md \
   --progress docs/progress.md \
   --run-id submission-pack-v2-final
+
+# Run the DriverX-owned scripted CARLA OOD demo. Launch this through the CARLA
+# 0.9.16 client container while CARLA.app is fully loaded.
+bash scripts/run_carla_client_docker.sh python -m driverx run-carla-ood-demo \
+  --config configs/carla_ood_demo.local.sample.yaml \
+  --tick-count 240 \
+  --run-id task72-live-retry
+
+# Assemble OOD video evidence from RGB frames and entity tracks. Use
+# source-kind=fixture only for synthetic/local proof frames; omit it for live
+# scripted CARLA frames.
+PYTHONPATH=src python3 -m driverx assemble-ood-video \
+  --rgb-folder tickets/TASK-073/artifacts/fixture-long-ood-source/rgb \
+  --tracks tickets/TASK-073/artifacts/fixture-long-ood-source/entity_tracks.json \
+  --scenario-id fixture-malaysia-motorcycle-filtering \
+  --behavior-id motorcycle_filtering \
+  --ood-tags motorcycle,filtering,roadside_vendor,regional_context \
+  --source-kind fixture \
+  --claim-label fixture_video_evidence \
+  --fps 10 \
+  --min-frames 120 \
+  --run-id fixture-long-ood-video
+
+# Build a scenario-linked Alpamayo report. Without --policy-decision this is a
+# setup/blocker report; with a live Alpamayo decision it becomes open-loop
+# reasoning evidence for that scene.
+PYTHONPATH=src python3 -m driverx build-alpamayo-ood-scene \
+  --package tickets/TASK-074/artifacts/generated-scene-package/alpamayo_carla_input_package.json \
+  --video-evidence tickets/TASK-073/artifacts/fixture-long-ood-video-v2/ood_video_evidence.json \
+  --scenario-report tickets/TASK-072/artifacts/task72-live-candidate/carla_ood_demo.json \
+  --run-id generated-scene-open-loop-blocker
+
+# Build the V3 demo pack with the latest OOD video, Alpamayo, memory, and stock
+# proxy asset evidence.
+PYTHONPATH=src python3 -m driverx build-demo-pack \
+  --local-demo tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.json \
+  --generated-suite tickets/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_summary.json \
+  --policy-matrix tickets/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json \
+  --alpamayo-probe tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json \
+  --route-evidence tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json \
+  --alpamayo-comparison tickets/TASK-075/artifacts/scenario-linked-memory-comparison-v2/alpamayo_ood_comparison.json \
+  --ood-video-evidence tickets/TASK-073/artifacts/fixture-long-ood-video-v2/ood_video_evidence.json \
+  --alpamayo-scene tickets/TASK-074/artifacts/generated-scene-open-loop-blocker-v2/alpamayo_ood_scene.json \
+  --generated-asset-evidence tickets/TASK-076/artifacts/stock-proxy-assets/asset_summary.json \
+  --cached-replay tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json \
+  --blockers blockers.md \
+  --progress docs/progress.md \
+  --run-id submission-pack-v3
 
 # Once a live route run has written RGB frames under SAVE_PATH, assemble MP4
 # evidence without relying on Fail2Drive's missing tools/generate_video.py
