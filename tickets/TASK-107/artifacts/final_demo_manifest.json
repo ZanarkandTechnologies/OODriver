@@ -1,0 +1,25 @@
+{
+  "run_id": "final-demo-draft-v1",
+  "status": "draft_video_rendered",
+  "rendered_video_path": "artifacts/exported/final_sota_demo_draft_v1.mp4",
+  "rendered_video_duration_s": 124.0,
+  "rendered_video_size_bytes": 21126921,
+  "hero_video_path": "artifacts/exported/task102_high_fidelity_hero_v6_full.mp4",
+  "hero_video_duration_s": 84.0,
+  "script_builder": "scripts/build_final_demo_video.sh",
+  "artifact_policy": "generated MP4s stay under ignored artifacts/exported and are not committed",
+  "beats": [
+    "minimal-shot autonomy problem",
+    "Scenario Studio prompt-to-OOD data engine",
+    "84s CARLA high-fidelity generated OOD campaign",
+    "Alpamayo plus retrieved safety memory open-loop comparison",
+    "understood limitation: not closed-loop real-time VLA control",
+    "submission contribution and next prototype step"
+  ],
+  "claim_boundaries": [
+    "scripted_carla_ood_evidence=true",
+    "closed_loop_vla_control=false",
+    "official_fail2drive_score=false",
+    "video_is_draft_without_voiceover=true"
+  ]
+}

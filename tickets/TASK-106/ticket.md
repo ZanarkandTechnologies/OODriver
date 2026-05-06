@@ -1,15 +1,15 @@
 # TASK-106: Final SoTA Submission Pack V7
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-101, TASK-102, TASK-103, TASK-104, TASK-105
 - location: `src/driverx/pipeline/submission_demo_pack.py`, `src/driverx/pipeline/submission_dossier.py`, `src/driverx/pipeline/submission_scenario_browser.py`, `tickets/TASK-106/artifacts`
 - enter when: the final scenario matrix, high-fidelity video evidence, scenario studio batch, Alpamayo/RAG batch, and Fail2Drive extension report are available or precisely blocked
 - leave when: final browser, dossier, video script, 2-page write-up draft, and submission artifact map are regenerated around the strongest evidence
-- blockers: depends on upstream ticket evidence; can still ship with explicit blocked rows
-- spawned follow-ups: none before submission
+- blockers: none for the V7 evidence pack; final editorial video/deck assembly continues in TASK-107
+- spawned follow-ups: TASK-107
 - complexity: M
 - assignee: generalPurpose
 
@@ -171,13 +171,18 @@ creates that final surface.
   `tickets/TASK-106/artifacts/final-submission-pack-v7-task102/final_submission_pack_v7.json`
 - TASK-102 refresh browser:
   `tickets/TASK-106/artifacts/final-submission-pack-v7-task102/scenario_browser_v7.html`
+- TASK-102 exported local MP4:
+  `artifacts/exported/task102_high_fidelity_hero_v6_full.mp4`
 - `tickets/TASK-106/artifacts/review/task106-implementation-review.json`
+- `tickets/TASK-106/artifacts/review/task106-task102-refresh-review.md`
+- `tickets/TASK-106/artifacts/review/task106-hardening-review.md`
 - Scorecard: 6 selected cases, 1 hero, 10 Scenario Studio prompts, 20
   candidates, 3 Alpamayo+memory comparisons, 2 reasoning changes, 26
   Fail2Drive extension cases, 4 Fail2Drive references, and 84s TASK-102 hero
-  video.
+  video exported as a local untracked MP4.
+- Final status: `submission_ready`; hero video export status: `local_file`.
 
 ### Blockers
 
-- Upstream evidence gaps become labeled `partial` or `blocked`; they should not
-  stop packaging.
+- None for TASK-106. Remaining submission work is editorial assembly and upload
+  hygiene, tracked as TASK-107.

@@ -134,6 +134,7 @@ def _scorecard(
         "fail2drive_reference_count": fail2drive.get("reference_count"),
         "hero_video_duration_s": hero_video.get("duration_s"),
         "hero_video_path": _hero_video_path(hero_video),
+        "hero_video_export_status": _hero_video_export_status(hero_video),
     }
 
 
@@ -156,10 +157,13 @@ def _evidence_rows(
         },
         {
             "claim": "We have a judge-visible CARLA OOD video for the generated simulator path.",
-            "status": "proved" if _hero_video_path(hero_video) else "partial",
-            "artifact": _hero_video_path(hero_video) or artifact_map.get("hero_video_evidence_path"),
-            "why_it_matters": f"Hero video duration is {hero_video.get('duration_s', 'unknown')} seconds.",
-            "claim_boundary": "scripted simulator evidence; not an official Fail2Drive route score.",
+            "status": "proved" if _hero_video_export_status(hero_video) in {"public_url", "local_file"} else "partial",
+            "artifact": _exported_video_artifact(hero_video) or artifact_map.get("hero_video_evidence_path"),
+            "why_it_matters": (
+                f"Hero video duration is {hero_video.get('duration_s', 'unknown')} seconds; "
+                f"export_status={_hero_video_export_status(hero_video)}."
+            ),
+            "claim_boundary": _hero_video_claim_boundary(hero_video),
         },
         {
             "claim": "Frozen Alpamayo can be evaluated with and without retrieved memory on OOD cases.",
@@ -279,7 +283,8 @@ def _writeup(
         "what_did_not_work": (
             "The model evidence is open-loop and slow, not real-time closed-loop control. "
             "Full official Fail2Drive scoring remains a future runtime task. "
-            f"Current open blockers: {blockers[0] if blockers else 'none that block the V7 evidence pack.'}"
+            f"Video export status is {_hero_video_export_status(hero_video)}. "
+            f"Current open blocker summary: {_blocker_summary(blockers)}"
         ),
         "where_prize_money_goes": (
             "The next prototype step is a persistent graphics-capable CARLA host plus GPU time for closed-loop VLA experiments, "
@@ -313,14 +318,73 @@ def _claim_boundaries(
     boundaries.extend(str(item) for item in list(studio.get("claim_boundaries", [])))
     boundaries.extend(str(item) for item in list(alpamayo_batch.get("claim_boundaries", [])))
     boundaries.extend(str(item) for item in list(fail2drive.get("claim_boundaries", [])))
+    export_status = _hero_video_export_status(hero_video)
     if _hero_video_path(hero_video):
-        boundaries.append("Hero video is generated simulator evidence and may be shown in the final demo.")
+        if export_status in {"public_url", "local_file"}:
+            boundaries.append("Hero video is generated simulator evidence and may be shown in the final demo.")
+        else:
+            boundaries.append(
+                "Hero video exists as remote simulator evidence but must be exported or hosted before judge upload."
+            )
     return sorted(set(boundaries))
 
 
 def _hero_video_path(hero_video: dict[str, Any]) -> str | None:
-    path = hero_video.get("remote_video_path") or hero_video.get("video_path")
+    path = _exported_video_artifact(hero_video) or hero_video.get("remote_video_path") or hero_video.get("video_path")
     return str(path) if path else None
+
+
+def _hero_video_claim_boundary(hero_video: dict[str, Any]) -> str:
+    base = "scripted simulator evidence; not an official Fail2Drive route score"
+    if _hero_video_export_status(hero_video) in {"public_url", "local_file"}:
+        return f"{base}; exported media is available for final demo assembly."
+    return f"{base}; remote-only media must be exported before final judge upload."
+
+
+def _exported_video_artifact(hero_video: dict[str, Any]) -> str | None:
+    for key in ("public_video_url", "local_video_path"):
+        value = hero_video.get(key)
+        if value:
+            return str(value)
+    video_path = hero_video.get("video_path")
+    if video_path and Path(str(video_path)).exists():
+        return str(video_path)
+    return None
+
+
+def _hero_video_export_status(hero_video: dict[str, Any]) -> str:
+    public_url = hero_video.get("public_video_url")
+    if public_url:
+        return "public_url"
+    local_video = hero_video.get("local_video_path")
+    if local_video and Path(str(local_video)).exists():
+        return "local_file"
+    video_path = hero_video.get("video_path")
+    if video_path and Path(str(video_path)).exists():
+        return "local_file"
+    if hero_video.get("remote_video_path") or video_path:
+        return "remote_only"
+    return "missing"
+
+
+def _blocker_summary(blockers: list[str]) -> str:
+    if not blockers:
+        return "none that block the V7 evidence pack."
+    compact = []
+    for blocker in blockers[:2]:
+        fields = [part.strip() for part in blocker.split("|")]
+        if len(fields) >= 3:
+            compact.append(f"{fields[1]}: {_compact_text(fields[2])}")
+        else:
+            compact.append(_compact_text(blocker))
+    suffix = f" (+{len(blockers) - 2} more)" if len(blockers) > 2 else ""
+    return "; ".join(compact) + suffix
+
+
+def _compact_text(text: str, limit: int = 100) -> str:
+    first = text.split(" Evidence:", 1)[0].strip()
+    first = first.split(" Next unblock path:", 1)[0].strip()
+    return first[:limit].rstrip() + ("..." if len(first) > limit else "")
 
 
 def _load_json(path: Path | None) -> dict[str, Any]:

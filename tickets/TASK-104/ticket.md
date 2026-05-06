@@ -1,7 +1,7 @@
 # TASK-104: Alpamayo Plus RAG Evaluation Batch Over Generated OOD
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-100, TASK-101, TASK-102, TASK-103

@@ -83,6 +83,9 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   heredocs/base64 streams because the proxy requires a PTY and echoes command
   input; install tokens through the web terminal or direct TCP SSH/SFTP. See
   `MEM-0027`.
+- Final submission media evidence must distinguish `public_url`, `local_file`,
+  `remote_only`, and `missing`; only public or local exported media can be
+  marked as proved. See `MEM-0033`.
 - For stock SimLingo/CARLA 0.9.15 live runs, prefer H100/H200-class `sm_90`
   hosts; Blackwell `sm_120` requires a separate PyTorch/CARLA rebuild path
   before it can run the upstream Python 3.8 + torch 2.2 stack. See `MEM-0017`.

@@ -17,16 +17,21 @@
 ## Result
 
 The TASK-106 refresh correctly promotes the stronger TASK-102 high-fidelity
-video evidence into the final pack. The refreshed scorecard now records:
+video evidence into the final pack with exported local media available outside
+the RunPod filesystem. The refreshed scorecard now records:
 
 - hero_video_duration_s: `84.0`
 - hero_video_path:
   `/workspace/0xDriver/artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4`
+- hero_video_export_status: `local_file`
 - submission_status: `submission_ready`
 - evidence rows: `5` proved rows
 
 The stale TASK-099 Alpamayo blocker was removed from `blockers.md`, so the
-write-up no longer contradicts TASK-100 live Alpamayo evidence.
+write-up no longer contradicts TASK-100 live Alpamayo evidence. The temporary
+media-export blocker was resolved by pulling the selected MP4 to
+`artifacts/exported/task102_high_fidelity_hero_v6_full.mp4`, which remains
+untracked by artifact policy.
 
 ## Verification
 
@@ -37,6 +42,5 @@ write-up no longer contradicts TASK-100 live Alpamayo evidence.
 
 ## Caveat
 
-The final pack still points at a remote MP4 path because generated videos are
-kept out of git. Final submission export should copy or host that one selected
-MP4 outside the repo.
+The selected MP4 is available locally for final demo assembly but remains
+untracked because generated videos stay out of git.

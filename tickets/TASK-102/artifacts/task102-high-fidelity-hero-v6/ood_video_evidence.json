@@ -6,6 +6,8 @@
   "behavior_id": "motorcycle_filtering",
   "video_path": "artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4",
   "remote_video_path": "/workspace/0xDriver/artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/video/task102_high_fidelity_hero_v6_full.mp4",
+  "local_video_path": "artifacts/exported/task102_high_fidelity_hero_v6_full.mp4",
+  "video_export_status": "local_file",
   "video_size_bytes": 19351757,
   "frame_count": 420,
   "duration_s": 84.0,

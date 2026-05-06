@@ -48,6 +48,13 @@ unblocked ticket when possible.
 
 ## Resolved
 
+- 2026-05-07 06:02 +0800 | submission,video,export | TASK-106
+  hardening resolved the TASK-102 hero-media export gap by pulling the selected
+  84s MP4 from RunPod over proxy SSH/SCP into the local untracked artifact path
+  `artifacts/exported/task102_high_fidelity_hero_v6_full.mp4`. The final pack
+  now sees `hero_video_export_status=local_file` and returns
+  `submission_ready` while keeping the heavy MP4 out of git.
+
 - 2026-05-07 02:04 +0800 | alpamayo,runpod,kasm,huggingface |
   TASK-100 resolved the TASK-099 live Alpamayo blocker. The Kasm RunPod lane ran
   Alpamayo 1.5 on the hero CARLA OOD package and produced CoC reasoning,

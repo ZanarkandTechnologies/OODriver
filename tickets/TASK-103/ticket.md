@@ -1,7 +1,7 @@
 # TASK-103: AI Scenario Studio Prompt-To-OOD DSL
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-090, TASK-091, TASK-092, TASK-101

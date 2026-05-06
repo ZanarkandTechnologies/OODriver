@@ -1,7 +1,7 @@
 # TASK-101: Submission Evaluation Matrix And Scenario Selection
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-097, TASK-098, TASK-100
@@ -145,13 +145,13 @@ and model/RAG comparison. This ticket defines that panel.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Matrix names at least 6 candidate scenarios and exactly 1-2 hero
+- [x] AC-1: Matrix names at least 6 candidate scenarios and exactly 1-2 hero
   candidates.
-- [ ] AC-2: Each case records quality/video/tracks/Alpamayo/RAG evidence
+- [x] AC-2: Each case records quality/video/tracks/Alpamayo/RAG evidence
   status.
-- [ ] AC-3: Each case has a concrete `needed_next` field used by TASK-102
+- [x] AC-3: Each case has a concrete `needed_next` field used by TASK-102
   through TASK-104.
-- [ ] AC-4: Markdown report clearly explains why the selected cases satisfy the
+- [x] AC-4: Markdown report clearly explains why the selected cases satisfy the
   SoTA brief.
 
 ### Verification

@@ -14,7 +14,7 @@ The final sprint generated 20 OOD candidates from 10 briefs, selected 6 judge-fa
 
 ## What Did Not Work
 
-The model evidence is open-loop and slow, not real-time closed-loop control. Full official Fail2Drive scoring remains a future runtime task. Current open blockers: 2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060 long-score attempt `town13-long-score-attempt-001` started the stock `Generalization_PedestriansOnRoad_1088` route and reached game time `0.600s` at about `0.142x`, then stopped making observable progress. A concurrent route-aligned Alpamayo capture attempt with a 60s CARLA timeout also failed waiting for the simulator. I terminated the route evaluator cleanly to avoid burning the full 1200s timeout on a stalled local Mac/Wine simulation. Evidence: `tickets/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md` and `tickets/TASK-069/artifacts/town13-live-attach-attempt-004/carla_alpamayo_capture.json`. Next unblock path: use a graphics-capable Linux NVIDIA CARLA host for Fail2Drive scoring/capture, or rerun locally only after confirming CARLA can sustain route ticks and serve a second Python client during synchronous mode.
+The model evidence is open-loop and slow, not real-time closed-loop control. Full official Fail2Drive scoring remains a future runtime task. Video export status is local_file. Current open blocker summary: fail2drive,carla,town13,score,capture: TASK-060 long-score attempt `town13-long-score-attempt-001` started the stock `Generalization_Pedest...; fail2drive,carla,town13,score: TASK-071 produced fresh Town13 MP4 evidence from the stock Fail2Drive `Generalization_PedestriansOnR... (+1 more)
 
 ## Where Prize Money Goes
 

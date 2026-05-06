@@ -1,6 +1,6 @@
 # Submission Milestones
 
-Last updated: 2026-05-07 02:55 +0800
+Last updated: 2026-05-07 06:02 +0800
 
 ## Decision
 
@@ -25,7 +25,7 @@ Ship from current proof plus light packaging.
 Pros:
 
 - Lowest risk.
-- Already has a 60s RunPod CARLA OOD video and live Alpamayo reasoning.
+- Already has an exported 84s RunPod CARLA OOD video and live Alpamayo reasoning.
 - Leaves time to make the write-up and video coherent.
 
 Cons:
@@ -50,8 +50,10 @@ Pros:
 
 Cons:
 
-- Requires one more live CARLA video or a precise blocker.
-- Requires RunPod Alpamayo to stay available for more inference.
+- Completed one stronger high-fidelity CARLA video; final stretch is editorial
+  assembly, not more setup.
+- Requires RunPod Alpamayo only if we choose extra inference beyond the current
+  batch evidence.
 - Final packaging must be disciplined to avoid overclaiming.
 
 Best if: RunPod Kasm and HF auth remain available.
@@ -100,14 +102,10 @@ closed-loop.
 Status: done.
 
 Old tickets TASK-058 through TASK-100 are archived as historical evidence. The
-active board is now only:
+active board has now landed TASK-101 through TASK-106. The next submission
+handoff ticket is:
 
-- TASK-101
-- TASK-102
-- TASK-103
-- TASK-104
-- TASK-105
-- TASK-106
+- TASK-107: final demo video and submission upload packet
 
 ### M1: Select The Final Evidence Set
 

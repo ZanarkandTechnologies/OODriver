@@ -74,13 +74,14 @@ flowchart TD
 
 ## Current Status
 
-The active sprint is the final SoTA submission train. Old ticket records through
-TASK-100 are archived as historical evidence; the active board is TASK-101
-through TASK-106 only.
+The final SoTA evidence train has landed. Old ticket records through TASK-100
+are archived as historical evidence, TASK-101 through TASK-106 are complete,
+and TASK-107 is the remaining final-demo assembly and upload packet.
 
 Current strongest evidence:
 
-- a 60s RunPod-hosted, road-aligned CARLA OOD campaign video
+- an 84s RunPod-generated, road-aligned high-fidelity CARLA OOD campaign video
+  exported locally at `artifacts/exported/task102_high_fidelity_hero_v6_full.mp4`
 - a scenario catalog and submission browser around that generated OOD case
 - live Alpamayo 1.5 open-loop reasoning on the hero CARLA package
 - measured Alpamayo latency/VRAM and converted DriverX trajectory intent
@@ -100,12 +101,18 @@ Milestone guidance lives in `docs/submission-milestones.md`.
 
 ## Current Submission Packet
 
+- Final V7 pack:
+  `tickets/TASK-106/artifacts/final-submission-pack-v7-task102/final_submission_pack_v7.md`
 - Scenario browser:
-  `tickets/archive/TASK-095/artifacts/submission-browser-v11/scenario_browser.html`
-- Dossier:
-  `tickets/archive/TASK-095/artifacts/submission-browser-v11/submission_dossier_v6.md`
+  `tickets/TASK-106/artifacts/final-submission-pack-v7-task102/scenario_browser_v7.html`
+- Two-page write-up draft:
+  `tickets/TASK-106/artifacts/final-submission-pack-v7-task102/writeup_2page_draft.md`
 - Video script:
-  `tickets/archive/TASK-095/artifacts/submission-browser-v11/video_script_v6.md`
+  `tickets/TASK-106/artifacts/final-submission-pack-v7-task102/video_script_v7.md`
+- Final demo packet:
+  `tickets/TASK-107/artifacts/final_demo_packet.md`
+- Draft rendered demo MP4:
+  `artifacts/exported/final_sota_demo_draft_v1.mp4`
 - Scenario catalog:
   `tickets/archive/TASK-090/artifacts/scenario-catalog-v4/scenario_catalog.md`
 - Policy evaluation campaign:
