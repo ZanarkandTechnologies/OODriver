@@ -113,6 +113,7 @@ def _storyboard(
     ready_count = _ready_policy_count(policy_matrix)
     alpamayo_status = _mapping(alpamayo_probe).get("status", "not provided")
     route_video = _mapping(route_evidence.get("video"))
+    route_label = _route_label(route_evidence)
     trajectory_delta = _mapping(alpamayo_comparison.get("trajectory_delta"))
     replay_command_count = cached_replay.get("command_count", "unknown")
     replay_mode = cached_replay.get("closed_loop_control", "not provided")
@@ -153,8 +154,11 @@ def _storyboard(
         {
             "time": "1:55-2:25",
             "beat": "Route Video Evidence",
-            "visual": "Play the Town10 CARLA route video and show the route evidence report.",
-            "narration": f"The local route proof produced video={route_video.get('exists', False)} while keeping missing route-score/entity-track limitations explicit.",
+            "visual": f"Play the {route_label} CARLA route video and show the route evidence report.",
+            "narration": (
+                f"The local route proof produced video={route_video.get('exists', False)} "
+                f"for {route_label} while keeping route-score/entity-track limitations explicit."
+            ),
         },
         {
             "time": "2:25-3:00",
@@ -400,6 +404,18 @@ def _writeup_draft(
     ready_rows = _ready_policy_count(policy_matrix)
     trajectory_delta = _mapping(alpamayo_comparison.get("trajectory_delta"))
     local_sim = _mapping(local_demo.get("local_sim"))
+    route_video = _mapping(route_evidence.get("video"))
+    route_metrics = _mapping(route_evidence.get("metrics"))
+    route_label = _route_label(route_evidence)
+    route_failure = (
+        f"The current CARLA route gap is `{route_label}`: video evidence exists "
+        f"({route_video.get('duration_s')}s) but driving_score="
+        f"`{route_metrics.get('driving_score')}` and route_completion="
+        f"`{route_metrics.get('route_completion')}` because the early-video run stops "
+        "before full scoring."
+        if route_video.get("exists")
+        else f"The current named failure is `{failure.get('summary')}`."
+    )
     return {
         "motivation": (
             "Autonomy systems fail when they only work on distributions they have already seen. "
@@ -424,8 +440,8 @@ def _writeup_draft(
             "policy decision without claiming real-time VLA control."
         ),
         "what_did_not_work": (
-            f"The current named failure is `{failure.get('summary')}`. This blocks a polished live route "
-            "video but gives a precise next step instead of an ambiguous model-quality claim."
+            f"{route_failure} This keeps the submission claim bounded: we have visible "
+            "CARLA/OOD evidence now, while full closed-loop score evidence remains the next runtime step."
         ),
         "next_funding_step": (
             "Use the prize budget for a graphics-capable NVIDIA CARLA host, a confirmed reasoning-VLA "
@@ -444,6 +460,25 @@ def _base_policy_label(row: dict[str, Any]) -> str:
     if policy == "alpamayo":
         return "Alpamayo reasoning VLA, setup-gated"
     return "DriverX local deterministic or mock policy"
+
+
+def _route_label(route_evidence: dict[str, Any]) -> str:
+    command = _mapping(route_evidence.get("plan")).get("command")
+    if isinstance(command, str) and command.strip():
+        route_path = command
+    else:
+        route_path = ""
+        run_command = _mapping(route_evidence.get("plan")).get("run_command")
+        if isinstance(run_command, list):
+            for index, token in enumerate(run_command):
+                if str(token) == "--routes" and index + 1 < len(run_command):
+                    route_path = str(run_command[index + 1])
+                    break
+    if route_path:
+        stem = Path(route_path).stem
+        if stem:
+            return stem
+    return str(route_evidence.get("route_id") or "current")
 
 
 def _ready_policy_count(policy_matrix: dict[str, Any]) -> Any:

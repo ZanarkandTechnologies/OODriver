@@ -86,10 +86,13 @@ from driverx.simulators.fail2drive_route_runner import (
     write_fail2drive_route_run,
 )
 from driverx.simulators.route_video_assembly import (
+    FrameWatchResult,
     RouteVideoAssemblyPlan,
     RouteVideoAssemblyRun,
+    assemble_route_video_from_watch,
     plan_route_video_assembly,
     run_route_video_assembly,
+    wait_for_rgb_frames,
     write_route_video_assembly,
 )
 from driverx.simulators.overlay_injection import (
@@ -183,6 +186,7 @@ __all__ = [
     "CarlaSmokeResult",
     "EntityTrack",
     "ExpectedOutputStatus",
+    "FrameWatchResult",
     "GpuHostSuitability",
     "Fail2DriveRouteRunConfig",
     "Fail2DriveRouteRunResult",
@@ -207,6 +211,7 @@ __all__ = [
     "SidecarProcessRecord",
     "SimLingoSidecarPlan",
     "SimLingoSidecarRunResult",
+    "assemble_route_video_from_watch",
     "build_bench2drive_route_suite",
     "build_overlay_evidence",
     "build_simlingo_sidecar_plan",
@@ -265,4 +270,5 @@ __all__ = [
     "write_simlingo_sidecar_run",
     "assess_gpu_host_suitability",
     "write_gpu_host_suitability_report",
+    "wait_for_rgb_frames",
 ]

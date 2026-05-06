@@ -1,0 +1,148 @@
+{
+  "status": "partial",
+  "plan": {
+    "path": "tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_video_smoke_plan.json",
+    "run_command": [
+      "python",
+      "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py",
+      "--routes",
+      "/workspace/fail2drive/fail2drive_split/Generalization_PedestriansOnRoad_1088.xml",
+      "--repetitions",
+      "1",
+      "--track",
+      "MAP",
+      "--checkpoint",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+      "--debug-checkpoint",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_debug.txt",
+      "--timeout",
+      "900",
+      "--agent",
+      "/workspace/fail2drive/team_code/viz_path_agent.py",
+      "--host",
+      "host.docker.internal",
+      "--port",
+      "2000"
+    ],
+    "video_command": [
+      "python",
+      "/workspace/fail2drive/tools/generate_video.py",
+      "-f",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+      "-o",
+      "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088.mp4"
+    ],
+    "expected_outputs": {
+      "result": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+      "debug": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_debug.txt",
+      "save_path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations",
+      "rgb_folder": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+      "video": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088.mp4"
+    },
+    "live_blockers": [
+      "Fail2Drive video tool not found: /workspace/fail2drive/tools/generate_video.py",
+      "RGB folder does not exist yet; run the route command with SAVE_PATH before generating video: /workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb"
+    ]
+  },
+  "route_run": {
+    "label": "route_run",
+    "path": "tickets/TASK-071/artifacts/town13-early-video-after-restart/fail2drive_route_run.json",
+    "exists": true,
+    "size_bytes": 5827,
+    "summary": {
+      "status": "blocked",
+      "timeout_s": 600.0,
+      "duration_s": 123.767547,
+      "exit_code": -15,
+      "error": null,
+      "route_blockers": [
+        "ffmpeg not found on PATH; install ffmpeg or pass --ffmpeg-path.",
+        "Fail2Drive route stopped after early video capture; route score is intentionally partial."
+      ]
+    }
+  },
+  "result": {
+    "label": "route_result",
+    "path": "tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+    "exists": true,
+    "size_bytes": 361,
+    "summary": {
+      "status": null,
+      "success": false,
+      "driving_score": null,
+      "route_completion": null,
+      "infraction_penalty": null,
+      "duration_game_s": null,
+      "duration_system_s": null,
+      "route_count": 0,
+      "primary_route": null,
+      "infraction_counts": {}
+    }
+  },
+  "entity_tracks": {
+    "label": "entity_tracks",
+    "path": null,
+    "exists": false,
+    "size_bytes": null,
+    "summary": null
+  },
+  "video": {
+    "label": "video",
+    "path": "tickets/TASK-071/artifacts/town13-early-video-after-restart/Generalization_PedestriansOnRoad_1088_early.mp4",
+    "exists": true,
+    "size_bytes": 507730,
+    "duration_s": 0.5
+  },
+  "screenshots": [],
+  "logs": [
+    {
+      "label": "log",
+      "path": "tickets/TASK-071/artifacts/town13-early-video-after-restart/logs/fail2drive_route.stdout.log",
+      "exists": true,
+      "size_bytes": 5060,
+      "tail": [
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:22.647 -- System time = 5.294 -- Game time = 1.200 -- Ratio = 0.227x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:22.843 -- System time = 5.490 -- Game time = 1.250 -- Ratio = 0.228x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:23.065 -- System time = 5.712 -- Game time = 1.300 -- Ratio = 0.228x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:23.260 -- System time = 5.907 -- Game time = 1.350 -- Ratio = 0.229x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:23.450 -- System time = 6.097 -- Game time = 1.400 -- Ratio = 0.230x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:23.719 -- System time = 6.366 -- Game time = 1.450 -- Ratio = 0.228x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:23.949 -- System time = 6.596 -- Game time = 1.500 -- Ratio = 0.227x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:24.137 -- System time = 6.784 -- Game time = 1.550 -- Ratio = 0.228x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:24.385 -- System time = 7.032 -- Game time = 1.600 -- Ratio = 0.228x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:24.579 -- System time = 7.226 -- Game time = 1.650 -- Ratio = 0.228x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:24.774 -- System time = 7.421 -- Game time = 1.700 -- Ratio = 0.229x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:24.967 -- System time = 7.614 -- Game time = 1.750 -- Ratio = 0.230x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:25.187 -- System time = 7.834 -- Game time = 1.800 -- Ratio = 0.230x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:25.382 -- System time = 8.029 -- Game time = 1.850 -- Ratio = 0.230x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:25.614 -- System time = 8.261 -- Game time = 1.900 -- Ratio = 0.230x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:25.815 -- System time = 8.462 -- Game time = 1.950 -- Ratio = 0.230x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:26.019 -- System time = 8.666 -- Game time = 2.000 -- Ratio = 0.231x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:26.237 -- System time = 8.884 -- Game time = 2.050 -- Ratio = 0.231x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:26.461 -- System time = 9.108 -- Game time = 2.100 -- Ratio = 0.231x",
+        "=== [Agent] -- Wallclock = 2026-05-06 03:33:26.695 -- System time = 9.342 -- Game time = 2.150 -- Ratio = 0.230x"
+      ]
+    },
+    {
+      "label": "log",
+      "path": "tickets/TASK-071/artifacts/town13-early-video-after-restart/logs/fail2drive_route.stderr.log",
+      "exists": true,
+      "size_bytes": 0,
+      "tail": []
+    }
+  ],
+  "blockers": [
+    "Fail2Drive route stopped after early video capture; route score is intentionally partial."
+  ],
+  "metrics": {
+    "driving_score": null,
+    "route_completion": null,
+    "infraction_penalty": null,
+    "duration_game_s": null,
+    "duration_system_s": null,
+    "track_count": null,
+    "actor_refs": [],
+    "video_duration_s": 0.5,
+    "video_size_bytes": 507730
+  }
+}

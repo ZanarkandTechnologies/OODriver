@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import shutil
 import subprocess
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -59,6 +60,112 @@ class RouteVideoAssemblyRun:
             "stderr": self.stderr,
             "executed": self.executed,
         }
+
+
+@dataclass(frozen=True)
+class FrameWatchResult:
+    rgb_folder: Path
+    min_frames: int
+    timeout_s: float
+    poll_interval_s: float
+    waited_s: float
+    frame_count: int
+    ready: bool
+    first_frame: Path | None
+    last_frame: Path | None
+    live_blockers: list[str]
+
+    def to_jsonable(self) -> dict[str, Any]:
+        return {
+            "rgb_folder": str(self.rgb_folder),
+            "min_frames": self.min_frames,
+            "timeout_s": self.timeout_s,
+            "poll_interval_s": self.poll_interval_s,
+            "waited_s": self.waited_s,
+            "frame_count": self.frame_count,
+            "ready": self.ready,
+            "first_frame": str(self.first_frame) if self.first_frame else None,
+            "last_frame": str(self.last_frame) if self.last_frame else None,
+            "live_blockers": self.live_blockers,
+        }
+
+
+def wait_for_rgb_frames(
+    rgb_folder: Path,
+    *,
+    min_frames: int,
+    timeout_s: float,
+    poll_interval_s: float = 1.0,
+) -> FrameWatchResult:
+    """Wait until a Fail2Drive RGB folder contains enough frames for video evidence."""
+
+    folder = rgb_folder.expanduser().resolve()
+    needed = max(1, min_frames)
+    started_at = time.monotonic()
+    deadline = started_at + max(0.0, timeout_s)
+    frames: list[Path] = []
+    while True:
+        frames = _frame_paths(folder)
+        if len(frames) >= needed:
+            return _frame_watch_result(
+                folder,
+                needed,
+                timeout_s,
+                poll_interval_s,
+                started_at,
+                frames,
+                ready=True,
+            )
+        if time.monotonic() >= deadline:
+            return _frame_watch_result(
+                folder,
+                needed,
+                timeout_s,
+                poll_interval_s,
+                started_at,
+                frames,
+                ready=False,
+            )
+        time.sleep(max(0.0, poll_interval_s))
+
+
+def assemble_route_video_from_watch(
+    watch: FrameWatchResult,
+    output_video: Path,
+    *,
+    fps: int = 20,
+    ffmpeg_path: str | None = None,
+) -> RouteVideoAssemblyRun:
+    """Assemble MP4 evidence from a completed frame watch result."""
+
+    if not watch.ready:
+        plan = RouteVideoAssemblyPlan(
+            rgb_folder=watch.rgb_folder,
+            output_video=output_video.expanduser().resolve(),
+            fps=fps,
+            frame_count=watch.frame_count,
+            frame_pattern=None,
+            ffmpeg_path=ffmpeg_path or shutil.which("ffmpeg"),
+            command=[],
+            live_blockers=[
+                *watch.live_blockers,
+                f"Frame watch did not reach {watch.min_frames} frame(s).",
+            ],
+        )
+        return RouteVideoAssemblyRun(
+            plan=plan,
+            returncode=None,
+            stdout="",
+            stderr="\n".join(plan.live_blockers),
+            executed=False,
+        )
+    plan = plan_route_video_assembly(
+        watch.rgb_folder,
+        output_video=output_video,
+        fps=fps,
+        ffmpeg_path=ffmpeg_path,
+    )
+    return run_route_video_assembly(plan)
 
 
 def plan_route_video_assembly(
@@ -179,6 +286,38 @@ def _blockers(folder: Path, frames: list[Path], ffmpeg_path: str | None) -> list
     return blockers
 
 
+def _frame_watch_result(
+    folder: Path,
+    min_frames: int,
+    timeout_s: float,
+    poll_interval_s: float,
+    started_at: float,
+    frames: list[Path],
+    *,
+    ready: bool,
+) -> FrameWatchResult:
+    blockers: list[str] = []
+    if not ready:
+        if not folder.exists():
+            blockers.append(f"RGB folder not found before timeout: {folder}")
+        else:
+            blockers.append(
+                f"Only {len(frames)} RGB frame(s) found before timeout; expected {min_frames}."
+            )
+    return FrameWatchResult(
+        rgb_folder=folder,
+        min_frames=min_frames,
+        timeout_s=timeout_s,
+        poll_interval_s=poll_interval_s,
+        waited_s=round(time.monotonic() - started_at, 6),
+        frame_count=len(frames),
+        ready=ready,
+        first_frame=frames[0] if frames else None,
+        last_frame=frames[-1] if frames else None,
+        live_blockers=blockers,
+    )
+
+
 def _markdown(payload: dict[str, Any]) -> str:
     plan = dict(payload.get("plan", {}))
     lines = [
@@ -205,9 +344,12 @@ def _markdown(payload: dict[str, Any]) -> str:
 
 
 __all__ = [
+    "FrameWatchResult",
     "RouteVideoAssemblyPlan",
     "RouteVideoAssemblyRun",
+    "assemble_route_video_from_watch",
     "plan_route_video_assembly",
     "run_route_video_assembly",
+    "wait_for_rgb_frames",
     "write_route_video_assembly",
 ]

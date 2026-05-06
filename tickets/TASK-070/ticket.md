@@ -4,7 +4,7 @@
 - state: done
 - owner: Codex
 - assignee: generalPurpose
-- dependencies: TASK-064, TASK-067, TASK-068, TASK-069
+- dependencies: TASK-064, TASK-067, TASK-068, TASK-069, TASK-071
 - location: `src/driverx/pipeline`, `README.md`, `ARCHITECTURE.md`, docs,
   tickets
 - enter when: at least TASK-064 local end-to-end evidence exists
@@ -39,13 +39,19 @@ future serving/closed-loop limits.
   `tickets/TASK-070/artifacts/submission-pack-v2-final/submission_demo_pack.md`.
 - The pack includes current supporting evidence only:
   dataset-backed Alpamayo probe, open-loop Alpamayo memory comparison, cached
-  replay, and partial Town13 route evidence. Claim boundaries explicitly say
-  Alpamayo is open-loop and cached replay is not real-time VLA steering.
+  replay, and the TASK-071 partial Town13 route video evidence. Claim
+  boundaries explicitly say Alpamayo is open-loop, cached replay is not
+  real-time VLA steering, and the route video does not imply full route score.
+- 2026-05-06 11:36 +0800: Regenerated
+  `tickets/TASK-070/artifacts/submission-pack-v2-final/submission_demo_pack.md`
+  against `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json`.
 - Focused tests:
   `PYTHONPATH=src python3 -m unittest tests.test_route_evidence tests.test_submission_demo_pack`.
 - Full gate: `bash scripts/pre_push_check.sh` passed with 288 tests.
 - Review:
   `docs/reviews/TASK-068-070-local-first-submission-review.md`.
+- Fresh TASK-071 evidence review:
+  `docs/reviews/TASK-071-fast-town13-video-review.md`.
 
 ## Blockers
 - None for this ticket. TASK-060 and TASK-069 remain the live-runtime follow-up

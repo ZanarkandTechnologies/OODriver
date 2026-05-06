@@ -159,8 +159,15 @@ ignored by `.gitignore`.
   route checkpoint still had `entry_status: Started` and no completed records.
   Partial evidence:
   `tickets/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.md`.
+- 2026-05-06 11:34 +0800: TASK-071 produced the first fresh Town13 MP4 from
+  the stock `Generalization_PedestriansOnRoad_1088` route after the CARLA
+  restart. The runner captured 5 RGB frames, assembled a 0.5s MP4, and wrote
+  partial evidence at
+  `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`.
+  This resolves the video proof gap but intentionally leaves score/completion
+  open because the route stopped after early video capture.
 
 ## Blockers
 - Route completion/score now needs either a faster graphics-capable Linux
-  NVIDIA CARLA host or a much longer local run. This is no longer a Town13 map
-  install blocker.
+  NVIDIA CARLA host or a much longer local run without `--stop-after-video`.
+  This is no longer a Town13 map install or video blocker.

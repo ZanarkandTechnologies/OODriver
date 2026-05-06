@@ -8,8 +8,10 @@ import unittest
 
 from driverx.cli import main
 from driverx.simulators.route_video_assembly import (
+    assemble_route_video_from_watch,
     plan_route_video_assembly,
     run_route_video_assembly,
+    wait_for_rgb_frames,
     write_route_video_assembly,
 )
 
@@ -91,6 +93,43 @@ class RouteVideoAssemblyTest(unittest.TestCase):
         self.assertTrue(report_exists)
         self.assertTrue(cli_json_exists)
         self.assertEqual(cli_summary["status"], "planned")
+
+    def test_frame_watch_waits_until_minimum_frames_exist(self) -> None:
+        with TemporaryDirectory() as tmp:
+            rgb = Path(tmp) / "rgb"
+            rgb.mkdir()
+            (rgb / "000001.jpg").write_text("frame\n", encoding="utf-8")
+            (rgb / "000002.jpg").write_text("frame\n", encoding="utf-8")
+
+            watch = wait_for_rgb_frames(
+                rgb,
+                min_frames=2,
+                timeout_s=0.1,
+                poll_interval_s=0.01,
+            )
+
+        self.assertTrue(watch.ready)
+        self.assertEqual(watch.frame_count, 2)
+        self.assertEqual(watch.live_blockers, [])
+
+    def test_frame_watch_timeout_and_assembly_blocker(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            watch = wait_for_rgb_frames(
+                root / "missing",
+                min_frames=2,
+                timeout_s=0.01,
+                poll_interval_s=0.01,
+            )
+            result = assemble_route_video_from_watch(
+                watch,
+                root / "route.mp4",
+                ffmpeg_path="/bin/echo",
+            )
+
+        self.assertFalse(watch.ready)
+        self.assertFalse(result.executed)
+        self.assertIn("Frame watch did not reach", result.stderr)
 
 
 if __name__ == "__main__":

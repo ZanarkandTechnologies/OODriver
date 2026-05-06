@@ -13,6 +13,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from driverx.simulators.route_video_assembly import (
+    assemble_route_video_from_watch,
+    wait_for_rgb_frames,
+)
+
 
 @dataclass(frozen=True)
 class Fail2DriveRouteRunConfig:
@@ -20,6 +25,11 @@ class Fail2DriveRouteRunConfig:
     run_dir: Path
     timeout_s: float | None = 120.0
     dry_run: bool = False
+    min_video_frames: int | None = None
+    video_fps: int = 20
+    video_timeout_s: float | None = None
+    stop_after_video: bool = False
+    ffmpeg_path: str | None = None
 
 
 @dataclass(frozen=True)
@@ -55,6 +65,8 @@ class Fail2DriveRouteRunResult:
     expected_outputs: list[ExpectedOutputStatus]
     route_blockers: list[str]
     error: str | None = None
+    frame_watch: dict[str, Any] | None = None
+    video_assembly: dict[str, Any] | None = None
 
     @property
     def status(self) -> str:
@@ -89,6 +101,8 @@ class Fail2DriveRouteRunResult:
             "expected_outputs": [output.to_jsonable() for output in self.expected_outputs],
             "route_blockers": self.route_blockers,
             "error": self.error,
+            "frame_watch": self.frame_watch,
+            "video_assembly": self.video_assembly,
         }
 
 
@@ -124,6 +138,8 @@ def run_fail2drive_route(config: Fail2DriveRouteRunConfig) -> Fail2DriveRouteRun
             expected_outputs=outputs,
             route_blockers=route_blockers,
         )
+    if config.min_video_frames is not None:
+        return _run_fail2drive_route_streaming(config, payload, command, cwd, env, run_dir, stdout_path, stderr_path)
     started_at = time.monotonic()
     merged_env = os.environ.copy()
     merged_env.update(env)
@@ -211,6 +227,154 @@ def run_fail2drive_route(config: Fail2DriveRouteRunConfig) -> Fail2DriveRouteRun
         )
 
 
+def _run_fail2drive_route_streaming(
+    config: Fail2DriveRouteRunConfig,
+    payload: dict[str, Any],
+    command: list[str],
+    cwd: Path,
+    env: dict[str, str],
+    run_dir: Path,
+    stdout_path: Path,
+    stderr_path: Path,
+) -> Fail2DriveRouteRunResult:
+    started_at = time.monotonic()
+    merged_env = os.environ.copy()
+    merged_env.update(env)
+    outputs = _expected_outputs(payload)
+    rgb_folder = _expected_output_path(payload, "rgb_folder")
+    video_output = _expected_output_path(payload, "video") or (run_dir / "route_partial.mp4")
+    min_frames = max(1, int(config.min_video_frames or 1))
+    video_timeout_s = float(config.video_timeout_s if config.video_timeout_s is not None else (config.timeout_s or 120.0))
+    route_blockers: list[str] = []
+    frame_watch: dict[str, Any] | None = None
+    video_assembly: dict[str, Any] | None = None
+    error: str | None = None
+    exit_code: int | None = None
+
+    stdout_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        with stdout_path.open("w", encoding="utf-8") as stdout_file, stderr_path.open("w", encoding="utf-8") as stderr_file:
+            process = subprocess.Popen(
+                command,
+                cwd=str(cwd),
+                env=merged_env,
+                stdout=stdout_file,
+                stderr=stderr_file,
+                text=True,
+            )
+            watch_deadline = started_at + video_timeout_s
+            route_deadline = started_at + config.timeout_s if config.timeout_s is not None else None
+            captured_video = False
+            while True:
+                exit_code = process.poll()
+                if exit_code is not None:
+                    break
+                now = time.monotonic()
+                if not captured_video and rgb_folder is not None:
+                    watch = wait_for_rgb_frames(
+                        rgb_folder,
+                        min_frames=min_frames,
+                        timeout_s=0.0,
+                        poll_interval_s=0.0,
+                    )
+                    if watch.ready:
+                        assembly = assemble_route_video_from_watch(
+                            watch,
+                            video_output,
+                            fps=config.video_fps,
+                            ffmpeg_path=config.ffmpeg_path,
+                        )
+                        frame_watch = watch.to_jsonable()
+                        video_assembly = assembly.to_jsonable()
+                        captured_video = bool(assembly.executed and assembly.returncode == 0)
+                        if not captured_video:
+                            route_blockers.extend(assembly.plan.live_blockers)
+                        if config.stop_after_video:
+                            route_blockers.append(
+                                "Fail2Drive route stopped after early video capture; route score is intentionally partial."
+                            )
+                            process.terminate()
+                            try:
+                                exit_code = process.wait(timeout=10.0)
+                            except subprocess.TimeoutExpired:
+                                process.kill()
+                                exit_code = process.wait(timeout=10.0)
+                            break
+                if not captured_video and rgb_folder is not None and now >= watch_deadline:
+                    watch = wait_for_rgb_frames(
+                        rgb_folder,
+                        min_frames=min_frames,
+                        timeout_s=0.0,
+                        poll_interval_s=0.0,
+                    )
+                    frame_watch = watch.to_jsonable()
+                    route_blockers.extend(watch.live_blockers)
+                    if config.stop_after_video:
+                        process.terminate()
+                        try:
+                            exit_code = process.wait(timeout=10.0)
+                        except subprocess.TimeoutExpired:
+                            process.kill()
+                            exit_code = process.wait(timeout=10.0)
+                        break
+                if route_deadline is not None and now >= route_deadline:
+                    route_blockers.append("Fail2Drive route command timed out.")
+                    process.kill()
+                    exit_code = process.wait(timeout=10.0)
+                    error = f"Timed out after {config.timeout_s} seconds."
+                    break
+                time.sleep(1.0)
+    except OSError as exc:
+        route_blockers.append(f"Failed to start Fail2Drive route command: {exc}")
+        error = str(exc)
+
+    finished_at = time.monotonic()
+    outputs = _expected_outputs(payload)
+    stdout = _read_log(stdout_path)
+    stderr = _read_log(stderr_path)
+    if exit_code is not None and not config.stop_after_video:
+        route_blockers.extend(_post_run_blockers(exit_code, stdout, stderr, outputs))
+    elif config.stop_after_video:
+        route_blockers.extend(_checkpoint_blockers(outputs))
+    if frame_watch is None and rgb_folder is not None:
+        watch = wait_for_rgb_frames(
+            rgb_folder,
+            min_frames=min_frames,
+            timeout_s=0.0,
+            poll_interval_s=0.0,
+        )
+        frame_watch = watch.to_jsonable()
+        if watch.ready and video_assembly is None:
+            assembly = assemble_route_video_from_watch(
+                watch,
+                video_output,
+                fps=config.video_fps,
+                ffmpeg_path=config.ffmpeg_path,
+            )
+            video_assembly = assembly.to_jsonable()
+            if not (assembly.executed and assembly.returncode == 0):
+                route_blockers.extend(assembly.plan.live_blockers)
+    return Fail2DriveRouteRunResult(
+        plan_path=config.plan_path.expanduser().resolve(),
+        run_dir=run_dir,
+        command=command,
+        cwd=cwd,
+        env=env,
+        dry_run=False,
+        timeout_s=config.timeout_s,
+        started_at_monotonic_s=started_at,
+        finished_at_monotonic_s=finished_at,
+        exit_code=exit_code,
+        stdout_path=stdout_path,
+        stderr_path=stderr_path,
+        expected_outputs=outputs,
+        route_blockers=_dedupe(route_blockers),
+        error=error,
+        frame_watch=frame_watch,
+        video_assembly=video_assembly,
+    )
+
+
 def write_fail2drive_route_run(
     run_dir: Path,
     result: Fail2DriveRouteRunResult,
@@ -238,6 +402,11 @@ def _expected_outputs(payload: dict[str, Any]) -> list[ExpectedOutputStatus]:
             )
         )
     return outputs
+
+
+def _expected_output_path(payload: dict[str, Any], label: str) -> Path | None:
+    raw_path = dict(payload.get("expected_outputs", {})).get(label)
+    return Path(str(raw_path)).expanduser() if raw_path else None
 
 
 def _route_blockers(payload: dict[str, Any], command: list[str], cwd: Path) -> list[str]:
@@ -371,6 +540,23 @@ def _frame_paths(folder: Path) -> list[Path]:
     return sorted(path for path in folder.iterdir() if path.is_file() and path.suffix.lower() in suffixes)
 
 
+def _read_log(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return ""
+
+
+def _dedupe(items: list[str]) -> list[str]:
+    seen: set[str] = set()
+    output: list[str] = []
+    for item in items:
+        if item not in seen:
+            output.append(item)
+            seen.add(item)
+    return output
+
+
 def _markdown(payload: dict[str, Any]) -> str:
     lines = [
         "# Fail2Drive Route Run",
@@ -401,6 +587,20 @@ def _markdown(payload: dict[str, Any]) -> str:
     lines.extend(["", "## Blockers", ""])
     blockers = list(payload.get("route_blockers", []))
     lines.extend(f"- {blocker}" for blocker in blockers) if blockers else lines.append("- none")
+    frame_watch = dict(payload.get("frame_watch") or {})
+    video_assembly = dict(payload.get("video_assembly") or {})
+    if frame_watch or video_assembly:
+        lines.extend(
+            [
+                "",
+                "## Early Video",
+                "",
+                f"- frame_watch_ready: `{frame_watch.get('ready')}`",
+                f"- frame_count: `{frame_watch.get('frame_count')}`",
+                f"- video_status: `{video_assembly.get('status')}`",
+                f"- output_video: `{dict(video_assembly.get('plan') or {}).get('output_video')}`",
+            ]
+        )
     return "\n".join(lines)
 
 

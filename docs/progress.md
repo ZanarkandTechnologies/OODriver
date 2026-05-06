@@ -89,19 +89,29 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-068 CARLA Town13 route runner resume
 - [ ] TASK-069 route-aligned Alpamayo live capture resume
 - [x] TASK-070 submission pack v2 local plus CARLA evidence
+- [x] TASK-071 fast Town13 route video evidence runner
 
 ## Latest Evidence
 
+- TASK-071 produced the first fresh stock Town13 Fail2Drive MP4 after the
+  CARLA restart. The runner streams route logs, watches RGB frames, and can stop
+  after early video capture; the latest run captured 5 frames from
+  `Generalization_PedestriansOnRoad_1088`, assembled a 0.5s MP4, and wrote
+  partial route evidence at
+  `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`.
+  Full driving score/route completion remains TASK-060 scope.
 - TASK-070 refreshed the judge-facing demo pack around the runnable TASK-064
   local OOD simulator first, then includes current CARLA and Alpamayo evidence
-  with explicit claim boundaries. Current pack:
+  with explicit claim boundaries. It now points at the TASK-071 Town13 video
+  evidence instead of the older partial TASK-068 run. Current pack:
   `tickets/TASK-070/artifacts/submission-pack-v2-final/submission_demo_pack.md`.
 - TASK-068 proved the local CARLA 0.9.16 server is responsive after Town13
   install, lists `Town13`, and can load `Carla/Maps/Town13/Town13`. The stock
   Fail2Drive `Generalization_PedestriansOnRoad_1088` route starts through
-  Docker, writes a checkpoint, and emits 10 RGB frames; the Mac/Kegworks/Wine
-  runtime times out at the 300s cap around `0.075x` simulation speed, so the
-  current evidence is partial:
+  Docker, writes a checkpoint, and emits RGB frames. The original 300s run
+  advanced around `0.075x`; after restarting CARLA, TASK-071 observed about
+  `0.23x` during the early-video run. The current full-score evidence remains
+  partial:
   `tickets/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.md`.
 - TASK-064 produced the first one-command end-to-end artifact at
   `tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.md`. The run

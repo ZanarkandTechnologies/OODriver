@@ -81,10 +81,12 @@ dependency-light end-to-end runnable artifact: one command generates an OOD
 scenario, simulates a regional behavior, retrieves safety memory, compares
 policy reactions, converts trajectories into cached controls, and renders a
 local 2D simulator report. TASK-068 proved Town13 can load and the stock
-Fail2Drive route can start, but the local Mac/Kegworks/Wine runtime is too slow
-to finish the route inside the current 300s cap. TASK-070 therefore leads the
-submission pack with the runnable local simulator and treats CARLA/Town13 and
-Alpamayo as measured supporting evidence.
+Fail2Drive route can start. TASK-071 then added the fast route-video path and
+produced a fresh Town13 MP4 from `Generalization_PedestriansOnRoad_1088` after
+CARLA was relaunched. Full route score/completion still needs a longer local
+run or a faster graphics-capable CARLA host, so TASK-070 leads the submission
+pack with the runnable local simulator and treats CARLA/Town13 and Alpamayo as
+measured supporting evidence.
 
 ## Quickstart: End-To-End OOD Demo
 
@@ -282,7 +284,7 @@ PYTHONPATH=src python3 -m driverx build-demo-pack \
   --generated-suite tickets/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_summary.json \
   --policy-matrix tickets/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json \
   --alpamayo-probe tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json \
-  --route-evidence tickets/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.json \
+  --route-evidence tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json \
   --alpamayo-comparison tickets/archive/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json \
   --cached-replay tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json \
   --blockers blockers.md \
@@ -295,6 +297,17 @@ PYTHONPATH=src python3 -m driverx assemble-route-video \
   --rgb-folder artifacts/runs/task36-suite/recipes/000_example/fail2drive_outputs/visualizations/RouteName/rgb \
   --output-video artifacts/runs/task36-suite/RouteName.mp4 \
   --run-id task41-route-video
+
+# For slow local CARLA runs, capture judge-visible video as soon as frames exist
+# and label the route evidence as partial unless the route finishes scoring.
+bash scripts/run_fail2drive_client_docker.sh python -m driverx run-fail2drive-route \
+  --plan tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_video_smoke_plan.json \
+  --timeout-s 600 \
+  --min-video-frames 5 \
+  --video-timeout-s 420 \
+  --video-fps 10 \
+  --stop-after-video \
+  --run-id town13-early-video
 
 # Plan generated OOD assets and attach asset ids to scenario recipes
 PYTHONPATH=src python3 -m driverx plan-assets \

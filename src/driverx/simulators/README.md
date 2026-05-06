@@ -34,6 +34,8 @@ simulator used to prove the full generated-scenario policy loop without CARLA.
 - `find_capture_actor(world, attach)`
 - `replay_policy_decision(config, actor=None)`
 - `write_carla_policy_replay(run_dir, result)`
+- `wait_for_rgb_frames(rgb_folder, min_frames, timeout_s, poll_interval_s=...)`
+- `assemble_route_video_from_watch(watch, output_video, fps=..., ffmpeg_path=...)`
 - `run_local_ood_sim(recipe, behavior, decisions, control_traces, output_dir)`
 - `write_local_ood_sim_result(run_dir, result)`
 
@@ -103,9 +105,18 @@ PYTHONPATH=src python3 -m driverx replay-policy-decision \
   --decision tickets/archive/TASK-039/artifacts/live-capture-summary/alpamayo_policy_decision.json \
   --trajectory-frame ego \
   --run-id task62-cached-replay
+PYTHONPATH=src python3 -m driverx assemble-route-video \
+  --rgb-folder artifacts/runs/task36-suite/recipes/000_example/fail2drive_outputs/visualizations/RouteName/rgb \
+  --output-video artifacts/runs/task36-suite/RouteName.mp4 \
+  --run
 PYTHONPATH=src python3 -m driverx run-end-to-end-ood-demo \
   --run-id local-ood-demo
 ```
+
+When local CARLA is too slow for full route scoring, `run-fail2drive-route` can
+watch the RGB output folder with `--min-video-frames` and assemble an MP4 before
+optionally stopping the route with `--stop-after-video`. That path is partial
+evidence only; score/completion remain unavailable unless the route finishes.
 
 The OOD suite report accepts either the older
 `ingest-simlingo-result` output or the newer
@@ -127,4 +138,6 @@ PYTHONPATH=src python3 -m unittest tests.test_carla_maps
 PYTHONPATH=src python3 -m unittest tests.test_carla_policy_replay
 PYTHONPATH=src python3 -m unittest tests.test_carla_alpamayo_capture
 PYTHONPATH=src python3 -m unittest tests.test_local_ood_sim
+PYTHONPATH=src python3 -m unittest tests.test_route_video_assembly
+PYTHONPATH=src python3 -m unittest tests.test_fail2drive_route_runner
 ```

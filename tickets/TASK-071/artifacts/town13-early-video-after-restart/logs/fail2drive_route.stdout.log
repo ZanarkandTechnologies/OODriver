@@ -1,0 +1,50 @@
+
+[1m========= Preparing RouteScenario_1088 (repetition 0) =========[0m
+[1m> Loading the world[0m
+[1m> Setting up the agent[0m
+[1m> Running the route[0m
+=== [Agent] -- Wallclock = 2026-05-06 03:33:17.353 -- System time = 0.000 -- Game time = 0.050 -- Ratio = 0.000x
+Sparse Waypoints: 2
+Dense Waypoints: 180
+=== [Agent] -- Wallclock = 2026-05-06 03:33:18.188 -- System time = 0.835 -- Game time = 0.100 -- Ratio = 0.120x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:18.400 -- System time = 1.047 -- Game time = 0.150 -- Ratio = 0.143x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:18.600 -- System time = 1.247 -- Game time = 0.200 -- Ratio = 0.160x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:18.811 -- System time = 1.458 -- Game time = 0.250 -- Ratio = 0.172x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:19.000 -- System time = 1.647 -- Game time = 0.300 -- Ratio = 0.182x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:19.188 -- System time = 1.835 -- Game time = 0.350 -- Ratio = 0.191x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:19.379 -- System time = 2.026 -- Game time = 0.400 -- Ratio = 0.197x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:19.561 -- System time = 2.208 -- Game time = 0.450 -- Ratio = 0.204x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:19.747 -- System time = 2.394 -- Game time = 0.500 -- Ratio = 0.209x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:19.944 -- System time = 2.591 -- Game time = 0.550 -- Ratio = 0.212x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:20.161 -- System time = 2.808 -- Game time = 0.600 -- Ratio = 0.214x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:20.357 -- System time = 3.004 -- Game time = 0.650 -- Ratio = 0.216x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:20.561 -- System time = 3.208 -- Game time = 0.700 -- Ratio = 0.218x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:20.756 -- System time = 3.403 -- Game time = 0.750 -- Ratio = 0.220x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:20.947 -- System time = 3.594 -- Game time = 0.800 -- Ratio = 0.223x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:21.140 -- System time = 3.787 -- Game time = 0.850 -- Ratio = 0.224x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:21.334 -- System time = 3.981 -- Game time = 0.900 -- Ratio = 0.226x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:21.541 -- System time = 4.188 -- Game time = 0.950 -- Ratio = 0.227x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:21.733 -- System time = 4.380 -- Game time = 1.000 -- Ratio = 0.228x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:21.927 -- System time = 4.574 -- Game time = 1.050 -- Ratio = 0.230x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:22.152 -- System time = 4.799 -- Game time = 1.100 -- Ratio = 0.229x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:22.367 -- System time = 5.014 -- Game time = 1.150 -- Ratio = 0.229x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:22.647 -- System time = 5.294 -- Game time = 1.200 -- Ratio = 0.227x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:22.843 -- System time = 5.490 -- Game time = 1.250 -- Ratio = 0.228x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:23.065 -- System time = 5.712 -- Game time = 1.300 -- Ratio = 0.228x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:23.260 -- System time = 5.907 -- Game time = 1.350 -- Ratio = 0.229x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:23.450 -- System time = 6.097 -- Game time = 1.400 -- Ratio = 0.230x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:23.719 -- System time = 6.366 -- Game time = 1.450 -- Ratio = 0.228x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:23.949 -- System time = 6.596 -- Game time = 1.500 -- Ratio = 0.227x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:24.137 -- System time = 6.784 -- Game time = 1.550 -- Ratio = 0.228x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:24.385 -- System time = 7.032 -- Game time = 1.600 -- Ratio = 0.228x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:24.579 -- System time = 7.226 -- Game time = 1.650 -- Ratio = 0.228x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:24.774 -- System time = 7.421 -- Game time = 1.700 -- Ratio = 0.229x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:24.967 -- System time = 7.614 -- Game time = 1.750 -- Ratio = 0.230x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:25.187 -- System time = 7.834 -- Game time = 1.800 -- Ratio = 0.230x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:25.382 -- System time = 8.029 -- Game time = 1.850 -- Ratio = 0.230x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:25.614 -- System time = 8.261 -- Game time = 1.900 -- Ratio = 0.230x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:25.815 -- System time = 8.462 -- Game time = 1.950 -- Ratio = 0.230x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:26.019 -- System time = 8.666 -- Game time = 2.000 -- Ratio = 0.231x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:26.237 -- System time = 8.884 -- Game time = 2.050 -- Ratio = 0.231x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:26.461 -- System time = 9.108 -- Game time = 2.100 -- Ratio = 0.231x
+=== [Agent] -- Wallclock = 2026-05-06 03:33:26.695 -- System time = 9.342 -- Game time = 2.150 -- Ratio = 0.230x

@@ -101,3 +101,4 @@
 2026-05-06 04:08 +0800 | SHIP | TASK-066 expanded the deterministic regional OOD behavior suite to eight traces with double-parked door swerve and unsignaled U-turn cases
 2026-05-06 04:33 +0800 | QA | TASK-068 proved Town13 load and stock Fail2Drive route startup through Docker, produced a partial RGB/video evidence bundle, and reclassified the remaining live blocker as local Mac/Kegworks/Wine runtime speed rather than setup
 2026-05-06 04:33 +0800 | SHIP | TASK-070 refreshed the judge-facing demo pack so the submission now leads with the runnable local OOD simulator and treats CARLA/Town13 and Alpamayo as measured supporting evidence with explicit claim boundaries
+2026-05-06 11:34 +0800 | SHIP | TASK-071 added early RGB-frame watching and host MP4 assembly for slow Town13 Fail2Drive runs, producing fresh partial video evidence for Generalization_PedestriansOnRoad_1088 while leaving full route score as TASK-060 follow-up

@@ -85,8 +85,9 @@ Remote or Linux NVIDIA runtime:
 - Generated scenarios now export stock-compatible Bench2Drive route XML plus
   DriverX sidecar overlays. Town13 is installed and loadable locally, and a
   stock Fail2Drive Town13 route starts through Docker, writes a checkpoint, and
-  emits RGB frames, but the Mac/Kegworks/Wine path runs around `0.075x` and did
-  not complete route scoring inside the 300s cap.
+  emits RGB frames. TASK-071 adds an early-video runner that captured a fresh
+  0.5s MP4 from `Generalization_PedestriansOnRoad_1088`; full score/completion
+  still needs a longer local run or faster graphics-capable CARLA host.
 - TASK-064 provides a dependency-light end-to-end local simulator artifact. It
   is the current primary demo artifact, but it is not a live CARLA route score.
 - Regional driving behavior traces and dry-run generated asset manifests are

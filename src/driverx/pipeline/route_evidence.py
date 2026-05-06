@@ -211,7 +211,7 @@ def _blockers(
     logs: list[dict[str, Any]],
 ) -> list[str]:
     blockers = _plan_blockers(plan, result, video)
-    blockers.extend(_route_run_blockers(route_run))
+    blockers.extend(_route_run_blockers(route_run, video=video))
     blockers.extend(_missing_blocker(result, "route result"))
     blockers.extend(_missing_blocker(tracks, "entity tracks"))
     blockers.extend(_missing_blocker(video, "route video"))
@@ -229,13 +229,24 @@ def _blockers(
     return blockers
 
 
-def _route_run_blockers(route_run: dict[str, Any]) -> list[str]:
+def _route_run_blockers(route_run: dict[str, Any], *, video: dict[str, Any]) -> list[str]:
     summary = _mapping(route_run.get("summary"))
-    blockers = [str(item) for item in list(summary.get("route_blockers", []))]
+    blockers = [
+        str(item)
+        for item in list(summary.get("route_blockers", []))
+        if not _is_stale_route_run_blocker(str(item), video=video)
+    ]
     error = summary.get("error")
     if error and not any(str(error) in blocker for blocker in blockers):
         blockers.append(f"Route runner error: {error}")
     return blockers
+
+
+def _is_stale_route_run_blocker(blocker: str, *, video: dict[str, Any]) -> bool:
+    text = blocker.lower()
+    if "ffmpeg not found" in text and bool(video.get("exists")):
+        return True
+    return False
 
 
 def _plan_blockers(

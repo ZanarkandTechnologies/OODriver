@@ -218,6 +218,87 @@ class Fail2DriveRouteRunnerTest(unittest.TestCase):
         self.assertIn("RouteScenario_0_rep0", blockers)
         self.assertIn("RGB frames were not produced", blockers)
 
+    def test_runner_captures_early_video_from_streaming_frames(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            fake_ffmpeg = root / "ffmpeg"
+            fake_ffmpeg.write_text(
+                "#!/usr/bin/env sh\nfor last do :; done\ntouch \"$last\"\necho ffmpeg-ok\n",
+                encoding="utf-8",
+            )
+            fake_ffmpeg.chmod(0o755)
+            output = root / "out"
+            rgb = output / "visualizations" / "Route" / "rgb"
+            command = [
+                "python3",
+                "-c",
+                (
+                    "from pathlib import Path; import time; "
+                    f"p=Path({str(rgb)!r}); p.mkdir(parents=True, exist_ok=True); "
+                    "[ (p / ('%05d.jpg' % i)).write_text('frame') for i in range(2) ]; "
+                    "print('frames-ready', flush=True); time.sleep(20)"
+                ),
+            ]
+            plan = _write_plan(root, command=command)
+
+            result = run_fail2drive_route(
+                Fail2DriveRouteRunConfig(
+                    plan_path=plan,
+                    run_dir=root / "run",
+                    timeout_s=5.0,
+                    min_video_frames=2,
+                    video_timeout_s=2.0,
+                    stop_after_video=True,
+                    ffmpeg_path=str(fake_ffmpeg),
+                )
+            )
+            video_exists = Path(result.video_assembly["plan"]["output_video"]).exists()
+
+        self.assertEqual(result.frame_watch["ready"], True)
+        self.assertEqual(result.frame_watch["frame_count"], 2)
+        self.assertEqual(result.video_assembly["status"], "passed")
+        self.assertTrue(video_exists)
+        self.assertIn("early video capture", "\n".join(result.route_blockers))
+
+    def test_runner_assembles_video_when_route_exits_after_frames(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            fake_ffmpeg = root / "ffmpeg"
+            fake_ffmpeg.write_text(
+                "#!/usr/bin/env sh\nfor last do :; done\ntouch \"$last\"\n",
+                encoding="utf-8",
+            )
+            fake_ffmpeg.chmod(0o755)
+            output = root / "out"
+            rgb = output / "visualizations" / "Route" / "rgb"
+            command = [
+                "python3",
+                "-c",
+                (
+                    "from pathlib import Path; "
+                    f"p=Path({str(rgb)!r}); p.mkdir(parents=True, exist_ok=True); "
+                    "[ (p / ('%05d.jpg' % i)).write_text('frame') for i in range(2) ]"
+                ),
+            ]
+            plan = _write_plan(root, command=command)
+
+            result = run_fail2drive_route(
+                Fail2DriveRouteRunConfig(
+                    plan_path=plan,
+                    run_dir=root / "run",
+                    timeout_s=5.0,
+                    min_video_frames=2,
+                    video_timeout_s=2.0,
+                    ffmpeg_path=str(fake_ffmpeg),
+                )
+            )
+            video_exists = Path(result.video_assembly["plan"]["output_video"]).exists()
+
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(result.frame_watch["ready"], True)
+        self.assertEqual(result.video_assembly["status"], "passed")
+        self.assertTrue(video_exists)
+
 
 def _write_plan(root: Path, *, command: list[str] | None = None) -> Path:
     for name in ("evaluator.py", "route.xml", "agent.py"):

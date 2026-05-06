@@ -29,8 +29,8 @@
     {
       "time": "1:55-2:25",
       "beat": "Route Video Evidence",
-      "visual": "Play the Town10 CARLA route video and show the route evidence report.",
-      "narration": "The local route proof produced video=True while keeping missing route-score/entity-track limitations explicit."
+      "visual": "Play the Generalization_PedestriansOnRoad_1088 CARLA route video and show the route evidence report.",
+      "narration": "The local route proof produced video=True for Generalization_PedestriansOnRoad_1088 while keeping route-score/entity-track limitations explicit."
     },
     {
       "time": "2:25-3:00",
@@ -42,7 +42,7 @@
       "time": "3:00-3:30",
       "beat": "Next Run",
       "visual": "Show blockers.md and the exact next live command.",
-      "narration": "2026-05-06 04:08 +0800 | fail2drive,carla,town13,performance | TASK-068 proved local CARLA can load `Town13` and the stock Fail2Drive route starts, writes a checkpoint, and emits RGB frames, but the local Kegworks/Wine Mac runtime is too slow to finish the route inside the 300s cap. Route logs show about `0.075x` simulation speed and the checkpoint remains `entry_status: Started`. Evidence: `tickets/TASK-068/artifacts/town13-load-probe-after-local-demo/carla_map_inventory.md`, `tickets/TASK-068/artifacts/town13-route-run-with-torch/fail2drive_route_run.md`, and `tickets/TASK-068/artifacts/town13-route-evidence-partial/run_evidence.md`. Next unblock path: run the same stock route on a faster graphics-capable Linux NVIDIA host, or rerun locally with a much longer timeout if cost/time is acceptable."
+      "narration": "2026-05-06 11:34 +0800 | fail2drive,carla,town13,score | TASK-071 produced fresh Town13 MP4 evidence from the stock Fail2Drive `Generalization_PedestriansOnRoad_1088` route, but full route score/completion remains open because the run intentionally stops after early video capture. Restarted CARLA improved route speed to about `0.23x`, but the local Mac/Kegworks/Wine path is still not a fast full-suite scoring runtime. Evidence: `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`. Next unblock path: rerun without `--stop-after-video` for a long local route scoring attempt, or move the route to a faster graphics-capable Linux NVIDIA CARLA host."
     }
   ],
   "failure_case": {
@@ -65,7 +65,7 @@
     "overlay_evidence_path": null,
     "policy_matrix_path": "tickets/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json",
     "alpamayo_probe_path": "tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json",
-    "route_evidence_path": "tickets/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.json",
+    "route_evidence_path": "tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json",
     "alpamayo_comparison_path": "tickets/archive/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json",
     "cached_replay_path": "tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json",
     "blockers_path": "blockers.md",
@@ -129,7 +129,7 @@
     "Waymo E2E remains a supporting open-loop track; no dataset shards are committed.",
     "Model weights, generated videos, CARLA installs, and credentials are excluded from git.",
     "Current local end-to-end simulator evidence: tickets/TASK-064/artifacts/local-ood-demo/local-sim/local_ood_sim.html",
-    "Current local route video evidence: tickets/TASK-068/artifacts/town13-route-run-with-torch/Generalization_PedestriansOnRoad_1088_partial.mp4 (1.0s, 1059835 bytes)"
+    "Current local route video evidence: tickets/TASK-071/artifacts/town13-early-video-after-restart/Generalization_PedestriansOnRoad_1088_early.mp4 (0.5s, 507730 bytes)"
   ],
   "claim_boundaries": [
     "Generated CARLA/Fail2Drive OOD scenarios and route artifacts are real repo outputs.",
@@ -143,10 +143,10 @@
       "status": "partial",
       "video": {
         "label": "video",
-        "path": "tickets/TASK-068/artifacts/town13-route-run-with-torch/Generalization_PedestriansOnRoad_1088_partial.mp4",
+        "path": "tickets/TASK-071/artifacts/town13-early-video-after-restart/Generalization_PedestriansOnRoad_1088_early.mp4",
         "exists": true,
-        "size_bytes": 1059835,
-        "duration_s": 1.0
+        "size_bytes": 507730,
+        "duration_s": 0.5
       },
       "metrics": {
         "driving_score": null,
@@ -156,8 +156,8 @@
         "duration_system_s": null,
         "track_count": null,
         "actor_refs": [],
-        "video_duration_s": 1.0,
-        "video_size_bytes": 1059835
+        "video_duration_s": 0.5,
+        "video_size_bytes": 507730
       }
     },
     "alpamayo_comparison": {
@@ -198,28 +198,29 @@
     "motivation": "Autonomy systems fail when they only work on distributions they have already seen. 0xDriver treats minimal-shot driving as an evaluation and orchestration problem: generate plausible out-of-distribution pressure cases, run frozen policies through the same artifact contract, and preserve the failures as retrieval memory.",
     "architecture": "The current implementation builds deterministic scenario recipes, exports route-compatible CARLA/Bench2Drive artifacts, plans companion overlay actors, bundles route evidence, and tracks policy readiness. A retrieval layer can guide local policy decisions today, while SimLingo and Alpamayo remain swappable live-policy adapters.",
     "what_worked": "The local harness is reproducible: local demo status is `ready`, behavior is `motorcycle_filtering`, policy runtime ready rows are `3`, and the Alpamayo probe status is `dataset_shape_observed`. The live Alpamayo memory comparison changed trajectory final L2 by `2.8886` metres while staying explicitly open-loop. Cached replay produced `20` bounded control command(s) from a saved policy decision without claiming real-time VLA control.",
-    "what_did_not_work": "The current named failure is `Baseline `policy` policy reaches 1.9679m from the OOD actor in the motorcycle_filtering case; the memory-guided row slows/yields earlier, making this a concrete minimal-shot retrieval failure case.`. This blocks a polished live route video but gives a precise next step instead of an ambiguous model-quality claim.",
+    "what_did_not_work": "The current CARLA route gap is `Generalization_PedestriansOnRoad_1088`: video evidence exists (0.5s) but driving_score=`None` and route_completion=`None` because the early-video run stops before full scoring. This keeps the submission claim bounded: we have visible CARLA/OOD evidence now, while full closed-loop score evidence remains the next runtime step.",
     "next_funding_step": "Use the prize budget for a graphics-capable NVIDIA CARLA host, a confirmed reasoning-VLA checkpoint/runtime, and enough GPU hours to run generated OOD suites closed-loop with video, latency, infractions, and failure-memory comparisons."
   },
   "progress_tail": [
-    "- TASK-064 produced the first one-command end-to-end artifact at",
-    "  `tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.md`. The run",
-    "  generates a regional-driving OOD recipe, simulates `motorcycle_filtering`,",
-    "  retrieves prior safety memory, compares no-memory/memory/hybrid policy",
-    "  reactions, converts trajectories into cached controls, and renders",
-    "  `local-sim/local_ood_sim.html`. It explicitly carries",
-    "  `closed_loop_carla=false` and `live_vla=false`.",
-    "- TASK-066 expands the regional/OOD behavior suite to eight deterministic",
-    "  traces by adding `double_parked_door_swerve` and `unsignaled_u_turn`, with",
-    "  coordinate/time tests and a generated behavior report under",
-    "  `tickets/TASK-066/artifacts/behavior-pack-v2/behavior_report.md`."
+    "- TASK-071 produced the first fresh stock Town13 Fail2Drive MP4 after the",
+    "  CARLA restart. The runner streams route logs, watches RGB frames, and can stop",
+    "  after early video capture; the latest run captured 5 frames from",
+    "  `Generalization_PedestriansOnRoad_1088`, assembled a 0.5s MP4, and wrote",
+    "  partial route evidence at",
+    "  `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`.",
+    "  Full driving score/route completion remains TASK-060 scope.",
+    "- TASK-070 refreshed the judge-facing demo pack around the runnable TASK-064",
+    "  local OOD simulator first, then includes current CARLA and Alpamayo evidence",
+    "  with explicit claim boundaries. It now points at the TASK-071 Town13 video",
+    "  evidence instead of the older partial TASK-068 run. Current pack:",
+    "  `tickets/TASK-070/artifacts/submission-pack-v2-final/submission_demo_pack.md`."
   ],
   "inputs": {
     "local_demo_path": "tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.json",
     "generated_suite_path": "tickets/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_summary.json",
     "policy_matrix_path": "tickets/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json",
     "alpamayo_probe_path": "tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json",
-    "route_evidence_path": "tickets/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.json",
+    "route_evidence_path": "tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json",
     "alpamayo_comparison_path": "tickets/archive/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json",
     "cached_replay_path": "tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json",
     "blockers_path": "blockers.md",

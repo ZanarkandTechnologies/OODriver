@@ -1,0 +1,131 @@
+{
+  "status": "blocked",
+  "plan_path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_video_smoke_plan.json",
+  "run_dir": "/workspace/0xDriver/tickets/TASK-071/artifacts/town13-early-video-after-restart",
+  "command": [
+    "python",
+    "/workspace/fail2drive/leaderboard/leaderboard/leaderboard_evaluator_local.py",
+    "--routes",
+    "/workspace/fail2drive/fail2drive_split/Generalization_PedestriansOnRoad_1088.xml",
+    "--repetitions",
+    "1",
+    "--track",
+    "MAP",
+    "--checkpoint",
+    "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+    "--debug-checkpoint",
+    "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_debug.txt",
+    "--timeout",
+    "900",
+    "--agent",
+    "/workspace/fail2drive/team_code/viz_path_agent.py",
+    "--host",
+    "host.docker.internal",
+    "--port",
+    "2000"
+  ],
+  "cwd": "/workspace/fail2drive",
+  "env": {
+    "CARLA_HOST": "host.docker.internal",
+    "CARLA_PORT": "2000",
+    "FAIL2DRIVE_ROOT": "/workspace/fail2drive",
+    "DRIVERX_METHOD_NAME": "DriverXRouteSmoke",
+    "REPETITION": "0",
+    "SAVE_PATH": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations",
+    "SCENARIO_RUNNER_ROOT": "/workspace/fail2drive/scenario_runner",
+    "TOWN": "Town13",
+    "VIZ_PATH": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+    "LIVE_VISU": "1"
+  },
+  "dry_run": false,
+  "timeout_s": 600.0,
+  "started_at_monotonic_s": 25.963438927,
+  "finished_at_monotonic_s": 149.730985483,
+  "duration_s": 123.767547,
+  "exit_code": -15,
+  "stdout_path": "/workspace/0xDriver/tickets/TASK-071/artifacts/town13-early-video-after-restart/logs/fail2drive_route.stdout.log",
+  "stderr_path": "/workspace/0xDriver/tickets/TASK-071/artifacts/town13-early-video-after-restart/logs/fail2drive_route.stderr.log",
+  "expected_outputs": [
+    {
+      "label": "result",
+      "path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_res.json",
+      "exists": true,
+      "size_bytes": 361
+    },
+    {
+      "label": "debug",
+      "path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088_debug.txt",
+      "exists": false,
+      "size_bytes": null
+    },
+    {
+      "label": "save_path",
+      "path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations",
+      "exists": true,
+      "size_bytes": null
+    },
+    {
+      "label": "rgb_folder",
+      "path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+      "exists": true,
+      "size_bytes": null
+    },
+    {
+      "label": "video",
+      "path": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088.mp4",
+      "exists": false,
+      "size_bytes": null
+    }
+  ],
+  "route_blockers": [
+    "ffmpeg not found on PATH; install ffmpeg or pass --ffmpeg-path.",
+    "Fail2Drive route stopped after early video capture; route score is intentionally partial."
+  ],
+  "error": null,
+  "frame_watch": {
+    "rgb_folder": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+    "min_frames": 5,
+    "timeout_s": 0.0,
+    "poll_interval_s": 0.0,
+    "waited_s": 0.000982,
+    "frame_count": 5,
+    "ready": true,
+    "first_frame": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb/00000.jpg",
+    "last_frame": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb/00040.jpg",
+    "live_blockers": []
+  },
+  "video_assembly": {
+    "status": "blocked",
+    "plan": {
+      "rgb_folder": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb",
+      "output_video": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088.mp4",
+      "fps": 10,
+      "frame_count": 5,
+      "frame_pattern": "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb/*.jpg",
+      "ffmpeg_path": null,
+      "command": [
+        "ffmpeg",
+        "-y",
+        "-framerate",
+        "10",
+        "-pattern_type",
+        "glob",
+        "-i",
+        "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/visualizations/Generalization_PedestriansOnRoad_1088/rgb/*.jpg",
+        "-c:v",
+        "libx264",
+        "-pix_fmt",
+        "yuv420p",
+        "/workspace/0xDriver/tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_outputs/Generalization_PedestriansOnRoad_1088.mp4"
+      ],
+      "live_blockers": [
+        "ffmpeg not found on PATH; install ffmpeg or pass --ffmpeg-path."
+      ],
+      "dry_run": true
+    },
+    "returncode": null,
+    "stdout": "",
+    "stderr": "ffmpeg not found on PATH; install ffmpeg or pass --ffmpeg-path.",
+    "executed": false
+  }
+}

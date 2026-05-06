@@ -6,19 +6,17 @@ unblocked ticket when possible.
 
 ## Open
 
-- 2026-05-06 04:08 +0800 | fail2drive,carla,town13,performance | TASK-068
-  proved local CARLA can load `Town13` and the stock Fail2Drive route starts,
-  writes a checkpoint, and emits RGB frames, but the local Kegworks/Wine Mac
-  runtime is too slow to finish the route inside the 300s cap. Route logs show
-  about `0.075x` simulation speed and the checkpoint remains `entry_status:
-  Started`. Evidence:
-  `tickets/TASK-068/artifacts/town13-load-probe-after-local-demo/carla_map_inventory.md`,
-  `tickets/TASK-068/artifacts/town13-route-run-with-torch/fail2drive_route_run.md`,
-  and
-  `tickets/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.md`.
-  Next unblock path: run the same stock route on a faster graphics-capable
-  Linux NVIDIA host, or rerun locally with a much longer timeout if cost/time is
-  acceptable.
+- 2026-05-06 11:34 +0800 | fail2drive,carla,town13,score | TASK-071 produced
+  fresh Town13 MP4 evidence from the stock Fail2Drive
+  `Generalization_PedestriansOnRoad_1088` route, but full route
+  score/completion remains open because the run intentionally stops after early
+  video capture. Restarted CARLA improved route speed to about `0.23x`, but the
+  local Mac/Kegworks/Wine path is still not a fast full-suite scoring runtime.
+  Evidence:
+  `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`.
+  Next unblock path: rerun without `--stop-after-video` for a long local route
+  scoring attempt, or move the route to a faster graphics-capable Linux NVIDIA
+  CARLA host.
 
 - 2026-05-05 17:07 +0800 | h100,carla,vulkan | TASK-020 stock
   SimLingo H100 route run cannot reach policy execution because CARLA 0.9.15
@@ -34,6 +32,11 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-06 11:34 +0800 | fail2drive,carla,town13,video | TASK-071 resolved
+  the immediate "how far until we get a video" blocker. The runner now watches
+  RGB frames, stops after early video capture, and the host assembler produced
+  `tickets/TASK-071/artifacts/town13-early-video-after-restart/Generalization_PedestriansOnRoad_1088_early.mp4`.
 
 - 2026-05-06 04:08 +0800 | fail2drive,carla,map,restart | TASK-068 resolved
   the post-install CARLA relaunch/readiness blocker. Docker client probes now

@@ -39,6 +39,9 @@ class SubmissionDemoPackTest(unittest.TestCase):
         self.assertIn("Live Evidence", report)
         self.assertIn("Claim Boundaries", report)
         self.assertIn("Short Write-Up Draft", report)
+        self.assertIn("Generalization_PedestriansOnRoad_1088 CARLA route video", report)
+        self.assertNotIn("Town10 CARLA route video", report)
+        self.assertIn("video evidence exists", summary["writeup_draft"]["what_did_not_work"])
         self.assertTrue(any(item["name"] == "alpamayo-probe" for item in summary["model_declarations"]))
         self.assertTrue(any(item["name"] == "alpamayo-live-ood-comparison" for item in summary["model_declarations"]))
         self.assertTrue(any(item["name"] == "mock" for item in summary["model_declarations"]))
@@ -179,6 +182,14 @@ def _write_inputs(root: Path) -> dict[str, Path]:
         json.dumps(
             {
                 "status": "partial",
+                "plan": {
+                    "run_command": [
+                        "python",
+                        "leaderboard_evaluator_local.py",
+                        "--routes",
+                        "/workspace/fail2drive/fail2drive_split/Generalization_PedestriansOnRoad_1088.xml",
+                    ]
+                },
                 "video": {"exists": True, "path": "route.mp4", "duration_s": 4.1, "size_bytes": 1234},
                 "metrics": {"driving_score": None, "route_completion": None},
                 "blockers": [],
