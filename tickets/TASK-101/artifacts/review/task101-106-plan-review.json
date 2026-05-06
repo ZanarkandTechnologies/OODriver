@@ -1,0 +1,134 @@
+{
+  "work_type": [
+    "planning",
+    "submission",
+    "simulation",
+    "model-evaluation"
+  ],
+  "search_scope": {
+    "planned_tickets": [
+      "tickets/TASK-101/ticket.md",
+      "tickets/TASK-102/ticket.md",
+      "tickets/TASK-103/ticket.md",
+      "tickets/TASK-104/ticket.md",
+      "tickets/TASK-105/ticket.md",
+      "tickets/TASK-106/ticket.md"
+    ],
+    "docs_checked": [
+      "docs/prd.md",
+      "ARCHITECTURE.md",
+      "docs/specs/minimal-shot-vla-roadmap.md",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md",
+      "review/references/spec-contract.md",
+      "review/references/implementation-plan.md",
+      "review/references/evidence-quality.md"
+    ],
+    "neighboring_code_checked": [
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/pipeline/scripted_ood_campaign.py",
+      "src/driverx/scenarios/quality.py",
+      "src/driverx/pipeline/alpamayo_ood_evaluation.py",
+      "src/driverx/pipeline/alpamayo_ood_batch.py"
+    ],
+    "invariants_checked": [
+      "MEM-0023",
+      "MEM-0024",
+      "MEM-0028",
+      "MEM-0029"
+    ]
+  },
+  "rubrics_used": [
+    "spec-contract",
+    "implementation-plan",
+    "evidence-quality"
+  ],
+  "summary": "The TASK-101 through TASK-106 train is approval-ready and correctly prioritizes submission evidence over more setup: evaluation selection, better generated CARLA evidence, prompt-to-scenario generation, Alpamayo+RAG comparison, Fail2Drive extension framing, and final packaging.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "implementation-plan",
+      "summary": "TASK-104 depends on live RunPod availability; the plan contains a fallback to planned/blocked records, but the final submission will be substantially stronger if at least one additional memory-pair inference lands.",
+      "file_refs": [
+        "tickets/TASK-104/ticket.md"
+      ],
+      "evidence": [
+        "TASK-104 Autonomy Readiness names RunPod/HF availability as the main gate",
+        "TASK-106 can package partial/blocked rows if upstream evidence is missing"
+      ],
+      "next_action": "Start implementation with TASK-101 and TASK-102 locally, then use RunPod for TASK-104 as soon as packages are available."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "spec-contract",
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "story-coherence": 4.5,
+        "parallelization-fit": 4.1,
+        "ticket-sizing": 4.1,
+        "acceptance-testability": 4.2,
+        "scope-clarity": 4.4
+      },
+      "findings": [
+        "The sequence maps directly to the SoTA requirements: simulation environment, randomized generation, model behavior, realistic latency, failure analysis, and final deliverables.",
+        "Lower-signal work such as stock Fail2Drive scoring, Meshy, SimLingo, and serving acceleration is explicitly deprioritized."
+      ],
+      "next_action": "Approve the train and implement serially in TASK-101 -> TASK-106 order."
+    },
+    {
+      "name": "implementation-plan",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "human-readability": 4.2,
+        "bloatability": 4.0,
+        "modularity": 4.2,
+        "proof-clarity": 4.3,
+        "execution-order": 4.4,
+        "risk-clarity": 4.1,
+        "decision-tone": 4.3,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [
+        "Each ticket has file maps, signature deltas, typed flow, acceptance criteria, verification, and autonomy readiness.",
+        "The order reduces drift: select cases first, improve video, add prompt studio, run VLA/RAG, attach Fail2Drive reference, then package."
+      ],
+      "next_action": "Begin with TASK-101; do not skip directly to more live inference before the matrix exists."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.1,
+        "traceability": 4.0,
+        "consistency": 4.1,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [
+        "Planned artifacts are concrete and map to final claims.",
+        "The plans preserve claim boundaries around open-loop Alpamayo and generated simulator evidence."
+      ],
+      "next_action": "During implementation, keep proof rows labeled proved/partial/blocked to avoid the overclaim pattern logged in TROUBLES."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Implement TASK-101 through TASK-106 as the final submission-focused batch."
+}
