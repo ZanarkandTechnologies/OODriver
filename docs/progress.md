@@ -104,9 +104,22 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - [x] TASK-080 same-scene Alpamayo CARLA package
 - [x] TASK-081 same-capture Alpamayo memory comparison
 - [x] TASK-082 submission pack V4 live CARLA evidence refresh
+- [ ] TASK-083 cached Alpamayo trajectory CARLA replay pilot
+- [ ] TASK-084 reasoning and trajectory overlay video pack
+- [ ] TASK-085 scripted OOD scenario campaign runner
+- [ ] TASK-086 Alpamayo batch OOD comparison over campaign
+- [ ] TASK-087 submission dossier V5 and deck script
+- [ ] TASK-088 stock Fail2Drive full-score runtime handoff
 
 ## Latest Evidence
 
+- TASK-083 through TASK-088 are now the next planned train. The recommendation
+  is to start with cached Alpamayo replay in the scripted CARLA scene, then add
+  a reasoning overlay pack, scale to a small scripted OOD campaign, optionally
+  batch Alpamayo over selected campaign cases on the RTX 6000 Ada lane, and
+  finish with a V5 submission dossier. TASK-088 keeps the benchmark-pure stock
+  Fail2Drive full-score path prepared but blocked on a graphics-capable Linux
+  CARLA host.
 - TASK-078 resolved the live scripted-CARLA bridge for the DriverX OOD demo.
   Docker reached local CARLA 0.9.16 at `host.docker.internal:2000`, the runner
   spawned generated stock-proxy assets, captured 120 RGB frames and entity
