@@ -10,13 +10,13 @@
 
 ## Scope
 
-- `tickets/TASK-023/ticket.md`
+- `tickets/archive/TASK-023/ticket.md`
 - `src/driverx/simulators/simlingo_sidecar.py`
 - `src/driverx/simulators/__init__.py`
 - `src/driverx/cli.py`
 - `tests/test_simlingo_sidecar.py`
 - `tests/test_cli_simlingo_sidecar.py`
-- `tickets/TASK-023/artifacts/qa/2026-05-05T053000Z/sidecar-plan/*`
+- `tickets/archive/TASK-023/artifacts/qa/2026-05-05T053000Z/sidecar-plan/*`
 - `README.md`, `src/driverx/simulators/README.md`
 - `docs/HISTORY.md`, `docs/progress.md`,
   `docs/specs/minimal-shot-vla-roadmap.md`

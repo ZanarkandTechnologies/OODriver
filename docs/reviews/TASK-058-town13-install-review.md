@@ -15,16 +15,16 @@
 
 ## Search Scope
 
-- Ticket: `tickets/TASK-058/ticket.md`
+- Ticket: `tickets/archive/TASK-058/ticket.md`
 - Code:
   - `src/driverx/simulators/carla_maps.py`
   - `tests/test_carla_maps.py`
 - Evidence:
-  - `tickets/TASK-058/artifacts/town13-map-install-real-002/carla_maps_install.json`
-  - `tickets/TASK-058/artifacts/town13-map-install-real-002/carla_maps_install.md`
-  - `tickets/TASK-058/artifacts/town13-map-probe-after-install/carla_map_inventory.json`
-  - `tickets/TASK-058/artifacts/town13-map-probe-after-install-long/carla_map_inventory.json`
-  - `tickets/TASK-058/artifacts/town13-map-probe-no-load-after-timeout/carla_map_inventory.json`
+  - `tickets/archive/TASK-058/artifacts/town13-map-install-real-002/carla_maps_install.json`
+  - `tickets/archive/TASK-058/artifacts/town13-map-install-real-002/carla_maps_install.md`
+  - `tickets/archive/TASK-058/artifacts/town13-map-probe-after-install/carla_map_inventory.json`
+  - `tickets/archive/TASK-058/artifacts/town13-map-probe-after-install-long/carla_map_inventory.json`
+  - `tickets/archive/TASK-058/artifacts/town13-map-probe-no-load-after-timeout/carla_map_inventory.json`
 - Docs:
   - `blockers.md`
   - `docs/progress.md`

@@ -74,57 +74,50 @@ flowchart TD
 
 ## Current Status
 
-TASK-001 through TASK-006 established a working Waymo/open-loop measuring stick:
-fixture runs, optional real Waymo TFRecords through Docker, streaming batch
-reports, deterministic baselines, and a hybrid semantic-intent plus motion-prior
-planner.
+The active sprint is the final SoTA submission train. Old ticket records through
+TASK-100 are archived as historical evidence; the active board is TASK-101
+through TASK-106 only.
 
-The current closed-loop pivot has scenario generation, failure memory,
-CARLA/Fail2Drive dry-run planning, local CARLA probing, route-pack export,
-overlay plans, sidecar orchestration, policy readiness reports, live Alpamayo
-open-loop inference, and a judge-facing demo pack. TASK-064 adds the first
-dependency-light end-to-end runnable artifact: one command generates an OOD
-scenario, simulates a regional behavior, retrieves safety memory, compares
-policy reactions, converts trajectories into cached controls, and renders a
-local 2D simulator report. TASK-068 proved Town13 can load and the stock
-Fail2Drive route can start. TASK-071 then added the fast route-video path and
-produced a fresh Town13 MP4 from `Generalization_PedestriansOnRoad_1088` after
-CARLA was relaunched. TASK-078 through TASK-082 are now the strongest
-submission evidence: a 24.0s live scripted CARLA OOD video, same-scene Alpamayo
-1.5 reasoning on that generated capture, a same-capture memory/no-memory
-comparison, and a V4 demo pack that keeps closed-loop VLA control claims out of
-scope until a route controller consumes the trajectory. TASK-083 through
-TASK-088 add an 8.0s live CARLA cached Alpamayo replay video, a
-reasoning/trajectory HTML pack, a two-case live scripted OOD campaign, cached
-Alpamayo batch comparison, a V5 dossier/video script, and a stock Fail2Drive
-full-score host handoff. TASK-089 through TASK-095 add the current simulator
-contribution layer: road-local CARLA placement, Scenario Studio catalog,
-environment packs, behavior DSL variants, strict scenario quality gates, policy
-evaluation campaign, and submission scenario browser. CARLA 0.9.16 is installed on the
-RTX 6000 Ada RunPod host, but that container still blocks live server launch on
-NVIDIA Vulkan ICD initialization; local CARLA remains the rendering path until
-the graphics host is fixed.
+Current strongest evidence:
+
+- a 60s RunPod-hosted, road-aligned CARLA OOD campaign video
+- a scenario catalog and submission browser around that generated OOD case
+- live Alpamayo 1.5 open-loop reasoning on the hero CARLA package
+- measured Alpamayo latency/VRAM and converted DriverX trajectory intent
+- deterministic environment, behavior, quality-gate, and policy-evaluation
+  infrastructure
+
+Final sprint direction:
+
+- select the final evidence set
+- produce one stronger high-fidelity simulator video if runtime allows
+- add prompt-to-OOD Scenario Studio
+- run Alpamayo with and without retrieved memory over selected generated cases
+- attach generated scenarios to Fail2Drive-style reference families
+- regenerate the V7 submission browser, dossier, video script, and write-up
+
+Milestone guidance lives in `docs/submission-milestones.md`.
 
 ## Current Submission Packet
 
 - Scenario browser:
-  `tickets/TASK-095/artifacts/submission-browser-v11/scenario_browser.html`
+  `tickets/archive/TASK-095/artifacts/submission-browser-v11/scenario_browser.html`
 - Dossier:
-  `tickets/TASK-095/artifacts/submission-browser-v11/submission_dossier_v6.md`
+  `tickets/archive/TASK-095/artifacts/submission-browser-v11/submission_dossier_v6.md`
 - Video script:
-  `tickets/TASK-095/artifacts/submission-browser-v11/video_script_v6.md`
+  `tickets/archive/TASK-095/artifacts/submission-browser-v11/video_script_v6.md`
 - Scenario catalog:
-  `tickets/TASK-090/artifacts/scenario-catalog-v4/scenario_catalog.md`
+  `tickets/archive/TASK-090/artifacts/scenario-catalog-v4/scenario_catalog.md`
 - Policy evaluation campaign:
-  `tickets/TASK-094/artifacts/policy-evaluation-v6/policy_evaluation_campaign.md`
+  `tickets/archive/TASK-094/artifacts/policy-evaluation-v6/policy_evaluation_campaign.md`
   (current status counts: passed `0`, planned `9`, blocked `18`; no policy row
   is counted as completed unless its scenario passes strict quality gates)
 - Reasoning pack:
-  `tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.html`
+  `tickets/archive/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.html`
 - Live cached Alpamayo replay:
-  `tickets/TASK-083/artifacts/task83-live-cached-replay-video/ood_video_evidence.md`
+  `tickets/archive/TASK-083/artifacts/task83-live-cached-replay-video/ood_video_evidence.md`
 - Live generated OOD campaign:
-  `tickets/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.md`
+  `tickets/archive/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.md`
 
 ## Quickstart: End-To-End OOD Demo
 
@@ -166,8 +159,8 @@ PYTHONPATH=src python3 -m driverx generate-behaviors \
 
 # Index generated evidence into a Scenario Studio catalog
 PYTHONPATH=src python3 -m driverx index-scenarios \
-  --artifact-root tickets/TASK-085/artifacts \
-  --artifact-root tickets/TASK-086/artifacts \
+  --artifact-root tickets/archive/TASK-085/artifacts \
+  --artifact-root tickets/archive/TASK-086/artifacts \
   --run-id scenario-catalog
 
 # Build a policy matrix over cataloged scenarios
@@ -324,7 +317,7 @@ bash scripts/run_carla_client_docker.sh python -m driverx capture-alpamayo-carla
   --attach-role-name hero \
   --no-fallback-spawn \
   --route-name Generalization_PedestriansOnRoad_1088 \
-  --route-evidence tickets/TASK-060/artifacts/town13-route-evidence/run_evidence.json \
+  --route-evidence tickets/archive/TASK-060/artifacts/town13-route-evidence/run_evidence.json \
   --run-id task61-route-aligned-capture
 
 # Compare live Alpamayo open-loop policy decisions with and without retrieved
@@ -348,13 +341,13 @@ PYTHONPATH=src python3 -m driverx replay-policy-decision \
 # Build the judge-facing demo pack with storyboard, artifact map, declarations,
 # write-up draft, and first understood failure case
 PYTHONPATH=src python3 -m driverx build-demo-pack \
-  --local-demo tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.json \
-  --generated-suite tickets/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_summary.json \
-  --policy-matrix tickets/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json \
-  --alpamayo-probe tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json \
-  --route-evidence tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json \
+  --local-demo tickets/archive/TASK-064/artifacts/local-ood-demo/end_to_end_demo.json \
+  --generated-suite tickets/archive/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_summary.json \
+  --policy-matrix tickets/archive/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json \
+  --alpamayo-probe tickets/archive/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json \
+  --route-evidence tickets/archive/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json \
   --alpamayo-comparison tickets/archive/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json \
-  --cached-replay tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json \
+  --cached-replay tickets/archive/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json \
   --blockers blockers.md \
   --progress docs/progress.md \
   --run-id submission-pack-v2-final
@@ -370,8 +363,8 @@ bash scripts/run_carla_client_docker.sh python -m driverx run-carla-ood-demo \
 # source-kind=fixture only for synthetic/local proof frames; omit it for live
 # scripted CARLA frames.
 PYTHONPATH=src python3 -m driverx assemble-ood-video \
-  --rgb-folder tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb \
-  --tracks tickets/TASK-078/artifacts/task78-live-ood-capture-v3/entity_tracks.json \
+  --rgb-folder tickets/archive/TASK-078/artifacts/task78-live-ood-capture-v3/rgb \
+  --tracks tickets/archive/TASK-078/artifacts/task78-live-ood-capture-v3/entity_tracks.json \
   --scenario-id generated-base-animals-0076-regional-driving-behavior-000 \
   --behavior-id motorcycle_filtering \
   --ood-tags motorcycle,filtering,roadside_vendor,regional_context,generated_assets \
@@ -385,10 +378,10 @@ PYTHONPATH=src python3 -m driverx assemble-ood-video \
 # the single CARLA ego RGB camera across Alpamayo's three camera slots and keeps
 # the claim explicitly open-loop.
 PYTHONPATH=src python3 -m driverx build-alpamayo-ood-package \
-  --rgb-folder tickets/TASK-078/artifacts/task78-live-ood-capture-v3/rgb \
-  --tracks tickets/TASK-078/artifacts/task78-live-ood-capture-v3/entity_tracks.json \
-  --scenario-report tickets/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.json \
-  --video-evidence tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json \
+  --rgb-folder tickets/archive/TASK-078/artifacts/task78-live-ood-capture-v3/rgb \
+  --tracks tickets/archive/TASK-078/artifacts/task78-live-ood-capture-v3/entity_tracks.json \
+  --scenario-report tickets/archive/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.json \
+  --video-evidence tickets/archive/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json \
   --run-id live-same-scene-package
 PYTHONPATH=src python3 -m driverx materialize-alpamayo-input \
   --package artifacts/runs/live-same-scene-package/alpamayo_carla_input_package.json \
@@ -397,16 +390,16 @@ PYTHONPATH=src python3 -m driverx materialize-alpamayo-input \
 # Build the V4 demo pack with live CARLA OOD video, same-scene Alpamayo memory
 # comparison, and stock proxy asset evidence.
 PYTHONPATH=src python3 -m driverx build-demo-pack \
-  --local-demo tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.json \
-  --generated-suite tickets/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_summary.json \
-  --policy-matrix tickets/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json \
-  --alpamayo-probe tickets/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json \
-  --route-evidence tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json \
-  --alpamayo-comparison tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json \
-  --ood-video-evidence tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json \
-  --alpamayo-scene tickets/TASK-080/artifacts/task80-live-same-scene-alpamayo-scene-v2/alpamayo_ood_scene.json \
-  --generated-asset-evidence tickets/TASK-076/artifacts/stock-proxy-assets-v2/asset_summary.json \
-  --cached-replay tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json \
+  --local-demo tickets/archive/TASK-064/artifacts/local-ood-demo/end_to_end_demo.json \
+  --generated-suite tickets/archive/TASK-064/artifacts/local-ood-demo/scenario/scenario_suite_summary.json \
+  --policy-matrix tickets/archive/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.json \
+  --alpamayo-probe tickets/archive/TASK-059/artifacts/physicalai-shape-probe-summary/alpamayo_shape_probe_report.json \
+  --route-evidence tickets/archive/TASK-071/artifacts/town13-early-route-evidence/run_evidence.json \
+  --alpamayo-comparison tickets/archive/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json \
+  --ood-video-evidence tickets/archive/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.json \
+  --alpamayo-scene tickets/archive/TASK-080/artifacts/task80-live-same-scene-alpamayo-scene-v2/alpamayo_ood_scene.json \
+  --generated-asset-evidence tickets/archive/TASK-076/artifacts/stock-proxy-assets-v2/asset_summary.json \
+  --cached-replay tickets/archive/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json \
   --blockers blockers.md \
   --progress docs/progress.md \
   --run-id submission-pack-v4
@@ -421,7 +414,7 @@ PYTHONPATH=src python3 -m driverx assemble-route-video \
 # For slow local CARLA runs, capture judge-visible video as soon as frames exist
 # and label the route evidence as partial unless the route finishes scoring.
 bash scripts/run_fail2drive_client_docker.sh python -m driverx run-fail2drive-route \
-  --plan tickets/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_video_smoke_plan.json \
+  --plan tickets/archive/TASK-060/artifacts/town13-video-plan-after-restart/fail2drive_video_smoke_plan.json \
   --timeout-s 600 \
   --min-video-frames 5 \
   --video-timeout-s 420 \

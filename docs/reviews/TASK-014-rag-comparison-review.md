@@ -19,7 +19,7 @@ Pass with follow-up.
 - `src/driverx/cli.py`
 - `tests/test_rag_comparison.py`
 - `tests/test_cli.py`
-- `tickets/TASK-014/ticket.md`
+- `tickets/archive/TASK-014/ticket.md`
 
 ## Evidence Checked
 

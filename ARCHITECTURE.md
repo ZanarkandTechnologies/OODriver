@@ -48,7 +48,7 @@ flowchart TD
 - `docs/specs/minimal-shot-vla-roadmap.md`: end-to-end roadmap from live CARLA
   probing through generated assets, behavior scripts, policy adapters, and RAG
   comparison.
-- `tickets/TASK-064`, `tickets/TASK-070`, and `tickets/TASK-082`: current
+- `tickets/archive/TASK-064`, `tickets/archive/TASK-070`, and `tickets/archive/TASK-082`: current
   runnable local OOD demo and submission-pack evidence. TASK-078 through
   TASK-082 now own the live scripted CARLA OOD capture, long OOD video,
   same-scene Alpamayo packaging, same-capture memory comparison, and V4

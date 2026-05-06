@@ -17,7 +17,7 @@ Pass with follow-up.
 - `src/driverx/cli.py`
 - `tests/test_policies.py`
 - `tests/test_cli.py`
-- `tickets/TASK-013/ticket.md`
+- `tickets/archive/TASK-013/ticket.md`
 
 ## Evidence Checked
 

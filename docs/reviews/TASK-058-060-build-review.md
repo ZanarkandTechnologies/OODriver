@@ -23,9 +23,9 @@
 - `tests/test_carla_maps_cli.py`
 - `tests/test_alpamayo_shape_probe.py`
 - `tests/test_fail2drive_video_smoke.py`
-- `tickets/TASK-058/artifacts/**`
-- `tickets/TASK-059/artifacts/**`
-- `tickets/TASK-060/artifacts/**`
+- `tickets/archive/TASK-058/artifacts/**`
+- `tickets/archive/TASK-059/artifacts/**`
+- `tickets/archive/TASK-060/artifacts/**`
 - `blockers.md`
 - `docs/progress.md`
 

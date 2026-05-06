@@ -66,8 +66,8 @@ minimal-shot OOD driving" in the first 10 seconds.
 - `src/driverx/simulators/carla_ood_demo.py / run_carla_ood_demo`
 - `src/driverx/simulators/carla_road_frame.py`
 - `src/driverx/behaviors/library.py`
-- `tickets/TASK-097/artifacts/pulled/.../entity_tracks.json`
-- `tickets/TASK-097/artifacts/pulled/.../ood_video_evidence.json`
+- `tickets/archive/TASK-097/artifacts/pulled/.../entity_tracks.json`
+- `tickets/archive/TASK-097/artifacts/pulled/.../ood_video_evidence.json`
 
 #### Signature Delta
 

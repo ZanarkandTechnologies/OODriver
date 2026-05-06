@@ -8,7 +8,7 @@ PASS. Overall score: 4.5 / 5.0.
 
 ## Scope
 
-- `tickets/TASK-003/ticket.md`
+- `tickets/archive/TASK-003/ticket.md`
 - `README.md`
 - `pyproject.toml`
 - `docker/waymo.Dockerfile`

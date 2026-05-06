@@ -10,7 +10,7 @@
 
 ## Scope Reviewed
 
-- `tickets/TASK-071/ticket.md`
+- `tickets/archive/TASK-071/ticket.md`
 - `src/driverx/simulators/route_video_assembly.py`
 - `src/driverx/simulators/fail2drive_route_runner.py`
 - `src/driverx/simulators/fail2drive_route_runner_cli.py`
@@ -19,8 +19,8 @@
 - `tests/test_route_video_assembly.py`
 - `tests/test_fail2drive_route_runner.py`
 - `tests/test_submission_demo_pack.py`
-- `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`
-- `tickets/TASK-070/artifacts/submission-pack-v2-final/submission_demo_pack.md`
+- `tickets/archive/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`
+- `tickets/archive/TASK-070/artifacts/submission-pack-v2-final/submission_demo_pack.md`
 
 ## Rubric Scores
 

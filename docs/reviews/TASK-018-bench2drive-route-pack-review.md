@@ -10,14 +10,14 @@
 
 ## Scope
 
-- `tickets/TASK-018/ticket.md`
+- `tickets/archive/TASK-018/ticket.md`
 - `src/driverx/simulators/bench2drive_routes.py`
 - `src/driverx/cli.py`
 - `tests/test_bench2drive_route_export.py`
 - `tests/test_cli.py`
 - `tests/fixtures/fail2drive_like/fail2drive_split/*.xml`
-- `tickets/TASK-018/artifacts/qa/2026-05-04T210000Z/route-pack/**`
-- `tickets/TASK-018/artifacts/qa/2026-05-04T210000Z/external-fail2drive/**`
+- `tickets/archive/TASK-018/artifacts/qa/2026-05-04T210000Z/route-pack/**`
+- `tickets/archive/TASK-018/artifacts/qa/2026-05-04T210000Z/external-fail2drive/**`
 - `README.md`, `AGENTS.md`, `docs/MEMORY.md`, `docs/progress.md`
 
 ## Initial Findings And Fixes
@@ -27,7 +27,7 @@
   regression.
 - The external Fail2Drive smoke claim was initially prose-only. Fixed by
   persisting a durable external route-pack artifact under
-  `tickets/TASK-018/artifacts/qa/2026-05-04T210000Z/external-fail2drive/`.
+  `tickets/archive/TASK-018/artifacts/qa/2026-05-04T210000Z/external-fail2drive/`.
 - The overlay runtime contract was ambiguous. Fixed by clarifying that
   per-recipe `route_path` is for single-route replay/debugging, while suite
   execution uses `route_suite_path` or the generated SimLingo command plan.

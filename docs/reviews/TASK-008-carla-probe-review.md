@@ -8,7 +8,7 @@ Reviewed: 2026-05-04 18:58 +0800
   tests, docs, roadmap/tickets.
 - Rubrics: code quality, integration readiness, evidence quality.
 - Context checked: `docs/prd.md`, `docs/specs/minimal-shot-vla-roadmap.md`,
-  `docs/MEMORY.md`, `tickets/TASK-008/ticket.md`, TASK-007 simulator adapter
+  `docs/MEMORY.md`, `tickets/archive/TASK-008/ticket.md`, TASK-007 simulator adapter
   seams.
 
 ## Verdict

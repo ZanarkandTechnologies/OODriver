@@ -17,9 +17,9 @@
 ## Search Scope
 
 - Tickets:
-  `tickets/TASK-078/ticket.md`, `tickets/TASK-079/ticket.md`,
-  `tickets/TASK-080/ticket.md`, `tickets/TASK-081/ticket.md`,
-  `tickets/TASK-082/ticket.md`
+  `tickets/archive/TASK-078/ticket.md`, `tickets/archive/TASK-079/ticket.md`,
+  `tickets/archive/TASK-080/ticket.md`, `tickets/archive/TASK-081/ticket.md`,
+  `tickets/archive/TASK-082/ticket.md`
 - Code:
   `src/driverx/simulators/carla_ood_demo.py`,
   `src/driverx/assets/carla_mapping.py`,
@@ -33,12 +33,12 @@
   `tests/test_alpamayo_ood_package.py`, plus focused Alpamayo/evidence tests
   listed in the QA report.
 - Evidence:
-  `tickets/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.md`,
-  `tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.md`,
-  `tickets/TASK-080/artifacts/task80-live-same-scene-materialized-v2/alpamayo_tensor_manifest.md`,
-  `tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.md`,
-  `tickets/TASK-082/artifacts/submission-pack-v4-live-carlasame-v3/submission_demo_pack.md`,
-  `tickets/TASK-082/artifacts/qa/TASK-078-082-qa-report.md`
+  `tickets/archive/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.md`,
+  `tickets/archive/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.md`,
+  `tickets/archive/TASK-080/artifacts/task80-live-same-scene-materialized-v2/alpamayo_tensor_manifest.md`,
+  `tickets/archive/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.md`,
+  `tickets/archive/TASK-082/artifacts/submission-pack-v4-live-carlasame-v3/submission_demo_pack.md`,
+  `tickets/archive/TASK-082/artifacts/qa/TASK-078-082-qa-report.md`
 - Invariants checked:
   `MEM-0007`, `MEM-0016`, `MEM-0020`, `MEM-0021`
 

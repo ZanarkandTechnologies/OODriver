@@ -10,12 +10,12 @@
 
 ## Scope Reviewed
 
-- `tickets/TASK-060/artifacts/town13-long-score-attempt-001/fail2drive_route_run.md`
-- `tickets/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md`
-- `tickets/TASK-069/artifacts/town13-live-attach-attempt-003/carla_alpamayo_capture.json`
-- `tickets/TASK-069/artifacts/town13-live-attach-attempt-004/carla_alpamayo_capture.json`
-- `tickets/TASK-060/ticket.md`
-- `tickets/TASK-069/ticket.md`
+- `tickets/archive/TASK-060/artifacts/town13-long-score-attempt-001/fail2drive_route_run.md`
+- `tickets/archive/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md`
+- `tickets/archive/TASK-069/artifacts/town13-live-attach-attempt-003/carla_alpamayo_capture.json`
+- `tickets/archive/TASK-069/artifacts/town13-live-attach-attempt-004/carla_alpamayo_capture.json`
+- `tickets/archive/TASK-060/ticket.md`
+- `tickets/archive/TASK-069/ticket.md`
 - `blockers.md`
 
 ## Rubric Scores

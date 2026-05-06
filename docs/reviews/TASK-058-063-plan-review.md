@@ -11,12 +11,12 @@
 - Product/docs: `docs/prd.md`, `docs/specs/minimal-shot-vla-roadmap.md`,
   `ARCHITECTURE.md`, `README.md`, `docs/progress.md`, `blockers.md`
 - Active plans:
-  - `tickets/TASK-058/ticket.md`
-  - `tickets/TASK-059/ticket.md`
-  - `tickets/TASK-060/ticket.md`
-  - `tickets/TASK-061/ticket.md`
-  - `tickets/TASK-062/ticket.md`
-  - `tickets/TASK-063/ticket.md`
+  - `tickets/archive/TASK-058/ticket.md`
+  - `tickets/archive/TASK-059/ticket.md`
+  - `tickets/archive/TASK-060/ticket.md`
+  - `tickets/archive/TASK-061/ticket.md`
+  - `tickets/archive/TASK-062/ticket.md`
+  - `tickets/archive/TASK-063/ticket.md`
 - Existing seams:
   - `scripts/run_remote_alpamayo_shape_probe.sh`
   - `scripts/run_carla_client_docker.sh`

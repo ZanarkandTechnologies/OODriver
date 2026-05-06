@@ -10,7 +10,7 @@
 
 ## Scope
 
-- `tickets/TASK-021/ticket.md`
+- `tickets/archive/TASK-021/ticket.md`
 - `src/driverx/simulators/overlay_injection.py`
 - `src/driverx/simulators/bench2drive_routes.py`
 - `src/driverx/simulators/__init__.py`
@@ -18,7 +18,7 @@
 - `tests/test_overlay_injection.py`
 - `tests/test_cli.py`
 - `tests/test_cli_simlingo_result.py`
-- `tickets/TASK-021/artifacts/qa/2026-05-04T220000Z/overlay-injection/*`
+- `tickets/archive/TASK-021/artifacts/qa/2026-05-04T220000Z/overlay-injection/*`
 - `README.md`, `src/driverx/simulators/README.md`
 - `docs/HISTORY.md`, `docs/progress.md`,
   `docs/specs/minimal-shot-vla-roadmap.md`

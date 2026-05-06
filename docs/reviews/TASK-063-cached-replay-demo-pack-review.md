@@ -15,7 +15,7 @@
 
 ## Search Scope
 
-- Ticket: `tickets/TASK-063/ticket.md`
+- Ticket: `tickets/archive/TASK-063/ticket.md`
 - Code:
   - `src/driverx/pipeline/submission_demo_pack.py`
   - `src/driverx/pipeline/submission_demo_pack_cli.py`
@@ -24,8 +24,8 @@
   - `tests/test_submission_demo_pack.py`
   - `tests/test_submission_dossier.py`
 - Evidence:
-  - `tickets/TASK-063/artifacts/cached-replay-demo-pack/submission_demo_pack.json`
-  - `tickets/TASK-063/artifacts/cached-replay-demo-pack/submission_demo_pack.md`
+  - `tickets/archive/TASK-063/artifacts/cached-replay-demo-pack/submission_demo_pack.json`
+  - `tickets/archive/TASK-063/artifacts/cached-replay-demo-pack/submission_demo_pack.md`
 - Docs:
   - `README.md`
   - `docs/progress.md`

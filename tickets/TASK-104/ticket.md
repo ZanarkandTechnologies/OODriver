@@ -57,8 +57,8 @@ OOD cases is higher signal than more setup, more maps, or a single pretty video.
 
 #### Inspect
 
-- `tickets/TASK-100/artifacts/hero-alpamayo-live/alpamayo_live_prediction.json`
-- `tickets/TASK-100/artifacts/task100-hero-alpamayo-policy/alpamayo_policy_decision.json`
+- `tickets/archive/TASK-100/artifacts/hero-alpamayo-live/alpamayo_live_prediction.json`
+- `tickets/archive/TASK-100/artifacts/task100-hero-alpamayo-policy/alpamayo_policy_decision.json`
 - `src/driverx/policies/alpamayo_materializer.py`
 - `src/driverx/policies/alpamayo_live.py`
 - `src/driverx/pipeline/alpamayo_ood_batch.py`

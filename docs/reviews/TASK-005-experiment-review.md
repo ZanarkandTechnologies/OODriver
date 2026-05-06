@@ -8,8 +8,8 @@ PASS. Overall score: 4.3 / 5.0.
 
 ## Scope
 
-- `tickets/TASK-005/ticket.md`
-- `tickets/TASK-005/artifacts/qa/2026-05-02T133535Z/report.md`
+- `tickets/archive/TASK-005/ticket.md`
+- `tickets/archive/TASK-005/artifacts/qa/2026-05-02T133535Z/report.md`
 - `src/driverx/planning/baselines.py`
 - `src/driverx/planning/ranking.py`
 - `src/driverx/planning/README.md`

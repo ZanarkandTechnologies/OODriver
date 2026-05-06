@@ -35,17 +35,17 @@ writeback, blocker ledger, and focused/full test output.
 - Full local gate:
   `bash scripts/pre_push_check.sh` passed with `325` tests and `2` skips.
 - TASK-083 live cached replay evidence:
-  `tickets/TASK-083/artifacts/task83-live-cached-replay-video/ood_video_evidence.md`.
+  `tickets/archive/TASK-083/artifacts/task83-live-cached-replay-video/ood_video_evidence.md`.
 - TASK-084 reasoning pack evidence:
-  `tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.html`.
+  `tickets/archive/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.html`.
 - TASK-085 live campaign evidence:
-  `tickets/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.md`.
+  `tickets/archive/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.md`.
 - TASK-086 batch evidence:
-  `tickets/TASK-086/artifacts/task86-plan-cache/alpamayo_ood_batch_summary.md`.
+  `tickets/archive/TASK-086/artifacts/task86-plan-cache/alpamayo_ood_batch_summary.md`.
 - TASK-087 V5 source of truth:
-  `tickets/TASK-087/artifacts/submission-dossier-v5-live/submission_dossier.md`.
+  `tickets/archive/TASK-087/artifacts/submission-dossier-v5-live/submission_dossier.md`.
 - TASK-088 host handoff:
-  `tickets/TASK-088/artifacts/task88-host-plan/fail2drive_host_plan.md`.
+  `tickets/archive/TASK-088/artifacts/task88-host-plan/fail2drive_host_plan.md`.
 
 ## Rubric Notes
 

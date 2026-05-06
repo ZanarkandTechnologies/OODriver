@@ -15,7 +15,7 @@
 
 ## Search Scope
 
-- Ticket: `tickets/TASK-062/ticket.md`
+- Ticket: `tickets/archive/TASK-062/ticket.md`
 - Code:
   - `src/driverx/policies/trajectory_control.py`
   - `src/driverx/simulators/carla_policy_replay.py`
@@ -27,8 +27,8 @@
   - `tests/test_trajectory_control.py`
   - `tests/test_carla_policy_replay.py`
 - Evidence:
-  - `tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json`
-  - `tickets/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.md`
+  - `tickets/archive/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.json`
+  - `tickets/archive/TASK-062/artifacts/cached-alpamayo-replay/carla_policy_replay.md`
 - Docs:
   - `README.md`
   - `src/driverx/policies/README.md`

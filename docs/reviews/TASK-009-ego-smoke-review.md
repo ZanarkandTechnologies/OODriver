@@ -8,7 +8,7 @@ Reviewed: 2026-05-04 19:00 +0800
   ticket evidence.
 - Rubrics: code quality, cleanup safety, evidence quality.
 - Context checked: TASK-008 bridge, `src/driverx/simulators/AGENTS.md`,
-  `tickets/TASK-009/ticket.md`, live output artifacts.
+  `tickets/archive/TASK-009/ticket.md`, live output artifacts.
 
 ## Verdict
 

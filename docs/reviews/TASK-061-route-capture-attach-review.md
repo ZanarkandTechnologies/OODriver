@@ -15,7 +15,7 @@
 
 ## Search Scope
 
-- Ticket: `tickets/TASK-061/ticket.md`
+- Ticket: `tickets/archive/TASK-061/ticket.md`
 - Code:
   - `src/driverx/simulators/carla_alpamayo_capture.py`
   - `src/driverx/simulators/carla_alpamayo_capture_cli.py`

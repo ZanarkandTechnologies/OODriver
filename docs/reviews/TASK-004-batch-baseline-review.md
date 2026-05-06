@@ -8,8 +8,8 @@ PASS. Overall score: 4.4 / 5.0.
 
 ## Scope
 
-- `tickets/TASK-004/ticket.md`
-- `tickets/TASK-004/artifacts/qa/2026-05-02T125206Z/report.md`
+- `tickets/archive/TASK-004/ticket.md`
+- `tickets/archive/TASK-004/artifacts/qa/2026-05-02T125206Z/report.md`
 - `src/driverx/cli.py`
 - `src/driverx/datasets/waymo_e2e.py`
 - `src/driverx/datasets/__init__.py`

@@ -10,13 +10,13 @@
 
 ## Scope
 
-- `tickets/TASK-022/ticket.md`
+- `tickets/archive/TASK-022/ticket.md`
 - `src/driverx/simulators/carla_injection.py`
 - `src/driverx/simulators/__init__.py`
 - `src/driverx/cli.py`
 - `tests/test_carla_injection.py`
 - `tests/test_cli_carla_injection.py`
-- `tickets/TASK-022/artifacts/qa/2026-05-05T051500Z/local-missing-carla/*`
+- `tickets/archive/TASK-022/artifacts/qa/2026-05-05T051500Z/local-missing-carla/*`
 - `README.md`, `src/driverx/simulators/README.md`
 - `docs/HISTORY.md`, `docs/progress.md`,
   `docs/specs/minimal-shot-vla-roadmap.md`

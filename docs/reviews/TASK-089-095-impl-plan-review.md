@@ -17,13 +17,13 @@ Rerun required: false
 ## Search Scope
 
 - Active tickets:
-  - `tickets/TASK-089/ticket.md`
-  - `tickets/TASK-090/ticket.md`
-  - `tickets/TASK-091/ticket.md`
-  - `tickets/TASK-092/ticket.md`
-  - `tickets/TASK-093/ticket.md`
-  - `tickets/TASK-094/ticket.md`
-  - `tickets/TASK-095/ticket.md`
+  - `tickets/archive/TASK-089/ticket.md`
+  - `tickets/archive/TASK-090/ticket.md`
+  - `tickets/archive/TASK-091/ticket.md`
+  - `tickets/archive/TASK-092/ticket.md`
+  - `tickets/archive/TASK-093/ticket.md`
+  - `tickets/archive/TASK-094/ticket.md`
+  - `tickets/archive/TASK-095/ticket.md`
 - Neighboring docs:
   - `docs/prd.md`
   - `ARCHITECTURE.md`

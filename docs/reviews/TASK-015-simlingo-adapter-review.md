@@ -22,7 +22,7 @@ Pass with follow-up.
 - `configs/simlingo.sample.yaml`
 - `tests/test_simlingo_adapter.py`
 - `tests/test_cli.py`
-- `tickets/TASK-015/ticket.md`
+- `tickets/archive/TASK-015/ticket.md`
 
 ## Evidence Checked
 

@@ -10,7 +10,7 @@
 
 ## Scope
 
-- `tickets/TASK-019/ticket.md`
+- `tickets/archive/TASK-019/ticket.md`
 - `src/driverx/simulators/simlingo_results.py`
 - `src/driverx/simulators/__init__.py`
 - `src/driverx/cli.py`
@@ -20,7 +20,7 @@
 - `src/driverx/simulators/README.md`
 - `docs/HISTORY.md`
 - `docs/progress.md`
-- `tickets/TASK-019/artifacts/qa/2026-05-04T200000Z/result-ingestion/*`
+- `tickets/archive/TASK-019/artifacts/qa/2026-05-04T200000Z/result-ingestion/*`
 
 ## Findings
 
@@ -34,7 +34,7 @@
 ## Follow-Up Applied
 
 The completed-sample report is now also persisted under
-`tickets/TASK-019/artifacts/qa/2026-05-04T200000Z/upstream-sample/`.
+`tickets/archive/TASK-019/artifacts/qa/2026-05-04T200000Z/upstream-sample/`.
 
 ## Evidence Notes
 

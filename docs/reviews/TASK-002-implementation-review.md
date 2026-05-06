@@ -27,7 +27,7 @@ Primary files reviewed:
 - `tests/test_submission_packager.py`
 - `tests/test_cli.py`
 - `README.md`
-- `tickets/TASK-002/ticket.md`
+- `tickets/archive/TASK-002/ticket.md`
 
 Official submission requirements were checked against the Waymo Open Dataset
 E2ED submission proto:

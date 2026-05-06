@@ -2,7 +2,7 @@
 
 - reviewed_at: 2026-05-06 18:16 +0800
 - work_type: planning
-- scope: `tickets/TASK-072/ticket.md` through `tickets/TASK-077/ticket.md`,
+- scope: `tickets/archive/TASK-072/ticket.md` through `tickets/archive/TASK-077/ticket.md`,
   `docs/progress.md`, `docs/HISTORY.md`
 - rubrics_used: `spec-contract`, `implementation-plan`
 - overall_score: 4.2 / 5.0

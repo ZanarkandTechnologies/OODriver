@@ -126,14 +126,14 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   road-local CARLA placement, Scenario Studio catalog, environment packs,
   behavior DSL variants, scenario quality gates, policy evaluation campaign,
   and V6 static scenario browser/dossier. Current strongest new artifacts:
-  `tickets/TASK-090/artifacts/scenario-catalog-v4/scenario_catalog.md`,
-  `tickets/TASK-091/artifacts/environment-forge-v2/environment_suite_report.md`,
-  `tickets/TASK-092/artifacts/behavior-dsl-v2/behavior_report.md`,
-  `tickets/TASK-093/artifacts/quality-gated-fake-campaign-v3/quality/scenario_quality_summary.md`,
-  `tickets/TASK-093/artifacts/quality-retry-proof-v2/scripted_ood_campaign_summary.md`,
-  `tickets/TASK-094/artifacts/policy-evaluation-v6/policy_evaluation_campaign.md`,
+  `tickets/archive/TASK-090/artifacts/scenario-catalog-v4/scenario_catalog.md`,
+  `tickets/archive/TASK-091/artifacts/environment-forge-v2/environment_suite_report.md`,
+  `tickets/archive/TASK-092/artifacts/behavior-dsl-v2/behavior_report.md`,
+  `tickets/archive/TASK-093/artifacts/quality-gated-fake-campaign-v3/quality/scenario_quality_summary.md`,
+  `tickets/archive/TASK-093/artifacts/quality-retry-proof-v2/scripted_ood_campaign_summary.md`,
+  `tickets/archive/TASK-094/artifacts/policy-evaluation-v6/policy_evaluation_campaign.md`,
   and
-  `tickets/TASK-095/artifacts/submission-browser-v11/scenario_browser.html`.
+  `tickets/archive/TASK-095/artifacts/submission-browser-v11/scenario_browser.html`.
   Review follow-up made the evidence stricter: current generated/fake or legacy
   CARLA cases are cataloged but not promoted as heroes unless they have strict
   road-aligned video proof, so the latest browser intentionally reports no hero
@@ -148,45 +148,45 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 
 - TASK-083 through TASK-088 landed the next submission train. New strongest
   artifacts: an 8.0s live CARLA cached-Alpamayo replay video at
-  `tickets/TASK-083/artifacts/task83-live-cached-replay-video/ood_video_evidence.md`,
+  `tickets/archive/TASK-083/artifacts/task83-live-cached-replay-video/ood_video_evidence.md`,
   a reasoning/trajectory HTML pack at
-  `tickets/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.html`,
+  `tickets/archive/TASK-084/artifacts/task84-reasoning-pack/reasoning_video_pack.html`,
   a two-case live scripted OOD campaign at
-  `tickets/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.md`,
+  `tickets/archive/TASK-085/artifacts/task85-live-campaign-2b/scripted_ood_campaign_summary.md`,
   a cached Alpamayo batch comparison at
-  `tickets/TASK-086/artifacts/task86-plan-cache/alpamayo_ood_batch_summary.md`,
+  `tickets/archive/TASK-086/artifacts/task86-plan-cache/alpamayo_ood_batch_summary.md`,
   a V5 dossier plus video script at
-  `tickets/TASK-087/artifacts/submission-dossier-v5-live/submission_dossier.md`,
+  `tickets/archive/TASK-087/artifacts/submission-dossier-v5-live/submission_dossier.md`,
   and a stock Fail2Drive host handoff at
-  `tickets/TASK-088/artifacts/task88-host-plan/fail2drive_host_plan.md`.
+  `tickets/archive/TASK-088/artifacts/task88-host-plan/fail2drive_host_plan.md`.
 
 - TASK-078 resolved the live scripted-CARLA bridge for the DriverX OOD demo.
   Docker reached local CARLA 0.9.16 at `host.docker.internal:2000`, the runner
   spawned generated stock-proxy assets, captured 120 RGB frames and entity
   tracks, and cleaned up all spawned actors. Evidence:
-  `tickets/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.md`.
+  `tickets/archive/TASK-078/artifacts/task78-live-ood-capture-v3/carla_ood_demo.md`.
 - TASK-079 assembled the first judge-visible long generated OOD video from
   live CARLA frames: 120 overlay frames, 24.0s MP4, `source_kind=live_carla`,
   and worst-risk telemetry at tick 27 around the generated fallen-cargo proxy.
   Evidence:
-  `tickets/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.md`.
+  `tickets/archive/TASK-079/artifacts/task79-live-ood-video/ood_video_evidence.md`.
 - TASK-080 materialized the same generated scene for Alpamayo. The package uses
   one live ego RGB camera duplicated into Alpamayo's front-left/front/front-right
   slots, four temporal frames around the worst-risk tick, scenario/video links,
   and `torch_ready=true` validation. Evidence:
-  `tickets/TASK-080/artifacts/task80-live-same-scene-materialized-v2/alpamayo_tensor_manifest.md`
+  `tickets/archive/TASK-080/artifacts/task80-live-same-scene-materialized-v2/alpamayo_tensor_manifest.md`
   and
-  `tickets/TASK-080/artifacts/task80-live-same-scene-alpamayo-scene-v2/alpamayo_ood_scene.md`.
+  `tickets/archive/TASK-080/artifacts/task80-live-same-scene-alpamayo-scene-v2/alpamayo_ood_scene.md`.
 - TASK-081 ran baseline and memory-augmented Alpamayo 1.5 on the same generated
   capture through the RunPod RTX 6000 Ada lane. The comparison is explicitly
   open-loop, records CoC snippets, latency/VRAM, and shows memory changed the
   final trajectory point by 2.6886m while reasoning text stayed unchanged.
   Evidence:
-  `tickets/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.md`.
+  `tickets/archive/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.md`.
 - TASK-082 refreshed the judge-facing V4 submission pack. The headline artifact
   is now `long_carla_ood_video`, with live Alpamayo scene reasoning and
   same-capture memory comparison as supporting evidence. Pack:
-  `tickets/TASK-082/artifacts/submission-pack-v4-live-carlasame-v3/submission_demo_pack.md`.
+  `tickets/archive/TASK-082/artifacts/submission-pack-v4-live-carlasame-v3/submission_demo_pack.md`.
 - TASK-072 through TASK-077 remain useful historical scaffolding: they created
   the scripted runner, fixture overlay proof, generated-scene report seams,
   stock-proxy asset planning, and V3 pack. Their earlier live Docker timeout is
@@ -195,7 +195,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   blueprints (`static.prop.dirtdebris01`, `static.prop.foodcart`,
   `static.prop.constructioncone`) rather than unavailable `trafficcone`.
   Current asset evidence:
-  `tickets/TASK-076/artifacts/stock-proxy-assets-v2/asset_report.md`.
+  `tickets/archive/TASK-076/artifacts/stock-proxy-assets-v2/asset_report.md`.
 - TASK-077 regenerated the V3 submission pack before live proof was available;
   it is superseded by TASK-082 V4.
 - TASK-072 through TASK-077 are now planned as the submission-first ticket
@@ -209,19 +209,19 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   after early video capture; the latest run captured 5 frames from
   `Generalization_PedestriansOnRoad_1088`, assembled a 0.5s MP4, and wrote
   partial route evidence at
-  `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`.
+  `tickets/archive/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`.
   Full driving score/route completion remains TASK-060 scope.
 - TASK-060 long-score attempt `town13-long-score-attempt-001` confirms the next
   blocker is simulator cadence/second-client responsiveness, not missing setup:
   the route reached game time `0.600s` at about `0.142x`, then stopped making
   observable progress, and TASK-069 capture timed out after 60s while the route
   owned CARLA. Evidence:
-  `tickets/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md`.
+  `tickets/archive/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md`.
 - TASK-070 refreshed the judge-facing demo pack around the runnable TASK-064
   local OOD simulator first, then includes current CARLA and Alpamayo evidence
   with explicit claim boundaries. It now points at the TASK-071 Town13 video
   evidence instead of the older partial TASK-068 run. Current pack:
-  `tickets/TASK-070/artifacts/submission-pack-v2-final/submission_demo_pack.md`.
+  `tickets/archive/TASK-070/artifacts/submission-pack-v2-final/submission_demo_pack.md`.
 - TASK-068 proved the local CARLA 0.9.16 server is responsive after Town13
   install, lists `Town13`, and can load `Carla/Maps/Town13/Town13`. The stock
   Fail2Drive `Generalization_PedestriansOnRoad_1088` route starts through
@@ -229,9 +229,9 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
   advanced around `0.075x`; after restarting CARLA, TASK-071 observed about
   `0.23x` during the early-video run. The current full-score evidence remains
   partial:
-  `tickets/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.md`.
+  `tickets/archive/TASK-068/artifacts/town13-route-evidence-partial-001/run_evidence.md`.
 - TASK-064 produced the first one-command end-to-end artifact at
-  `tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.md`. The run
+  `tickets/archive/TASK-064/artifacts/local-ood-demo/end_to_end_demo.md`. The run
   generates a regional-driving OOD recipe, simulates `motorcycle_filtering`,
   retrieves prior safety memory, compares no-memory/memory/hybrid policy
   reactions, converts trajectories into cached controls, and renders
@@ -240,7 +240,7 @@ Build the CARLA/Fail2Drive-first minimal-shot VLA harness:
 - TASK-066 expands the regional/OOD behavior suite to eight deterministic
   traces by adding `double_parked_door_swerve` and `unsignaled_u_turn`, with
   coordinate/time tests and a generated behavior report under
-  `tickets/TASK-066/artifacts/behavior-pack-v2/behavior_report.md`.
+  `tickets/archive/TASK-066/artifacts/behavior-pack-v2/behavior_report.md`.
 - TASK-067 is represented in the TASK-064 local demo by
   `policy/policy_reaction_matrix.md`, which compares baseline mock,
   memory-guided mock, and local hybrid policy reactions on the same generated

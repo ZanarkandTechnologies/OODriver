@@ -11,9 +11,9 @@ Reviewed at: 2026-05-06 04:33 +0800
 
 ## Scope
 
-- Tickets: `tickets/TASK-068/ticket.md`, `tickets/TASK-070/ticket.md`,
-  supporting updates in `tickets/TASK-060/ticket.md`,
-  `tickets/TASK-061/ticket.md`, and `tickets/TASK-069/ticket.md`.
+- Tickets: `tickets/archive/TASK-068/ticket.md`, `tickets/archive/TASK-070/ticket.md`,
+  supporting updates in `tickets/archive/TASK-060/ticket.md`,
+  `tickets/archive/TASK-061/ticket.md`, and `tickets/archive/TASK-069/ticket.md`.
 - Code: `src/driverx/pipeline/route_evidence.py`,
   `src/driverx/pipeline/route_evidence_cli.py`,
   `src/driverx/pipeline/submission_demo_pack.py`,

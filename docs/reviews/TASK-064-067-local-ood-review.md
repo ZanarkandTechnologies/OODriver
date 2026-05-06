@@ -8,8 +8,8 @@
 
 ## Scope
 
-- Tickets: `tickets/TASK-064/ticket.md`, `tickets/TASK-065/ticket.md`,
-  `tickets/TASK-066/ticket.md`, `tickets/TASK-067/ticket.md`
+- Tickets: `tickets/archive/TASK-064/ticket.md`, `tickets/archive/TASK-065/ticket.md`,
+  `tickets/archive/TASK-066/ticket.md`, `tickets/archive/TASK-067/ticket.md`
 - Code: `src/driverx/pipeline/end_to_end_ood_demo.py`,
   `src/driverx/pipeline/end_to_end_ood_demo_cli.py`,
   `src/driverx/simulators/local_ood_sim.py`,
@@ -17,10 +17,10 @@
 - Tests: `tests/test_end_to_end_ood_demo.py`, `tests/test_local_ood_sim.py`,
   `tests/test_behaviors.py`, `tests/test_cli.py`
 - Evidence:
-  `tickets/TASK-064/artifacts/local-ood-demo/end_to_end_demo.md`,
-  `tickets/TASK-064/artifacts/local-ood-demo/local-sim/local_ood_sim.html`,
-  `tickets/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.md`,
-  `tickets/TASK-066/artifacts/behavior-pack-v2/behavior_report.md`
+  `tickets/archive/TASK-064/artifacts/local-ood-demo/end_to_end_demo.md`,
+  `tickets/archive/TASK-064/artifacts/local-ood-demo/local-sim/local_ood_sim.html`,
+  `tickets/archive/TASK-064/artifacts/local-ood-demo/policy/policy_reaction_matrix.md`,
+  `tickets/archive/TASK-066/artifacts/behavior-pack-v2/behavior_report.md`
 
 ## Findings
 

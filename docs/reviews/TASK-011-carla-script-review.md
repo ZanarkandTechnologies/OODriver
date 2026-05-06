@@ -8,7 +8,7 @@ Reviewed: 2026-05-04 19:04 +0800
   ticket evidence.
 - Rubrics: interface clarity, validation, evidence quality.
 - Context checked: TASK-009 entity tracks, TASK-010 behavior traces,
-  `tickets/TASK-011/ticket.md`.
+  `tickets/archive/TASK-011/ticket.md`.
 
 ## Verdict
 

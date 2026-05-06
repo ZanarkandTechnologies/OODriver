@@ -60,9 +60,9 @@ generated scenario, model reaction, or memory improvement.
 
 #### Inspect
 
-- `tickets/TASK-097/artifacts/task97-scenario-catalog-hero-v3/scenario_catalog.json`
-- `tickets/TASK-097/artifacts/task97-submission-browser-runpod-v4/scenario_browser.html`
-- `tickets/TASK-100/artifacts/task100-hero-alpamayo-policy/alpamayo_policy_decision.json`
+- `tickets/archive/TASK-097/artifacts/task97-scenario-catalog-hero-v3/scenario_catalog.json`
+- `tickets/archive/TASK-097/artifacts/task97-submission-browser-runpod-v4/scenario_browser.html`
+- `tickets/archive/TASK-100/artifacts/task100-hero-alpamayo-policy/alpamayo_policy_decision.json`
 - current `src/driverx/scenarios/catalog.py` filters and quality fields.
 
 #### Signature Delta

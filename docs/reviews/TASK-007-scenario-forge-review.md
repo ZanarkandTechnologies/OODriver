@@ -6,7 +6,7 @@ Reviewed: 2026-05-03 19:50 +0800
 
 - Changed files: scenario/memory/simulator modules, CLI, configs, tests, docs, ticket archive move.
 - Rubrics: code quality, integration readiness, evidence quality.
-- Context checked: `docs/prd.md`, `docs/MEMORY.md`, `ARCHITECTURE.md`, `tickets/TASK-007/ticket.md`, Fail2Drive route/result parser shape.
+- Context checked: `docs/prd.md`, `docs/MEMORY.md`, `ARCHITECTURE.md`, `tickets/archive/TASK-007/ticket.md`, Fail2Drive route/result parser shape.
 
 ## Verdict
 

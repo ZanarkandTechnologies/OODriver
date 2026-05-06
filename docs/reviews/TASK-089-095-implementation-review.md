@@ -14,8 +14,8 @@
 - `src/driverx/scenarios/catalog.py`
 - `tests/test_policy_evaluation_campaign.py`
 - `tests/test_submission_scenario_browser.py`
-- `tickets/TASK-094/artifacts/policy-evaluation-v6/`
-- `tickets/TASK-095/artifacts/submission-browser-v11/`
+- `tickets/archive/TASK-094/artifacts/policy-evaluation-v6/`
+- `tickets/archive/TASK-095/artifacts/submission-browser-v11/`
 
 ## Result
 

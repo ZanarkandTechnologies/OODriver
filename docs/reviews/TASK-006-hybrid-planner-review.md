@@ -8,8 +8,8 @@ PASS. Overall score: 4.2 / 5.0.
 
 ## Scope
 
-- `tickets/TASK-006/ticket.md`
-- `tickets/TASK-006/artifacts/qa/2026-05-03T063433Z/report.md`
+- `tickets/archive/TASK-006/ticket.md`
+- `tickets/archive/TASK-006/artifacts/qa/2026-05-03T063433Z/report.md`
 - `src/driverx/planning/hybrid.py`
 - `src/driverx/planning/baselines.py`
 - `src/driverx/planning/ranking.py`
