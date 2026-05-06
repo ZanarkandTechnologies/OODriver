@@ -1,0 +1,253 @@
+{
+  "matrix_id": "submission-eval-matrix-001",
+  "case_count": 6,
+  "hero_count": 1,
+  "role_counts": {
+    "failure": 2,
+    "hero": 1,
+    "support": 3
+  },
+  "scenario_families": [
+    "lane",
+    "obstacle",
+    "occlusion",
+    "regional",
+    "visual"
+  ],
+  "needed_next_counts": {
+    "TASK-102_high_fidelity_carla_video": 5,
+    "TASK-103_behavior_binding": 1,
+    "TASK-104_alpamayo_baseline": 5,
+    "TASK-104_alpamayo_memory": 5,
+    "TASK-104_rag_comparison": 5,
+    "TASK-105_fail2drive_reference": 6
+  },
+  "cases": [
+    {
+      "case_id": "case-01",
+      "scenario_id": "generated-base-animals-0076-visual-noise-000",
+      "role": "hero",
+      "scenario_family": "visual",
+      "behavior_id": "wrong_way_shoulder_creep",
+      "environment_tags": [
+        "animals",
+        "visual-noise"
+      ],
+      "ood_tags": [
+        "asset-fallen-cargo-sack",
+        "asset-reflective-flood-barrier",
+        "asset-roadside-food-cart",
+        "creep",
+        "live_carla",
+        "motorcycle_filtering",
+        "passed",
+        "shoulder",
+        "video",
+        "visual_noise",
+        "wrong_way",
+        "wrong_way_shoulder_creep"
+      ],
+      "evidence": {
+        "quality_status": "passed",
+        "video_path": "tickets/archive/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-overlay-v2/generated-base-animals-0076-visual-noise-000_ood.mp4",
+        "tracks_path": "tickets/archive/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/entity_tracks.json",
+        "quality_report": "tickets/archive/TASK-097/artifacts/pulled/artifacts/runs/task97-runpod-campaign-v2/cases/000-generated-base-animals-0076-visual-noise-000-wrong_way_shoulder_creep/carla/road_alignment_report.json",
+        "alpamayo_baseline": null,
+        "alpamayo_memory": "tickets/archive/TASK-100/artifacts/task100-hero-alpamayo-policy/alpamayo_policy_decision.json",
+        "rag_comparison": null
+      },
+      "needed_next": [
+        "TASK-104_alpamayo_baseline",
+        "TASK-104_rag_comparison",
+        "TASK-105_fail2drive_reference"
+      ],
+      "selection_score": 15.0,
+      "submission_claim": "Primary generated OOD CARLA case with road-aligned video; use it to show the simulator and anchor Alpamayo/RAG comparison.",
+      "blockers": []
+    },
+    {
+      "case_id": "case-02",
+      "scenario_id": "generated-generalization-customobstacles-1028-occlusion-001",
+      "role": "support",
+      "scenario_family": "occlusion",
+      "behavior_id": "sudden_brake",
+      "environment_tags": [
+        "customobstacles",
+        "occlusion"
+      ],
+      "ood_tags": [
+        "asset-fallen-cargo-sack",
+        "asset-reflective-flood-barrier",
+        "asset-roadside-food-cart",
+        "live_carla",
+        "passed",
+        "sudden_brake",
+        "video"
+      ],
+      "evidence": {
+        "quality_status": "legacy_passed",
+        "video_path": "tickets/archive/TASK-085/artifacts/task85-live-campaign-2b/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/local-video/generated-generalization-customobstacles-1028-occlusion-001_ood.mp4",
+        "tracks_path": "tickets/archive/TASK-085/artifacts/task85-fake-campaign/cases/001-generated-generalization-customobstacles-1028-occlusion-001-sudden_brake/entity_tracks.json",
+        "quality_report": null,
+        "alpamayo_baseline": null,
+        "alpamayo_memory": null,
+        "rag_comparison": null
+      },
+      "needed_next": [
+        "TASK-102_high_fidelity_carla_video",
+        "TASK-104_alpamayo_baseline",
+        "TASK-104_alpamayo_memory",
+        "TASK-104_rag_comparison",
+        "TASK-105_fail2drive_reference"
+      ],
+      "selection_score": 5.25,
+      "submission_claim": "Candidate scenario family for additional generated evidence; currently useful for breadth or failure analysis, not hero promotion.",
+      "blockers": []
+    },
+    {
+      "case_id": "case-03",
+      "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "role": "support",
+      "scenario_family": "regional",
+      "behavior_id": null,
+      "environment_tags": [
+        "animals",
+        "regional-driving-behavior"
+      ],
+      "ood_tags": [
+        "mem-sample-motorcycle-filtering"
+      ],
+      "evidence": {
+        "quality_status": "open_loop_only",
+        "video_path": null,
+        "tracks_path": null,
+        "quality_report": null,
+        "alpamayo_baseline": "tickets/archive/TASK-081/artifacts/task81-live-same-scene-memory-summary/alpamayo_policy_decision.json",
+        "alpamayo_memory": null,
+        "rag_comparison": "tickets/archive/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json"
+      },
+      "needed_next": [
+        "TASK-102_high_fidelity_carla_video",
+        "TASK-103_behavior_binding",
+        "TASK-104_alpamayo_memory",
+        "TASK-105_fail2drive_reference"
+      ],
+      "selection_score": 1.75,
+      "submission_claim": "Candidate scenario family for additional generated evidence; currently useful for breadth or failure analysis, not hero promotion.",
+      "blockers": []
+    },
+    {
+      "case_id": "case-04",
+      "scenario_id": "generated-generalization-pedestriansonroad-1088-lane-blockage-002",
+      "role": "support",
+      "scenario_family": "lane",
+      "behavior_id": "unsignaled_u_turn",
+      "environment_tags": [
+        "pedestrians"
+      ],
+      "ood_tags": [
+        "passed",
+        "unsignaled_u_turn"
+      ],
+      "evidence": {
+        "quality_status": "legacy_passed",
+        "video_path": null,
+        "tracks_path": "tickets/archive/TASK-085/artifacts/task85-fake-campaign/cases/002-generated-generalization-pedestriansonroad-1088-lane-blockage-002-unsignaled_u_turn/entity_tracks.json",
+        "quality_report": null,
+        "alpamayo_baseline": null,
+        "alpamayo_memory": null,
+        "rag_comparison": null
+      },
+      "needed_next": [
+        "TASK-102_high_fidelity_carla_video",
+        "TASK-104_alpamayo_baseline",
+        "TASK-104_alpamayo_memory",
+        "TASK-104_rag_comparison",
+        "TASK-105_fail2drive_reference"
+      ],
+      "selection_score": 1.75,
+      "submission_claim": "Candidate scenario family for additional generated evidence; currently useful for breadth or failure analysis, not hero promotion.",
+      "blockers": []
+    },
+    {
+      "case_id": "case-05",
+      "scenario_id": "generated-generalization-customobstacles-1028-visual-noise-007",
+      "role": "failure",
+      "scenario_family": "visual",
+      "behavior_id": "sudden_brake",
+      "environment_tags": [
+        "customobstacles",
+        "visual-noise"
+      ],
+      "ood_tags": [
+        "blocked",
+        "sudden_brake"
+      ],
+      "evidence": {
+        "quality_status": "blocked",
+        "video_path": null,
+        "tracks_path": "tickets/archive/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/001-retry03-generated-generalization-customobstacles-1028-visual-noise-007-sudden_brake/entity_tracks.json",
+        "quality_report": null,
+        "alpamayo_baseline": null,
+        "alpamayo_memory": null,
+        "rag_comparison": null
+      },
+      "needed_next": [
+        "TASK-102_high_fidelity_carla_video",
+        "TASK-104_alpamayo_baseline",
+        "TASK-104_alpamayo_memory",
+        "TASK-104_rag_comparison",
+        "TASK-105_fail2drive_reference"
+      ],
+      "selection_score": 1.0,
+      "submission_claim": "Candidate scenario family for additional generated evidence; currently useful for breadth or failure analysis, not hero promotion.",
+      "blockers": [
+        "behavior_validation:max_deceleration_mps2 13.60 exceeds 9.00",
+        "behavior_validation:time_to_conflict_s 0.00 is too early for a solvable setup",
+        "road alignment is required but missing or failed",
+        "video evidence is required but missing"
+      ]
+    },
+    {
+      "case_id": "case-06",
+      "scenario_id": "generated-base-animals-0076-obstacle-substitution-003",
+      "role": "failure",
+      "scenario_family": "obstacle",
+      "behavior_id": "motorcycle_filtering",
+      "environment_tags": [
+        "animals"
+      ],
+      "ood_tags": [
+        "motorcycle_filtering",
+        "passed"
+      ],
+      "evidence": {
+        "quality_status": "blocked",
+        "video_path": null,
+        "tracks_path": "tickets/archive/TASK-093/artifacts/quality-gated-fake-campaign-v3/cases/000-retry03-generated-base-animals-0076-obstacle-substitution-003-motorcycle_filtering/entity_tracks.json",
+        "quality_report": null,
+        "alpamayo_baseline": null,
+        "alpamayo_memory": null,
+        "rag_comparison": null
+      },
+      "needed_next": [
+        "TASK-102_high_fidelity_carla_video",
+        "TASK-104_alpamayo_baseline",
+        "TASK-104_alpamayo_memory",
+        "TASK-104_rag_comparison",
+        "TASK-105_fail2drive_reference"
+      ],
+      "selection_score": 0.75,
+      "submission_claim": "Candidate scenario family for additional generated evidence; currently useful for breadth or failure analysis, not hero promotion.",
+      "blockers": [
+        "road alignment is required but missing or failed",
+        "video evidence is required but missing"
+      ]
+    }
+  ],
+  "claim_boundaries": [
+    "submission_eval_matrix_is_selection_planning=true",
+    "closed_loop_carla_execution=false",
+    "alpamayo_inference_executed_by_this_ticket=false"
+  ]
+}

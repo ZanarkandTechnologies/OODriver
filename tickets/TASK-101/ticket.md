@@ -1,7 +1,7 @@
 # TASK-101: Submission Evaluation Matrix And Scenario Selection
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-097, TASK-098, TASK-100
@@ -171,6 +171,8 @@ and model/RAG comparison. This ticket defines that panel.
 
 - `tickets/TASK-101/artifacts/submission_eval_matrix.json`
 - `tickets/TASK-101/artifacts/submission_eval_matrix.md`
+- `tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json`
+- `tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.md`
 - Batch plan review:
   `tickets/TASK-101/artifacts/review/task101-106-plan-review.json`
 - focused test output

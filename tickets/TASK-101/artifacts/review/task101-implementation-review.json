@@ -1,0 +1,52 @@
+{
+  "work_type": ["backend", "evidence"],
+  "ticket_id": "TASK-101",
+  "reviewed_at": "2026-05-07 03:21 +0800",
+  "reviewer_mode": "visible_review_lane",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/pipeline/submission_eval_matrix.py",
+      "src/driverx/pipeline/submission_eval_matrix_cli.py",
+      "src/driverx/cli_extensions.py",
+      "tests/test_submission_eval_matrix.py",
+      "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.json",
+      "tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.md",
+      "tickets/TASK-101/ticket.md"
+    ],
+    "related_files": [
+      "src/driverx/scenarios/catalog.py",
+      "src/driverx/pipeline/policy_evaluation_campaign.py",
+      "tickets/archive/TASK-097/artifacts/task97-scenario-catalog-hero-v3/scenario_catalog.json",
+      "tickets/archive/TASK-090/artifacts/scenario-catalog-v4/scenario_catalog.json",
+      "tickets/archive/TASK-100/artifacts/task100-hero-alpamayo-policy/alpamayo_policy_decision.json"
+    ],
+    "invariants_checked": ["MEM-0024", "MEM-0029", "MEM-0030"],
+    "commands": [
+      "PYTHONPATH=src python3 -m unittest tests.test_submission_eval_matrix",
+      "PYTHONPATH=src python3 -m driverx build-submission-eval-matrix --catalog tickets/archive/TASK-097/artifacts/task97-scenario-catalog-hero-v3/scenario_catalog.json --catalog tickets/archive/TASK-090/artifacts/scenario-catalog-v4/scenario_catalog.json --evidence tickets/archive/TASK-100/artifacts/task100-hero-alpamayo-policy/alpamayo_policy_decision.json --output-root tickets/TASK-101/artifacts --run-id submission-eval-matrix --limit 8"
+    ]
+  },
+  "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality"],
+  "summary": "TASK-101 now has an executable matrix builder and CLI. It selects one hero plus support/failure cases, normalizes archived evidence paths, and writes JSON/Markdown handoff artifacts for the remaining sprint.",
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "medium",
+      "rubric": "evidence-quality",
+      "summary": "The selected support cases include legacy or blocked evidence by design; downstream tickets must keep those rows labeled as support/failure rather than hero proof.",
+      "file_refs": ["tickets/TASK-101/artifacts/submission-eval-matrix/submission_eval_matrix.md"],
+      "next_action": "Use the matrix's role and needed_next fields as gates for TASK-102 through TASK-105."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Proceed to TASK-103 Scenario Studio implementation."
+}

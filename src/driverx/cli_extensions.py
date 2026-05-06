@@ -19,6 +19,7 @@ def register_dynamic_parsers(subparsers: argparse._SubParsersAction) -> None:
     from driverx.pipeline.scripted_ood_campaign_cli import register_scripted_ood_campaign_parser
     from driverx.pipeline.submission_demo_pack_cli import register_submission_demo_pack_parser
     from driverx.pipeline.submission_dossier_cli import register_submission_dossier_parser
+    from driverx.pipeline.submission_eval_matrix_cli import register_submission_eval_matrix_parser
     from driverx.pipeline.submission_scenario_browser_cli import register_submission_scenario_browser_parser
     from driverx.policies.alpamayo_input_cli import register_alpamayo_input_parser
     from driverx.policies.alpamayo_live_cli import register_alpamayo_live_parser
@@ -77,6 +78,7 @@ def register_dynamic_parsers(subparsers: argparse._SubParsersAction) -> None:
     register_fail2drive_route_runner_parser(subparsers)
     register_fail2drive_host_plan_parser(subparsers)
     register_submission_dossier_parser(subparsers)
+    register_submission_eval_matrix_parser(subparsers)
     register_submission_demo_pack_parser(subparsers)
     register_submission_scenario_browser_parser(subparsers)
 
