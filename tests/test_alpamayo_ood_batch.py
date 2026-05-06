@@ -37,6 +37,12 @@ class AlpamayoOodBatchTest(unittest.TestCase):
         self.assertEqual(record["vram_peak_mb"], [100.0, 120.0])
         self.assertEqual(result["mean_vram_peak_mb"], 110.0)
         self.assertEqual(result["max_vram_peak_mb"], 120.0)
+        self.assertEqual(result["reasoning_changed_count"], 1)
+        self.assertEqual(result["memory_case_count"], 1)
+        self.assertEqual(result["open_loop_case_count"], 1)
+        self.assertEqual(result["closed_loop_case_count"], 0)
+        self.assertEqual(record["latency_delta_ms"], -2.0)
+        self.assertEqual(record["safety_flags"], {"open_loop_only": True})
         self.assertEqual(record["remote_command"]["command"][0:2], ["bash", "scripts/run_remote_alpamayo_carla_inference.sh"])
         self.assertEqual(record["status"], "passed")
 
@@ -116,6 +122,10 @@ def _write_inputs(root: Path) -> dict[str, Path]:
             {
                 "trajectory_delta": {"final_l2_m": 2.5},
                 "reasoning_delta": {"changed": True},
+                "latency_delta_ms": -2.0,
+                "safety_flags": {"open_loop_only": True},
+                "open_loop_policy_evaluation": True,
+                "closed_loop_control": False,
                 "memory_ids": ["mem-1"],
                 "records": [
                     {"mode": "alpamayo", "latency_ms": 10.0, "vram_peak_mb": 100.0},

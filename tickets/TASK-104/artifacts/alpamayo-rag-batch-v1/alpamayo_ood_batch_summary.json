@@ -1,0 +1,192 @@
+{
+  "batch_id": "alpamayo-rag-batch-v1",
+  "status": "passed",
+  "case_count": 3,
+  "passed_count": 3,
+  "planned_count": 0,
+  "blocked_count": 0,
+  "reasoning_changed_count": 2,
+  "memory_case_count": 3,
+  "open_loop_case_count": 3,
+  "closed_loop_case_count": 0,
+  "mean_trajectory_final_l2_m": 2.8219,
+  "mean_latency_ms": 92550.1317,
+  "mean_vram_peak_mb": 23380.5217,
+  "max_vram_peak_mb": 23557.31,
+  "records": [
+    {
+      "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "case_id": "generated-base-animals-0076-regional-driving-behavior-000",
+      "package_path": "tickets/archive/TASK-080/artifacts/task80-live-same-scene-package-001/alpamayo_carla_input_package.json",
+      "baseline_decision_path": "tickets/archive/TASK-081/artifacts/task81-live-same-scene-baseline-summary/alpamayo_policy_decision.json",
+      "memory_decision_path": "tickets/archive/TASK-081/artifacts/task81-live-same-scene-memory-summary/alpamayo_policy_decision.json",
+      "comparison_path": "tickets/archive/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json",
+      "remote_command": {
+        "command": [
+          "bash",
+          "scripts/run_remote_alpamayo_carla_inference.sh",
+          "tickets/archive/TASK-080/artifacts/task80-live-same-scene-package-001/alpamayo_carla_input_package.json",
+          "root@195.26.233.80",
+          "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/remote_outputs/generated-base-animals-0076-regional-driving-behavior-000"
+        ],
+        "env": {
+          "GPU_SSH_OPTS": "-p 55050 -i ~/.ssh/id_ed25519_runpod",
+          "PYTHON_BIN": "/workspace/alpamayo1.5/a1_5_venv/bin/python",
+          "ALPAMAYO_ATTN_IMPLEMENTATION": "eager",
+          "ALPAMAYO_NUM_TRAJ_SAMPLES": "1",
+          "RUN_ID": "generated-base-animals-0076-regional-driving-behavior-000"
+        },
+        "local_output_dir": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/remote_outputs/generated-base-animals-0076-regional-driving-behavior-000",
+        "execute_remote": false
+      },
+      "remote_execution": null,
+      "latency_ms": [
+        108765.59,
+        46129.12
+      ],
+      "vram_peak_mb": [
+        23507.7,
+        23557.31
+      ],
+      "trajectory_final_l2_m": 2.6886,
+      "reasoning_changed": false,
+      "memory_ids": [
+        "mem-sample-motorcycle-filtering"
+      ],
+      "latency_delta_ms": -62636.47,
+      "safety_flags": {
+        "open_loop_only": true,
+        "closed_loop_control_claimed": false,
+        "memory_augmented_live_run_available": true,
+        "memory_augmented_decision_available": true,
+        "memory_augmented_same_capture_available": true,
+        "route_video_available": false,
+        "route_score_available": false
+      },
+      "evidence_warnings": [],
+      "open_loop_policy_evaluation": true,
+      "closed_loop_control": false,
+      "status": "passed",
+      "blockers": []
+    },
+    {
+      "scenario_id": "fixture-malaysia-motorcycle-filtering",
+      "case_id": "fixture-malaysia-motorcycle-filtering",
+      "package_path": "tickets/archive/TASK-075/artifacts/scenario-linked-memory-comparison-v2/memory_augmented_alpamayo_carla_input_package.json",
+      "baseline_decision_path": null,
+      "memory_decision_path": "tickets/archive/TASK-056/artifacts/live-memory-run-summary/alpamayo_policy_decision.json",
+      "comparison_path": "tickets/archive/TASK-075/artifacts/scenario-linked-memory-comparison-v2/alpamayo_ood_comparison.json",
+      "remote_command": {
+        "command": [
+          "bash",
+          "scripts/run_remote_alpamayo_carla_inference.sh",
+          "tickets/archive/TASK-075/artifacts/scenario-linked-memory-comparison-v2/memory_augmented_alpamayo_carla_input_package.json",
+          "root@195.26.233.80",
+          "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/remote_outputs/fixture-malaysia-motorcycle-filtering"
+        ],
+        "env": {
+          "GPU_SSH_OPTS": "-p 55050 -i ~/.ssh/id_ed25519_runpod",
+          "PYTHON_BIN": "/workspace/alpamayo1.5/a1_5_venv/bin/python",
+          "ALPAMAYO_ATTN_IMPLEMENTATION": "eager",
+          "ALPAMAYO_NUM_TRAJ_SAMPLES": "1",
+          "RUN_ID": "fixture-malaysia-motorcycle-filtering"
+        },
+        "local_output_dir": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/remote_outputs/fixture-malaysia-motorcycle-filtering",
+        "execute_remote": false
+      },
+      "remote_execution": null,
+      "latency_ms": [
+        99795.97,
+        100407.07
+      ],
+      "vram_peak_mb": [
+        23235.75,
+        23373.31
+      ],
+      "trajectory_final_l2_m": 2.8886,
+      "reasoning_changed": true,
+      "memory_ids": [
+        "mem-sample-motorcycle-filtering"
+      ],
+      "latency_delta_ms": 611.1,
+      "safety_flags": {
+        "open_loop_only": true,
+        "closed_loop_control_claimed": false,
+        "memory_augmented_live_run_available": false,
+        "memory_augmented_decision_available": true,
+        "memory_augmented_same_capture_available": false,
+        "route_video_available": false,
+        "route_score_available": false
+      },
+      "evidence_warnings": [
+        "Generated-scene CARLA run did not pass; Alpamayo records should be treated as cached open-loop evidence.",
+        "Scenario report id and video evidence id differ; this comparison is linked evidence, not same-capture proof.",
+        "Memory-augmented package is not torch-ready yet; live rerun requires a successful CARLA capture package."
+      ],
+      "open_loop_policy_evaluation": true,
+      "closed_loop_control": false,
+      "status": "passed",
+      "blockers": []
+    },
+    {
+      "scenario_id": "alpamayo-open-loop::alpamayo-live",
+      "case_id": "memory_augmented_alpamayo_carla_input_package",
+      "package_path": "tickets/archive/TASK-056/artifacts/town10-memory-comparison/memory_augmented_alpamayo_carla_input_package.json",
+      "baseline_decision_path": null,
+      "memory_decision_path": null,
+      "comparison_path": "tickets/archive/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json",
+      "remote_command": {
+        "command": [
+          "bash",
+          "scripts/run_remote_alpamayo_carla_inference.sh",
+          "tickets/archive/TASK-056/artifacts/town10-memory-comparison/memory_augmented_alpamayo_carla_input_package.json",
+          "root@195.26.233.80",
+          "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/remote_outputs/memory_augmented_alpamayo_carla_input_package"
+        ],
+        "env": {
+          "GPU_SSH_OPTS": "-p 55050 -i ~/.ssh/id_ed25519_runpod",
+          "PYTHON_BIN": "/workspace/alpamayo1.5/a1_5_venv/bin/python",
+          "ALPAMAYO_ATTN_IMPLEMENTATION": "eager",
+          "ALPAMAYO_NUM_TRAJ_SAMPLES": "1",
+          "RUN_ID": "memory_augmented_alpamayo_carla_input_package"
+        },
+        "local_output_dir": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/remote_outputs/memory_augmented_alpamayo_carla_input_package",
+        "execute_remote": false
+      },
+      "remote_execution": null,
+      "latency_ms": [
+        99795.97,
+        100407.07
+      ],
+      "vram_peak_mb": [
+        23235.75,
+        23373.31
+      ],
+      "trajectory_final_l2_m": 2.8886,
+      "reasoning_changed": true,
+      "memory_ids": [
+        "mem-sample-motorcycle-filtering"
+      ],
+      "latency_delta_ms": 611.1,
+      "safety_flags": {
+        "open_loop_only": true,
+        "closed_loop_control_claimed": false,
+        "memory_augmented_live_run_available": true,
+        "route_video_available": true,
+        "route_score_available": false
+      },
+      "evidence_warnings": [],
+      "open_loop_policy_evaluation": true,
+      "closed_loop_control": false,
+      "status": "passed",
+      "blockers": []
+    }
+  ],
+  "blockers": [],
+  "claim_boundaries": [
+    "alpamayo_batch_open_loop_policy_evaluation=true",
+    "closed_loop_carla_control=false",
+    "real_time_vla_control=false",
+    "model_weights_frozen=true"
+  ]
+}

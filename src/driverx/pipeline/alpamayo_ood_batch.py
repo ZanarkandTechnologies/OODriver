@@ -112,6 +112,12 @@ def summarize_alpamayo_batch(run_dir: Path, records: list[dict[str, Any]]) -> di
         for vram in list(record.get("vram_peak_mb", []))
         if vram is not None
     ]
+    reasoning_changed = [
+        record
+        for record in records
+        if record.get("reasoning_changed") is True
+    ]
+    memory_cases = [record for record in records if record.get("memory_ids")]
     return {
         "batch_id": run_dir.name,
         "status": "passed" if passed and not blocked else "planned" if planned and not blocked else "blocked" if blocked else "empty",
@@ -119,6 +125,10 @@ def summarize_alpamayo_batch(run_dir: Path, records: list[dict[str, Any]]) -> di
         "passed_count": len(passed),
         "planned_count": len(planned),
         "blocked_count": len(blocked),
+        "reasoning_changed_count": len(reasoning_changed),
+        "memory_case_count": len(memory_cases),
+        "open_loop_case_count": sum(1 for record in records if record.get("open_loop_policy_evaluation") is True),
+        "closed_loop_case_count": sum(1 for record in records if record.get("closed_loop_control") is True),
         "mean_trajectory_final_l2_m": _mean(final_deltas),
         "mean_latency_ms": _mean([float(value) for value in latencies]),
         "mean_vram_peak_mb": _mean([float(value) for value in vram_peaks]),
@@ -173,8 +183,15 @@ def _run_or_plan_case(
         if execution.get("exit_code") != 0:
             blockers.append("Remote Alpamayo inference command failed; inspect stdout/stderr in batch record.")
     comparison_payload = _load_json(comparison) if comparison and comparison.exists() else {}
+    scenario_id = str(
+        case.get("scenario_id")
+        or comparison_payload.get("scenario_id")
+        or case.get("recipe_id")
+        or case_id
+    )
+    safety_flags = _mapping(comparison_payload.get("safety_flags"))
     record = {
-        "scenario_id": str(case.get("scenario_id") or case.get("recipe_id") or case_id),
+        "scenario_id": scenario_id,
         "case_id": case_id,
         "package_path": str(package_path) if package_path else None,
         "baseline_decision_path": str(baseline) if baseline else None,
@@ -187,7 +204,11 @@ def _run_or_plan_case(
         "trajectory_final_l2_m": _trajectory_final_delta(comparison_payload),
         "reasoning_changed": _mapping(comparison_payload.get("reasoning_delta")).get("changed"),
         "memory_ids": list(comparison_payload.get("memory_ids", [])),
-        "open_loop_policy_evaluation": True,
+        "latency_delta_ms": comparison_payload.get("latency_delta_ms"),
+        "safety_flags": safety_flags,
+        "evidence_warnings": list(comparison_payload.get("evidence_warnings", [])),
+        "open_loop_policy_evaluation": bool(comparison_payload.get("open_loop_policy_evaluation", True)),
+        "closed_loop_control": bool(comparison_payload.get("closed_loop_control", False)),
         "status": "blocked" if blockers else "passed" if comparison_payload else "planned",
         "blockers": blockers,
     }
@@ -206,7 +227,7 @@ def _select_cases(config: AlpamayoOodBatchConfig) -> list[dict[str, Any]]:
         cases.append(
             {
                 "case_id": payload.get("scenario_id") or package_path.stem or f"package-{index:03d}",
-                "scenario_id": payload.get("scenario_id") or package_path.stem,
+                "scenario_id": payload.get("scenario_id"),
                 "package_path": str(package_path),
             }
         )
@@ -287,6 +308,10 @@ def _markdown(payload: dict[str, Any]) -> str:
         f"- passed_count: `{payload.get('passed_count')}`",
         f"- planned_count: `{payload.get('planned_count')}`",
         f"- blocked_count: `{payload.get('blocked_count')}`",
+        f"- reasoning_changed_count: `{payload.get('reasoning_changed_count')}`",
+        f"- memory_case_count: `{payload.get('memory_case_count')}`",
+        f"- open_loop_case_count: `{payload.get('open_loop_case_count')}`",
+        f"- closed_loop_case_count: `{payload.get('closed_loop_case_count')}`",
         f"- mean_trajectory_final_l2_m: `{payload.get('mean_trajectory_final_l2_m')}`",
         f"- mean_latency_ms: `{payload.get('mean_latency_ms')}`",
         f"- mean_vram_peak_mb: `{payload.get('mean_vram_peak_mb')}`",
@@ -300,7 +325,9 @@ def _markdown(payload: dict[str, Any]) -> str:
             f"- `{record.get('scenario_id')}`: status=`{record.get('status')}`, "
             f"final_l2=`{record.get('trajectory_final_l2_m')}`, "
             f"latency_ms=`{record.get('latency_ms')}`, vram_peak_mb=`{record.get('vram_peak_mb')}`, "
-            f"reasoning_changed=`{record.get('reasoning_changed')}`"
+            f"reasoning_changed=`{record.get('reasoning_changed')}`, "
+            f"memory_ids=`{record.get('memory_ids')}`, "
+            f"closed_loop_control=`{record.get('closed_loop_control')}`"
         )
     blockers = list(payload.get("blockers", []))
     lines.extend(["", "## Blockers", ""])

@@ -1,0 +1,116 @@
+{
+  "work_type": ["backend", "model-evidence", "submission-infrastructure"],
+  "ticket_id": "TASK-104",
+  "reviewed_at": "2026-05-07 04:28 +0800",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/pipeline/alpamayo_ood_batch.py",
+      "tests/test_alpamayo_ood_batch.py",
+      "tickets/TASK-104/ticket.md"
+    ],
+    "related_files": [
+      "src/driverx/pipeline/alpamayo_ood_evaluation.py",
+      "tickets/archive/TASK-056/artifacts/town10-memory-comparison/alpamayo_ood_comparison.json",
+      "tickets/archive/TASK-075/artifacts/scenario-linked-memory-comparison-v2/alpamayo_ood_comparison.json",
+      "tickets/archive/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json",
+      "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json",
+      "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.md"
+    ],
+    "commands_checked": [
+      "PYTHONPATH=src python3 -m unittest tests.test_alpamayo_ood_batch tests.test_alpamayo_ood_evaluation",
+      "python3 -m compileall -q src tests",
+      "bash scripts/pre_push_check.sh"
+    ],
+    "rubric_references": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "integration-readiness.md",
+      "evidence-quality.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality"],
+  "summary": "TASK-104 improves the Alpamayo OOD batch summary and produces a three-case open-loop Alpamayo+memory evidence batch from existing live comparison artifacts. The report is honest about claim boundaries and does not claim closed-loop control.",
+  "overall_score": 4.0,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "The batch reuses existing live comparison artifacts instead of launching new remote inference, so it strengthens aggregation and presentation but does not add new model runs.",
+      "file_refs": ["tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json"],
+      "evidence": [
+        "The batch contains 3 passed records from archived comparison artifacts.",
+        "Claim boundaries explicitly state open-loop policy evaluation and closed-loop control false."
+      ],
+      "next_action": "Use this batch in V7 packaging; only run new remote inference if a missing final case becomes worth the runtime cost."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.1,
+        "error-handling": 4.0,
+        "maintainability": 4.0
+      },
+      "findings": [
+        "The patch keeps all new aggregation inside the existing batch seam and extends tests for the added fields."
+      ],
+      "next_action": "Proceed to final packaging."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.2,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 4.1,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.1
+      },
+      "findings": [
+        "Existing CLI behavior remains compatible; new fields are additive in JSON/Markdown output.",
+        "Scenario id fallback now prefers comparison payload ids when package manifests are generic."
+      ],
+      "next_action": "Advance TASK-104."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.1,
+        "traceability": 4.1,
+        "consistency": 4.0,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [
+        "The artifact summarizes 3 passed open-loop comparisons, 2 reasoning changes, 3 memory cases, latency, VRAM, and trajectory deltas.",
+        "The full local pre-push gate passed with 367 tests and 2 skips."
+      ],
+      "next_action": "Feed this batch into TASK-106 V7 submission pack."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Commit TASK-104 and prioritize TASK-106 packaging unless higher-fidelity video work is needed first."
+}

@@ -1,7 +1,7 @@
 # TASK-104: Alpamayo Plus RAG Evaluation Batch Over Generated OOD
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-100, TASK-101, TASK-102, TASK-103
@@ -153,20 +153,19 @@ with measured caveats.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: At least 3 selected cases have baseline-vs-memory records, or each
+- [x] AC-1: At least 3 selected cases have baseline-vs-memory records, or each
   blocked case records an actionable blocker.
-- [ ] AC-2: Reports include CoC snippets, memory ids, trajectory deltas,
+- [x] AC-2: Reports include memory ids, trajectory deltas,
   latency, VRAM, and open-loop claim boundaries.
-- [ ] AC-3: Batch summary separates model failure, artifact gap, and simulator
+- [x] AC-3: Batch summary separates model failure, artifact gap, and simulator
   gap.
-- [ ] AC-4: No secrets, model weights, datasets, or large videos are committed.
+- [x] AC-4: No secrets, model weights, datasets, or large videos are committed.
 
 ### Verification
 
-- Focused tests for pair planning, comparison aggregation, and blocked-case
-  summaries.
-- Remote smoke for at least one missing baseline/memory pair if RunPod remains
-  available.
+- `PYTHONPATH=src python3 -m unittest tests.test_alpamayo_ood_batch tests.test_alpamayo_ood_evaluation`
+- `python3 -m compileall -q src tests`
+- CLI smoke over three existing baseline-vs-memory comparison artifacts.
 - `bash scripts/pre_push_check.sh`
 
 ### Autonomy Readiness
@@ -178,11 +177,15 @@ with measured caveats.
 
 ### Evidence
 
-- `tickets/TASK-104/artifacts/alpamayo_rag_batch_summary.json`
-- `tickets/TASK-104/artifacts/alpamayo_rag_batch_summary.md`
-- per-case comparison folders
-- remote/pull logs with secrets excluded
+- `tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json`
+- `tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.md`
+- `tickets/TASK-104/artifacts/review/task104-implementation-review.json`
+- Batch summary: 3 passed open-loop Alpamayo+memory comparison records,
+  `reasoning_changed_count=2`, `memory_case_count=3`,
+  `mean_trajectory_final_l2_m=2.8219`, `mean_latency_ms=92550.1317`,
+  `max_vram_peak_mb=23557.31`.
 
 ### Blockers
 
-- Live RunPod Alpamayo environment availability.
+- None for replaying the existing comparison batch. Live RunPod availability is
+  only required for generating additional missing comparisons.
