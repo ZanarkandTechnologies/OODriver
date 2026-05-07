@@ -7,16 +7,18 @@ Last updated: 2026-05-07 17:21 +0800
 Build OODrive as a **CLI-backed scenario database and control plane**, then put
 the AI generation/orchestration layer in Codex.
 
-Recommendation: make `python -m driverx oodrive ...` the canonical durable data
-surface, with `python -m driverx oodriver ...` and
-`python -m driverx studio ...` as compatibility aliases. Existing flat commands remain low-level primitives. The new command group should create,
+Recommendation: make `python -m oodrive ...` the canonical durable data
+surface, with `python -m driverx oodrive ...`, `python -m driverx oodriver ...`,
+and `python -m driverx studio ...` as compatibility aliases. Existing flat
+commands remain low-level primitives. The new command group should create,
 ingest, validate, compile, queue, run, evaluate, replay, and export scenario
-records. It should not pretend to be the AI brain.
+records.
 
-Codex becomes the generator/operator: it proposes weird OOD briefs, uses
-external tools when useful, calls the CLI to persist records, chooses the next
-experiment, and writes everything back into the artifact database. A future
-Codex skill should wrap this workflow after the CLI schema is stable.
+Codex or the built-in `codex-template` provider becomes the generator/operator:
+it proposes weird OOD briefs, uses external tools when useful, calls the CLI to
+persist records, chooses the next experiment, and writes everything back into
+the artifact database. A future network provider can replace the deterministic
+generator without changing the DB contract.
 
 ## CLI UX
 
@@ -24,43 +26,48 @@ The operator, human or Codex, should be able to run the product loop with a
 small number of commands:
 
 ```bash
-PYTHONPATH=src python3 -m driverx oodrive init \
+PYTHONPATH=src python3 -m oodrive init \
   --run-id wet-roadwork-v1
 
-PYTHONPATH=src python3 -m driverx oodrive ingest-brief \
+PYTHONPATH=src python3 -m oodrive ingest-brief \
   --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --prompt "Malaysian wet roadwork: motorbike filters while a lorry brakes without signal" \
   --author codex
 
-PYTHONPATH=src python3 -m driverx oodrive compile \
+PYTHONPATH=src python3 -m oodrive ai-generate \
+  --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
+  --prompt "Malaysian wet roadwork: motorbike filters while a lorry brakes without signal" \
+  --count 4
+
+PYTHONPATH=src python3 -m oodrive compile \
   --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --count 12 \
   --severity 4 \
   --seed 42
 
-PYTHONPATH=src python3 -m driverx oodrive queue \
+PYTHONPATH=src python3 -m oodrive queue \
   --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --accept top:3
 
-PYTHONPATH=src python3 -m driverx oodrive run \
+PYTHONPATH=src python3 -m oodrive run \
   --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --scenario-id studio-0042-malaysian-wet-roadwork-v00 \
   --policy carla-autopilot \
   --config configs/carla_ood_demo.runpod.high_fidelity.yaml \
   --run-id wet-roadwork-autopilot-run
 
-PYTHONPATH=src python3 -m driverx oodrive evaluate \
+PYTHONPATH=src python3 -m oodrive evaluate \
   --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --run artifacts/runs/wet-roadwork-autopilot-run/run_manifest.json \
   --policy alpamayo-trajectory \
   --memory auto
 
-PYTHONPATH=src python3 -m driverx oodrive replay \
+PYTHONPATH=src python3 -m oodrive replay \
   --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --run artifacts/runs/wet-roadwork-autopilot-run/run_manifest.json \
   --run-id wet-roadwork-replay
 
-PYTHONPATH=src python3 -m driverx oodrive export \
+PYTHONPATH=src python3 -m oodrive export \
   --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --run-id scenario-generator-cli-demo
 ```
@@ -69,7 +76,7 @@ For submission speed, the first implementation may also provide an all-in-one
 dry run:
 
 ```bash
-PYTHONPATH=src python3 -m driverx oodrive quickstart \
+PYTHONPATH=src python3 -m oodrive quickstart \
   --prompt "Night market double parking with a scooter passing on the shoulder" \
   --policy mock \
   --run-id studio-cli-smoke
@@ -77,8 +84,9 @@ PYTHONPATH=src python3 -m driverx oodrive quickstart \
 
 ## Command Contract
 
-All command names below are available as `driverx oodrive <command>`,
-`driverx oodriver <command>`, and `driverx studio <command>`.
+All command names below are available as `oodrive <command>`,
+`driverx oodrive <command>`, `driverx oodriver <command>`, and
+`driverx studio <command>`.
 
 ### `studio init`
 
@@ -100,6 +108,22 @@ Output:
 - appended brief record
 - validation warnings
 - compact stdout summary with the next compile command
+
+### `studio ai-generate`
+
+Turns a source prompt into provider-authored OOD scenario briefs. The default
+`codex-template` provider is deterministic and dependency-free; it records
+provider metadata and `network_llm_call=false` so the evidence pack does not
+overclaim a live LLM.
+
+Output:
+
+- updated `scenario_studio_db.json`
+- generated `author=provider` brief records
+- `scenario_generation_ai_provider=codex-template`
+- optional compile/queue artifacts when `--compile` and `--queue` are passed
+- compact stdout summary with generated count, candidate count, queue count,
+  and product next commands
 
 ### `studio compile`
 

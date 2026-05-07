@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from driverx.scenarios.studio_db import ScenarioStudioDb
+from driverx.scenarios.studio_product_helpers import oodrive_command
 
 
 @dataclass(frozen=True)
@@ -123,10 +124,7 @@ def _candidate_memory_query(candidate: dict[str, Any]) -> list[str]:
 
 
 def _next_command(db_path: Path, scenario_id: str, policy: str) -> str:
-    return (
-        "PYTHONPATH=src python3 -m driverx oodrive run "
-        f"--db {db_path} --scenario-id {scenario_id} --policy {policy}"
-    )
+    return oodrive_command(f"run --db {db_path} --scenario-id {scenario_id} --policy {policy}")
 
 
 def _render_queue_markdown(payload: dict[str, Any]) -> str:

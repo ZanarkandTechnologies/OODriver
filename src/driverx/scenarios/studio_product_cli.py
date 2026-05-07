@@ -8,6 +8,7 @@ from pathlib import Path
 
 from driverx.scenarios.studio_product import (
     StudioCommandResult,
+    run_studio_ai_generate,
     run_studio_compile,
     run_studio_evaluate,
     run_studio_export,
@@ -20,6 +21,15 @@ from driverx.scenarios.studio_product import (
 )
 
 
+def build_oodrive_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="oodrive",
+        description="OODrive scenario generation, queueing, evaluation, and evidence tooling.",
+    )
+    _register_commands(parser, "oodrive")
+    return parser
+
+
 def register_oodrive_parser(subparsers: argparse._SubParsersAction) -> None:
     _register_group(subparsers, "oodrive", "OODrive scenario DB and evaluation tool.")
     _register_group(subparsers, "oodriver", "Alias for `oodrive`.")
@@ -28,6 +38,10 @@ def register_oodrive_parser(subparsers: argparse._SubParsersAction) -> None:
 
 def _register_group(subparsers: argparse._SubParsersAction, name: str, help_text: str) -> None:
     parser = subparsers.add_parser(name, help=help_text)
+    _register_commands(parser, name)
+
+
+def _register_commands(parser: argparse.ArgumentParser, name: str) -> None:
     nested = parser.add_subparsers(dest=f"{name}_command", required=True)
 
     init = nested.add_parser("init", help="Create an OODrive scenario database.")
@@ -44,6 +58,21 @@ def _register_group(subparsers: argparse._SubParsersAction, name: str, help_text
     ingest.add_argument("--region")
     ingest.add_argument("--target-policy-pressure")
     ingest.set_defaults(func=_command_ingest)
+
+    ai_generate = nested.add_parser("ai-generate", help="Generate OOD scenario briefs into the DB.")
+    ai_generate.add_argument("--prompt", action="append", required=True)
+    ai_generate.add_argument("--db", type=Path)
+    ai_generate.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
+    ai_generate.add_argument("--run-id", default="oodrive-ai")
+    ai_generate.add_argument("--count", type=int, default=4)
+    ai_generate.add_argument("--seed", type=int, default=7)
+    ai_generate.add_argument("--provider", default="codex-template", choices=["codex-template"])
+    ai_generate.add_argument("--force", action="store_true")
+    ai_generate.add_argument("--compile", action="store_true", dest="compile_candidates")
+    ai_generate.add_argument("--queue", action="store_true", dest="queue_candidates")
+    ai_generate.add_argument("--severity", type=int, default=4)
+    ai_generate.add_argument("--accept", default="top:3")
+    ai_generate.set_defaults(func=_command_ai_generate)
 
     compile_parser = nested.add_parser("compile", help="Compile DB briefs into curated scenario candidates.")
     compile_parser.add_argument("--db", type=Path, required=True)
@@ -131,6 +160,25 @@ def _command_ingest(args: argparse.Namespace) -> int:
     )
 
 
+def _command_ai_generate(args: argparse.Namespace) -> int:
+    return _print(
+        run_studio_ai_generate(
+            prompts=args.prompt,
+            db_path=args.db,
+            output_root=args.output_root,
+            run_id=args.run_id,
+            count=args.count,
+            provider=args.provider,
+            seed=args.seed,
+            force=args.force,
+            compile_candidates=args.compile_candidates,
+            queue_candidates=args.queue_candidates,
+            severity=args.severity,
+            accept=args.accept,
+        )
+    )
+
+
 def _command_compile(args: argparse.Namespace) -> int:
     return _print(
         run_studio_compile(
@@ -208,4 +256,4 @@ def _command_quickstart(args: argparse.Namespace) -> int:
 
 register_oodriver_parser = register_oodrive_parser
 
-__all__ = ["register_oodrive_parser", "register_oodriver_parser"]
+__all__ = ["build_oodrive_parser", "register_oodrive_parser", "register_oodriver_parser"]

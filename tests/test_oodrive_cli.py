@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import json
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 from io import StringIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
 from driverx.cli import build_parser, main
+from oodrive.cli import main as oodrive_main
 
 
 class OODriveCliTests(unittest.TestCase):
@@ -129,6 +130,94 @@ class OODriveCliTests(unittest.TestCase):
             self.assertEqual(db["evaluations"][-1]["reasoning_mode"], "cached_open_loop")
             self.assertEqual(db["evaluations"][-1]["latency_ms"], 812.5)
             self.assertTrue(Path(db["exports"][-1]["html_path"]).exists())
+
+    def test_product_oodrive_entrypoint_runs_without_driverx_prefix(self) -> None:
+        with TemporaryDirectory() as tmp:
+            stream = StringIO()
+            with redirect_stdout(stream):
+                exit_code = oodrive_main(
+                    [
+                        "quickstart",
+                        "--prompt",
+                        "Malaysian wet roadwork with motorcycle filtering and an unsignaled lorry brake",
+                        "--output-root",
+                        tmp,
+                        "--run-id",
+                        "product",
+                        "--count",
+                        "2",
+                        "--seed",
+                        "19",
+                    ]
+                )
+            result = json.loads(stream.getvalue())
+
+            self.assertEqual(exit_code, 0)
+            self.assertEqual(result["product"], "OODrive")
+            self.assertTrue(Path(result["artifacts"]["db_path"]).exists())
+            self.assertTrue(Path(result["artifacts"]["export"]).exists())
+
+    def test_ai_generate_creates_provider_briefs_and_uses_product_next_commands(self) -> None:
+        with TemporaryDirectory() as tmp:
+            stream = StringIO()
+            err_stream = StringIO()
+            with redirect_stdout(stream), redirect_stderr(err_stream):
+                exit_code = oodrive_main(
+                    [
+                        "ai-generate",
+                        "--prompt",
+                        "Malaysian wet night roadwork chaos with scooter filtering",
+                        "--output-root",
+                        tmp,
+                        "--run-id",
+                        "ai",
+                        "--count",
+                        "4",
+                        "--seed",
+                        "11",
+                        "--compile",
+                        "--queue",
+                    ]
+                )
+            result = json.loads(stream.getvalue())
+            db = json.loads(Path(result["artifacts"]["db_path"]).read_text(encoding="utf-8"))
+
+            self.assertEqual(exit_code, 0)
+            self.assertEqual(result["status"], "passed")
+            self.assertEqual(result["summary"]["generated_count"], 4)
+            self.assertEqual(result["summary"]["candidate_count"], 4)
+            self.assertEqual(result["summary"]["queue_count"], 4)
+            self.assertEqual({brief["author"] for brief in db["briefs"]}, {"provider"})
+            self.assertEqual({brief["provider"] for brief in db["briefs"]}, {"codex-template"})
+            self.assertTrue(all(command.startswith("PYTHONPATH=src python3 -m oodrive") for command in result["next_commands"]))
+            self.assertFalse(any("driverx oodrive" in command for command in result["next_commands"]))
+            self.assertIn("scenario_generation_ai_assisted=true", result["claim_boundaries"])
+            self.assertIn("scenario_generation_ai_provider=codex-template", db["claim_boundaries"])
+            self.assertFalse(
+                any(boundary.startswith("scenario_generation_ai_provider=false") for boundary in db["claim_boundaries"])
+            )
+
+    def test_ai_generate_queue_without_compile_fails_before_writing_db(self) -> None:
+        with TemporaryDirectory() as tmp:
+            stream = StringIO()
+            err_stream = StringIO()
+            with redirect_stdout(stream), redirect_stderr(err_stream):
+                exit_code = oodrive_main(
+                    [
+                        "ai-generate",
+                        "--prompt",
+                        "wet roadwork",
+                        "--output-root",
+                        tmp,
+                        "--run-id",
+                        "bad",
+                        "--queue",
+                    ]
+                )
+
+            self.assertEqual(exit_code, 2)
+            self.assertIn("Pass --compile", err_stream.getvalue())
+            self.assertFalse((Path(tmp) / "bad" / "scenario_studio_db.json").exists())
 
 
 if __name__ == "__main__":

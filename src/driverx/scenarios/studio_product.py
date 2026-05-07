@@ -44,6 +44,7 @@ from driverx.scenarios.studio_product_helpers import (
     load_prediction,
     memory_ids_for_candidate,
     mock_actions_for_record,
+    oodrive_command,
     queue_next_commands,
     select_queue_record,
     trajectory_summary_from_prediction,
@@ -106,7 +107,7 @@ def run_studio_init(output_root: Path, run_id: str, *, force: bool = False) -> S
         run_id=db.run_id,
         status=status,
         artifacts=artifacts,
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive ingest-brief --db {path} --prompt '<brief>'"],
+        next_commands=[oodrive_command(f"ingest-brief --db {path} --prompt '<brief>'")],
         summary=summary,
         claim_boundaries=db.claim_boundaries,
     )
@@ -147,9 +148,171 @@ def run_studio_ingest_brief(
         run_id=db.run_id,
         status="passed",
         artifacts=artifacts,
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive compile --db {db_path} --count 6 --seed 7"],
+        next_commands=[oodrive_command(f"compile --db {db_path} --count 6 --seed 7")],
         summary={"brief": brief, "brief_count": len(db.briefs)},
         claim_boundaries=db.claim_boundaries,
+    )
+
+
+def generate_ai_scenario_briefs(
+    prompt: str,
+    *,
+    count: int = 4,
+    provider: str = "codex-template",
+    seed: int = 7,
+    starting_index: int = 0,
+) -> list[dict[str, Any]]:
+    """Generate deterministic AI-style scenario briefs from one source prompt."""
+
+    clean_prompt = prompt.strip()
+    if not clean_prompt:
+        raise ValueError("AI scenario prompt is required.")
+    if count < 1:
+        raise ValueError("AI scenario generation count must be at least 1.")
+
+    variants = _scenario_variant_templates(clean_prompt)
+    briefs: list[dict[str, Any]] = []
+    for offset in range(count):
+        variant = variants[(seed + offset) % len(variants)]
+        generated_prompt = _combine_prompt(clean_prompt, variant)
+        tags = _infer_ai_tags(generated_prompt)
+        region = _infer_ai_region(generated_prompt)
+        brief_number = starting_index + offset + 1
+        briefs.append(
+            {
+                "brief_id": f"brief-{brief_number:04d}",
+                "prompt": generated_prompt,
+                "author": "provider",
+                "provider": provider,
+                "source_prompt": clean_prompt,
+                "region": region,
+                "requested_tags": tags,
+                "target_policy_pressure": _infer_policy_pressure(tags),
+                "generation_notes": [
+                    "generated_by=oodrive_ai_generate",
+                    f"provider={provider}",
+                    f"seed={seed}",
+                    f"variant_index={offset}",
+                ],
+            }
+        )
+    return briefs
+
+
+def run_studio_ai_generate(
+    *,
+    prompts: Iterable[str],
+    db_path: Path | None = None,
+    output_root: Path = Path("artifacts/runs"),
+    run_id: str = "oodrive-ai",
+    count: int = 4,
+    provider: str = "codex-template",
+    seed: int = 7,
+    force: bool = False,
+    compile_candidates: bool = False,
+    queue_candidates: bool = False,
+    severity: int = 4,
+    accept: str = "top:3",
+) -> StudioCommandResult:
+    prompt_list = [prompt.strip() for prompt in prompts if prompt.strip()]
+    if not prompt_list:
+        raise ValueError("At least one --prompt is required for ai-generate.")
+    if queue_candidates and not compile_candidates:
+        raise ValueError("Pass --compile when using --queue so queued candidates exist.")
+    if db_path is None:
+        init_result = run_studio_init(output_root, run_id, force=force)
+        db_path = Path(init_result.artifacts["db_path"])
+    elif not db_path.exists():
+        raise FileNotFoundError(f"OODrive studio DB not found: {db_path}")
+
+    db = load_studio_db(db_path)
+    generated: list[dict[str, Any]] = []
+    next_index = len(db.briefs)
+    for prompt_index, source_prompt in enumerate(prompt_list):
+        briefs = generate_ai_scenario_briefs(
+            source_prompt,
+            count=count,
+            provider=provider,
+            seed=seed + prompt_index,
+            starting_index=next_index,
+        )
+        next_index += len(briefs)
+        generated.extend(briefs)
+        for brief in briefs:
+            db = append_brief(db, brief)
+    db = replace_db(
+        db,
+        claim_boundaries=_with_replaced_boundary(
+            db.claim_boundaries,
+            prefix="scenario_generation_ai_provider=",
+            replacement=f"scenario_generation_ai_provider={provider}",
+        ),
+    )
+    db = append_command(
+        db,
+        command="oodrive ai-generate",
+        status="passed",
+        artifacts={"db_path": str(db_path)},
+        summary={
+            "provider": provider,
+            "source_prompt_count": len(prompt_list),
+            "generated_count": len(generated),
+        },
+    )
+    artifacts = artifact_paths(write_studio_db(db_path, db))
+    next_commands = [oodrive_command(f"compile --db {db_path} --count {max(1, len(generated))} --severity {severity} --seed {seed}")]
+    compiled = False
+    queued = False
+    candidate_count = len(db.candidates)
+    queue_count = len(db.queue)
+
+    if compile_candidates:
+        compile_result = run_studio_compile(
+            db_path,
+            count=max(1, len(generated)),
+            severity=severity,
+            seed=seed,
+        )
+        artifacts = {**artifacts, **compile_result.artifacts}
+        candidate_count = int(compile_result.summary.get("candidate_count", 0))
+        compiled = True
+        next_commands = [oodrive_command(f"queue --db {db_path} --accept {accept}")]
+
+    if queue_candidates:
+        queue_result = run_studio_queue(db_path, accept=accept)
+        artifacts = {**artifacts, **queue_result.artifacts}
+        queue_count = int(queue_result.summary.get("queue_count", 0))
+        queued = True
+        next_commands = queue_result.next_commands
+
+    db = load_studio_db(db_path)
+    return StudioCommandResult(
+        command="oodrive ai-generate",
+        run_id=db.run_id,
+        status="passed",
+        artifacts=artifacts,
+        next_commands=next_commands,
+        summary={
+            "provider": provider,
+            "source_prompt_count": len(prompt_list),
+            "generated_count": len(generated),
+            "compiled": compiled,
+            "queued": queued,
+            "candidate_count": candidate_count,
+            "queue_count": queue_count,
+            "generated_brief_ids": [str(brief.get("brief_id")) for brief in generated],
+        },
+        claim_boundaries=sorted(
+            set(
+                [
+                    *db.claim_boundaries,
+                    f"ai_generation_provider={provider}",
+                    "network_llm_call=false",
+                    "scenario_generation_ai_assisted=true",
+                    "closed_loop_carla_execution=false_until_run_manifest_proves_it",
+                ]
+            )
+        ),
     )
 
 
@@ -230,7 +393,7 @@ def run_studio_compile(
         run_id=db.run_id,
         status="passed",
         artifacts={**artifacts, "scenario_studio_batch": str(batch.get("json_path", ""))},
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive queue --db {db_path} --accept top:3"],
+        next_commands=[oodrive_command(f"queue --db {db_path} --accept top:3")],
         summary={
             "prompt_count": len(prompts),
             "candidate_count": len(limited_candidates),
@@ -380,7 +543,11 @@ def run_studio_run(
         run_id=db.run_id,
         status=status if status != "complete" else "passed",
         artifacts={**db_artifacts, **manifest_artifacts},
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive evaluate --db {db_path} --run {manifest_artifacts['json_path']} --policy alpamayo-trajectory"],
+        next_commands=[
+            oodrive_command(
+                f"evaluate --db {db_path} --run {manifest_artifacts['json_path']} --policy alpamayo-trajectory"
+            )
+        ],
         summary=manifest.to_jsonable(),
         claim_boundaries=claim_boundaries,
         blockers=blockers,
@@ -448,7 +615,9 @@ def run_studio_evaluate(
         run_id=db.run_id,
         status="blocked" if blockers and not prediction else "passed",
         artifacts={**db_artifacts, **evaluation_artifacts},
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive replay --db {db_path} --evaluation {evaluation_artifacts['json_path']}"],
+        next_commands=[
+            oodrive_command(f"replay --db {db_path} --evaluation {evaluation_artifacts['json_path']}")
+        ],
         summary=record.to_jsonable(),
         claim_boundaries=record.claim_boundaries,
         blockers=blockers,
@@ -487,7 +656,7 @@ def run_studio_replay(
         run_id=db.run_id,
         status="passed",
         artifacts={**db_artifacts, **artifacts},
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive export --db {db_path}"],
+        next_commands=[oodrive_command(f"export --db {db_path}")],
         summary=bundle,
         claim_boundaries=list(bundle["claim_boundaries"]),
     )
@@ -589,8 +758,123 @@ def run_studio_quickstart(
     )
 
 
+def _scenario_variant_templates(source_prompt: str) -> list[dict[str, str]]:
+    lowered = source_prompt.lower()
+    base_templates = [
+        {
+            "stressor": "sudden unsignaled lead-vehicle braking",
+            "environment": "wet reflective road surface with glare",
+            "actor": "motorcycle filtering through a narrowing lane",
+            "failure": "late braking or unsafe lateral dodge",
+        },
+        {
+            "stressor": "roadwork cones and loose debris narrowing the lane",
+            "environment": "night-market roadside occlusion",
+            "actor": "wrong-way scooter creeping on the shoulder",
+            "failure": "over-commitment to the blocked lane",
+        },
+        {
+            "stressor": "double-parked vehicle door opening into traffic",
+            "environment": "dense mixed traffic with low lane discipline",
+            "actor": "delivery rider cutting across the ego path",
+            "failure": "failure to preserve a crawl-speed escape margin",
+        },
+        {
+            "stressor": "bus or lorry occluding a pedestrian crossing",
+            "environment": "rain-smeared camera view and headlight bloom",
+            "actor": "pedestrian emerging from behind a roadside vendor",
+            "failure": "insufficient yield before the occlusion clears",
+        },
+        {
+            "stressor": "erratic merge without signal",
+            "environment": "construction detour with temporary lane markings",
+            "actor": "motorbike carrying oversized cargo wobbling near ego",
+            "failure": "trajectory prediction ignores non-standard rider motion",
+        },
+    ]
+    if "desert" in lowered or "dust" in lowered:
+        base_templates.append(
+            {
+                "stressor": "dust plume hiding a stopped utility vehicle",
+                "environment": "low-contrast desert construction detour",
+                "actor": "work truck reversing across the route",
+                "failure": "visibility-induced over-speeding",
+            }
+        )
+    if "flood" in lowered or "water" in lowered:
+        base_templates.append(
+            {
+                "stressor": "standing water hiding lane boundaries",
+                "environment": "flooded urban underpass",
+                "actor": "small motorcycle splashing through the shoulder",
+                "failure": "misreading drivable surface and lane geometry",
+            }
+        )
+    return base_templates
+
+
+def _combine_prompt(source_prompt: str, variant: dict[str, str]) -> str:
+    return (
+        f"{source_prompt.strip()} | Stress test: {variant['stressor']}; "
+        f"environment: {variant['environment']}; actor: {variant['actor']}; "
+        f"expected failure: {variant['failure']}."
+    )
+
+
+def _infer_ai_region(prompt: str) -> str | None:
+    lowered = prompt.lower()
+    if any(word in lowered for word in ("malaysia", "malaysian", "kl", "kuala lumpur")):
+        return "malaysia"
+    if any(word in lowered for word in ("desert", "rural", "off-road")):
+        return "rural"
+    if any(word in lowered for word in ("construction", "roadwork", "detour")):
+        return "construction_zone"
+    return None
+
+
+def _infer_ai_tags(prompt: str) -> list[str]:
+    lowered = prompt.lower()
+    keyword_tags = {
+        "motorcycle_filtering": ("motorcycle", "motorbike", "scooter", "rider"),
+        "unsignaled_brake": ("brake", "braking", "unsignaled", "without signal"),
+        "roadwork_lane_narrowing": ("roadwork", "construction", "cone", "debris", "detour"),
+        "wet_glare": ("wet", "rain", "reflective", "glare", "headlight"),
+        "occlusion": ("occlusion", "occluding", "vendor", "blocked view", "behind"),
+        "wrong_way_actor": ("wrong-way", "wrong way", "opposite direction"),
+        "dense_mixed_traffic": ("dense", "mixed traffic", "night market", "double-parked"),
+        "regional_context": ("malaysia", "malaysian", "kl", "kuala lumpur"),
+        "low_lane_discipline": ("low lane discipline", "without signal", "cutting", "erratic"),
+        "visual_noise": ("dust", "smear", "low-contrast", "headlight bloom"),
+    }
+    tags = [
+        tag
+        for tag, keywords in keyword_tags.items()
+        if any(keyword in lowered for keyword in keywords)
+    ]
+    if not tags:
+        tags.append("generated_ood_case")
+    return sorted(set(tags))
+
+
+def _infer_policy_pressure(tags: list[str]) -> str:
+    if "occlusion" in tags and "unsignaled_brake" in tags:
+        return "reason about hidden actors while preserving braking margin"
+    if "motorcycle_filtering" in tags:
+        return "maintain lateral clearance for non-lane-following vulnerable road users"
+    if "roadwork_lane_narrowing" in tags:
+        return "select a cautious path through temporary lane geometry"
+    return "generalize from first principles under unfamiliar road context"
+
+
+def _with_replaced_boundary(boundaries: list[str], *, prefix: str, replacement: str) -> list[str]:
+    kept = [boundary for boundary in boundaries if not boundary.startswith(prefix)]
+    return sorted(set([*kept, replacement]))
+
+
 __all__ = [
     "StudioCommandResult",
+    "generate_ai_scenario_briefs",
+    "run_studio_ai_generate",
     "run_studio_compile",
     "run_studio_evaluate",
     "run_studio_export",

@@ -17,6 +17,7 @@ dev = [
 
 [project.scripts]
 driverx = "driverx.cli:main"
+oodrive = "oodrive.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

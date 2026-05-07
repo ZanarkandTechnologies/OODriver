@@ -8,6 +8,13 @@ from typing import Any
 
 from driverx.scenarios.studio_db import ScenarioStudioDb, replace_db
 
+OODRIVE_COMMAND_PREFIX = "PYTHONPATH=src python3 -m oodrive"
+
+
+def oodrive_command(args: str) -> str:
+    clean_args = args.strip()
+    return OODRIVE_COMMAND_PREFIX if not clean_args else f"{OODRIVE_COMMAND_PREFIX} {clean_args}"
+
 
 def queue_next_commands(db_path: Path, records: list[dict[str, Any]]) -> list[str]:
     commands: list[str] = []
@@ -15,8 +22,7 @@ def queue_next_commands(db_path: Path, records: list[dict[str, Any]]) -> list[st
         scenario_id = record.get("scenario_id")
         if scenario_id:
             commands.append(
-                "PYTHONPATH=src python3 -m driverx oodrive run "
-                f"--db {db_path} --scenario-id {scenario_id} --policy mock"
+                oodrive_command(f"run --db {db_path} --scenario-id {scenario_id} --policy mock")
             )
     return commands
 
@@ -157,6 +163,7 @@ def trajectory_summary_from_prediction(prediction: dict[str, Any]) -> dict[str, 
 
 
 __all__ = [
+    "OODRIVE_COMMAND_PREFIX",
     "artifact_paths",
     "candidate_for_run",
     "cot_from_prediction",
@@ -166,9 +173,9 @@ __all__ = [
     "load_prediction",
     "memory_ids_for_candidate",
     "mock_actions_for_record",
+    "oodrive_command",
     "queue_next_commands",
     "select_queue_record",
     "trajectory_summary_from_prediction",
     "update_queue_record",
 ]
-

@@ -7,5 +7,6 @@ Scenario generation module for closed-loop CARLA/Fail2Drive work.
 - Accept external Fail2Drive paths as config/input only. Do not commit benchmark
   assets, simulator files, or generated videos.
 - Preserve deterministic generation under an explicit random seed.
-- Keep `driverx oodrive` as the canonical product CLI for scenario DB work;
-  `driverx oodriver` and `driverx studio` are aliases for older docs/tickets.
+- Keep `oodrive ...` as the canonical product CLI for scenario DB work;
+  `driverx oodrive`, `driverx oodriver`, and `driverx studio` are compatibility
+  aliases for older docs/tickets.

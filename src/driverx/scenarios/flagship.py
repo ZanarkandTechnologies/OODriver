@@ -273,7 +273,7 @@ def _runtime_commands(config: FlagshipScenarioConfig) -> list[dict[str, Any]]:
             "phase": "local_database",
             "requires": ["build_contract"],
             "command": (
-                "PYTHONPATH=src python3 -m driverx oodrive quickstart "
+                "PYTHONPATH=src python3 -m oodrive quickstart "
                 f"--prompt \"{config.prompt}\" --run-id {config.run_id}-db --count 6 --severity 5 --seed 120"
             ),
             "expected_outputs": ["scenario_studio_db.json", "scenario_generator_cli_pack.html"],
