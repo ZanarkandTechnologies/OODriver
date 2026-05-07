@@ -1,7 +1,7 @@
 # TASK-116: Closed-Loop CARLA Runner CLI
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-114, TASK-115, TASK-102
@@ -141,12 +141,12 @@ runner internals.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: `studio run --policy mock` writes a complete run manifest.
-- [ ] AC-2: `studio run --policy carla-autopilot` attempts live CARLA when
+- [x] AC-1: `studio run --policy mock` writes a complete run manifest.
+- [x] AC-2: `studio run --policy carla-autopilot` attempts live CARLA when
   configured and otherwise writes a precise blocker manifest.
-- [ ] AC-3: Manifest separates simulator timing, policy timing, artifact paths,
+- [x] AC-3: Manifest separates simulator timing, policy timing, artifact paths,
   claim boundaries, and blockers.
-- [ ] AC-4: No command claims Alpamayo/VLA control in this ticket.
+- [x] AC-4: No command claims Alpamayo/VLA control in this ticket.
 
 ### Agent Contract
 - Open: `PYTHONPATH=src python3 -m driverx studio run --help`
@@ -182,9 +182,15 @@ runner internals.
 
 ### Evidence
 
-- Planned.
+- Manifest module: `src/driverx/scenarios/run_manifest.py`.
+- CLI command: `PYTHONPATH=src python3 -m driverx oodriver run --db <db> --policy mock`.
+- Smoke manifest:
+  `artifacts/runs/oodriver-cli-smoke/runs/oodriver-cli-smoke-mock-run/run_manifest.json`.
+- QA report: `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
+- Tests: `PYTHONPATH=src python3 -m unittest tests.test_oodriver_cli`.
 
 ### Blockers
 
-- Live proof depends on a reachable CARLA host, but implementation and mock QA
-  do not.
+- No implementation blocker. Live proof depends on a reachable CARLA host; when
+  unavailable, `oodriver run --policy carla-autopilot` records a blocker
+  manifest instead of overclaiming.

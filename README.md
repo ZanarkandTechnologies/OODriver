@@ -164,6 +164,41 @@ Key outputs:
 - `policy/policy_reaction_matrix.md`: baseline, memory-guided, and hybrid
   policy comparison table.
 
+## Quickstart: OODriver Scenario Studio
+
+OODriver is the product name for the out-of-distribution scenario generator.
+The CLI is the database/control layer; Codex or another agent is the creative
+operator that proposes briefs and decides what to test next.
+
+```bash
+PYTHONPATH=src python3 -m driverx oodriver quickstart \
+  --prompt "Malaysian wet roadwork: motorbike filters between cars while a lorry brakes without signal" \
+  --output-root artifacts/runs \
+  --run-id oodriver-cli-smoke \
+  --count 3 \
+  --seed 19
+```
+
+The same commands are available under the legacy-friendly `studio` alias:
+
+```bash
+PYTHONPATH=src python3 -m driverx studio init --run-id oodriver-demo --force
+PYTHONPATH=src python3 -m driverx studio ingest-brief \
+  --db artifacts/runs/oodriver-demo/scenario_studio_db.json \
+  --prompt "Night market scooter shoulder pass with sudden brake and roadside vendor occlusion" \
+  --author codex
+PYTHONPATH=src python3 -m driverx studio compile --db artifacts/runs/oodriver-demo/scenario_studio_db.json --count 6
+PYTHONPATH=src python3 -m driverx studio queue --db artifacts/runs/oodriver-demo/scenario_studio_db.json --accept top:3
+PYTHONPATH=src python3 -m driverx studio run --db artifacts/runs/oodriver-demo/scenario_studio_db.json --policy mock
+PYTHONPATH=src python3 -m driverx studio export --db artifacts/runs/oodriver-demo/scenario_studio_db.json
+```
+
+Key outputs are `scenario_studio_db.json`, `scenario_dataset_queue.json`,
+`run_manifest.json`, `policy_evaluation.json`, `scenario_run_bundle.html`, and
+`scenario_generator_cli_pack.html`. Mock quickstart deliberately labels
+`closed_loop_carla_execution=false` and `real_time_vla_control=false`; live CARLA
+and Alpamayo evidence must be attached through run/evaluate artifacts.
+
 ## Quickstart: Scenario Forge
 
 ```bash

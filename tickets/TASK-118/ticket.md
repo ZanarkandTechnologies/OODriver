@@ -1,7 +1,7 @@
 # TASK-118: CLI Replay And Submission Export Pack
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-114, TASK-115, TASK-116, TASK-117, TASK-113
@@ -133,13 +133,13 @@ instead of replacing it.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: `studio replay` writes `scenario_run_bundle.json`, `.md`, and `.html`.
-- [ ] AC-2: `studio export` writes a CLI-specific evidence pack with command
+- [x] AC-1: `studio replay` writes `scenario_run_bundle.json`, `.md`, and `.html`.
+- [x] AC-2: `studio export` writes a CLI-specific evidence pack with command
   transcript, scenario rows, model reasoning rows, claim boundaries, and next
   work.
-- [ ] AC-3: Missing optional video/model artifacts produce partial rows, not
+- [x] AC-3: Missing optional video/model artifacts produce partial rows, not
   false failures or overclaims.
-- [ ] AC-4: README shows the full CLI demo sequence.
+- [x] AC-4: README shows the full CLI demo sequence.
 
 ### Agent Contract
 - Open: `PYTHONPATH=src python3 -m driverx studio replay --help`
@@ -174,7 +174,13 @@ instead of replacing it.
 
 ### Evidence
 
-- Planned.
+- Replay/export implementation: `src/driverx/scenarios/studio_product.py`.
+- Smoke replay:
+  `artifacts/runs/oodriver-cli-smoke/bundles/studio-0023-malaysian-wet-roadwork-motorbike-filters-between-v00-bundle/scenario_run_bundle.html`.
+- Smoke export:
+  `artifacts/runs/oodriver-cli-smoke/exports/oodriver-cli-smoke-export/scenario_generator_cli_pack.html`.
+- README command sequence updated.
+- QA report: `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
 
 ### Blockers
 

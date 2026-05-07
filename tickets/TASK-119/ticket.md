@@ -1,7 +1,7 @@
 # TASK-119: Codex Scenario Operator Skill
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-114, TASK-115, docs/specs/scenario-generator-cli-v1.md
@@ -127,10 +127,10 @@ project-local draft unless the user wants global install.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Skill instructions use the CLI DB as the only durable state surface.
-- [ ] AC-2: Skill includes scenario-generation heuristics for OOD driving cases.
-- [ ] AC-3: Skill includes exact `driverx studio` commands and artifact checks.
-- [ ] AC-4: Dry-run transcript proves it can generate and queue scenarios
+- [x] AC-1: Skill instructions use the CLI DB as the only durable state surface.
+- [x] AC-2: Skill includes scenario-generation heuristics for OOD driving cases.
+- [x] AC-3: Skill includes exact `driverx oodriver` commands and artifact checks.
+- [x] AC-4: Dry-run transcript proves it can generate and queue scenarios
   without CARLA/GPU.
 
 ### Agent Contract
@@ -163,8 +163,13 @@ project-local draft unless the user wants global install.
 
 ### Evidence
 
-- Planned.
+- Skill draft: `skills/oodriver-scenario-operator/SKILL.md`.
+- Skill index: `skills/README.md`.
+- Dry-run proof: `artifacts/runs/oodriver-cli-smoke/scenario_studio_db.json`
+  and `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
+- Review: `docs/reviews/TASK-114-119-oodriver-cli-review.md`.
+- Tests: `PYTHONPATH=src python3 -m unittest tests.test_oodriver_cli`.
 
 ### Blockers
 
-- Wait for TASK-114/TASK-115 before implementation.
+- None. TASK-114/TASK-115 are implemented.

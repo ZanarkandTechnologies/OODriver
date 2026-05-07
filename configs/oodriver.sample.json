@@ -1,0 +1,17 @@
+{
+  "product": "OODriver",
+  "commands": [
+    "PYTHONPATH=src python3 -m driverx oodriver init --output-root artifacts/runs --run-id oodriver-demo --force",
+    "PYTHONPATH=src python3 -m driverx oodriver ingest-brief --db artifacts/runs/oodriver-demo/scenario_studio_db.json --prompt \"Malaysian wet roadwork: motorbike filters between cars while a lorry brakes without signal\" --author codex --tag malaysian_driving --tag motorcycle_filtering",
+    "PYTHONPATH=src python3 -m driverx oodriver compile --db artifacts/runs/oodriver-demo/scenario_studio_db.json --count 6 --severity 4 --seed 17",
+    "PYTHONPATH=src python3 -m driverx oodriver queue --db artifacts/runs/oodriver-demo/scenario_studio_db.json --accept top:3",
+    "PYTHONPATH=src python3 -m driverx oodriver run --db artifacts/runs/oodriver-demo/scenario_studio_db.json --policy mock",
+    "PYTHONPATH=src python3 -m driverx oodriver replay --db artifacts/runs/oodriver-demo/scenario_studio_db.json",
+    "PYTHONPATH=src python3 -m driverx oodriver export --db artifacts/runs/oodriver-demo/scenario_studio_db.json"
+  ],
+  "notes": [
+    "Codex is the AI scenario generator/operator.",
+    "The OODriver CLI is the deterministic database, queue, evidence, and export layer.",
+    "Use carla-autopilot and alpamayo-trajectory only when the matching runtime artifacts exist."
+  ]
+}

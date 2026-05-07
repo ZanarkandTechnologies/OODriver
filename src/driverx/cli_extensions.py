@@ -40,6 +40,7 @@ def register_dynamic_parsers(subparsers: argparse._SubParsersAction) -> None:
     from driverx.scenarios.agentic_loop_cli import register_agentic_ood_loop_parser
     from driverx.scenarios.catalog_cli import register_scenario_catalog_parser
     from driverx.scenarios.studio_cli import register_scenario_studio_parser
+    from driverx.scenarios.studio_product_cli import register_oodriver_parser
     from driverx.simulators.carla_alpamayo_capture_cli import register_carla_alpamayo_capture_parser
     from driverx.simulators.carla_cached_ood_replay_cli import register_carla_cached_ood_replay_parser
     from driverx.simulators.carla_maps_cli import register_carla_maps_parser
@@ -79,6 +80,7 @@ def register_dynamic_parsers(subparsers: argparse._SubParsersAction) -> None:
     register_alpamayo_trajectory_parser(subparsers)
     register_policy_runtime_matrix_parser(subparsers)
     register_runpod_remote_parser(subparsers)
+    register_oodriver_parser(subparsers)
     register_scenario_catalog_parser(subparsers)
     register_scenario_studio_parser(subparsers)
     register_agentic_ood_loop_parser(subparsers)

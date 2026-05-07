@@ -1,7 +1,7 @@
 # TASK-117: Alpamayo Trajectory Evaluation In Studio CLI
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-116, TASK-100, MEM-0028
@@ -141,13 +141,13 @@ Medium. It touches policy evidence, but not core simulator runners.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: `studio evaluate --policy alpamayo-trajectory` writes
+- [x] AC-1: `studio evaluate --policy alpamayo-trajectory` writes
   `policy_evaluation.json` and `.md`.
-- [ ] AC-2: Evaluation records show CoC/reasoning snippet, trajectory summary,
+- [x] AC-2: Evaluation records show CoC/reasoning snippet, trajectory summary,
   latency/VRAM when available, memory ids, and claim boundaries.
-- [ ] AC-3: Missing live Alpamayo runtime produces a precise blocker while
+- [x] AC-3: Missing live Alpamayo runtime produces a precise blocker while
   preserving cached/open-loop evaluation.
-- [ ] AC-4: Control conversion is dry-run unless live application is explicitly
+- [x] AC-4: Control conversion is dry-run unless live application is explicitly
   proven.
 
 ### Agent Contract
@@ -183,9 +183,15 @@ Medium. It touches policy evidence, but not core simulator runners.
 
 ### Evidence
 
-- Planned.
+- Evaluation module: `src/driverx/scenarios/policy_evaluation.py`.
+- CLI command:
+  `PYTHONPATH=src python3 -m driverx oodriver evaluate --db <db> --policy alpamayo-trajectory`.
+- Smoke evaluation:
+  `artifacts/runs/oodriver-cli-smoke/evaluations/studio-0023-malaysian-wet-roadwork-motorbike-filters-between-v00-alpamayo-trajectory-eval/policy_evaluation.json`.
+- Cached-prediction test: `tests/test_oodriver_cli.py`.
+- QA report: `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
 
 ### Blockers
 
-- Live closed-loop Alpamayo may require remote runtime access; cached/offline
-  evaluation remains unblocked.
+- No implementation blocker. Live closed-loop Alpamayo still requires remote
+  runtime evidence; cached/open-loop evaluation is implemented.

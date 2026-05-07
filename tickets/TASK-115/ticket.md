@@ -1,7 +1,7 @@
 # TASK-115: Scenario Dataset Queue CLI
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-114, TASK-103
@@ -124,13 +124,13 @@ Low. New module and new CLI subcommand.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: `studio queue` reads a Scenario Studio DB and writes
+- [x] AC-1: `studio queue` reads a Scenario Studio DB and writes
   `scenario_dataset_queue.json`, `.md`, and an updated DB.
-- [ ] AC-2: Queue records include curation status, runtime status, priority,
+- [x] AC-2: Queue records include curation status, runtime status, priority,
   policy targets, lineage, and next command.
-- [ ] AC-3: `--accept top:N` deterministically selects the highest-scoring
+- [x] AC-3: `--accept top:N` deterministically selects the highest-scoring
   candidates.
-- [ ] AC-4: No heavy artifacts are copied into the queue.
+- [x] AC-4: No heavy artifacts are copied into the queue.
 
 ### Agent Contract
 - Open: `PYTHONPATH=src python3 -m driverx studio queue --help`
@@ -164,7 +164,12 @@ Low. New module and new CLI subcommand.
 
 ### Evidence
 
-- Planned.
+- Queue module: `src/driverx/scenarios/queue.py`.
+- CLI command: `PYTHONPATH=src python3 -m driverx oodriver queue --db <db> --accept top:3`.
+- Smoke queue:
+  `artifacts/runs/oodriver-cli-smoke/scenario_dataset_queue.json`.
+- QA report: `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
+- Tests: `PYTHONPATH=src python3 -m unittest tests.test_oodriver_cli`.
 
 ### Blockers
 

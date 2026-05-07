@@ -24,6 +24,7 @@ from driverx.scenarios.quality import (
     write_scenario_quality_outputs,
 )
 from driverx.scenarios.reports import write_scenario_suite
+from driverx.scenarios.studio_db import OODRIVER_PRODUCT_NAME
 from driverx.scenarios.types import (
     MutationPolicy,
     ScenarioRecipe,
@@ -33,6 +34,7 @@ from driverx.scenarios.types import (
 
 __all__ = [
     "MutationPolicy",
+    "OODRIVER_PRODUCT_NAME",
     "PromotionDecision",
     "ScenarioArtifacts",
     "ScenarioCatalog",

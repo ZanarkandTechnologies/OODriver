@@ -1,7 +1,7 @@
 # TASK-114: Scenario Studio CLI Database Surface
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: docs/prd.md, docs/specs/scenario-generator-cli-v1.md, TASK-103, TASK-108
@@ -158,13 +158,13 @@ the implementation delegates to existing stable modules.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: `python -m driverx studio --help` lists `init`,
+- [x] AC-1: `python -m driverx studio --help` lists `init`,
   `ingest-brief`, `compile`, and `quickstart`.
-- [ ] AC-2: `studio compile` writes the same Scenario Studio artifacts as the
+- [x] AC-2: `studio compile` writes the same Scenario Studio artifacts as the
   current flat command, updates the DB, and adds `next_commands`.
-- [ ] AC-3: `studio quickstart` writes a single run folder with a batch summary
+- [x] AC-3: `studio quickstart` writes a single run folder with a batch summary
   and mock/no-CARLA claim boundaries.
-- [ ] AC-4: Existing flat commands remain registered and compatible.
+- [x] AC-4: Existing flat commands remain registered and compatible.
 
 ### Agent Contract
 - Open: `PYTHONPATH=src python3 -m driverx studio --help`
@@ -199,7 +199,16 @@ the implementation delegates to existing stable modules.
 
 ### Evidence
 
-- Planned.
+- Implemented product name: `OODriver`.
+- Canonical command: `PYTHONPATH=src python3 -m driverx oodriver ...`.
+- Compatibility alias: `PYTHONPATH=src python3 -m driverx studio ...`.
+- Smoke DB: `artifacts/runs/oodriver-cli-smoke/scenario_studio_db.json`.
+- Quickstart export:
+  `artifacts/runs/oodriver-cli-smoke/exports/oodriver-cli-smoke-export/scenario_generator_cli_pack.html`.
+- QA report: `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
+- Review: `docs/reviews/TASK-114-119-oodriver-cli-review.md`.
+- Tests:
+  `PYTHONPATH=src python3 -m unittest tests.test_oodriver_cli tests.test_scenario_studio tests.test_scenario_workbench_bundle`.
 
 ### Blockers
 

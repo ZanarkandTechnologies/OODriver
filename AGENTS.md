@@ -68,6 +68,9 @@ stack-specific details and commands in `PROJECT_RULES.md`.
 - Keep generated Bench2Drive route XML stock-compatible; DriverX OOD actor,
   asset, behavior, and memory intent belongs in sidecar overlays until a real
   companion injector is running. See `MEM-0018`.
+- Use OODriver as the product-facing scenario generator name. `driverx oodriver`
+  is the canonical CLI database/control plane; `driverx studio` is only a
+  compatibility alias. See `MEM-0035`.
 - For local CARLA 0.9.16 scripted OOD props, use probed stock proxy
   blueprints (`static.prop.dirtdebris01`, `static.prop.foodcart`,
   `static.prop.constructioncone`) and do not rely on absent `trafficcone`
