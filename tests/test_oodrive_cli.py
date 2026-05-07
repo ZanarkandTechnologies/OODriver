@@ -219,6 +219,135 @@ class OODriveCliTests(unittest.TestCase):
             self.assertIn("Pass --compile", err_stream.getvalue())
             self.assertFalse((Path(tmp) / "bad" / "scenario_studio_db.json").exists())
 
+    def test_generate_writes_carla_placement_plan(self) -> None:
+        with TemporaryDirectory() as tmp:
+            stream = StringIO()
+            with redirect_stdout(stream):
+                exit_code = oodrive_main(
+                    [
+                        "generate",
+                        "Malaysian",
+                        "wet",
+                        "roadwork",
+                        "with",
+                        "motorcycle",
+                        "filtering",
+                        "--output-root",
+                        tmp,
+                        "--run-id",
+                        "generate",
+                        "--count",
+                        "2",
+                        "--seed",
+                        "11",
+                    ]
+                )
+            result = json.loads(stream.getvalue())
+            placement_path = Path(result["artifacts"]["placement_plan_path"])
+            placement = json.loads(placement_path.read_text(encoding="utf-8"))
+
+            self.assertEqual(exit_code, 0)
+            self.assertEqual(result["command"], "oodrive generate")
+            self.assertEqual(result["status"], "passed")
+            self.assertTrue(placement_path.exists())
+            self.assertTrue(Path(result["artifacts"]["placement_report_path"]).exists())
+            self.assertGreaterEqual(len(placement["object_spawn_specs"]), 1)
+            self.assertIn("blueprint_filter", placement["object_spawn_specs"][0])
+            self.assertIn("spawn_transform", placement["object_spawn_specs"][0])
+            self.assertTrue(any("place --db" in command for command in result["next_commands"]))
+            self.assertIn("oodrive_generate_to_carla_placement_plan=true", result["claim_boundaries"])
+
+    def test_generate_place_reason_cached_product_flow(self) -> None:
+        with TemporaryDirectory() as tmp:
+            fake_prediction = Path(tmp) / "fake_alpamayo_prediction.json"
+            fake_prediction.write_text(
+                json.dumps(
+                    {
+                        "cot": "The roadwork lane is narrowed by market clutter; the ego should slow, hold margin, and yield to the filtering motorcycle.",
+                        "pred_xyz_shape": [1, 1, 1, 64, 3],
+                        "latency_ms": 901.25,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            generate_stream = StringIO()
+            with redirect_stdout(generate_stream):
+                self.assertEqual(
+                    oodrive_main(
+                        [
+                            "generate",
+                            "Malaysian wet roadwork with roadside vendor occlusion and scooter filtering",
+                            "--output-root",
+                            tmp,
+                            "--run-id",
+                            "flow",
+                            "--count",
+                            "2",
+                            "--seed",
+                            "13",
+                        ]
+                    ),
+                    0,
+                )
+            generated = json.loads(generate_stream.getvalue())
+            db_path = Path(generated["artifacts"]["db_path"])
+            placement_path = Path(generated["artifacts"]["placement_plan_path"])
+
+            place_stream = StringIO()
+            with redirect_stdout(place_stream):
+                self.assertEqual(
+                    oodrive_main(
+                        [
+                            "place",
+                            "--db",
+                            str(db_path),
+                            "--placement",
+                            str(placement_path),
+                            "--run-id",
+                            "dry-place",
+                        ]
+                    ),
+                    0,
+                )
+            placed = json.loads(place_stream.getvalue())
+            run_manifest_path = Path(placed["artifacts"]["json_path"])
+            run_manifest = json.loads(run_manifest_path.read_text(encoding="utf-8"))
+
+            reason_stream = StringIO()
+            with redirect_stdout(reason_stream):
+                self.assertEqual(
+                    oodrive_main(
+                        [
+                            "reason",
+                            "--db",
+                            str(db_path),
+                            "--run",
+                            str(run_manifest_path),
+                            "--prediction-json",
+                            str(fake_prediction),
+                            "--run-id",
+                            "cached-reason",
+                        ]
+                    ),
+                    0,
+                )
+            reasoned = json.loads(reason_stream.getvalue())
+            evaluation_path = Path(reasoned["artifacts"]["evaluation_path"])
+            bundle_path = Path(reasoned["artifacts"]["bundle_path"])
+            evaluation = json.loads(evaluation_path.read_text(encoding="utf-8"))
+
+            self.assertEqual(placed["status"], "passed")
+            self.assertFalse(placed["summary"]["objects_placed"])
+            self.assertEqual(run_manifest["runtime"], "carla-placement-dry-run")
+            self.assertEqual(run_manifest["status"], "planned")
+            self.assertIn(reasoned["status"], {"passed", "partial"})
+            self.assertTrue(evaluation_path.exists())
+            self.assertTrue(bundle_path.exists())
+            self.assertEqual(evaluation["reasoning_mode"], "cached_open_loop")
+            self.assertIn("roadwork lane", evaluation["cot_summary"])
+            self.assertTrue(reasoned["summary"]["sampled_open_loop_reasoning"])
+            self.assertTrue(any("closed_loop_vla_control=false" in item for item in reasoned["claim_boundaries"]))
+
 
 if __name__ == "__main__":
     unittest.main()

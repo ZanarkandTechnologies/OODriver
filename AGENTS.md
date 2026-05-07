@@ -68,12 +68,17 @@ stack-specific details and commands in `PROJECT_RULES.md`.
 - Keep generated Bench2Drive route XML stock-compatible; DriverX OOD actor,
   asset, behavior, and memory intent belongs in sidecar overlays until a real
   companion injector is running. See `MEM-0018`.
-- Use OODrive as the product-facing scenario generator name. `driverx oodrive`
-  is the canonical CLI database/control plane; `driverx oodriver` and
-  `driverx studio` are compatibility aliases only. See `MEM-0035`.
+- Use OODrive as the product-facing scenario generator name. `oodrive ...` and
+  `python -m oodrive ...` are the canonical CLI database/control plane;
+  `driverx oodrive`, `driverx oodriver`, and `driverx studio` are
+  compatibility aliases only. See `MEM-0035`.
 - The next live CARLA + Alpamayo sprint should optimize the flagship
   `flagship-malaysia-wet-roadwork` case before adding more scenario breadth.
   See `MEM-0036`.
+- Treat `oodrive generate -> oodrive place -> oodrive reason` as the canonical
+  product loop: placement plans are CARLA-ready specs, dry-run placement is not
+  live object spawning, and Alpamayo reasoning is open-loop unless a live
+  model-driven control trace exists. See `MEM-0037`.
 - For local CARLA 0.9.16 scripted OOD props, use probed stock proxy
   blueprints (`static.prop.dirtdebris01`, `static.prop.foodcart`,
   `static.prop.constructioncone`) and do not rely on absent `trafficcone`

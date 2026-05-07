@@ -6,6 +6,17 @@ unblocked ticket when possible.
 
 ## Open
 
+- 2026-05-07 18:30 +0800 | oodrive,carla,docker,live-place | TASK-127
+  `oodrive place --live` successfully reached the scripted CARLA OOD demo path
+  through `scripts/run_carla_client_docker.sh`, but the Docker client timed out
+  waiting for `host.docker.internal:2000`. Dry-run placement and cached
+  Alpamayo reasoning are working. Evidence:
+  `tickets/TASK-127/artifacts/qa/place-reason-qa.md` and
+  `artifacts/runs/oodrive-generate-place-smoke-v2/runs/oodrive-smoke-v2-live-place/run_manifest.json`.
+  Next unblock path: start/restart CARLA so the Docker client can reach
+  `host.docker.internal:2000`, or rerun the same `oodrive place --live` command
+  from the graphics-capable RunPod desktop where CARLA is listening locally.
+
 - 2026-05-07 16:36 +0800 | carla,video,paper-demo | TASK-112
   fresh paper-demo CARLA source render was not attempted in this pass because
   local `127.0.0.1:2000` refused connection during the optional smoke check.

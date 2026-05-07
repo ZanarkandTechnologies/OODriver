@@ -196,6 +196,34 @@ network LLM; it records `scenario_generation_ai_provider=codex-template` in the
 DB so claim boundaries stay honest. `driverx oodrive`, `driverx oodriver`, and
 `driverx studio` remain compatibility aliases for older scripts.
 
+The product-facing path is:
+
+```bash
+PYTHONPATH=src python3 -m oodrive generate \
+  "Malaysian wet roadwork with a roadside vendor, cones, and a motorcycle filtering beside ego" \
+  --output-root artifacts/runs \
+  --run-id oodrive-demo \
+  --count 3
+
+PYTHONPATH=src python3 -m oodrive place \
+  --db artifacts/runs/oodrive-demo/scenario_studio_db.json \
+  --placement artifacts/runs/oodrive-demo/placements/oodrive-demo-placement/carla_placement_plan.json \
+  --config configs/carla_ood_demo.local.sample.yaml \
+  --live
+
+PYTHONPATH=src python3 -m oodrive reason \
+  --db artifacts/runs/oodrive-demo/scenario_studio_db.json \
+  --run artifacts/runs/oodrive-demo/runs/<run-id>/run_manifest.json \
+  --prediction-json <alpamayo_prediction.json>
+```
+
+`generate` writes a CARLA placement plan with stock blueprint filters and
+road-local transforms. `place` dry-runs by default and uses `--live` to connect
+to CARLA through the existing scripted OOD demo runner. `reason` attaches cached
+or live Alpamayo reasoning evidence to the run and builds the replay bundle.
+Unless a live CARLA run and model prediction are attached, the artifacts label
+themselves as placement/reasoning plans rather than closed-loop VLA driving.
+
 ```bash
 PYTHONPATH=src python3 -m oodrive init --run-id oodrive-demo --force
 PYTHONPATH=src python3 -m oodrive ingest-brief \

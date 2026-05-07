@@ -19,6 +19,11 @@ from driverx.scenarios.studio_product import (
     run_studio_replay,
     run_studio_run,
 )
+from driverx.scenarios.studio_product_runtime import (
+    run_studio_generate,
+    run_studio_place,
+    run_studio_reason,
+)
 
 
 def build_oodrive_parser() -> argparse.ArgumentParser:
@@ -43,6 +48,21 @@ def _register_group(subparsers: argparse._SubParsersAction, name: str, help_text
 
 def _register_commands(parser: argparse.ArgumentParser, name: str) -> None:
     nested = parser.add_subparsers(dest=f"{name}_command", required=True)
+
+    generate = nested.add_parser("generate", help="Generate an OOD scenario and CARLA placement plan from text.")
+    generate.add_argument("description", nargs="*", help="Scenario description, e.g. 'wet KL roadwork scooter filtering'.")
+    generate.add_argument("--prompt", action="append", default=[], help="Additional prompt text. Useful for scripts.")
+    generate.add_argument("--db", type=Path)
+    generate.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
+    generate.add_argument("--run-id", default="oodrive-generated")
+    generate.add_argument("--count", type=int, default=4)
+    generate.add_argument("--seed", type=int, default=7)
+    generate.add_argument("--provider", default="codex-template", choices=["codex-template"])
+    generate.add_argument("--force", action="store_true")
+    generate.add_argument("--severity", type=int, default=4)
+    generate.add_argument("--accept", default="top:3")
+    generate.add_argument("--config", type=Path, default=Path("configs/carla_ood_demo.local.sample.yaml"))
+    generate.set_defaults(func=_command_generate)
 
     init = nested.add_parser("init", help="Create an OODrive scenario database.")
     init.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
@@ -103,6 +123,26 @@ def _register_commands(parser: argparse.ArgumentParser, name: str) -> None:
     run.add_argument("--run-id")
     run.set_defaults(func=_command_run)
 
+    place = nested.add_parser("place", help="Place a generated scenario in CARLA or write a dry-run manifest.")
+    place.add_argument("--db", type=Path, required=True)
+    place.add_argument("--scenario-id")
+    place.add_argument("--placement", type=Path)
+    place.add_argument("--config", type=Path, default=Path("configs/carla_ood_demo.local.sample.yaml"))
+    place.add_argument("--output-root", type=Path)
+    place.add_argument("--run-id")
+    place.add_argument("--live", action="store_true", help="Connect to CARLA and run the scripted OOD demo.")
+    place.set_defaults(func=_command_place)
+
+    reason = nested.add_parser("reason", help="Attach Alpamayo reasoning evidence to a CARLA/OODrive run.")
+    reason.add_argument("--db", type=Path, required=True)
+    reason.add_argument("--run", dest="run_manifest", type=Path)
+    reason.add_argument("--prediction-json", type=Path)
+    reason.add_argument("--package", dest="package_path", type=Path)
+    reason.add_argument("--memory", default="auto", choices=["auto", "none"])
+    reason.add_argument("--output-root", type=Path)
+    reason.add_argument("--run-id")
+    reason.set_defaults(func=_command_reason)
+
     evaluate = nested.add_parser("evaluate", help="Attach Alpamayo/cached policy evidence to a run.")
     evaluate.add_argument("--db", type=Path, required=True)
     evaluate.add_argument("--run", dest="run_manifest", type=Path)
@@ -145,6 +185,28 @@ def _print(result: StudioCommandResult) -> int:
 
 def _command_init(args: argparse.Namespace) -> int:
     return _print(run_studio_init(args.output_root, args.run_id, force=args.force))
+
+
+def _command_generate(args: argparse.Namespace) -> int:
+    prompt_parts = [" ".join(args.description).strip(), *[item.strip() for item in args.prompt if item.strip()]]
+    prompt = " ; ".join(part for part in prompt_parts if part)
+    if not prompt:
+        raise ValueError("Pass a scenario description or --prompt.")
+    return _print(
+        run_studio_generate(
+            prompt=prompt,
+            db_path=args.db,
+            output_root=args.output_root,
+            run_id=args.run_id,
+            count=args.count,
+            provider=args.provider,
+            seed=args.seed,
+            force=args.force,
+            severity=args.severity,
+            accept=args.accept,
+            config_path=args.config,
+        )
+    )
 
 
 def _command_ingest(args: argparse.Namespace) -> int:
@@ -204,6 +266,34 @@ def _command_run(args: argparse.Namespace) -> int:
             scenario_id=args.scenario_id,
             policy=args.policy,
             config_path=args.config,
+            output_root=args.output_root,
+            run_id=args.run_id,
+        )
+    )
+
+
+def _command_place(args: argparse.Namespace) -> int:
+    return _print(
+        run_studio_place(
+            args.db,
+            scenario_id=args.scenario_id,
+            placement_path=args.placement,
+            config_path=args.config,
+            output_root=args.output_root,
+            run_id=args.run_id,
+            live=args.live,
+        )
+    )
+
+
+def _command_reason(args: argparse.Namespace) -> int:
+    return _print(
+        run_studio_reason(
+            args.db,
+            run_manifest_path=args.run_manifest,
+            prediction_json=args.prediction_json,
+            package_path=args.package_path,
+            memory=args.memory,
             output_root=args.output_root,
             run_id=args.run_id,
         )

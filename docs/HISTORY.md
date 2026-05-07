@@ -144,3 +144,5 @@
 2026-05-07 17:46 +0800 | SHIP | TASK-120 added the Malaysian wet night roadwork flagship scenario contract, CLI, config, runtime command plan, QA evidence, and H100/Kasm handoff targets for the next live CARLA + Alpamayo work.
 2026-05-07 17:55 +0800 | PLAN | TASK-125 planned OODrive product CLI cleanup plus deterministic AI scenario generation so the product UX becomes `python -m oodrive ...` while DriverX remains internal compatibility.
 2026-05-07 18:08 +0800 | SHIP | TASK-125 shipped the product-facing OODrive CLI (`python -m oodrive` and installed `oodrive` script), deterministic `oodrive ai-generate`, product next-command cleanup, QA evidence, and review.
+2026-05-07 18:30 +0800 | PLAN | Created TASK-126 and TASK-127 to close the product story from `oodrive generate <scenario>` to CARLA placement plans, scripted placement runs, and Alpamayo reasoning artifacts.
+2026-05-07 18:30 +0800 | SHIP | TASK-126/TASK-127 added `oodrive generate`, `oodrive place`, and `oodrive reason`; dry-run prompt-to-placement-to-reasoning evidence passes locally, while live CARLA placement is cleanly blocked on Docker reaching `host.docker.internal:2000`.
