@@ -1,399 +1,415 @@
-# PRD: Minimal-Shot VLA Scenario Forge
+# PRD: Scenario Generator Studio For Minimal-Shot Autonomy
+
+Last updated: 2026-05-07 16:55 +0800
 
 ## Problem / Context
 
-SoTA Commission I rewards autonomy systems that generalize to unfamiliar
-environments with little or no task-specific data. The previous 0xDriver slice
-proved useful Waymo E2E infrastructure, but an offline trajectory benchmark alone
-does not fully satisfy the challenge prompt to create a simulation environment
-with randomized scenario generation.
+0xDriver has working pieces: scenario generation, CARLA evidence, risk
+timelines, Alpamayo open-loop reasoning, RAG comparison, and a final V8 packet.
+The gap is product legibility and closed-loop evaluation. The current demo still
+feels like a collection of scripts instead of a scenario-generation product
+where a reviewer can author chaos, run it, inspect what the car/model saw, and
+curate the result into a minimal-shot dataset.
 
-The project should now center on a closed-loop CARLA/Fail2Drive-style testbed:
-use CARLA as the simulation engine, Fail2Drive as the seed OOD benchmark, and
-0xDriver as the agentic layer that generates new long-tail scenarios, records
-VLA/VLM policy behavior, extracts failures into a retrieval memory, and reruns
-policies with that memory as compact minimal-shot guidance.
+The submission should now center on:
 
-The thesis is:
+> A Scenario Generator Studio for generating weird-but-plausible OOD CARLA
+> driving cases, running closed-loop policies, showing risk/RAG/VLA reasoning,
+> and curating failures into a memory-backed minimal-shot evaluation set.
 
-> Minimal-shot autonomy should improve by reasoning from abstract prior
-> experience, not by fine-tuning on every edge case. We turn closed-loop OOD
-> failures into reusable safety memory, generate harder variants, and measure
-> whether VLA policies transfer the lesson.
+Alpamayo-in-CARLA is a potentially novel contribution, but only if it is framed
+as a closed-loop adapter/evaluator for a reasoning VLA inside CARLA-generated
+OOD scenarios. Alpamayo VQA or open-loop trajectory snapshots alone are useful
+evidence, but not enough to be the main contribution.
 
 ## Audience
 
 - Primary: SoTA Commission I judges evaluating novelty, feasibility, technical
-  excellence, and adherence to the minimal-shot autonomy brief.
-- Secondary: autonomy researchers comparing VLA/VLM policies under closed-loop
-  distribution shift.
-- Internal: the project owner using a local Mac for orchestration and a rented
-  Linux GPU box for CARLA/VLA runtime proof.
+  excellence, and adherence to minimal-shot autonomy.
+- Secondary: autonomy researchers who want to stress-test frozen VLA policies
+  on new long-tail conditions.
+- Internal operator: the project owner using a Mac for orchestration and a
+  graphics-capable RunPod/CARLA host for closed-loop runtime.
 
 ## JTBD
 
-When I want to test whether a minimal-shot driving policy can handle unfamiliar
-long-tail cases, I want a reproducible CARLA scenario forge that generates
-paired in-distribution/OOD cases, runs a VLA/VLM policy, stores the failures as
-retrieval memory, and reruns generated variants, so I can demonstrate
-generalization without training a new AV model from scratch.
+When I want to test whether a frozen VLA driving policy generalizes to a novel
+road situation, I want to generate a scenario, run it in CARLA, inspect the
+policy's risk/reasoning/actions over time, and save the outcome as reusable
+failure memory, so I can demonstrate minimal-shot autonomy without fine-tuning
+or hand-authoring every edge case.
+
+## Parity Research
+
+### Capability + Parity Lens
+
+Compare 0xDriver against credible scenario-based autonomy validation tools. The
+target is not a full AV simulator vendor suite; the target is the minimum
+credible product loop for scenario generation, execution, analysis, and dataset
+curation.
+
+### Local Baseline
+
+Current repo surfaces:
+
+- Scenario Studio prompt compiler and deterministic agentic loop.
+- CARLA scripted OOD campaign evidence and video rendering.
+- CARLA entity-track risk timeline.
+- RAG memory and Alpamayo open-loop comparison artifacts.
+- V8 submission pack and scenario browser.
+
+Current missing surfaces:
+
+- A product UI/studio where the generation loop is inspectable and operable.
+- A first-class closed-loop run surface on the graphics/CARLA instance.
+- A policy adapter that can execute Alpamayo trajectory intent inside CARLA, not
+  only produce open-loop evidence.
+- A curation dashboard showing accepted/rejected scenarios and next runtime
+  targets as a managed dataset.
+
+### Comparable Implementations
+
+- **CARLA ScenarioRunner / OpenSCENARIO support**: supports CARLA execution of
+  OpenSCENARIO entities, routes, controllers, conditions, collisions, distance
+  checks, traffic signals, speed actions, route assignment, and controller
+  actions, with documented limitations. This proves the expected simulator
+  product surface: scenario description -> actors/actions/conditions ->
+  controller execution -> measurable events.
+- **ASAM OpenSCENARIO 2.x**: treats scenarios as composable actors, actions,
+  constraints, and coverage goals. It explicitly supports building abstract
+  scenarios and specializing them across road, speed, distance, and weather
+  conditions.
+- **Fail2Drive**: contributes paired in-distribution/OOD CARLA routes, unseen
+  long-tail scenario classes, a scenario gallery, quick start, integration
+  tutorial, toolbox, and model analysis. This is the closest benchmark parity
+  target.
+- **NVIDIA Alpamayo / AlpaSim**: Alpamayo 1.5 processes video, ego-motion
+  history, navigation, and text inputs; reasons; and generates trajectories.
+  NVIDIA positions AlpaSim as a closed-loop evaluation framework where policy
+  decisions affect vehicle dynamics and future observations.
+
+### Common Surfaces
+
+Credible scenario products converge on:
+
+- Scenario authoring: actors, environment, behaviors, constraints, seed/random
+  controls, and scenario families.
+- Coverage/generation: parameterization, mutation, ODD coverage, and accepted
+  scenario queues.
+- Runtime execution: simulator host config, controller/policy adapter, route,
+  sync mode, sensors, output directory, and repeatability.
+- Observability: video, entity tracks, collisions, distances, route progress,
+  infractions, risk events, and timing.
+- Analysis: pass/fail, failure mode, comparison against base cases, and model
+  behavior explanations.
+- Dataset lifecycle: accepted/rejected state, rationale, lineage, assets, and
+  next run target.
+
+### Repo Delta
+
+0xDriver has generation, evidence, and reporting primitives, but lacks the
+operator-facing studio and the closed-loop Alpamayo/CARLA evaluator. The next
+product slice should not add more isolated scripts; it should assemble the
+existing primitives into one app/workbench and use the RunPod CARLA host for at
+least one closed-loop policy run.
+
+### Recommendation
+
+Build **Scenario Generator Studio V1** now:
+
+1. A local web app for scenario generation and dataset curation.
+2. A RunPod/CARLA closed-loop runner lane.
+3. A policy adapter surface with `mock`, `CARLA autopilot`, and
+   `alpamayo-trajectory` modes.
+4. A demo view showing risk timeline, RAG memory, model reasoning, and action
+   intent side-by-side with video.
+
+## Gap Analysis
+
+### Current State
+
+- Backend generation exists through `driverx.scenarios.studio` and
+  `driverx.scenarios.agentic_loop`.
+- Evidence bundling exists through `driverx.workbench`.
+- Risk/perception exists from CARLA entity tracks.
+- Alpamayo exists as open-loop package/materialization/comparison.
+- Video overlay exists for offline/time-warped demonstration.
+- CARLA has been proven on a RunPod graphics host, but the latest pass did not
+  use it for a fresh closed-loop run.
+
+### Production Expectation
+
+A credible Scenario Generator Studio should let the operator:
+
+- Generate OOD scenarios from briefs or seed themes.
+- Inspect and edit scenario parameters before runtime.
+- Run a scenario against a selected policy on a configured CARLA host.
+- See live or replayed simulator evidence: video, tracks, risk events, model
+  reasoning, RAG retrieval, action intent, and metrics.
+- Curate the run into accepted/rejected/draft states with lineage.
+- Export a final evidence bundle for submission.
+
+### Missing Gaps
+
+- Product UI: no app that demonstrates the scenario-generation product.
+- Closed-loop run: no current Alpamayo-in-CARLA closed-loop artifact.
+- Runtime controller seam: Alpamayo trajectory intent is not yet converted into
+  CARLA controls in a running loop.
+- Scenario editor: generated candidates are JSON/HTML reports, not editable
+  scenario cards with parameters.
+- Dataset workflow: accepted/rejected curation exists as artifacts but not as a
+  studio workflow.
+- Live RunPod lane: CARLA host setup exists historically, but the current
+  command surface needs one clear "run this closed-loop scenario on the
+  instance" entrypoint.
+
+### Recommendation
+
+Do not abandon CARLA. Build the app around CARLA generation and use Alpamayo as
+the prestige policy evaluator. Treat Alpamayo-in-CARLA as a stretch-to-core
+feature:
+
+- **Core if achieved:** closed-loop Alpamayo trajectory adapter runs one short
+  generated scenario in CARLA and produces video/tracks/reasoning/metrics.
+- **Fallback if runtime fights back:** CARLA autopilot/mock closed-loop run
+  plus Alpamayo open-loop reasoning on captured frames, clearly labeled.
 
 ## SLC Slice (Next Release)
 
-Build the first dependency-light **Scenario Forge + Memory Harness** that can run
-locally without CARLA, then has explicit adapters for a remote CARLA/Fail2Drive
-runtime.
+Ship **Scenario Generator Studio V1 + one closed-loop CARLA proof**.
 
-The smallest complete valuable slice:
+This is the smallest complete product slice:
 
-1. Ingest Fail2Drive route and result metadata from a configured external
-   checkout or fixture.
-2. Represent paired base/generalization scenarios as typed scenario records.
-3. Generate new OOD scenario recipes from seed cases using deterministic
-   mutation policies.
-4. Build a retrieval memory bank from Fail2Drive failure summaries and future
-   run results.
-5. Produce a report that shows scenario coverage, generated variants, memory
-   entries, expected policy probes, and readiness for CARLA execution.
-6. Preserve Waymo E2E as supporting real-world open-loop evidence, not the main
-   simulation environment.
-
-This slice is useful before running CARLA because it locks the core data model,
-scenario-generation algorithm, and evidence surfaces while the Mac cannot run the
-official CARLA server locally.
+1. Browser app opens to the Scenario Studio, not a static landing page.
+2. Operator can generate 10-20 OOD scenarios from seed themes.
+3. Operator can inspect a scenario card: environment, actors, behaviors,
+   expected failure, memory query, assets, run readiness.
+4. Operator can queue one scenario for closed-loop runtime.
+5. Runner targets the RunPod/CARLA host and produces a run artifact.
+6. App shows replay/evidence: video, risk timeline, RAG memory, reasoning, and
+   action intent.
+7. App shows curation status and final submission export.
 
 ## Goals
 
-- Reframe 0xDriver as a minimal-shot closed-loop evaluation environment rather
-  than only a Waymo offline predictor.
-- Use CARLA/Fail2Drive as the first simulation target because CARLA has mature
-  route/scenario tooling and Fail2Drive already defines paired OOD evaluation.
-- Generate OOD scenario recipes that can later be exported into Fail2Drive route
-  XML or a companion scenario hub.
-- Build a retrieval memory format that injects abstract safety lessons into VLA
-  prompts or policy adapters without fine-tuning.
-- Support SimLingo/CarLLaVA as the first CARLA-native VLA baseline, with
-  Alpamayo as a later higher-prestige trajectory-VLA adapter.
-- Keep realistic compute and latency visible: local scenario/report work on Mac,
-  CARLA/VLA runtime on a Linux NVIDIA GPU host, and model-serving timings logged
-  separately from simulator timings.
+- Make the product contribution obvious in the first 10 seconds of the demo.
+- Prove at least one closed-loop CARLA run from a generated scenario.
+- Attempt Alpamayo-in-CARLA as the highest-signal policy adapter.
+- Preserve honest fallbacks and claim boundaries if Alpamayo cannot close the
+  loop in time.
+- Keep app and artifacts reproducible from tracked code plus ignored video/run
+  outputs.
 
 ## Non-Goals
 
-- Do not build a new physics/rendering engine; CARLA is the simulation engine.
-- Do not make Apple Silicon CARLA the critical runtime path. A community
-  Wine/Kegworks wrapper may be explored as an optional local smoke-test path,
-  but official/reproducible benchmark execution should still target Linux
-  NVIDIA hardware unless the wrapper proves stable with Fail2Drive.
-- Do not fine-tune Alpamayo, SimLingo, Qwen, LLaVA, or any AV model.
-- Do not adapt Alpamayo weights into LLaVA/CarLLaVA architecture.
-- Do not claim official Fail2Drive leaderboard fairness for RAG-assisted runs
-  that use Fail2Drive failures as memory.
-- Do not convert Waymo E2E scenes into CARLA or AlpaSim scenes in the first
-  slice.
-- Do not optimize CUDA kernels, quantization, speculative decoding, or
-  FlashDrive-style runtime acceleration until the closed-loop evaluation loop
-  exists.
+- Do not build a new simulator; CARLA remains the simulator.
+- Do not rebuild CARLA or SimLingo unless blocked runtime evidence proves it is
+  the only path.
+- Do not fine-tune Alpamayo or any AV model.
+- Do not claim official Fail2Drive score unless a real stock route evaluator
+  produces one.
+- Do not claim image-based object detection when using simulator tracks.
+- Do not claim real-time VLA control unless Alpamayo actually controls CARLA
+  live with measured loop timing.
+- Do not add Meshy/generated 3D assets to the critical path before the studio
+  and closed-loop proof work.
 
 ## User Stories
 
-### US-001: Ingest Fail2Drive Seeds
+### US-001: Generate Scenario Candidates
 
-**Description:** As a researcher, I want to load Fail2Drive route/result metadata
-so that existing paired OOD cases become the seed set for generation and memory.
-
-**Acceptance Criteria:**
-
-- [ ] A documented command reads a configured Fail2Drive checkout path or local
-  fixture without committing external benchmark assets.
-- [ ] Scenario records preserve split (`Base` or `Generalization`), scenario
-  class, route id, source file, and known metrics when result JSON exists.
-- [ ] Missing external paths fail with actionable setup guidance.
-- [ ] The fixture path passes without CARLA, TensorFlow, or GPU dependencies.
-
-### US-002: Generate OOD Scenario Recipes
-
-**Description:** As a challenge participant, I want an agentic generator to
-produce weird-but-plausible scenario variants so that the simulation environment
-goes beyond static benchmark replay.
+**Description:** As a submission operator, I want to generate OOD scenarios from
+seed themes so that the system visibly creates new minimal-shot test cases.
 
 **Acceptance Criteria:**
 
-- [ ] Generator outputs deterministic recipes from a seed id and random seed.
-- [ ] Recipes include scenario family, mutation type, actors/assets, placement
-  intent, expected failure mode, and solvability assumption.
-- [ ] Supported first mutations include obstacle substitution, occlusion,
-  misleading visual texture, irrelevant hazard outside ego path, lane blockage,
-  and regional driving behavior such as motorcycle filtering.
-- [ ] Generated recipes are written as JSON/Markdown evidence and can later be
-  exported to Fail2Drive XML.
+- [ ] App has a Scenario Studio view with seed themes, count, severity, and
+  random seed controls.
+- [ ] Generate action creates scenario cards with environment, behavior, actors,
+  assets, OOD tags, memory query, expected failure, and run readiness.
+- [ ] Duplicate/weak candidates are rejected with visible rationale.
+- [ ] Generated batch is saved as JSON and can be reloaded by run id.
 
-### US-003: Build Retrieval Safety Memory
+### US-002: Inspect And Curate Dataset Queue
 
-**Description:** As a minimal-shot policy designer, I want prior OOD failures
-compressed into abstract driving lessons so that a frozen VLA can reason with
-few-shot context instead of being fine-tuned.
+**Description:** As a researcher, I want to review accepted/rejected generated
+cases so that the simulation harness becomes a dataset flywheel.
 
 **Acceptance Criteria:**
 
-- [ ] Memory entries include situation, observed failure, abstract principle,
-  recommended behavior, source scenario, and confidence.
-- [ ] Retrieval can select the top relevant entries from current scenario tags
-  or policy-observed uncertainty.
-- [ ] Prompt snippets are short enough to fit into a VLA/VLM context without
-  turning into verbose chain-of-thought.
-- [ ] Reports compare intended policy behavior with and without memory context.
+- [ ] App has queue tabs for `accepted`, `rejected`, `needs runtime`, and
+  `ready for submission`.
+- [ ] Each card shows lineage from brief -> scenario -> run -> memory/evidence.
+- [ ] Curation records include reason, score, novelty tags, and next action.
+- [ ] Export creates a ScenarioRunBundle-compatible artifact.
 
-### US-004: Prepare CARLA/Fail2Drive Execution Adapter
+### US-003: Run Closed-Loop CARLA Scenario
 
-**Description:** As an engineer, I want a clean adapter boundary between
-0xDriver and a remote CARLA runtime so that the Mac can author scenarios while a
-Linux GPU host runs the simulator and policies.
+**Description:** As an engineer, I want to run a generated scenario against a
+policy in CARLA so that the submission includes actual simulator behavior, not
+only static analysis.
 
 **Acceptance Criteria:**
 
-- [ ] Adapter config names CARLA host, Fail2Drive root, route path, agent path,
-  policy kind, output directory, and expected result parser.
-- [ ] Local dry-run mode emits the exact command plan without launching CARLA.
-- [ ] Result ingestion understands Fail2Drive/CARLA JSON records for driving
-  score, route completion, infractions, and success.
-- [ ] Runtime notes distinguish simulator GPU requirements from VLA inference
-  GPU requirements.
+- [ ] App/CLI can target a configured CARLA host on the provided RunPod
+  graphics instance.
+- [ ] Runner supports at least `mock` or `autopilot` closed-loop policy mode.
+- [ ] Runner attempts `alpamayo-trajectory` mode when model/runtime inputs are
+  available.
+- [ ] Run output includes video, entity tracks, risk timeline, timings, policy
+  actions, and claim boundaries.
+- [ ] If Alpamayo cannot run closed-loop, the blocker is saved and the fallback
+  closed-loop run still completes.
 
-### US-005: Keep Waymo E2E As Supporting Evidence
+### US-004: Show Reasoning And RAG During Replay
 
-**Description:** As a reviewer, I want the existing Waymo E2E pipeline preserved
-so that the submission can show both real logged long-tail evidence and
-closed-loop generated simulation evidence.
+**Description:** As a judge, I want to see what the system thinks it saw and why
+it acts so that the demo communicates minimal-shot reasoning.
 
 **Acceptance Criteria:**
 
-- [ ] Existing Waymo fixture and real batch commands remain documented.
-- [ ] Future VLA/Alpamayo comparisons can still use the current hybrid planner
-  baseline and ADE reports.
-- [ ] The README/PRD does not imply Waymo E2E is a closed-loop simulator.
+- [ ] Replay view shows video alongside risk events, retrieved memory,
+  reasoning snippets, action intent, and latency.
+- [ ] Timeline scrub selects synchronized risk/reasoning/action state.
+- [ ] Every view labels whether reasoning is live closed-loop, sampled
+  open-loop, or post-run replay.
+- [ ] Exported demo can be rendered to a 1-5 minute MP4.
+
+### US-005: Export Submission Evidence
+
+**Description:** As the project owner, I want one export packet so that I can
+submit quickly without hunting through artifacts.
+
+**Acceptance Criteria:**
+
+- [ ] Export includes final video path, scenario browser, write-up, artifact map,
+  model declarations, and claim boundaries.
+- [ ] Heavy videos remain ignored and referenced, not committed.
+- [ ] A review artifact maps claims to evidence.
 
 ## Functional Requirements
 
-- FR-1: The system must treat CARLA, Fail2Drive, SimLingo, Alpamayo, and Waymo
-  paths as configuration, not checked-in repo assets.
-- FR-2: Scenario seed ingestion must support fixture mode and external checkout
-  mode.
-- FR-3: Generated scenario recipes must be deterministic under an explicit seed.
-- FR-4: Memory entries must be serializable JSON and human-readable Markdown.
-- FR-5: Reports must show base vs OOD scenario coverage, generated variants,
-  retrieved memory, expected behavior, and open runtime blockers.
-- FR-6: The first CARLA adapter must be policy-agnostic: SimLingo first,
-  Alpamayo later, generic VLM/API mode optional.
-- FR-7: Alpamayo integration must be represented as a trajectory policy adapter,
-  not as a LLaVA/CarLLaVA model-weight conversion.
-- FR-8: Latency accounting must separate scenario generation, retrieval,
-  simulator step time, model inference time, trajectory/control conversion, and
-  result parsing.
-- FR-9: No dataset shards, simulator binaries, generated videos, model weights,
-  secrets, or submission archives may be committed.
-
-## Technical Planning Notes
-
-### Recommended Build Path
-
-1. **TASK-007:** Local Scenario Forge and Memory Harness.
-2. **TASK-008:** Live CARLA probe and Docker client bridge.
-3. **TASK-009:** Ego spawn, camera capture, and entity track logging.
-4. **TASK-010:** Regional driving behavior library for OOD actors.
-5. **TASK-011:** Scenario-to-CARLA script compiler.
-6. **TASK-012:** Generated asset pipeline with dry-run and Meshy-ready provider.
-7. **TASK-013:** Policy adapter interface for mock, VLM/API, SimLingo, and
-   Alpamayo-style policies.
-8. **TASK-014:** Retrieval-augmented VLA comparison harness and generated OOD
-   demo report.
-9. **TASK-015:** Optional runtime acceleration: async inference, caching,
-   smaller model/API mode, quantization, or FlashDrive-inspired serving.
-
-Detailed execution shape lives in
-`docs/specs/minimal-shot-vla-roadmap.md`.
-
-### Adapter Targets
-
-- `driverx.scenarios`: owns seed records, generated recipes, and mutation
-  policies.
-- `driverx.memory`: owns failure memory entries, retrieval, and prompt snippets.
-- `driverx.simulators.fail2drive`: owns Fail2Drive route/result parsing and
-  command-plan generation.
-- `driverx.simulators.carla`: owns CARLA runtime config, remote host command
-  templates, and result collection.
-- `driverx.policies`: future adapter namespace for `simlingo`, `alpamayo`,
-  `bench2drive_vl_api`, and existing local hybrid planner.
-
-### Signature Delta Sketch
-
-```python
-load_fail2drive_routes(root: Path) -> list[ScenarioSeed]
-load_fail2drive_results(results_root: Path) -> list[ScenarioResult]
-generate_scenario_recipes(
-    seeds: list[ScenarioSeed],
-    policy: MutationPolicy,
-    count: int,
-    random_seed: int,
-) -> list[ScenarioRecipe]
-build_memory_bank(results: list[ScenarioResult]) -> MemoryBank
-retrieve_memory(recipe: ScenarioRecipe, bank: MemoryBank, limit: int) -> list[MemoryEntry]
-plan_carla_run(config: CarlaRunConfig, recipe: ScenarioRecipe) -> CarlaCommandPlan
-summarize_scenario_suite(records: list[ScenarioRecord]) -> ScenarioSuiteSummary
-```
-
-### Type Sketch
-
-```python
-ScenarioSeed = {
-  "seed_id": str,
-  "source": "fail2drive" | "fixture" | "generated",
-  "split": "Base" | "Generalization",
-  "scenario_class": str,
-  "route_id": str,
-  "route_path": str,
-  "ood_tags": list[str],
-}
-
-ScenarioRecipe = {
-  "recipe_id": str,
-  "parent_seed_id": str,
-  "mutation": str,
-  "actors": list[dict],
-  "environment": dict,
-  "expected_failure_mode": str,
-  "memory_query": list[str],
-  "export_targets": ["fail2drive_xml"],
-}
-
-MemoryEntry = {
-  "entry_id": str,
-  "situation": str,
-  "observed_failure": str,
-  "principle": str,
-  "recommended_behavior": str,
-  "source_scenario": str,
-  "confidence": float,
-}
-
-ScenarioResult = {
-  "scenario_id": str,
-  "policy": str,
-  "driving_score": float | None,
-  "route_completion": float | None,
-  "infractions": dict[str, list[str]],
-  "success": bool,
-  "latency_ms": dict[str, float],
-}
-```
-
-### Typed Flow Example
-
-`Base_Animals_0075.xml` and `Generalization_Animals_0075.xml`
--> `ScenarioSeed(split="Base")` + `ScenarioSeed(split="Generalization")`
--> result parser records that a policy fails the OOD animal crossing
--> `MemoryEntry(principle="unknown animate object on route is occupied space")`
--> generator creates `Generated_Animals_0075_haze_motorcycle_01`
--> retrieval injects the memory principle into the VLA prompt
--> remote CARLA run compares policy vs policy+memory
--> report shows whether route completion, infractions, and success improved.
-
-## Operator Inputs Needed Upfront
-
-To let the agent work autonomously, the project needs these decisions or assets
-as soon as they become relevant:
-
-1. A Linux NVIDIA GPU runtime for reproducible CARLA/Fail2Drive execution. A
-   community Apple Silicon wrapper exists and can be tried for local smoke
-   tests, but it should not block or replace the official runtime path until it
-   proves stable with the Python client and Fail2Drive stack.
-2. Whether to use Fail2Drive full install, plugin branch, or a separate external
-   checkout mounted outside this repo.
-3. Whether first real policy should be SimLingo/CarLLaVA, Bench2Drive-VL API
-   mode, or Alpamayo. Default recommendation: SimLingo first, Alpamayo second.
-4. Hugging Face access for any model checkpoints or simulator assets that
-   require gated downloads.
-5. A small initial route subset for first live proof, such as `Animals`,
-   `PedestriansOnRoad`, `CustomObstacles`, and `ObscuredStop`.
-6. Budget ceiling for cloud GPU experiments and whether long-running CARLA jobs
-   can use a rented instance overnight.
-7. Whether the final submission should be a 1-5 minute video or a slide deck.
-   Default recommendation: video with a short backup deck.
+- FR-1: Scenario Studio app must load existing `agentic_ood_generation_loop.json`
+  artifacts and generate new ones.
+- FR-2: Scenario cards must expose environment, behavior, assets, actors,
+  expected failure, memory query, and curation state.
+- FR-3: Closed-loop runner must separate simulator runtime, policy inference,
+  control conversion, and result parsing timings.
+- FR-4: Policy adapter interface must support `mock`, `carla-autopilot`, and
+  `alpamayo-trajectory`.
+- FR-5: Alpamayo adapter must consume CARLA camera/history packages and output
+  trajectory intent converted to CARLA controls or a clear blocker.
+- FR-6: Replay view must work from recorded artifacts without requiring live
+  CARLA.
+- FR-7: Claim boundaries must be embedded in every run and export artifact.
+- FR-8: No credentials, model weights, CARLA installs, generated videos, or
+  dataset shards may be committed.
 
 ## Constraints
 
-- Security/privacy: do not commit credentials, model weights, dataset shards,
-  simulator binaries, generated videos, or private cloud instance details.
-- Performance: local planner/report steps should run on Mac; CARLA and heavy
-  VLA inference should run on Linux NVIDIA hardware with explicit timing logs.
-- Platform: CARLA packaged server is officially built for Windows/Linux and
-  expects a dedicated GPU. A community Apple Silicon path runs the Windows
-  CARLA package through Wine/Kegworks/D3DMetal and has reported M4 results, so
-  the MacBook M5 Pro may be viable for exploratory local smoke tests. Treat that
-  path as experimental until CARLA server, Python client, Fail2Drive routes, and
-  policy execution all work together.
-- Budget/time: prioritize a credible SLC before May 10, 2026: local scenario
-  generation + memory + at least one real/simulated route proof.
-- Reproducibility: every generated scenario, memory entry, command plan, and
-  result report must include source ids, config, random seed, and timestamp.
-- Fairness: using Fail2Drive failures as RAG memory is an experimental
-  minimal-shot method, not a leaderboard-clean Fail2Drive score.
+- Security/privacy: `.env`, SSH keys, Hugging Face tokens, RunPod tokens, model
+  weights, and datasets stay outside git.
+- Performance: app interactions should be instant locally; CARLA/VLA runtime may
+  be slow but must log timings honestly.
+- Platform: Mac is orchestration/UI; RunPod graphics/CUDA host is the preferred
+  CARLA runtime.
+- Time: prioritize one impressive end-to-end artifact over broad feature count.
+- Budget: keep long GPU/CARLA runs bounded by explicit scenario count and
+  duration.
+- Licensing: Alpamayo is research/non-commercial; declarations must state this.
+
+## Autonomy Readiness
+
+- Human inputs/assets needed:
+  - Current RunPod SSH target and whether the graphics CARLA pod is still alive.
+  - Confirmation of the policy mode priority: `alpamayo-trajectory` first, then
+    `carla-autopilot` fallback.
+  - Optional logo/branding only if the app needs polish.
+- Credentials / external services:
+  - Hugging Face token available in local/remote env, not committed.
+  - SSH key for RunPod host.
+  - Meshy key not needed for the next slice.
+- Compute or runtime needs:
+  - Graphics-capable CARLA 0.9.16 host.
+  - Python client environment that can connect to CARLA.
+  - Alpamayo environment on CUDA host if attempting live trajectory mode.
+- Tooling or testability gaps:
+  - Need one command to run the closed-loop scenario on RunPod and pull compact
+    evidence back.
+  - Need browser visual QA once app exists.
+- Hard-to-QA surfaces:
+  - Whether Alpamayo trajectory-to-control conversion is stable enough for
+    closed-loop driving.
+  - Whether the CARLA host can sustain route runtime and camera capture.
+- Human gates:
+  - Plan approval: not required for same-scope next implementation ticket.
+  - QA approval: user reviews final video/app demo.
+  - Deploy/publish: ask before public upload.
+  - Spend/billing: bounded use of already-provided GPU host is allowed by prior
+    instruction; ask before creating new paid resources.
+  - Destructive/migration actions: ask before deleting remote instance data.
+- Agent decision boundaries:
+  - If Alpamayo closed-loop blocks, finish the app and autopilot/mock
+    closed-loop fallback, log blocker, and keep moving.
+  - Do not spend another full pass on runtime setup unless it directly produces
+    a closed-loop artifact or a precise blocker.
 
 ## Risks / Unknowns
 
-- CARLA/Fail2Drive installation can consume hours on a fresh GPU machine.
-- The Apple Silicon CARLA wrapper may run the simulator but still fail on client
-  control, Python package compatibility, offscreen rendering, or Fail2Drive
-  integration.
-- SimLingo and Bench2Drive-VL have dependency stacks tied to specific CARLA,
-  Python, PyTorch, CUDA, and leaderboard versions.
-- Alpamayo-to-CARLA adaptation may need nontrivial camera-rig and coordinate
-  conversions before control is stable.
-- Fail2Drive route XML export may need direct compatibility checks before
-  generated recipes can become executable scenarios.
-- RAG memory can cause over-specific behavior if prompts quote benchmark cases
-  instead of abstract safety principles.
-- A short deadline may require the Alpamayo adapter and serving acceleration to
-  remain explicit extensions rather than the first demo path.
+- Alpamayo outputs trajectories, not direct CARLA control; conversion may be
+  unstable without local MPC/safety shield.
+- CARLA host may be up historically but unavailable in the current session.
+- Full closed-loop Alpamayo may be too slow for real-time; an offline sampled
+  controller may need time-warped or step-by-step execution.
+- Scenario generation UI could become cosmetic if it does not trigger real
+  artifacts; it must be artifact-backed.
+- App polish could consume time that should go into the closed-loop run.
 
 ## Backpressure / Evidence to Ship
 
-- Tests: unit tests for seed parsing, result parsing, deterministic generation,
-  memory retrieval, report writing, and dry-run command planning.
-- QA: fixture-only scenario-suite run that produces JSON/Markdown artifacts
-  without CARLA.
-- Runtime proof: at least one remote CARLA/Fail2Drive route pair once GPU
-  access exists.
-- Perf checks: latency table separating scenario generation, retrieval,
-  simulator runtime, policy inference, control conversion, and result parsing.
-- Demo proof: generated scenario table, memory entry, policy run result,
-  failure explanation, and a visual/video artifact from CARLA or Fail2Drive.
-- Review proof: code review and QA evidence attached to each implementation
-  ticket after this PRD is decomposed.
+- Tests:
+  - Scenario generation app data loaders.
+  - Closed-loop run command planner.
+  - Policy adapter trajectory-to-control conversion.
+  - Replay timeline synchronization.
+- QA:
+  - Browser screenshot of Scenario Studio.
+  - Browser screenshot of replay with risk/RAG/reasoning visible.
+  - One closed-loop run artifact.
+- Perf checks:
+  - CARLA loop timing.
+  - Policy inference timing.
+  - Control conversion timing.
+- Demo:
+  - 1-5 minute video showing generator -> run -> reasoning/replay -> curation.
+- Review:
+  - Evidence review must pass code-quality, integration-readiness,
+    evidence-quality, UI quality, and video quality.
+
+## First SLC Boundary
+
+The first SLC is **not** "perfect Alpamayo drives CARLA." It is:
+
+> Scenario Generator Studio V1 with one closed-loop CARLA run and an honest
+> Alpamayo trajectory adapter attempt.
+
+Success is one of:
+
+- Best case: Alpamayo trajectory adapter controls a generated CARLA scenario for
+  a short closed-loop run, with video, tracks, risk, reasoning, and metrics.
+- Acceptable fallback: CARLA autopilot/mock policy completes the closed-loop
+  generated scenario, while Alpamayo reasoning is sampled on the same captured
+  frames and shown in replay.
 
 ## References
 
-- [CARLA packaged install docs](https://carla.readthedocs.io/en/0.9.16/start_quickstart/):
-  CARLA is built for Windows/Linux, recommends a dedicated GPU, and launches an
-  Unreal spectator/server process.
-- [CARLA introduction](https://carla.readthedocs.io/en/latest/start_introduction/):
-  CARLA is an Unreal-based client/server simulator with Python/C++ control APIs.
-- [Apple Silicon CARLA community discussion](https://github.com/carla-simulator/carla/discussions/9037)
-  and linked guide: reports Windows CARLA packages running on M-series Macs via
-  Wine/Kegworks/D3DMetal, with Python client support still handled through
-  workarounds.
-- [Fail2Drive paper](https://arxiv.org/abs/2604.08535) and
-  [Fail2Drive repo](https://github.com/autonomousvision/fail2drive): paired
-  in-distribution/generalization routes, 17 unseen scenario classes, 30 novel
-  assets, result parser, and custom scenario toolbox.
-- [SimLingo paper](https://arxiv.org/abs/2503.09594) and
-  [SimLingo repo](https://github.com/RenzKa/simlingo): CARLA-native VLA-style
-  policy surface and closed-loop evaluation stack.
-- [CarLLaVA paper](https://arxiv.org/abs/2406.10165): camera-only
-  closed-loop VLM driving precedent for CARLA.
-- [Alpamayo 1.5 repo](https://github.com/NVlabs/alpamayo1.5) and
-  [Hugging Face model card](https://huggingface.co/nvidia/Alpamayo-1.5-10B):
-  reasoning VLA that outputs 6.4-second trajectories and should be adapted
-  through a policy wrapper, not model-weight conversion.
-- Waymo E2E: real long-tail logged camera evidence; useful support track, not a
-  closed-loop simulator.
+- CARLA ScenarioRunner OpenSCENARIO support:
+  https://scenario-runner.readthedocs.io/en/latest/openscenario_support/
+- ASAM OpenSCENARIO scenario authoring:
+  https://publications.pages.asam.net/standards/ASAM_OpenSCENARIO/ASAM_OpenSCENARIO_DSL/latest/conceptual-overview/writing_a_scenario.html
+- Fail2Drive project:
+  https://simonger.github.io/fail2drive/
+- NVIDIA Alpamayo developer page:
+  https://developer.nvidia.com/drive/alpamayo
+- NVIDIA Alpamayo overview:
+  https://www.nvidia.com/en-au/solutions/autonomous-vehicles/alpamayo/
