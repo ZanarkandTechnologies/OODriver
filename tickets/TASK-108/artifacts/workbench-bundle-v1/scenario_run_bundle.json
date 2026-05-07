@@ -1,0 +1,522 @@
+{
+  "bundle_id": "generated-base-animals-0076-regional-driving-behavior-000__motorcycle_filtering",
+  "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+  "behavior_id": "motorcycle_filtering",
+  "scenario_brief": {
+    "brief_id": "brief-0017-malaysian-wet-roadwork-motorbike-filters-between",
+    "prompt": "Malaysian wet roadwork: motorbike filters between cars while a lorry brakes without signal",
+    "author": "human",
+    "region": "malaysia",
+    "requested_tags": [
+      "malaysian_driving",
+      "motorcycle_filtering",
+      "roadwork",
+      "sudden_brake",
+      "wet_road"
+    ],
+    "target_policy_pressure": "Predict lateral two-wheeler motion and keep clearance instead of assuming lane discipline."
+  },
+  "studio_candidate": {
+    "candidate_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between-v00",
+    "plan_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between",
+    "variant_index": 0,
+    "random_seed": 17,
+    "compiled_recipe": {
+      "recipe_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between-v00",
+      "parent_seed_id": "Base_Animals_0076",
+      "mutation": "visual_noise",
+      "actors": [
+        {
+          "actor_id": "behavior_actor_motorcycle_filtering",
+          "kind": "motorcycle",
+          "role": "dynamic_ood_actor",
+          "behavior_id": "motorcycle_filtering",
+          "expected_pressure": "Fast two-wheeler filters between lanes with lateral weave."
+        },
+        {
+          "actor_id": "environment_asset_construction-cone-line",
+          "kind": "static_asset",
+          "asset_id": "construction-cone-line",
+          "role": "lane_boundary",
+          "placement": {
+            "relative_to": "ego_lane",
+            "x_m": 14.322,
+            "y_m": 2.28,
+            "yaw_deg": 4.167
+          }
+        },
+        {
+          "actor_id": "environment_asset_portable-work-barrier",
+          "kind": "static_asset",
+          "asset_id": "portable-work-barrier",
+          "role": "partial_blocker",
+          "placement": {
+            "relative_to": "lane_center",
+            "x_m": 26.756,
+            "y_m": 0.302,
+            "yaw_deg": 11.339
+          }
+        }
+      ],
+      "environment": {
+        "studio_plan_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between",
+        "environment_template_id": "construction_lane_closure",
+        "behavior_id": "motorcycle_filtering",
+        "behavior_tags": [
+          "filtering",
+          "lateral_uncertainty",
+          "motorcycle",
+          "severity_4",
+          "variant_17"
+        ],
+        "asset_tags": [
+          "debris",
+          "lorry_proxy",
+          "road_cones",
+          "work_barrier"
+        ],
+        "quality_targets": {
+          "min_duration_s": 45.0,
+          "require_conflict": true,
+          "require_road_alignment": true,
+          "min_ood_stressor_count": 2
+        },
+        "environment_recipe_id": "env-construction-lane-closure-s4-0017",
+        "environment_family": "construction",
+        "environment_tags": [
+          "cones",
+          "construction",
+          "lane_closure",
+          "severity_4",
+          "work_zone"
+        ],
+        "weather": {
+          "cloudiness": 33.0,
+          "precipitation": 0.0,
+          "fog_density": 0.0
+        },
+        "lighting": {
+          "sun_altitude_angle": 45.0,
+          "sun_azimuth_angle": 10.0
+        },
+        "traffic": {
+          "target_speed_multiplier": 0.55,
+          "density_multiplier": 0.8
+        },
+        "generated_asset_ids": [
+          "construction-cone-line",
+          "portable-work-barrier"
+        ],
+        "meshy_prompts": [
+          "game-ready Malaysian roadwork barrier with reflective strips, low-poly GLB",
+          "cluster of worn construction cones with dirt and tropical road grime, GLB"
+        ]
+      },
+      "expected_failure_mode": "Policy overfits normal lane-disciplined driving in `construction_lane_closure` while handling `motorcycle_filtering`, causing late braking, unsafe lateral clearance, or overreaction to novelty. Environment pressure: Slow down, bias away from closure, and avoid overreacting to cones outside the drivable corridor.",
+      "memory_query": [
+        "construction",
+        "malaysian_driving",
+        "motorcycle_filtering",
+        "roadwork",
+        "sudden_brake",
+        "visual_noise",
+        "wet_road",
+        "cones",
+        "construction",
+        "lane_closure",
+        "severity_4",
+        "work_zone"
+      ],
+      "solvability_assumption": "Safe behavior: slow early, keep lateral buffer, and avoid squeezing two-wheelers",
+      "route_path": "fail2drive_split/Base_Animals_0076.xml"
+    },
+    "environment_recipe": {
+      "recipe_id": "env-construction-lane-closure-s4-0017",
+      "template_id": "construction_lane_closure",
+      "family": "construction",
+      "severity": 4,
+      "random_seed": 17,
+      "tags": [
+        "cones",
+        "construction",
+        "lane_closure",
+        "severity_4",
+        "work_zone"
+      ],
+      "weather": {
+        "cloudiness": 33.0,
+        "precipitation": 0.0,
+        "fog_density": 0.0
+      },
+      "lighting": {
+        "sun_altitude_angle": 45.0,
+        "sun_azimuth_angle": 10.0
+      },
+      "traffic": {
+        "target_speed_multiplier": 0.55,
+        "density_multiplier": 0.8
+      },
+      "assets": [
+        {
+          "asset_id": "construction-cone-line",
+          "role": "lane_boundary",
+          "semantic_tags": [
+            "construction",
+            "barrier",
+            "lane_obstacle"
+          ],
+          "dimensions_m": {
+            "length": 0.35,
+            "width": 0.35,
+            "height": 0.7
+          },
+          "collision_proxy": {
+            "kind": "box",
+            "length": 0.35,
+            "width": 0.35,
+            "height": 0.7
+          },
+          "base_placement": {
+            "relative_to": "ego_lane",
+            "x_m": 14.322,
+            "y_m": 2.28,
+            "yaw_deg": 4.167
+          },
+          "prompt": "orange construction cones forming a taper into one lane, game-ready prop set",
+          "blueprint_hint": "static.prop.constructioncone"
+        },
+        {
+          "asset_id": "portable-work-barrier",
+          "role": "partial_blocker",
+          "semantic_tags": [
+            "construction",
+            "barrier",
+            "route_blockage"
+          ],
+          "dimensions_m": {
+            "length": 2.4,
+            "width": 0.35,
+            "height": 1.0
+          },
+          "collision_proxy": {
+            "kind": "box",
+            "length": 2.4,
+            "width": 0.35,
+            "height": 1.0
+          },
+          "base_placement": {
+            "relative_to": "lane_center",
+            "x_m": 26.756,
+            "y_m": 0.302,
+            "yaw_deg": 11.339
+          },
+          "prompt": "portable orange and white road-work barrier blocking part of a lane",
+          "blueprint_hint": "static.prop.constructioncone"
+        }
+      ],
+      "expected_policy_pressure": "Slow down, bias away from closure, and avoid overreacting to cones outside the drivable corridor.",
+      "meshy_prompts": [
+        "game-ready Malaysian roadwork barrier with reflective strips, low-poly GLB",
+        "cluster of worn construction cones with dirt and tropical road grime, GLB"
+      ]
+    },
+    "behavior_plan": {
+      "behavior_id": "motorcycle_filtering",
+      "actor_kind": "motorcycle",
+      "duration_s": 6.0,
+      "dt_s": 0.25,
+      "parameters": {
+        "speed_mps": 17.1813,
+        "lane_center_y": 2.3398,
+        "weave_m": 1.5475
+      },
+      "tags": [
+        "filtering",
+        "lateral_uncertainty",
+        "motorcycle",
+        "severity_4",
+        "variant_17"
+      ],
+      "expected_pressure": "Fast two-wheeler filters between lanes with lateral weave."
+    },
+    "asset_requests": [
+      {
+        "asset_id": "env-construction-lane-closure-s4-0017-construction-cone-line",
+        "prompt": "orange construction cones forming a taper into one lane, game-ready prop set",
+        "semantic_tags": [
+          "construction",
+          "barrier",
+          "lane_obstacle"
+        ],
+        "dimensions_m": {
+          "length": 0.35,
+          "width": 0.35,
+          "height": 0.7
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 0.35,
+          "width": 0.35,
+          "height": 0.7
+        },
+        "intended_placement": {
+          "relative_to": "ego_lane",
+          "x_m": 14.322,
+          "y_m": 2.28,
+          "yaw_deg": 4.167,
+          "coordinate_frame": "road_local",
+          "surface": "road"
+        },
+        "license": "generated-for-0xdriver-demo",
+        "source_recipe_id": "env-construction-lane-closure-s4-0017",
+        "provider": "dry_run"
+      },
+      {
+        "asset_id": "env-construction-lane-closure-s4-0017-portable-work-barrier",
+        "prompt": "portable orange and white road-work barrier blocking part of a lane",
+        "semantic_tags": [
+          "construction",
+          "barrier",
+          "route_blockage"
+        ],
+        "dimensions_m": {
+          "length": 2.4,
+          "width": 0.35,
+          "height": 1.0
+        },
+        "collision_proxy": {
+          "kind": "box",
+          "length": 2.4,
+          "width": 0.35,
+          "height": 1.0
+        },
+        "intended_placement": {
+          "relative_to": "lane_center",
+          "x_m": 26.756,
+          "y_m": 0.302,
+          "yaw_deg": 11.339,
+          "coordinate_frame": "road_local",
+          "surface": "road"
+        },
+        "license": "generated-for-0xdriver-demo",
+        "source_recipe_id": "env-construction-lane-closure-s4-0017",
+        "provider": "dry_run"
+      }
+    ],
+    "carla_run_ready": true,
+    "alpamayo_package_ready": false
+  },
+  "curation_record": {
+    "candidate_id": "studio-0017-malaysian-wet-roadwork-motorbike-filters-between-v00",
+    "curation_status": "accept_partial",
+    "score": 0.7,
+    "gate_results": {
+      "compiles": true,
+      "solvable": true,
+      "novel": true,
+      "ood_pressure": true,
+      "evidence_complete": false,
+      "model_value": false,
+      "stressor_count": 15.0
+    },
+    "novelty_tags": [
+      "cones",
+      "construction",
+      "filtering",
+      "lane_closure",
+      "lateral_uncertainty",
+      "malaysian_driving",
+      "motorcycle",
+      "motorcycle_filtering",
+      "roadwork",
+      "severity_4",
+      "sudden_brake",
+      "variant_17",
+      "visual_noise",
+      "wet_road",
+      "work_zone"
+    ],
+    "evidence_paths": {
+      "video": null,
+      "tracks": null,
+      "alpamayo_baseline": null,
+      "alpamayo_memory": null,
+      "rag_comparison": null
+    },
+    "model_eval_status": "not_run",
+    "why_keep": "Useful generated OOD candidate; it needs simulator/model evidence before final promotion.",
+    "next_action": "Run TASK-102 high-fidelity CARLA evidence, then TASK-104 Alpamayo baseline vs memory."
+  },
+  "carla_video": {
+    "path": "artifacts/exported/task102_high_fidelity_hero_v6_full.mp4",
+    "export_status": "local_file",
+    "duration_s": 84.0,
+    "fps": 5.0,
+    "frame_count": 420,
+    "width": 1280,
+    "height": 720,
+    "tracks_path": "artifacts/runs/task102-high-fidelity-hero-v6/cases/000-generated-base-animals-0076-regional-driving-behavior-000-motorcycle_filtering/carla/entity_tracks.json",
+    "claim_boundaries": [
+      "scripted_carla_ood_demo=true",
+      "stock_fail2drive_score=false",
+      "closed_loop_vla_control=false",
+      "fast_ffmpeg_no_reasoning_overlay=true"
+    ]
+  },
+  "alpamayo_record": {
+    "scenario_id": "generated-base-animals-0076-regional-driving-behavior-000",
+    "case_id": "generated-base-animals-0076-regional-driving-behavior-000",
+    "package_path": "tickets/archive/TASK-080/artifacts/task80-live-same-scene-package-001/alpamayo_carla_input_package.json",
+    "baseline_decision_path": "tickets/archive/TASK-081/artifacts/task81-live-same-scene-baseline-summary/alpamayo_policy_decision.json",
+    "memory_decision_path": "tickets/archive/TASK-081/artifacts/task81-live-same-scene-memory-summary/alpamayo_policy_decision.json",
+    "comparison_path": "tickets/archive/TASK-081/artifacts/task81-live-same-scene-comparison/alpamayo_ood_comparison.json",
+    "remote_command": {
+      "command": [
+        "bash",
+        "scripts/run_remote_alpamayo_carla_inference.sh",
+        "tickets/archive/TASK-080/artifacts/task80-live-same-scene-package-001/alpamayo_carla_input_package.json",
+        "root@195.26.233.80",
+        "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/remote_outputs/generated-base-animals-0076-regional-driving-behavior-000"
+      ],
+      "env": {
+        "GPU_SSH_OPTS": "-p 55050 -i ~/.ssh/id_ed25519_runpod",
+        "PYTHON_BIN": "/workspace/alpamayo1.5/a1_5_venv/bin/python",
+        "ALPAMAYO_ATTN_IMPLEMENTATION": "eager",
+        "ALPAMAYO_NUM_TRAJ_SAMPLES": "1",
+        "RUN_ID": "generated-base-animals-0076-regional-driving-behavior-000"
+      },
+      "local_output_dir": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/remote_outputs/generated-base-animals-0076-regional-driving-behavior-000",
+      "execute_remote": false
+    },
+    "remote_execution": null,
+    "latency_ms": [
+      108765.59,
+      46129.12
+    ],
+    "vram_peak_mb": [
+      23507.7,
+      23557.31
+    ],
+    "trajectory_final_l2_m": 2.6886,
+    "reasoning_changed": false,
+    "memory_ids": [
+      "mem-sample-motorcycle-filtering"
+    ],
+    "latency_delta_ms": -62636.47,
+    "safety_flags": {
+      "open_loop_only": true,
+      "closed_loop_control_claimed": false,
+      "memory_augmented_live_run_available": true,
+      "memory_augmented_decision_available": true,
+      "memory_augmented_same_capture_available": true,
+      "route_video_available": false,
+      "route_score_available": false
+    },
+    "evidence_warnings": [],
+    "open_loop_policy_evaluation": true,
+    "closed_loop_control": false,
+    "status": "passed",
+    "blockers": []
+  },
+  "risk_timeline_ref": {
+    "label": "risk_timeline",
+    "path": null,
+    "status": "not_provided",
+    "summary": "No artifact path supplied."
+  },
+  "memory_ref": {
+    "label": "memory_events",
+    "path": null,
+    "status": "not_provided",
+    "summary": "No artifact path supplied."
+  },
+  "reasoning_ref": {
+    "label": "reasoning_events",
+    "path": null,
+    "status": "not_provided",
+    "summary": "No artifact path supplied."
+  },
+  "final_pack_ref": {
+    "label": "final_pack",
+    "path": "tickets/TASK-106/artifacts/final-submission-pack-v7/final_submission_pack_v7.json",
+    "status": "linked",
+    "summary": "title=0xDriver: Scenario Studio For Minimal-Shot Driving Evaluation"
+  },
+  "product_loop": [
+    {
+      "stage": "generate",
+      "status": "proved",
+      "evidence": "10 prompts -> 20 candidates",
+      "why_visible": "Scenario Studio turns human OOD briefs into deterministic simulator-ready cases."
+    },
+    {
+      "stage": "simulate",
+      "status": "proved",
+      "evidence": "84.0s video, export_status=local_file",
+      "why_visible": "The generated case is rendered as CARLA evidence rather than staying a text prompt."
+    },
+    {
+      "stage": "detect_risk",
+      "status": "pending",
+      "evidence": "No risk timeline linked yet.",
+      "why_visible": "Simulator ground truth creates a timeline of what the autonomy stack should notice."
+    },
+    {
+      "stage": "retrieve_memory",
+      "status": "proved",
+      "evidence": "1 memory ids: mem-sample-motorcycle-filtering",
+      "why_visible": "Minimal-shot behavior is scaffolded by retrieved prior failure principles, not fine-tuning."
+    },
+    {
+      "stage": "reason",
+      "status": "proved",
+      "evidence": "Alpamayo record linked; reasoning_changed=False, latency_ms=[108765.59, 46129.12]",
+      "why_visible": "The demo can show what the VLA/RAG layer is saying at key risk moments."
+    },
+    {
+      "stage": "curate",
+      "status": "proved",
+      "evidence": "status=linked, score=0.7",
+      "why_visible": "Accepted failures and scenario variants feed the next dataset/replay queue."
+    }
+  ],
+  "claim_boundaries": [
+    "minimal_shot_scenario_generation=true",
+    "time_warped_offline_demo=true",
+    "sampled_open_loop_reasoning=true",
+    "real_time_vla_control=false",
+    "scripted_carla_ood_demo=true",
+    "stock_fail2drive_score=false",
+    "closed_loop_vla_control=false",
+    "fast_ffmpeg_no_reasoning_overlay=true",
+    "alpamayo_batch_open_loop_policy_evaluation=true",
+    "closed_loop_carla_control=false",
+    "model_weights_frozen=true",
+    "Alpamayo evidence is open-loop trajectory-intent and reasoning evaluation, not closed-loop car control.",
+    "Fail2Drive linkage is a benchmark reference layer, not an official leaderboard score.",
+    "Generated candidates marked accept_partial still need live CARLA/model evidence before becoming accepted dataset rows.",
+    "Hero video is generated simulator evidence and may be shown in the final demo.",
+    "Scenario Studio is deterministic unless a future provider-backed generator is explicitly configured.",
+    "ai_scenario_authoring=false_without_provider_run",
+    "closed_loop_carla_execution=false",
+    "dataset_curation_heuristic=true",
+    "deterministic_reproducible_generation=true",
+    "fail2drive_reference_layer=true",
+    "generated_cases_are_driverx_extensions=true",
+    "live_fail2drive_execution=false",
+    "official_fail2drive_score_claim=false",
+    "prompt_to_ood_compiler=true"
+  ],
+  "linkage_warnings": [
+    "Studio candidate is a best-effort fallback; exact scenario_id match was not found."
+  ],
+  "source_paths": {
+    "studio_batch_path": "tickets/TASK-103/artifacts/scenario-studio-v1/scenario_studio_batch.json",
+    "video_evidence_path": "tickets/TASK-102/artifacts/task102-high-fidelity-hero-v6/ood_video_evidence.json",
+    "alpamayo_batch_path": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json",
+    "final_pack_path": "tickets/TASK-106/artifacts/final-submission-pack-v7/final_submission_pack_v7.json",
+    "risk_timeline_path": null,
+    "memory_events_path": null,
+    "reasoning_events_path": null
+  }
+}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Scenario Workbench Bundle</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 32px; color: #16181d; background: #f8fafc; }
+    main { max-width: 1100px; margin: 0 auto; }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    .meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; margin: 20px 0; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { border: 1px solid #d9dee7; padding: 10px 12px; vertical-align: top; text-align: left; }
+    th { background: #eef2f7; }
+    code { background: #eef2f7; padding: 2px 4px; border-radius: 4px; }
+    section { margin-top: 28px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Scenario Workbench Bundle</h1>
+  <p>One linked lineage object for generated OOD scenario evidence.</p>
+  <div class="meta">
+    <div><strong>Bundle</strong><br><code>generated-base-animals-0076-regional-driving-behavior-000__motorcycle_filtering</code></div>
+    <div><strong>Scenario</strong><br><code>generated-base-animals-0076-regional-driving-behavior-000</code></div>
+    <div><strong>Behavior</strong><br><code>motorcycle_filtering</code></div>
+    <div><strong>Video</strong><br><code>artifacts/exported/task102_high_fidelity_hero_v6_full.mp4</code></div>
+  </div>
+  <section>
+    <h2>Product Loop</h2>
+    <table>
+      <thead><tr><th>Stage</th><th>Status</th><th>Evidence</th><th>Why it matters</th></tr></thead>
+      <tbody><tr><td>generate</td><td>proved</td><td>10 prompts -&gt; 20 candidates</td><td>Scenario Studio turns human OOD briefs into deterministic simulator-ready cases.</td></tr>
+<tr><td>simulate</td><td>proved</td><td>84.0s video, export_status=local_file</td><td>The generated case is rendered as CARLA evidence rather than staying a text prompt.</td></tr>
+<tr><td>detect_risk</td><td>pending</td><td>No risk timeline linked yet.</td><td>Simulator ground truth creates a timeline of what the autonomy stack should notice.</td></tr>
+<tr><td>retrieve_memory</td><td>proved</td><td>1 memory ids: mem-sample-motorcycle-filtering</td><td>Minimal-shot behavior is scaffolded by retrieved prior failure principles, not fine-tuning.</td></tr>
+<tr><td>reason</td><td>proved</td><td>Alpamayo record linked; reasoning_changed=False, latency_ms=[108765.59, 46129.12]</td><td>The demo can show what the VLA/RAG layer is saying at key risk moments.</td></tr>
+<tr><td>curate</td><td>proved</td><td>status=linked, score=0.7</td><td>Accepted failures and scenario variants feed the next dataset/replay queue.</td></tr></tbody>
+    </table>
+  </section>
+  <section>
+    <h2>Claim Boundaries</h2>
+    <ul><li><code>minimal_shot_scenario_generation=true</code></li>
+<li><code>time_warped_offline_demo=true</code></li>
+<li><code>sampled_open_loop_reasoning=true</code></li>
+<li><code>real_time_vla_control=false</code></li>
+<li><code>scripted_carla_ood_demo=true</code></li>
+<li><code>stock_fail2drive_score=false</code></li>
+<li><code>closed_loop_vla_control=false</code></li>
+<li><code>fast_ffmpeg_no_reasoning_overlay=true</code></li>
+<li><code>alpamayo_batch_open_loop_policy_evaluation=true</code></li>
+<li><code>closed_loop_carla_control=false</code></li>
+<li><code>model_weights_frozen=true</code></li>
+<li><code>Alpamayo evidence is open-loop trajectory-intent and reasoning evaluation, not closed-loop car control.</code></li>
+<li><code>Fail2Drive linkage is a benchmark reference layer, not an official leaderboard score.</code></li>
+<li><code>Generated candidates marked accept_partial still need live CARLA/model evidence before becoming accepted dataset rows.</code></li>
+<li><code>Hero video is generated simulator evidence and may be shown in the final demo.</code></li>
+<li><code>Scenario Studio is deterministic unless a future provider-backed generator is explicitly configured.</code></li>
+<li><code>ai_scenario_authoring=false_without_provider_run</code></li>
+<li><code>closed_loop_carla_execution=false</code></li>
+<li><code>dataset_curation_heuristic=true</code></li>
+<li><code>deterministic_reproducible_generation=true</code></li>
+<li><code>fail2drive_reference_layer=true</code></li>
+<li><code>generated_cases_are_driverx_extensions=true</code></li>
+<li><code>live_fail2drive_execution=false</code></li>
+<li><code>official_fail2drive_score_claim=false</code></li>
+<li><code>prompt_to_ood_compiler=true</code></li></ul>
+  </section>
+  <section><h2>Linkage Warnings</h2><ul><li>Studio candidate is a best-effort fallback; exact scenario_id match was not found.</li></ul></section>
+</main>
+</body>
+</html>

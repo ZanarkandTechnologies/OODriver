@@ -1,0 +1,23 @@
+carla_ood_demo:
+  host: "127.0.0.1"
+  port: 2000
+  timeout_s: 20.0
+  map_name: "Town13"
+  scenario_id: "paper-demo-malaysian-monsoon-filtering"
+  behavior_id: "motorcycle_filtering"
+  duration_s: 180.0
+  fps: 5
+  ego_speed_mps: 7.0
+  camera_preset: "wide_context"
+  fidelity_mode: "high_fidelity"
+  background_vehicle_count: 14
+  background_pedestrian_count: 10
+  ood_motion_smoothing: "limit_step"
+  claim_boundaries:
+    - "time_warped_offline_demo=true"
+    - "scripted_carla_ood_demo=true"
+    - "real_time_vla_control=false"
+
+output:
+  root: "artifacts/runs"
+  run_id: "carla-paper-demo-source"

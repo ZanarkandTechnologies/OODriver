@@ -1,7 +1,7 @@
 # TASK-112: Longer Smooth Time-Warped CARLA Scenario Render
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-102, TASK-109, TASK-110
@@ -125,10 +125,10 @@ ticket adopts that pattern honestly.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Existing hero MP4 can be sped up reproducibly with an evidence JSON.
-- [ ] AC-2: Fresh paper-demo config exists for longer smoother CARLA capture.
-- [ ] AC-3: If CARLA is reachable, one fresh longer source run is attempted and logged.
-- [ ] AC-4: Final evidence labels the video as time-warped offline demo.
+- [x] AC-1: Existing hero MP4 can be sped up reproducibly with an evidence JSON.
+- [x] AC-2: Fresh paper-demo config exists for longer smoother CARLA capture.
+- [x] AC-3: CARLA reachability was checked; local port was down, so the fresh run is logged as optional blocker.
+- [x] AC-4: Final evidence labels the video as time-warped offline demo.
 
 ### Verification
 
@@ -146,11 +146,13 @@ ticket adopts that pattern honestly.
 
 ### Evidence
 
-- Pending: `tickets/TASK-112/artifacts/<run-id>/video_timewarp.json`
-- Pending: ignored sped-up MP4 under `artifacts/exported/`
-- Pending optional fresh CARLA run evidence.
+- Built: `tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.json`
+- Built: `tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.md`
+- Built ignored sped-up MP4: `artifacts/exported/task112_hero_timewarp_3x.mp4`
+- Optional fresh CARLA run blocker logged in `blockers.md`.
 
 ### Blockers
 
-- Fresh CARLA render depends on CARLA runtime availability. Existing-video
-  timewarp has no blocker.
+- Fresh CARLA render depends on CARLA runtime availability. Local port
+  `127.0.0.1:2000` refused connection during this pass, so V8 uses the
+  existing TASK-102 source clip plus reproducible timewarp.

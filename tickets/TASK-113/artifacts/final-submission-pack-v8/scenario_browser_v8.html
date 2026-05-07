@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>0xDriver: Agentic OOD Scenario Workbench For Minimal-Shot Driving</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 32px; background: #f7faf9; color: #111827; }
+    main { max-width: 1180px; margin: 0 auto; }
+    h1 { font-size: 34px; margin-bottom: 8px; }
+    table { border-collapse: collapse; width: 100%; background: white; }
+    th, td { border: 1px solid #d9dee7; padding: 10px 12px; vertical-align: top; text-align: left; }
+    th { background: #eef2f7; }
+    code { background: #eef2f7; padding: 2px 4px; border-radius: 4px; }
+  </style>
+</head>
+<body><main>
+  <h1>0xDriver: Agentic OOD Scenario Workbench For Minimal-Shot Driving</h1>
+  <p><strong>submission_ready_with_claim_boundaries</strong></p>
+  <p>0xDriver contributes a simulator data engine for minimal-shot autonomy: generate weird-but-plausible CARLA scenarios, render time-warped evidence, expose simulator-grounded risk, retrieve prior failure memory, and evaluate frozen reasoning VLAs without AV fine-tuning.</p>
+  <h2>Scorecard</h2><ul><li><code>agentic_briefs</code>: 24</li>
+<li><code>agentic_candidates</code>: 24</li>
+<li><code>agentic_accepted</code>: 12</li>
+<li><code>risk_events</code>: 281</li>
+<li><code>max_risk_level</code>: critical</li>
+<li><code>overlay_status</code>: passed</li>
+<li><code>overlay_events</code>: 10</li>
+<li><code>overlay_frame_count</code>: 420</li>
+<li><code>timewarp_status</code>: passed</li>
+<li><code>timewarp_input_duration_s</code>: 84.0</li>
+<li><code>timewarp_output_duration_s</code>: 28.0</li>
+<li><code>alpamayo_cases</code>: 3</li>
+<li><code>alpamayo_reasoning_changed</code>: 2</li>
+<li><code>alpamayo_mean_latency_ms</code>: 92550.1317</li>
+<li><code>alpamayo_max_vram_peak_mb</code>: 23557.31</li>
+<li><code>final_demo_video_exists</code>: True</li></ul>
+  <h2>Evidence</h2>
+  <table><thead><tr><th>Status</th><th>Claim</th><th>Artifact</th><th>Why it matters</th><th>Boundary</th></tr></thead><tbody><tr><td>proved</td><td>Agentic Scenario Studio grows the OOD dataset queue.</td><td><a href="tickets/TASK-109/artifacts/agentic-ood-loop-v1/agentic_ood_generation_loop.json">tickets/TASK-109/artifacts/agentic-ood-loop-v1/agentic_ood_generation_loop.json</a></td><td>24 briefs -&gt; 24 candidates -&gt; 12 queued runtime targets.</td><td>deterministic agent loop; live LLM/Meshy provider is future polish.</td></tr>
+<tr><td>proved</td><td>One scenario lineage links generation, CARLA evidence, Alpamayo/RAG, and curation.</td><td><a href="tickets/TASK-108/artifacts/workbench-bundle-v1-with-risk/scenario_run_bundle.json">tickets/TASK-108/artifacts/workbench-bundle-v1-with-risk/scenario_run_bundle.json</a></td><td>The workbench bundle is the product/evidence spine for the final demo.</td><td>linkage warnings are kept visible when artifacts are fallback-matched.</td></tr>
+<tr><td>proved</td><td>CARLA ground truth produces a readable risk/perception timeline.</td><td><a href="tickets/TASK-110/artifacts/risk-timeline-v1/risk_timeline.json">tickets/TASK-110/artifacts/risk-timeline-v1/risk_timeline.json</a></td><td>281 risk events, max risk critical.</td><td>simulator ground truth, not camera CV detection.</td></tr>
+<tr><td>proved</td><td>The demo video shows risk, RAG memory, VLA reasoning, and action intent.</td><td><a href="tickets/TASK-111/artifacts/reasoning-overlay-v1/reasoning_overlay_video.json">tickets/TASK-111/artifacts/reasoning-overlay-v1/reasoning_overlay_video.json</a></td><td>10 overlay events across 420 frames.</td><td>sampled open-loop reasoning; not real-time closed-loop control.</td></tr>
+<tr><td>proved</td><td>Time-warped offline rendering makes CARLA evidence watchable and honest.</td><td><a href="tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.json">tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.json</a></td><td>84.0s source -&gt; 28.0s presentation clip.</td><td>source video retimed for presentation.</td></tr>
+<tr><td>proved</td><td>Frozen Alpamayo 1.5 is evaluated with retrieved memory on OOD cases.</td><td><a href="tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json">tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json</a></td><td>3 passed open-loop comparisons; 2 reasoning changes.</td><td>no AV fine-tuning and no real-time steering claim.</td></tr></tbody></table>
+  <h2>Artifacts</h2><ul><li><code>workbench_bundle</code>: <a href="tickets/TASK-108/artifacts/workbench-bundle-v1-with-risk/scenario_run_bundle.json">tickets/TASK-108/artifacts/workbench-bundle-v1-with-risk/scenario_run_bundle.json</a></li>
+<li><code>agentic_loop</code>: <a href="tickets/TASK-109/artifacts/agentic-ood-loop-v1/agentic_ood_generation_loop.json">tickets/TASK-109/artifacts/agentic-ood-loop-v1/agentic_ood_generation_loop.json</a></li>
+<li><code>risk_timeline</code>: <a href="tickets/TASK-110/artifacts/risk-timeline-v1/risk_timeline.json">tickets/TASK-110/artifacts/risk-timeline-v1/risk_timeline.json</a></li>
+<li><code>reasoning_overlay</code>: <a href="tickets/TASK-111/artifacts/reasoning-overlay-v1/reasoning_overlay_video.json">tickets/TASK-111/artifacts/reasoning-overlay-v1/reasoning_overlay_video.json</a></li>
+<li><code>timewarp</code>: <a href="tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.json">tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.json</a></li>
+<li><code>alpamayo_batch</code>: <a href="tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json">tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json</a></li>
+<li><code>final_demo_video</code>: <a href="artifacts/exported/final_sota_demo_v8.mp4">artifacts/exported/final_sota_demo_v8.mp4</a></li>
+<li><code>blockers</code>: <a href="blockers.md">blockers.md</a></li></ul>
+</main></body></html>

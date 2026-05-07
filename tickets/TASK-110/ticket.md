@@ -1,7 +1,7 @@
 # TASK-110: CARLA Risk And Perception Timeline
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-102, TASK-108
@@ -132,10 +132,10 @@ perception events.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Risk timeline identifies nearest and front-of-ego hazards per tick.
-- [ ] AC-2: Events include memory query triggers and recommended behavior.
-- [ ] AC-3: Fixture tests cover front, front-left, side, behind, and nearest.
-- [ ] AC-4: TASK-102 tracks can produce a timeline without live CARLA.
+- [x] AC-1: Risk timeline identifies nearest and front-of-ego hazards per tick.
+- [x] AC-2: Events include memory query triggers and recommended behavior.
+- [x] AC-3: Fixture tests cover front, front-left, side, behind, and nearest.
+- [x] AC-4: Existing local CARLA tracks can produce a timeline without live CARLA.
 
 ### Verification
 
@@ -152,9 +152,11 @@ perception events.
 
 ### Evidence
 
-- Pending: `tickets/TASK-110/artifacts/<run-id>/risk_timeline.json`
-- Pending: `tickets/TASK-110/artifacts/<run-id>/risk_timeline.md`
+- Built: `tickets/TASK-110/artifacts/risk-timeline-v1/risk_timeline.json`
+- Built: `tickets/TASK-110/artifacts/risk-timeline-v1/risk_timeline.md`
 
 ### Blockers
 
-- None.
+- TASK-102 video evidence references a track path that is not present locally;
+  TASK-110 used the best available local live CARLA motorcycle-filtering track
+  artifact from TASK-085 to prove the timeline path.

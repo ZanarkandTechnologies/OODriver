@@ -74,33 +74,55 @@ flowchart TD
 
 ## Current Status
 
-The final SoTA evidence train has landed. Old ticket records through TASK-100
-are archived as historical evidence, TASK-101 through TASK-106 are complete,
-and TASK-107 is the remaining final-demo assembly and upload packet.
+The current strongest packet is V8: an agentic Scenario Workbench for generating
+OOD CARLA cases, explaining them with simulator-grounded risk timelines,
+retrieving prior failure memory, and showing sampled Alpamayo reasoning as
+open-loop evidence.
 
 Current strongest evidence:
 
-- an 84s RunPod-generated, road-aligned high-fidelity CARLA OOD campaign video
-  exported locally at `artifacts/exported/task102_high_fidelity_hero_v6_full.mp4`
-- a scenario catalog and submission browser around that generated OOD case
-- live Alpamayo 1.5 open-loop reasoning on the hero CARLA package
-- measured Alpamayo latency/VRAM and converted DriverX trajectory intent
-- deterministic environment, behavior, quality-gate, and policy-evaluation
-  infrastructure
+- an 84s RunPod-generated, road-aligned CARLA OOD campaign source clip exported
+  locally at `artifacts/exported/task102_high_fidelity_hero_v6_full.mp4`
+- a 28s time-warped clip at `artifacts/exported/task112_hero_timewarp_3x.mp4`
+- a reasoning-overlay video at
+  `artifacts/exported/task111_reasoning_overlay_v1.mp4`
+- a 76s paper-style final demo at `artifacts/exported/final_sota_demo_v8.mp4`
+- a Scenario Workbench bundle linking Scenario Studio, CARLA evidence,
+  Alpamayo/RAG, risk, and curation
+- live Alpamayo 1.5 open-loop reasoning and measured latency/VRAM on generated
+  CARLA packages
 
-Final sprint direction:
+Final sprint direction is now packaging and polish, not new setup work:
 
-- select the final evidence set
-- produce one stronger high-fidelity simulator video if runtime allows
-- add prompt-to-OOD Scenario Studio
-- run Alpamayo with and without retrieved memory over selected generated cases
-- attach generated scenarios to Fail2Drive-style reference families
-- regenerate the V7 submission browser, dossier, video script, and write-up
+- improve the final demo cut if needed
+- refresh the submission write-up/deck from V8 artifacts
+- keep claim boundaries explicit: time-warped offline demo, sampled open-loop
+  reasoning, no real-time VLA steering claim
 
 Milestone guidance lives in `docs/submission-milestones.md`.
 
 ## Current Submission Packet
 
+- Final V8 pack:
+  `tickets/TASK-113/artifacts/final-submission-pack-v8/final_submission_pack_v8.md`
+- Scenario browser V8:
+  `tickets/TASK-113/artifacts/final-submission-pack-v8/scenario_browser_v8.html`
+- Two-page write-up V8:
+  `tickets/TASK-113/artifacts/final-submission-pack-v8/writeup_2page_v8.md`
+- Video script V8:
+  `tickets/TASK-113/artifacts/final-submission-pack-v8/video_script_v8.md`
+- Final rendered demo MP4:
+  `artifacts/exported/final_sota_demo_v8.mp4`
+- Workbench bundle:
+  `tickets/TASK-108/artifacts/workbench-bundle-v1-with-risk/scenario_run_bundle.md`
+- Agentic OOD queue:
+  `tickets/TASK-109/artifacts/agentic-ood-loop-v1/dataset_curation_queue.md`
+- Risk timeline:
+  `tickets/TASK-110/artifacts/risk-timeline-v1/risk_timeline.md`
+- Reasoning overlay evidence:
+  `tickets/TASK-111/artifacts/reasoning-overlay-v1/reasoning_overlay_video.md`
+- Video timewarp evidence:
+  `tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.md`
 - Final V7 pack:
   `tickets/TASK-106/artifacts/final-submission-pack-v7-task102/final_submission_pack_v7.md`
 - Scenario browser:

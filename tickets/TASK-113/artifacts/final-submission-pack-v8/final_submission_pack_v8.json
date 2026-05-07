@@ -1,0 +1,170 @@
+{
+  "title": "0xDriver: Agentic OOD Scenario Workbench For Minimal-Shot Driving",
+  "submission_version": "v8",
+  "submission_status": "submission_ready_with_claim_boundaries",
+  "thesis": "0xDriver contributes a simulator data engine for minimal-shot autonomy: generate weird-but-plausible CARLA scenarios, render time-warped evidence, expose simulator-grounded risk, retrieve prior failure memory, and evaluate frozen reasoning VLAs without AV fine-tuning.",
+  "scorecard": {
+    "agentic_briefs": 24,
+    "agentic_candidates": 24,
+    "agentic_accepted": 12,
+    "risk_events": 281,
+    "max_risk_level": "critical",
+    "overlay_status": "passed",
+    "overlay_events": 10,
+    "overlay_frame_count": 420,
+    "timewarp_status": "passed",
+    "timewarp_input_duration_s": 84.0,
+    "timewarp_output_duration_s": 28.0,
+    "alpamayo_cases": 3,
+    "alpamayo_reasoning_changed": 2,
+    "alpamayo_mean_latency_ms": 92550.1317,
+    "alpamayo_max_vram_peak_mb": 23557.31,
+    "final_demo_video_exists": true
+  },
+  "evidence_rows": [
+    {
+      "claim": "Agentic Scenario Studio grows the OOD dataset queue.",
+      "status": "proved",
+      "artifact": "tickets/TASK-109/artifacts/agentic-ood-loop-v1/agentic_ood_generation_loop.json",
+      "why_it_matters": "24 briefs -> 24 candidates -> 12 queued runtime targets.",
+      "boundary": "deterministic agent loop; live LLM/Meshy provider is future polish."
+    },
+    {
+      "claim": "One scenario lineage links generation, CARLA evidence, Alpamayo/RAG, and curation.",
+      "status": "proved",
+      "artifact": "tickets/TASK-108/artifacts/workbench-bundle-v1-with-risk/scenario_run_bundle.json",
+      "why_it_matters": "The workbench bundle is the product/evidence spine for the final demo.",
+      "boundary": "linkage warnings are kept visible when artifacts are fallback-matched."
+    },
+    {
+      "claim": "CARLA ground truth produces a readable risk/perception timeline.",
+      "status": "proved",
+      "artifact": "tickets/TASK-110/artifacts/risk-timeline-v1/risk_timeline.json",
+      "why_it_matters": "281 risk events, max risk critical.",
+      "boundary": "simulator ground truth, not camera CV detection."
+    },
+    {
+      "claim": "The demo video shows risk, RAG memory, VLA reasoning, and action intent.",
+      "status": "proved",
+      "artifact": "tickets/TASK-111/artifacts/reasoning-overlay-v1/reasoning_overlay_video.json",
+      "why_it_matters": "10 overlay events across 420 frames.",
+      "boundary": "sampled open-loop reasoning; not real-time closed-loop control."
+    },
+    {
+      "claim": "Time-warped offline rendering makes CARLA evidence watchable and honest.",
+      "status": "proved",
+      "artifact": "tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.json",
+      "why_it_matters": "84.0s source -> 28.0s presentation clip.",
+      "boundary": "source video retimed for presentation."
+    },
+    {
+      "claim": "Frozen Alpamayo 1.5 is evaluated with retrieved memory on OOD cases.",
+      "status": "proved",
+      "artifact": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json",
+      "why_it_matters": "3 passed open-loop comparisons; 2 reasoning changes.",
+      "boundary": "no AV fine-tuning and no real-time steering claim."
+    }
+  ],
+  "video_script": [
+    {
+      "time": "0:00-0:10",
+      "beat": "Problem",
+      "visual": "Title card over Scenario Workbench motif.",
+      "narration": "Minimal-shot autonomy needs a way to test weird situations before a fleet has seen them."
+    },
+    {
+      "time": "0:10-0:22",
+      "beat": "Generate",
+      "visual": "Agentic OOD queue and scenario gallery.",
+      "narration": "The generator produced 24 candidates and queued 12 for runtime evidence."
+    },
+    {
+      "time": "0:22-0:55",
+      "beat": "Run and explain",
+      "visual": "Reasoning overlay MP4.",
+      "narration": "The overlay shows risk, memory, sampled VLA reasoning, and action intent across 10 events."
+    },
+    {
+      "time": "0:55-1:08",
+      "beat": "Evaluate",
+      "visual": "Alpamayo/RAG scorecard.",
+      "narration": "Frozen Alpamayo was evaluated on 3 OOD cases; the current proof is open-loop."
+    },
+    {
+      "time": "1:08-1:18",
+      "beat": "Flywheel",
+      "visual": "Curation queue and claim boundaries.",
+      "narration": "Risk timeline events, currently 281, become reusable dataset and memory entries."
+    }
+  ],
+  "two_page_writeup": {
+    "motivation": "Autonomy that waits for data collection will always trail reality. 0xDriver focuses on the minimal-shot testing loop: make rare situations, run them, explain what the model noticed, and preserve the failure as memory.",
+    "architecture": "Scenario Studio generates OOD briefs and candidates; CARLA renders the selected case; the risk timeline derives perception from simulator tracks; RAG supplies prior safety principles; frozen Alpamayo 1.5 supplies sampled open-loop reasoning and trajectory intent; the curation queue decides what to run next.",
+    "what_worked": "The V8 packet links 24 generated candidates, 281 risk events, a 28.0s time-warped clip, and 3 Alpamayo/RAG comparisons. The reasoning overlay rendered 420 frames.",
+    "what_did_not_work": "The current system is not closed-loop VLA driving. The video is time-warped offline evidence, and Alpamayo is sampled as an open-loop reasoning/trajectory evaluator. A live LLM/Meshy generator and real-time VLA serving are future work, not claims in this submission.",
+    "where_prize_money_goes": "The next prototype step is a persistent graphics/CUDA host for repeated closed-loop CARLA runs, richer generated 3D assets, and a larger OOD memory bank built from repeated failures.",
+    "open_blockers": "2026-05-07 16:36 +0800 | carla,video,paper-demo | TASK-112 fresh paper-demo CARLA source render was not attempted in this pass because local `127.0.0.1:2000` refused connection during the optional smoke check. Existing TASK-102 source video was time-warped and used for TASK-111/TASK-113. Evidence: `tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.md`. Next unblock path: restart the graphics-capable CARLA host and run `configs/carla_ood_paper_demo.sample.yaml` for a fresh longer source capture.; 2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060 long-score attempt `town13-long-score-attempt-001` started the stock `Generalization_PedestriansOnRoad_1088` route and reached game time `0.600s` at about `0.142x`, then stopped making observable progress. A concurrent route-aligned Alpamayo capture attempt with a 60s CARLA timeout also failed waiting for the simulator. I terminated the route evaluator cleanly to avoid burning the full 1200s timeout on a stalled local Mac/Wine simulation. Evidence: `tickets/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md` and `tickets/TASK-069/artifacts/town13-live-attach-attempt-004/carla_alpamayo_capture.json`. Next unblock path: use a graphics-capable Linux NVIDIA CARLA host for Fail2Drive scoring/capture, or rerun locally only after confirming CARLA can sustain route ticks and serve a second Python client during synchronous mode.; 2026-05-06 11:34 +0800 | fail2drive,carla,town13,score | TASK-071 produced fresh Town13 MP4 evidence from the stock Fail2Drive `Generalization_PedestriansOnRoad_1088` route, but full route score/completion remains open because the run intentionally stops after early video capture. Restarted CARLA improved route speed to about `0.23x`, but the local Mac/Kegworks/Wine path is still not a fast full-suite scoring runtime. Evidence: `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`. Next unblock path: rerun without `--stop-after-video` for a long local route scoring attempt, or move the route to a faster graphics-capable Linux NVIDIA CARLA host.; 2026-05-05 17:07 +0800 | h100,carla,vulkan | TASK-020 stock SimLingo H100 route run cannot reach policy execution because CARLA 0.9.15 exits before opening port `20000` on the RunPod H100 container. CUDA is compatible for SimLingo (`sm_90`), but CARLA needs a working graphics/Vulkan runtime; diagnostics show default Vulkan only exposes `llvmpipe`, forcing the NVIDIA ICD fails with `ERROR_INCOMPATIBLE_DRIVER`, and CARLA exits with status `1`. Evidence: `tickets/archive/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.md` and `tickets/archive/TASK-020/artifacts/task20-remote/carla_runtime_diagnostics.md`. Next unblock path: move the stock route to a graphics-capable Ampere host such as RTX 3090 / RTX A6000 / A40 / A10, or rebuild the SimLingo torch stack for the earlier RTX PRO 6000 Blackwell host where CARLA did launch."
+  },
+  "model_and_data_declarations": [
+    "Base VLA: nvidia/Alpamayo-1.5-10B, frozen, non-commercial research use.",
+    "No AV-dataset fine-tuning was performed.",
+    "Alpamayo evidence status: passed; open-loop only.",
+    "CARLA video is simulator evidence and is retimed offline for presentation.",
+    "Generated videos, datasets, model weights, remote caches, and credentials are excluded from git."
+  ],
+  "claim_boundaries": [
+    "Alpamayo evidence is open-loop trajectory-intent and reasoning evaluation, not closed-loop car control.",
+    "Fail2Drive linkage is a benchmark reference layer, not an official leaderboard score.",
+    "Generated candidates marked accept_partial still need live CARLA/model evidence before becoming accepted dataset rows.",
+    "Hero video is generated simulator evidence and may be shown in the final demo.",
+    "Scenario Studio is deterministic unless a future provider-backed generator is explicitly configured.",
+    "ai_scenario_authoring=false_without_provider_run",
+    "alpamayo_batch_open_loop_policy_evaluation=true",
+    "carla_execution=false",
+    "closed_loop_carla_control=false",
+    "closed_loop_carla_execution=false",
+    "closed_loop_vla_control=false",
+    "dataset_curation_heuristic=true",
+    "dataset_curation_queue=true",
+    "deterministic_agentic_generation=true",
+    "deterministic_reproducible_generation=true",
+    "fail2drive_reference_layer=true",
+    "generated_cases_are_driverx_extensions=true",
+    "image_based_object_detection=false",
+    "live_fail2drive_execution=false",
+    "live_llm_generation=false",
+    "live_meshy_asset_generation=false",
+    "mesh_asset_generation=false",
+    "minimal_shot_scenario_generation=true",
+    "model_weights_frozen=true",
+    "official_fail2drive_score=false",
+    "official_fail2drive_score_claim=false",
+    "overlay_uses_simulator_ground_truth_risk=true",
+    "prompt_to_ood_compiler=true",
+    "real_time_vla_control=false",
+    "risk_timeline_for_demo_explanation=true",
+    "sampled_open_loop_reasoning=true",
+    "scripted_carla_ood_demo=true",
+    "simulator_ground_truth_risk=true",
+    "simulator_ground_truth_tracks=true",
+    "source_video_retimed_for_presentation=true",
+    "stock_fail2drive_score=false",
+    "time_warped_offline_demo=true"
+  ],
+  "open_blockers": [
+    "2026-05-07 16:36 +0800 | carla,video,paper-demo | TASK-112 fresh paper-demo CARLA source render was not attempted in this pass because local `127.0.0.1:2000` refused connection during the optional smoke check. Existing TASK-102 source video was time-warped and used for TASK-111/TASK-113. Evidence: `tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.md`. Next unblock path: restart the graphics-capable CARLA host and run `configs/carla_ood_paper_demo.sample.yaml` for a fresh longer source capture.",
+    "2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060 long-score attempt `town13-long-score-attempt-001` started the stock `Generalization_PedestriansOnRoad_1088` route and reached game time `0.600s` at about `0.142x`, then stopped making observable progress. A concurrent route-aligned Alpamayo capture attempt with a 60s CARLA timeout also failed waiting for the simulator. I terminated the route evaluator cleanly to avoid burning the full 1200s timeout on a stalled local Mac/Wine simulation. Evidence: `tickets/TASK-060/artifacts/town13-long-score-attempt-001-evidence/run_evidence.md` and `tickets/TASK-069/artifacts/town13-live-attach-attempt-004/carla_alpamayo_capture.json`. Next unblock path: use a graphics-capable Linux NVIDIA CARLA host for Fail2Drive scoring/capture, or rerun locally only after confirming CARLA can sustain route ticks and serve a second Python client during synchronous mode.",
+    "2026-05-06 11:34 +0800 | fail2drive,carla,town13,score | TASK-071 produced fresh Town13 MP4 evidence from the stock Fail2Drive `Generalization_PedestriansOnRoad_1088` route, but full route score/completion remains open because the run intentionally stops after early video capture. Restarted CARLA improved route speed to about `0.23x`, but the local Mac/Kegworks/Wine path is still not a fast full-suite scoring runtime. Evidence: `tickets/TASK-071/artifacts/town13-early-route-evidence/run_evidence.md`. Next unblock path: rerun without `--stop-after-video` for a long local route scoring attempt, or move the route to a faster graphics-capable Linux NVIDIA CARLA host.",
+    "2026-05-05 17:07 +0800 | h100,carla,vulkan | TASK-020 stock SimLingo H100 route run cannot reach policy execution because CARLA 0.9.15 exits before opening port `20000` on the RunPod H100 container. CUDA is compatible for SimLingo (`sm_90`), but CARLA needs a working graphics/Vulkan runtime; diagnostics show default Vulkan only exposes `llvmpipe`, forcing the NVIDIA ICD fails with `ERROR_INCOMPATIBLE_DRIVER`, and CARLA exits with status `1`. Evidence: `tickets/archive/TASK-020/artifacts/task20-evidence-final/remote_simlingo_evidence.md` and `tickets/archive/TASK-020/artifacts/task20-remote/carla_runtime_diagnostics.md`. Next unblock path: move the stock route to a graphics-capable Ampere host such as RTX 3090 / RTX A6000 / A40 / A10, or rebuild the SimLingo torch stack for the earlier RTX PRO 6000 Blackwell host where CARLA did launch."
+  ],
+  "artifact_map": {
+    "workbench_bundle": "tickets/TASK-108/artifacts/workbench-bundle-v1-with-risk/scenario_run_bundle.json",
+    "agentic_loop": "tickets/TASK-109/artifacts/agentic-ood-loop-v1/agentic_ood_generation_loop.json",
+    "risk_timeline": "tickets/TASK-110/artifacts/risk-timeline-v1/risk_timeline.json",
+    "reasoning_overlay": "tickets/TASK-111/artifacts/reasoning-overlay-v1/reasoning_overlay_video.json",
+    "timewarp": "tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.json",
+    "alpamayo_batch": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json",
+    "final_demo_video": "artifacts/exported/final_sota_demo_v8.mp4",
+    "blockers": "blockers.md"
+  }
+}

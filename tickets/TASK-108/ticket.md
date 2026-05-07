@@ -1,7 +1,7 @@
 # TASK-108: Scenario Workbench Evidence Bundle
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-101, TASK-102, TASK-103, TASK-104, TASK-107
@@ -159,10 +159,10 @@ flowchart LR
 
 ### Acceptance Criteria
 
-- [ ] AC-1: A bundle can be built from current TASK-102/TASK-103/TASK-104 artifacts.
-- [ ] AC-2: Bundle report shows the full generate-run-reason-curate loop.
-- [ ] AC-3: Linkage warnings are emitted when scenario ids do not match exactly.
-- [ ] AC-4: Heavy MP4s are referenced, not copied into tracked artifacts.
+- [x] AC-1: A bundle can be built from current TASK-102/TASK-103/TASK-104 artifacts.
+- [x] AC-2: Bundle report shows the full generate-run-reason-curate loop.
+- [x] AC-3: Linkage warnings are emitted when scenario ids do not match exactly.
+- [x] AC-4: Heavy MP4s are referenced, not copied into tracked artifacts.
 
 ### Verification
 
@@ -180,8 +180,9 @@ flowchart LR
 
 ### Evidence
 
-- Pending: `tickets/TASK-108/artifacts/<run-id>/scenario_run_bundle.json`
-- Pending: `tickets/TASK-108/artifacts/<run-id>/scenario_run_bundle.html`
+- Built: `tickets/TASK-108/artifacts/workbench-bundle-v1/scenario_run_bundle.json`
+- Built with risk: `tickets/TASK-108/artifacts/workbench-bundle-v1-with-risk/scenario_run_bundle.json`
+- Built with risk HTML: `tickets/TASK-108/artifacts/workbench-bundle-v1-with-risk/scenario_run_bundle.html`
 - Plan review: `tickets/TASK-108/artifacts/review/task108-113-plan-review.md`
 
 ### Blockers

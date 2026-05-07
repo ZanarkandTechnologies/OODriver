@@ -8,6 +8,7 @@ __pycache__/
 *.egg-info/
 external/
 artifacts/cache/
+artifacts/exported/
 .env
 .env.*
 !.env.example

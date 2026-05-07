@@ -1,7 +1,7 @@
 # TASK-111: Reasoning And RAG Timeline Video Overlay
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-108, TASK-110, TASK-104
@@ -128,10 +128,10 @@ that explanatory layer.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Output MP4 includes risk, memory, VLA reasoning, and action intent panels.
-- [ ] AC-2: Overlay supports time-warped playback and reports the speed factor.
-- [ ] AC-3: Claim boundary says sampled/open-loop reasoning, not real-time control.
-- [ ] AC-4: A fixture frame render test proves text fits and event rows appear.
+- [x] AC-1: Output MP4 includes risk, memory, VLA reasoning, and action intent panels.
+- [x] AC-2: Overlay supports time-warped playback and reports the speed factor.
+- [x] AC-3: Claim boundary says sampled/open-loop reasoning, not real-time control.
+- [x] AC-4: A fixture frame render test proves text fits and event rows appear.
 
 ### Verification
 
@@ -149,9 +149,10 @@ that explanatory layer.
 
 ### Evidence
 
-- Pending: `tickets/TASK-111/artifacts/<run-id>/reasoning_overlay_video.json`
-- Pending: ignored MP4 under `artifacts/exported/`
-- Pending: sample frame PNG if small enough to track.
+- Built: `tickets/TASK-111/artifacts/reasoning-overlay-v1/reasoning_overlay_video.json`
+- Built: `tickets/TASK-111/artifacts/reasoning-overlay-v1/reasoning_overlay_video.md`
+- Built ignored MP4: `artifacts/exported/task111_reasoning_overlay_v1.mp4`
+- Built ignored sample frame under `tickets/TASK-111/artifacts/reasoning-overlay-v1/reasoning_overlay_frames/frames/`.
 
 ### Blockers
 

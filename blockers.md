@@ -6,6 +6,15 @@ unblocked ticket when possible.
 
 ## Open
 
+- 2026-05-07 16:36 +0800 | carla,video,paper-demo | TASK-112
+  fresh paper-demo CARLA source render was not attempted in this pass because
+  local `127.0.0.1:2000` refused connection during the optional smoke check.
+  Existing TASK-102 source video was time-warped and used for TASK-111/TASK-113.
+  Evidence:
+  `tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.md`.
+  Next unblock path: restart the graphics-capable CARLA host and run
+  `configs/carla_ood_paper_demo.sample.yaml` for a fresh longer source capture.
+
 - 2026-05-06 11:48 +0800 | fail2drive,carla,town13,score,capture | TASK-060
   long-score attempt `town13-long-score-attempt-001` started the stock
   `Generalization_PedestriansOnRoad_1088` route and reached game time `0.600s`

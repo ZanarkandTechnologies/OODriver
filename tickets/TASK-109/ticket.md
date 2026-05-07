@@ -1,7 +1,7 @@
 # TASK-109: Agentic OOD Scenario Generation Loop
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-103, TASK-108
@@ -131,10 +131,10 @@ cases. This ticket turns it into a product contribution.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Command generates at least 20 candidate briefs from seed themes.
-- [ ] AC-2: Each candidate has novelty/pressure scoring and keep/reject rationale.
-- [ ] AC-3: Duplicate or weak candidates are rejected with actionable reasons.
-- [ ] AC-4: Queue identifies which candidates should run in CARLA next.
+- [x] AC-1: Command generates at least 20 candidate briefs from seed themes.
+- [x] AC-2: Each candidate has novelty/pressure scoring and keep/reject rationale.
+- [x] AC-3: Duplicate or weak candidates are rejected with actionable reasons.
+- [x] AC-4: Queue identifies which candidates should run in CARLA next.
 
 ### Verification
 
@@ -151,9 +151,9 @@ cases. This ticket turns it into a product contribution.
 
 ### Evidence
 
-- Pending: `tickets/TASK-109/artifacts/<run-id>/agentic_ood_generation_loop.json`
-- Pending: `tickets/TASK-109/artifacts/<run-id>/dataset_curation_queue.md`
-- Pending: `tickets/TASK-109/artifacts/<run-id>/scenario_brief_gallery.html`
+- Built: `tickets/TASK-109/artifacts/agentic-ood-loop-v1/agentic_ood_generation_loop.json`
+- Built: `tickets/TASK-109/artifacts/agentic-ood-loop-v1/dataset_curation_queue.md`
+- Built: `tickets/TASK-109/artifacts/agentic-ood-loop-v1/scenario_brief_gallery.html`
 
 ### Blockers
 

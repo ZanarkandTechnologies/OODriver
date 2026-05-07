@@ -1,0 +1,10 @@
+{
+  "workbench_bundle": "tickets/TASK-108/artifacts/workbench-bundle-v1-with-risk/scenario_run_bundle.json",
+  "agentic_loop": "tickets/TASK-109/artifacts/agentic-ood-loop-v1/agentic_ood_generation_loop.json",
+  "risk_timeline": "tickets/TASK-110/artifacts/risk-timeline-v1/risk_timeline.json",
+  "reasoning_overlay": "tickets/TASK-111/artifacts/reasoning-overlay-v1/reasoning_overlay_video.json",
+  "timewarp": "tickets/TASK-112/artifacts/timewarp-v1/video_timewarp.json",
+  "alpamayo_batch": "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json",
+  "final_demo_video": "artifacts/exported/final_sota_demo_v8.mp4",
+  "blockers": "blockers.md"
+}

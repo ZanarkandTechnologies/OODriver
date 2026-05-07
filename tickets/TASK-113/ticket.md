@@ -1,7 +1,7 @@
 # TASK-113: Paper-Style Final Demo And Submission Pack V8
 
 ## Status
-- state: review
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-108, TASK-109, TASK-110, TASK-111, TASK-112
@@ -126,10 +126,10 @@ data engine plus minimal-shot reasoning evaluator. V8 makes that obvious.
 
 ### Acceptance Criteria
 
-- [ ] AC-1: Final video/deck shows scenario generation, risk detection, RAG, VLA reasoning, and curation.
-- [ ] AC-2: V8 write-up clearly states real-time VLA is future work.
-- [ ] AC-3: Browser/pack links all new evidence artifacts and no heavy videos are tracked.
-- [ ] AC-4: Final review passes evidence-quality and demo/video-quality rubrics.
+- [x] AC-1: Final video/deck shows scenario generation, risk detection, RAG, VLA reasoning, and curation.
+- [x] AC-2: V8 write-up clearly states real-time VLA is future work.
+- [x] AC-3: Browser/pack links all new evidence artifacts and no heavy videos are tracked.
+- [x] AC-4: Final review passes evidence-quality and demo/video-quality rubrics.
 
 ### Verification
 
@@ -147,9 +147,9 @@ data engine plus minimal-shot reasoning evaluator. V8 makes that obvious.
 
 ### Evidence
 
-- Pending: `tickets/TASK-113/artifacts/final-submission-pack-v8/`
-- Pending: ignored final MP4 under `artifacts/exported/`
-- Pending: review artifact.
+- Built: `tickets/TASK-113/artifacts/final-submission-pack-v8/`
+- Built ignored final MP4: `artifacts/exported/final_sota_demo_v8.mp4`
+- Review: `tickets/TASK-113/artifacts/review/task108-113-impl-review.md`
 
 ### Blockers
 

@@ -134,3 +134,5 @@
 2026-05-07 06:02 +0800 | REVIEW | hardened TASK-106 after review found the final pack overclaimed remote-only hero media; exported the 84s MP4 locally, added local/remote video status tests, regenerated the V7 pack as submission_ready, and opened TASK-107 for final demo assembly
 2026-05-07 06:07 +0800 | SHIP | TASK-107 added a repeatable final demo video builder and rendered a 124s draft MP4 from evidence title cards plus the exported 84s CARLA hero clip, keeping generated videos under ignored artifacts/exported
 2026-05-07 12:32 +0800 | PLAN | created TASK-108 through TASK-113 as Scenario Workbench V2: evidence bundle, agentic OOD generation loop, CARLA risk timeline, reasoning/RAG overlay video, longer time-warped CARLA render, and V8 paper-style submission pack
+2026-05-07 16:36 +0800 | SUBMISSION | V8 Scenario Workbench packet shipped: agentic OOD loop, risk timeline, time-warped CARLA video, reasoning overlay MP4, and final paper-style demo pack.
+2026-05-07 16:36 +0800 | TESTING | Test audit found 91 files / 388 test cases and no exact duplicate bodies; no tests were deleted because the count maps to distinct simulator/model/submission seams.
