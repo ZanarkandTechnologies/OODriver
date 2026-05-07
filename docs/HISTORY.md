@@ -140,3 +140,5 @@
 2026-05-07 17:12 +0800 | PLAN | Created the CLI-first Scenario Generator Studio spec and TASK-114 through TASK-118 for generate, queue, closed-loop run, Alpamayo evaluation, replay, and export.
 2026-05-07 17:21 +0800 | PLAN | Reframed Scenario Studio CLI as a JSON-backed database/control plane and added TASK-119 for a Codex Scenario Operator skill wrapper after the DB commands stabilize.
 2026-05-07 17:45 +0800 | SHIP | TASK-114 through TASK-119 shipped OODrive as the product-facing CLI database/control plane with `driverx oodrive`, `driverx oodriver`, and `driverx studio` commands, queue/run/evaluate/replay/export artifacts, focused QA, and a project-local Codex operator skill.
+2026-05-07 17:46 +0800 | PLAN | Created TASK-120 through TASK-124 as the flagship OODrive case-study sprint: scenario contract, CARLA checkpoint capture, Alpamayo checkpoint inference, time-warped trajectory replay, and V9 evidence pack.
+2026-05-07 17:46 +0800 | SHIP | TASK-120 added the Malaysian wet night roadwork flagship scenario contract, CLI, config, runtime command plan, QA evidence, and H100/Kasm handoff targets for the next live CARLA + Alpamayo work.

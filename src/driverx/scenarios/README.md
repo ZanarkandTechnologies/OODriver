@@ -62,6 +62,20 @@ The CLI stores durable state in `scenario_studio_db.json`, produces Markdown and
 HTML proof packets, and keeps claim boundaries explicit when CARLA or Alpamayo
 evidence is missing.
 
+## Flagship Scenario Contract
+
+Use this when preparing the high-quality case study for the final submission
+runtime:
+
+```bash
+PYTHONPATH=src python3 -m driverx build-flagship-oodrive-scenario \
+  --config configs/oodrive_flagship_malaysia.yaml \
+  --run-id flagship-malaysia
+```
+
+The output pack names the scenario actors, behavior sequence, checkpoint plan,
+quality gates, and H100/Kasm runtime commands for the CARLA + Alpamayo loop.
+
 ## Test
 
 ```bash

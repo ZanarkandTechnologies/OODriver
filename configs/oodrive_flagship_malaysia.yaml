@@ -1,0 +1,17 @@
+flagship:
+  scenario_id: flagship-malaysia-wet-roadwork
+  title: Malaysian wet night roadwork chaos
+  prompt: Malaysian wet night roadwork where a lorry brakes without signal, a motorcycle filters between cars, cones and debris narrow the lane, and a roadside vendor occludes a wrong-way scooter.
+  map_name: Town10HD_Opt
+  output_root: artifacts/runs
+  run_id: flagship-malaysia
+  carla_config_path: configs/carla_ood_demo.runpod.high_fidelity.yaml
+  campaign_config_path: configs/scripted_ood_campaign.runpod.high_fidelity.yaml
+  behavior_sequence: sudden_brake,motorcycle_filtering,double_parked_door_swerve,wrong_way_shoulder_creep
+  memory_queries: motorcycle_filtering,unsignaled_brake,roadwork_lane_narrowing,vendor_occlusion,wrong_way_shoulder_creep
+  checkpoint_count: 10
+  target_duration_s: 90
+  weather: wet_night_glare
+  region: malaysia_urban
+  traffic_density: dense_mixed
+  road_condition: temporary_roadwork_lane_narrowing

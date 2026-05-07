@@ -200,6 +200,24 @@ Key outputs are `scenario_studio_db.json`, `scenario_dataset_queue.json`,
 `closed_loop_carla_execution=false` and `real_time_vla_control=false`; live CARLA
 and Alpamayo evidence must be attached through run/evaluate artifacts.
 
+## Quickstart: Flagship OODrive Scenario
+
+The next submission push focuses on one high-quality case study rather than
+more shallow breadth: Malaysian wet night roadwork with unsignaled braking,
+motorcycle filtering, lane-narrowing debris, roadside vendor occlusion, and a
+wrong-way shoulder scooter.
+
+```bash
+PYTHONPATH=src python3 -m driverx build-flagship-oodrive-scenario \
+  --config configs/oodrive_flagship_malaysia.yaml \
+  --output-root artifacts/runs \
+  --run-id flagship-malaysia
+```
+
+Key outputs are `flagship_scenario.json` and `flagship_scenario.md`. They
+contain the runtime command plan for CARLA capture, Alpamayo checkpoint
+inference, time-warped trajectory replay, and final evidence packaging.
+
 ## Quickstart: Scenario Forge
 
 ```bash

@@ -71,6 +71,9 @@ stack-specific details and commands in `PROJECT_RULES.md`.
 - Use OODrive as the product-facing scenario generator name. `driverx oodrive`
   is the canonical CLI database/control plane; `driverx oodriver` and
   `driverx studio` are compatibility aliases only. See `MEM-0035`.
+- The next live CARLA + Alpamayo sprint should optimize the flagship
+  `flagship-malaysia-wet-roadwork` case before adding more scenario breadth.
+  See `MEM-0036`.
 - For local CARLA 0.9.16 scripted OOD props, use probed stock proxy
   blueprints (`static.prop.dirtdebris01`, `static.prop.foodcart`,
   `static.prop.constructioncone`) and do not rely on absent `trafficcone`

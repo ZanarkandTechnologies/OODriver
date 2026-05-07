@@ -14,6 +14,13 @@ from driverx.scenarios.catalog import (
     write_scenario_catalog_outputs,
     write_scenario_selection,
 )
+from driverx.scenarios.flagship import (
+    FlagshipScenarioConfig,
+    FlagshipScenarioPack,
+    build_flagship_scenario,
+    load_flagship_config,
+    write_flagship_scenario,
+)
 from driverx.scenarios.generator import generate_scenario_recipes
 from driverx.scenarios.loader import load_scenario_results, load_scenario_seeds
 from driverx.scenarios.quality import (
@@ -34,6 +41,8 @@ from driverx.scenarios.types import (
 
 __all__ = [
     "MutationPolicy",
+    "FlagshipScenarioConfig",
+    "FlagshipScenarioPack",
     "OODRIVE_PRODUCT_NAME",
     "OODRIVER_PRODUCT_NAME",
     "PromotionDecision",
@@ -48,10 +57,12 @@ __all__ = [
     "ScenarioResult",
     "ScenarioSeed",
     "filter_catalog",
+    "build_flagship_scenario",
     "generate_scenario_recipes",
     "evaluate_scenario_quality",
     "index_scenario_artifacts",
     "load_scenario_catalog",
+    "load_flagship_config",
     "load_scenario_results",
     "load_scenario_seeds",
     "promote_scenario",
@@ -60,4 +71,5 @@ __all__ = [
     "write_scenario_quality_outputs",
     "write_scenario_selection",
     "write_scenario_suite",
+    "write_flagship_scenario",
 ]
