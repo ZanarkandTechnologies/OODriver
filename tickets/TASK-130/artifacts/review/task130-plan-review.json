@@ -1,0 +1,90 @@
+{
+  "work_type": ["planning", "autoresearch-contract"],
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-130/ticket.md",
+      "autoresearch.md",
+      "autoresearch.sh",
+      "autoresearch.checks.sh",
+      "autoresearch.jsonl",
+      "autoresearch.ideas.md",
+      "qa/fixtures/hero_demo_score/README.md",
+      "qa/fixtures/hero_demo_score/candidate_demo.json",
+      "qa/fixtures/hero_demo_score/target_demo.json",
+      "qa/fixtures/hero_demo_score/score_fixture.py"
+    ],
+    "related_files": [
+      "docs/prd.md",
+      "docs/specs/scenario-generator-cli-v1.md",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md",
+      "src/oodrive/cli.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/simulators/reasoning_timeline_overlay.py",
+      "src/driverx/scenarios/quality.py"
+    ],
+    "invariants_checked": ["MEM-0034", "MEM-0037", "MEM-0038", "MEM-0039"],
+    "docs_checked": [
+      "review-rubric-index.md",
+      "spec-contract.md",
+      "implementation-plan.md"
+    ]
+  },
+  "rubrics_used": ["spec-contract", "implementation-plan"],
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "minor",
+      "confidence": 0.9,
+      "rubric": "implementation-plan",
+      "summary": "The bootstrap verify command is fixture-backed until TASK-130 lands, but the ticket clearly identifies the production CLI replacement path.",
+      "file_refs": ["autoresearch.md", "tickets/TASK-130/ticket.md"],
+      "next_action": "Implement oodrive score-demo and keep the fixture as a regression baseline."
+    }
+  ],
+  "rubric_sections": {
+    "spec-contract": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "story-coherence": 4.4,
+        "parallelization-fit": 4.0,
+        "ticket-sizing": 4.0,
+        "acceptance-testability": 4.3,
+        "scope-clarity": 4.2
+      },
+      "findings": [],
+      "next_action": "Execute as one coherent score-and-demo-video ticket."
+    },
+    "implementation-plan": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "human-readability": 4.2,
+        "bloatability": 4.1,
+        "modularity": 4.2,
+        "proof-clarity": 4.4,
+        "execution-order": 4.2,
+        "risk-clarity": 4.0,
+        "decision-tone": 4.3,
+        "autonomy-readiness": 4.2
+      },
+      "findings": [
+        "Bootstrap metric is fixture-backed by design; production scorer must replace it during build."
+      ],
+      "next_action": "Move to implementation."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Move TASK-130 to building and implement the production scorer/video commands."
+}

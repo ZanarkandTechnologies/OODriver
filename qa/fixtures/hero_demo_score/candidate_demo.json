@@ -1,0 +1,25 @@
+{
+  "candidate_id": "task128-current-video-baseline",
+  "video_path": "artifacts/exported/task128_oodrive_live_product.mp4",
+  "source_duration_s": 90.0,
+  "output_duration_s": 30.0,
+  "frame_count": 450,
+  "fps": 15,
+  "has_mp4": true,
+  "road_alignment_pass": true,
+  "frame_time_overlay_coverage": 0.0,
+  "mean_ego_speed_mps": 1.1,
+  "visible_generated_object_count": 3,
+  "risk_event_count": 2,
+  "reasoning_event_count": 1,
+  "rag_event_count": 1,
+  "alpamayo_prediction_count": 1,
+  "min_distance_m": 1.82,
+  "offroad_actor_count": 0,
+  "claim_boundaries": [
+    "time_warped_offline_demo=true",
+    "sampled_open_loop_reasoning=true",
+    "real_time_vla_control=false"
+  ],
+  "notes": "Current weak baseline: live CARLA placement plus fresh Alpamayo reasoning exists, but the video does not visibly show frame/time, enough reasoning checkpoints, or enough RAG callouts."
+}

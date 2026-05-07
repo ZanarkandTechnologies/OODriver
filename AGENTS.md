@@ -84,6 +84,10 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   reasoning over captured frames. Keep this evidence labeled
   `closed_loop_vla_control=false` and `real_time_vla_control=false` until
   Alpamayo outputs directly drive CARLA controls. See `MEM-0038`.
+- Judge-facing OODrive hero videos must pass a mechanical demo-quality score
+  before promotion; raw MP4 presence is insufficient without frame/time,
+  reasoning, RAG, risk, motion/duration, and claim-boundary evidence. See
+  `MEM-0039`.
 - For local CARLA 0.9.16 scripted OOD props, use probed stock proxy
   blueprints (`static.prop.dirtdebris01`, `static.prop.foodcart`,
   `static.prop.constructioncone`) and do not rely on absent `trafficcone`

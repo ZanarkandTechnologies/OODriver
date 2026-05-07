@@ -148,3 +148,4 @@
 2026-05-07 18:30 +0800 | SHIP | TASK-126/TASK-127 added `oodrive generate`, `oodrive place`, and `oodrive reason`; dry-run prompt-to-placement-to-reasoning evidence passes locally, while live CARLA placement is cleanly blocked on Docker reaching `host.docker.internal:2000`.
 2026-05-07 19:10 +0800 | SHIP | TASK-128 proved the live OODrive product loop on the Kasm CARLA pod: `oodrive generate` produced a placement plan, `oodrive place --live` rendered 450 frames with objects placed, Alpamayo 1.5 completed on the fresh CARLA package with CoC reasoning, and an overlay MP4 was assembled.
 2026-05-07 19:10 +0800 | PLAN | Created TASK-129 to productize the remaining manual Alpamayo inference bridge as a first-class `oodrive infer` command.
+2026-05-07 21:48 +0800 | PLAN | Created the hero-demo autoresearch session and TASK-130 plan around a mechanical `hero_demo_score`, demo-video reasoning/RAG/frame overlays, and score-gated submission promotion.
