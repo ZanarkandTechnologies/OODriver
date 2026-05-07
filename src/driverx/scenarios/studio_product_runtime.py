@@ -7,6 +7,12 @@ from pathlib import Path
 from typing import Any
 
 from driverx.core.artifacts import prepare_run_dir
+from driverx.perception.risk_timeline import (
+    RiskTimelineConfig,
+    build_risk_timeline,
+    load_entity_tracks,
+    write_risk_timeline,
+)
 from driverx.scenarios.run_manifest import ScenarioRunManifest, write_run_manifest
 from driverx.scenarios.studio_db import (
     OODRIVE_PRODUCT_NAME,
@@ -440,6 +446,228 @@ def run_studio_reason(
     )
 
 
+def run_studio_score_demo(
+    db_path: Path | None = None,
+    *,
+    run_manifest_path: Path | None = None,
+    evaluation_path: Path | None = None,
+    video_path: Path | None = None,
+    overlay_report_path: Path | None = None,
+    score_input_path: Path | None = None,
+    output_root: Path | None = None,
+    run_id: str | None = None,
+    metric_only: bool = False,
+) -> StudioCommandResult:
+    """Score whether a hero demo video is submission-visible enough."""
+
+    from driverx.evaluation.hero_demo_score import (
+        load_demo_score_inputs,
+        score_hero_demo,
+        write_hero_demo_score,
+    )
+
+    if db_path is None and score_input_path is None:
+        raise ValueError("Pass either --db or --score-input.")
+    db = load_studio_db(db_path) if db_path is not None and db_path.exists() else None
+    run_payload = load_or_latest_run(db, run_manifest_path) if db is not None and score_input_path is None else {}
+    resolved_run_manifest_path = run_manifest_path or _json_path_from_payload(run_payload)
+    score_id = run_id or f"{run_payload.get('scenario_id', 'hero-demo')}-score"
+    run_dir = prepare_run_dir(output_root or ((db_path.parent / "demo-scores") if db_path else Path("artifacts/runs")), score_id)
+    inputs = load_demo_score_inputs(
+        db_path=db_path,
+        run_manifest_path=resolved_run_manifest_path,
+        evaluation_path=evaluation_path,
+        video_path=video_path,
+        overlay_report_path=overlay_report_path,
+        score_input_path=score_input_path,
+    )
+    report = score_hero_demo(inputs)
+    artifacts = artifact_paths(write_hero_demo_score(run_dir, report))
+    if metric_only:
+        print(f"METRIC hero_demo_score={report.hero_demo_score:.4f}")
+    if db is not None and db_path is not None:
+        db = replace_db(
+            db,
+            artifacts={**db.artifacts, **artifacts},
+            claim_boundaries=sorted(
+                set(
+                    [
+                        *db.claim_boundaries,
+                        "hero_demo_score_required_for_promotion=true",
+                        "raw_video_presence_is_not_submission_quality=true",
+                    ]
+                )
+            ),
+        )
+        db = append_command(
+            db,
+            command="oodrive score-demo",
+            status=report.status,
+            artifacts=artifacts,
+            summary={
+                "candidate_id": inputs.candidate_id,
+                "hero_demo_score": report.hero_demo_score,
+                "threshold": report.threshold,
+                "blocker_count": len(report.blockers),
+            },
+        )
+        artifacts = {**artifact_paths(write_studio_db(db_path, db)), **artifacts}
+        claim_boundaries = db.claim_boundaries
+        command_run_id = db.run_id
+    else:
+        claim_boundaries = report.claim_boundaries
+        command_run_id = score_id
+    next_commands = []
+    if report.status != "passed" and db_path is not None:
+        next_commands.append(
+            oodrive_command(
+                f"demo-video --db {db_path} --run <run_manifest_path> --evaluation <policy_evaluation.json> --input-video <video.mp4>"
+            )
+        )
+    return StudioCommandResult(
+        command="oodrive score-demo",
+        run_id=command_run_id,
+        status=report.status,
+        artifacts=artifacts,
+        next_commands=next_commands,
+        summary={
+            "candidate_id": inputs.candidate_id,
+            "hero_demo_score": report.hero_demo_score,
+            "threshold": report.threshold,
+            "metrics": report.metrics,
+            "components": report.components,
+        },
+        claim_boundaries=claim_boundaries,
+        blockers=report.blockers,
+    )
+
+
+def run_studio_demo_video(
+    db_path: Path,
+    *,
+    input_video: Path,
+    run_manifest_path: Path | None = None,
+    evaluation_path: Path | None = None,
+    output_video: Path | None = None,
+    output_root: Path | None = None,
+    run_id: str | None = None,
+    fps: int = 15,
+    speed_factor: float = 4.0,
+    show_frame_time: bool = True,
+    show_reasoning: bool = True,
+    show_rag: bool = True,
+) -> StudioCommandResult:
+    """Build a time-warped reasoning/RAG overlay video for the hero demo."""
+
+    from driverx.simulators.reasoning_timeline_overlay import (
+        ReasoningOverlayConfig,
+        build_reasoning_overlay_events,
+        render_reasoning_timeline_overlay,
+    )
+    from driverx.simulators.video_timewarp import timewarp_video, write_video_timewarp
+
+    db = load_studio_db(db_path)
+    run_payload = load_or_latest_run(db, run_manifest_path)
+    evaluation_payload = _load_json(evaluation_path) if evaluation_path is not None and evaluation_path.exists() else {}
+    scenario_id = str(run_payload.get("scenario_id", "hero-demo"))
+    demo_id = run_id or f"{scenario_id}-hero-demo"
+    run_dir = prepare_run_dir(output_root or (db_path.parent / "demo-videos"), demo_id)
+    artifacts = _mapping(run_payload.get("artifacts"))
+    tracks_path = _optional_path(artifacts.get("tracks_path"))
+    risk_payload = _risk_payload_for_demo(run_dir, tracks_path, run_payload)
+    working_input = input_video
+    timewarp_payload: dict[str, Any] = {}
+    if speed_factor > 0 and speed_factor != 1.0:
+        timewarped_video = run_dir / "timewarped_source.mp4"
+        timewarp_result = timewarp_video(input_video, timewarped_video, speed_factor=speed_factor, fps=fps)
+        timewarp_payload = write_video_timewarp(run_dir / "timewarp", timewarp_result)
+        if timewarp_result.status == "passed":
+            working_input = timewarped_video
+    output_video = output_video or (run_dir / "oodrive_hero_demo.mp4")
+    events = build_reasoning_overlay_events(
+        bundle={"scenario_id": scenario_id},
+        risk_timeline=risk_payload,
+        alpamayo_batch={"records": [_alpamayo_record_from_evaluation(scenario_id, evaluation_payload)]},
+        speed_factor=speed_factor,
+        limit=8,
+    )
+    result = render_reasoning_timeline_overlay(
+        ReasoningOverlayConfig(
+            input_video=working_input,
+            output_video=output_video,
+            output_frame_dir=run_dir / "overlay",
+            events=events,
+            fps=fps,
+            speed_factor=speed_factor,
+            title="OODrive Scenario Generator",
+            subtitle="generated CARLA OOD case + sampled VLA reasoning + RAG memory",
+            show_frame_time=show_frame_time,
+            show_reasoning=show_reasoning,
+            show_rag=show_rag,
+        )
+    )
+    payload = {
+        **result.to_jsonable(),
+        "scenario_id": scenario_id,
+        "events": [event.to_jsonable() for event in events],
+        "risk_timeline": risk_payload,
+        "timewarp": timewarp_payload,
+        "score_next_command": oodrive_command(
+            f"score-demo --db {db_path} --run {run_manifest_path or run_payload.get('json_path', '')} --evaluation {evaluation_path or ''} --video {output_video} --overlay-report {run_dir / 'hero_demo_video.json'}"
+        ),
+    }
+    json_path = run_dir / "hero_demo_video.json"
+    report_path = run_dir / "hero_demo_video.md"
+    json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    report_path.write_text(_hero_demo_video_markdown(payload), encoding="utf-8")
+    video_artifacts = {
+        "hero_demo_video_path": str(output_video),
+        "hero_demo_video_json_path": str(json_path),
+        "hero_demo_video_report_path": str(report_path),
+    }
+    db = replace_db(
+        db,
+        artifacts={**db.artifacts, **video_artifacts},
+        claim_boundaries=sorted(
+            set(
+                [
+                    *db.claim_boundaries,
+                    "time_warped_offline_demo=true",
+                    "sampled_open_loop_reasoning=true",
+                    "real_time_vla_control=false",
+                    "hero_demo_frame_time_overlay=true" if show_frame_time else "hero_demo_frame_time_overlay=false",
+                    "hero_demo_rag_overlay=true" if show_rag else "hero_demo_rag_overlay=false",
+                    "hero_demo_reasoning_overlay=true" if show_reasoning else "hero_demo_reasoning_overlay=false",
+                ]
+            )
+        ),
+    )
+    db = append_command(
+        db,
+        command="oodrive demo-video",
+        status=result.status,
+        artifacts=video_artifacts,
+        summary={
+            "scenario_id": scenario_id,
+            "output_video": str(output_video),
+            "event_count": len(events),
+            "frame_count": result.frame_count,
+            "frame_time_overlay_coverage": result.frame_time_overlay_coverage,
+        },
+    )
+    db_artifacts = artifact_paths(write_studio_db(db_path, db))
+    return StudioCommandResult(
+        command="oodrive demo-video",
+        run_id=db.run_id,
+        status=result.status,
+        artifacts={**db_artifacts, **video_artifacts},
+        next_commands=[payload["score_next_command"]],
+        summary=payload,
+        claim_boundaries=db.claim_boundaries,
+        blockers=result.blockers,
+    )
+
+
 def _package_path_from_run(run_payload: dict[str, Any]) -> Path | None:
     artifacts = run_payload.get("artifacts")
     if not isinstance(artifacts, dict):
@@ -507,4 +735,85 @@ def _try_build_package_from_run(
         return {}
 
 
-__all__ = ["run_studio_generate", "run_studio_place", "run_studio_reason"]
+def _json_path_from_payload(payload: dict[str, Any]) -> Path | None:
+    value = payload.get("json_path")
+    return Path(value) if isinstance(value, str) and value else None
+
+
+def _load_json(path: Path | None) -> dict[str, Any]:
+    if path is None:
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return dict(payload) if isinstance(payload, dict) else {}
+
+
+def _optional_path(value: object) -> Path | None:
+    return Path(value) if isinstance(value, str) and value else None
+
+
+def _mapping(value: Any) -> dict[str, Any]:
+    return dict(value) if isinstance(value, dict) else {}
+
+
+def _risk_payload_for_demo(run_dir: Path, tracks_path: Path | None, run_payload: dict[str, Any]) -> dict[str, Any]:
+    if tracks_path is not None and tracks_path.exists():
+        try:
+            timeline = build_risk_timeline(
+                load_entity_tracks(tracks_path),
+                RiskTimelineConfig(scenario_id=str(run_payload.get("scenario_id", ""))),
+            )
+            return write_risk_timeline(run_dir / "risk", timeline)
+        except (OSError, ValueError):
+            pass
+    return {
+        "scenario_id": run_payload.get("scenario_id"),
+        "event_count": 0,
+        "events": [],
+        "tick_summaries": [],
+        "claim_boundaries": ["risk_timeline_missing=true"],
+    }
+
+
+def _alpamayo_record_from_evaluation(scenario_id: str, evaluation_payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "scenario_id": scenario_id,
+        "memory_ids": list(evaluation_payload.get("memory_ids", []))
+        if isinstance(evaluation_payload.get("memory_ids"), list)
+        else [],
+        "cot_snippet": evaluation_payload.get("cot_summary"),
+        "reasoning_changed": bool(evaluation_payload.get("cot_summary")),
+    }
+
+
+def _hero_demo_video_markdown(payload: dict[str, Any]) -> str:
+    lines = [
+        "# OODrive Hero Demo Video",
+        "",
+        f"- Status: `{payload.get('status')}`",
+        f"- Scenario: `{payload.get('scenario_id')}`",
+        f"- Output video: `{payload.get('output_video')}`",
+        f"- Sample frame: `{payload.get('sample_frame_path')}`",
+        f"- Events: `{payload.get('event_count')}`",
+        f"- Frame/time coverage: `{payload.get('frame_time_overlay_coverage')}`",
+        "",
+        "## Next",
+        "",
+        f"`{payload.get('score_next_command')}`",
+        "",
+        "## Claim Boundaries",
+        "",
+    ]
+    lines.extend(f"- `{item}`" for item in list(payload.get("claim_boundaries", [])))
+    return "\n".join(lines) + "\n"
+
+
+__all__ = [
+    "run_studio_demo_video",
+    "run_studio_generate",
+    "run_studio_place",
+    "run_studio_reason",
+    "run_studio_score_demo",
+]

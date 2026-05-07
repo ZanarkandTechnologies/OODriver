@@ -157,6 +157,15 @@ class OODriveCliTests(unittest.TestCase):
             self.assertTrue(Path(result["artifacts"]["db_path"]).exists())
             self.assertTrue(Path(result["artifacts"]["export"]).exists())
 
+    def test_product_demo_quality_commands_are_registered(self) -> None:
+        for command in ("score-demo", "demo-video"):
+            stream = StringIO()
+            with self.assertRaises(SystemExit) as raised, redirect_stdout(stream):
+                oodrive_main([command, "--help"])
+
+            self.assertEqual(raised.exception.code, 0)
+            self.assertIn(command, stream.getvalue())
+
     def test_ai_generate_creates_provider_briefs_and_uses_product_next_commands(self) -> None:
         with TemporaryDirectory() as tmp:
             stream = StringIO()

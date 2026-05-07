@@ -48,6 +48,9 @@ class ReasoningOverlayConfig:
     title: str = "0xDriver Scenario Workbench"
     subtitle: str = "time-warped CARLA + sampled open-loop VLA reasoning"
     speed_factor: float = 3.0
+    show_frame_time: bool = True
+    show_reasoning: bool = True
+    show_rag: bool = True
 
 
 @dataclass(frozen=True)
@@ -67,6 +70,7 @@ class ReasoningOverlayResult:
     stderr: str
     blockers: list[str] = field(default_factory=list)
     claim_boundaries: list[str] = field(default_factory=list)
+    frame_time_overlay_coverage: float = 0.0
 
     def to_jsonable(self) -> dict[str, Any]:
         return {
@@ -85,6 +89,7 @@ class ReasoningOverlayResult:
             "stderr": self.stderr,
             "blockers": self.blockers,
             "claim_boundaries": self.claim_boundaries,
+            "frame_time_overlay_coverage": self.frame_time_overlay_coverage,
         }
 
 
@@ -169,6 +174,7 @@ def render_reasoning_timeline_overlay(config: ReasoningOverlayConfig) -> Reasoni
             stderr="\n".join(blockers),
             blockers=blockers,
             claim_boundaries=claim_boundaries,
+            frame_time_overlay_coverage=0.0,
         )
     try:
         from PIL import Image, ImageDraw, ImageFont
@@ -189,6 +195,7 @@ def render_reasoning_timeline_overlay(config: ReasoningOverlayConfig) -> Reasoni
             stderr=str(exc),
             blockers=[f"Pillow unavailable: {exc}"],
             claim_boundaries=claim_boundaries,
+            frame_time_overlay_coverage=0.0,
         )
 
     config.output_frame_dir.mkdir(parents=True, exist_ok=True)
@@ -225,6 +232,7 @@ def render_reasoning_timeline_overlay(config: ReasoningOverlayConfig) -> Reasoni
             stderr=extract_proc.stderr,
             blockers=[],
             claim_boundaries=claim_boundaries,
+            frame_time_overlay_coverage=0.0,
         )
     frames = sorted(extracted_dir.glob("frame_*.png"))
     font = ImageFont.load_default()
@@ -234,7 +242,19 @@ def render_reasoning_timeline_overlay(config: ReasoningOverlayConfig) -> Reasoni
         with Image.open(frame) as image:
             image = image.convert("RGB")
             draw = ImageDraw.Draw(image, "RGBA")
-            render_reasoning_overlay_frame(draw, image.size, event, config.title, config.subtitle, font)
+            render_reasoning_overlay_frame(
+                draw,
+                image.size,
+                event,
+                config.title,
+                config.subtitle,
+                font,
+                frame_index=index,
+                render_time_s=index / config.fps,
+                show_frame_time=config.show_frame_time,
+                show_reasoning=config.show_reasoning,
+                show_rag=config.show_rag,
+            )
             image.save(target)
     config.output_video.parent.mkdir(parents=True, exist_ok=True)
     assemble_command = [
@@ -272,6 +292,7 @@ def render_reasoning_timeline_overlay(config: ReasoningOverlayConfig) -> Reasoni
         stderr=assemble_proc.stderr,
         blockers=[],
         claim_boundaries=claim_boundaries,
+        frame_time_overlay_coverage=1.0 if config.show_frame_time and frames else 0.0,
     )
 
 
@@ -282,6 +303,12 @@ def render_reasoning_overlay_frame(
     title: str,
     subtitle: str,
     font: Any,
+    *,
+    frame_index: int | None = None,
+    render_time_s: float | None = None,
+    show_frame_time: bool = True,
+    show_reasoning: bool = True,
+    show_rag: bool = True,
 ) -> None:
     width, height = image_size
     panel_w = min(520, max(360, width // 2))
@@ -292,8 +319,13 @@ def render_reasoning_overlay_frame(
     draw.rounded_rectangle((x0, y0, x1, y1), radius=6, fill=(5, 10, 20, 205))
     draw.text((x0 + 18, y0 + 14), title, fill=(255, 255, 255, 245), font=font)
     draw.text((x0 + 18, y0 + 32), subtitle, fill=(194, 211, 255, 235), font=font)
-    rows = _panel_rows(event)
     y = y0 + 62
+    if show_frame_time:
+        frame_text = _frame_time_text(event, frame_index, render_time_s)
+        draw.rounded_rectangle((x0 + 16, y, x1 - 16, y + 34), radius=4, fill=(24, 38, 56, 220))
+        draw.text((x0 + 28, y + 10), frame_text, fill=(255, 255, 255, 245), font=font)
+        y += 44
+    rows = _panel_rows(event, show_reasoning=show_reasoning, show_rag=show_rag)
     for label, value, color in rows:
         draw.rounded_rectangle((x0 + 16, y, x1 - 16, y + 56), radius=4, fill=color)
         draw.text((x0 + 28, y + 8), label, fill=(255, 255, 255, 245), font=font)
@@ -323,20 +355,49 @@ def _event_for_time(events: list[ReasoningOverlayEvent], time_s: float) -> Reaso
     return previous[-1] if previous else (events[0] if events else None)
 
 
-def _panel_rows(event: ReasoningOverlayEvent | None) -> list[tuple[str, str, tuple[int, int, int, int]]]:
+def _frame_time_text(
+    event: ReasoningOverlayEvent | None,
+    frame_index: int | None,
+    render_time_s: float | None,
+) -> str:
+    frame = "?" if frame_index is None else str(frame_index)
+    rendered = "?" if render_time_s is None else f"{render_time_s:.2f}s"
+    source = "?" if event is None else f"{event.source_time_s:.2f}s"
+    return f"frame {frame} | render t={rendered} | source t={source}"
+
+
+def _panel_rows(
+    event: ReasoningOverlayEvent | None,
+    *,
+    show_reasoning: bool,
+    show_rag: bool,
+) -> list[tuple[str, str, tuple[int, int, int, int]]]:
     if event is None:
-        return [
+        rows = [
             ("RISK", "Waiting for scenario evidence", (30, 48, 72, 210)),
-            ("RAG MEMORY", "No memory event yet", (32, 62, 72, 205)),
-            ("VLA REASONING", "No sampled reasoning yet", (55, 48, 87, 205)),
             ("ACTION INTENT", "Continue monitoring", (58, 75, 57, 205)),
         ]
-    return [
+        if show_rag:
+            rows.insert(1, ("RAG MEMORY", "No memory event yet", (32, 62, 72, 205)))
+        if show_reasoning:
+            rows.insert(2 if show_rag else 1, ("VLA REASONING", "No sampled reasoning yet", (55, 48, 87, 205)))
+        return rows
+    rows = [
         ("RISK", event.risk, (118, 41, 41, 215)),
-        ("RAG MEMORY", f"{event.memory_id or 'none'}: {event.memory_principle or 'no retrieved principle'}", (20, 83, 91, 210)),
-        ("VLA REASONING", event.vla_reasoning or "No CoC snippet linked", (66, 54, 113, 210)),
         ("ACTION INTENT", event.action_intent, (63, 98, 57, 210)),
     ]
+    if show_rag:
+        rows.insert(
+            1,
+            (
+                "RAG MEMORY",
+                f"{event.memory_id or 'none'}: {event.memory_principle or 'no retrieved principle'}",
+                (20, 83, 91, 210),
+            ),
+        )
+    if show_reasoning:
+        rows.insert(2 if show_rag else 1, ("VLA REASONING", event.vla_reasoning or "No CoC snippet linked", (66, 54, 113, 210)))
+    return rows
 
 
 def _wrap(value: str, width: int) -> list[str]:
@@ -367,6 +428,9 @@ def _reasoning_snippet(record: dict[str, Any] | None) -> str | None:
                 return snippets[-1]
         except (OSError, json.JSONDecodeError):
             pass
+    for key in ("cot_snippet", "cot_summary", "vla_reasoning"):
+        if record.get(key):
+            return str(record.get(key))
     if record.get("reasoning_changed") is not None:
         return f"Alpamayo sampled reasoning linked; reasoning_changed={record.get('reasoning_changed')}"
     return None

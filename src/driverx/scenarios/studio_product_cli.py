@@ -20,9 +20,11 @@ from driverx.scenarios.studio_product import (
     run_studio_run,
 )
 from driverx.scenarios.studio_product_runtime import (
+    run_studio_demo_video,
     run_studio_generate,
     run_studio_place,
     run_studio_reason,
+    run_studio_score_demo,
 )
 
 
@@ -142,6 +144,36 @@ def _register_commands(parser: argparse.ArgumentParser, name: str) -> None:
     reason.add_argument("--output-root", type=Path)
     reason.add_argument("--run-id")
     reason.set_defaults(func=_command_reason)
+
+    score_demo = nested.add_parser("score-demo", help="Score whether a demo video is submission-visible enough.")
+    score_demo.add_argument("--db", type=Path)
+    score_demo.add_argument("--run", dest="run_manifest", type=Path)
+    score_demo.add_argument("--evaluation", type=Path)
+    score_demo.add_argument("--video", type=Path)
+    score_demo.add_argument("--overlay-report", type=Path)
+    score_demo.add_argument("--score-input", type=Path)
+    score_demo.add_argument("--output-root", type=Path)
+    score_demo.add_argument("--run-id")
+    score_demo.add_argument("--metric-only", action="store_true")
+    score_demo.set_defaults(func=_command_score_demo)
+
+    demo_video = nested.add_parser("demo-video", help="Build a frame/time + reasoning/RAG overlay demo video.")
+    demo_video.add_argument("--db", type=Path, required=True)
+    demo_video.add_argument("--run", dest="run_manifest", type=Path)
+    demo_video.add_argument("--evaluation", type=Path)
+    demo_video.add_argument("--input-video", type=Path, required=True)
+    demo_video.add_argument("--output-video", type=Path)
+    demo_video.add_argument("--output-root", type=Path)
+    demo_video.add_argument("--run-id")
+    demo_video.add_argument("--fps", type=int, default=15)
+    demo_video.add_argument("--speed-factor", type=float, default=4.0)
+    demo_video.add_argument("--show-frame-time", action="store_true", default=True)
+    demo_video.add_argument("--hide-frame-time", action="store_false", dest="show_frame_time")
+    demo_video.add_argument("--show-reasoning", action="store_true", default=True)
+    demo_video.add_argument("--hide-reasoning", action="store_false", dest="show_reasoning")
+    demo_video.add_argument("--show-rag", action="store_true", default=True)
+    demo_video.add_argument("--hide-rag", action="store_false", dest="show_rag")
+    demo_video.set_defaults(func=_command_demo_video)
 
     evaluate = nested.add_parser("evaluate", help="Attach Alpamayo/cached policy evidence to a run.")
     evaluate.add_argument("--db", type=Path, required=True)
@@ -296,6 +328,42 @@ def _command_reason(args: argparse.Namespace) -> int:
             memory=args.memory,
             output_root=args.output_root,
             run_id=args.run_id,
+        )
+    )
+
+
+def _command_score_demo(args: argparse.Namespace) -> int:
+    result = run_studio_score_demo(
+        args.db,
+        run_manifest_path=args.run_manifest,
+        evaluation_path=args.evaluation,
+        video_path=args.video,
+        overlay_report_path=args.overlay_report,
+        score_input_path=args.score_input,
+        output_root=args.output_root,
+        run_id=args.run_id,
+        metric_only=args.metric_only,
+    )
+    if args.metric_only:
+        return 0 if result.status in {"passed", "blocked"} else 1
+    return _print(result)
+
+
+def _command_demo_video(args: argparse.Namespace) -> int:
+    return _print(
+        run_studio_demo_video(
+            args.db,
+            input_video=args.input_video,
+            run_manifest_path=args.run_manifest,
+            evaluation_path=args.evaluation,
+            output_video=args.output_video,
+            output_root=args.output_root,
+            run_id=args.run_id,
+            fps=args.fps,
+            speed_factor=args.speed_factor,
+            show_frame_time=args.show_frame_time,
+            show_reasoning=args.show_reasoning,
+            show_rag=args.show_rag,
         )
     )
 

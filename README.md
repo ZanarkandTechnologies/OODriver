@@ -215,12 +215,31 @@ PYTHONPATH=src python3 -m oodrive reason \
   --db artifacts/runs/oodrive-demo/scenario_studio_db.json \
   --run artifacts/runs/oodrive-demo/runs/<run-id>/run_manifest.json \
   --prediction-json <alpamayo_prediction.json>
+
+PYTHONPATH=src python3 -m oodrive demo-video \
+  --db artifacts/runs/oodrive-demo/scenario_studio_db.json \
+  --run artifacts/runs/oodrive-demo/runs/<run-id>/run_manifest.json \
+  --evaluation artifacts/runs/oodrive-demo/reasoning/evaluations/<evaluation-id>/policy_evaluation.json \
+  --input-video artifacts/exported/<source-carla-video>.mp4 \
+  --speed-factor 4
+
+PYTHONPATH=src python3 -m oodrive score-demo \
+  --db artifacts/runs/oodrive-demo/scenario_studio_db.json \
+  --run artifacts/runs/oodrive-demo/runs/<run-id>/run_manifest.json \
+  --evaluation artifacts/runs/oodrive-demo/reasoning/evaluations/<evaluation-id>/policy_evaluation.json \
+  --video artifacts/runs/oodrive-demo/demo-videos/<demo-id>/oodrive_hero_demo.mp4 \
+  --overlay-report artifacts/runs/oodrive-demo/demo-videos/<demo-id>/hero_demo_video.json
 ```
 
 `generate` writes a CARLA placement plan with stock blueprint filters and
 road-local transforms. `place` dry-runs by default and uses `--live` to connect
 to CARLA through the existing scripted OOD demo runner. `reason` attaches cached
 or live Alpamayo reasoning evidence to the run and builds the replay bundle.
+`demo-video` time-warps the source footage and overlays frame/time, risk, RAG
+memory, VLA reasoning, and action intent. `score-demo` is the promotion gate:
+bad videos fail unless they show enough duration, motion, OOD objects, risk
+events, reasoning callouts, RAG callouts, frame/time coverage, road alignment,
+and explicit claim boundaries.
 Unless a live CARLA run and model prediction are attached, the artifacts label
 themselves as placement/reasoning plans rather than closed-loop VLA driving.
 

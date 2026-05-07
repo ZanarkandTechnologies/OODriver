@@ -1,7 +1,7 @@
 # TASK-130: Hero Demo Score And Reasoning Video Contract
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-128, TASK-129 optional
@@ -294,6 +294,8 @@ flowchart LR
 - Fixture scorer: `qa/fixtures/hero_demo_score/score_fixture.py`
 - Plan review: `docs/reviews/TASK-130-hero-demo-score-plan-review.md`
 - Review JSON: `tickets/TASK-130/artifacts/review/task130-plan-review.json`
+- Implementation QA: pending
+- Implementation review: pending
 
 ### Blockers
 

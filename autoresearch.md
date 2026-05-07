@@ -54,6 +54,9 @@ retrieval, risk/object telemetry, and honest claim boundaries.
 - Baseline fixture created from the TASK-128 weakness: live CARLA placement and
   fresh Alpamayo reasoning exist, but the video lacks visible frame/time,
   repeated reasoning checkpoints, and enough RAG/risk overlays.
+- TASK-130 implementation pass promoted the fixture score into the production
+  OODrive CLI contract: `oodrive score-demo --metric-only` now emits the
+  autoresearch metric while preserving the weak baseline score.
 
 ## Next Ideas
 
