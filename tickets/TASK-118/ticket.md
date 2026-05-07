@@ -6,7 +6,7 @@
 - assignee: generalPurpose
 - dependencies: TASK-114, TASK-115, TASK-116, TASK-117, TASK-113
 - location: `src/driverx/workbench`, `src/driverx/pipeline`, `src/driverx/scenarios`, `tests`
-- enter when: CLI generation, queue, run manifest, and policy evaluation artifacts exist or have fixture equivalents
+- enter when: the studio DB contains generated candidates, queue records, run manifests, and policy evaluation artifacts or fixture equivalents
 - leave when: `driverx studio replay` and `driverx studio export` produce a judge-facing CLI product demo packet
 - blockers: final video polish depends on available video artifacts; HTML/Markdown export does not
 - spawned follow-ups: future browser app or Codex skill wrapper
@@ -15,8 +15,8 @@
 ### Summary
 
 Add the final CLI product commands: replay links one scenario's video, risk,
-RAG, reasoning, and action artifacts; export builds the judge-facing packet with
-command provenance and claim boundaries.
+RAG, reasoning, and action artifacts from the studio DB; export builds the
+judge-facing packet with command provenance and claim boundaries.
 
 ### Scope
 
@@ -29,9 +29,9 @@ command provenance and claim boundaries.
 
 ```mermaid
 flowchart LR
-    A["RunManifest"] --> B["studio replay"]
-    C["PolicyEvaluationRecord"] --> B
-    B --> D["ScenarioRunBundle"]
+    A["ScenarioStudioDB"] --> B["studio replay"]
+    C["RunManifest + PolicyEvaluationRecord"] --> B
+    B --> D["ScenarioRunBundle + DB update"]
     D --> E["studio export"]
     E --> F["SubmissionEvidencePack"]
 ```
@@ -40,7 +40,7 @@ flowchart LR
 
 #### Change
 
-Create replay/export commands that make the CLI workflow judge-visible.
+Create replay/export commands that make the CLI database workflow judge-visible.
 
 #### Why
 
@@ -52,7 +52,7 @@ are proved versus partial.
 
 - Before: final pack exists but is detached from a coherent CLI workflow.
 - After: one export packet contains scenario generation, queue, run, evaluation,
-  replay, and exact command provenance.
+  replay, DB snapshot, and exact command provenance.
 
 #### Touch
 
@@ -94,19 +94,21 @@ ScenarioGeneratorCliPack = {
 
 #### Typed Flow Example
 
-Quickstart artifacts + one live/autopilot manifest + one Alpamayo evaluation
--> `studio replay` -> `scenario_run_bundle.html`
--> `studio export` -> `scenario_generator_cli_browser.html` and demo script.
+Studio DB with quickstart artifacts + one live/autopilot manifest + one Alpamayo
+evaluation -> `studio replay --db ...` -> `scenario_run_bundle.html`
+-> `studio export --db ...` -> `scenario_generator_cli_browser.html` and demo
+script.
 
 #### Execution Steps
 
 1. Implement replay command that delegates to existing Workbench bundler with
-   run/evaluation inputs.
-2. Implement export pack builder that consumes one or more replay bundles.
-3. Add command transcript and claim-boundary summary.
-4. Add tests for missing optional artifacts, local video references, and pack
+   DB-backed run/evaluation inputs.
+2. Append replay bundle references back into the studio DB.
+3. Implement export pack builder that consumes one or more DB bundles.
+4. Add command transcript and claim-boundary summary.
+5. Add tests for missing optional artifacts, local video references, and pack
    counts.
-5. Update README with the final CLI demo sequence.
+6. Update README with the final CLI demo sequence.
 
 #### Recommendation
 
@@ -141,9 +143,9 @@ instead of replacing it.
 
 ### Agent Contract
 - Open: `PYTHONPATH=src python3 -m driverx studio replay --help`
-- Test hook: quickstart artifacts -> replay -> export under temp output root
+- Test hook: quickstart DB -> replay -> export under temp output root
 - Stabilize: fixture manifests, deterministic output paths
-- Inspect: replay HTML/Markdown and export pack JSON/HTML
+- Inspect: studio DB, replay HTML/Markdown, and export pack JSON/HTML
 - Key screens/states: complete row, partial row, claim boundary row
 - QA cookbook: none yet
 - Taste refs: HTML should be scannable, not decorative
@@ -159,13 +161,13 @@ instead of replacing it.
 ### Verification
 
 - `PYTHONPATH=src python3 -m unittest tests.test_scenario_generator_cli_pack`
-- `PYTHONPATH=src python3 -m driverx studio replay --run <fixture_manifest>`
-- `PYTHONPATH=src python3 -m driverx studio export --runs <bundle>`
+- `PYTHONPATH=src python3 -m driverx studio replay --db <fixture_db> --run <fixture_manifest>`
+- `PYTHONPATH=src python3 -m driverx studio export --db <fixture_db>`
 - `bash scripts/pre_push_check.sh`
 
 ### Autonomy Readiness
 
-- Inputs: quickstart or live run artifacts.
+- Inputs: studio DB with quickstart or live run artifacts.
 - Credentials: none.
 - Compute: local Python only.
 - Human gates: ask before public upload only.

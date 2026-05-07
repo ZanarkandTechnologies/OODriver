@@ -138,3 +138,4 @@
 2026-05-07 16:36 +0800 | TESTING | Test audit found 91 files / 388 test cases and no exact duplicate bodies; no tests were deleted because the count maps to distinct simulator/model/submission seams.
 2026-05-07 16:55 +0800 | PRD | Rewrote the top-level PRD around Scenario Generator Studio V1, external parity/gap analysis, and a closed-loop Alpamayo-in-CARLA evaluator attempt.
 2026-05-07 17:12 +0800 | PLAN | Created the CLI-first Scenario Generator Studio spec and TASK-114 through TASK-118 for generate, queue, closed-loop run, Alpamayo evaluation, replay, and export.
+2026-05-07 17:21 +0800 | PLAN | Reframed Scenario Studio CLI as a JSON-backed database/control plane and added TASK-119 for a Codex Scenario Operator skill wrapper after the DB commands stabilize.

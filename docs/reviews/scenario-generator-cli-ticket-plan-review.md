@@ -1,6 +1,6 @@
 # Review: Scenario Generator CLI Ticket Plan
 
-Reviewed at: 2026-05-07 17:12 +0800
+Reviewed at: 2026-05-07 17:21 +0800
 
 ## Scope
 
@@ -10,6 +10,7 @@ Reviewed at: 2026-05-07 17:12 +0800
 - `tickets/TASK-116/ticket.md`
 - `tickets/TASK-117/ticket.md`
 - `tickets/TASK-118/ticket.md`
+- `tickets/TASK-119/ticket.md`
 
 ## Rubrics
 
@@ -21,8 +22,8 @@ Reviewed at: 2026-05-07 17:12 +0800
 - Notes:
   - The ticket batch maps directly to the PRD's scenario generation,
     curation, closed-loop run, Alpamayo evaluation, replay, and export jobs.
-  - The CLI-first decision is explicit and does not discard the future app or
-    Codex skill wrapper.
+  - The CLI database decision is explicit and separates deterministic durable
+    state from Codex's AI-generation/operator role.
   - Each ticket has observable artifacts and command-level proof.
 
 ### Implementation Plan
@@ -32,8 +33,8 @@ Reviewed at: 2026-05-07 17:12 +0800
 - Verdict: pass
 - Notes:
   - File maps and signature deltas are concrete enough for build handoff.
-  - The batch has a safe dependency-light first proof before live CARLA and
-    Alpamayo work.
+  - The batch has a safe dependency-light first proof before live CARLA,
+    Alpamayo, and Codex skill work.
   - Runtime blockers are contained as manifest/blocker artifacts, not reasons
     to stop unrelated CLI work.
 
@@ -42,6 +43,8 @@ Reviewed at: 2026-05-07 17:12 +0800
 - No blocking findings.
 - Minor caveat: TASK-116 and TASK-117 are intentionally ambitious. Their local
   proof paths must pass even when live RunPod/CARLA or Alpamayo access fails.
+- Minor caveat: TASK-119 should remain blocked until TASK-114/TASK-115 stabilize
+  the DB command contract.
 
 ## Readiness Call
 
@@ -52,7 +55,9 @@ Ready for implementation in order:
 3. TASK-116
 4. TASK-117
 5. TASK-118
+6. TASK-119
 
 If time compresses, TASK-114 + TASK-115 + TASK-118 can still produce a coherent
 CLI product demo using existing V8 evidence; TASK-116/TASK-117 add the higher
-signal closed-loop and Alpamayo contribution.
+signal closed-loop and Alpamayo contribution; TASK-119 adds the Codex operator
+wrapper after the database layer stops moving.

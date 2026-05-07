@@ -6,7 +6,7 @@
 - assignee: generalPurpose
 - dependencies: TASK-116, TASK-100, MEM-0028
 - location: `src/driverx/policies`, `src/driverx/scenarios`, `src/driverx/simulators`, `tests`
-- enter when: a ScenarioRunManifest exists for a generated scenario
+- enter when: a Scenario Studio DB includes a ScenarioRunManifest for a generated scenario
 - leave when: `driverx studio evaluate --policy alpamayo-trajectory` links Alpamayo reasoning/trajectory intent to the run and attempts bounded control conversion when possible
 - blockers: live closed-loop Alpamayo requires reachable CUDA/Alpamayo runtime; offline evaluation is unblocked from existing artifacts
 - spawned follow-ups: none
@@ -15,7 +15,8 @@
 ### Summary
 
 Add Alpamayo to the CLI product loop as a trajectory evaluator first and a
-bounded control adapter second. The command must show reasoning, RAG memory,
+bounded control adapter second. The command reads and updates the studio DB and
+must show reasoning, RAG memory,
 latency, trajectory intent, and whether the output was open-loop, time-warped,
 or actually applied to CARLA controls.
 
@@ -30,12 +31,12 @@ or actually applied to CARLA controls.
 
 ```mermaid
 flowchart LR
-    A["ScenarioRunManifest"] --> B["studio evaluate"]
+    A["ScenarioStudioDB + RunManifest"] --> B["studio evaluate"]
     B --> C["Alpamayo package or cached prediction"]
     B --> D["Memory retrieval"]
     C --> E["Trajectory intent"]
     D --> E
-    E --> F["PolicyEvaluationRecord"]
+    E --> F["PolicyEvaluationRecord + DB update"]
 ```
 
 ### Plan
@@ -43,7 +44,8 @@ flowchart LR
 #### Change
 
 Add a studio-level evaluation command that attaches Alpamayo reasoning and
-trajectory intent to a generated CARLA scenario run.
+trajectory intent to a generated CARLA scenario run and records the result in
+the studio DB.
 
 #### Why
 
@@ -54,11 +56,12 @@ distinguishes open-loop reasoning, time-warped replay, and closed-loop control.
 
 - Before: Alpamayo evidence exists in separate open-loop artifacts.
 - After: one command links Alpamayo evidence to a scenario run and records
-  memory comparison plus control feasibility.
+  memory comparison plus control feasibility in the studio DB.
 
 #### Touch
 
 - `src/driverx/scenarios/policy_evaluation.py`: new evaluation record writer.
+- `src/driverx/scenarios/studio_db.py`: append evaluation records.
 - `src/driverx/scenarios/studio_product_cli.py`: add `studio evaluate`.
 - `src/driverx/policies/alpamayo_trajectory.py`: reuse/extend conversion seams
   if needed.
@@ -78,6 +81,7 @@ distinguishes open-loop reasoning, time-warped replay, and closed-loop control.
 ```python
 src/driverx/scenarios/policy_evaluation.py / build_policy_evaluation(request: StudioPolicyEvaluationRequest): PolicyEvaluationRecord
 src/driverx/scenarios/policy_evaluation.py / write_policy_evaluation(run_dir: Path, record: PolicyEvaluationRecord): dict[str, Any]
+src/driverx/scenarios/studio_db.py / append_policy_evaluation(db: ScenarioStudioDb, record: PolicyEvaluationRecord): ScenarioStudioDb
 ```
 
 #### Type Sketch
@@ -99,10 +103,11 @@ PolicyEvaluationRecord = {
 
 #### Typed Flow Example
 
-Run manifest `wet-roadwork-autopilot-run` + cached Alpamayo prediction JSON
--> `studio evaluate --policy alpamayo-trajectory --memory auto`
+DB run manifest `wet-roadwork-autopilot-run` + cached Alpamayo prediction JSON
+-> `studio evaluate --db ... --policy alpamayo-trajectory --memory auto`
 -> output states `sampled_open_loop_reasoning=true`, links CoC snippet, writes
-trajectory control dry-run, and lists closed-loop blocker if not applied live.
+trajectory control dry-run, appends evaluation to DB, and lists closed-loop
+blocker if not applied live.
 
 #### Execution Steps
 
@@ -112,6 +117,7 @@ trajectory control dry-run, and lists closed-loop blocker if not applied live.
 4. Reuse trajectory-control conversion to create a bounded dry-run control
    trace where prediction data exists.
 5. Write JSON/Markdown reports and tests for cached/open-loop and blocker paths.
+6. Append the evaluation summary to the studio DB.
 
 #### Recommendation
 
@@ -164,12 +170,12 @@ Medium. It touches policy evidence, but not core simulator runners.
 ### Verification
 
 - `PYTHONPATH=src python3 -m unittest tests.test_studio_alpamayo_evaluation`
-- `PYTHONPATH=src python3 -m driverx studio evaluate --run <fixture_manifest> --policy alpamayo-trajectory --memory auto`
+- `PYTHONPATH=src python3 -m driverx studio evaluate --db <fixture_db> --run <fixture_manifest> --policy alpamayo-trajectory --memory auto`
 - `bash scripts/pre_push_check.sh`
 
 ### Autonomy Readiness
 
-- Inputs: run manifest; optional cached Alpamayo package/prediction.
+- Inputs: studio DB, run manifest, optional cached Alpamayo package/prediction.
 - Credentials: HF token only for live model path; cached path requires none.
 - Compute: local for cached/dry-run; CUDA host for live inference.
 - Human gates: none unless new paid runtime is needed.

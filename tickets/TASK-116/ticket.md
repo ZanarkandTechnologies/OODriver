@@ -6,7 +6,7 @@
 - assignee: generalPurpose
 - dependencies: TASK-114, TASK-115, TASK-102
 - location: `src/driverx/simulators`, `src/driverx/scenarios`, `src/driverx/remote`, `tests`
-- enter when: a Scenario Dataset Queue can select one scenario candidate
+- enter when: a Scenario Studio DB contains a queued scenario candidate
 - leave when: `driverx studio run` can produce a run manifest for `mock` and attempt `carla-autopilot` on the configured CARLA host
 - blockers: requires live RunPod/CARLA only for the live proof; local dry-run and mock proof are unblocked
 - spawned follow-ups: TASK-117
@@ -14,10 +14,11 @@
 
 ### Summary
 
-Add `driverx studio run` as the closed-loop runtime entrypoint. It should run
+Add `driverx studio run` as the closed-loop runtime entrypoint. It should read
+one queued candidate from the studio DB, run
 mock locally, plan or execute CARLA autopilot when CARLA is reachable, and
-always write a `ScenarioRunManifest` with artifacts, timings, claim boundaries,
-and blockers.
+always write a `ScenarioRunManifest` back into the DB with artifacts, timings,
+claim boundaries, and blockers.
 
 ### Scope
 
@@ -29,12 +30,12 @@ and blockers.
 
 ```mermaid
 flowchart TD
-    A["ScenarioDatasetQueue"] --> B["studio run"]
+    A["ScenarioStudioDB queue"] --> B["studio run"]
     B --> C{"policy"}
     C -->|"mock"| D["local mock manifest"]
     C -->|"carla-autopilot"| E["CARLA closed-loop attempt"]
     E --> F["video/tracks/timings or blocker"]
-    D --> G["ScenarioRunManifest"]
+    D --> G["ScenarioRunManifest + DB update"]
     F --> G
 ```
 
@@ -43,23 +44,24 @@ flowchart TD
 #### Change
 
 Create a product-level run manifest and a CLI command that executes the safest
-available policy path for one queued scenario.
+available policy path for one queued DB scenario.
 
 #### Why
 
 The submission needs actual closed-loop evidence, but the CLI must stay useful
 even when CARLA is unavailable. A run manifest gives both success and blockers a
-single evidence shape.
+single evidence shape and keeps the DB as the durable source of truth.
 
 #### Before -> After
 
 - Before: CARLA runs exist as separate video/evidence commands.
-- After: `studio run` owns one selected scenario and records what policy did or
-  why live runtime could not proceed.
+- After: `studio run --db ...` owns one selected scenario and records what
+  policy did or why live runtime could not proceed.
 
 #### Touch
 
 - `src/driverx/scenarios/run_manifest.py`: new manifest data model/writer.
+- `src/driverx/scenarios/studio_db.py`: append run manifest references.
 - `src/driverx/scenarios/studio_product_cli.py`: add `studio run`.
 - `src/driverx/simulators/carla_studio_runner.py`: glue to existing CARLA
   OOD demo/cached replay primitives.
@@ -78,6 +80,7 @@ single evidence shape.
 
 ```python
 src/driverx/scenarios/run_manifest.py / build_run_manifest(request: StudioRunRequest, result: StudioRunResult): ScenarioRunManifest
+src/driverx/scenarios/studio_db.py / append_studio_run(db: ScenarioStudioDb, manifest: ScenarioRunManifest): ScenarioStudioDb
 src/driverx/simulators/carla_studio_runner.py / run_carla_studio_scenario(request: CarlaStudioRunRequest): StudioRunResult
 ```
 
@@ -99,9 +102,9 @@ ScenarioRunManifest = {
 
 #### Typed Flow Example
 
-Queue record `wet-roadwork-v00` -> `studio run --policy carla-autopilot`
+DB queue record `wet-roadwork-v00` -> `studio run --db ... --policy carla-autopilot`
 -> CARLA smoke passes -> high-fidelity OOD runner records video/tracks
--> manifest labels `closed_loop_carla_execution=true` and
+-> manifest is appended to the DB and labels `closed_loop_carla_execution=true` and
 `real_time_vla_control=false`.
 
 #### Execution Steps
@@ -111,7 +114,8 @@ Queue record `wet-roadwork-v00` -> `studio run --policy carla-autopilot`
 3. Implement CARLA autopilot path by calling existing CARLA runner primitives
    or planning a precise command when remote execution is unavailable.
 4. Add blocker capture for unreachable CARLA, missing config, or missing video.
-5. Add tests for mock success, CARLA dry-run blocker, and manifest claim
+5. Append manifest summaries back into the studio DB.
+6. Add tests for mock success, CARLA dry-run blocker, and manifest claim
    boundaries.
 
 #### Recommendation
@@ -146,9 +150,9 @@ runner internals.
 
 ### Agent Contract
 - Open: `PYTHONPATH=src python3 -m driverx studio run --help`
-- Test hook: `studio run --queue <fixture_queue> --scenario-id <id> --policy mock`
+- Test hook: `studio run --db <fixture_db> --scenario-id <id> --policy mock`
 - Stabilize: use temp output root and deterministic queue fixture
-- Inspect: `run_manifest.json`, `run_manifest.md`
+- Inspect: `scenario_studio_db.json`, `run_manifest.json`, `run_manifest.md`
 - Key screens/states: mock complete, CARLA blocked, CARLA partial/success
 - QA cookbook: none yet
 - Taste refs: blocker text must be explicit and not defensive
@@ -164,13 +168,13 @@ runner internals.
 ### Verification
 
 - `PYTHONPATH=src python3 -m unittest tests.test_scenario_studio_run_manifest tests.test_scenario_studio_run_cli`
-- `PYTHONPATH=src python3 -m driverx studio run --queue <fixture_queue> --policy mock`
-- Optional live: `PYTHONPATH=src python3 -m driverx studio run --queue <queue> --policy carla-autopilot --config configs/carla_ood_demo.runpod.high_fidelity.yaml`
+- `PYTHONPATH=src python3 -m driverx studio run --db <fixture_db> --policy mock`
+- Optional live: `PYTHONPATH=src python3 -m driverx studio run --db <db> --policy carla-autopilot --config configs/carla_ood_demo.runpod.high_fidelity.yaml`
 - `bash scripts/pre_push_check.sh`
 
 ### Autonomy Readiness
 
-- Inputs: queue artifact and optional CARLA config.
+- Inputs: studio DB with queue records and optional CARLA config.
 - Credentials: SSH only if remote pullback is implemented; no tokens.
 - Compute: local for mock; RunPod graphics/CARLA host for live proof.
 - Human gates: ask before creating new paid resources; use existing host if alive.

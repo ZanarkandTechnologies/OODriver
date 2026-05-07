@@ -1,56 +1,66 @@
 # Scenario Generator CLI V1 Spec
 
-Last updated: 2026-05-07 17:12 +0800
+Last updated: 2026-05-07 17:21 +0800
 
 ## Decision
 
-Build the Scenario Generator Studio as a CLI-first product before building a
-browser app or Codex skill.
+Build the Scenario Generator Studio as a **CLI-backed scenario database and
+control plane**, then put the AI generation/orchestration layer in Codex.
 
-Recommendation: make `python -m driverx studio ...` the canonical operator
-surface. Existing flat commands remain as low-level primitives, while the
-`studio` command group becomes the judge/demo workflow.
+Recommendation: make `python -m driverx studio ...` the canonical durable data
+surface. Existing flat commands remain low-level primitives. The new `studio`
+command group should create, ingest, validate, compile, queue, run, evaluate,
+replay, and export scenario records. It should not pretend to be the AI brain.
 
-Codex can still be the harness, but only by calling the same CLI commands. A
-Codex skill can wrap the workflow after the CLI is stable; the skill should not
-be the first implementation surface because it would hide state, make remote
-debugging harder, and make evidence harder to reproduce.
+Codex becomes the generator/operator: it proposes weird OOD briefs, uses
+external tools when useful, calls the CLI to persist records, chooses the next
+experiment, and writes everything back into the artifact database. A future
+Codex skill should wrap this workflow after the CLI schema is stable.
 
 ## CLI UX
 
-The operator should be able to run the product loop with a small number of
-commands:
+The operator, human or Codex, should be able to run the product loop with a
+small number of commands:
 
 ```bash
-PYTHONPATH=src python3 -m driverx studio generate \
-  --prompt "Malaysian wet roadwork: motorbike filters while a lorry brakes without signal" \
-  --count 12 \
-  --severity 4 \
-  --seed 42 \
+PYTHONPATH=src python3 -m driverx studio init \
   --run-id wet-roadwork-v1
 
+PYTHONPATH=src python3 -m driverx studio ingest-brief \
+  --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
+  --prompt "Malaysian wet roadwork: motorbike filters while a lorry brakes without signal" \
+  --author codex
+
+PYTHONPATH=src python3 -m driverx studio compile \
+  --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
+  --count 12 \
+  --severity 4 \
+  --seed 42
+
 PYTHONPATH=src python3 -m driverx studio queue \
-  --studio-batch artifacts/runs/wet-roadwork-v1/scenario_studio_batch.json \
+  --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --accept top:3
 
 PYTHONPATH=src python3 -m driverx studio run \
-  --queue artifacts/runs/wet-roadwork-v1/scenario_dataset_queue.json \
+  --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --scenario-id studio-0042-malaysian-wet-roadwork-v00 \
   --policy carla-autopilot \
   --config configs/carla_ood_demo.runpod.high_fidelity.yaml \
   --run-id wet-roadwork-autopilot-run
 
 PYTHONPATH=src python3 -m driverx studio evaluate \
+  --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --run artifacts/runs/wet-roadwork-autopilot-run/run_manifest.json \
   --policy alpamayo-trajectory \
   --memory auto
 
 PYTHONPATH=src python3 -m driverx studio replay \
+  --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --run artifacts/runs/wet-roadwork-autopilot-run/run_manifest.json \
   --run-id wet-roadwork-replay
 
 PYTHONPATH=src python3 -m driverx studio export \
-  --runs artifacts/runs/wet-roadwork-replay/scenario_run_bundle.json \
+  --db artifacts/runs/wet-roadwork-v1/scenario_studio_db.json \
   --run-id scenario-generator-cli-demo
 ```
 
@@ -66,12 +76,35 @@ PYTHONPATH=src python3 -m driverx studio quickstart \
 
 ## Command Contract
 
-### `studio generate`
+### `studio init`
 
-Compiles natural-language OOD briefs into candidate scenarios.
+Creates a durable artifact database for one Scenario Studio run.
 
 Output:
 
+- `scenario_studio_db.json`
+- `scenario_studio_db.md`
+- schema version, run id, empty collections, and claim boundaries
+
+### `studio ingest-brief`
+
+Adds human, Codex, fixture, or provider-generated scenario briefs to the DB.
+
+Output:
+
+- updated `scenario_studio_db.json`
+- appended brief record
+- validation warnings
+- compact stdout summary with the next compile command
+
+### `studio compile`
+
+Deterministically compiles stored briefs into candidate scenarios. This is a
+compiler/database operation, not an AI generation operation.
+
+Output:
+
+- updated `scenario_studio_db.json`
 - `scenario_studio_batch.json`
 - `scenario_studio_recipes.json`
 - `scenario_studio_gallery.md`
@@ -79,10 +112,11 @@ Output:
 
 ### `studio queue`
 
-Turns generated candidates into an explicit dataset/run queue.
+Turns compiled candidates into an explicit dataset/run queue.
 
 Output:
 
+- updated `scenario_studio_db.json`
 - `scenario_dataset_queue.json`
 - `scenario_dataset_queue.md`
 - queue rows with `accepted`, `rejected`, `needs_runtime`, and
@@ -100,6 +134,7 @@ Policy modes:
 
 Output:
 
+- updated `scenario_studio_db.json`
 - `run_manifest.json`
 - `run_manifest.md`
 - video path or precise blocker
@@ -113,6 +148,7 @@ Links risk, RAG, and model reasoning against a run.
 
 Output:
 
+- updated `scenario_studio_db.json`
 - `policy_evaluation.json`
 - `policy_evaluation.md`
 - Alpamayo baseline vs memory rows when available
@@ -124,6 +160,7 @@ Builds one local replay evidence packet from recorded artifacts.
 
 Output:
 
+- updated `scenario_studio_db.json`
 - `scenario_run_bundle.json`
 - `scenario_run_bundle.html`
 - `scenario_run_bundle.md`
@@ -135,6 +172,7 @@ Builds the judge-facing packet.
 
 Output:
 
+- final DB snapshot
 - `scenario_generator_cli_pack.json`
 - `scenario_generator_cli_pack.md`
 - `scenario_generator_cli_browser.html`
@@ -142,8 +180,8 @@ Output:
 
 ### `studio quickstart`
 
-Runs the smallest dependency-light product proof: generate -> queue -> mock run
-manifest -> replay -> export.
+Runs the smallest dependency-light product proof: init -> ingest brief ->
+compile -> queue -> mock run manifest -> replay -> export.
 
 Output:
 
@@ -155,23 +193,39 @@ Output:
 
 ```mermaid
 flowchart TD
-    A["studio generate"] --> B["ScenarioStudioBatch"]
-    B --> C["studio queue"]
-    C --> D["ScenarioDatasetQueue"]
-    D --> E["studio run"]
-    E --> F["ScenarioRunManifest"]
-    F --> G["studio evaluate"]
-    G --> H["PolicyEvaluationRecord"]
-    F --> I["studio replay"]
-    H --> I
-    I --> J["ScenarioRunBundle"]
-    J --> K["studio export"]
-    K --> L["SubmissionEvidencePack"]
+    A["Codex / human / provider generates brief"] --> B["studio ingest-brief"]
+    B --> C["ScenarioStudioDB"]
+    C --> D["studio compile"]
+    D --> E["ScenarioStudioBatch"]
+    E --> F["studio queue"]
+    F --> G["ScenarioDatasetQueue"]
+    G --> H["studio run"]
+    H --> I["ScenarioRunManifest"]
+    I --> J["studio evaluate"]
+    J --> K["PolicyEvaluationRecord"]
+    I --> L["studio replay"]
+    K --> L
+    L --> M["ScenarioRunBundle"]
+    M --> N["studio export"]
+    N --> O["SubmissionEvidencePack"]
 ```
 
 ## Type Sketch
 
 ```python
+ScenarioStudioDB = {
+  "schema_version": str,
+  "run_id": str,
+  "briefs": list[ScenarioBrief],
+  "plans": list[ScenarioStudioPlan],
+  "candidates": list[ScenarioStudioCandidate],
+  "queue": list[ScenarioQueueRecord],
+  "runs": list[ScenarioRunManifest],
+  "evaluations": list[PolicyEvaluationRecord],
+  "bundles": list[dict],
+  "claim_boundaries": list[str],
+}
+
 ScenarioDatasetQueue = {
   "queue_id": str,
   "source_batch_path": str,
@@ -203,6 +257,8 @@ ScenarioRunManifest = {
 
 ## UX Principles
 
+- The CLI owns durable scenario records and artifact linkage; Codex owns
+  creative generation and experiment selection.
 - Every command prints compact JSON to stdout and writes Markdown for humans.
 - Every command says the next likely command.
 - Existing flat commands remain available for debugging.
@@ -210,13 +266,14 @@ ScenarioRunManifest = {
   videos or model outputs.
 - Remote/CARLA commands must degrade to precise blockers rather than crashing
   without evidence.
-- The CLI should be easy for Codex to call; a future skill should be a wrapper
-  around these commands, not a second implementation.
+- The CLI should be easy for Codex to call; the future skill is an AI operator
+  that uses the CLI database, not a second data store.
 
 ## Tickets
 
-- TASK-114: CLI product surface and quickstart.
+- TASK-114: CLI database surface and quickstart.
 - TASK-115: dataset queue and curation commands.
 - TASK-116: closed-loop run manifest and CARLA policy runner command.
 - TASK-117: Alpamayo trajectory evaluation adapter in the CLI loop.
 - TASK-118: replay/export packet for the CLI product demo.
+- TASK-119: Codex Scenario Operator skill wrapper around the CLI database.
