@@ -1,12 +1,17 @@
 # Submission Milestones
 
-Last updated: 2026-05-07 06:02 +0800
+Last updated: 2026-05-07 12:32 +0800
 
 ## Decision
 
-The remaining decision is where to stop building and start packaging for SoTA.
-The useful axis is not "more features"; it is how much evidence we can add
-before the final submission stops getting clearer.
+We have one more day, so the decision is no longer "freeze now." The useful
+axis is whether the demo clearly shows the novel product loop: scenario
+generation, CARLA execution, risk detection, RAG memory, frozen VLA reasoning,
+and dataset curation.
+
+Current recommendation: execute Scenario Workbench V2, tracked by TASK-108
+through TASK-113. Detailed direction lives in
+`docs/specs/scenario-workbench-v2-plan.md`.
 
 ## Evaluation Criteria
 
@@ -78,15 +83,15 @@ Best if: V7 pack is done early and the core evidence is already coherent.
 
 ## Recommendation
 
-Choose Option 2.
+Choose Scenario Workbench V2.
 
-This accepts a very Elon-ish cut: stop optimizing around possible future stacks
-and hammer the shortest path to a visible contribution. The core artifact should
-be:
+This accepts a sharp cut: do not chase real-time VLA control this sprint. Hammer
+the shortest path to a visible contribution. The core artifact should be:
 
-> a randomized OOD CARLA scenario forge that generates edge cases, runs quality
-> gates, records Alpamayo reasoning, compares memory/no-memory reactions, and
-> packages the result as minimal-shot autonomy evidence.
+> a randomized OOD CARLA scenario workbench that generates edge cases, runs
+> quality gates, detects simulator-grounded risk, retrieves failure memory,
+> records sampled Alpamayo reasoning, and curates the result as minimal-shot
+> autonomy evidence.
 
 ## Tradeoff Accepted
 
@@ -101,11 +106,16 @@ closed-loop.
 
 Status: done.
 
-Old tickets TASK-058 through TASK-100 are archived as historical evidence. The
-active board has now landed TASK-101 through TASK-106. The next submission
-handoff ticket is:
+Old tickets TASK-058 through TASK-100 are archived as historical evidence.
+TASK-101 through TASK-107 are complete as V7 evidence. The new active planning
+board is:
 
-- TASK-107: final demo video and submission upload packet
+- TASK-108: Scenario Workbench evidence bundle
+- TASK-109: agentic OOD scenario generation loop
+- TASK-110: CARLA risk and perception timeline
+- TASK-111: reasoning and RAG timeline video overlay
+- TASK-112: longer smooth time-warped CARLA render
+- TASK-113: paper-style final demo and submission pack V8
 
 ### M1: Select The Final Evidence Set
 

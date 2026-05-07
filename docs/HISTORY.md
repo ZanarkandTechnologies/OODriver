@@ -133,3 +133,4 @@
 2026-05-07 05:58 +0800 | SHIP | refreshed TASK-106 final V7 submission pack around the TASK-102 84s high-fidelity hero video and removed stale Alpamayo blocker leakage from the judge-facing write-up
 2026-05-07 06:02 +0800 | REVIEW | hardened TASK-106 after review found the final pack overclaimed remote-only hero media; exported the 84s MP4 locally, added local/remote video status tests, regenerated the V7 pack as submission_ready, and opened TASK-107 for final demo assembly
 2026-05-07 06:07 +0800 | SHIP | TASK-107 added a repeatable final demo video builder and rendered a 124s draft MP4 from evidence title cards plus the exported 84s CARLA hero clip, keeping generated videos under ignored artifacts/exported
+2026-05-07 12:32 +0800 | PLAN | created TASK-108 through TASK-113 as Scenario Workbench V2: evidence bundle, agentic OOD generation loop, CARLA risk timeline, reasoning/RAG overlay video, longer time-warped CARLA render, and V8 paper-style submission pack

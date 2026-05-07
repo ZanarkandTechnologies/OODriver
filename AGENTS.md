@@ -86,6 +86,9 @@ stack-specific details and commands in `PROJECT_RULES.md`.
 - Final submission media evidence must distinguish `public_url`, `local_file`,
   `remote_only`, and `missing`; only public or local exported media can be
   marked as proved. See `MEM-0033`.
+- Offline/time-warped CARLA video and sampled Alpamayo reasoning checkpoints
+  are acceptable for the final demo only when explicitly labeled as not
+  real-time VLA control. See `MEM-0034`.
 - For stock SimLingo/CARLA 0.9.15 live runs, prefer H100/H200-class `sm_90`
   hosts; Blackwell `sm_120` requires a separate PyTorch/CARLA rebuild path
   before it can run the upstream Python 3.8 + torch 2.2 stack. See `MEM-0017`.
