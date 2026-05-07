@@ -6,17 +6,6 @@ unblocked ticket when possible.
 
 ## Open
 
-- 2026-05-07 18:30 +0800 | oodrive,carla,docker,live-place | TASK-127
-  `oodrive place --live` successfully reached the scripted CARLA OOD demo path
-  through `scripts/run_carla_client_docker.sh`, but the Docker client timed out
-  waiting for `host.docker.internal:2000`. Dry-run placement and cached
-  Alpamayo reasoning are working. Evidence:
-  `tickets/TASK-127/artifacts/qa/place-reason-qa.md` and
-  `artifacts/runs/oodrive-generate-place-smoke-v2/runs/oodrive-smoke-v2-live-place/run_manifest.json`.
-  Next unblock path: start/restart CARLA so the Docker client can reach
-  `host.docker.internal:2000`, or rerun the same `oodrive place --live` command
-  from the graphics-capable RunPod desktop where CARLA is listening locally.
-
 - 2026-05-07 16:36 +0800 | carla,video,paper-demo | TASK-112
   fresh paper-demo CARLA source render was not attempted in this pass because
   local `127.0.0.1:2000` refused connection during the optional smoke check.
@@ -67,6 +56,15 @@ unblocked ticket when possible.
   for the earlier RTX PRO 6000 Blackwell host where CARLA did launch.
 
 ## Resolved
+
+- 2026-05-07 19:10 +0800 | oodrive,carla,runpod,alpamayo | TASK-128
+  resolved the TASK-127 live-placement blocker by moving the same product path
+  onto the Kasm graphics pod where CARLA listens on `127.0.0.1:2000`.
+  `oodrive place --live` passed with `objects_placed_in_carla=true`, 450 RGB
+  frames, entity tracks, and no blockers. Fresh Alpamayo 1.5 inference over the
+  live package completed with `pred_xyz=[1,1,1,64,3]`, CoC reasoning, 69.6s
+  latency, and 23.5GB peak VRAM. Evidence:
+  `tickets/TASK-128/artifacts/qa/live-product-loop-qa.md`.
 
 - 2026-05-07 06:02 +0800 | submission,video,export | TASK-106
   hardening resolved the TASK-102 hero-media export gap by pulling the selected

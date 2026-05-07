@@ -1,0 +1,111 @@
+{
+  "work_type": ["evidence", "integration-readiness", "product-workflow"],
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-128/ticket.md",
+      "tickets/TASK-128/artifacts/qa/live-product-loop-qa.md",
+      "docs/reviews/TASK-128-live-product-loop-review.md",
+      "docs/HISTORY.md",
+      "docs/MEMORY.md",
+      "blockers.md",
+      "AGENTS.md"
+    ],
+    "related_files": [
+      "src/driverx/scenarios/studio_product_runtime.py",
+      "src/driverx/scenarios/studio_runtime.py",
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/policies/alpamayo_ood_package.py",
+      "scripts/run_remote_alpamayo_carla_inference.sh"
+    ],
+    "invariants_checked": ["MEM-0037", "MEM-0038"],
+    "remote_artifacts_checked": [
+      "/workspace/0xDriver/artifacts/runs/task128-oodrive-live-product/runs/task128-oodrive-live-place/run_manifest.json",
+      "/workspace/driverx_remote_artifacts/task128_live_alpamayo/alpamayo_live_prediction.json",
+      "/workspace/0xDriver/artifacts/runs/task128-oodrive-live-product/video/task128-live-video/ood_video_evidence.json"
+    ]
+  },
+  "rubrics_used": [
+    "user-intent-satisfaction",
+    "evidence-quality",
+    "integration-readiness",
+    "video-quality"
+  ],
+  "summary": "TASK-128 proves the requested OODrive loop in open-loop form: text prompt to CARLA placement, live CARLA render, fresh Alpamayo reasoning, DB attachment, and overlay MP4.",
+  "overall_score": 4.3,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "medium",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "Live Alpamayo inference is still a manual bridge rather than a product command.",
+      "file_refs": ["tickets/TASK-129/ticket.md"],
+      "evidence": [
+        "TASK-128 used an extracted remote inference script, then attached the resulting prediction with `oodrive reason`."
+      ],
+      "next_action": "Implement TASK-129 so the product path becomes `oodrive generate` -> `oodrive place` -> `oodrive infer` -> `oodrive reason`."
+    },
+    {
+      "severity": "low",
+      "confidence": "medium",
+      "rubric": "demo-quality",
+      "summary": "Scenario semantics and selected stock proxy assets are not perfectly aligned.",
+      "file_refs": ["tickets/TASK-128/artifacts/qa/live-product-loop-qa.md"],
+      "evidence": [
+        "The prompt describes Malaysian wet roadwork, while the selected concrete generated assets include school-zone proxies."
+      ],
+      "next_action": "Tighten prompt-to-asset mapping before the final demo refresh."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "user-intent-satisfaction",
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [
+        "The requested generate -> place -> Alpamayo reasoning story is now demonstrated with fresh live artifacts."
+      ],
+      "next_action": "Use the TASK-128 evidence as the new submission backbone."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [
+        "Remote evidence includes CARLA status, frame count, objects placed, Alpamayo latency/VRAM/shapes, CoC text, and MP4 assembly."
+      ],
+      "next_action": "Export or host the remote MP4 before final submission packaging."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [
+        "The runtime path works, with one remaining manual bridge captured as TASK-129."
+      ],
+      "next_action": "Productize live inference in TASK-129."
+    },
+    {
+      "name": "video-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [
+        "The overlay MP4 is long enough for a demo segment and includes traceable risk metadata."
+      ],
+      "next_action": "Create the final judge-facing edit from this source."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Commit TASK-128 and plan/execute TASK-129 next."
+}

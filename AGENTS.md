@@ -79,6 +79,11 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   product loop: placement plans are CARLA-ready specs, dry-run placement is not
   live object spawning, and Alpamayo reasoning is open-loop unless a live
   model-driven control trace exists. See `MEM-0037`.
+- TASK-128 proves the Kasm pod can run the canonical loop in open-loop form:
+  prompt-generated CARLA placement, live scripted render, and fresh Alpamayo
+  reasoning over captured frames. Keep this evidence labeled
+  `closed_loop_vla_control=false` and `real_time_vla_control=false` until
+  Alpamayo outputs directly drive CARLA controls. See `MEM-0038`.
 - For local CARLA 0.9.16 scripted OOD props, use probed stock proxy
   blueprints (`static.prop.dirtdebris01`, `static.prop.foodcart`,
   `static.prop.constructioncone`) and do not rely on absent `trafficcone`
