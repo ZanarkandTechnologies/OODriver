@@ -1,0 +1,116 @@
+{
+  "work_type": ["code", "product-cli", "evidence", "autoresearch"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/evaluation/hero_demo_score.py",
+      "src/driverx/evaluation/__init__.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/scenarios/studio_product_runtime.py",
+      "src/driverx/simulators/reasoning_timeline_overlay.py",
+      "tests/test_hero_demo_score.py",
+      "tests/test_oodrive_cli.py",
+      "autoresearch.md",
+      "autoresearch.sh",
+      "autoresearch.checks.sh",
+      "autoresearch.jsonl",
+      "README.md",
+      "src/driverx/evaluation/README.md",
+      "tickets/TASK-130/ticket.md"
+    ],
+    "related_files": [
+      "docs/prd.md",
+      "docs/specs/scenario-generator-cli-v1.md",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md",
+      "src/driverx/scenarios/studio_product_helpers.py",
+      "src/driverx/perception/risk_timeline.py",
+      "src/driverx/simulators/video_timewarp.py"
+    ],
+    "invariants_checked": ["MEM-0034", "MEM-0037", "MEM-0038", "MEM-0039"],
+    "docs_checked": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "evidence-quality.md",
+      "integration-readiness.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "evidence-quality", "integration-readiness"],
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "minor",
+      "confidence": 0.86,
+      "rubric": "code-quality",
+      "summary": "New scoring/runtime files are large enough to trigger repo warnings; split if the surface grows again.",
+      "file_refs": [
+        "src/driverx/evaluation/hero_demo_score.py",
+        "src/driverx/scenarios/studio_product_runtime.py"
+      ],
+      "next_action": "Keep this pass, but prefer a follow-up split for scorer input loading and product demo orchestration if more behavior is added."
+    },
+    {
+      "severity": "minor",
+      "confidence": 0.78,
+      "rubric": "evidence-quality",
+      "summary": "Full pre-push skips demo-video rendering when Pillow is unavailable.",
+      "file_refs": ["tests/test_hero_demo_score.py"],
+      "next_action": "Accept because score-demo is dependency-light and the render path is tested when Pillow exists; install Pillow in demo environments."
+    }
+  ],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 3.7,
+        "readability": 4.1,
+        "boundary-clarity": 4.1,
+        "error-handling": 4.2,
+        "maintainability": 4.0
+      },
+      "findings": ["Large-file warning is the main maintainability caveat."],
+      "next_action": "Proceed; split only if more scorer/demo behavior is added."
+    },
+    "evidence-quality": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.2,
+        "reproducibility": 4.2,
+        "traceability": 4.3,
+        "consistency": 4.2,
+        "inspectability": 4.2,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Use the score reports as the promotion gate for the next live artifact."
+    },
+    "integration-readiness": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.1,
+        "contract-correctness": 4.2,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.1
+      },
+      "findings": [],
+      "next_action": "Advance to live-artifact optimization."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Run oodrive demo-video and score-demo on the best live CARLA MP4."
+}

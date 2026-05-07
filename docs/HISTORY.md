@@ -149,3 +149,4 @@
 2026-05-07 19:10 +0800 | SHIP | TASK-128 proved the live OODrive product loop on the Kasm CARLA pod: `oodrive generate` produced a placement plan, `oodrive place --live` rendered 450 frames with objects placed, Alpamayo 1.5 completed on the fresh CARLA package with CoC reasoning, and an overlay MP4 was assembled.
 2026-05-07 19:10 +0800 | PLAN | Created TASK-129 to productize the remaining manual Alpamayo inference bridge as a first-class `oodrive infer` command.
 2026-05-07 21:48 +0800 | PLAN | Created the hero-demo autoresearch session and TASK-130 plan around a mechanical `hero_demo_score`, demo-video reasoning/RAG/frame overlays, and score-gated submission promotion.
+2026-05-07 22:11 +0800 | SHIP | TASK-130 added `oodrive score-demo`, `oodrive demo-video`, hero-demo scoring fixtures, frame/time reasoning overlays, and an autoresearch verify loop that rejects the weak current video shape with score `30.4889` while passing the target contract at `100.0`.

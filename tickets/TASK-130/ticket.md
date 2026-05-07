@@ -1,7 +1,7 @@
 # TASK-130: Hero Demo Score And Reasoning Video Contract
 
 ## Status
-- state: building
+- state: done
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-128, TASK-129 optional
@@ -255,17 +255,17 @@ flowchart LR
 
 ### Acceptance Criteria
 
-- [ ] AC-1: `oodrive score-demo --help` and `oodrive demo-video --help` exist.
-- [ ] AC-2: Weak fixture scores below the pass threshold with specific blockers.
-- [ ] AC-3: Target fixture scores above the pass threshold.
-- [ ] AC-4: Score report includes duration, motion, visible OOD count, risk
+- [x] AC-1: `oodrive score-demo --help` and `oodrive demo-video --help` exist.
+- [x] AC-2: Weak fixture scores below the pass threshold with specific blockers.
+- [x] AC-3: Target fixture scores above the pass threshold.
+- [x] AC-4: Score report includes duration, motion, visible OOD count, risk
   events, reasoning events, RAG events, Alpamayo evidence, frame/time coverage,
   penalties, and claim boundaries.
-- [ ] AC-5: Demo-video overlay can render frame number/source timestamp plus
+- [x] AC-5: Demo-video overlay can render frame number/source timestamp plus
   VLA/RAG/risk/action panels without requiring CARLA.
-- [ ] AC-6: `./autoresearch.sh` emits one primary
+- [x] AC-6: `./autoresearch.sh` emits one primary
   `METRIC hero_demo_score=<number>` line plus optional secondary metric lines.
-- [ ] AC-7: Submission promotion docs point to the score report instead of raw
+- [x] AC-7: Submission promotion docs point to the score report instead of raw
   video presence.
 
 ### Verification
@@ -294,8 +294,8 @@ flowchart LR
 - Fixture scorer: `qa/fixtures/hero_demo_score/score_fixture.py`
 - Plan review: `docs/reviews/TASK-130-hero-demo-score-plan-review.md`
 - Review JSON: `tickets/TASK-130/artifacts/review/task130-plan-review.json`
-- Implementation QA: pending
-- Implementation review: pending
+- Implementation QA: `tickets/TASK-130/artifacts/qa/hero-demo-score-qa.md`
+- Implementation review: `docs/reviews/TASK-130-hero-demo-score-implementation-review.md`
 
 ### Blockers
 

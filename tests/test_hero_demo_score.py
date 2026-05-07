@@ -41,6 +41,10 @@ class HeroDemoScoreTest(unittest.TestCase):
     def test_demo_video_renders_frame_time_reasoning_and_rag_overlay(self) -> None:
         if shutil.which("ffmpeg") is None:
             self.skipTest("ffmpeg unavailable")
+        try:
+            import PIL  # noqa: F401
+        except ModuleNotFoundError:
+            self.skipTest("Pillow unavailable")
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
             db_path = _write_db(root)
@@ -146,24 +150,15 @@ def _write_evaluation(root: Path) -> Path:
 
 
 def _write_tiny_video(root: Path) -> Path:
-    from PIL import Image, ImageDraw
-
-    frame_dir = root / "frames"
-    frame_dir.mkdir()
-    for index in range(6):
-        image = Image.new("RGB", (320, 180), (25 + index * 8, 35, 45))
-        draw = ImageDraw.Draw(image)
-        draw.rectangle((40 + index * 8, 95, 95 + index * 8, 130), fill=(220, 220, 230))
-        image.save(frame_dir / f"frame_{index + 1:06d}.png")
     video_path = root / "input.mp4"
     proc = subprocess.run(
         [
             "ffmpeg",
             "-y",
-            "-framerate",
-            "6",
+            "-f",
+            "lavfi",
             "-i",
-            str(frame_dir / "frame_%06d.png"),
+            "testsrc=duration=1:size=320x180:rate=6",
             "-c:v",
             "libx264",
             "-pix_fmt",
