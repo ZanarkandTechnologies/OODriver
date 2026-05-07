@@ -1,4 +1,4 @@
-"""Shared helpers for OODriver product CLI commands."""
+"""Shared helpers for OODrive product CLI commands."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ def queue_next_commands(db_path: Path, records: list[dict[str, Any]]) -> list[st
         scenario_id = record.get("scenario_id")
         if scenario_id:
             commands.append(
-                "PYTHONPATH=src python3 -m driverx oodriver run "
+                "PYTHONPATH=src python3 -m driverx oodrive run "
                 f"--db {db_path} --scenario-id {scenario_id} --policy mock"
             )
     return commands
@@ -31,7 +31,7 @@ def artifact_paths(payload: dict[str, Any]) -> dict[str, str]:
 
 def select_queue_record(db: ScenarioStudioDb, scenario_id: str | None) -> dict[str, Any]:
     if not db.queue:
-        raise ValueError("Studio DB queue is empty. Run oodriver queue first.")
+        raise ValueError("Studio DB queue is empty. Run oodrive queue first.")
     if scenario_id is None:
         for record in db.queue:
             if str(record.get("run_status", "")) in {"needs_runtime", "blocked", "partial", ""}:

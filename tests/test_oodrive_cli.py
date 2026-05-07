@@ -10,23 +10,25 @@ import unittest
 from driverx.cli import build_parser, main
 
 
-class OODriverCliTests(unittest.TestCase):
-    def test_help_group_accepts_oodriver_and_studio_alias(self) -> None:
+class OODriveCliTests(unittest.TestCase):
+    def test_help_group_accepts_oodrive_and_legacy_aliases(self) -> None:
         parser = build_parser()
 
+        oodrive_args = parser.parse_args(["oodrive", "init", "--run-id", "x"])
         oodriver_args = parser.parse_args(["oodriver", "init", "--run-id", "x"])
         studio_args = parser.parse_args(["studio", "init", "--run-id", "x"])
 
+        self.assertTrue(callable(oodrive_args.func))
         self.assertTrue(callable(oodriver_args.func))
         self.assertTrue(callable(studio_args.func))
 
-    def test_oodriver_quickstart_writes_database_and_pack(self) -> None:
+    def test_oodrive_quickstart_writes_database_and_pack(self) -> None:
         with TemporaryDirectory() as tmp:
             stream = StringIO()
             with redirect_stdout(stream):
                 exit_code = main(
                     [
-                        "oodriver",
+                        "oodrive",
                         "quickstart",
                         "--prompt",
                         "Malaysian wet roadwork: motorbike filters between cars while a lorry brakes without signal",
@@ -47,12 +49,12 @@ class OODriverCliTests(unittest.TestCase):
 
             db = json.loads(db_path.read_text(encoding="utf-8"))
             self.assertEqual(exit_code, 0)
-            self.assertEqual(result["product"], "OODriver")
+            self.assertEqual(result["product"], "OODrive")
             self.assertEqual(result["status"], "partial")
             self.assertTrue(db_path.exists())
             self.assertTrue(export_path.exists())
             self.assertTrue(bundle_path.exists())
-            self.assertEqual(db["product_name"], "OODriver")
+            self.assertEqual(db["product_name"], "OODrive")
             self.assertEqual(len(db["briefs"]), 1)
             self.assertEqual(len(db["candidates"]), 2)
             self.assertEqual(len(db["queue"]), 2)

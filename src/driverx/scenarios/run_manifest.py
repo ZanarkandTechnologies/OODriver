@@ -1,4 +1,4 @@
-"""OODriver run manifest records."""
+"""OODrive run manifest records."""
 
 from __future__ import annotations
 
@@ -57,7 +57,7 @@ def load_run_manifest(path: Path) -> dict[str, Any]:
 
 def _render_markdown(payload: dict[str, Any]) -> str:
     lines = [
-        "# OODriver Run Manifest",
+        "# OODrive Run Manifest",
         "",
         f"- Run: `{payload.get('run_id')}`",
         f"- Scenario: `{payload.get('scenario_id')}`",

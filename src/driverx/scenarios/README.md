@@ -18,7 +18,7 @@ reasoning artifacts, quality gates, and promotion status for submission curation
 - `driverx.scenarios.studio.compile_scenario_prompt(prompt, seed=...)`
 - `driverx.scenarios.studio.generate_studio_batch(config)`
 - `driverx.scenarios.studio_product.run_studio_quickstart(...)`
-- `PYTHONPATH=src python3 -m driverx oodriver ...`
+- `PYTHONPATH=src python3 -m driverx oodrive ...`
 
 ## Example
 
@@ -34,28 +34,28 @@ PYTHONPATH=src python3 -m driverx generate-scenario-studio \
   --config configs/scenario_studio.sample.json \
   --run-id scenario-studio-v1
 
-PYTHONPATH=src python3 -m driverx oodriver quickstart \
+PYTHONPATH=src python3 -m driverx oodrive quickstart \
   --prompt "Malaysian wet roadwork with scooter filtering and unsignaled braking" \
-  --run-id oodriver-cli-smoke
+  --run-id oodrive-cli-smoke
 ```
 
-## OODriver CLI Loop
+## OODrive CLI Loop
 
-`oodriver` is the product-facing command group. `studio` is an alias kept for
+`oodrive` is the product-facing command group. `studio` is an alias kept for
 older tickets and docs.
 
 ```bash
-PYTHONPATH=src python3 -m driverx oodriver init --run-id oodriver-demo --force
-PYTHONPATH=src python3 -m driverx oodriver ingest-brief \
-  --db artifacts/runs/oodriver-demo/scenario_studio_db.json \
+PYTHONPATH=src python3 -m driverx oodrive init --run-id oodrive-demo --force
+PYTHONPATH=src python3 -m driverx oodrive ingest-brief \
+  --db artifacts/runs/oodrive-demo/scenario_studio_db.json \
   --prompt "Night market scooter shoulder pass with roadside vendor occlusion" \
   --author codex
-PYTHONPATH=src python3 -m driverx oodriver compile --db artifacts/runs/oodriver-demo/scenario_studio_db.json --count 6
-PYTHONPATH=src python3 -m driverx oodriver queue --db artifacts/runs/oodriver-demo/scenario_studio_db.json --accept top:3
-PYTHONPATH=src python3 -m driverx oodriver run --db artifacts/runs/oodriver-demo/scenario_studio_db.json --policy mock
-PYTHONPATH=src python3 -m driverx oodriver evaluate --db artifacts/runs/oodriver-demo/scenario_studio_db.json
-PYTHONPATH=src python3 -m driverx oodriver replay --db artifacts/runs/oodriver-demo/scenario_studio_db.json
-PYTHONPATH=src python3 -m driverx oodriver export --db artifacts/runs/oodriver-demo/scenario_studio_db.json
+PYTHONPATH=src python3 -m driverx oodrive compile --db artifacts/runs/oodrive-demo/scenario_studio_db.json --count 6
+PYTHONPATH=src python3 -m driverx oodrive queue --db artifacts/runs/oodrive-demo/scenario_studio_db.json --accept top:3
+PYTHONPATH=src python3 -m driverx oodrive run --db artifacts/runs/oodrive-demo/scenario_studio_db.json --policy mock
+PYTHONPATH=src python3 -m driverx oodrive evaluate --db artifacts/runs/oodrive-demo/scenario_studio_db.json
+PYTHONPATH=src python3 -m driverx oodrive replay --db artifacts/runs/oodrive-demo/scenario_studio_db.json
+PYTHONPATH=src python3 -m driverx oodrive export --db artifacts/runs/oodrive-demo/scenario_studio_db.json
 ```
 
 The CLI stores durable state in `scenario_studio_db.json`, produces Markdown and
@@ -65,5 +65,5 @@ evidence is missing.
 ## Test
 
 ```bash
-PYTHONPATH=src python3 -m unittest tests.test_scenario_forge tests.test_scenario_catalog tests.test_scenario_studio tests.test_oodriver_cli
+PYTHONPATH=src python3 -m unittest tests.test_scenario_forge tests.test_scenario_catalog tests.test_scenario_studio tests.test_oodrive_cli
 ```

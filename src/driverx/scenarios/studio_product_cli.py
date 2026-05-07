@@ -1,4 +1,4 @@
-"""Product CLI for the OODriver scenario database."""
+"""Product CLI for the OODrive scenario database."""
 
 from __future__ import annotations
 
@@ -20,18 +20,19 @@ from driverx.scenarios.studio_product import (
 )
 
 
-def register_oodriver_parser(subparsers: argparse._SubParsersAction) -> None:
-    _register_group(subparsers, "oodriver", "OODriver scenario DB and evaluation tool.")
-    _register_group(subparsers, "studio", "Alias for `oodriver`.")
+def register_oodrive_parser(subparsers: argparse._SubParsersAction) -> None:
+    _register_group(subparsers, "oodrive", "OODrive scenario DB and evaluation tool.")
+    _register_group(subparsers, "oodriver", "Alias for `oodrive`.")
+    _register_group(subparsers, "studio", "Alias for `oodrive`.")
 
 
 def _register_group(subparsers: argparse._SubParsersAction, name: str, help_text: str) -> None:
     parser = subparsers.add_parser(name, help=help_text)
     nested = parser.add_subparsers(dest=f"{name}_command", required=True)
 
-    init = nested.add_parser("init", help="Create an OODriver scenario database.")
+    init = nested.add_parser("init", help="Create an OODrive scenario database.")
     init.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
-    init.add_argument("--run-id", default="oodriver")
+    init.add_argument("--run-id", default="oodrive")
     init.add_argument("--force", action="store_true")
     init.set_defaults(func=_command_init)
 
@@ -91,7 +92,7 @@ def _register_group(subparsers: argparse._SubParsersAction, name: str, help_text
     replay.add_argument("--run-id")
     replay.set_defaults(func=_command_replay)
 
-    export = nested.add_parser("export", help="Build the OODriver CLI evidence pack.")
+    export = nested.add_parser("export", help="Build the OODrive CLI evidence pack.")
     export.add_argument("--db", type=Path, required=True)
     export.add_argument("--output-root", type=Path)
     export.add_argument("--run-id")
@@ -100,7 +101,7 @@ def _register_group(subparsers: argparse._SubParsersAction, name: str, help_text
     quickstart = nested.add_parser("quickstart", help="Run init -> ingest -> compile -> queue -> mock run -> export.")
     quickstart.add_argument("--prompt", action="append", required=True)
     quickstart.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
-    quickstart.add_argument("--run-id", default="oodriver-quickstart")
+    quickstart.add_argument("--run-id", default="oodrive-quickstart")
     quickstart.add_argument("--count", type=int, default=3)
     quickstart.add_argument("--severity", type=int, default=3)
     quickstart.add_argument("--seed", type=int, default=7)
@@ -205,4 +206,6 @@ def _command_quickstart(args: argparse.Namespace) -> int:
     )
 
 
-__all__ = ["register_oodriver_parser"]
+register_oodriver_parser = register_oodrive_parser
+
+__all__ = ["register_oodrive_parser", "register_oodriver_parser"]

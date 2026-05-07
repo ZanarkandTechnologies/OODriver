@@ -176,11 +176,11 @@ instead of replacing it.
 
 - Replay/export implementation: `src/driverx/scenarios/studio_product.py`.
 - Smoke replay:
-  `artifacts/runs/oodriver-cli-smoke/bundles/studio-0023-malaysian-wet-roadwork-motorbike-filters-between-v00-bundle/scenario_run_bundle.html`.
+  `artifacts/runs/oodrive-cli-smoke/bundles/studio-0023-malaysian-wet-roadwork-motorbike-filters-between-v00-bundle/scenario_run_bundle.html`.
 - Smoke export:
-  `artifacts/runs/oodriver-cli-smoke/exports/oodriver-cli-smoke-export/scenario_generator_cli_pack.html`.
+  `artifacts/runs/oodrive-cli-smoke/exports/oodrive-cli-smoke-export/scenario_generator_cli_pack.html`.
 - README command sequence updated.
-- QA report: `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
+- QA report: `tickets/TASK-119/artifacts/qa/oodrive-cli-qa.md`.
 
 ### Blockers
 

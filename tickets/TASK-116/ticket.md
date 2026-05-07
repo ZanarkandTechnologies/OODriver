@@ -183,14 +183,14 @@ runner internals.
 ### Evidence
 
 - Manifest module: `src/driverx/scenarios/run_manifest.py`.
-- CLI command: `PYTHONPATH=src python3 -m driverx oodriver run --db <db> --policy mock`.
+- CLI command: `PYTHONPATH=src python3 -m driverx oodrive run --db <db> --policy mock`.
 - Smoke manifest:
-  `artifacts/runs/oodriver-cli-smoke/runs/oodriver-cli-smoke-mock-run/run_manifest.json`.
-- QA report: `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
-- Tests: `PYTHONPATH=src python3 -m unittest tests.test_oodriver_cli`.
+  `artifacts/runs/oodrive-cli-smoke/runs/oodrive-cli-smoke-mock-run/run_manifest.json`.
+- QA report: `tickets/TASK-119/artifacts/qa/oodrive-cli-qa.md`.
+- Tests: `PYTHONPATH=src python3 -m unittest tests.test_oodrive_cli`.
 
 ### Blockers
 
 - No implementation blocker. Live proof depends on a reachable CARLA host; when
-  unavailable, `oodriver run --policy carla-autopilot` records a blocker
+  unavailable, `oodrive run --policy carla-autopilot` records a blocker
   manifest instead of overclaiming.

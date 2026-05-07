@@ -129,12 +129,12 @@ project-local draft unless the user wants global install.
 
 - [x] AC-1: Skill instructions use the CLI DB as the only durable state surface.
 - [x] AC-2: Skill includes scenario-generation heuristics for OOD driving cases.
-- [x] AC-3: Skill includes exact `driverx oodriver` commands and artifact checks.
+- [x] AC-3: Skill includes exact `driverx oodrive` commands and artifact checks.
 - [x] AC-4: Dry-run transcript proves it can generate and queue scenarios
   without CARLA/GPU.
 
 ### Agent Contract
-- Open: read `driverx-scenario-operator/SKILL.md`
+- Open: read `oodrive-scenario-operator/SKILL.md`
 - Test hook: run the skill dry-run transcript against TASK-114/TASK-115 commands
 - Stabilize: fixed prompts, seeds, output root
 - Inspect: skill text and dry-run transcript
@@ -145,9 +145,9 @@ project-local draft unless the user wants global install.
 - Delegate with: TASK-119 ticket and CLI DB spec
 
 ### Evidence Checklist
-- [ ] Skill file captured
-- [ ] Dry-run transcript captured
-- [ ] Review linked
+- [x] Skill file captured
+- [x] Dry-run transcript captured
+- [x] Review linked
 
 ### Verification
 
@@ -163,12 +163,14 @@ project-local draft unless the user wants global install.
 
 ### Evidence
 
-- Skill draft: `skills/oodriver-scenario-operator/SKILL.md`.
+- Skill draft: `skills/oodrive-scenario-operator/SKILL.md`.
 - Skill index: `skills/README.md`.
-- Dry-run proof: `artifacts/runs/oodriver-cli-smoke/scenario_studio_db.json`
-  and `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
-- Review: `docs/reviews/TASK-114-119-oodriver-cli-review.md`.
-- Tests: `PYTHONPATH=src python3 -m unittest tests.test_oodriver_cli`.
+- Dry-run proof: `artifacts/runs/oodrive-cli-smoke/scenario_studio_db.json`
+  and `tickets/TASK-119/artifacts/qa/oodrive-cli-qa.md`.
+- Review: `docs/reviews/TASK-114-119-oodrive-cli-review.md`.
+- Rename correction review:
+  `docs/reviews/TASK-114-119-oodrive-rename-correction-review.md`.
+- Tests: `PYTHONPATH=src python3 -m unittest tests.test_oodrive_cli`.
 
 ### Blockers
 

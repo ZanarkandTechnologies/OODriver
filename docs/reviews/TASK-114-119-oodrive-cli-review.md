@@ -1,4 +1,4 @@
-# TASK-114..119 OODriver CLI Review
+# TASK-114..119 OODrive CLI Review
 
 ## Verdict
 
@@ -18,8 +18,8 @@
 - `src/driverx/scenarios/queue.py`
 - `src/driverx/scenarios/run_manifest.py`
 - `src/driverx/scenarios/policy_evaluation.py`
-- `tests/test_oodriver_cli.py`
-- OODriver docs and project-local skill draft.
+- `tests/test_oodrive_cli.py`
+- OODrive docs and project-local skill draft.
 
 ## Findings
 
@@ -31,7 +31,7 @@ No blocking correctness findings.
   it keeps CARLA/model calls at the edge and preserves older flat commands. The
   main reason it is not higher is that `studio_product.py` is now a large
   orchestrator and should be split by command family after the submission sprint.
-- Integration readiness: `4.0 / 5.0`. Both `oodriver` and `studio` parse and run,
+- Integration readiness: `4.0 / 5.0`. `oodrive`, `oodriver`, and `studio` parse and run,
   quickstart covers init/ingest/compile/queue/run/evaluate/replay/export, and
   the full pre-push gate passes. Live CARLA/Alpamayo remains an external runtime
   attachment by design.
@@ -41,8 +41,8 @@ No blocking correctness findings.
 
 ## Notes
 
-- The CLI now has a coherent product-facing surface: `driverx oodriver`.
-- `driverx studio` remains available as an alias for existing ticket language.
+- The CLI now has a coherent product-facing surface: `driverx oodrive`.
+- `driverx oodriver` and `driverx studio` remain available as aliases for existing ticket language.
 - Quickstart returns `partial` when Alpamayo prediction evidence is absent,
   which is the correct anti-overclaim behavior.
 - Runtime limitations are represented as artifacts and blockers rather than
@@ -51,9 +51,9 @@ No blocking correctness findings.
 ## Verification
 
 ```bash
-PYTHONPATH=src python3 -m unittest tests.test_oodriver_cli
-PYTHONPATH=src python3 -m unittest tests.test_oodriver_cli tests.test_scenario_studio tests.test_scenario_workbench_bundle
-PYTHONPATH=src python3 -m driverx oodriver quickstart --prompt "Malaysian wet roadwork: motorbike filters between cars while a lorry brakes without signal" --prompt "Night market scooter shoulder pass with sudden brake and roadside vendor occlusion" --output-root artifacts/runs --run-id oodriver-cli-smoke --count 4 --severity 4 --seed 23
+PYTHONPATH=src python3 -m unittest tests.test_oodrive_cli
+PYTHONPATH=src python3 -m unittest tests.test_oodrive_cli tests.test_scenario_studio tests.test_scenario_workbench_bundle
+PYTHONPATH=src python3 -m driverx oodrive quickstart --prompt "Malaysian wet roadwork: motorbike filters between cars while a lorry brakes without signal" --prompt "Night market scooter shoulder pass with sudden brake and roadside vendor occlusion" --output-root artifacts/runs --run-id oodrive-cli-smoke --count 4 --severity 4 --seed 23
 bash scripts/pre_push_check.sh
 ```
 

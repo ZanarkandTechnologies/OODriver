@@ -1,4 +1,4 @@
-"""OODriver scenario queue artifacts."""
+"""OODrive scenario queue artifacts."""
 
 from __future__ import annotations
 
@@ -124,14 +124,14 @@ def _candidate_memory_query(candidate: dict[str, Any]) -> list[str]:
 
 def _next_command(db_path: Path, scenario_id: str, policy: str) -> str:
     return (
-        "PYTHONPATH=src python3 -m driverx oodriver run "
+        "PYTHONPATH=src python3 -m driverx oodrive run "
         f"--db {db_path} --scenario-id {scenario_id} --policy {policy}"
     )
 
 
 def _render_queue_markdown(payload: dict[str, Any]) -> str:
     lines = [
-        "# OODriver Scenario Dataset Queue",
+        "# OODrive Scenario Dataset Queue",
         "",
         f"- Queue: `{payload.get('queue_id')}`",
         f"- Source DB: `{payload.get('source_db_path')}`",

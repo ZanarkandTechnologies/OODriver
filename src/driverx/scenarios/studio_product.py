@@ -1,4 +1,4 @@
-"""OODriver product-level scenario database orchestration."""
+"""OODrive product-level scenario database orchestration."""
 
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ from driverx.scenarios.queue import (
 from driverx.scenarios.run_manifest import ScenarioRunManifest, write_run_manifest
 from driverx.scenarios.studio import ScenarioStudioConfig, generate_studio_batch
 from driverx.scenarios.studio_db import (
-    OODRIVER_PRODUCT_NAME,
+    OODRIVE_PRODUCT_NAME,
     append_brief,
     append_bundle,
     append_command,
@@ -70,7 +70,7 @@ class StudioCommandResult:
 
     def to_jsonable(self) -> dict[str, Any]:
         return {
-            "product": OODRIVER_PRODUCT_NAME,
+            "product": OODRIVE_PRODUCT_NAME,
             "command": self.command,
             "run_id": self.run_id,
             "status": self.status,
@@ -95,18 +95,18 @@ def run_studio_init(output_root: Path, run_id: str, *, force: bool = False) -> S
         summary = {"created": True, "brief_count": 0, "candidate_count": 0}
     db = append_command(
         load_studio_db(path),
-        command="oodriver init",
+        command="oodrive init",
         status=status,
         artifacts={"db_path": str(path), "report_path": str(path.with_suffix(".md"))},
         summary=summary,
     )
     artifacts = artifact_paths(write_studio_db(path, db))
     return StudioCommandResult(
-        command="oodriver init",
+        command="oodrive init",
         run_id=db.run_id,
         status=status,
         artifacts=artifacts,
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodriver ingest-brief --db {path} --prompt '<brief>'"],
+        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive ingest-brief --db {path} --prompt '<brief>'"],
         summary=summary,
         claim_boundaries=db.claim_boundaries,
     )
@@ -136,18 +136,18 @@ def run_studio_ingest_brief(
     db = append_brief(db, brief)
     db = append_command(
         db,
-        command="oodriver ingest-brief",
+        command="oodrive ingest-brief",
         status="passed",
         artifacts={"db_path": str(db_path)},
         summary={"brief_id": brief["brief_id"], "prompt": clean_prompt},
     )
     artifacts = artifact_paths(write_studio_db(db_path, db))
     return StudioCommandResult(
-        command="oodriver ingest-brief",
+        command="oodrive ingest-brief",
         run_id=db.run_id,
         status="passed",
         artifacts=artifacts,
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodriver compile --db {db_path} --count 6 --seed 7"],
+        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive compile --db {db_path} --count 6 --seed 7"],
         summary={"brief": brief, "brief_count": len(db.briefs)},
         claim_boundaries=db.claim_boundaries,
     )
@@ -165,7 +165,7 @@ def run_studio_compile(
     db = load_studio_db(db_path)
     prompts = [str(brief.get("prompt", "")).strip() for brief in db.briefs if str(brief.get("prompt", "")).strip()]
     if not prompts:
-        raise ValueError("Studio DB has no briefs. Run oodriver ingest-brief first.")
+        raise ValueError("Studio DB has no briefs. Run oodrive ingest-brief first.")
     count_per_prompt = max(1, math.ceil(max(1, count) / len(prompts)))
     batch = generate_studio_batch(
         ScenarioStudioConfig(
@@ -206,7 +206,7 @@ def run_studio_compile(
     )
     db = append_command(
         db,
-        command="oodriver compile",
+        command="oodrive compile",
         status="passed",
         artifacts={
             "db_path": str(db_path),
@@ -226,11 +226,11 @@ def run_studio_compile(
     )
     artifacts = artifact_paths(write_studio_db(db_path, db))
     return StudioCommandResult(
-        command="oodriver compile",
+        command="oodrive compile",
         run_id=db.run_id,
         status="passed",
         artifacts={**artifacts, "scenario_studio_batch": str(batch.get("json_path", ""))},
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodriver queue --db {db_path} --accept top:3"],
+        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive queue --db {db_path} --accept top:3"],
         summary={
             "prompt_count": len(prompts),
             "candidate_count": len(limited_candidates),
@@ -261,14 +261,14 @@ def run_studio_queue(
     )
     db = append_command(
         db,
-        command="oodriver queue",
+        command="oodrive queue",
         status="passed",
         artifacts=queue_artifacts,
         summary={"queue_count": len(queue.records), "accept": accept},
     )
     artifacts = artifact_paths(write_studio_db(db_path, db))
     return StudioCommandResult(
-        command="oodriver queue",
+        command="oodrive queue",
         run_id=db.run_id,
         status="passed",
         artifacts={**artifacts, **queue_artifacts},
@@ -301,7 +301,7 @@ def run_studio_run(
     actions = mock_actions_for_record(record) if policy == "mock" else []
     timings = {"load_ms": 1.0, "policy_ms": 2.0, "write_ms": 1.0}
     claim_boundaries = [
-        f"product_name={OODRIVER_PRODUCT_NAME}",
+        f"product_name={OODRIVE_PRODUCT_NAME}",
         "closed_loop_carla_execution=false",
         "real_time_vla_control=false",
         "mock_policy=true" if policy == "mock" else "mock_policy=false",
@@ -309,7 +309,7 @@ def run_studio_run(
     if policy == "carla-autopilot":
         runtime = "carla-smoke"
         claim_boundaries = [
-            f"product_name={OODRIVER_PRODUCT_NAME}",
+            f"product_name={OODRIVE_PRODUCT_NAME}",
             "closed_loop_carla_execution=false_until_video_tracks_manifest_exists",
             "real_time_vla_control=false",
             "carla_autopilot_requested=true",
@@ -328,7 +328,7 @@ def run_studio_run(
                 if smoke.reachable:
                     status = "partial"
                     blockers.append(
-                        "CARLA TCP port is reachable; OODriver CLI V1 records a manifest but does not yet invoke full route execution."
+                        "CARLA TCP port is reachable; OODrive CLI V1 records a manifest but does not yet invoke full route execution."
                     )
                     claim_boundaries[1] = "closed_loop_carla_execution=partial_smoke_only"
                 else:
@@ -340,9 +340,9 @@ def run_studio_run(
     elif policy == "alpamayo-trajectory":
         runtime = "offline-evaluation-required"
         status = "blocked"
-        blockers.append("Use oodriver evaluate with an Alpamayo prediction JSON; run does not execute model inference.")
+        blockers.append("Use oodrive evaluate with an Alpamayo prediction JSON; run does not execute model inference.")
         claim_boundaries = [
-            f"product_name={OODRIVER_PRODUCT_NAME}",
+            f"product_name={OODRIVE_PRODUCT_NAME}",
             "closed_loop_carla_execution=false",
             "alpamayo_open_loop_evaluation=false_until_prediction_attached",
             "real_time_vla_control=false",
@@ -369,18 +369,18 @@ def run_studio_run(
     db = append_run(db, {**manifest.to_jsonable(), **manifest_artifacts})
     db = append_command(
         db,
-        command="oodriver run",
+        command="oodrive run",
         status=status if status != "complete" else "passed",
         artifacts=manifest_artifacts,
         summary={"scenario_id": scenario_id, "policy": policy, "status": status},
     )
     db_artifacts = artifact_paths(write_studio_db(db_path, db))
     return StudioCommandResult(
-        command="oodriver run",
+        command="oodrive run",
         run_id=db.run_id,
         status=status if status != "complete" else "passed",
         artifacts={**db_artifacts, **manifest_artifacts},
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodriver evaluate --db {db_path} --run {manifest_artifacts['json_path']} --policy alpamayo-trajectory"],
+        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive evaluate --db {db_path} --run {manifest_artifacts['json_path']} --policy alpamayo-trajectory"],
         summary=manifest.to_jsonable(),
         claim_boundaries=claim_boundaries,
         blockers=blockers,
@@ -424,7 +424,7 @@ def run_studio_evaluate(
         latency_ms=latency,
         memory_ids=memory_ids,
         claim_boundaries=[
-            f"product_name={OODRIVER_PRODUCT_NAME}",
+            f"product_name={OODRIVE_PRODUCT_NAME}",
             "sampled_open_loop_reasoning=true" if prediction else "sampled_open_loop_reasoning=false",
             "closed_loop_carla_execution=false",
             "real_time_vla_control=false",
@@ -437,18 +437,18 @@ def run_studio_evaluate(
     db = append_evaluation(db, {**record.to_jsonable(), **evaluation_artifacts})
     db = append_command(
         db,
-        command="oodriver evaluate",
+        command="oodrive evaluate",
         status="blocked" if blockers and not prediction else "passed",
         artifacts=evaluation_artifacts,
         summary={"scenario_id": scenario_id, "policy": policy, "memory_ids": memory_ids},
     )
     db_artifacts = artifact_paths(write_studio_db(db_path, db))
     return StudioCommandResult(
-        command="oodriver evaluate",
+        command="oodrive evaluate",
         run_id=db.run_id,
         status="blocked" if blockers and not prediction else "passed",
         artifacts={**db_artifacts, **evaluation_artifacts},
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodriver replay --db {db_path} --evaluation {evaluation_artifacts['json_path']}"],
+        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive replay --db {db_path} --evaluation {evaluation_artifacts['json_path']}"],
         summary=record.to_jsonable(),
         claim_boundaries=record.claim_boundaries,
         blockers=blockers,
@@ -476,18 +476,18 @@ def run_studio_replay(
     db = append_bundle(db, {**bundle, **artifacts})
     db = append_command(
         db,
-        command="oodriver replay",
+        command="oodrive replay",
         status="passed",
         artifacts=artifacts,
         summary={"scenario_id": scenario_id, "bundle_id": bundle_id},
     )
     db_artifacts = artifact_paths(write_studio_db(db_path, db))
     return StudioCommandResult(
-        command="oodriver replay",
+        command="oodrive replay",
         run_id=db.run_id,
         status="passed",
         artifacts={**db_artifacts, **artifacts},
-        next_commands=[f"PYTHONPATH=src python3 -m driverx oodriver export --db {db_path}"],
+        next_commands=[f"PYTHONPATH=src python3 -m driverx oodrive export --db {db_path}"],
         summary=bundle,
         claim_boundaries=list(bundle["claim_boundaries"]),
     )
@@ -508,14 +508,14 @@ def run_studio_export(
     db = append_export(db, {**payload, **artifacts})
     db = append_command(
         db,
-        command="oodriver export",
+        command="oodrive export",
         status="passed",
         artifacts=artifacts,
         summary={"scenario_count": payload["scenario_count"], "pack_id": export_id},
     )
     db_artifacts = artifact_paths(write_studio_db(db_path, db))
     return StudioCommandResult(
-        command="oodriver export",
+        command="oodrive export",
         run_id=db.run_id,
         status="passed",
         artifacts={**db_artifacts, **artifacts},
@@ -555,7 +555,7 @@ def run_studio_quickstart(
     export_result = run_studio_export(db_path)
     blockers = run_result.blockers + evaluate_result.blockers
     return StudioCommandResult(
-        command="oodriver quickstart",
+        command="oodrive quickstart",
         run_id=run_id,
         status="partial" if blockers else ("passed" if run_result.status == "passed" else "partial"),
         artifacts={

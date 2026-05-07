@@ -164,33 +164,34 @@ Key outputs:
 - `policy/policy_reaction_matrix.md`: baseline, memory-guided, and hybrid
   policy comparison table.
 
-## Quickstart: OODriver Scenario Studio
+## Quickstart: OODrive Scenario Studio
 
-OODriver is the product name for the out-of-distribution scenario generator.
+OODrive is the product name for the out-of-distribution scenario generator.
 The CLI is the database/control layer; Codex or another agent is the creative
 operator that proposes briefs and decides what to test next.
 
 ```bash
-PYTHONPATH=src python3 -m driverx oodriver quickstart \
+PYTHONPATH=src python3 -m driverx oodrive quickstart \
   --prompt "Malaysian wet roadwork: motorbike filters between cars while a lorry brakes without signal" \
   --output-root artifacts/runs \
-  --run-id oodriver-cli-smoke \
+  --run-id oodrive-cli-smoke \
   --count 3 \
   --seed 19
 ```
 
-The same commands are available under the legacy-friendly `studio` alias:
+The same commands are available under legacy-friendly `oodriver` and `studio`
+aliases:
 
 ```bash
-PYTHONPATH=src python3 -m driverx studio init --run-id oodriver-demo --force
+PYTHONPATH=src python3 -m driverx studio init --run-id oodrive-demo --force
 PYTHONPATH=src python3 -m driverx studio ingest-brief \
-  --db artifacts/runs/oodriver-demo/scenario_studio_db.json \
+  --db artifacts/runs/oodrive-demo/scenario_studio_db.json \
   --prompt "Night market scooter shoulder pass with sudden brake and roadside vendor occlusion" \
   --author codex
-PYTHONPATH=src python3 -m driverx studio compile --db artifacts/runs/oodriver-demo/scenario_studio_db.json --count 6
-PYTHONPATH=src python3 -m driverx studio queue --db artifacts/runs/oodriver-demo/scenario_studio_db.json --accept top:3
-PYTHONPATH=src python3 -m driverx studio run --db artifacts/runs/oodriver-demo/scenario_studio_db.json --policy mock
-PYTHONPATH=src python3 -m driverx studio export --db artifacts/runs/oodriver-demo/scenario_studio_db.json
+PYTHONPATH=src python3 -m driverx studio compile --db artifacts/runs/oodrive-demo/scenario_studio_db.json --count 6
+PYTHONPATH=src python3 -m driverx studio queue --db artifacts/runs/oodrive-demo/scenario_studio_db.json --accept top:3
+PYTHONPATH=src python3 -m driverx studio run --db artifacts/runs/oodrive-demo/scenario_studio_db.json --policy mock
+PYTHONPATH=src python3 -m driverx studio export --db artifacts/runs/oodrive-demo/scenario_studio_db.json
 ```
 
 Key outputs are `scenario_studio_db.json`, `scenario_dataset_queue.json`,

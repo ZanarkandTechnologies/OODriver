@@ -1,4 +1,4 @@
-"""Report builders for OODriver replay and export commands."""
+"""Report builders for OODrive replay and export commands."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from driverx.scenarios.studio_db import OODRIVER_PRODUCT_NAME, ScenarioStudioDb
+from driverx.scenarios.studio_db import OODRIVE_PRODUCT_NAME, ScenarioStudioDb
 
 
 def build_bundle_payload(
@@ -36,7 +36,7 @@ def build_bundle_payload(
     )
     return {
         "bundle_id": bundle_id,
-        "product": OODRIVER_PRODUCT_NAME,
+        "product": OODRIVE_PRODUCT_NAME,
         "scenario_id": scenario_id,
         "candidate_id": run_payload.get("candidate_id"),
         "candidate": candidate,
@@ -53,7 +53,7 @@ def write_bundle(run_dir: Path, payload: dict[str, Any]) -> dict[str, str]:
     html_path = run_dir / "scenario_run_bundle.html"
     json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     md_path.write_text(_bundle_markdown(payload), encoding="utf-8")
-    html_path.write_text(_html_doc("OODriver Scenario Replay", _bundle_html(payload)), encoding="utf-8")
+    html_path.write_text(_html_doc("OODrive Scenario Replay", _bundle_html(payload)), encoding="utf-8")
     return {"json_path": str(json_path), "report_path": str(md_path), "html_path": str(html_path)}
 
 
@@ -63,7 +63,7 @@ def build_export_payload(db: ScenarioStudioDb, db_path: Path, export_id: str) ->
     )
     return {
         "pack_id": export_id,
-        "product": OODRIVER_PRODUCT_NAME,
+        "product": OODRIVE_PRODUCT_NAME,
         "db_path": str(db_path),
         "command_transcript": [str(item.get("command", "")) for item in db.command_log],
         "scenario_count": len(db.candidates),
@@ -92,7 +92,7 @@ def write_export_pack(run_dir: Path, payload: dict[str, Any]) -> dict[str, str]:
     html_path = run_dir / "scenario_generator_cli_pack.html"
     json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     md_path.write_text(_export_markdown(payload), encoding="utf-8")
-    html_path.write_text(_html_doc("OODriver CLI Evidence Pack", _export_html(payload)), encoding="utf-8")
+    html_path.write_text(_html_doc("OODrive CLI Evidence Pack", _export_html(payload)), encoding="utf-8")
     return {"json_path": str(json_path), "report_path": str(md_path), "html_path": str(html_path)}
 
 
@@ -124,7 +124,7 @@ def _export_evidence_rows(db: ScenarioStudioDb) -> list[dict[str, Any]]:
 
 def _bundle_markdown(payload: dict[str, Any]) -> str:
     lines = [
-        "# OODriver Scenario Replay",
+        "# OODrive Scenario Replay",
         "",
         f"- Scenario: `{payload.get('scenario_id')}`",
         f"- Candidate: `{payload.get('candidate_id')}`",
@@ -148,7 +148,7 @@ def _bundle_html(payload: dict[str, Any]) -> str:
     )
     boundaries = "".join(f"<li><code>{_esc(boundary)}</code></li>" for boundary in payload.get("claim_boundaries", []))
     return (
-        f"<h1>OODriver Scenario Replay</h1><p>Scenario <code>{_esc(payload.get('scenario_id'))}</code></p>"
+        f"<h1>OODrive Scenario Replay</h1><p>Scenario <code>{_esc(payload.get('scenario_id'))}</code></p>"
         f"<table><tr><th>Stage</th><th>Status</th><th>Artifact</th></tr>{rows}</table>"
         f"<h2>Claim Boundaries</h2><ul>{boundaries}</ul>"
     )
@@ -156,7 +156,7 @@ def _bundle_html(payload: dict[str, Any]) -> str:
 
 def _export_markdown(payload: dict[str, Any]) -> str:
     lines = [
-        "# OODriver CLI Evidence Pack",
+        "# OODrive CLI Evidence Pack",
         "",
         f"- Pack: `{payload.get('pack_id')}`",
         f"- Scenarios: `{payload.get('scenario_count')}`",
@@ -197,7 +197,7 @@ def _export_html(payload: dict[str, Any]) -> str:
     )
     boundaries = "".join(f"<li><code>{_esc(boundary)}</code></li>" for boundary in payload.get("claim_boundaries", []))
     return (
-        f"<h1>OODriver CLI Evidence Pack</h1><p>{_esc(payload.get('scenario_count'))} scenarios, "
+        f"<h1>OODrive CLI Evidence Pack</h1><p>{_esc(payload.get('scenario_count'))} scenarios, "
         f"{_esc(payload.get('run_count'))} runs, {_esc(payload.get('alpamayo_eval_count'))} Alpamayo evaluations.</p>"
         f"<table><tr><th>Scenario</th><th>Queue</th><th>Run</th><th>Policy</th><th>Reasoning</th><th>Bundle</th></tr>{rows}</table>"
         f"<h2>Claim Boundaries</h2><ul>{boundaries}</ul>"

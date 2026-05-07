@@ -1,4 +1,4 @@
-"""JSON-backed OODriver scenario studio database."""
+"""JSON-backed OODrive scenario studio database."""
 
 from __future__ import annotations
 
@@ -9,16 +9,18 @@ from typing import Any
 
 SCENARIO_STUDIO_DB_FILENAME = "scenario_studio_db.json"
 SCENARIO_STUDIO_DB_REPORT_FILENAME = "scenario_studio_db.md"
-SCENARIO_STUDIO_DB_SCHEMA_VERSION = "oodriver.studio-db.v1"
-OODRIVER_PRODUCT_NAME = "OODriver"
+LEGACY_SCENARIO_STUDIO_DB_SCHEMA_VERSION = "oodriver.studio-db.v1"
+SCENARIO_STUDIO_DB_SCHEMA_VERSION = "oodrive.studio-db.v1"
+OODRIVE_PRODUCT_NAME = "OODrive"
+OODRIVER_PRODUCT_NAME = OODRIVE_PRODUCT_NAME
 
 
 @dataclass(frozen=True)
 class ScenarioStudioDb:
-    """Durable artifact index for one OODriver scenario generation run."""
+    """Durable artifact index for one OODrive scenario generation run."""
 
     run_id: str
-    product_name: str = OODRIVER_PRODUCT_NAME
+    product_name: str = OODRIVE_PRODUCT_NAME
     schema_version: str = SCENARIO_STUDIO_DB_SCHEMA_VERSION
     briefs: list[dict[str, Any]] = field(default_factory=list)
     plans: list[dict[str, Any]] = field(default_factory=list)
@@ -51,7 +53,7 @@ class ScenarioStudioDb:
             "command_log": list(self.command_log),
             "claim_boundaries": _dedupe(
                 [
-                    "product_name=OODriver",
+                    "product_name=OODrive",
                     "cli_is_database_control_plane=true",
                     "codex_is_ai_operator=true",
                     *self.claim_boundaries,
@@ -62,8 +64,8 @@ class ScenarioStudioDb:
     @classmethod
     def from_jsonable(cls, payload: dict[str, Any]) -> "ScenarioStudioDb":
         return cls(
-            run_id=str(payload.get("run_id", "oodriver")),
-            product_name=str(payload.get("product_name", OODRIVER_PRODUCT_NAME)),
+            run_id=str(payload.get("run_id", "oodrive")),
+            product_name=str(payload.get("product_name", OODRIVE_PRODUCT_NAME)).replace("OODriver", "OODrive"),
             schema_version=str(payload.get("schema_version", SCENARIO_STUDIO_DB_SCHEMA_VERSION)),
             briefs=_list_of_dicts(payload.get("briefs")),
             plans=_list_of_dicts(payload.get("plans")),
@@ -97,15 +99,34 @@ def new_studio_db(run_id: str) -> ScenarioStudioDb:
 
 def load_studio_db(path: Path) -> ScenarioStudioDb:
     if not path.exists():
-        raise FileNotFoundError(f"OODriver studio DB not found: {path}")
+        raise FileNotFoundError(f"OODrive studio DB not found: {path}")
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
-        raise ValueError(f"OODriver studio DB must be a JSON object: {path}")
+        raise ValueError(f"OODrive studio DB must be a JSON object: {path}")
     db = ScenarioStudioDb.from_jsonable(payload)
-    if db.schema_version != SCENARIO_STUDIO_DB_SCHEMA_VERSION:
+    if db.schema_version not in {SCENARIO_STUDIO_DB_SCHEMA_VERSION, LEGACY_SCENARIO_STUDIO_DB_SCHEMA_VERSION}:
         raise ValueError(
-            f"Unsupported OODriver studio DB schema {db.schema_version}; "
+            f"Unsupported OODrive studio DB schema {db.schema_version}; "
             f"expected {SCENARIO_STUDIO_DB_SCHEMA_VERSION}."
+        )
+    if db.schema_version == LEGACY_SCENARIO_STUDIO_DB_SCHEMA_VERSION:
+        db = replace_db(db)
+        db = ScenarioStudioDb(
+            run_id=db.run_id,
+            product_name=OODRIVE_PRODUCT_NAME,
+            schema_version=SCENARIO_STUDIO_DB_SCHEMA_VERSION,
+            briefs=db.briefs,
+            plans=db.plans,
+            candidates=db.candidates,
+            curation=db.curation,
+            queue=db.queue,
+            runs=db.runs,
+            evaluations=db.evaluations,
+            bundles=db.bundles,
+            exports=db.exports,
+            artifacts=db.artifacts,
+            command_log=db.command_log,
+            claim_boundaries=db.claim_boundaries,
         )
     return db
 
@@ -175,7 +196,7 @@ def append_command(
 def append_brief(db: ScenarioStudioDb, brief: dict[str, Any]) -> ScenarioStudioDb:
     existing_ids = {str(item.get("brief_id")) for item in db.briefs}
     if str(brief.get("brief_id")) in existing_ids:
-        raise ValueError(f"Brief already exists in OODriver DB: {brief.get('brief_id')}")
+        raise ValueError(f"Brief already exists in OODrive DB: {brief.get('brief_id')}")
     return replace_db(db, briefs=[*db.briefs, brief])
 
 
@@ -197,7 +218,7 @@ def append_export(db: ScenarioStudioDb, export: dict[str, Any]) -> ScenarioStudi
 
 def render_studio_db_markdown(payload: dict[str, Any]) -> str:
     lines = [
-        f"# {payload.get('product_name', OODRIVER_PRODUCT_NAME)} Studio DB",
+        f"# {payload.get('product_name', OODRIVE_PRODUCT_NAME)} Studio DB",
         "",
         f"- Run: `{payload.get('run_id')}`",
         f"- Schema: `{payload.get('schema_version')}`",
@@ -263,6 +284,8 @@ def _cell(value: Any) -> str:
 
 
 __all__ = [
+    "LEGACY_SCENARIO_STUDIO_DB_SCHEMA_VERSION",
+    "OODRIVE_PRODUCT_NAME",
     "OODRIVER_PRODUCT_NAME",
     "SCENARIO_STUDIO_DB_FILENAME",
     "SCENARIO_STUDIO_DB_SCHEMA_VERSION",

@@ -1,4 +1,4 @@
-"""OODriver policy evaluation records."""
+"""OODrive policy evaluation records."""
 
 from __future__ import annotations
 
@@ -52,7 +52,7 @@ def write_policy_evaluation(run_dir: Path, record: PolicyEvaluationRecord) -> di
 
 def _render_markdown(payload: dict[str, Any]) -> str:
     lines = [
-        "# OODriver Policy Evaluation",
+        "# OODrive Policy Evaluation",
         "",
         f"- Evaluation: `{payload.get('evaluation_id')}`",
         f"- Scenario: `{payload.get('scenario_id')}`",

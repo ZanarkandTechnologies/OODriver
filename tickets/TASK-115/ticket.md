@@ -165,11 +165,11 @@ Low. New module and new CLI subcommand.
 ### Evidence
 
 - Queue module: `src/driverx/scenarios/queue.py`.
-- CLI command: `PYTHONPATH=src python3 -m driverx oodriver queue --db <db> --accept top:3`.
+- CLI command: `PYTHONPATH=src python3 -m driverx oodrive queue --db <db> --accept top:3`.
 - Smoke queue:
-  `artifacts/runs/oodriver-cli-smoke/scenario_dataset_queue.json`.
-- QA report: `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
-- Tests: `PYTHONPATH=src python3 -m unittest tests.test_oodriver_cli`.
+  `artifacts/runs/oodrive-cli-smoke/scenario_dataset_queue.json`.
+- QA report: `tickets/TASK-119/artifacts/qa/oodrive-cli-qa.md`.
+- Tests: `PYTHONPATH=src python3 -m unittest tests.test_oodrive_cli`.
 
 ### Blockers
 

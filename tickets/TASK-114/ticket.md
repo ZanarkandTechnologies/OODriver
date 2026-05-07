@@ -199,16 +199,16 @@ the implementation delegates to existing stable modules.
 
 ### Evidence
 
-- Implemented product name: `OODriver`.
-- Canonical command: `PYTHONPATH=src python3 -m driverx oodriver ...`.
+- Implemented product name: `OODrive`.
+- Canonical command: `PYTHONPATH=src python3 -m driverx oodrive ...`.
 - Compatibility alias: `PYTHONPATH=src python3 -m driverx studio ...`.
-- Smoke DB: `artifacts/runs/oodriver-cli-smoke/scenario_studio_db.json`.
+- Smoke DB: `artifacts/runs/oodrive-cli-smoke/scenario_studio_db.json`.
 - Quickstart export:
-  `artifacts/runs/oodriver-cli-smoke/exports/oodriver-cli-smoke-export/scenario_generator_cli_pack.html`.
-- QA report: `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
-- Review: `docs/reviews/TASK-114-119-oodriver-cli-review.md`.
+  `artifacts/runs/oodrive-cli-smoke/exports/oodrive-cli-smoke-export/scenario_generator_cli_pack.html`.
+- QA report: `tickets/TASK-119/artifacts/qa/oodrive-cli-qa.md`.
+- Review: `docs/reviews/TASK-114-119-oodrive-cli-review.md`.
 - Tests:
-  `PYTHONPATH=src python3 -m unittest tests.test_oodriver_cli tests.test_scenario_studio tests.test_scenario_workbench_bundle`.
+  `PYTHONPATH=src python3 -m unittest tests.test_oodrive_cli tests.test_scenario_studio tests.test_scenario_workbench_bundle`.
 
 ### Blockers
 

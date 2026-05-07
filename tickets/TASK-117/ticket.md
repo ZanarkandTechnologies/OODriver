@@ -185,11 +185,11 @@ Medium. It touches policy evidence, but not core simulator runners.
 
 - Evaluation module: `src/driverx/scenarios/policy_evaluation.py`.
 - CLI command:
-  `PYTHONPATH=src python3 -m driverx oodriver evaluate --db <db> --policy alpamayo-trajectory`.
+  `PYTHONPATH=src python3 -m driverx oodrive evaluate --db <db> --policy alpamayo-trajectory`.
 - Smoke evaluation:
-  `artifacts/runs/oodriver-cli-smoke/evaluations/studio-0023-malaysian-wet-roadwork-motorbike-filters-between-v00-alpamayo-trajectory-eval/policy_evaluation.json`.
-- Cached-prediction test: `tests/test_oodriver_cli.py`.
-- QA report: `tickets/TASK-119/artifacts/qa/oodriver-cli-qa.md`.
+  `artifacts/runs/oodrive-cli-smoke/evaluations/studio-0023-malaysian-wet-roadwork-motorbike-filters-between-v00-alpamayo-trajectory-eval/policy_evaluation.json`.
+- Cached-prediction test: `tests/test_oodrive_cli.py`.
+- QA report: `tickets/TASK-119/artifacts/qa/oodrive-cli-qa.md`.
 
 ### Blockers
 
