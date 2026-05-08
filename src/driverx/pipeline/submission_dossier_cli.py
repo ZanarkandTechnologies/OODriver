@@ -41,7 +41,7 @@ def register_submission_dossier_parser(subparsers: Any) -> None:
     parser.add_argument("--campaign-summary", type=Path)
     parser.add_argument("--alpamayo-batch", type=Path)
     parser.add_argument("--cached-replay", type=Path)
-    parser.add_argument("--progress", type=Path, default=Path("docs/progress.md"))
+    parser.add_argument("--progress", type=Path, default=Path("docs/archive/legacy-docs/progress.md"))
     parser.add_argument("--blockers", type=Path, default=Path("blockers.md"))
     parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
     parser.add_argument("--run-id", default="submission-dossier")

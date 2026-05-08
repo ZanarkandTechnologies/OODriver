@@ -6,6 +6,17 @@ unblocked ticket when possible.
 
 ## Open
 
+- 2026-05-09 06:00 +0800 | TASK-176,TASK-177 | custom-map,assets,carla
+  real custom CARLA map/asset import requires external FBX/XODR or
+  Unreal/CARLA package/source build tooling; local implementation should emit
+  manifests, command plans, probes, and honest blockers until that root is
+  provided.
+
+- 2026-05-09 06:00 +0800 | TASK-174,TASK-175 | scenariorunner,carla
+  live ScenarioRunner execution requires an installed ScenarioRunner
+  checkout/runtime on a CARLA host; local implementation should emit
+  package/validation/run blocker artifacts until that root is provided.
+
 - 2026-05-07 16:36 +0800 | carla,video,paper-demo | TASK-112
   fresh paper-demo CARLA source render was not attempted in this pass because
   local `127.0.0.1:2000` refused connection during the optional smoke check.

@@ -48,7 +48,7 @@ def register_submission_demo_pack_parser(subparsers: Any) -> None:
     parser.add_argument("--generated-asset-evidence", type=Path)
     parser.add_argument("--cached-replay", type=Path)
     parser.add_argument("--blockers", type=Path, default=Path("blockers.md"))
-    parser.add_argument("--progress", type=Path, default=Path("docs/progress.md"))
+    parser.add_argument("--progress", type=Path, default=Path("docs/archive/legacy-docs/progress.md"))
     parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
     parser.add_argument("--run-id", default="submission-demo-pack")
     parser.set_defaults(func=command_build_submission_demo_pack)

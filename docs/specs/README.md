@@ -11,12 +11,14 @@ Top-level companion docs:
 
 Current design docs:
 
-- `directory-structure-plan.md` - planned implementation layout and future stubs
 - `minimal-shot-vla-roadmap.md` - TASK-008 through TASK-014 roadmap for CARLA,
   generated assets, regional driving behavior, policy adapters, and RAG
   comparison
+- `scenario-generator-cli-v1.md` - OODrive prompt-to-scenario CLI contract
 - `scenario-studio-data-engine.md` - TASK-103 product/data-engine design for
   prompt-authored OOD scenarios, curation gates, and Alpamayo/RAG handoff
+
+Archived drafts now live under `docs/archive/legacy-docs/`.
 
 Use this folder for:
 

@@ -82,12 +82,15 @@ Local Mac:
 - optional Apple Silicon CARLA TCP smoke checks
 - Waymo fixture and Docker bridge commands
 
-Remote or Linux NVIDIA runtime:
+RunPod/Kasm or Linux NVIDIA runtime:
 
 - reproducible CARLA/Fail2Drive execution
-- SimLingo/CarLLaVA policy runs
 - Alpamayo inference
+- CARLA video/evidence capture
 - latency-sensitive serving experiments
+
+Legacy SimLingo/CarLLaVA scripts are archived under `scripts/archive/simlingo/`;
+the adapters remain in source because older tests and reports still cover them.
 
 ## Read Order
 
@@ -96,7 +99,8 @@ Remote or Linux NVIDIA runtime:
 3. `ARCHITECTURE.md`
 4. active `tickets/TASK-*/ticket.md`
 5. relevant module `README.md`
-6. archived tickets for prior Waymo evidence when needed
+6. `docs/runpod-kasm-quickstart.md` for live graphics-pod setup
+7. archived tickets for prior Waymo or SimLingo evidence when needed
 
 ## Current Limits
 

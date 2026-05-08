@@ -5,17 +5,19 @@ expectations, and runtime assumptions.
 
 ## Tech Stack
 
-- Language: Python first for data/model/evaluation work; TypeScript only if a
-  later web demo is added.
-- Runtime: Python 3.10 or newer. Use the Linux amd64 Docker runtime for
-  official Waymo dependencies on Apple Silicon.
-- Data: Waymo Open Dataset End-to-End Driving TFRecords and protobufs.
-- ML/VLM integration: provider-neutral adapter layer; first implementation may
-  use cloud GPU inference or API-backed VLM calls.
-- Notebooks: Jupyter for exploration and final analysis.
-- Visualization: matplotlib/OpenCV for dataset overlays; optional rerun/RRD or
-  video export later.
-- Package manager: stdlib-first Python package for v1; use editable install or
+- Language: Python first for scenario generation, simulator control, model
+  evidence, and reports; TypeScript only if a later web demo is added.
+- Runtime: Python 3.10 or newer locally; the RunPod/Kasm CARLA path uses the
+  Python 3.12 CARLA wheel from CARLA 0.9.16.
+- Simulator: CARLA 0.9.16 is the main live evidence path; Fail2Drive supplies
+  route families and benchmark framing.
+- Autonomy/model integration: OODrive packages CARLA observations for Alpamayo
+  or other VLA/VLM backends, then keeps model output behind policy adapters and
+  safety-bounded controls.
+- Support tracks: Waymo and SimLingo/CarLLaVA code remains available for old
+  reports and tests, but the friend-facing submission path is OODrive + CARLA +
+  Alpamayo/RAG.
+- Package manager: stdlib-first Python package; use editable install or
   `PYTHONPATH=src` during local development.
 
 ## Folder Structure
@@ -25,15 +27,15 @@ expectations, and runtime assumptions.
 - `docs/specs/`: durable planning specs before tickets are created.
 - `qa/`: reusable verification and evidence-capture guidance.
 - `tickets/`: future ticket board and archived work.
-- `scripts/`: repo-local validation helpers.
+- `scripts/`: repo-local validation, RunPod/Kasm setup, sync, and demo helpers.
 - `src/driverx/`: implementation surface.
 - `notebooks/`: analysis notebook placeholders.
 - `data/`: local ignored data mount instructions, not checked-in dataset files.
 
 ## Conventions
 
-- Start docs-first for architecture and PRD work; do not write runtime code
-  before the initial implementation plan is accepted.
+- Keep the README focused on the current OODrive/CARLA/Alpamayo story.
+- Archive old setup paths instead of leaving them in the primary reader flow.
 - Keep model integrations behind narrow interfaces so cloud GPU, API-backed VLM,
   and mock backends can be swapped.
 - Store large datasets, generated videos, submission archives, and model weights
@@ -67,8 +69,8 @@ expectations, and runtime assumptions.
 
 ## Runtime / QA Commands
 
-- Authoritative app-only run path:
-  `PYTHONPATH=src python3 -m driverx run-scene --config configs/mock.yaml`
+- Authoritative product quickstart:
+  `PYTHONPATH=src python3 -m oodrive quickstart --prompt "wet roadwork scooter"`
 - Authoritative QA / evidence run path:
   `bash scripts/pre_push_check.sh`
 - Required local services: none for docs; future cloud GPU is optional for VLA
@@ -100,13 +102,13 @@ expectations, and runtime assumptions.
 ## Quick Commands
 
 ```bash
-# Inspect one fixture scene
-PYTHONPATH=src python3 -m driverx inspect-scene --config configs/mock.yaml
+# Run the product quickstart
+PYTHONPATH=src python3 -m oodrive quickstart --prompt "wet roadwork scooter"
 
-# Run the fixture pipeline
-PYTHONPATH=src python3 -m driverx run-scene --config configs/mock.yaml
+# Generate scenario candidates
+PYTHONPATH=src python3 -m oodrive generate "wet roadwork scooter filtering"
 
-# Run the tiny fixture validation batch
+# Run the old fixture pipeline support track
 PYTHONPATH=src python3 -m driverx run-batch --config configs/mock.yaml
 
 # Run tests

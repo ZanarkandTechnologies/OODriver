@@ -15,7 +15,7 @@
 - `docs/specs/minimal-shot-vla-roadmap.md`
 - `docs/specs/scenario-generator-cli-v1.md`
 - `docs/specs/scenario-studio-data-engine.md`
-- `docs/submission-milestones.md`
+- `docs/archive/legacy-docs/submission-milestones.md`
 - `docs/MEMORY.md`
 - `docs/HISTORY.md`
 - user-provided motivation notes from 2026-05-09

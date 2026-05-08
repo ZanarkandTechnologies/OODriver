@@ -11,4 +11,4 @@ Before adding tests:
 - avoid duplicate smoke tests that only assert a command exists
 - keep generated videos, frames, datasets, and model outputs out of git
 
-Audit notes live in `docs/test-audit.md`.
+Historical audit notes live in `docs/archive/legacy-docs/test-audit.md`.

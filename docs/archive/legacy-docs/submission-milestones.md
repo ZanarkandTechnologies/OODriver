@@ -11,7 +11,7 @@ and dataset curation.
 
 Current recommendation: execute Scenario Workbench V2, tracked by TASK-108
 through TASK-113. Detailed direction lives in
-`docs/specs/scenario-workbench-v2-plan.md`.
+`docs/archive/legacy-docs/scenario-workbench-v2-plan.md`.
 
 ## Evaluation Criteria
 
