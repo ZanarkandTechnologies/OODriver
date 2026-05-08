@@ -112,9 +112,9 @@ class CarlaDockerScriptsTest(unittest.TestCase):
         )
 
     def test_remote_simlingo_bootstrap_handles_packaged_carla_layout(self) -> None:
-        script = (ROOT / "scripts" / "remote_simlingo_bootstrap.sh").read_text(
-            encoding="utf-8"
-        )
+        script = (
+            ROOT / "scripts" / "archive" / "simlingo" / "remote_simlingo_bootstrap.sh"
+        ).read_text(encoding="utf-8")
 
         self.assertIn("ensure_carla_compat_layout", script)
         self.assertIn("Binaries/Linux/CarlaUE4-Linux-Shipping", script)
@@ -149,9 +149,13 @@ class CarlaDockerScriptsTest(unittest.TestCase):
         self.assertNotIn("huggingface/token", script)
 
     def test_remote_simlingo_launcher_uses_temporary_token_file(self) -> None:
-        script = (ROOT / "scripts" / "run_remote_simlingo_bootstrap.sh").read_text(
-            encoding="utf-8"
-        )
+        script = (
+            ROOT
+            / "scripts"
+            / "archive"
+            / "simlingo"
+            / "run_remote_simlingo_bootstrap.sh"
+        ).read_text(encoding="utf-8")
 
         self.assertIn("load_env_value HF_TOKEN", script)
         self.assertIn("REMOTE_TOKEN_FILE", script)
@@ -263,9 +267,13 @@ class CarlaDockerScriptsTest(unittest.TestCase):
         self.assertIn("preserving route status 23", result.stderr)
 
     def test_remote_simlingo_artifact_pull_keeps_only_compact_evidence(self) -> None:
-        script = (ROOT / "scripts" / "pull_remote_simlingo_artifacts.sh").read_text(
-            encoding="utf-8"
-        )
+        script = (
+            ROOT
+            / "scripts"
+            / "archive"
+            / "simlingo"
+            / "pull_remote_simlingo_artifacts.sh"
+        ).read_text(encoding="utf-8")
 
         self.assertIn("REMOTE_ARTIFACT_DIR", script)
         self.assertIn("LOCAL_ARTIFACT_DIR", script)
