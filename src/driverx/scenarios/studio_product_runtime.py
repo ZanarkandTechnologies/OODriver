@@ -556,6 +556,7 @@ def run_studio_demo_video(
     show_frame_time: bool = True,
     show_reasoning: bool = True,
     show_rag: bool = True,
+    layout: str = "dense",
 ) -> StudioCommandResult:
     """Build a time-warped reasoning/RAG overlay video for the hero demo."""
 
@@ -604,11 +605,13 @@ def run_studio_demo_video(
             show_frame_time=show_frame_time,
             show_reasoning=show_reasoning,
             show_rag=show_rag,
+            layout=layout,
         )
     )
     payload = {
         **result.to_jsonable(),
         "scenario_id": scenario_id,
+        "layout": layout,
         "events": [event.to_jsonable() for event in events],
         "risk_timeline": risk_payload,
         "timewarp": timewarp_payload,
@@ -638,6 +641,7 @@ def run_studio_demo_video(
                     "hero_demo_frame_time_overlay=true" if show_frame_time else "hero_demo_frame_time_overlay=false",
                     "hero_demo_rag_overlay=true" if show_rag else "hero_demo_rag_overlay=false",
                     "hero_demo_reasoning_overlay=true" if show_reasoning else "hero_demo_reasoning_overlay=false",
+                    f"hero_demo_overlay_layout={layout}",
                 ]
             )
         ),

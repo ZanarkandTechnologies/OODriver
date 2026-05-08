@@ -51,6 +51,7 @@ class ReasoningOverlayConfig:
     show_frame_time: bool = True
     show_reasoning: bool = True
     show_rag: bool = True
+    layout: str = "dense"
 
 
 @dataclass(frozen=True)
@@ -254,6 +255,7 @@ def render_reasoning_timeline_overlay(config: ReasoningOverlayConfig) -> Reasoni
                 show_frame_time=config.show_frame_time,
                 show_reasoning=config.show_reasoning,
                 show_rag=config.show_rag,
+                layout=config.layout,
             )
             image.save(target)
     config.output_video.parent.mkdir(parents=True, exist_ok=True)
@@ -309,7 +311,23 @@ def render_reasoning_overlay_frame(
     show_frame_time: bool = True,
     show_reasoning: bool = True,
     show_rag: bool = True,
+    layout: str = "dense",
 ) -> None:
+    if layout == "compact":
+        _render_compact_reasoning_overlay_frame(
+            draw,
+            image_size,
+            event,
+            title,
+            subtitle,
+            font,
+            frame_index=frame_index,
+            render_time_s=render_time_s,
+            show_frame_time=show_frame_time,
+            show_reasoning=show_reasoning,
+            show_rag=show_rag,
+        )
+        return
     width, height = image_size
     panel_w = min(520, max(360, width // 2))
     x0 = width - panel_w - 24
@@ -334,6 +352,42 @@ def render_reasoning_overlay_frame(
         y += 64
     claim = (event.claim if event else "sampled_open_loop_reasoning") + " | real_time_vla_control=false"
     draw.text((x0 + 18, y1 - 24), claim, fill=(245, 245, 245, 210), font=font)
+
+
+def _render_compact_reasoning_overlay_frame(
+    draw: Any,
+    image_size: tuple[int, int],
+    event: ReasoningOverlayEvent | None,
+    title: str,
+    subtitle: str,
+    font: Any,
+    *,
+    frame_index: int | None = None,
+    render_time_s: float | None = None,
+    show_frame_time: bool = True,
+    show_reasoning: bool = True,
+    show_rag: bool = True,
+) -> None:
+    width, height = image_size
+    x0 = 18
+    y0 = height - 128
+    x1 = width - 18
+    y1 = height - 18
+    draw.rounded_rectangle((x0, y0, x1, y1), radius=6, fill=(4, 8, 14, 210))
+    header = title if not show_frame_time else f"{title} | {_frame_time_text(event, frame_index, render_time_s)}"
+    draw.text((x0 + 14, y0 + 10), header, fill=(255, 255, 255, 245), font=font)
+    draw.text((x0 + 14, y0 + 26), subtitle, fill=(194, 211, 255, 225), font=font)
+    rows = _panel_rows(event, show_reasoning=show_reasoning, show_rag=show_rag)[:3]
+    chip_width = max(160, (x1 - x0 - 42) // max(1, len(rows)))
+    y = y0 + 50
+    for index, (label, value, color) in enumerate(rows):
+        chip_x0 = x0 + 14 + index * (chip_width + 8)
+        chip_x1 = min(x1 - 14, chip_x0 + chip_width)
+        draw.rounded_rectangle((chip_x0, y, chip_x1, y + 42), radius=4, fill=color)
+        draw.text((chip_x0 + 8, y + 6), label, fill=(255, 255, 255, 245), font=font)
+        draw.text((chip_x0 + 8, y + 22), (_wrap(value, 34) or [""])[0], fill=(255, 255, 255, 235), font=font)
+    claim = (event.claim if event else "sampled_open_loop_reasoning") + " | real_time_vla_control=false"
+    draw.text((x0 + 14, y1 - 14), claim, fill=(245, 245, 245, 210), font=font)
 
 
 def _blockers(config: ReasoningOverlayConfig, ffmpeg_path: str | None) -> list[str]:

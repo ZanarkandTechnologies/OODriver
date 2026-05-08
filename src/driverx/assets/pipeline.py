@@ -93,6 +93,10 @@ def generate_assets_with_provider(
 ) -> list[AssetManifest]:
     if provider == "dry_run":
         return generate_assets_dry_run(requests)
+    if provider == "local_procedural":
+        from driverx.assets.local_procedural import generate_local_procedural_assets
+
+        return generate_local_procedural_assets(requests, Path("artifacts/runs/local-procedural-assets"))
     if provider != "meshy":
         raise ValueError(f"Unsupported asset provider: {provider}")
     key = api_key or os.environ.get("MESHY_API_KEY")

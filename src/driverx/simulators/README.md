@@ -41,6 +41,10 @@ simulator used to prove the full generated-scenario policy loop without CARLA.
 - `run_carla_ood_demo(config, run_dir, recipe=..., behavior=..., asset_manifests=...)`
 - `write_carla_ood_demo(run_dir, result)`
 - `render_ood_video_overlay(config)`
+- `build_agent_carla_catalog()`
+- `resolve_map_name(town, map_name=None)`
+- `control_carla_world(config, run_dir)`
+- `write_carla_control_report(run_dir, result)`
 
 ## Example
 
@@ -129,6 +133,31 @@ PYTHONPATH=src python3 -m driverx assemble-ood-video \
   --source-kind fixture \
   --claim-label fixture_video_evidence
 ```
+
+OODrive's agent-facing CARLA composer uses the simulator adapter layer to select
+existing towns, weather presets, road anchors, background traffic/pedestrians,
+stock proxy props, and dynamic behavior actors:
+
+```bash
+PYTHONPATH=src python3 -m oodrive carla-catalog
+PYTHONPATH=src python3 -m oodrive carla-control \
+  --town Town03 \
+  --load-map \
+  --weather-preset night_rain_fog \
+  --capture
+PYTHONPATH=src python3 -m oodrive carla-compose \
+  "Town05 flooded road with debris and a lane-change pressure case" \
+  --town Town05 \
+  --weather-preset flooded_surface \
+  --template-id flooded_road \
+  --behavior-id no_signal_cut_in \
+  --object-kind construction_debris \
+  --backend fake-carla
+```
+
+This is CARLA scenario composition, not arbitrary 3D world generation. The live
+runner applies configured weather with `world.set_weather` when the CARLA Python
+API exposes weather parameters.
 
 When local CARLA is too slow for full route scoring, `run-fail2drive-route` can
 watch the RGB output folder with `--min-video-frames` and assemble an MP4 before

@@ -65,6 +65,7 @@ class CarlaOodDemoConfig:
     ood_motion_smoothing: str = "linear"
     ood_max_step_m: float = 3.0
     cleanup: bool = True
+    weather: dict[str, float | str] = field(default_factory=dict)
 
     def road_frame_selector(self) -> RoadFrameSelector:
         return RoadFrameSelector(
@@ -196,6 +197,7 @@ def load_carla_ood_demo_config(path: Path) -> CarlaOodDemoConfig:
         ood_motion_smoothing=str(demo.get("ood_motion_smoothing", "linear")),
         ood_max_step_m=max(0.1, float(demo.get("ood_max_step_m", 3.0))),
         cleanup=bool(demo.get("cleanup", True)),
+        weather=_weather_from_config(demo),
     )
 
 
@@ -286,6 +288,7 @@ def run_carla_ood_demo(
         client = carla.Client(config.host, config.port)
         client.set_timeout(config.timeout_s)
         world = _world_for_config(client, config)
+        _apply_world_weather(world, carla, config.weather)
         world_map = world.get_map()
         map_name = str(getattr(world_map, "name", "")) or None
         blueprints = world.get_blueprint_library()
@@ -536,6 +539,36 @@ def _world_for_config(client: object, config: CarlaOodDemoConfig) -> object:
     if config.load_map and config.map_name and hasattr(client, "load_world"):
         return client.load_world(config.map_name)
     return client.get_world()
+
+
+def _weather_from_config(demo: dict[str, Any]) -> dict[str, float | str]:
+    nested = demo.get("weather", {})
+    if isinstance(nested, dict) and nested:
+        return dict(nested)
+    prefixed: dict[str, float | str] = {}
+    for key, value in demo.items():
+        if key.startswith("weather_"):
+            prefixed[key.removeprefix("weather_")] = value
+    return prefixed
+
+
+def _apply_world_weather(world: object, carla: object, weather: dict[str, float | str]) -> None:
+    if not weather or not hasattr(world, "set_weather"):
+        return
+    weather_parameters = getattr(carla, "WeatherParameters", None)
+    if weather_parameters is None:
+        return
+    try:
+        current = world.get_weather() if hasattr(world, "get_weather") else weather_parameters()
+    except Exception:
+        current = weather_parameters()
+    for key, value in weather.items():
+        if hasattr(current, key):
+            try:
+                setattr(current, key, float(value))
+            except (TypeError, ValueError):
+                setattr(current, key, value)
+    world.set_weather(current)
 
 
 def _find_blueprint(blueprints: object, blueprint_filter: str) -> object:

@@ -44,6 +44,7 @@ def register_dynamic_parsers(subparsers: argparse._SubParsersAction) -> None:
     from driverx.scenarios.studio_product_cli import register_oodrive_parser
     from driverx.simulators.carla_alpamayo_capture_cli import register_carla_alpamayo_capture_parser
     from driverx.simulators.carla_cached_ood_replay_cli import register_carla_cached_ood_replay_parser
+    from driverx.simulators.carla_control_cli import register_carla_control_parser
     from driverx.simulators.carla_maps_cli import register_carla_maps_parser
     from driverx.simulators.carla_ood_demo_cli import register_carla_ood_demo_parser
     from driverx.simulators.carla_policy_replay_cli import register_carla_policy_replay_parser
@@ -88,6 +89,7 @@ def register_dynamic_parsers(subparsers: argparse._SubParsersAction) -> None:
     register_agentic_ood_loop_parser(subparsers)
     register_simlingo_parsers(subparsers)
     register_carla_alpamayo_capture_parser(subparsers)
+    register_carla_control_parser(subparsers)
     register_carla_maps_parser(subparsers)
     register_carla_cached_ood_replay_parser(subparsers)
     register_carla_policy_replay_parser(subparsers)

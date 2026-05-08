@@ -58,7 +58,7 @@ def sample_memory_entries() -> list[MemoryEntry]:
             source_scenario="fixture_memory_motorcycle_filtering",
             confidence=0.82,
             tags=["motorcycle", "filtering", "lateral", "regional"],
-        )
+        ),
     ]
 
 

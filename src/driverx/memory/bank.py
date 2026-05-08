@@ -6,7 +6,7 @@ import json
 import re
 from pathlib import Path
 
-from driverx.memory.types import MemoryBank, MemoryEntry
+from driverx.memory.types import MemoryBank, MemoryEntry, MemoryRetrievalCandidate, MemoryRetrievalLedger
 from driverx.scenarios.types import ScenarioRecipe, ScenarioResult
 
 
@@ -66,8 +66,25 @@ def retrieve_memory(
     bank: MemoryBank,
     limit: int,
 ) -> list[MemoryEntry]:
+    return [candidate.entry for candidate in retrieve_memory_with_ledger(recipe, bank, limit).candidates if candidate.selected]
+
+
+def retrieve_memory_with_ledger(
+    recipe: ScenarioRecipe,
+    bank: MemoryBank,
+    limit: int,
+    *,
+    backend: str = "lexical_tag_overlap",
+) -> MemoryRetrievalLedger:
     if limit <= 0:
-        return []
+        return MemoryRetrievalLedger(
+            query_id=recipe.recipe_id,
+            query_tokens=[],
+            backend=backend,
+            candidates=[],
+            selected_memory_ids=[],
+            claim_boundaries=_retrieval_claim_boundaries(backend),
+        )
     query = _tokens(
         [
             recipe.recipe_id,
@@ -77,12 +94,38 @@ def retrieve_memory(
             *recipe.memory_query,
         ]
     )
-    scored: list[tuple[int, float, str, MemoryEntry]] = []
+    scored: list[tuple[float, int, float, str, MemoryEntry, list[str]]] = []
     for entry in bank.entries:
-        overlap = len(query.intersection(set(entry.tags)))
-        scored.append((overlap, entry.confidence, entry.entry_id, entry))
-    scored.sort(key=lambda item: (-item[0], -item[1], item[2]))
-    return [entry for overlap, _confidence, _entry_id, entry in scored[:limit] if overlap > 0]
+        matched = sorted(query.intersection(set(entry.tags)))
+        overlap = len(matched)
+        score = overlap + entry.confidence
+        scored.append((score, overlap, entry.confidence, entry.entry_id, entry, matched))
+    scored.sort(key=lambda item: (-item[0], -item[1], -item[2], item[3]))
+    selected_ids = {
+        entry.entry_id
+        for _score, overlap, _confidence, _entry_id, entry, _matched in scored[:limit]
+        if overlap > 0
+    }
+    candidates = [
+        MemoryRetrievalCandidate(
+            entry=entry,
+            query_tokens=sorted(query),
+            matched_tokens=matched,
+            overlap_count=overlap,
+            score=score,
+            selected=entry.entry_id in selected_ids,
+            rank=index + 1,
+        )
+        for index, (score, overlap, _confidence, _entry_id, entry, matched) in enumerate(scored)
+    ]
+    return MemoryRetrievalLedger(
+        query_id=recipe.recipe_id,
+        query_tokens=sorted(query),
+        backend=backend,
+        candidates=candidates,
+        selected_memory_ids=[candidate.entry.entry_id for candidate in candidates if candidate.selected],
+        claim_boundaries=_retrieval_claim_boundaries(backend),
+    )
 
 
 def write_memory_bank(run_dir: Path, bank: MemoryBank) -> dict[str, str | int]:
@@ -110,3 +153,51 @@ def write_memory_bank(run_dir: Path, bank: MemoryBank) -> dict[str, str | int]:
         "json_path": str(json_path),
         "report_path": str(md_path),
     }
+
+
+def write_memory_retrieval_ledger(run_dir: Path, ledger: MemoryRetrievalLedger) -> dict[str, str | int]:
+    run_dir.mkdir(parents=True, exist_ok=True)
+    json_path = run_dir / "retrieval_ledger.json"
+    md_path = run_dir / "retrieval_ledger.md"
+    json_path.write_text(json.dumps(ledger.to_jsonable(), indent=2), encoding="utf-8")
+    lines = [
+        "# Memory Retrieval Ledger",
+        "",
+        f"- Query: `{ledger.query_id}`",
+        f"- Backend: `{ledger.backend}`",
+        f"- Selected memories: `{', '.join(ledger.selected_memory_ids) or 'none'}`",
+        "",
+        "## Candidates",
+        "",
+    ]
+    for candidate in ledger.candidates:
+        mark = "selected" if candidate.selected else "candidate"
+        lines.extend(
+            [
+                f"### {candidate.rank}. {candidate.entry.entry_id} ({mark})",
+                "",
+                f"- Score: `{candidate.score:.4f}`",
+                f"- Matched tokens: `{', '.join(candidate.matched_tokens) or 'none'}`",
+                f"- Source scenario: `{candidate.entry.source_scenario}`",
+                f"- Principle: {candidate.entry.principle}",
+                f"- Recommended behavior: {candidate.entry.recommended_behavior}",
+                "",
+            ]
+        )
+    md_path.write_text("\n".join(lines), encoding="utf-8")
+    return {
+        "candidate_count": len(ledger.candidates),
+        "selected_count": len(ledger.selected_memory_ids),
+        "json_path": str(json_path),
+        "report_path": str(md_path),
+    }
+
+
+def _retrieval_claim_boundaries(backend: str) -> list[str]:
+    return [
+        f"retrieval_backend={backend}",
+        "semantic_vector_rag=false",
+        "embedding_rag=false",
+        "memory_retrieval_ledger=true",
+        "source_citations=true",
+    ]

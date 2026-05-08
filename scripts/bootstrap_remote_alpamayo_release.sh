@@ -47,9 +47,7 @@ ssh ${SSH_OPTIONS} "$REMOTE" \
 set -euo pipefail
 
 mkdir -p "$REMOTE_CACHE_ROOT"
-export XDG_CACHE_HOME="$REMOTE_CACHE_ROOT"
 export UV_CACHE_DIR="$REMOTE_CACHE_ROOT/uv"
-export HF_HOME="$REMOTE_CACHE_ROOT/huggingface"
 export TRANSFORMERS_CACHE="$REMOTE_CACHE_ROOT/huggingface"
 export HF_HUB_CACHE="$REMOTE_CACHE_ROOT/huggingface/hub"
 
@@ -115,9 +113,9 @@ payload = {
     "python": sys.version,
     "uv": shutil.which("uv"),
     "nvcc": shutil.which("nvcc"),
-    "xdg_cache_home": os.environ.get("XDG_CACHE_HOME"),
-    "hf_home": os.environ.get("HF_HOME"),
+    "hf_auth_home": str(__import__("pathlib").Path.home().joinpath(".cache", "huggingface")),
     "uv_cache_dir": os.environ.get("UV_CACHE_DIR"),
+    "hf_hub_cache": os.environ.get("HF_HUB_CACHE"),
 }
 try:
     completed = subprocess.run(

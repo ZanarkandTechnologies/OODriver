@@ -50,3 +50,51 @@ class MemoryBank:
 
     def to_jsonable(self) -> dict[str, Any]:
         return {"entries": [entry.to_jsonable() for entry in self.entries]}
+
+
+@dataclass(frozen=True)
+class MemoryRetrievalCandidate:
+    entry: MemoryEntry
+    query_tokens: list[str]
+    matched_tokens: list[str]
+    overlap_count: int
+    score: float
+    selected: bool
+    rank: int
+
+    def to_jsonable(self) -> dict[str, Any]:
+        return {
+            "entry_id": self.entry.entry_id,
+            "source_scenario": self.entry.source_scenario,
+            "situation": self.entry.situation,
+            "principle": self.entry.principle,
+            "recommended_behavior": self.entry.recommended_behavior,
+            "confidence": self.entry.confidence,
+            "tags": self.entry.tags,
+            "query_tokens": self.query_tokens,
+            "matched_tokens": self.matched_tokens,
+            "overlap_count": self.overlap_count,
+            "score": round(self.score, 4),
+            "selected": self.selected,
+            "rank": self.rank,
+        }
+
+
+@dataclass(frozen=True)
+class MemoryRetrievalLedger:
+    query_id: str
+    query_tokens: list[str]
+    backend: str
+    candidates: list[MemoryRetrievalCandidate]
+    selected_memory_ids: list[str]
+    claim_boundaries: list[str] = field(default_factory=list)
+
+    def to_jsonable(self) -> dict[str, Any]:
+        return {
+            "query_id": self.query_id,
+            "query_tokens": self.query_tokens,
+            "retrieval_backend": self.backend,
+            "candidates": [candidate.to_jsonable() for candidate in self.candidates],
+            "selected_memory_ids": self.selected_memory_ids,
+            "claim_boundaries": self.claim_boundaries,
+        }

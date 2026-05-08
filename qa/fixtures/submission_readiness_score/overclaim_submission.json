@@ -1,0 +1,55 @@
+{
+  "product_name": "OODrive",
+  "run_manifest_path": "artifacts/example/run_manifest.json",
+  "generated_candidate_count": 6,
+  "generated_brief_count": 4,
+  "command_names": [
+    "oodrive generate",
+    "oodrive place",
+    "oodrive reason",
+    "oodrive demo-video",
+    "oodrive score-demo"
+  ],
+  "claim_boundaries": [
+    "closed_loop_vla_control=true",
+    "real_time_vla_control=true",
+    "sampled_open_loop_reasoning=true",
+    "time_warped_offline_demo=true"
+  ],
+  "artifact_paths": {
+    "placement_plan_path": "artifacts/example/placement.json",
+    "carla_ood_demo_json": "artifacts/example/carla_ood_demo.json",
+    "evaluation_path": "artifacts/example/policy_evaluation.json",
+    "hero_demo_video_path": "artifacts/example/oodrive_hero_demo.mp4",
+    "hero_demo_score_json_path": "artifacts/example/hero_demo_score.json",
+    "submission_pack_manifest_path": "artifacts/example/submission_manifest.json"
+  },
+  "hero_demo_score": 100.0,
+  "hero_video_duration_s": 90.0,
+  "visible_generated_object_count": 4,
+  "risk_event_count": 8,
+  "reasoning_event_count": 5,
+  "rag_event_count": 4,
+  "alpamayo_prediction_count": 1,
+  "latency_ms": 81250.0,
+  "live_carla_evidence": true,
+  "placement_plan_evidence": true,
+  "pack_manifest_path": "artifacts/example/submission_manifest.json",
+  "pack_sections": [
+    "motivation",
+    "architecture",
+    "scenario_generation",
+    "navigation_demo",
+    "latency",
+    "failure_case"
+  ],
+  "claim_matrix_rows": 8,
+  "failure_case_count": 1,
+  "motivation_present": true,
+  "code_quality_signals": {
+    "checks_passed": true,
+    "pre_push_passed": true,
+    "large_file_count": 4,
+    "review_passed": true
+  }
+}

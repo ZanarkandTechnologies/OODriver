@@ -1,0 +1,37 @@
+{
+  "product_name": "OODrive",
+  "generated_candidate_count": 2,
+  "generated_brief_count": 1,
+  "command_names": [
+    "oodrive generate",
+    "oodrive place",
+    "oodrive score-demo"
+  ],
+  "claim_boundaries": [
+    "product_name=OODrive",
+    "closed_loop_vla_control=false",
+    "real_time_vla_control=false"
+  ],
+  "artifact_paths": {
+    "placement_plan_path": "artifacts/example/placement.json"
+  },
+  "hero_demo_score": 62.0,
+  "hero_video_duration_s": 42.0,
+  "visible_generated_object_count": 2,
+  "risk_event_count": 2,
+  "reasoning_event_count": 1,
+  "rag_event_count": 0,
+  "alpamayo_prediction_count": 0,
+  "live_carla_evidence": false,
+  "placement_plan_evidence": true,
+  "pack_sections": [],
+  "claim_matrix_rows": 0,
+  "failure_case_count": 0,
+  "motivation_present": false,
+  "code_quality_signals": {
+    "checks_passed": false,
+    "pre_push_passed": false,
+    "large_file_count": 9,
+    "review_passed": false
+  }
+}

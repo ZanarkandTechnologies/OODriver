@@ -158,7 +158,48 @@ class OODriveCliTests(unittest.TestCase):
             self.assertTrue(Path(result["artifacts"]["export"]).exists())
 
     def test_product_demo_quality_commands_are_registered(self) -> None:
-        for command in ("score-demo", "demo-video"):
+        for command in (
+            "score-demo",
+            "demo-video",
+            "score-submission",
+            "export-submission",
+            "generate-envs",
+            "generate-run",
+            "carla-catalog",
+            "carla-matrix",
+            "carla-control",
+            "carla-compose",
+            "carla-suite",
+            "score-carla-suite",
+            "choreograph",
+            "score-choreography",
+            "render-env",
+            "stress-demo",
+            "analyze-keyframes",
+            "env-demo-video",
+            "score-env-proof",
+            "score-generator-runtime",
+            "scenario-pack",
+            "generate-assets",
+            "install-assets",
+            "compile-scenario",
+            "run-scenario",
+            "score-research-generator",
+            "workbench",
+            "export-library",
+            "closed-loop-run",
+            "closed-loop-video",
+            "infer",
+            "score-closed-loop",
+            "score-closed-loop-integration",
+            "score-closed-loop-video",
+            "memory-ledger",
+            "reasoning-diff",
+            "evidence-panel",
+            "ancestry-cards",
+            "export-env-demo",
+            "score-env-demo",
+        ):
             stream = StringIO()
             with self.assertRaises(SystemExit) as raised, redirect_stdout(stream):
                 oodrive_main([command, "--help"])

@@ -25,6 +25,7 @@ class TrajectoryControlConfig:
     max_steer: float = 0.35
     max_brake: float = 0.5
     max_throttle: float = 0.45
+    min_throttle_when_moving: float = 0.18
     lookahead_points: int = 3
     dt_s: float = 0.25
     stop_distance_m: float = 0.4
@@ -143,6 +144,8 @@ def trajectory_to_control_trace(
             brake = cfg.max_brake
         else:
             throttle = _clamp(target_speed / cfg.max_speed_mps * cfg.max_throttle, 0.0, cfg.max_throttle)
+            if target_speed > 0.05 and throttle > 0.0:
+                throttle = max(throttle, min(cfg.min_throttle_when_moving, cfg.max_throttle))
             brake = 0.0
         commands.append(
             ControlCommand(

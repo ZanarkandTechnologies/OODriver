@@ -16,10 +16,16 @@ evaluator, renderer, and submission packager.
 - `run_end_to_end_ood_demo(config)`
 - `build_alpamayo_ood_evaluation(run_dir, inputs)`
 - `build_alpamayo_ood_scene_report(run_dir, inputs)`
+- `build_bad_path_stress_demo(output_root=..., run_id=..., case_ids=...)`
 - `build_fail2drive_extension_report(generated_source_paths=..., output_dir=...)`
 - `build_final_submission_pack(run_dir, eval_matrix_path=..., scenario_studio_path=..., ...)`
 - `build_ood_video_evidence(run_dir, inputs)`
+- `build_environment_demo_pack(environment_summary_path=..., output_root=..., run_id=...)`
+- `select_carla_keyframes(visual_proof_path=..., run_manifest_path=..., limit=...)`
+- `build_keyframe_analysis(visual_proof_path=..., db_path=..., run_manifest_path=..., backend=..., ...)`
+- `build_environment_reasoned_carla_video(environment_summary_path=..., visual_proof_path=..., keyframe_analysis_path=..., ...)`
 - `build_submission_demo_pack(run_dir, ...)`
+- `build_submission_story_pack(db_path=..., run_manifest_path=..., evaluation_path=..., hero_video_path=..., hero_score_path=..., ...)`
 - `build_ood_suite_report(run_dir, scenario_summary_path=..., route_pack_path=..., ...)`
 
 ## Minimal Example
@@ -96,8 +102,63 @@ PYTHONPATH=src python3 -m driverx build-ood-suite-report \
   --sidecar-run artifacts/runs/simlingo-sidecar-run/simlingo_sidecar_run.json
 ```
 
+```bash
+PYTHONPATH=src python3 -m oodrive export-submission \
+  --db artifacts/runs/task128-oodrive-live-product/scenario_studio_db.json \
+  --run artifacts/runs/task128-oodrive-live-product/runs/task128-oodrive-live-place/run_manifest.json \
+  --evaluation artifacts/runs/task128-oodrive-live-product/reasoning/evaluations/task128-oodrive-live-alpamayo-fresh-evaluation/policy_evaluation.json \
+  --hero-video artifacts/runs/task128-oodrive-live-product/demo-videos/task131-score-gated-hero-v2/oodrive_hero_demo.mp4 \
+  --hero-score artifacts/runs/task128-oodrive-live-product/demo-scores/task131-score-gated-hero-v2-score/hero_demo_score.json
+```
+
+```bash
+PYTHONPATH=src python3 -m oodrive export-env-demo \
+  --environment-summary artifacts/runs/task135-env-demo-v1/environment_suite_summary.json \
+  --hero-video artifacts/runs/task128-oodrive-live-product/demo-videos/task131-score-gated-hero-v2/oodrive_hero_demo.mp4
+```
+
+```bash
+PYTHONPATH=src python3 -m oodrive render-env \
+  --environment-summary artifacts/runs/task135-env-demo-v1/environment_suite_summary.json \
+  --template-id roadside_market_occlusion \
+  --prompt "wet Malaysian roadside market occlusion with scooter filtering" \
+  --run-id task136-env-c3-proof-v1
+```
+
+```bash
+PYTHONPATH=src python3 -m oodrive analyze-keyframes \
+  --visual-proof artifacts/runs/task136-env-c3-proof-v1/env_carla_proof_manifest.json \
+  --db artifacts/runs/task136-env-c3-proof-v1/scenario_studio_db.json \
+  --run artifacts/runs/task136-env-c3-proof-v1/runs/task136-env-c3-proof-v1/run_manifest.json \
+  --backend fake \
+  --run-id task137-keyframe-analysis-v1
+```
+
+`env-demo-video` assembles an MP4 when the visual proof and keyframe analysis
+contain same-lineage image paths. Without those frames, it writes a blocked
+story/overlay pack and keeps the claim boundaries explicit.
+
+```bash
+PYTHONPATH=src python3 -m oodrive env-demo-video \
+  --environment-summary artifacts/runs/task135-env-demo-v1/environment_suite_summary.json \
+  --visual-proof artifacts/runs/task136-env-c3-proof-v1/env_carla_proof_manifest.json \
+  --keyframe-analysis artifacts/runs/task137-keyframe-analysis-v1/keyframe_analysis.json \
+  --run-id task138-env-reasoned-carla-v1
+```
+
+```bash
+PYTHONPATH=src python3 -m oodrive stress-demo \
+  --run-id task140-bad-path-stress-v3-lane-safe \
+  --target-duration-s 72 \
+  --fps 8
+```
+
+`stress-demo` is a local scripted bad-path proof, not CARLA visual evidence. A
+guarded response only passes when it avoids the collision proxy and keeps
+`lane_departure_proxy=false`.
+
 ## Test
 
 ```bash
-PYTHONPATH=src python3 -m unittest tests.test_pipeline_mock tests.test_batch tests.test_rag_comparison tests.test_end_to_end_ood_demo tests.test_alpamayo_ood_evaluation tests.test_alpamayo_ood_scene tests.test_fail2drive_extension_report tests.test_final_submission_pack tests.test_ood_video_evidence tests.test_ood_suite_report
+PYTHONPATH=src python3 -m unittest tests.test_pipeline_mock tests.test_batch tests.test_rag_comparison tests.test_end_to_end_ood_demo tests.test_alpamayo_ood_evaluation tests.test_alpamayo_ood_scene tests.test_fail2drive_extension_report tests.test_final_submission_pack tests.test_ood_video_evidence tests.test_ood_suite_report tests.test_environment_demo_pack tests.test_submission_story_pack tests.test_environment_to_carla_visual_proof tests.test_keyframe_analysis tests.test_environment_reasoned_carla tests.test_bad_path_stress_demo
 ```
