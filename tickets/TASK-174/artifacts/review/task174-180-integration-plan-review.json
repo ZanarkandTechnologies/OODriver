@@ -1,0 +1,88 @@
+{
+  "work_type": ["planning", "integration", "simulation", "tooling"],
+  "ticket_ids": ["TASK-174", "TASK-175", "TASK-176", "TASK-177", "TASK-178", "TASK-179", "TASK-180"],
+  "reviewed_at": "2026-05-09T05:55:00+08:00",
+  "reviewer_mode": "visible_review_lane",
+  "search_scope": {
+    "tickets_checked": [
+      "tickets/TASK-152/ticket.md",
+      "tickets/TASK-153/ticket.md",
+      "tickets/TASK-170/ticket.md",
+      "tickets/TASK-174/ticket.md",
+      "tickets/TASK-175/ticket.md",
+      "tickets/TASK-176/ticket.md",
+      "tickets/TASK-177/ticket.md",
+      "tickets/TASK-178/ticket.md",
+      "tickets/TASK-179/ticket.md",
+      "tickets/TASK-180/ticket.md"
+    ],
+    "code_checked": [
+      "src/driverx/scenarios/scenario_graph.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/simulators/carla_scenario_runner.py",
+      "src/driverx/assets/carla_registry.py"
+    ],
+    "docs_checked": [
+      "docs/prd.md",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md",
+      "AGENTS.md"
+    ],
+    "external_comparables": [
+      "CARLA actors/blueprints and Python API",
+      "CARLA ScenarioRunner Python/OpenSCENARIO/route execution",
+      "ASAM OpenSCENARIO 2.0",
+      "CARLA custom map import path"
+    ]
+  },
+  "rubrics_used": [
+    "implementation-plan",
+    "spec-contract",
+    "integration-readiness",
+    "evidence-quality"
+  ],
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "hard_gate_failures": [],
+  "integration_overlap_decision": {
+    "do_not_rebuild": [
+      "ScenarioRunner actor/trigger/criteria lifecycle",
+      "ASAM OpenSCENARIO 2.0 language semantics",
+      "CARLA blueprint spawning/runtime map loading",
+      "CARLA custom map packaging requirements"
+    ],
+    "oodrive_should_own": [
+      "validation/run/probe tool contracts for agent-authored scenarios",
+      "Codex skill workflow for OpenSCENARIO authoring",
+      "scenario graph sidecar/provenance",
+      "agent-facing CLI/MCP-style tool schemas",
+      "standards/export coverage reports",
+      "custom map/asset blocker and probe artifacts",
+      "visual fidelity and claim-boundary scoring"
+    ]
+  },
+  "finding_log": [
+    {
+      "severity": "minor",
+      "confidence": "high",
+      "summary": "TASK-174 and TASK-175 overlap with completed TASK-152 graph/export work, but the new scope is integration rather than replacement.",
+      "next_action": "Implementation should reuse `scenario_graph.py` and add bridge/export wrappers instead of rewriting the graph schema."
+    },
+    {
+      "severity": "minor",
+      "confidence": "high",
+      "summary": "TASK-176 and TASK-177 depend on external CARLA/Unreal packaging realities.",
+      "next_action": "Local implementation must prioritize manifests, validation, command plans, probes, and honest blockers before claiming live custom map/asset success."
+    },
+    {
+      "severity": "resolved",
+      "confidence": "high",
+      "summary": "The earlier prompt resolver plan was removed from TASK-179 after user correction.",
+      "next_action": "Keep prompt-to-scenario authorship in the Codex skill/harness and use OODrive only for validation, execution, probes, indexing, and scoring."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Proceed with per-ticket implementation planning in the order TASK-174, TASK-175, TASK-176, TASK-177, TASK-178, TASK-179, TASK-180 unless the user reprioritizes."
+}

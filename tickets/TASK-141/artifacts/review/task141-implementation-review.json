@@ -1,0 +1,173 @@
+{
+  "work_type": ["backend", "cli", "evidence", "runtime-integration"],
+  "ticket_id": "TASK-141",
+  "reviewed_at": "2026-05-08 06:34 +0800",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/scenarios/generated_runtime.py",
+      "src/driverx/scenarios/studio_product_generated_runtime.py",
+      "src/driverx/evaluation/generator_runtime_score.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "tests/test_generated_carla_runtime.py",
+      "tests/test_oodrive_cli.py",
+      "README.md",
+      "src/driverx/scenarios/README.md",
+      "src/driverx/evaluation/README.md",
+      "docs/HISTORY.md",
+      "tickets/TASK-141/ticket.md",
+      "tickets/TASK-141/artifacts/qa/generator-runtime-qa.md"
+    ],
+    "related_files": [
+      "src/driverx/assets/types.py",
+      "src/driverx/assets/carla_mapping.py",
+      "src/driverx/behaviors",
+      "src/driverx/environments",
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/scenarios/AGENTS.md",
+      "src/driverx/evaluation/AGENTS.md"
+    ],
+    "artifacts_checked": [
+      "artifacts/runs/task141-fake-carla-smoke/generated_scenario_runtime.json",
+      "artifacts/runs/task141-fake-carla-smoke/generated_runtime_fake_carla_proof.json",
+      "artifacts/runs/task141-fake-carla-smoke/entity_tracks.json",
+      "artifacts/runs/task141-fake-carla-smoke/generator-runtime-scores/task141-fake-carla-smoke-generator-runtime-score/generator_runtime_score.json",
+      "artifacts/runs/task141-live-blocked/generated_scenario_runtime.json",
+      "artifacts/runs/task141-live-blocked/generated_runtime_live_carla_blocked.json"
+    ],
+    "invariants_checked": [
+      "AGENTS: generated artifacts under artifacts/",
+      "src/driverx/scenarios/AGENTS.md: no top-level CARLA package import",
+      "MEM-0034: time-warp/offline demos must label real_time_vla_control=false",
+      "MEM-0037: generated placement/runtime proof cannot overclaim closed-loop control",
+      "MEM-0038: Alpamayo evidence remains open-loop until it directly drives CARLA controls"
+    ],
+    "rubric_docs_checked": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "integration-readiness.md",
+      "evidence-quality.md",
+      "user-intent-satisfaction.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "integration-readiness",
+    "evidence-quality",
+    "user-intent-satisfaction"
+  ],
+  "summary": "PASS. TASK-141 now has a usable generator-to-runtime surface: prompt plus selected behavior ids and object kinds produce deterministic behavior traces, generated asset requests, CARLA spawn specs, fake-CARLA spawn/track proof, clean live-CARLA blocking when the simulator client is absent, and a promotion metric. The implementation keeps closed-loop and real-time VLA claims false.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "Live CARLA object spawning is not proven on this local machine because the CARLA Python package is unavailable.",
+      "file_refs": [
+        "artifacts/runs/task141-live-blocked/generated_runtime_live_carla_blocked.json",
+        "tickets/TASK-141/ticket.md"
+      ],
+      "evidence": [
+        "The live backend writes a blocked proof with `CARLA Python package is unavailable: No module named 'carla'` and Kasm setup commands.",
+        "The ticket and runtime manifest label `objects_spawned_in_carla=false`, `closed_loop_vla_control=false`, and `real_time_vla_control=false` for local evidence."
+      ],
+      "next_action": "Run the same `oodrive generate-run --backend carla-live` command on the Kasm CARLA 0.9.16 host before promoting actual live object-spawn claims."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 4.0,
+        "readability": 4.1,
+        "boundary-clarity": 4.0,
+        "error-handling": 4.3,
+        "maintainability": 4.1
+      },
+      "findings": [
+        "The runtime module reuses existing scenario, environment, behavior, asset, and CARLA demo helpers instead of inventing a parallel schema.",
+        "Dry-run and fake-CARLA do not require the CARLA config or package, while live CARLA imports the package only inside the live backend.",
+        "The JSON-to-AssetManifest reconstruction is centralized and avoids the previous duplicated type-ignore path."
+      ],
+      "next_action": "Keep future expansion focused on adding behavior/object templates or moving large product CLI registration into smaller modules; no blocking code pass is required for TASK-141."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.1,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 3.9,
+        "merge-readiness": 4.0
+      },
+      "findings": [
+        "`oodrive generate-run` and `oodrive score-generator-runtime` are registered in the product CLI and covered by help-command tests.",
+        "The generated runtime manifest can be consumed by follow-up time-warped VLA work without claiming real-time control.",
+        "The only live dependency is explicitly blocked and documented when CARLA is unavailable."
+      ],
+      "next_action": "Use the fake-CARLA manifest as the immediate TASK-139 input; use Kasm only when the story needs live RGB/tracks."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.4,
+        "reproducibility": 4.4,
+        "traceability": 4.5,
+        "consistency": 4.4,
+        "inspectability": 4.4,
+        "autonomy-readiness": 4.2
+      },
+      "findings": [
+        "The fake-CARLA artifact proves 4 static object spawns, 3 dynamic behavior actors, 75 behavior ticks, 79 entity tracks, and cleanup of all spawned actor ids.",
+        "The score artifact passes with `generator_runtime_score=98.0` against a 90.0 threshold.",
+        "Focused tests, compileall, and pre-push all pass; the QA artifact maps acceptance criteria to artifacts and commands."
+      ],
+      "next_action": "No further local evidence is required for this ticket; live-Kasm evidence belongs to a separate simulator proof pass."
+    },
+    {
+      "name": "user-intent-satisfaction",
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "ask-fidelity": 4.4,
+        "outcome-completeness": 4.2,
+        "worth-it-feel": 4.3,
+        "impressiveness": 4.1,
+        "evidence-confidence": 4.4
+      },
+      "findings": [
+        "The result directly addresses the ask for a generator that can produce other vehicle driving behaviors and spawn objects into CARLA-facing runtime specs.",
+        "The local proof is immediately usable for a paused or time-warped final video path, while future live-CARLA acceleration remains compatible.",
+        "The implementation avoids the earlier overclaim risk by keeping VLA closed-loop and real-time labels false."
+      ],
+      "next_action": "Proceed to the follow-up video/control stitching ticket using `artifacts/runs/task141-fake-carla-smoke/generated_scenario_runtime.json`."
+    }
+  ],
+  "blocking_findings": [],
+  "reviewed_commands": [
+    "PYTHONPATH=src python3 -m unittest tests.test_generated_carla_runtime tests.test_bad_path_stress_demo tests.test_environment_to_carla_visual_proof tests.test_carla_ood_demo tests.test_oodrive_cli",
+    "python3 -m compileall -q src tests",
+    "bash scripts/pre_push_check.sh"
+  ],
+  "next_action": "Advance TASK-141 as implemented locally; schedule the Kasm live-CARLA run only when the final demo needs actual simulator frames from this generated runtime."
+}

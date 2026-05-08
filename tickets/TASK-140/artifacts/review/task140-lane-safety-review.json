@@ -1,0 +1,52 @@
+{
+  "work_type": [
+    "simulation",
+    "video",
+    "evidence"
+  ],
+  "reviewed_at": "2026-05-08 06:36 +0800",
+  "ticket_id": "TASK-140",
+  "rubrics_used": [
+    "code-quality",
+    "evidence-quality",
+    "user-intent-satisfaction"
+  ],
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/pipeline/bad_path_stress_demo.py",
+      "tests/test_bad_path_stress_demo.py",
+      "src/driverx/pipeline/README.md",
+      "src/driverx/pipeline/AGENTS.md",
+      "tickets/TASK-140/ticket.md",
+      "docs/HISTORY.md",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md"
+    ],
+    "evidence_artifacts": [
+      "artifacts/runs/task140-bad-path-stress-v3-lane-safe-001/bad_path_stress_demo.json",
+      "artifacts/runs/task140-bad-path-stress-v3-lane-safe-001/bad_path_stress_demo.mp4"
+    ],
+    "invariants_checked": [
+      "MEM-0034",
+      "MEM-0041"
+    ]
+  },
+  "summary": "The lane-safety correction directly fixes the user-visible defect: guarded paths can no longer pass by leaving the drivable corridor. The regenerated v3 artifact records lane_departure_proxy=false for all four guarded cases and keeps max_abs_y_m <= 2.75m except the road-hole interpolation peak at 2.736m, below the 3.25m corridor.",
+  "finding_log": [],
+  "blocking_findings": [],
+  "verification": [
+    "python3 -m compileall -q src/driverx/pipeline tests/test_bad_path_stress_demo.py",
+    "PYTHONPATH=src python3 -m unittest tests.test_bad_path_stress_demo tests.test_oodrive_cli",
+    "lane-safe manifest assertion over task140-bad-path-stress-v3-lane-safe-001"
+  ],
+  "next_action": "Use the lane-safe v3 stress reel for local bad-path explanation, and use the Kasm CARLA lane for any claim that the behavior is visually inside CARLA."
+}

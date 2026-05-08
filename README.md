@@ -22,21 +22,129 @@ Build a minimal-shot scenario forge that can:
 - smoke-check a local CARLA server when available
 - preserve Waymo ADE/batch evidence as supporting real-world context
 
-## Core Architecture Direction
+## Submission Architecture: Two Systems
 
 ```mermaid
 flowchart TD
-    A["Fail2Drive routes / fixture seeds"] --> B["Scenario seed loader"]
-    B --> C["OOD recipe generator"]
-    C --> D["Scenario suite artifacts"]
-    E["Policy result records"] --> F["Failure memory bank"]
-    F --> G["Retrieved safety context"]
-    C --> G
-    G --> H["VLA/VLM policy prompt or adapter"]
-    C --> I["CARLA/Fail2Drive dry-run command plan"]
-    I --> J["Mac smoke path or Linux NVIDIA runtime"]
-    K["Waymo E2E support track"] --> L["Open-loop ADE evidence"]
+    U["Human / Codex prompt"] --> G1["OODrive scenario generator"]
+    G1 --> G2["Scenario DB + scenario packs"]
+    G2 --> G3["CARLA composer<br/>town, weather, anchors, actors, objects"]
+    G3 --> G4["Live CARLA / fake-CARLA execution"]
+    G4 --> G5["Evidence<br/>video, screenshots, tracks, risk"]
+    G5 --> G6["Quality gates + curated scenario library"]
+    G6 --> G1
+
+    G5 --> A1["Observation packet"]
+    G6 --> A2["Failure memory / RAG ledger"]
+    A2 --> A3["Minimal-shot context"]
+    A1 --> A3
+    A3 --> A4["Alpamayo / VLA reasoning"]
+    A4 --> A5["Trajectory intent"]
+    A5 --> A6["Safety-guarded CARLA controls"]
+    A6 --> G4
+    A4 --> A7["Reasoning overlays + claim scores"]
+
+    R1["CARLA"] -. simulator .-> G3
+    R2["Fail2Drive"] -. seed families .-> G1
+    R3["Z Lab FlashDrive"] -. latency path .-> A4
+    R4["Realtime-VLA V2"] -. control scheduling .-> A6
+    R5["Waymo E2E"] -. support baseline .-> G6
+
+    classDef generator fill:#e8f4ff,stroke:#2478b8,color:#102535,stroke-width:2px
+    classDef autonomy fill:#f0ecff,stroke:#6c4fd3,color:#231a48,stroke-width:2px
+    classDef evidence fill:#ecfff3,stroke:#2f9d58,color:#12351f,stroke-width:2px
+    classDef external fill:#fff6df,stroke:#c58b13,color:#3d2b05,stroke-width:2px
+    classDef operator fill:#fff0f0,stroke:#cc4b4b,color:#421313,stroke-width:2px
+
+    class U operator
+    class G1,G2,G3,G4 generator
+    class G5,G6,A7 evidence
+    class A1,A2,A3,A4,A5,A6 autonomy
+    class R1,R2,R3,R4,R5 external
 ```
+
+Legend: blue = scenario generation system, purple = autonomy architecture,
+green = evidence/curation, yellow = external research/tooling resources.
+
+### System 1: Scenario Generator
+
+OODrive turns a short prompt into a simulator-ready OOD driving case:
+
+```mermaid
+flowchart LR
+    P["Prompt<br/>wet roadwork + scooter"] --> B["Brief extraction"]
+    B --> C["Concrete variants<br/>seeded randomization"]
+    C --> D["Scenario pack<br/>environment, actors, props, behavior"]
+    D --> E["CARLA placement plan"]
+    E --> F["Run / capture"]
+    F --> G["Score gates<br/>road alignment, visibility, evidence"]
+    G --> H["Scenario library"]
+
+    classDef prompt fill:#fff0f0,stroke:#cc4b4b,color:#421313,stroke-width:2px
+    classDef gen fill:#e8f4ff,stroke:#2478b8,color:#102535,stroke-width:2px
+    classDef sim fill:#eaf7ff,stroke:#0d7792,color:#0b3440,stroke-width:2px
+    classDef proof fill:#ecfff3,stroke:#2f9d58,color:#12351f,stroke-width:2px
+
+    class P prompt
+    class B,C,D,E gen
+    class F sim
+    class G,H proof
+```
+
+Local resources:
+
+- Generator CLI spec: [`docs/specs/scenario-generator-cli-v1.md`](docs/specs/scenario-generator-cli-v1.md)
+- Scenario Studio data engine: [`docs/specs/scenario-studio-data-engine.md`](docs/specs/scenario-studio-data-engine.md)
+- Product thesis: [`docs/submission-thesis.md`](docs/submission-thesis.md)
+- CLI entrypoint: [`src/oodrive/cli.py`](src/oodrive/cli.py)
+
+External resources:
+
+- [CARLA](https://carla.readthedocs.io/en/latest/start_introduction/)
+- [Fail2Drive](https://github.com/autonomousvision/fail2drive)
+
+### System 2: Minimal-Shot Autonomy Architecture
+
+The autonomy loop uses a frozen VLA with retrieved failure memory and explicit
+latency/claim gates:
+
+```mermaid
+flowchart LR
+    O["CARLA observation<br/>frames, ego, tracks"] --> R["Retrieve memory<br/>failure/RAG ledger"]
+    R --> C["VLA context packet"]
+    O --> C
+    C --> V["Alpamayo / VLA reasoning"]
+    V --> T["Trajectory intent"]
+    T --> S["Safety clamp<br/>bounded controls"]
+    S --> X["CARLA tick"]
+    X --> O
+    V --> E["Reasoning + latency evidence"]
+
+    classDef input fill:#e8f4ff,stroke:#2478b8,color:#102535,stroke-width:2px
+    classDef memory fill:#ecfff3,stroke:#2f9d58,color:#12351f,stroke-width:2px
+    classDef model fill:#f0ecff,stroke:#6c4fd3,color:#231a48,stroke-width:2px
+    classDef safety fill:#fff6df,stroke:#c58b13,color:#3d2b05,stroke-width:2px
+    classDef evidence fill:#ffeef8,stroke:#be4b8b,color:#42132d,stroke-width:2px
+
+    class O input
+    class R memory
+    class C,V,T model
+    class S,X safety
+    class E evidence
+```
+
+Local resources:
+
+- Minimal-shot VLA roadmap: [`docs/specs/minimal-shot-vla-roadmap.md`](docs/specs/minimal-shot-vla-roadmap.md)
+- Submission thesis: [`docs/submission-thesis.md`](docs/submission-thesis.md)
+- Memory/RAG package: [`src/driverx/memory/`](src/driverx/memory/)
+- Policy adapters and closed-loop control: [`src/driverx/policies/`](src/driverx/policies/)
+
+External resources:
+
+- [NVIDIA Alpamayo](https://developer.nvidia.com/drive/alpamayo)
+- [Z Lab FlashDrive](https://z-lab.ai/projects/flashdrive/)
+- [Realtime-VLA V2](https://dexmal.github.io/realtime-vla-v2/)
 
 ## Shared Inspiration Resources
 
@@ -74,15 +182,20 @@ flowchart TD
 
 ## Current Status
 
-The current strongest packet is V8: an agentic Scenario Workbench for generating
-OOD CARLA cases, explaining them with simulator-grounded risk timelines,
-retrieving prior failure memory, and showing sampled Alpamayo reasoning as
-open-loop evidence.
+The current strongest packet is the TASK-131 score-gated OODrive hero demo:
+an OODrive-generated CARLA case rendered as a 42s time-warped judge-visible MP4
+with frame/time, simulator-grounded risk telemetry, RAG memory callouts, and
+sampled Alpamayo reasoning over captured frames.
 
 Current strongest evidence:
 
+- a score-gated OODrive hero MP4 at
+  `artifacts/runs/task128-oodrive-live-product/demo-videos/task131-score-gated-hero-v2/oodrive_hero_demo.mp4`
+  with `hero_demo_score=100.0`, status `passed`, and no score blockers
 - an 84s RunPod-generated, road-aligned CARLA OOD campaign source clip exported
   locally at `artifacts/exported/task102_high_fidelity_hero_v6_full.mp4`
+- TASK-128 live OODrive generate/place/reason artifacts recovered locally under
+  `artifacts/runs/task128-oodrive-live-product/`
 - a 28s time-warped clip at `artifacts/exported/task112_hero_timewarp_3x.mp4`
 - a reasoning-overlay video at
   `artifacts/exported/task111_reasoning_overlay_v1.mp4`
@@ -92,10 +205,15 @@ Current strongest evidence:
 - live Alpamayo 1.5 open-loop reasoning and measured latency/VRAM on generated
   CARLA packages
 
-Final sprint direction is now packaging and polish, not new setup work:
+Final sprint direction is now submission packaging and optional product polish,
+not new setup work:
 
-- improve the final demo cut if needed
-- refresh the submission write-up/deck from V8 artifacts
+- optimize against the SoTA Commission readiness score, not the saturated hero
+  video score
+- promote the TASK-131 score-gated hero demo in the final write-up/deck as one
+  artifact inside a broader judge pack
+- optionally productize Alpamayo inference as `oodrive infer` after the hero
+  artifact remains stable
 - keep claim boundaries explicit: time-warped offline demo, sampled open-loop
   reasoning, no real-time VLA steering claim
 
@@ -103,6 +221,29 @@ Milestone guidance lives in `docs/submission-milestones.md`.
 
 ## Current Submission Packet
 
+- Score-gated OODrive hero demo:
+  `artifacts/runs/task128-oodrive-live-product/demo-videos/task131-score-gated-hero-v2/oodrive_hero_demo.mp4`
+- Hero demo score report:
+  `artifacts/runs/task128-oodrive-live-product/demo-scores/task131-score-gated-hero-v2-score/hero_demo_score.md`
+- SoTA Commission readiness baseline:
+  `./autoresearch.sh` currently emits `submission_readiness_score=96.35`,
+  `hero_demo_score=100.0`, `judge_comprehension_pack=16.0`, and
+  `code_quality=7.0`, so the remaining optional lift is product-loop hardening
+  rather than more raw video polishing.
+- Judge-facing submission pack:
+  `artifacts/runs/task128-oodrive-live-product/submission-packs/task133-submission-pack-v1/index.html`
+- Environment Studio demo pack:
+  `artifacts/runs/task135-env-demo-v1/environment-demo-packs/task135-env-demo-v1/index.html`
+- Environment demo score report:
+  `artifacts/runs/task135-env-demo-v1/environment-demo-packs/task135-env-demo-v1/environment-demo-scores/task135-env-demo-v1-score-report/environment_demo_score.md`
+- Environment-to-CARLA visual proof dry-run:
+  `artifacts/runs/task136-env-c3-proof-v1/env_carla_proof_manifest.json`
+- Environment keyframe analysis blocked proof:
+  `artifacts/runs/task137-keyframe-analysis-v1/keyframe_analysis.json`
+- Environment-to-reasoned-CARLA story pack:
+  `artifacts/runs/task138-env-reasoned-carla-v1/environment_reasoned_carla_demo.json`
+- TASK-131 QA:
+  `tickets/TASK-131/artifacts/qa/score_gated_hero_demo_qa.md`
 - Final V8 pack:
   `tickets/TASK-113/artifacts/final-submission-pack-v8/final_submission_pack_v8.md`
 - Scenario browser V8:
@@ -229,6 +370,13 @@ PYTHONPATH=src python3 -m oodrive score-demo \
   --evaluation artifacts/runs/oodrive-demo/reasoning/evaluations/<evaluation-id>/policy_evaluation.json \
   --video artifacts/runs/oodrive-demo/demo-videos/<demo-id>/oodrive_hero_demo.mp4 \
   --overlay-report artifacts/runs/oodrive-demo/demo-videos/<demo-id>/hero_demo_video.json
+
+PYTHONPATH=src python3 -m oodrive score-submission \
+  --db artifacts/runs/oodrive-demo/scenario_studio_db.json \
+  --run artifacts/runs/oodrive-demo/runs/<run-id>/run_manifest.json \
+  --evaluation artifacts/runs/oodrive-demo/reasoning/evaluations/<evaluation-id>/policy_evaluation.json \
+  --hero-score artifacts/runs/oodrive-demo/demo-scores/<score-id>/hero_demo_score.json \
+  --overlay-report artifacts/runs/oodrive-demo/demo-videos/<demo-id>/hero_demo_video.json
 ```
 
 `generate` writes a CARLA placement plan with stock blueprint filters and
@@ -236,10 +384,13 @@ road-local transforms. `place` dry-runs by default and uses `--live` to connect
 to CARLA through the existing scripted OOD demo runner. `reason` attaches cached
 or live Alpamayo reasoning evidence to the run and builds the replay bundle.
 `demo-video` time-warps the source footage and overlays frame/time, risk, RAG
-memory, VLA reasoning, and action intent. `score-demo` is the promotion gate:
+memory, VLA reasoning, and action intent. `score-demo` is the hero-video gate:
 bad videos fail unless they show enough duration, motion, OOD objects, risk
 events, reasoning callouts, RAG callouts, frame/time coverage, road alignment,
-and explicit claim boundaries.
+and explicit claim boundaries. `score-submission` is the harder SoTA Commission
+gate: it scores novelty/adherence, randomized minimal-shot simulation,
+navigation/risk evidence, reasoning/memory/latency evidence, judge
+comprehension, operator reproducibility, and code-quality proof.
 Unless a live CARLA run and model prediction are attached, the artifacts label
 themselves as placement/reasoning plans rather than closed-loop VLA driving.
 
@@ -292,6 +443,132 @@ PYTHONPATH=src python3 -m driverx forge-scenarios \
 PYTHONPATH=src python3 -m driverx forge-environments \
   --config configs/environment_forge.sample.yaml \
   --run-id environment-forge
+
+# Product-facing Environment Studio demo for judge screen recordings
+PYTHONPATH=src python3 -m oodrive generate-envs \
+  --severity 4 \
+  --count 6 \
+  --seed 31 \
+  --run-id task135-env-demo-v1
+
+PYTHONPATH=src python3 -m oodrive export-env-demo \
+  --environment-summary artifacts/runs/task135-env-demo-v1/environment_suite_summary.json \
+  --hero-video artifacts/runs/task128-oodrive-live-product/demo-videos/task131-score-gated-hero-v2/oodrive_hero_demo.mp4 \
+  --run-id task135-env-demo-v1
+
+PYTHONPATH=src python3 -m oodrive score-env-demo \
+  --environment-summary artifacts/runs/task135-env-demo-v1/environment_suite_summary.json \
+  --demo-manifest artifacts/runs/task135-env-demo-v1/environment-demo-packs/task135-env-demo-v1/environment_demo_manifest.json \
+  --metric-only
+
+# Same-lineage environment -> CARLA visual proof. Use --live on Kasm/CARLA for
+# the preview image; local runs write a dry-run or blocked manifest.
+PYTHONPATH=src python3 -m oodrive render-env \
+  --environment-summary artifacts/runs/task135-env-demo-v1/environment_suite_summary.json \
+  --template-id roadside_market_occlusion \
+  --prompt "wet Malaysian roadside market occlusion with scooter filtering" \
+  --run-id task136-env-c3-proof-v1
+
+PYTHONPATH=src python3 -m oodrive analyze-keyframes \
+  --visual-proof artifacts/runs/task136-env-c3-proof-v1/env_carla_proof_manifest.json \
+  --db artifacts/runs/task136-env-c3-proof-v1/scenario_studio_db.json \
+  --run artifacts/runs/task136-env-c3-proof-v1/runs/task136-env-c3-proof-v1/run_manifest.json \
+  --backend fake \
+  --keyframes 8 \
+  --run-id task137-keyframe-analysis-v1
+
+# Renders an MP4 when the visual proof and keyframe analysis contain real image
+# paths; otherwise writes a blocked story/overlay pack with next commands.
+PYTHONPATH=src python3 -m oodrive env-demo-video \
+  --environment-summary artifacts/runs/task135-env-demo-v1/environment_suite_summary.json \
+  --visual-proof artifacts/runs/task136-env-c3-proof-v1/env_carla_proof_manifest.json \
+  --keyframe-analysis artifacts/runs/task137-keyframe-analysis-v1/keyframe_analysis.json \
+  --run-id task138-env-reasoned-carla-v1
+
+PYTHONPATH=src python3 -m oodrive score-env-proof \
+  --environment-summary artifacts/runs/task135-env-demo-v1/environment_suite_summary.json \
+  --visual-proof artifacts/runs/task136-env-c3-proof-v1/env_carla_proof_manifest.json \
+  --keyframe-analysis artifacts/runs/task137-keyframe-analysis-v1/keyframe_analysis.json \
+  --overlay-report artifacts/runs/task138-env-reasoned-carla-v1/environment_reasoned_carla_demo.json \
+  --metric-only
+
+# Bad-path stress reel: local scripted proof, not CARLA visual evidence. Every
+# default case shows a bad baseline collision proxy and a guarded
+# stop/swerve/yield/recover response that must stay inside the drivable corridor.
+PYTHONPATH=src python3 -m oodrive stress-demo \
+  --run-id task140-bad-path-stress-v3-lane-safe \
+  --target-duration-s 72 \
+  --fps 8
+
+# Usable generator runtime: selectable vehicle behaviors plus generated object
+# spawn specs, with fake-CARLA proof locally and live-CARLA proof on Kasm.
+PYTHONPATH=src python3 -m oodrive generate-run \
+  "wet Malaysian roadwork, scooter cut-in, lane debris" \
+  --template-id construction_lane_closure \
+  --behavior-id motorcycle_filtering \
+  --behavior-id no_signal_cut_in \
+  --behavior-id unsignaled_u_turn \
+  --object-kind construction_debris \
+  --object-kind roadside_vendor \
+  --backend fake-carla \
+  --run-id task141-fake-carla-smoke
+
+PYTHONPATH=src python3 -m oodrive score-generator-runtime \
+  --runtime-manifest artifacts/runs/task141-fake-carla-smoke/generated_scenario_runtime.json \
+  --metric-only
+
+# Agent-facing CARLA capability matrix and ten-case suite. This composes inside
+# installed CARLA towns; it does not claim arbitrary Unreal world generation.
+PYTHONPATH=src python3 -m oodrive carla-matrix \
+  --run-id task166-capability-matrix
+
+PYTHONPATH=src python3 -m oodrive carla-suite \
+  --probe-capabilities \
+  --run-id task166-capability-suite-v2
+
+PYTHONPATH=src python3 -m oodrive score-carla-suite \
+  --suite-manifest artifacts/runs/task166-capability-suite-v2/carla_suite_manifest.json \
+  --metric-only
+
+# The suite is intentionally blocked from generator-gallery promotion until
+# TASK-167 captures live CARLA screenshots and passes image-diversity /
+# prompt-visual-match scoring.
+
+# Timed bad-path choreography: vehicles, motorcycles, pedestrian proxy,
+# static/moving objects, triggers, and expected stop/slow/yield/replan labels.
+PYTHONPATH=src python3 -m oodrive choreograph \
+  "wet urban OOD bad paths: static blocker, cut-in vehicle, rolling object, compound detour" \
+  --run-id task171-choreography-v2
+
+PYTHONPATH=src python3 -m oodrive score-choreography \
+  --choreography-manifest artifacts/runs/task171-choreography-v2/choreography_manifest.json \
+  --metric-only
+
+# On the Kasm CARLA host, the same runtime can spawn generated assets and a
+# generated behavior actor in live CARLA, then render a 90s evidence MP4.
+PY=/workspace/driverx_py312/bin/python
+PYTHONPATH=src "$PY" -m oodrive generate-run \
+  "wet Malaysian roadwork, scooter cut-in, lane debris" \
+  --template-id construction_lane_closure \
+  --behavior-id motorcycle_filtering \
+  --object-kind construction_debris \
+  --object-kind roadside_vendor \
+  --object-kind lane_cone \
+  --backend carla-live \
+  --config configs/carla_ood_demo.runpod.high_fidelity.yaml \
+  --run-id task141-runpod-carla-live
+
+PYTHONPATH=src "$PY" -m driverx assemble-ood-video \
+  --rgb-folder artifacts/runs/task141-runpod-carla-live/live_cases/behavior-00-motorcycle-filtering/rgb \
+  --tracks artifacts/runs/task141-runpod-carla-live/live_cases/behavior-00-motorcycle-filtering/entity_tracks.json \
+  --scenario-id wet-malaysian-roadwork-scooter-cut-in-lane-debris-0041 \
+  --behavior-id motorcycle_filtering \
+  --ood-tags generated_runtime,construction_debris,roadside_vendor,lane_cone,motorcycle_filtering \
+  --source-kind live_carla \
+  --claim-label generated_runtime_live_carla \
+  --fps 5 \
+  --min-frames 120 \
+  --run-id task141-runpod-carla-live-video
 
 # Generate parameterized behavior variants with validation
 PYTHONPATH=src python3 -m driverx generate-behaviors \

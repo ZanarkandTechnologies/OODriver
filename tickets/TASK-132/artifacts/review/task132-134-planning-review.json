@@ -1,0 +1,71 @@
+{
+  "work_type": "planning",
+  "reviewed_at": "2026-05-07T00:00:00+08:00",
+  "reviewed_artifacts": [
+    "tickets/TASK-132/ticket.md",
+    "tickets/TASK-133/ticket.md",
+    "tickets/TASK-134/ticket.md",
+    "autoresearch.md",
+    "docs/prd.md",
+    "docs/MEMORY.md",
+    "docs/TROUBLES.md"
+  ],
+  "search_scope": [
+    "open ticket board TASK-121 through TASK-134",
+    "current autoresearch session",
+    "hero demo scorer and product runtime/report seams",
+    "CARLA leaderboard metric references"
+  ],
+  "overall_score": 4.0,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "minor",
+      "confidence": 0.82,
+      "finding": "The repository contract references tickets/scripts/check_ticket_metadata.py, but that script is not present. This blocks the requested metadata script check, not the ticket plan itself."
+    },
+    {
+      "severity": "minor",
+      "confidence": 0.76,
+      "finding": "TASK-134 is intentionally large because it combines infer productization with focused runtime hardening. The plan contains scope brakes, but implementation should split follow-ups if refactor scope expands beyond infer/runtime report seams."
+    }
+  ],
+  "rubrics": {
+    "spec-contract": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "story-coherence": 4.0,
+        "parallelization-fit": 4.0,
+        "ticket-sizing": 3.8,
+        "acceptance-testability": 4.2,
+        "scope-clarity": 4.1
+      },
+      "findings": [],
+      "next_action": "Start with TASK-132; do not execute TASK-133/TASK-134 until the readiness metric exists."
+    },
+    "implementation-plan": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "human-readability": 4.1,
+        "bloatability": 3.8,
+        "modularity": 4.0,
+        "proof-clarity": 4.2,
+        "execution-order": 4.1,
+        "risk-clarity": 4.0,
+        "decision-tone": 4.2,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Approve TASK-132 for build when ready; keep TASK-133/TASK-134 in review until TASK-132 baselines the submission readiness score."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Implement TASK-132 first, then use its score to drive TASK-133 and TASK-134."
+}

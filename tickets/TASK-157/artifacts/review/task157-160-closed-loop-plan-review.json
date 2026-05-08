@@ -1,0 +1,105 @@
+{
+  "review_id": "task157-160-closed-loop-plan-review",
+  "reviewed_at": "2026-05-08 08:48 +0800",
+  "scope": [
+    "tickets/TASK-157/ticket.md",
+    "tickets/TASK-158/ticket.md",
+    "tickets/TASK-159/ticket.md",
+    "tickets/TASK-160/ticket.md"
+  ],
+  "work_type": [
+    "planning",
+    "backend",
+    "simulation-integration"
+  ],
+  "rubrics_used": [
+    "spec-contract",
+    "implementation-plan",
+    "evidence-quality"
+  ],
+  "verdict": "pass_with_followups",
+  "score": 4.4,
+  "threshold": 4.0,
+  "rerun_required": false,
+  "hard_gate_failures": [],
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-157/ticket.md",
+      "tickets/TASK-158/ticket.md",
+      "tickets/TASK-159/ticket.md",
+      "tickets/TASK-160/ticket.md",
+      "docs/HISTORY.md"
+    ],
+    "related_files": [
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/policies/alpamayo_live.py",
+      "src/driverx/policies/trajectory_control.py",
+      "src/driverx/simulators/carla_policy_replay.py",
+      "src/driverx/simulators/carla_cached_ood_replay.py"
+    ],
+    "external_docs": [
+      "https://carla.readthedocs.io/en/0.9.14/foundations/",
+      "https://carla.readthedocs.io/en/0.9.10/adv_synchrony_timestep/",
+      "https://carla.readthedocs.io/en/latest/python_api/"
+    ]
+  },
+  "rubric": {
+    "spec_contract": {
+      "score": 4.5,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "The batch expresses one coherent outcome: upgrade from open-loop reasoning to an honest scored closed-loop proof. Dependencies and claim boundaries are explicit."
+    },
+    "implementation_plan": {
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "The sequence is approval-ready: contract/scorer, local runner, inference bridge, then live proof. Runtime blockers are separated from locally testable work."
+    },
+    "evidence_quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "The plan requires traceable observe-infer-act-observe evidence and records the missing metadata checker. Final evidence quality depends on TASK-160 live artifacts."
+    },
+    "claim_honesty": {
+      "score": 5,
+      "notes": "The plan explicitly separates cached replay, paused receding-horizon control, and real-time control, and preserves real_time_vla_control=false unless cadence proof exists."
+    },
+    "implementation_path": {
+      "score": 4,
+      "notes": "The ticket sequence is ordered correctly: score contract, local runner, inference bridge, then live Kasm proof. TASK-158 should keep live CARLA changes behind adapter seams to avoid destabilizing existing demo-video code."
+    },
+    "evidence_quality": {
+      "score": 4,
+      "notes": "The proposed ClosedLoopRunTrace gives judge-visible proof of observe/infer/act/observe recurrence. TASK-160 still depends on remote Kasm availability and should record blockers instead of upgrading claims if live execution fails."
+    },
+    "deadline_roi": {
+      "score": 5,
+      "notes": "Paused closed-loop proof is the highest ROI path to a stronger SoTA submission because it upgrades the core autonomy claim without chasing unrealistic real-time Alpamayo latency."
+    }
+  },
+  "findings": [
+    {
+      "priority": 2,
+      "title": "Keep closed-loop scorer strict about post-action observations",
+      "detail": "TASK-157 implementation should reject traces where a later model input does not have a frame id or timestamp after the previous applied control chunk. This is the main guard against relabeling cached/open-loop evidence."
+    },
+    {
+      "priority": 2,
+      "title": "Treat real-time mode as out of scope until latency proof exists",
+      "detail": "The current Alpamayo latency makes real-time closed-loop control implausible. TASK-157 should score real_time claims as invalid unless tick cadence and end-to-end inference latency are both present and below the configured budget."
+    },
+    {
+      "priority": 3,
+      "title": "Use the simplest live blocker case first",
+      "detail": "TASK-160 should prefer a clean static-blocker stop or slow-down case before compound detours. A short causal stop is more persuasive than a complex route that risks lane or control artifacts."
+    }
+  ],
+  "missing_checks": [
+    {
+      "command": "python3 tickets/scripts/check_ticket_metadata.py",
+      "reason": "The repository does not currently contain this checker path."
+    }
+  ]
+}

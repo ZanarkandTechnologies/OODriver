@@ -1,0 +1,55 @@
+# TASK-170: Meshy Custom Asset To CARLA Blueprint Import
+
+## Status
+- state: review
+- owner: Codex
+- assignee: generalPurpose
+- dependencies: TASK-149, TASK-150, TASK-151, TASK-165, TASK-166
+- location: `src/driverx/assets`, `src/driverx/scenarios`, `src/driverx/simulators`, `scripts`, `tests`, `artifacts/runs`
+- enter when: OODrive can compose CARLA scenarios from installed maps/assets, but the user needs custom generated objects such as a crane instead of stock CARLA proxy props.
+- leave when: OODrive can request a Meshy-generated asset, store a sanitized asset manifest, either import/register it as a CARLA-spawnable blueprint or block with exact packaging steps, and prove the result with a live CARLA spawn screenshot/video when the Unreal/CARLA packaging lane is available.
+- blockers: requires Meshy credentials for real generation and a CARLA/Unreal asset import/cook/package path; do not put API keys in repo or Kasm proxy heredocs.
+- spawned follow-ups: live Kasm custom asset spawn proof; final generator-gallery refresh after custom blueprint proof.
+- complexity: L
+- assignee: generalPurpose
+
+### Description
+Build the missing lane from "OODrive requested a custom object" to "CARLA can actually spawn this object." The first target object is a construction crane/crane arm blocking or narrowing a lane. Until the Unreal/CARLA import chain is proved, OODrive must label generated Meshy assets as custom asset manifests and use stock proxy spawning only as fallback evidence.
+
+### Goal
+Make custom objects honest and productized: generate/ingest a Meshy mesh, validate dimensions/collision/placement, package or register it into CARLA as a blueprint, and prove live spawnability before calling it a real CARLA custom object.
+
+### Acceptance Criteria
+- [ ] AC-1: `oodrive generate-assets --provider meshy` or equivalent writes a Meshy asset request/manifest for a crane-like object without leaking credentials.
+- [ ] AC-2: The manifest records mesh files, dimensions, collision proxy, intended road-local placement, license/source metadata, and claim labels.
+- [ ] AC-3: `oodrive install-assets` or a new import helper can either register a CARLA blueprint id or write a precise blocker explaining the missing Unreal/CARLA packaging step.
+- [ ] AC-4: Asset resolution distinguishes `custom_mesh_generated=true`, `carla_blueprint_registered=true|false`, and `stock_proxy_fallback=true|false`.
+- [ ] AC-5: A live proof artifact exists when possible: CARLA map, blueprint id, spawn transform, screenshot/video, and cleanup ids.
+- [ ] AC-6: Tests prevent claiming `arbitrary_mesh_spawn=true` unless the manifest includes generated/ingested mesh, import registry, registered blueprint, and live spawn evidence.
+
+### Agent Contract
+- Open: `src/driverx/assets/pipeline.py`, `src/driverx/assets/types.py`, `src/driverx/assets/carla_registry.py`, `src/driverx/assets/local_procedural.py`, `src/driverx/scenarios/studio_product_production_cli.py`, `src/driverx/scenarios/studio_product_production_runtime.py`, `src/driverx/simulators/carla_ood_demo.py`
+- Test hook: `PYTHONPATH=src python3 -m unittest tests.test_production_scenario_generator tests.test_carla_scenario_composer tests.test_oodrive_cli`
+- Stabilize: no secrets in repo, no Meshy token through Kasm proxy heredocs, stock proxies stay labeled as proxies.
+- Inspect: asset manifest, CARLA registry JSON, import/package report, live spawn screenshot/video if available.
+- QA cookbook: run a dry-run Meshy/provider-disabled asset request, run registry resolution, verify custom object remains blocked/proxy-labeled without a registered blueprint, then run live spawn proof only after a blueprint exists.
+- Expected artifacts: `asset_manifest.json`, `carla_asset_registry.json`, `carla_asset_import_report.md`, optional `custom_asset_spawn_proof.json`, optional screenshot/video.
+
+### Build Notes
+- First target prompt: `construction crane arm fallen across a wet urban lane`.
+- Initial provider path can be request/manifest-first if Meshy credentials are not available locally.
+- The CARLA claim boundary remains:
+  - `arbitrary_mesh_spawn=false` until registered blueprint plus live spawn evidence exists.
+  - `stock_proxy_fallback=true` when using debris/cone/foodcart proxies.
+
+### Verification
+- `PYTHONPATH=src python3 -m oodrive generate-assets --provider meshy --prompt "construction crane arm fallen across a wet urban lane" --run-id task170-crane-asset`
+- `PYTHONPATH=src python3 -m oodrive install-assets --asset-manifest <asset_manifest.json> --run-id task170-crane-install`
+- `PYTHONPATH=src python3 -m unittest tests.test_production_scenario_generator tests.test_oodrive_cli`
+- `bash scripts/pre_push_check.sh`
+
+### Evidence
+- Meshy/request manifest path
+- Import/registry report path
+- Live CARLA spawn proof path or precise blocker
+- Overclaim guard test output

@@ -1,0 +1,94 @@
+{
+  "review_id": "task157-164-impl-review",
+  "reviewed_at": "2026-05-08 09:05 +0800",
+  "work_type": [
+    "backend",
+    "simulation-integration",
+    "cli",
+    "evaluation"
+  ],
+  "scope": [
+    "TASK-157",
+    "TASK-158",
+    "TASK-159",
+    "TASK-161",
+    "TASK-162",
+    "TASK-163",
+    "TASK-164"
+  ],
+  "rubrics_used": [
+    "code-quality",
+    "integration-readiness",
+    "evidence-quality"
+  ],
+  "verdict": "pass_with_live_followup",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "rerun_required": false,
+  "hard_gate_failures": [],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/policies/closed_loop_types.py",
+      "src/driverx/evaluation/closed_loop_control_score.py",
+      "src/driverx/simulators/carla_closed_loop_runner.py",
+      "src/driverx/simulators/carla_sync.py",
+      "src/driverx/policies/control_safety.py",
+      "src/driverx/policies/alpamayo_inference_bridge.py",
+      "src/driverx/remote/alpamayo_handoff.py",
+      "src/driverx/evaluation/closed_loop_integration_score.py",
+      "src/driverx/scenarios/studio_product_closed_loop_runtime.py",
+      "src/driverx/scenarios/studio_product_closed_loop_cli.py",
+      "src/driverx/scenarios/studio_product_production_cli.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "tests/test_closed_loop_control_score.py",
+      "tests/test_carla_closed_loop_runner.py",
+      "tests/test_carla_sync.py",
+      "tests/test_control_safety.py",
+      "tests/test_alpamayo_handoff.py",
+      "tests/test_closed_loop_integration_score.py",
+      "autoresearch.sh",
+      "autoresearch.checks.sh"
+    ],
+    "neighboring_surfaces": [
+      "src/driverx/policies/trajectory_control.py",
+      "src/driverx/simulators/carla_policy_replay.py",
+      "src/driverx/simulators/carla_alpamayo_capture.py",
+      "docs/MEMORY.md",
+      "AGENTS.md"
+    ]
+  },
+  "scores": {
+    "code_quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "The implementation is additive, dependency-light, and keeps CARLA/model imports out of local tests. CLI size was corrected by splitting production and closed-loop registration modules."
+    },
+    "integration_readiness": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "Fake/cached closed-loop paths, scoring, inference handoff, safety checks, and autoresearch all run locally. Live Kasm Alpamayo remains intentionally blocked under TASK-160."
+    },
+    "evidence_quality": {
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "Focused tests, command smokes, autoresearch checks, autoresearch metrics, compileall, and pre-push all passed. The review does not claim live closed-loop driving."
+    }
+  },
+  "verification": {
+    "focused_unittest": "PYTHONPATH=src python3 -m unittest tests.test_closed_loop_control_score tests.test_control_safety tests.test_carla_sync tests.test_alpamayo_handoff tests.test_carla_closed_loop_runner tests.test_oodrive_cli -> 20 tests OK",
+    "expanded_autoresearch_checks": "./autoresearch.checks.sh -> 35 tests OK",
+    "autoresearch_metric": "./autoresearch.sh -> submission_readiness_score=96.3500, closed_loop_integration_score=100.0000",
+    "pre_push": "bash scripts/pre_push_check.sh -> 456 tests OK, 5 skipped",
+    "cli_smoke": "oodrive closed-loop-run + score-closed-loop + score-closed-loop-integration -> both scores 100.0000"
+  },
+  "findings": [],
+  "residual_risk": [
+    "Live Kasm Alpamayo/CARLA proof is not executed here and remains TASK-160.",
+    "The local fake runner proves the integration contract, not real vehicle competence.",
+    "The closed-loop integration score is an internal readiness metric, not an official benchmark score."
+  ],
+  "next_action": "Run TASK-160 on Kasm only after the local hardening path is accepted, then preserve claim boundaries unless live observe-infer-act-observe evidence passes both score gates."
+}

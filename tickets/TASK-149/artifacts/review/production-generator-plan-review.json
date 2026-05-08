@@ -1,0 +1,98 @@
+{
+  "work_type": ["planning", "simulation", "research-product"],
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-149/ticket.md",
+      "tickets/TASK-150/ticket.md",
+      "tickets/TASK-151/ticket.md",
+      "tickets/TASK-152/ticket.md",
+      "tickets/TASK-153/ticket.md",
+      "tickets/TASK-154/ticket.md",
+      "tickets/TASK-155/ticket.md",
+      "tickets/TASK-156/ticket.md",
+      "tickets/TASK-156/autoresearch-production-generator/autoresearch.md",
+      "docs/MEMORY.md",
+      "AGENTS.md"
+    ],
+    "related_files": [
+      "docs/prd.md",
+      "docs/specs/scenario-generator-cli-v1.md",
+      "src/driverx/assets/types.py",
+      "src/driverx/assets/pipeline.py",
+      "src/driverx/assets/carla_mapping.py",
+      "src/driverx/scenarios/generated_runtime.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "tickets/TASK-139/ticket.md",
+      "tickets/TASK-141/ticket.md"
+    ],
+    "invariants_checked": ["MEM-0021", "MEM-0023", "MEM-0025", "MEM-0037", "MEM-0038", "MEM-0042", "MEM-0044"],
+    "docs_checked": [
+      "skills/impl-plan/SKILL.md",
+      "skills/autoresearch-plan/SKILL.md",
+      "skills/review/references/spec-contract.md",
+      "skills/review/references/implementation-plan.md",
+      "skills/review/references/integration-readiness.md"
+    ]
+  },
+  "rubrics_used": ["spec-contract", "implementation-plan", "integration-readiness"],
+  "summary": "The production scenario-generator train is approval-ready as a plan: it is dependency ordered from scenario-pack contract through real asset generation, CARLA import/probe, graph/export, live runner, workbench, library export, and scoring. The main caveat is that upstream live/custom-asset proof remains intentionally blocked until implementation tickets execute.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": {
+    "spec-contract": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "story-coherence": 4.3,
+        "parallelization-fit": 4.0,
+        "ticket-sizing": 4.0,
+        "acceptance-testability": 4.2,
+        "scope-clarity": 4.4
+      },
+      "findings": [],
+      "next_action": "Start TASK-149; do not skip directly to live CARLA work before the pack contract exists."
+    },
+    "implementation-plan": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "human-readability": 4.0,
+        "bloatability": 4.0,
+        "modularity": 4.4,
+        "proof-clarity": 4.2,
+        "execution-order": 4.4,
+        "risk-clarity": 4.2,
+        "decision-tone": 4.2,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Execute in dependency order and keep custom-asset claims gated by registry/probe evidence."
+    },
+    "integration-readiness": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.2,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.1
+      },
+      "findings": [],
+      "next_action": "Keep live CARLA, external provider, and Unreal package-install side effects out of local tests."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Approve TASK-149 as the first implementation ticket for the production scenario-generator train."
+}

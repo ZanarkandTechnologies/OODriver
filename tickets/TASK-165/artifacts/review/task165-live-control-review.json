@@ -1,0 +1,132 @@
+{
+  "work_type": ["backend", "cli", "simulator-integration", "evidence"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/simulators/carla_control.py",
+      "src/driverx/simulators/carla_control_cli.py",
+      "src/driverx/cli_extensions.py",
+      "src/driverx/scenarios/studio_product_carla_composer_runtime.py",
+      "src/driverx/scenarios/studio_product_carla_composer_cli.py",
+      "tests/test_carla_control.py",
+      "tests/test_carla_control_cli.py",
+      "tickets/TASK-165/ticket.md"
+    ],
+    "related_files": [
+      "src/driverx/simulators/carla_catalog.py",
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/simulators/README.md",
+      "src/driverx/scenarios/README.md",
+      "docs/HISTORY.md",
+      "docs/TROUBLES.md"
+    ],
+    "evidence_artifacts": [
+      "artifacts/runs/carla-control-live-pulled/artifacts/runs/carla-control-town03-night-live/carla_control.json",
+      "artifacts/runs/carla-control-live-pulled/artifacts/runs/carla-control-town03-night-live/carla_control_screenshot.png",
+      "artifacts/runs/carla-control-live-pulled/artifacts/runs/carla-control-town05-flood-live/carla_control.json",
+      "artifacts/runs/carla-control-live-pulled/artifacts/runs/carla-control-town05-flood-live/carla_control_screenshot.png"
+    ],
+    "invariants_checked": ["MEM-0042", "MEM-0044", "MEM-0046"],
+    "commands_checked": [
+      "PYTHONPATH=src python3 -m unittest tests.test_carla_control tests.test_carla_control_cli tests.test_carla_scenario_composer tests.test_oodrive_cli",
+      "python3 -m compileall -q src tests",
+      "bash scripts/pre_push_check.sh",
+      "PYTHONPATH=src python3 -m driverx control-carla --host 127.0.0.1 --port 2000 --town Town03 --load-map --weather-preset night_rain_fog --capture --spawn-index 7 --camera-width 960 --camera-height 540 --tick-count 8 --run-id carla-control-town03-night-live",
+      "PYTHONPATH=src python3 -m driverx control-carla --host 127.0.0.1 --port 2000 --town Town05 --load-map --weather-preset flooded_surface --capture --spawn-index 15 --camera-width 960 --camera-height 540 --tick-count 8 --run-id carla-control-town05-flood-live"
+    ]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "integration-readiness",
+    "evidence-quality",
+    "user-intent-satisfaction"
+  ],
+  "summary": "The CARLA control surface now gives agents direct map, weather, and screenshot control and live Kasm proof shows distinct Town03 and Town05 captures. The implementation preserves honest boundaries: existing CARLA maps and installed assets only, not arbitrary generated world geometry.",
+  "overall_score": 4.4,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "code-quality",
+      "summary": "Review found and fixed a screenshot timeout cleanup leak before pass: cameras spawned during failed captures are now destroyed inside `_capture_screenshot`, with a regression test.",
+      "file_refs": [
+        "src/driverx/simulators/carla_control.py",
+        "tests/test_carla_control.py"
+      ],
+      "evidence": [
+        "`test_control_destroys_camera_when_capture_times_out` covers a camera that never emits an image.",
+        "Focused CARLA-control tests and full pre-push gate pass after the fix."
+      ],
+      "next_action": "No blocking action; keep this failure-path cleanup invariant if screenshot capture is extended."
+    }
+  ],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.3,
+        "bloatability": 4.1,
+        "readability": 4.3,
+        "boundary-clarity": 4.4,
+        "error-handling": 4.3,
+        "maintainability": 4.3
+      },
+      "findings": [],
+      "next_action": "Keep direct CARLA control in `simulators/` and product-facing composition in `scenarios/`."
+    },
+    "integration-readiness": {
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.4,
+        "contract-correctness": 4.4,
+        "dependency-readiness": 4.3,
+        "coupling-risk": 4.4,
+        "merge-readiness": 4.5
+      },
+      "findings": [],
+      "next_action": "Use `driverx control-carla` for simulator capability probes and `oodrive carla-compose` for scenario demos."
+    },
+    "evidence-quality": {
+      "score": 4.5,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.5,
+        "reproducibility": 4.4,
+        "traceability": 4.5,
+        "consistency": 4.6,
+        "inspectability": 4.4,
+        "autonomy-readiness": 4.4
+      },
+      "findings": [],
+      "next_action": "For polished demo claims, build a multi-town video reel on top of these direct-control screenshots."
+    },
+    "user-intent-satisfaction": {
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "ask-fidelity": 4.6,
+        "outcome-completeness": 4.4,
+        "worth-it-feel": 4.3,
+        "impressiveness": 4.2,
+        "evidence-confidence": 4.5
+      },
+      "findings": [],
+      "next_action": "Answer the user with the concrete CARLA can/cannot boundary and the two live screenshots."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Pass. Continue with a polished multi-town scenario/video generator, but do not claim runtime prompt-to-new-CARLA-map generation without an Unreal asset import path."
+}

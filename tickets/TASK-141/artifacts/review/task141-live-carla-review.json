@@ -1,0 +1,193 @@
+{
+  "work_type": ["backend", "cli", "evidence", "runtime-integration", "video"],
+  "ticket_id": "TASK-141",
+  "reviewed_at": "2026-05-08 08:25 +0800",
+  "supersedes": "tickets/TASK-141/artifacts/review/task141-implementation-review.json",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/scenarios/generated_runtime.py",
+      "src/driverx/scenarios/studio_product_generated_runtime.py",
+      "src/driverx/evaluation/generator_runtime_score.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "tests/test_generated_carla_runtime.py",
+      "tests/test_oodrive_cli.py",
+      "README.md",
+      "src/driverx/scenarios/README.md",
+      "src/driverx/evaluation/README.md",
+      "docs/HISTORY.md",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md",
+      "AGENTS.md",
+      "tickets/TASK-141/ticket.md",
+      "tickets/TASK-141/artifacts/qa/generator-runtime-qa.md"
+    ],
+    "related_files": [
+      "src/driverx/assets/types.py",
+      "src/driverx/assets/carla_mapping.py",
+      "src/driverx/behaviors",
+      "src/driverx/environments",
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/scenarios/AGENTS.md",
+      "src/driverx/evaluation/AGENTS.md"
+    ],
+    "artifacts_checked": [
+      "artifacts/runs/task141-fake-carla-smoke/generated_scenario_runtime.json",
+      "artifacts/runs/task141-fake-carla-smoke/generated_runtime_fake_carla_proof.json",
+      "artifacts/runs/task141-fake-carla-smoke/entity_tracks.json",
+      "artifacts/runs/task141-fake-carla-smoke/generator-runtime-scores/task141-fake-carla-smoke-generator-runtime-score/generator_runtime_score.json",
+      "artifacts/runs/task141-live-blocked/generated_scenario_runtime.json",
+      "artifacts/runs/task141-live-blocked/generated_runtime_live_carla_blocked.json",
+      "artifacts/runs/task141-runpod-carla-live/generated_scenario_runtime.json",
+      "artifacts/runs/task141-runpod-carla-live/generated_runtime_live_carla_proof.json",
+      "artifacts/runs/task141-runpod-carla-live/live_cases/behavior-00-motorcycle-filtering/entity_tracks.json",
+      "artifacts/runs/task141-runpod-carla-live/live_cases/behavior-00-motorcycle-filtering/rgb/frame_000000.png",
+      "artifacts/runs/task141-runpod-carla-live/live_cases/behavior-00-motorcycle-filtering/rgb/frame_000224.png",
+      "artifacts/runs/task141-runpod-carla-live/live_cases/behavior-00-motorcycle-filtering/rgb/frame_000449.png",
+      "artifacts/runs/task141-runpod-carla-live/generator-runtime-scores/task141-runpod-carla-live-generator-runtime-score-fixed/generator_runtime_score.json",
+      "artifacts/runs/task141-runpod-carla-live-video/ood_video_evidence.json",
+      "artifacts/runs/task141-runpod-carla-live-video/wet-malaysian-roadwork-scooter-cut-in-lane-debris-0041_ood.mp4"
+    ],
+    "invariants_checked": [
+      "AGENTS: generated artifacts under artifacts/",
+      "AGENTS / MEM-0042: env-sim/CARLA proof should attempt Kasm live CARLA when available",
+      "src/driverx/scenarios/AGENTS.md: no top-level CARLA package import",
+      "MEM-0034: time-warp/offline demos must label real_time_vla_control=false",
+      "MEM-0037: generated placement/runtime proof cannot overclaim closed-loop control",
+      "MEM-0038: Alpamayo evidence remains open-loop until it directly drives CARLA controls"
+    ],
+    "rubric_docs_checked": [
+      "review-rubric-index.md",
+      "code-quality.md",
+      "integration-readiness.md",
+      "evidence-quality.md",
+      "video-quality.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "integration-readiness",
+    "evidence-quality",
+    "video-quality"
+  ],
+  "summary": "PASS. TASK-141 now has a usable generator-to-CARLA runtime surface with both local contract proof and live Kasm CARLA proof. The live manifest proves generated object/asset spawns and one generated behavior actor in CARLA with 450 RGB frames, 7,650 tracks, actor cleanup, a 90s MP4, and explicit `closed_loop_vla_control=false` and `real_time_vla_control=false` boundaries. The live score artifact now blocks only on intentional one-behavior breadth, not on a false missing-tracks blocker.",
+  "overall_score": 4.4,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "The live Kasm run is simulator proof, not the breadth-promotion run; its `generator_runtime_score=85.0000` is below threshold because it used one behavior case.",
+      "file_refs": [
+        "artifacts/runs/task141-runpod-carla-live/generator-runtime-scores/task141-runpod-carla-live-generator-runtime-score-fixed/generator_runtime_score.json",
+        "tickets/TASK-141/ticket.md"
+      ],
+      "evidence": [
+        "The fixed live score components are scenario_generation=15, behavior_breadth=7, object_spawn_readiness=18, carla_runtime_proof=20, cleanup_and_lineage=15, and claim_honesty=10.",
+        "The fixed live score blocker list is only `generator_runtime_score 85.0000 below 90.0000`; the earlier false `missing runtime entity tracks` blocker was removed by accepting case-result track paths.",
+        "The fake-CARLA breadth smoke still scores 98.0000 with three behavior cases, while the Kasm run proves actual CARLA spawning/video for one selected behavior."
+      ],
+      "next_action": "Use the Kasm live run as CARLA evidence and the fake-CARLA three-behavior run as breadth evidence; run a multi-behavior live Kasm batch only if the final judge packet needs the live metric to cross 90."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.1,
+        "bloatability": 4.0,
+        "readability": 4.1,
+        "boundary-clarity": 4.2,
+        "error-handling": 4.2,
+        "maintainability": 4.0
+      },
+      "findings": [
+        "`run_generated_scenario_runtime` dispatches cleanly across dry-run, fake-CARLA, and carla-live backends without top-level CARLA import.",
+        "The live backend reuses `run_carla_ood_demo` and writes a separate `generated_runtime_live_carla_proof.json`, keeping simulator side effects at the runtime edge.",
+        "The score module is small and transparent enough to diagnose why the live one-behavior proof scores 85 while the fake breadth proof scores 98, and it now accepts live case-result track paths when a top-level tracks path is absent."
+      ],
+      "next_action": "Future hardening should add a multi-behavior live batch wrapper rather than expanding the core runtime module much further."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.4,
+        "contract-correctness": 4.4,
+        "dependency-readiness": 4.5,
+        "coupling-risk": 4.1,
+        "merge-readiness": 4.4
+      },
+      "findings": [
+        "`oodrive generate-run` and `oodrive score-generator-runtime` are product CLI commands with focused tests and docs.",
+        "Local Mac absence of CARLA still produces a blocked manifest, while the Kasm RunPod path proves the same backend against a live CARLA server.",
+        "The manifest preserves claim labels for generated behavior/object runtime proof without inflating it into closed-loop VLA control."
+      ],
+      "next_action": "Hand TASK-139 the live runtime manifest/video for time-warped VLA stitching, keeping control claims false until Alpamayo outputs drive controls."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.6,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.7,
+        "reproducibility": 4.4,
+        "traceability": 4.7,
+        "consistency": 4.6,
+        "inspectability": 4.6,
+        "autonomy-readiness": 4.3
+      },
+      "findings": [
+        "The pulled live manifest has `status=passed`, `backend=carla-live`, `objects_spawned_in_carla=true`, and no blockers.",
+        "The live proof reports 450 RGB frames, 7,650 tracks, five static/generated object spawns, one dynamic behavior actor, and spawned actor cleanup.",
+        "The QA artifact maps fake-CARLA breadth proof, local blocked proof, live Kasm proof, fixed score output, ffprobe output, and command history to the acceptance criteria."
+      ],
+      "next_action": "No further TASK-141 evidence is blocking; the remaining improvement is optional live-breadth scoring if a later packet wants one live run to satisfy both simulator proof and metric threshold."
+    },
+    {
+      "name": "video-quality",
+      "score": 4.0,
+      "threshold": 3.5,
+      "pass": true,
+      "dimension_scores": {
+        "legibility": 4.0,
+        "coverage": 4.0,
+        "pacing": 3.9,
+        "faithfulness": 4.2,
+        "verification-value": 4.1
+      },
+      "findings": [
+        "The MP4 is locally present, ffprobe-verified at 1280x720, 450 frames, 5 FPS, and 90 seconds.",
+        "The video evidence JSON records `generated_runtime_live_carla=true`, `video_overlay_is_evidence_surface=true`, and `closed_loop_vla_control=false`.",
+        "The clip is proof-friendly but not yet the final polished VLA-control story because it is a generated-runtime CARLA render without Alpamayo control stitched into the ego loop."
+      ],
+      "next_action": "Use this MP4 as simulator proof input to the later time-warped VLA/video ticket rather than presenting it alone as the final closed-loop driving demo."
+    }
+  ],
+  "blocking_findings": [],
+  "reviewed_commands": [
+    "PYTHONPATH=src python3 -m oodrive generate-run ... --backend carla-live --config configs/carla_ood_demo.runpod.high_fidelity.yaml --run-id task141-runpod-carla-live on Kasm RunPod",
+    "PYTHONPATH=src python3 -m driverx assemble-ood-video ... --run-id task141-runpod-carla-live-video on Kasm RunPod",
+    "PYTHONPATH=src python3 -m oodrive score-generator-runtime --runtime-manifest artifacts/runs/task141-runpod-carla-live/generated_scenario_runtime.json --run-id task141-runpod-carla-live-generator-runtime-score-fixed --metric-only",
+    "ffprobe -v error -select_streams v:0 -show_entries stream=width,height,nb_frames,r_frame_rate,duration -show_entries format=duration,size -of json artifacts/runs/task141-runpod-carla-live-video/wet-malaysian-roadwork-scooter-cut-in-lane-debris-0041_ood.mp4",
+    "python3 -m compileall -q src tests",
+    "PYTHONPATH=src python3 -m unittest tests.test_generated_carla_runtime",
+    "PYTHONPATH=src python3 -m unittest tests.test_generated_carla_runtime tests.test_bad_path_stress_demo tests.test_environment_to_carla_visual_proof tests.test_carla_ood_demo tests.test_oodrive_cli",
+    "bash scripts/pre_push_check.sh"
+  ],
+  "next_action": "Advance TASK-141 as live-CARLA-proved generated runtime work; use TASK-139/TASK-142+ for the next video/control stitching layer."
+}

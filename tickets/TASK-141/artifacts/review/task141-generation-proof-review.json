@@ -1,0 +1,59 @@
+{
+  "work_type": [
+    "evidence",
+    "simulation",
+    "product"
+  ],
+  "reviewed_at": "2026-05-08 06:18 +0800",
+  "ticket_id": "TASK-141",
+  "rubrics_used": [
+    "user-intent-satisfaction",
+    "evidence-quality",
+    "integration-readiness"
+  ],
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-141/ticket.md",
+      "tickets/TASK-141/artifacts/proof/task141-realistic-ood-generation-proof.md"
+    ],
+    "evidence_artifacts": [
+      "artifacts/runs/task141-realistic-ood-generation-v1/scenario_studio_db.json",
+      "artifacts/runs/task141-realistic-ood-generation-v1/scenario_dataset_queue.md",
+      "artifacts/runs/task141-realistic-ood-generation-v1/runs/task141-compound-placement-proof/run_manifest.json",
+      "artifacts/runs/task141-realistic-ood-generation-v1/placements/task141-compound-placement-proof/carla_placement_plan.md"
+    ],
+    "invariants_checked": [
+      "MEM-0035",
+      "MEM-0037",
+      "MEM-0038"
+    ]
+  },
+  "summary": "The narrowed proof directly answers the user's deadline instruction: show that OODrive can generate realistic OOD bad-path scenarios without opening a Waymo mining or fresh GPU lane. The evidence is current, reproducible, and honestly labeled as generation plus CARLA placement dry run rather than live CARLA or closed-loop VLA control.",
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "The generated candidates are deterministic template-composed outputs, not online LLM calls or dataset-mined Waymo cases.",
+      "file_refs": [
+        "tickets/TASK-141/ticket.md",
+        "tickets/TASK-141/artifacts/proof/task141-realistic-ood-generation-proof.md"
+      ],
+      "evidence": [
+        "The command output reported scenario_generation_ai_provider=codex-template and network_llm_call=false."
+      ],
+      "next_action": "Use the phrase AI-assisted deterministic OOD generator in judge-facing copy."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Use this proof packet as the immediate submission evidence for randomized realistic OOD generation; only run live CARLA if more visual proof is required."
+}

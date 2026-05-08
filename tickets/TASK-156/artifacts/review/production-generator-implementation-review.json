@@ -1,0 +1,152 @@
+{
+  "work_type": ["backend", "simulator-integration", "evidence"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/assets/types.py",
+      "src/driverx/assets/local_procedural.py",
+      "src/driverx/assets/quality.py",
+      "src/driverx/assets/carla_registry.py",
+      "src/driverx/scenarios/production_pack.py",
+      "src/driverx/scenarios/scenario_graph.py",
+      "src/driverx/simulators/carla_scenario_runner.py",
+      "src/driverx/scenarios/studio_product_production_runtime.py",
+      "src/driverx/scenarios/studio_product_production_cli.py",
+      "src/driverx/evaluation/research_scenario_generator_score.py",
+      "tests/test_production_scenario_generator.py"
+    ],
+    "related_files": [
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/scenarios/generated_runtime.py",
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/scenarios/README.md",
+      "src/driverx/assets/README.md",
+      "docs/HISTORY.md",
+      "docs/MEMORY.md",
+      "AGENTS.md",
+      "tickets/TASK-153/artifacts/qa/prompt-to-carla-image-qa.json",
+      "tickets/TASK-156/autoresearch-production-generator/autoresearch.md"
+    ],
+    "invariants_checked": ["MEM-0042", "MEM-0044", "MEM-0046"],
+    "docs_checked": [
+      "skills/review/references/code-quality.md",
+      "skills/review/references/evidence-quality.md",
+      "skills/review/references/integration-readiness.md",
+      "skills/review/references/desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "evidence-quality", "integration-readiness"],
+  "summary": "The production generator spine is real and test-backed: prompt packs, local 3D assets, registry fallback, graph export, fake/live CARLA runner, workbench, library export, and score/autoresearch all run. The review does not pass because the user's exact target is prompt-to-exact-CARLA imagery, and the attached live image QA is partial while CARLA custom asset import remains stock-proxy fallback.",
+  "overall_score": 3.7,
+  "overall_threshold": 4.0,
+  "verdict": "revise",
+  "rerun_required": true,
+  "evidence_quality": "fail",
+  "integration_readiness": "fail",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": ["evidence-quality", "integration-readiness"],
+  "finding_log": [
+    {
+      "severity": "high",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "Live CARLA proof only partially matches the prompt, so it cannot be promoted as exact prompt-to-CARLA image evidence.",
+      "file_refs": [
+        "tickets/TASK-153/artifacts/qa/prompt-to-carla-image-qa.json",
+        "artifacts/runs/task156-production-score-with-live-workbench-library-imageqa/research_scenario_generator_score.json"
+      ],
+      "evidence": [
+        "QA verdict is partial; wet road surface, Malaysia-specific setting, roadwork, construction debris, and scooter filtering around debris are weak.",
+        "The scorer now caps the run at 92.0 with status partial via prompt_image_match=4.0."
+      ],
+      "next_action": "Add prompt-fidelity controls and multi-keyframe QA, then regenerate live CARLA evidence until the image QA verdict passes."
+    },
+    {
+      "severity": "high",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "Generated meshes are not yet imported as custom CARLA blueprints; live evidence uses stock proxy actors.",
+      "file_refs": [
+        "artifacts/runs/task151-production-registry-proof/carla_asset_registry.json",
+        "artifacts/runs/task153-live-prompt-to-carla-pulled/artifacts/runs/task153-live-prompt-to-carla-pack/task153-live-prompt-to-carla-assets/task153-live-prompt-to-carla-run/scenario_run_manifest.json"
+      ],
+      "evidence": [
+        "registry installed_blueprint_count is 0",
+        "scenario run custom_asset_spawn_count is 0 and stock_proxy_spawn_count is 5"
+      ],
+      "next_action": "Implement and prove CARLA package/import/probe so generated OBJ/GLB assets resolve to installed blueprint ids."
+    },
+    {
+      "severity": "medium",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "The workbench exists but browser visual-QA screenshots are still pending.",
+      "file_refs": ["tickets/TASK-154/ticket.md"],
+      "evidence": ["TASK-154 AC-4 remains unchecked and explicitly blocked."],
+      "next_action": "Run browser visual QA for the static workbench before treating TASK-154 as fully complete."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 3.6,
+        "readability": 4.0,
+        "boundary-clarity": 4.1,
+        "error-handling": 3.8,
+        "maintainability": 4.0
+      },
+      "findings": [
+        "The implementation is well-separated into asset, pack, graph, runner, CLI, and scorer modules.",
+        "The workbench/export surfaces are intentionally thin and should be hardened later, but they do not undermine the core generator path."
+      ],
+      "next_action": "Keep later hardening focused on prompt fidelity, workbench QA, and true asset import rather than broad refactors."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 3.6,
+      "threshold": 4.0,
+      "pass": false,
+      "dimension_scores": {
+        "sufficiency": 3.2,
+        "reproducibility": 4.0,
+        "traceability": 4.2,
+        "consistency": 4.0,
+        "inspectability": 3.8,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [
+        "Live CARLA is proved, but exact visual prompt fidelity is not.",
+        "Autoresearch now records the image-QA cap instead of hiding the weakness behind an artifact-count score."
+      ],
+      "next_action": "Regenerate and QA live CARLA frames until prompt-image QA passes."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 3.5,
+      "threshold": 4.0,
+      "pass": false,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 3.8,
+        "dependency-readiness": 3.0,
+        "coupling-risk": 3.8,
+        "merge-readiness": 3.4
+      },
+      "findings": [
+        "The CLI and Python contracts are coherent and tested.",
+        "Custom asset import remains a real dependency gap for the user's prompt-to-3D-inside-CARLA goal."
+      ],
+      "next_action": "Treat this as a strong partial implementation and continue with CARLA blueprint import/probe plus prompt-fidelity regeneration."
+    }
+  ],
+  "blocking_findings": [
+    "Prompt-image QA is partial, not exact.",
+    "Custom generated assets are not installed as CARLA blueprints."
+  ],
+  "next_action": "Revise before claiming production-grade exact prompt-to-CARLA generation."
+}

@@ -1,0 +1,30 @@
+{
+  "metric_name": "research_scenario_generator_score",
+  "research_scenario_generator_score": 92.0,
+  "score": 92.0,
+  "threshold": 85.0,
+  "status": "partial",
+  "components": {
+    "scenario_contract": 15.0,
+    "asset_generation": 15.0,
+    "carla_asset_import": 5.0,
+    "live_carla_execution": 20.0,
+    "behavior_realism": 10.0,
+    "evidence_quality": 15.0,
+    "prompt_image_match": 4.0,
+    "researcher_usability": 8.0,
+    "export_reproducibility": 8.0,
+    "claim_honesty": 15.0
+  },
+  "blockers": [],
+  "recommendations": [
+    "Install/probe generated CARLA blueprints to move beyond stock proxy fallback.",
+    "Improve CARLA visual prompt fidelity before flagship promotion."
+  ],
+  "claim_boundaries": [
+    "metric_rewards_live_carla=true",
+    "stock_proxy_fallback_not_custom_asset=true",
+    "prompt_image_qa_caps_flagship_score=true",
+    "closed_loop_vla_control_not_scored_here=true"
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "work_type": ["runtime", "integration", "evidence"],
+  "reviewed_at": "2026-05-08 21:53 +0800",
+  "ticket_id": "TASK-160",
+  "search_scope": {
+    "changed_files": [
+      "scripts/bootstrap_remote_alpamayo_release.sh",
+      "scripts/run_remote_alpamayo_carla_inference.sh",
+      "scripts/run_remote_alpamayo_probe.sh",
+      "scripts/run_remote_alpamayo_shape_probe.sh",
+      "tests/test_alpamayo_remote_bootstrap_script.py",
+      "tickets/TASK-160/ticket.md",
+      "docs/MEMORY.md",
+      "docs/HISTORY.md",
+      "docs/TROUBLES.md",
+      "AGENTS.md"
+    ],
+    "related_files": [
+      "src/driverx/policies/alpamayo_inference_bridge.py",
+      "src/driverx/simulators/carla_closed_loop_runner.py",
+      "src/driverx/evaluation/closed_loop_video_score.py"
+    ],
+    "remote_artifacts_checked": [
+      "/workspace/0xDriver/artifacts/runs/task160-live-alpamayo-authfix-2step/closed_loop_trace.json",
+      "/workspace/0xDriver/artifacts/runs/task160-live-alpamayo-authfix-2step-video/closed_loop_hero.mp4",
+      "/workspace/0xDriver/artifacts/runs/task160-live-alpamayo-authfix-2step-video/closed_loop_video_manifest.json"
+    ],
+    "invariants_checked": ["MEM-0027", "MEM-0033", "MEM-0045", "MEM-0049"]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "evidence-quality",
+    "integration-readiness",
+    "video-quality"
+  ],
+  "summary": "The false gated-auth blocker is resolved. Remote Alpamayo commands now preserve the logged-in Hugging Face auth home while still using workspace model caches, and the RunPod proof completed two live CARLA + Alpamayo paused closed-loop iterations plus a scored 60s video.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "The hero MP4 is still remote-only, so final submission packaging must pull or host it before marking the media as local or public.",
+      "file_refs": ["tickets/TASK-160/ticket.md"],
+      "evidence": [
+        "RunPod video path is /workspace/0xDriver/artifacts/runs/task160-live-alpamayo-authfix-2step-video/closed_loop_hero.mp4.",
+        "MEM-0033 requires public_url/local_file/remote_only distinction for final media evidence."
+      ],
+      "next_action": "Pull or host the MP4 during final packaging; do not mark it public/local until exported."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity": 4.0,
+        "boundary_clarity": 4.2,
+        "error_handling": 4.0,
+        "maintainability": 4.3
+      },
+      "findings": [
+        "The fix is a narrow environment-contract repair in the remote Alpamayo scripts, covered by bash syntax checks and regression tests that prevent reintroducing the auth-home override."
+      ],
+      "next_action": "No code-blocking follow-up."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.3,
+        "reproducibility": 4.1,
+        "traceability": 4.2,
+        "consistency": 4.2,
+        "inspectability": 3.8
+      },
+      "findings": [
+        "Evidence covers the root cause, the fixed auth behavior, a two-step live CARLA Alpamayo run, closed-loop scores, and video score. Inspectability is slightly reduced because the MP4 remains on the RunPod filesystem."
+      ],
+      "next_action": "Pull or host media before final submission packaging."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration_safety": 4.2,
+        "contract_correctness": 4.4,
+        "dependency_readiness": 4.1,
+        "coupling_risk": 4.0,
+        "merge_readiness": 4.2
+      },
+      "findings": [
+        "The dependency contract is now explicit: RunPod must preserve HF auth home and may override only the model cache directories. This is recorded in MEM-0049 and tested across the Alpamayo remote scripts."
+      ],
+      "next_action": "Keep MEM-0049 in future RunPod/Alpamayo wrappers."
+    },
+    {
+      "name": "video-quality",
+      "score": 4.1,
+      "threshold": 3.5,
+      "pass": true,
+      "dimension_scores": {
+        "duration": 4.5,
+        "frame_count": 4.5,
+        "claim_honesty": 4.5,
+        "model_recurrence_visibility": 4.0,
+        "media_availability": 3.5
+      },
+      "findings": [
+        "The scored video passes the mechanical closed-loop-video gate with 60s/720 frames and model-driven policy credit, while preserving `real_time_vla_control=false`."
+      ],
+      "next_action": "Export media locally or publicly for judge packaging."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Proceed with final media export/hosting if the user wants judge-facing packaging; auth is no longer the blocker."
+}

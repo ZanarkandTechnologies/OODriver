@@ -1,0 +1,130 @@
+{
+  "work_type": [
+    "planning",
+    "product-workflow",
+    "simulation-evidence"
+  ],
+  "reviewed_at": "2026-05-08T04:33:00+08:00",
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-136/ticket.md",
+      "tickets/TASK-137/ticket.md",
+      "tickets/TASK-138/ticket.md",
+      "tickets/TASK-136/autoresearch/autoresearch.md",
+      "tickets/TASK-136/autoresearch/autoresearch.sh",
+      "tickets/TASK-136/autoresearch/autoresearch.checks.sh",
+      "tickets/TASK-136/autoresearch/autoresearch.jsonl"
+    ],
+    "related_files": [
+      "docs/prd.md",
+      "ARCHITECTURE.md",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/scenarios/studio_product_environment_runtime.py",
+      "src/driverx/scenarios/studio_product_runtime.py",
+      "src/driverx/environments/generator.py",
+      "src/driverx/environments/types.py",
+      "src/driverx/environments/library.py",
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/simulators/reasoning_timeline_overlay.py",
+      "src/driverx/evaluation/submission_readiness_score.py"
+    ],
+    "invariants_checked": [
+      "MEM-0034",
+      "MEM-0035",
+      "MEM-0037",
+      "MEM-0038",
+      "MEM-0039",
+      "MEM-0040"
+    ],
+    "docs_checked": [
+      "impl-plan/SKILL.md",
+      "autoresearch-plan/SKILL.md",
+      "review/references/spec-contract.md",
+      "review/references/implementation-plan.md",
+      "review/references/evidence-quality.md",
+      "review/references/integration-readiness.md"
+    ]
+  },
+  "rubrics_used": [
+    "spec-contract",
+    "implementation-plan",
+    "evidence-quality",
+    "integration-readiness"
+  ],
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": {
+    "spec-contract": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "story-coherence": 4.5,
+        "parallelization-fit": 4.0,
+        "ticket-sizing": 4.0,
+        "acceptance-testability": 4.2,
+        "scope-clarity": 4.3
+      },
+      "findings": [],
+      "next_action": "Proceed with TASK-136 first, then TASK-137 and TASK-138."
+    },
+    "implementation-plan": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "human-readability": 4.0,
+        "bloatability": 4.0,
+        "modularity": 4.2,
+        "proof-clarity": 4.5,
+        "execution-order": 4.3,
+        "risk-clarity": 4.2,
+        "decision-tone": 4.2,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Keep implementation focused on same-lineage artifacts before video polish."
+    },
+    "evidence-quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.1,
+        "reproducibility": 4.1,
+        "traceability": 4.4,
+        "consistency": 4.2,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Use the TASK-136 autoresearch score as the evidence loop once implementation starts."
+    },
+    "integration-readiness": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.2,
+        "contract-correctness": 4.2,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.2,
+        "merge-readiness": 4.2
+      },
+      "findings": [],
+      "next_action": "Treat Kasm/CARLA and real Alpamayo as optional proof upgrades with blocked local fallbacks."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Implement TASK-136 as the first build ticket."
+}

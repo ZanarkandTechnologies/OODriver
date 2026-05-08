@@ -79,6 +79,23 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   product loop: placement plans are CARLA-ready specs, dry-run placement is not
   live object spawning, and Alpamayo reasoning is open-loop unless a live
   model-driven control trace exists. See `MEM-0037`.
+- Treat prompt-to-3D-assets-inside-CARLA as unproved until the chain has a
+  generated/ingested mesh, asset manifest, CARLA import registry or blueprint
+  probe, and live spawn evidence. Stock proxies are fallback simulator evidence,
+  not custom generated assets. See `MEM-0044`.
+- Production prompt-to-CARLA generator promotion requires prompt-image QA on
+  live CARLA frames. Partial visual matches can prove simulator execution, but
+  they cannot be called exact prompt fidelity or flagship proof. See
+  `MEM-0046`.
+- OODrive CARLA environment generation composes scenarios inside existing CARLA
+  towns by selecting maps, weather, road anchors, stock proxy assets, dynamic
+  actors, background vehicles, and pedestrians; do not claim arbitrary Unreal
+  world generation unless a custom map/mesh import chain is actually proved. See
+  `MEM-0047`.
+- CARLA generator gallery promotion must be gated by a live capability matrix
+  and image-diversity/prompt-visual-match scoring over real CARLA captures;
+  prompt-only scenario variation and text/card storyboards are planning
+  artifacts, not gallery or submission evidence. See `MEM-0048`.
 - TASK-128 proves the Kasm pod can run the canonical loop in open-loop form:
   prompt-generated CARLA placement, live scripted render, and fresh Alpamayo
   reasoning over captured frames. Keep this evidence labeled
@@ -88,6 +105,24 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   before promotion; raw MP4 presence is insufficient without frame/time,
   reasoning, RAG, risk, motion/duration, and claim-boundary evidence. See
   `MEM-0039`.
+- Closed-loop CARLA hero videos must show an ego-visible third-person/spectator
+  view with dense action-tick source frames and brisk auto-duration rendering;
+  sparse checkpoint stills, front-camera-only clips, or over-stretched videos
+  must fail promotion even if the trace/control JSON exists. See `MEM-0051`.
+- For SoTA Commission I, optimize against the local commission-readiness score
+  once hero video quality is saturated. Winning evidence must cover the
+  commission criteria: technical excellence, novelty, feasibility, adherence to
+  minimal-shot autonomy, randomized scenario generation, navigation evidence,
+  compute/latency honesty, motivation, and a failure case. See `MEM-0040`.
+- When the requested proof is env-sim/CARLA and the Kasm/GPU host is available,
+  attempt live Kasm CARLA evidence before a completion claim; fake-CARLA and
+  local scripted traces are contract tests, not final simulator proof. See
+  `MEM-0042`.
+- Promote closed-loop Alpamayo/CARLA evidence only after scored
+  observe-infer-act-observe recurrence, synchronized sensor frame provenance,
+  safety-guarded controls, and inference handoff evidence pass; fake/cached
+  traces are contract proof until live Kasm evidence passes both closed-loop
+  score gates. See `MEM-0045`.
 - For local CARLA 0.9.16 scripted OOD props, use probed stock proxy
   blueprints (`static.prop.dirtdebris01`, `static.prop.foodcart`,
   `static.prop.constructioncone`) and do not rely on absent `trafficcone`
@@ -103,6 +138,10 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   heredocs/base64 streams because the proxy requires a PTY and echoes command
   input; install tokens through the web terminal or direct TCP SSH/SFTP. See
   `MEM-0027`.
+- Remote Alpamayo inference commands must preserve the logged-in Hugging Face
+  auth home: do not override `HF_HOME` or `XDG_CACHE_HOME` unless the same token
+  is installed there; use `HF_HUB_CACHE`/`TRANSFORMERS_CACHE` for workspace
+  model caches. See `MEM-0049`.
 - Final submission media evidence must distinguish `public_url`, `local_file`,
   `remote_only`, and `missing`; only public or local exported media can be
   marked as proved. See `MEM-0033`.

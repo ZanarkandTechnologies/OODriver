@@ -1,0 +1,109 @@
+{
+  "work_type": ["backend", "cli", "evaluation", "evidence"],
+  "ticket_id": "TASK-171",
+  "reviewed_at": "2026-05-08T21:32:00+08:00",
+  "reviewer_mode": "visible_review_lane",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/scenarios/choreography.py",
+      "src/driverx/scenarios/studio_product_choreography_runtime.py",
+      "src/driverx/scenarios/studio_product_choreography_cli.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/evaluation/scenario_choreography_score.py",
+      "src/driverx/evaluation/__init__.py",
+      "tests/test_scenario_choreography.py",
+      "tests/test_oodrive_cli.py",
+      "tickets/TASK-171/ticket.md"
+    ],
+    "related_files": [
+      "src/driverx/scenarios/generated_runtime.py",
+      "src/driverx/scenarios/production_pack.py",
+      "src/driverx/evaluation/generator_runtime_score.py",
+      "docs/MEMORY.md",
+      "docs/HISTORY.md"
+    ],
+    "invariants_checked": [
+      "MEM-0037",
+      "MEM-0039",
+      "MEM-0041",
+      "MEM-0042",
+      "MEM-0044",
+      "MEM-0047"
+    ],
+    "docs_checked": [
+      "AGENTS.md",
+      "README.md",
+      "tickets/TASK-171/ticket.md"
+    ]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "integration-readiness",
+    "evidence-quality",
+    "user-intent-satisfaction"
+  ],
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "minor",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "TASK-171 is correctly scoped to local/fake-CARLA choreography proof; it does not yet provide live CARLA screenshots or MP4s.",
+      "file_refs": ["tickets/TASK-171/ticket.md"],
+      "evidence": "The ticket explicitly records `live_carla_execution=false`, defers live video promotion to TASK-172, and preserves non-closed-loop claim boundaries.",
+      "next_action": "Use the manifest as the TASK-172 input and do not promote it as live simulator proof by itself."
+    }
+  ],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [
+        "The implementation is modular: core builder, runtime, CLI, score module, and tests are separated.",
+        "The scoring code is deterministic and avoids lowering gates or inflating live claims."
+      ],
+      "next_action": "Keep live-runner concerns out of the local choreography builder."
+    },
+    "integration-readiness": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [
+        "`oodrive choreograph` and `oodrive score-choreography` are registered through the product CLI.",
+        "The manifest exposes cases, actors, objects, triggers, expected responses, entity tracks, cleanup ids, and claim labels for downstream video work."
+      ],
+      "next_action": "Implement TASK-172 as a consumer of `choreography_manifest.json` rather than inventing a second behavior schema."
+    },
+    "evidence-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [
+        "`scenario_choreography_score=100.0000` passed on the generated artifact.",
+        "Focused tests passed with 12 tests OK and the full pre-push gate passed with 478 tests OK, 6 skipped."
+      ],
+      "next_action": "Attach live CARLA media and a video score in TASK-172 before judge-facing promotion."
+    },
+    "user-intent-satisfaction": {
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [
+        "The default cases map directly to the requested bad paths: static blocker, moving cut-in, rolling/accident object, and compound detour.",
+        "The output is now agent-operable through a single product command."
+      ],
+      "next_action": "Show the cases visually in CARLA next."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Proceed to TASK-172 live CARLA choreography video proof."
+}

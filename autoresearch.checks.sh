@@ -2,7 +2,6 @@
 set -euo pipefail
 
 PYTHONPATH=src python3 -m unittest \
-  tests.test_hero_demo_score \
-  tests.test_scenario_quality \
-  tests.test_reasoning_video_pack \
+  tests.test_carla_closed_loop_runner \
+  tests.test_closed_loop_video \
   tests.test_oodrive_cli

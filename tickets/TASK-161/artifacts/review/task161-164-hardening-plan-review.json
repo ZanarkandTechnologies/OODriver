@@ -1,0 +1,80 @@
+{
+  "review_id": "task161-164-hardening-plan-review",
+  "reviewed_at": "2026-05-08 08:50 +0800",
+  "work_type": [
+    "planning",
+    "backend",
+    "simulation-integration"
+  ],
+  "scope": [
+    "tickets/TASK-161/ticket.md",
+    "tickets/TASK-162/ticket.md",
+    "tickets/TASK-163/ticket.md",
+    "tickets/TASK-164/ticket.md"
+  ],
+  "rubrics_used": [
+    "spec-contract",
+    "implementation-plan",
+    "evidence-quality"
+  ],
+  "verdict": "pass_with_followups",
+  "score": 4.3,
+  "threshold": 4.0,
+  "rerun_required": false,
+  "hard_gate_failures": [],
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-161/ticket.md",
+      "tickets/TASK-162/ticket.md",
+      "tickets/TASK-163/ticket.md",
+      "tickets/TASK-164/ticket.md",
+      "docs/HISTORY.md"
+    ],
+    "related_files": [
+      "src/driverx/simulators/carla_alpamayo_capture.py",
+      "src/driverx/simulators/carla_policy_replay.py",
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/policies/trajectory_control.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md"
+    ]
+  },
+  "rubric": {
+    "spec_contract": {
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "The four tickets address distinct hardening risks: sensor causality, control safety, inference handoff, and regression scoring."
+    },
+    "implementation_plan": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "Plans include file maps, signature deltas, typed flows, verification, and dependency ordering. TASK-164 should remain a gate, not a runtime feature bucket."
+    },
+    "evidence_quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "Evidence requirements are concrete and resistant to overclaiming. Live Kasm evidence remains intentionally outside this local hardening batch."
+    }
+  },
+  "findings": [
+    {
+      "priority": 2,
+      "title": "Do not let TASK-164 duplicate TASK-157 scoring",
+      "detail": "TASK-164 should compose subscores and enforce promotion readiness. The core closed-loop taxonomy and recurrence validation remain owned by TASK-157."
+    },
+    {
+      "priority": 2,
+      "title": "Make sensor frame provenance mandatory before live promotion",
+      "detail": "TASK-161 must feed frame ids into the closed-loop trace; otherwise TASK-160 can still look causal without proving camera freshness."
+    },
+    {
+      "priority": 3,
+      "title": "Prefer conservative safety interventions",
+      "detail": "TASK-162 should optimize for visibly safe stop/slow behavior under OOD conditions before trying impressive evasive maneuvers."
+    }
+  ]
+}

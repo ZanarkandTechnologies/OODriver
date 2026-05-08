@@ -1,0 +1,161 @@
+{
+  "work_type": [
+    "demo",
+    "evidence",
+    "integration",
+    "docs"
+  ],
+  "search_scope": {
+    "changed_files": [
+      "README.md",
+      "autoresearch.sh",
+      "docs/HISTORY.md",
+      "tickets/TASK-131/ticket.md",
+      "tickets/TASK-131/artifacts/qa/score_gated_hero_demo_qa.md"
+    ],
+    "related_files": [
+      "tickets/TASK-128/artifacts/qa/live-product-loop-qa.md",
+      "tickets/TASK-130/ticket.md",
+      "src/driverx/evaluation/hero_demo_score.py",
+      "src/driverx/simulators/reasoning_timeline_overlay.py",
+      "src/driverx/scenarios/studio_product_runtime.py",
+      "autoresearch.md"
+    ],
+    "evidence_artifacts": [
+      "artifacts/runs/task128-oodrive-live-product/demo-videos/task131-score-gated-hero-v2/oodrive_hero_demo.mp4",
+      "artifacts/runs/task128-oodrive-live-product/demo-videos/task131-score-gated-hero-v2/hero_demo_video.json",
+      "artifacts/runs/task128-oodrive-live-product/demo-scores/task131-score-gated-hero-v2-score/hero_demo_score.json",
+      "artifacts/runs/task128-oodrive-live-product/demo-scores/task131-score-gated-hero-v2-score/hero_demo_score.md"
+    ],
+    "invariants_checked": [
+      "MEM-0034",
+      "MEM-0038",
+      "MEM-0039"
+    ],
+    "docs_checked": [
+      "review-rubric-index.md",
+      "evidence-quality.md",
+      "demo-quality.md",
+      "video-quality.md",
+      "integration-readiness.md",
+      "user-intent-satisfaction.md",
+      "desloppify.md"
+    ]
+  },
+  "rubrics_used": [
+    "user-intent-satisfaction",
+    "evidence-quality",
+    "demo-quality",
+    "video-quality",
+    "integration-readiness"
+  ],
+  "summary": "TASK-131 satisfies the user ask: it recovered real TASK-128 evidence, rendered a 42s score-gated OODrive hero video, preserved open-loop claim boundaries, and produced passing metric/test evidence. The main caveat is that the MP4 and run JSON remain intentionally ignored local artifacts, so fresh clones need artifact recovery before replaying the exact score.",
+  "overall_score": 4.3,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "Exact metric replay depends on ignored local artifacts being present.",
+      "file_refs": [
+        "autoresearch.sh",
+        "tickets/TASK-131/artifacts/qa/score_gated_hero_demo_qa.md"
+      ],
+      "evidence": [
+        "autoresearch.sh falls back to the fixture metric when the TASK-131 ignored artifact set is absent.",
+        "The QA artifact records the Kasm evidence intake and local ignored artifact paths."
+      ],
+      "next_action": "No blocking action for this ticket; keep the fallback and artifact-intake notes until a hosted/public artifact policy exists."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "user-intent-satisfaction",
+      "score": 4.5,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "ask-fidelity": 5.0,
+        "outcome-completeness": 4.5,
+        "worth-it-feel": 4.5,
+        "impressiveness": 4.0,
+        "evidence-confidence": 4.5
+      },
+      "findings": [],
+      "next_action": "Proceed to submission packaging around the TASK-131 hero artifact."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.5,
+        "reproducibility": 4.0,
+        "traceability": 4.5,
+        "consistency": 4.5,
+        "inspectability": 4.3,
+        "autonomy-readiness": 4.3
+      },
+      "findings": [],
+      "next_action": "Keep the QA artifact and score report linked from the ticket."
+    },
+    {
+      "name": "demo-quality",
+      "score": 4.2,
+      "threshold": 3.5,
+      "pass": true,
+      "dimension_scores": {
+        "fidelity": 4.5,
+        "realism": 4.0,
+        "workflow-coverage": 4.0,
+        "trustworthiness": 4.4,
+        "communication-clarity": 4.2
+      },
+      "findings": [],
+      "next_action": "Use the TASK-131 artifact as the current hero demo."
+    },
+    {
+      "name": "video-quality",
+      "score": 4.1,
+      "threshold": 3.5,
+      "pass": true,
+      "dimension_scores": {
+        "legibility": 4.0,
+        "coverage": 4.2,
+        "pacing": 4.0,
+        "faithfulness": 4.4,
+        "verification-value": 4.2
+      },
+      "findings": [],
+      "next_action": "Do not rerender unless final packaging needs a public-hosted copy."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.3,
+        "contract-correctness": 4.4,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.1,
+        "merge-readiness": 4.2
+      },
+      "findings": [
+        "Exact score replay depends on local ignored artifacts, but the fallback and QA notes make the dependency explicit."
+      ],
+      "next_action": "Advance; no source-code follow-up is required."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Complete TASK-131 and use the passing hero artifact in the final submission packaging."
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": "oodrive.prompt_image_qa.v1",
+  "verdict": "partial",
+  "prompt": "wet Malaysian roadwork with scooter filtering around construction debris and a roadside vendor",
+  "image_path": "artifacts/runs/task153-live-prompt-to-carla-pulled/artifacts/runs/task153-live-prompt-to-carla-pack/task153-live-prompt-to-carla-assets/task153-live-prompt-to-carla-run/live-generated-runtime/live_cases/behavior-00-motorcycle-filtering/rgb/frame_000240.png",
+  "reviewer": "qa-tester",
+  "visible_elements": [
+    "motorcycle or scooter visible in live traffic",
+    "roadside vendor or food cart with umbrella visible",
+    "cones and road objects visible near the roadside"
+  ],
+  "weak_or_missing_elements": [
+    "road surface does not clearly read as wet",
+    "scene does not read as Malaysian",
+    "E 79 St sign makes the map read as a generic or US-style city",
+    "roadwork and construction debris are weakly suggested rather than strongly proved",
+    "single frame does not strongly prove scooter filtering around debris"
+  ],
+  "real_carla_evidence": {
+    "verdict": "likely_real_carla",
+    "basis": [
+      "scenario run manifest reports backend=carla-live",
+      "scenario run manifest reports objects_spawned_in_carla=true",
+      "scenario run manifest reports objects_spawned_in_fake_carla=false",
+      "live runtime proof reports frame_count=450"
+    ]
+  },
+  "promotion_status": "not_exact_prompt_match",
+  "claim_boundaries": [
+    "real_carla_stock_proxy_evidence=true",
+    "prompt_image_match=partial",
+    "custom_generated_asset_imported_in_carla=false",
+    "exact_malaysian_wet_roadwork_visual_proof=false"
+  ]
+}

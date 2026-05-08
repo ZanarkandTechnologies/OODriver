@@ -1,0 +1,146 @@
+{
+  "work_type": [
+    "backend",
+    "cli",
+    "evidence"
+  ],
+  "reviewed_at": "2026-05-08 08:33 +0800",
+  "tickets": [
+    "TASK-145",
+    "TASK-146",
+    "TASK-147",
+    "TASK-148"
+  ],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/memory/types.py",
+      "src/driverx/memory/bank.py",
+      "src/driverx/memory/__init__.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/scenarios/studio_product_runtime.py",
+      "src/driverx/scenarios/studio_product_memory_runtime.py",
+      "src/driverx/scenarios/studio_product_reasoning_diff_runtime.py",
+      "src/driverx/scenarios/studio_product_evidence_panel_runtime.py",
+      "src/driverx/scenarios/studio_product_ancestry_runtime.py",
+      "src/driverx/pipeline/alpamayo_reasoning_diff.py",
+      "src/driverx/pipeline/reasoning_evidence_panel.py",
+      "src/driverx/pipeline/scenario_ancestry_cards.py",
+      "src/driverx/simulators/reasoning_timeline_overlay.py",
+      "tests/test_memory_retrieval_ledger.py",
+      "tests/test_alpamayo_reasoning_diff.py",
+      "tests/test_reasoning_evidence_panel.py",
+      "tests/test_scenario_ancestry_cards.py",
+      "tests/test_oodrive_cli.py"
+    ],
+    "related_files": [
+      "src/driverx/policies/runner.py",
+      "src/driverx/memory/README.md",
+      "src/driverx/memory/AGENTS.md",
+      "docs/MEMORY.md",
+      "docs/HISTORY.md"
+    ],
+    "evidence_artifacts": [
+      "artifacts/runs/task145-memory-ledger-v1/retrieval_ledger.json",
+      "artifacts/runs/task146-reasoning-diff-v1/alpamayo_reasoning_diff.json",
+      "artifacts/runs/task147-evidence-panel-v1/reasoning_presentation_report.json",
+      "artifacts/runs/task148-ancestry-cards-v1/scenario_ancestry_cards.json"
+    ],
+    "invariants_checked": [
+      "MEM-0034",
+      "MEM-0038",
+      "MEM-0040",
+      "MEM-0043"
+    ],
+    "docs_checked": [
+      "review/references/code-quality.md",
+      "review/references/evidence-quality.md",
+      "review/references/integration-readiness.md",
+      "review/references/desloppify.md"
+    ]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "evidence-quality",
+    "integration-readiness"
+  ],
+  "summary": "M4/M5 evidence batch is additive, traceable, and guarded by focused plus full pre-push QA. Review caught and fixed two issues before this artifact: global sample-memory fixture regression and reasoning_changed count drift against TASK-104.",
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity_reusability": 4.0,
+        "bloatability": 3.8,
+        "readability": 4.0,
+        "boundary_clarity": 4.1,
+        "error_handling": 3.9,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Future cleanup should split the large product CLI/runtime files, but this additive batch is localized enough for the deadline path."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.4,
+        "reproducibility": 4.2,
+        "traceability": 4.5,
+        "consistency": 4.3,
+        "inspectability": 4.4,
+        "autonomy_readiness": 4.2
+      },
+      "findings": [],
+      "next_action": "Keep the four generated JSON/Markdown/HTML artifacts linked from the final judge packet."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration_safety": 4.1,
+        "contract_correctness": 4.2,
+        "dependency_readiness": 4.1,
+        "coupling_risk": 3.8,
+        "merge_readiness": 4.2
+      },
+      "findings": [],
+      "next_action": "No blocking follow-up; compact overlay rendering is now callable through `oodrive demo-video --layout compact`."
+    }
+  ],
+  "blocking_findings": [],
+  "checks": [
+    {
+      "command": "bash tickets/TASK-145/autoresearch-m4-m5/autoresearch.sh",
+      "result": "METRIC m4_m5_evidence_clarity_score=100.0000"
+    },
+    {
+      "command": "bash tickets/TASK-145/autoresearch-m4-m5/autoresearch.checks.sh",
+      "result": "19 tests OK"
+    },
+    {
+      "command": "./autoresearch.sh",
+      "result": "METRIC submission_readiness_score=96.3500; METRIC hero_demo_score=100.0000"
+    },
+    {
+      "command": "bash scripts/pre_push_check.sh",
+      "result": "440 tests OK, 5 skipped; pre-push checks passed"
+    }
+  ],
+  "next_action": "Proceed to final judge-packet refresh or simulator-agent integration; no further M4/M5 blocker remains in this batch."
+}

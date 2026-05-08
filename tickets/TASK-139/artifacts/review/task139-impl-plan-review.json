@@ -1,0 +1,185 @@
+{
+  "work_type": [
+    "implementation-plan",
+    "simulation",
+    "policy-integration",
+    "evidence"
+  ],
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-139/ticket.md"
+    ],
+    "related_files": [
+      "tickets/TASK-128/ticket.md",
+      "tickets/TASK-134/ticket.md",
+      "tickets/TASK-136/ticket.md",
+      "tickets/TASK-137/ticket.md",
+      "tickets/TASK-138/ticket.md",
+      "src/driverx/simulators/carla_ood_demo.py",
+      "src/driverx/simulators/carla_cached_ood_replay.py",
+      "src/driverx/simulators/carla_policy_replay.py",
+      "src/driverx/policies/alpamayo_live.py",
+      "src/driverx/policies/alpamayo_trajectory.py",
+      "src/driverx/policies/trajectory_control.py",
+      "src/driverx/scenarios/studio_product_runtime.py",
+      "scripts/run_remote_alpamayo_carla_inference.sh"
+    ],
+    "invariants_checked": [
+      "MEM-0028",
+      "MEM-0034",
+      "MEM-0038",
+      "MEM-0039",
+      "MEM-0040"
+    ],
+    "docs_checked": [
+      "docs/prd.md",
+      "docs/specs/scenario-workbench-v2-plan.md",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md",
+      "src/driverx/simulators/README.md",
+      "src/driverx/policies/README.md",
+      "src/driverx/scenarios/README.md",
+      "autoresearch.md",
+      "autoresearch.jsonl"
+    ],
+    "rubric_refs": [
+      "review/references/spec-contract.md",
+      "review/references/implementation-plan.md",
+      "review/references/integration-readiness.md",
+      "review/references/evidence-quality.md",
+      "review/references/desloppify.md",
+      "autoresearch-plan/references/metric-design.md",
+      "autoresearch-plan/references/session-contract.md"
+    ]
+  },
+  "rubrics_used": [
+    "spec-contract",
+    "implementation-plan",
+    "integration-readiness",
+    "evidence-quality"
+  ],
+  "summary": "TASK-139 is approval-ready as a plan for stop-the-world, time-warped Alpamayo CARLA control. It correctly separates time-warped closed-loop control from real-time VLA control, preserves fake/blocked/real backend labels, and defines concrete proof plus a metric path without overwriting the active root autoresearch session.",
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "Real Alpamayo mode depends on TASK-134 or an equivalent local inference seam, so implementation should start with fake and blocked backends.",
+      "file_refs": [
+        "tickets/TASK-139/ticket.md"
+      ],
+      "evidence": [
+        "The ticket names TASK-134 as a dependency and explicitly keeps fake/blocked proof unblocked.",
+        "Execution steps 3-5 sequence fake backend, blocked backend, then real Alpamayo integration."
+      ],
+      "next_action": "Implement the fake backend first and do not claim real model evidence until TASK-134 or a real Alpamayo backend is available."
+    },
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "The ticket-scoped autoresearch session is intentionally deferred until the scorer exists, which is correct but should be revisited immediately after `score-vla-drive` lands.",
+      "file_refs": [
+        "tickets/TASK-139/ticket.md"
+      ],
+      "evidence": [
+        "The root autoresearch session already targets `submission_readiness_score`.",
+        "The planned metric command cannot be dry-run before `score-vla-drive` is implemented."
+      ],
+      "next_action": "After `score-vla-drive --metric-only` exists, initialize `tickets/TASK-139/autoresearch/` and dry-run the metric once before optimization."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "spec-contract",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "story-coherence": 4.5,
+        "parallelization-fit": 4.0,
+        "ticket-sizing": 4.0,
+        "acceptance-testability": 4.2,
+        "scope-clarity": 4.4
+      },
+      "findings": [
+        "The ticket targets one coherent outcome: repeated current-state VLA decisions driving short CARLA segments in time-warped simulation.",
+        "Acceptance criteria distinguish fake, blocked, and real evidence and prevent real-time overclaims."
+      ],
+      "next_action": "Approve for build after TASK-134 dependency expectations are understood."
+    },
+    {
+      "name": "implementation-plan",
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "human-readability": 4.1,
+        "bloatability": 3.9,
+        "modularity": 4.1,
+        "proof-clarity": 4.3,
+        "execution-order": 4.3,
+        "risk-clarity": 4.2,
+        "decision-tone": 4.4,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [
+        "The plan names callable seams, typed payloads, and an ordered fake -> blocked -> real backend sequence.",
+        "The main bloat risk is CARLA helper extraction; the plan contains it by requiring a focused module and avoiding broad runner refactors."
+      ],
+      "next_action": "Build the focused simulator loop module first, then wire CLI and scorer."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 3.8,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.1
+      },
+      "findings": [
+        "Dependencies on TASK-134 and GPU runtime are explicit and safely contained by fake/blocked modes.",
+        "Claim boundaries align with MEM-0034 and MEM-0038 while upgrading from open-loop reasoning to time-warped model-driven control."
+      ],
+      "next_action": "Keep real Alpamayo integration behind a backend seam and preserve blocked artifacts when runtime dependencies are absent."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.0,
+        "traceability": 4.1,
+        "consistency": 4.2,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [
+        "The planned evidence packet maps every major claim to a concrete artifact: checkpoint, prediction, trajectory, control trace, applied segment, frames, tracks, score, and video.",
+        "Autoresearch is handled responsibly by preserving the existing root session and deferring ticket-scoped initialization until the metric command can be dry-run."
+      ],
+      "next_action": "Once implemented, collect fake-backend proof first, then optional Kasm real Alpamayo proof."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Move TASK-139 to building when ready, starting with fake backend and scorer implementation before attempting real Alpamayo/CARLA runtime proof.",
+  "notes": [
+    "Attempted `python3 tickets/scripts/check_ticket_metadata.py`, but the script path referenced by AGENTS.md is absent in this checkout.",
+    "TASK-136 through TASK-138 already exist as untracked planning tickets, so TASK-139 was created to avoid overwriting those artifacts."
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "receipt_type": "planning_review",
+  "ticket_ids": ["TASK-166", "TASK-167", "TASK-168", "TASK-169"],
+  "reviewed_at": "2026-05-08 20:42 +0800",
+  "amended_at": "2026-05-08 20:50 +0800",
+  "reviewer_mode": "visible_review_lane",
+  "work_type": "impl-plan",
+  "search_scope": [
+    "tickets/TASK-166/ticket.md",
+    "tickets/TASK-167/ticket.md",
+    "tickets/TASK-168/ticket.md",
+    "tickets/TASK-169/ticket.md",
+    "docs/HISTORY.md",
+    "docs/MEMORY.md",
+    "tickets/TASK-165/ticket.md"
+  ],
+  "overall_score": 4.3,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "hard_gate_failures": [],
+  "family_scores": {
+    "spec_contract": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "story_coherence": 4.4,
+        "parallelization_fit": 4.0,
+        "ticket_sizing": 4.0,
+        "acceptance_testability": 4.3,
+        "scope_clarity": 4.4
+      }
+    },
+    "implementation_plan": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "human_readability": 4.1,
+        "bloatability": 4.0,
+        "modularity": 4.1,
+        "proof_clarity": 4.4,
+        "execution_order": 4.2,
+        "risk_clarity": 4.0,
+        "decision_tone": 4.1,
+        "autonomy_readiness": 4.0
+      }
+    }
+  },
+  "finding_log": [
+    {
+      "severity": "minor",
+      "confidence": "high",
+      "ticket": "TASK-166",
+      "finding": "The batch is correctly split into installed-capability matrix, live snapshots/reel, behavior video, and commentary. During implementation, keep the existing-CARLA-map composition boundary visible in every generated artifact, not only in the first suite manifest."
+    },
+    {
+      "severity": "resolved",
+      "confidence": "high",
+      "ticket": "TASK-166",
+      "finding": "User correction rejected fake prompt variation. TASK-166 now requires a capability matrix before the 10-case suite, and TASK-167 now requires live image-diversity and prompt-visual-match promotion gates."
+    },
+    {
+      "severity": "minor",
+      "confidence": "medium",
+      "ticket": "TASK-168",
+      "finding": "The behavior-video ticket should select only road-aligned cases after the snapshot pass. This is already stated, but the implementation must enforce it as a promotion gate."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Start TASK-166 capability matrix first, then TASK-167 live matrix/reel and snapshot gate, then TASK-168 behavior videos, then TASK-169 commentary. Do not jump to behavior videos or generator-gallery promotion until live image diversity passes."
+}

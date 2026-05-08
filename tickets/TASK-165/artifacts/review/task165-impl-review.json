@@ -1,0 +1,122 @@
+{
+  "work_type": ["backend", "cli", "simulator-integration", "evidence"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/simulators/carla_catalog.py",
+      "src/driverx/simulators/carla_control.py",
+      "src/driverx/scenarios/studio_product_carla_composer_runtime.py",
+      "src/driverx/scenarios/studio_product_carla_composer_cli.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/simulators/carla_ood_demo.py",
+      "tests/test_carla_scenario_composer.py",
+      "tests/test_oodrive_cli.py"
+    ],
+    "related_files": [
+      "src/driverx/scenarios/generated_runtime.py",
+      "src/driverx/environments/library.py",
+      "src/driverx/scenarios/README.md",
+      "src/driverx/simulators/README.md",
+      "docs/MEMORY.md",
+      "AGENTS.md"
+    ],
+    "invariants_checked": ["MEM-0044", "MEM-0045", "MEM-0046", "MEM-0047"],
+    "commands_checked": [
+      "PYTHONPATH=src python3 -m unittest tests.test_carla_scenario_composer tests.test_oodrive_cli",
+      "PYTHONPATH=src python3 -m oodrive carla-compose ... --backend fake-carla --run-id task165-town03-compose-smoke",
+      "PYTHONPATH=src python3 -m oodrive score-generator-runtime --runtime-manifest artifacts/runs/task165-town03-compose-smoke/generated-runtime/runtime/generated_scenario_runtime.json --metric-only",
+      "bash scripts/pre_push_check.sh"
+    ]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "integration-readiness",
+    "evidence-quality",
+    "user-intent-satisfaction"
+  ],
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass_with_live_followup",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "minor",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "The local proof verifies the agent-facing catalog, config generation, fake-CARLA runtime, and weather API seam, but it does not yet include a live multi-town CARLA screenshot/video.",
+      "file_refs": [
+        "tickets/TASK-165/ticket.md",
+        "artifacts/runs/task165-town03-compose-smoke/carla_composition_manifest.json"
+      ],
+      "next_action": "Run `oodrive carla-compose --backend carla-live --load-map` and `oodrive carla-control --capture` on the Kasm CARLA host for the visual reel follow-up."
+    }
+  ],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.2,
+        "bloatability": 4.0,
+        "readability": 4.1,
+        "boundary-clarity": 4.2,
+        "error-handling": 4.0,
+        "maintainability": 4.1
+      },
+      "findings": [],
+      "next_action": "Keep CARLA command registration in `studio_product_carla_composer_cli.py` so the main product CLI stays under the source-size gate."
+    },
+    "integration-readiness": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.2,
+        "contract-correctness": 4.2,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.2,
+        "merge-readiness": 4.3
+      },
+      "findings": [],
+      "next_action": "Use the generated config and command script as the handoff for Kasm live proof."
+    },
+    "evidence-quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.3,
+        "traceability": 4.2,
+        "consistency": 4.2,
+        "inspectability": 4.1,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [
+        "Live visual proof is intentionally deferred to the Kasm follow-up; local proof is contract/evidence readiness only."
+      ],
+      "next_action": "Generate a multi-town live CARLA preview sheet/reel using TASK-165 commands."
+    },
+    "user-intent-satisfaction": {
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "ask-fidelity": 4.5,
+        "outcome-completeness": 4.1,
+        "worth-it-feel": 4.3,
+        "impressiveness": 4.0,
+        "evidence-confidence": 4.2
+      },
+      "findings": [],
+      "next_action": "Use `carla-catalog`, `carla-control`, and `carla-compose` as the user-facing answer for how agents generate varied CARLA sims."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Proceed to live Kasm multi-town CARLA render/reel; do not claim arbitrary 3D world generation."
+}

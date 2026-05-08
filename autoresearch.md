@@ -1,69 +1,80 @@
-# Autoresearch: Improve OODrive Hero Demo Quality
+# Autoresearch: Closed-Loop CARLA Video Quality
 
 ## Objective
 
-Maximize the judge-visible quality of the OODrive hero demo. The demo must make
-the product contribution obvious: natural-language OOD generation, live CARLA
-placement, time-warped simulator video, sampled Alpamayo reasoning, RAG memory
-retrieval, risk/object telemetry, and honest claim boundaries.
+Make paused closed-loop CARLA videos prove the thing a skeptical judge expects:
+a visible ego vehicle drives toward a visible cone/hazard, the video advances at
+a believable pace, and the trace shows observe/infer/act recurrence instead of
+stretching a few checkpoint stills into a slow fake movie.
 
 ## Metric
 
-- Primary: `hero_demo_score` (0-100 points, higher is better)
+- Primary: `closed_loop_video_score` (0-100 points, higher is better)
 - Verify: `./autoresearch.sh`
 - Guard: `./autoresearch.checks.sh`
 - Direction: higher
-- Max iterations: 12
-- Noise policy: deterministic fixture baseline now; after TASK-130 lands,
-  compare only runs from the same source fixture or the same named live run.
+- Target: `>=85`
+- Max iterations: 6
+- Noise policy: deterministic local fixture score; live RunPod proof is required
+  before final media promotion, but the local metric must block sparse/no-ego
+  videos without needing CARLA.
 
 ## Scope
 
 - Editable:
-  - `src/driverx/evaluation/`
-  - `src/driverx/simulators/ood_video_overlay.py`
-  - `src/driverx/simulators/reasoning_timeline_overlay.py`
-  - `src/driverx/pipeline/reasoning_overlay_video.py`
-  - `src/driverx/scenarios/quality.py`
-  - `src/driverx/scenarios/studio_product_cli.py`
-  - `src/oodrive/`
-  - `tests/`
-  - `qa/fixtures/hero_demo_score/`
-  - `scripts/`
+  - `src/driverx/simulators/carla_closed_loop_runner.py`
+  - `src/driverx/pipeline/closed_loop_video.py`
+  - `src/driverx/evaluation/closed_loop_video_score.py`
+  - `src/driverx/scenarios/studio_product_closed_loop_cli.py`
+  - `src/driverx/scenarios/studio_product_closed_loop_runtime.py`
+  - `tests/test_carla_closed_loop_runner.py`
+  - `tests/test_closed_loop_video.py`
+  - `tests/test_oodrive_cli.py`
+  - `tickets/TASK-160/`
+  - `docs/HISTORY.md`
+  - `docs/MEMORY.md`
+  - `docs/TROUBLES.md`
+  - `AGENTS.md`
+  - `autoresearch.*`
 - Read-only:
-  - `tickets/archive/`
-  - existing remote RunPod artifacts unless copied into ignored local exports
-  - historical `artifacts/runs/` evidence used as references
+  - existing pulled media under `artifacts/runs/task160-live-alpamayo-authfix-2step-video/`
+  - historical TASK-160 review evidence
 - Off limits:
-  - dataset shards, model weights, generated videos intended to remain ignored,
-    credentials, HF tokens, RunPod secrets, and destructive remote operations.
+  - model weights, credentials, HF tokens, RunPod secrets, destructive remote
+    operations, threshold lowering, fake real-time claims, and judge-media
+    promotion without local/public export.
 
 ## Constraints
 
-- The metric must be mechanical and must not depend on manual visual judgment.
-- The score must reward legibility, not merely raw simulator runtime.
-- Claim boundaries must stay explicit:
-  `time_warped_offline_demo=true`, `sampled_open_loop_reasoning=true`,
-  `real_time_vla_control=false` unless a real closed-loop VLA controller exists.
-- Do not optimize by hiding low-quality footage, deleting risks, or inflating
-  fake reasoning counts. Scoring inputs must be traceable to DB/run/reasoning
-  artifacts after TASK-130.
+- The renderer must not stretch sparse checkpoint stills into a long video.
+- The promoted hero path must use a third-person/spectator/chase view where the
+  ego vehicle is visible.
+- The trace/video manifest must expose `source_frame_count`,
+  `action_rgb_frame_count`, `seconds_per_source_frame`, `ego_vehicle_visible`,
+  and `visual_camera_role`.
+- Alpamayo latency can remain slow; the video should show the simulated action
+  briskly and label `real_time_vla_control=false`.
 
 ## What's Been Tried
 
-- Baseline fixture created from the TASK-128 weakness: live CARLA placement and
-  fresh Alpamayo reasoning exist, but the video lacks visible frame/time,
-  repeated reasoning checkpoints, and enough RAG/risk overlays.
-- TASK-130 implementation pass promoted the fixture score into the production
-  OODrive CLI contract: `oodrive score-demo --metric-only` now emits the
-  autoresearch metric while preserving the weak baseline score.
+- TASK-160 proved live CARLA + Alpamayo closed-loop recurrence, but the first
+  video used front/ego camera frames and stretched four checkpoint images across
+  60 seconds.
+- Pulling the MP4 locally confirmed the failure: no ego vehicle is visible, and
+  the scene barely moves.
+- The root cause is sparse capture/stitching, not lack of GPU rendering speed.
+
+## Current Hypothesis
+
+The highest leverage fix is to record a third-person chase camera and capture
+visual frames during each action tick. The score gate should then reject any
+video that lacks ego visibility or has too few source frames for its duration.
 
 ## Next Ideas
 
-- Implement `oodrive score-demo` from the same metric fields as the fixture.
-- Add frame number and source timestamp to every video frame.
-- Create a reasoning/RAG overlay video from sampled Alpamayo checkpoints.
-- Produce a stricter flagship demo report that fails if the video is too slow,
-  off-road, missing generated object visibility, or missing reasoning callouts.
-- Add `oodrive demo-video` to assemble the final time-warped reasoning video
-  from a DB/run/reasoning artifact set.
+- Add a spectator camera option if attached chase camera does not show the car
+  cleanly enough in live CARLA.
+- Increase `control_ticks_per_step` for the visual proof after the Alpamayo
+  handoff is stable, because more CARLA ticks are what make the video move.
+- Add frame-difference scoring from real MP4 samples if manifest-level pacing
+  can still be gamed.

@@ -1,0 +1,116 @@
+{
+  "work_type": ["backend", "cli", "static-ui", "demo-evidence", "autoresearch"],
+  "reviewed_at": "2026-05-08T04:22:00+08:00",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/evaluation/environment_demo_score.py",
+      "src/driverx/pipeline/environment_demo_pack.py",
+      "src/driverx/scenarios/studio_product_environment_runtime.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/scenarios/studio_product_submission_runtime.py",
+      "src/driverx/pipeline/submission_story_pack.py",
+      "tests/test_environment_demo_pack.py",
+      "tests/test_environment_demo_score.py",
+      "tests/test_oodrive_cli.py",
+      "README.md",
+      "docs/HISTORY.md",
+      "tickets/TASK-135/ticket.md",
+      "tickets/TASK-135/artifacts/qa/environment_studio_qa.md"
+    ],
+    "related_files": [
+      "src/driverx/environments/generator.py",
+      "src/driverx/environments/library.py",
+      "src/driverx/environments/types.py",
+      "src/driverx/scenarios/studio_product.py",
+      "src/driverx/evaluation/submission_readiness_score.py",
+      "tests/test_environment_generator.py",
+      "tests/test_submission_story_pack.py",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md"
+    ],
+    "invariants_checked": [
+      "MEM-0035",
+      "MEM-0037",
+      "MEM-0039",
+      "MEM-0040"
+    ],
+    "artifacts_checked": [
+      "artifacts/runs/task135-env-demo-v1/environment-demo-packs/task135-env-demo-v1/index.html",
+      "artifacts/runs/task135-env-demo-v1/environment-demo-packs/task135-env-demo-v1/environment_demo_manifest.json",
+      "artifacts/runs/task135-env-demo-v1/environment-demo-packs/task135-env-demo-v1/environment-demo-scores/task135-env-demo-v1-score-report/environment_demo_score.json",
+      "tickets/TASK-135/artifacts/visual/index.html.png"
+    ]
+  },
+  "overall_score": 4.25,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity": 4.5,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundaries": 4.2,
+        "error_handling": 4.0,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Keep future environment-demo behavior in the focused runtime, score, and pack modules instead of growing the central OODrive runtime."
+    },
+    "integration-readiness": {
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "api_fit": 4.5,
+        "compatibility": 4.0,
+        "workflow_fit": 4.5,
+        "claim_boundaries": 4.5,
+        "rollback": 4.0
+      },
+      "findings": [],
+      "next_action": "Use the generated Environment Studio page as the first screen of the judge recording; do not add fresh CARLA work unless the final video needs more footage."
+    },
+    "evidence-quality": {
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.5,
+        "reproducibility": 4.5,
+        "traceability": 4.5,
+        "consistency": 4.3,
+        "inspectability": 4.3,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "If producing the final MP4, attach the screen recording path beside the existing visual screenshot."
+    },
+    "demo-quality": {
+      "score": 4.2,
+      "threshold": 3.5,
+      "pass": true,
+      "dimension_scores": {
+        "workflow_coverage": 4.5,
+        "realism": 4.0,
+        "legibility": 4.3,
+        "claim_honesty": 4.5,
+        "recordability": 4.0
+      },
+      "findings": [],
+      "next_action": "Follow `video_storyboard.md` to stitch Environment Studio plus the existing hero CARLA video into the final judge-facing video."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "TASK-135 is implementation-ready to close; the next distinct ticket should produce or stitch the final judge video using the Environment Studio page and hero CARLA artifact."
+}

@@ -1,0 +1,144 @@
+{
+  "work_type": ["backend", "runtime", "video", "evidence"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/simulators/carla_closed_loop_runner.py",
+      "src/driverx/policies/alpamayo_inference_bridge.py",
+      "src/driverx/pipeline/closed_loop_video.py",
+      "src/driverx/evaluation/closed_loop_video_score.py",
+      "src/driverx/scenarios/studio_product_closed_loop_cli.py",
+      "src/driverx/scenarios/studio_product_closed_loop_runtime.py",
+      "tests/test_alpamayo_handoff.py",
+      "tests/test_carla_closed_loop_runner.py",
+      "tests/test_closed_loop_video.py",
+      "tests/test_oodrive_cli.py",
+      "tickets/TASK-160/ticket.md",
+      "docs/HISTORY.md"
+    ],
+    "related_files": [
+      "src/driverx/simulators/carla_sync.py",
+      "src/driverx/simulators/carla_policy_replay.py",
+      "src/driverx/policies/trajectory_control.py",
+      "src/driverx/policies/control_safety.py",
+      "src/driverx/policies/alpamayo_trajectory.py",
+      "src/driverx/evaluation/closed_loop_control_score.py",
+      "src/driverx/evaluation/closed_loop_integration_score.py"
+    ],
+    "docs_checked": [
+      "tickets/TASK-160/ticket.md",
+      "docs/HISTORY.md",
+      "skills/review/references/code-quality.md",
+      "skills/review/references/evidence-quality.md",
+      "skills/review/references/integration-readiness.md",
+      "skills/review/references/video-quality.md",
+      "skills/review/references/desloppify.md"
+    ],
+    "invariants_checked": [
+      "real_time_vla_control=false until real-time serving exists",
+      "fake/cached-only runs cannot pass live hero promotion",
+      "do not claim Alpamayo closed-loop control without observe-infer-act-observe recurrence from real or exact-cache remote inference"
+    ]
+  },
+  "rubrics_used": ["code-quality", "evidence-quality", "integration-readiness", "video-quality"],
+  "summary": "The code and CLI now support the intended live closed-loop/video/score seams, and RunPod proves live CARLA control/video assembly. The ticket cannot pass overall because Alpamayo remote inference is blocked by missing gated Hugging Face auth, so the final hero claim is correctly withheld.",
+  "overall_score": 3.6,
+  "overall_threshold": 4.0,
+  "verdict": "revise",
+  "rerun_required": true,
+  "evidence_quality": "fail",
+  "integration_readiness": "fail",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": ["evidence-quality", "integration-readiness"],
+  "finding_log": [
+    {
+      "severity": "high",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "Alpamayo remote inference cannot currently complete on RunPod because the pod lacks gated access to nvidia/Cosmos-Reason2-8B.",
+      "file_refs": ["tickets/TASK-160/ticket.md"],
+      "evidence": [
+        "RunPod artifact /workspace/0xDriver/artifacts/runs/task160-live-alpamayo-smoke3/step_000/inference/alpamayo_live_prediction.json records inference_state=failed with a 401 gated-repo error for nvidia/Cosmos-Reason2-8B.",
+        "The resulting closed_loop_trace.json remains mode=none with closed_loop_vla_control=false."
+      ],
+      "next_action": "Install or verify HF gated model auth on the RunPod host, then rerun the same alpamayo-remote command for at least two steps."
+    },
+    {
+      "severity": "medium",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "Large RunPod artifact pullback is not yet locally mirrored, so the live MP4 is currently referenced by remote path rather than attached locally.",
+      "file_refs": ["tickets/TASK-160/ticket.md"],
+      "evidence": [
+        "Remote video path exists in command output: /workspace/0xDriver/artifacts/runs/task160-live-fake-policy-final-video/closed_loop_hero.mp4.",
+        "Local pullback over the Kasm PTY was too slow for the 53 MB tarball and was stopped; remote paths are recorded instead."
+      ],
+      "next_action": "Use the RunPod file browser, a direct TCP SSH/SFTP route, or a smaller targeted export to bring back the MP4 before judge packaging."
+    }
+  ],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 3.6,
+        "readability": 3.8,
+        "boundary-clarity": 4.1,
+        "error-handling": 4.1,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Keep the temporary RunPod wrapper as operational evidence only; promote a durable non-secret runner wrapper in a follow-up if the same command becomes canonical."
+    },
+    "evidence-quality": {
+      "score": 3.4,
+      "threshold": 4.0,
+      "pass": false,
+      "dimension_scores": {
+        "sufficiency": 3.0,
+        "reproducibility": 3.8,
+        "traceability": 3.8,
+        "consistency": 4.0,
+        "inspectability": 3.2,
+        "autonomy-readiness": 4.0
+      },
+      "findings": ["Alpamayo remote evidence is a blocker artifact, not a passing proof artifact; the MP4 remains remote-only."],
+      "next_action": "Rerun after gated auth and pull local artifacts."
+    },
+    "integration-readiness": {
+      "score": 3.3,
+      "threshold": 4.0,
+      "pass": false,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 2.5,
+        "coupling-risk": 3.8,
+        "merge-readiness": 3.0
+      },
+      "findings": ["The code is mergeable as infrastructure, but the production proof dependency is unresolved."],
+      "next_action": "Treat this as landed infrastructure plus blocked live proof, not completed TASK-160 acceptance."
+    },
+    "video-quality": {
+      "score": 3.6,
+      "threshold": 3.5,
+      "pass": true,
+      "dimension_scores": {
+        "legibility": 3.8,
+        "coverage": 3.2,
+        "pacing": 3.5,
+        "faithfulness": 4.0,
+        "verification-value": 3.6
+      },
+      "findings": ["The video renderer is useful and honest, but current live video is fake-policy simulator/control proof rather than an Alpamayo hero proof."],
+      "next_action": "Regenerate a 60-120s two-step Alpamayo video after remote inference auth is fixed."
+    }
+  },
+  "blocking_findings": [
+    "Alpamayo remote inference blocked by gated Hugging Face model auth.",
+    "Hero MP4 not locally attached yet; remote path is recorded."
+  ],
+  "next_action": "Fix RunPod gated model auth, rerun `oodrive closed-loop-run --backend carla-live --policy alpamayo-remote --steps 2`, render `closed-loop-video`, pass all three score gates, then pull artifacts locally."
+}

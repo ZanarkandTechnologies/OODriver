@@ -1,0 +1,103 @@
+{
+  "work_type": ["planning", "autoresearch-plan", "demo-product-surface"],
+  "reviewed_at": "2026-05-08T00:00:00+08:00",
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-135/ticket.md",
+      "tickets/TASK-135/autoresearch/autoresearch.md",
+      "tickets/TASK-135/autoresearch/autoresearch.sh",
+      "tickets/TASK-135/autoresearch/autoresearch.checks.sh",
+      "tickets/TASK-135/autoresearch/autoresearch.jsonl"
+    ],
+    "related_files": [
+      "docs/prd.md",
+      "docs/specs/scenario-studio-data-engine.md",
+      "docs/specs/scenario-workbench-v2-plan.md",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md",
+      "src/driverx/environments/generator.py",
+      "src/driverx/environments/library.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/pipeline/submission_story_pack.py",
+      "src/driverx/evaluation/submission_readiness_score.py",
+      "tests/test_environment_generator.py",
+      "tests/test_submission_story_pack.py"
+    ],
+    "invariants_checked": [
+      "MEM-0035",
+      "MEM-0037",
+      "MEM-0039",
+      "MEM-0040"
+    ],
+    "docs_checked": [
+      "impl-plan/SKILL.md",
+      "impl-plan/references/review.md",
+      "autoresearch-plan/SKILL.md",
+      "autoresearch-plan/references/session-contract.md",
+      "autoresearch-plan/references/metric-design.md",
+      "review/references/spec-contract.md",
+      "review/references/implementation-plan.md",
+      "review/references/evidence-quality.md"
+    ]
+  },
+  "overall_score": 4.25,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": {
+    "spec-contract": {
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "story-coherence": 4.5,
+        "parallelization-fit": 4.0,
+        "ticket-sizing": 4.0,
+        "acceptance-testability": 4.5,
+        "scope-clarity": 4.5
+      },
+      "findings": [],
+      "next_action": "Move TASK-135 to building when execution starts; keep fresh CARLA multi-environment footage as an optional follow-up rather than expanding this ticket."
+    },
+    "implementation-plan": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "human-readability": 4.0,
+        "bloatability": 4.0,
+        "modularity": 4.5,
+        "proof-clarity": 4.0,
+        "execution-order": 4.5,
+        "risk-clarity": 4.0,
+        "decision-tone": 4.5,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Implement the product-facing commands and static HTML pack before spending any time on new simulator footage."
+    },
+    "evidence-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.0,
+        "traceability": 4.0,
+        "consistency": 4.0,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "During implementation, replace planning smoke evidence with generated Environment Studio HTML, score report, visual QA screenshot, and pre-push output."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Implement TASK-135 through the nested autoresearch loop until environment_demo_readiness_score reaches at least 90."
+}

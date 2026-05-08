@@ -1,0 +1,86 @@
+{
+  "work_type": [
+    "planning",
+    "rag",
+    "reasoning",
+    "evidence",
+    "submission"
+  ],
+  "reviewed_at": "2026-05-08 08:35 +0800",
+  "ticket_ids": [
+    "TASK-145",
+    "TASK-146",
+    "TASK-147",
+    "TASK-148"
+  ],
+  "rubrics_used": [
+    "implementation-plan",
+    "spec-contract",
+    "evidence-quality",
+    "integration-readiness"
+  ],
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "search_scope": {
+    "planned_files": [
+      "tickets/TASK-145/ticket.md",
+      "tickets/TASK-146/ticket.md",
+      "tickets/TASK-147/ticket.md",
+      "tickets/TASK-148/ticket.md",
+      "tickets/TASK-145/autoresearch-m4-m5/autoresearch.md",
+      "tickets/TASK-145/autoresearch-m4-m5/autoresearch.sh",
+      "tickets/TASK-145/autoresearch-m4-m5/autoresearch.checks.sh",
+      "tickets/TASK-145/autoresearch-m4-m5/autoresearch.jsonl"
+    ],
+    "local_code_inspected": [
+      "src/driverx/memory/bank.py",
+      "src/driverx/memory/types.py",
+      "src/driverx/pipeline/rag_comparison.py",
+      "src/driverx/pipeline/alpamayo_ood_batch.py",
+      "src/driverx/simulators/reasoning_timeline_overlay.py",
+      "src/driverx/pipeline/reasoning_overlay_video.py",
+      "src/driverx/evaluation/hero_demo_score.py",
+      "src/driverx/evaluation/submission_readiness_score.py"
+    ],
+    "evidence_artifacts_checked": [
+      "tickets/TASK-104/artifacts/alpamayo-rag-batch-v1/alpamayo_ood_batch_summary.json",
+      "tickets/TASK-105/artifacts/fail2drive-extension-report/fail2drive_extension_report.json",
+      "artifacts/runs/task128-oodrive-live-product/demo-videos/task131-score-gated-hero-v2/hero_demo_video.json"
+    ],
+    "invariants_checked": [
+      "MEM-0034",
+      "MEM-0037",
+      "MEM-0039",
+      "MEM-0040"
+    ]
+  },
+  "summary": "The batch is a coherent M4/M5 evidence-improvement train. TASK-145 creates retrieval provenance, TASK-146 makes existing Alpamayo memory comparisons legible, TASK-147 fixes the congested HUD by separating sparse video cues from detailed evidence panels, and TASK-148 exposes benchmark/failure-family ancestry. The nested autoresearch session is safe, deterministic, and avoids overwriting the root submission-readiness loop.",
+  "metric_baseline": {
+    "metric_name": "m4_m5_evidence_clarity_score",
+    "value": 39.0,
+    "target": 85.0,
+    "verify": "tickets/TASK-145/autoresearch-m4-m5/autoresearch.sh",
+    "guard": "tickets/TASK-145/autoresearch-m4-m5/autoresearch.checks.sh"
+  },
+  "finding_log": [
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "scope",
+      "summary": "The plan intentionally avoids hosted vector search and embeddings before submission.",
+      "evidence": [
+        "Current repo retrieval is lexical/tag overlap; tickets require backend labels and avoid vector claims."
+      ],
+      "next_action": "Implement TASK-145 with explicit retrieval_backend claim labels before adding optional SQLite FTS or embeddings."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Approve TASK-145 as the first implementation ticket; keep TASK-146 through TASK-148 queued in order unless TASK-145 exposes a schema blocker."
+}

@@ -1,0 +1,103 @@
+{
+  "work_type": ["cli", "demo", "evidence", "video"],
+  "reviewed_at": "2026-05-08 05:47 +0800",
+  "ticket_ids": ["TASK-140"],
+  "rubrics_used": ["code-quality", "evidence-quality", "integration-readiness", "demo-quality"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/pipeline/bad_path_stress_demo.py",
+      "src/driverx/scenarios/studio_product_stress_runtime.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "tests/test_bad_path_stress_demo.py",
+      "tests/test_oodrive_cli.py",
+      "tickets/TASK-140/ticket.md"
+    ],
+    "related_files": [
+      "README.md",
+      "src/driverx/pipeline/README.md",
+      "src/driverx/pipeline/__init__.py",
+      "docs/HISTORY.md",
+      "artifacts/runs/task140-bad-path-stress-v1/bad_path_stress_demo.json",
+      "artifacts/runs/task140-bad-path-stress-v1/bad_path_stress_demo.mp4"
+    ],
+    "invariants_checked": [
+      "closed_loop_vla_control=false",
+      "real_time_vla_control=false",
+      "carla_visual_evidence=false"
+    ]
+  },
+  "summary": "TASK-140 delivers the requested pivot from generic/happy demos to three bad-path stress tasks with visible baseline failure and guarded stop/swerve/yield behavior. The artifact is strong as a local scripted stress proof and intentionally does not overclaim CARLA or closed-loop VLA evidence.",
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "medium",
+      "confidence": "high",
+      "rubric": "demo-quality",
+      "summary": "The stress reel is local scripted proof, not yet CARLA visual evidence.",
+      "file_refs": [
+        "artifacts/runs/task140-bad-path-stress-v1/bad_path_stress_demo.json",
+        "tickets/TASK-140/ticket.md"
+      ],
+      "evidence": [
+        "Claim boundary includes carla_visual_evidence=false and local_scripted_stress_demo=true.",
+        "The pack is useful for case selection and judge intuition, but CARLA replay remains a follow-up."
+      ],
+      "next_action": "Replay these same three cases through CARLA once the Kasm lane is active."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [
+        "The stress simulation, rendering, CLI runtime, and tests are split into focused modules.",
+        "Failure modes are explicit through collision-proxy and task-specific checks."
+      ],
+      "next_action": "Keep future CARLA replay code separate from this local pack."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [
+        "The generated JSON, Markdown, HTML, and MP4 all point to the same run id.",
+        "Focused tests and pre-push checks passed."
+      ],
+      "next_action": "Attach CARLA replay evidence as a separate artifact, not by changing the local claim labels."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [
+        "The command is additive and leaves existing OODrive hero/demo scoring paths unchanged."
+      ],
+      "next_action": "Use `oodrive stress-demo` as the case-selector surface for the next CARLA run."
+    },
+    {
+      "name": "demo-quality",
+      "score": 4.2,
+      "threshold": 3.5,
+      "pass": true,
+      "findings": [
+        "The reel shows only bad paths: static blocker, road hole, and rolling collision-course object.",
+        "Each case includes bad baseline collision and guarded telemetry for the safety response."
+      ],
+      "next_action": "Use this as the script for the judge-facing bad-path segment."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Promote the three TASK-140 cases into the next CARLA/Kasm replay ticket."
+}

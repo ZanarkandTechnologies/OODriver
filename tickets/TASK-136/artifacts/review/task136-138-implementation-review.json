@@ -1,0 +1,170 @@
+{
+  "work_type": ["backend", "cli", "evidence", "video"],
+  "reviewed_at": "2026-05-08 05:04 +0800",
+  "ticket_ids": ["TASK-136", "TASK-137", "TASK-138"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/scenarios/studio_product_environment_runtime.py",
+      "src/driverx/scenarios/studio_product_keyframe_runtime.py",
+      "src/driverx/scenarios/studio_product_env_video_runtime.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/pipeline/keyframe_analysis.py",
+      "src/driverx/pipeline/environment_reasoned_carla_video.py",
+      "src/driverx/evaluation/environment_reasoned_carla_score.py",
+      "tests/test_environment_to_carla_visual_proof.py",
+      "tests/test_keyframe_analysis.py",
+      "tests/test_environment_reasoned_carla.py"
+    ],
+    "related_files": [
+      "src/driverx/pipeline/__init__.py",
+      "src/driverx/evaluation/__init__.py",
+      "src/driverx/pipeline/README.md",
+      "src/driverx/evaluation/README.md",
+      "README.md",
+      "tickets/TASK-136/ticket.md",
+      "tickets/TASK-137/ticket.md",
+      "tickets/TASK-138/ticket.md",
+      "tickets/TASK-136/artifacts/qa/task136-138-build-qa.md",
+      "tickets/TASK-136/autoresearch/autoresearch.jsonl"
+    ],
+    "invariants_checked": [
+      "closed_loop_vla_control=false",
+      "real_time_vla_control=false",
+      "sampled_open_loop_reasoning=true",
+      "time_warped_offline_demo=true"
+    ],
+    "docs_checked": [
+      "AGENTS.md",
+      "docs/MEMORY.md",
+      "review/references/code-quality.md",
+      "review/references/evidence-quality.md",
+      "review/references/integration-readiness.md",
+      "review/references/desloppify.md"
+    ]
+  },
+  "rubrics_used": [
+    "code-quality",
+    "evidence-quality",
+    "integration-readiness",
+    "user-intent-satisfaction"
+  ],
+  "summary": "The local product chain is substantially stronger: OODrive now has commands for generated environment visual proof, keyframe analysis, scored proof assembly, and MP4 assembly from same-lineage preview/keyframe images. The work is not completion-ready for the user's 90th-percentile target because the current local artifact still lacks live Kasm CARLA frames, real/model-backed keyframe evidence, and a final MP4 generated from those frames.",
+  "overall_score": 3.7,
+  "overall_threshold": 4.0,
+  "verdict": "revise",
+  "rerun_required": true,
+  "evidence_quality": "fail",
+  "integration_readiness": "fail",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": ["evidence-quality", "integration-readiness"],
+  "finding_log": [
+    {
+      "severity": "high",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "The current scored artifact is still a blocked dry-run proof, not a 90+ judge demo.",
+      "file_refs": [
+        "tickets/TASK-136/artifacts/qa/task136-138-build-qa.md",
+        "artifacts/runs/task138-env-reasoned-carla-score-v1/environment_reasoned_carla_score.json"
+      ],
+      "evidence": [
+        "The metric is environment_to_reasoned_carla_score=45.0000, below the 90.0 threshold.",
+        "The active blockers are missing CARLA preview image, fewer than 5 reasoned keyframes, and missing environment-to-reasoned-CARLA MP4."
+      ],
+      "next_action": "Run `oodrive render-env --live` on Kasm, rerun `analyze-keyframes`, then rerun `env-demo-video` and `score-env-proof` until the score is at least 90."
+    },
+    {
+      "severity": "medium",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "The Alpamayo keyframe lane is wired as a product contract, but real model inference is still represented as a blocked backend.",
+      "file_refs": [
+        "src/driverx/pipeline/keyframe_analysis.py",
+        "tickets/TASK-137/ticket.md"
+      ],
+      "evidence": [
+        "`alpamayo-local` currently emits a setup blocker rather than invoking a real configured model runtime.",
+        "The fake backend is correctly labeled `model_evidence=false`, so it is useful for smoke tests but cannot carry the final model-evidence claim."
+      ],
+      "next_action": "After Kasm frames exist, route `alpamayo-local` through the TASK-134/TASK-129 inference seam or record the blocker explicitly in the final submission narrative."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 3.7,
+        "readability": 4.0,
+        "boundary-clarity": 4.0,
+        "error-handling": 4.2,
+        "maintainability": 4.0
+      },
+      "findings": [
+        "The implementation uses focused runtime/pipeline/evaluation modules and explicit blocked artifacts rather than opaque failures.",
+        "The CLI file remains large, but the new heavy logic is kept out of that entrypoint."
+      ],
+      "next_action": "Keep future additions in focused modules; split CLI registration only if another command batch makes the file harder to review."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 3.3,
+      "threshold": 4.0,
+      "pass": false,
+      "dimension_scores": {
+        "sufficiency": 2.7,
+        "reproducibility": 4.2,
+        "traceability": 4.0,
+        "consistency": 4.0,
+        "inspectability": 3.8,
+        "autonomy-readiness": 3.5
+      },
+      "findings": [
+        "Commands, tests, and score reports are replayable, but the main acceptance target needs live visual/model evidence that is not present locally."
+      ],
+      "next_action": "Collect Kasm CARLA frame artifacts and attach a fresh score report, MP4, and sample frame proof."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 3.5,
+      "threshold": 4.0,
+      "pass": false,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 2.8,
+        "coupling-risk": 3.8,
+        "merge-readiness": 3.0
+      },
+      "findings": [
+        "The local path is safe and verified, but the final proof still depends on an external Kasm CARLA run and a real Alpamayo inference lane."
+      ],
+      "next_action": "Treat Kasm live render plus Alpamayo keyframe run as the next integration gate."
+    },
+    {
+      "name": "user-intent-satisfaction",
+      "score": 3.8,
+      "threshold": 4.0,
+      "pass": false,
+      "dimension_scores": {
+        "workflow-fit": 4.2,
+        "judge-clarity": 3.6,
+        "submission-strength": 3.5
+      },
+      "findings": [
+        "The command flow now matches the user's requested generate -> CARLA -> keyframe analysis -> video path, but the visible artifact is still not the final judge demo."
+      ],
+      "next_action": "Use the implemented commands on the live Kasm host and promote only the resulting 90+ score artifact."
+    }
+  ],
+  "blocking_findings": [
+    "No live same-run CARLA preview/RGB frames are attached to the current local TASK-136 proof.",
+    "No final environment-to-reasoned-CARLA MP4 exists for the generated environment path.",
+    "No real Alpamayo keyframe evidence is attached yet."
+  ],
+  "next_action": "Run the Kasm live render and keyframe lane, then rerun review after `environment_to_reasoned_carla_score >= 90` or record the live-host blocker as submission risk."
+}

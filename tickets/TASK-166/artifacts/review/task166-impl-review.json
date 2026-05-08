@@ -1,0 +1,67 @@
+{
+  "receipt_type": "implementation_review",
+  "ticket_id": "TASK-166",
+  "reviewed_at": "2026-05-08 21:02 +0800",
+  "reviewer_mode": "visible_review_lane",
+  "work_type": "code/backend/api/evidence",
+  "search_scope": [
+    "tickets/TASK-166/ticket.md",
+    "src/driverx/scenarios/studio_product_carla_composer_runtime.py",
+    "src/driverx/scenarios/studio_product_carla_composer_cli.py",
+    "src/driverx/evaluation/carla_suite_score.py",
+    "src/driverx/evaluation/__init__.py",
+    "tests/test_carla_scenario_composer.py",
+    "tests/test_oodrive_cli.py",
+    "autoresearch.md",
+    "autoresearch.sh",
+    "autoresearch.checks.sh",
+    "artifacts/runs/task166-capability-suite-v2/carla_suite_manifest.json",
+    "artifacts/runs/task166-capability-suite-v2-score-final/carla_capability_suite_score.json"
+  ],
+  "overall_score": 4.2,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "strong local artifact proof; live screenshot proof intentionally deferred to TASK-167",
+  "integration_readiness": "pass; product CLI commands, tests, autoresearch metric, and pre-push gate pass",
+  "traceability": "suite artifacts link to matrix, per-case manifests, runtime manifests, and score report",
+  "freshness": "verified after final score weight correction",
+  "hard_gate_failures": [],
+  "family_scores": {
+    "code_quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true
+    },
+    "integration_readiness": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true
+    },
+    "evidence_quality": {
+      "score": 4.3,
+      "threshold": 4.0,
+      "pass": true
+    }
+  },
+  "finding_log": [
+    {
+      "severity": "minor",
+      "confidence": "high",
+      "finding": "TASK-166 correctly keeps gallery_ready=false and points to TASK-167 for live image diversity, so the local 100 score does not overclaim visual/gallery proof."
+    },
+    {
+      "severity": "minor",
+      "confidence": "medium",
+      "finding": "The repo has many pre-existing dirty/untracked files from prior tickets. This implementation avoided reverting them, but final publish/commit work should stage only the intended TASK-166 file set."
+    }
+  ],
+  "blocking_findings": [],
+  "verification": [
+    "./autoresearch.sh -> METRIC carla_capability_suite_score=100.0000",
+    "./autoresearch.checks.sh -> 18 tests OK",
+    "PYTHONPATH=src python3 -m unittest tests.test_carla_scenario_composer tests.test_oodrive_cli -> 18 tests OK",
+    "bash scripts/pre_push_check.sh -> 471 tests OK, 5 skipped"
+  ],
+  "next_action": "Start TASK-167 live CARLA capability matrix reel and snapshot gate."
+}

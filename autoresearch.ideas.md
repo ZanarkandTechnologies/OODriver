@@ -1,13 +1,10 @@
-# Hero Demo Autoresearch Ideas
+# Closed-Loop Video Autoresearch Ideas
 
-- Add `oodrive score-demo` and make the fixture scorer a regression fixture.
-- Add `oodrive demo-video` that overlays frame number, source timestamp,
-  scenario prompt, risk, RAG memory, Alpamayo CoC, and action intent.
-- Sample Alpamayo reasoning at 3-5 checkpoints instead of showing one static
-  reasoning result for the whole video.
-- Make the video renderer reject crawling clips unless source telemetry proves
-  a deliberate low-speed hazard response.
-- Show a small scenario-generation sidebar in the first 5 seconds:
-  prompt -> accepted scenario -> generated objects -> CARLA placement.
-- Add a "dataset flywheel" end card: accepted run, memory entry written,
-  next scenario mutation proposed.
+- Add a spectator chase camera if the attached third-person camera does not show
+  the vehicle body reliably.
+- Use more `control_ticks_per_step` for visual proof runs so the car visibly
+  approaches the cone before the next Alpamayo pause.
+- Add real MP4 frame-difference sampling to catch repeated frames even when a
+  manifest claims enough source frames.
+- Generate a short 6-12s hero clip by default; reserve 60s videos for runs with
+  enough unique CARLA action frames.
