@@ -8,6 +8,12 @@ from pathlib import Path
 from typing import Any
 
 from driverx.core.artifacts import prepare_run_dir
+from driverx.fail2drive.assets import (
+    load_fail2drive_asset_catalog,
+    qa_fail2drive_route_assets,
+    write_fail2drive_asset_catalog_report,
+    write_fail2drive_asset_qa,
+)
 from driverx.fail2drive.catalog import load_fail2drive_catalog, write_fail2drive_catalog_report
 from driverx.fail2drive.demo_video import Fail2DriveDemoVideoConfig, run_fail2drive_demo_video
 from driverx.fail2drive.model_reaction import Fail2DriveModelReactionConfig, run_fail2drive_model_reaction_suite
@@ -26,6 +32,27 @@ DEFAULT_F2D_ROOT = Path("third_party/fail2drive")
 
 
 def register_fail2drive_commands(subparsers: Any) -> None:
+    assets = subparsers.add_parser("f2d-assets", help="Emit the agent-readable Fail2Drive asset/blueprint catalog.")
+    assets.add_argument("--fail2drive-root", type=Path, default=DEFAULT_F2D_ROOT)
+    assets.add_argument("--scenario-hub-root", type=Path)
+    assets.add_argument("--format", choices=["json", "md", "both"], default="both")
+    assets.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
+    assets.add_argument("--run-id", default="oodrive-f2d-assets")
+    assets.add_argument("--metric-only", action="store_true")
+    assets.set_defaults(func=_command_f2d_assets)
+
+    asset_qa = subparsers.add_parser("f2d-qa-assets", help="Gate a Fail2Drive route/render against prompt-required assets.")
+    asset_qa.add_argument("--route", type=Path, required=True)
+    asset_qa.add_argument("--prompt", required=True)
+    asset_qa.add_argument("--fail2drive-root", type=Path, default=DEFAULT_F2D_ROOT)
+    asset_qa.add_argument("--scenario-hub-root", type=Path)
+    asset_qa.add_argument("--evidence-frame", type=Path, action="append", default=[])
+    asset_qa.add_argument("--require-asset", action="append", default=[])
+    asset_qa.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
+    asset_qa.add_argument("--run-id", default="oodrive-f2d-asset-qa")
+    asset_qa.add_argument("--metric-only", action="store_true")
+    asset_qa.set_defaults(func=_command_f2d_qa_assets)
+
     catalog = subparsers.add_parser("f2d-catalog", help="Emit the agent-readable Fail2Drive scenario catalog.")
     catalog.add_argument("--fail2drive-root", type=Path, default=DEFAULT_F2D_ROOT)
     catalog.add_argument("--format", choices=["json", "md", "both"], default="both")
@@ -109,6 +136,35 @@ def register_fail2drive_commands(subparsers: Any) -> None:
     evaluate.add_argument("--run-id", default="oodrive-f2d-evaluate-model")
     evaluate.add_argument("--metric-only", action="store_true")
     evaluate.set_defaults(func=_command_f2d_evaluate_model)
+
+
+def _command_f2d_assets(args: argparse.Namespace) -> int:
+    run_dir = prepare_run_dir(args.output_root, args.run_id)
+    catalog = load_fail2drive_asset_catalog(args.fail2drive_root, scenario_hub_root=args.scenario_hub_root)
+    summary = write_fail2drive_asset_catalog_report(run_dir, catalog, fmt=args.format)
+    if args.metric_only:
+        print(f"METRIC f2d_asset_count={summary['asset_count']}")
+        return 0
+    print(json.dumps(summary, indent=2))
+    return 0
+
+
+def _command_f2d_qa_assets(args: argparse.Namespace) -> int:
+    run_dir = prepare_run_dir(args.output_root, args.run_id)
+    catalog = load_fail2drive_asset_catalog(args.fail2drive_root, scenario_hub_root=args.scenario_hub_root)
+    qa = qa_fail2drive_route_assets(
+        args.route,
+        prompt=args.prompt,
+        catalog=catalog,
+        evidence_frames=tuple(args.evidence_frame),
+        required_assets=tuple(args.require_asset),
+    )
+    summary = write_fail2drive_asset_qa(run_dir, qa)
+    if args.metric_only:
+        print(f"METRIC f2d_asset_qa_missing_requirements={len(summary.get('missing_requirements', []))}")
+        return 0 if summary["status"] == "passed" else 1
+    print(json.dumps(summary, indent=2))
+    return 0 if summary["status"] == "passed" else 1
 
 
 def _command_f2d_catalog(args: argparse.Namespace) -> int:

@@ -81,6 +81,13 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   upstream `visu_agent.py` is a display-only path and does not write RGB frames.
   Optimized CARLA town routes may need `_Opt` speed-limit aliases before
   evaluator launch. See `MEM-0055`.
+- Fail2Drive videos with prompt-named visible assets must pass
+  `oodrive f2d-qa-assets` before promotion; route XML/catalog alignment is not
+  visual proof without rendered evidence frames. See `MEM-0056`.
+- Fail2Drive animal asset proof requires the packaged Fail2Drive CARLA runtime
+  plus a matching CARLA 0.9.15 Python client; loose `.uasset` copies into stock
+  CARLA do not prove animal spawnability, and duck claims require a passed
+  duck blueprint/content probe. See `MEM-0057`.
 - Use OODrive as the product-facing scenario generator name. `oodrive ...` and
   `python -m oodrive ...` are the canonical CLI database/control plane;
   `driverx oodrive`, `driverx oodriver`, and `driverx studio` are

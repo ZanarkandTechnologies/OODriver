@@ -76,13 +76,17 @@ def run_studio_generate_assets(
     *,
     scenario_pack_path: Path,
     provider: str = "local-procedural",
+    external_manifest_path: Path | None = None,
     output_root: Path | None = None,
     run_id: str = "oodrive-generated-assets",
 ) -> StudioCommandResult:
     pack = load_production_scenario_pack(scenario_pack_path)
     run_dir = prepare_run_dir(output_root or scenario_pack_path.parent, run_id)
     requests = asset_requests_from_pack(pack)
-    if provider not in {"local-procedural", "local_procedural"}:
+    if provider in {"external-manifest", "external_manifest"}:
+        manifests, blockers = _load_external_asset_manifests(external_manifest_path)
+        status = "passed" if manifests and not blockers else "blocked"
+    elif provider not in {"local-procedural", "local_procedural"}:
         manifests = [
             manifest
             for manifest in asset_manifests_from_pack(pack)
@@ -107,6 +111,7 @@ def run_studio_generate_assets(
         "quality_reports": quality_reports,
         "blockers": blockers,
         "patched_scenario_pack_path": patched_paths["json_path"],
+        "external_manifest_path": str(external_manifest_path) if external_manifest_path else None,
     }
     asset_manifest_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     asset_report_path.write_text(_asset_generation_markdown(payload), encoding="utf-8")
@@ -129,6 +134,7 @@ def run_studio_generate_assets(
             "asset_count": len(manifests),
             "generated_count": sum(1 for manifest in manifests if manifest.status == "generated"),
             "patched_scenario_pack_path": patched_paths["json_path"],
+            "external_manifest_path": str(external_manifest_path) if external_manifest_path else None,
         },
         claim_boundaries=[
             "custom_mesh_generated=true" if status == "passed" else "custom_mesh_generated=false",
@@ -404,6 +410,41 @@ def _manifest_from_jsonable(payload: dict[str, Any]):
         setup_guidance=str(payload["setup_guidance"]) if payload.get("setup_guidance") else None,
         metadata=dict(payload.get("metadata", {})),
     )
+
+
+def _load_external_asset_manifests(path: Path | None) -> tuple[list[Any], list[str]]:
+    if path is None:
+        return [], ["--external-manifest is required when provider is external-manifest."]
+    if not path.exists():
+        return [], [f"External asset manifest not found: {path}"]
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [], [f"External asset manifest is not valid JSON: {exc}"]
+    if isinstance(payload, list):
+        raw_items = payload
+    elif isinstance(payload, dict) and isinstance(payload.get("asset_manifests"), list):
+        raw_items = list(payload["asset_manifests"])
+    elif isinstance(payload, dict):
+        raw_items = [payload]
+    else:
+        return [], ["External asset manifest must be an object, a list, or contain asset_manifests."]
+    manifests = []
+    blockers: list[str] = []
+    for index, item in enumerate(raw_items):
+        if not isinstance(item, dict):
+            blockers.append(f"External asset manifest item {index} is not an object.")
+            continue
+        try:
+            manifest = _manifest_from_jsonable({**item, "provider": "external_manifest"})
+        except Exception as exc:
+            blockers.append(f"External asset manifest item {index} is invalid: {exc}")
+            continue
+        quality = validate_generated_asset_artifact(manifest)
+        if not quality.passes:
+            blockers.extend(quality.blockers)
+        manifests.append(manifest)
+    return manifests, blockers
 
 
 def _asset_generation_markdown(payload: dict[str, Any]) -> str:

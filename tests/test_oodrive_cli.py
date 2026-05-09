@@ -186,6 +186,8 @@ class OODriveCliTests(unittest.TestCase):
             "tools-manifest",
             "artifacts-list",
             "score-visual-fidelity",
+            "f2d-assets",
+            "f2d-qa-assets",
             "f2d-catalog",
             "f2d-validate-route",
             "f2d-write-route",

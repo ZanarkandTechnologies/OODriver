@@ -39,6 +39,7 @@ def register_production_commands(nested: argparse._SubParsersAction) -> None:
     generate_assets = nested.add_parser("generate-assets", help="Generate or ingest 3D assets for a scenario pack.")
     generate_assets.add_argument("--scenario-pack", type=Path, required=True)
     generate_assets.add_argument("--provider", default="local-procedural")
+    generate_assets.add_argument("--external-manifest", type=Path, help="Provider-neutral JSON manifest from an external 3D asset pipeline.")
     generate_assets.add_argument("--output-root", type=Path)
     generate_assets.add_argument("--run-id", default="oodrive-generated-assets")
     generate_assets.set_defaults(func=_command_generate_assets)
@@ -131,6 +132,7 @@ def _command_generate_assets(args: argparse.Namespace) -> int:
         run_studio_generate_assets(
             scenario_pack_path=args.scenario_pack,
             provider=args.provider,
+            external_manifest_path=args.external_manifest,
             output_root=args.output_root,
             run_id=args.run_id,
         )

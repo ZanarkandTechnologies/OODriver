@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
-AssetProviderName = Literal["dry_run", "local_procedural", "meshy", "external_blocked"]
+AssetProviderName = Literal["dry_run", "local_procedural", "meshy", "external_manifest", "external_blocked"]
 AssetStatus = Literal["planned", "blocked", "pending", "generated", "qa_failed"]
 CollisionProxyKind = Literal["box", "cylinder", "sphere"]
 

@@ -1,0 +1,26 @@
+{
+  "ticket": "TASK-188",
+  "review_id": "task188-live-animal-proof-review",
+  "status": "pass_with_caveat",
+  "score": 4.3,
+  "reviewed_at": "2026-05-10 05:18 +0800",
+  "findings": [],
+  "evidence": {
+    "animal_video": "/Users/kenjipcx/SOTA/0xDriver/artifacts/runs/task188-animal-showcase-live/animal_assets_crossing_gallery_v2/animal_assets_crossing_gallery_v2.mp4",
+    "animal_manifest": "/Users/kenjipcx/SOTA/0xDriver/artifacts/runs/task188-animal-showcase-live/animal_showcase_manifest.json",
+    "spawned_animal_count": 12,
+    "available_animal_blueprints": 18,
+    "frames": 260,
+    "duration_s": 13.0,
+    "distance_m": 69.133
+  },
+  "caveats": [
+    "Duck-specific proof is unavailable because the Fail2Drive packaged simulator exposes no duck-named blueprint/content probe.",
+    "Animal blueprints are exposed as walker.animal.* IDs, so species labels are visual evidence rather than semantic blueprint names."
+  ],
+  "checks": [
+    "python3 -m py_compile scripts/run_asset_showcase_carla.py scripts/run_animal_showcase_carla.py",
+    "PYTHONPATH=src python3 -m unittest tests.test_fail2drive_assets tests.test_oodrive_cli tests.test_assets tests.test_carla_asset_mapping",
+    "ffprobe animal_assets_crossing_gallery_v2.mp4 -> 13.000000"
+  ]
+}

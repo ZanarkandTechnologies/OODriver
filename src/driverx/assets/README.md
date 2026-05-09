@@ -32,6 +32,12 @@ PYTHONPATH=src python3 -m oodrive generate-assets \
   --provider local-procedural \
   --run-id assets
 
+PYTHONPATH=src python3 -m oodrive generate-assets \
+  --scenario-pack artifacts/runs/pack/scenario_pack.json \
+  --provider external-manifest \
+  --external-manifest artifacts/runs/provider/asset_manifest.json \
+  --run-id external-assets
+
 PYTHONPATH=src python3 -m oodrive install-assets \
   --scenario-pack artifacts/runs/pack/assets/scenario_pack.assets.json \
   --mode plan \
@@ -45,6 +51,12 @@ become custom CARLA actors until the registry/import path proves installed
 blueprints. Stock proxies map deterministically to `static.prop.dirtdebris01`,
 `static.prop.foodcart`, `static.prop.constructioncone`, walkers, or motorcycles
 depending on semantic tags.
+
+External 3D generators can hand OODrive either one asset manifest, a list of
+asset manifests, or an `asset_manifests` envelope. OODrive validates mesh path,
+scale, collision proxy, and license metadata before patching the scenario pack.
+This is ingestion proof only; CARLA proof still requires `install-assets`,
+`probe-asset-blueprint`, and rendered spawn evidence.
 
 ## Test
 
