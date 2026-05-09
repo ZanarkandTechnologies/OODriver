@@ -1,7 +1,7 @@
 # TASK-180: Prompt-To-CARLA Visual Fidelity And Behavior QA Gate
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-167, TASK-172, TASK-179
@@ -91,9 +91,9 @@ Moderate. It will affect promotion decisions but should not mutate scenario gene
 - Existing artifacts may fail; that is desirable if they are weak.
 
 ### Acceptance Criteria
-- [ ] AC-1: `oodrive score-visual-fidelity` consumes prompt/resolution plus CARLA frame/video manifest and emits `prompt_to_carla_visual_score`.
-- [ ] AC-2: Score includes map/weather match, requested object visibility, static/moving hazard evidence, road/lane alignment, motion evidence, camera framing, and diversity from a previous gallery.
-- [ ] AC-3: Hard blockers reject missing media, invisible hazard, off-road ego/avoidance, zero-motion moving actors, and false custom-asset/custom-map claims.
+- [x] AC-1: `oodrive score-visual-fidelity` consumes prompt/resolution plus CARLA frame/video manifest and emits `prompt_to_carla_visual_score`.
+- [x] AC-2: Score includes map/weather match, requested object visibility, static/moving hazard evidence, road/lane alignment, motion evidence, camera framing, and diversity from a previous gallery.
+- [x] AC-3: Hard blockers reject missing media, invisible hazard, off-road ego/avoidance, zero-motion moving actors, and false custom-asset/custom-map claims.
 - [ ] AC-4: Optional provider hook can attach VLM/image-review results while preserving deterministic local checks.
 - [ ] AC-5: Tests cover good static blocker, good moving cut-in, bad off-road swerve, missing custom crane, and duplicate-looking scene.
 
@@ -110,7 +110,7 @@ Moderate. It will affect promotion decisions but should not mutate scenario gene
 - It must penalize metadata-only proof when the visual artifact does not show the requested hazard.
 
 ### Verification
-- `PYTHONPATH=src python3 -m oodrive score-visual-fidelity --prompt <prompt> --media-manifest <manifest> --run-id task180-score --metric-only`
+- `PYTHONPATH=src python3 -m oodrive score-visual-fidelity --media-manifest <manifest> --run-id task180-score --metric-only`
 - `PYTHONPATH=src python3 -m unittest tests.test_visual_fidelity_score tests.test_oodrive_cli`
 - `bash scripts/pre_push_check.sh`
 
@@ -120,3 +120,7 @@ Moderate. It will affect promotion decisions but should not mutate scenario gene
 - Blocker list
 - Optional VLM review
 - Planning review: `tickets/TASK-174/artifacts/review/task174-180-integration-plan-review.json`
+- Build evidence: `PYTHONPATH=src python3 -m unittest tests.test_visual_fidelity_score tests.test_oodrive_cli` passed as part of the focused integration batch.
+- Metric artifact: `PYTHONPATH=src python3 -m oodrive score-visual-fidelity --media-manifest artifacts/runs/task180-visual-fidelity-smoke/media_manifest.json --run-id task180-visual-score-smoke --metric-only` emitted `METRIC visual_fidelity_score=90.0000`.
+- Score report: `artifacts/runs/task180-visual-score-smoke-001/visual_fidelity_score.json`
+- Build review: `tickets/TASK-174/artifacts/review/task174-180-impl-review.json`

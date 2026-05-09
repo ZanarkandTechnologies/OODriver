@@ -68,6 +68,15 @@ stack-specific details and commands in `PROJECT_RULES.md`.
 - Keep generated Bench2Drive route XML stock-compatible; DriverX OOD actor,
   asset, behavior, and memory intent belongs in sidecar overlays until a real
   companion injector is running. See `MEM-0018`.
+- Treat Fail2Drive as the pinned upstream benchmark/runtime submodule at
+  `third_party/fail2drive`; OODrive should extend it through agent-authored
+  route XML, validation, execution wrappers, evidence capture, reasoning, and
+  scoring rather than copying or reimplementing its scenario classes. See
+  `MEM-0052`.
+- Use `oodrive f2d-*` for agent-operated Fail2Drive workflows in dependency
+  order: catalog, validate/write route, run evidence, reason, demo video, then
+  model-reaction batch reporting. Dry-run/fake evidence is contract proof only
+  until live CARLA/Alpamayo artifacts exist. See `MEM-0053`.
 - Use OODrive as the product-facing scenario generator name. `oodrive ...` and
   `python -m oodrive ...` are the canonical CLI database/control plane;
   `driverx oodrive`, `driverx oodriver`, and `driverx studio` are
@@ -79,6 +88,10 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   product loop: placement plans are CARLA-ready specs, dry-run placement is not
   live object spawning, and Alpamayo reasoning is open-loop unless a live
   model-driven control trace exists. See `MEM-0037`.
+- Waymo-to-Fail2Drive reconstruction claims require direction-aware multiview
+  object transcription, explicit XML object/actor mappings or written
+  exclusions, and render QA. Stock scenario type selection alone is not
+  image-grounded reconstruction. See `MEM-0054`.
 - Treat prompt-to-3D-assets-inside-CARLA as unproved until the chain has a
   generated/ingested mesh, asset manifest, CARLA import registry or blueprint
   probe, and live spawn evidence. Stock proxies are fallback simulator evidence,

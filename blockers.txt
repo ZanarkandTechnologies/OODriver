@@ -1,0 +1,3 @@
+2026-05-09 06:00 +0800 | TASK-174,TASK-175 | live ScenarioRunner execution requires an installed ScenarioRunner checkout/runtime on a CARLA host; local implementation emits package/validation/run blocker artifacts until that root is provided.
+2026-05-09 06:00 +0800 | TASK-176,TASK-177 | real custom CARLA map/asset import requires external FBX/XODR or Unreal/CARLA package/source build tooling; local implementation emits manifests, command plans, probes, and honest blockers.
+2026-05-09 06:51 +0800 | QA | ticket metadata checker referenced by repo guardrails is not present at `tickets/scripts/check_ticket_metadata.py`; continue with focused tests, compileall, and pre-push until the checker path is restored or replaced.

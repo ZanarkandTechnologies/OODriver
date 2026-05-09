@@ -7,9 +7,9 @@ The submission thesis is simple:
 > policy over those scenes, retrieve compact failure memory as context, and keep
 > every claim tied to simulator evidence.
 
-The current project focus is CARLA + OODrive + Alpamayo evidence. Older Waymo
-and SimLingo/CarLLaVA work is preserved as a support track, but it is no longer
-the main path a new reader should start from.
+The current project focus is CARLA + Fail2Drive + OODrive + Alpamayo evidence.
+Older Waymo and SimLingo/CarLLaVA work is preserved as a support track, but it
+is no longer the main path a new reader should start from.
 
 ## What This Repo Shows
 
@@ -44,7 +44,7 @@ flowchart TD
     A4 --> A7["Reasoning overlays + claim scores"]
 
     R1["CARLA"] -. simulator .-> G3
-    R2["Fail2Drive"] -. seed families .-> G1
+    R2["Fail2Drive submodule"] -. route XML + scenario classes .-> G1
     R3["Z Lab FlashDrive"] -. latency path .-> A4
     R4["Realtime-VLA V2"] -. control scheduling .-> A6
     R5["Waymo E2E"] -. support baseline .-> G6
@@ -119,6 +119,8 @@ Local commands use `PYTHONPATH=src`; editable install is optional.
 ```bash
 python3 -m pip install -e .
 
+git submodule update --init --recursive third_party/fail2drive
+
 PYTHONPATH=src python3 -m oodrive quickstart \
   --prompt "wet Kuala Lumpur roadwork with a scooter filtering past cones" \
   --run-id friend-quickstart
@@ -131,6 +133,58 @@ PYTHONPATH=src python3 -m oodrive generate \
 
 To run against a live CARLA host, use the RunPod/Kasm guide:
 [`docs/runpod-kasm-quickstart.md`](docs/runpod-kasm-quickstart.md).
+
+## Fail2Drive Extension
+
+OODrive extends Fail2Drive rather than replacing it. The pinned upstream
+checkout lives at [`third_party/fail2drive`](third_party/fail2drive), and the
+intended agent workflow is:
+
+1. Codex writes or edits Fail2Drive-compatible route XML.
+2. OODrive validates the XML, scenario types, parameters, and claim boundaries.
+3. Fail2Drive/ScenarioRunner execute the route and scenario behavior.
+4. OODrive captures, overlays, scores, and packages the judge-facing evidence.
+
+This keeps the submission honest: Fail2Drive provides the benchmark/runtime
+base; OODrive provides the agent-operable CLI, generation workflow, reasoning
+evidence, and submission-quality gates.
+
+Agent-facing Fail2Drive path:
+
+```bash
+# Inspect upstream scenario types and parameters.
+PYTHONPATH=src python3 -m oodrive f2d-catalog --format md
+
+# Validate or compile route XML from an agent-authored spec.
+PYTHONPATH=src python3 -m oodrive f2d-write-route \
+  --example RoadBlocked \
+  --validate
+
+PYTHONPATH=src python3 -m oodrive f2d-validate-route \
+  --route artifacts/runs/<run>/route.xml
+
+# Plan/run upstream Fail2Drive, then attach reasoning and video evidence.
+PYTHONPATH=src python3 -m oodrive f2d-run-route \
+  --route artifacts/runs/<run>/route.xml \
+  --agent pdm-lite \
+  --dry-run
+
+PYTHONPATH=src python3 -m oodrive f2d-reason \
+  --evidence artifacts/runs/<run>/run_evidence.json \
+  --route artifacts/runs/<run>/route.xml \
+  --mode fake
+
+PYTHONPATH=src python3 -m oodrive f2d-demo-video \
+  --evidence artifacts/runs/<run>/run_evidence.json \
+  --reasoning artifacts/runs/<run>/f2d_reasoning.json \
+  --route artifacts/runs/<run>/route.xml \
+  --input-video artifacts/runs/<run>/route.mp4
+
+PYTHONPATH=src python3 -m oodrive f2d-evaluate-model \
+  --routes third_party/fail2drive/fail2drive_split \
+  --limit 5 \
+  --dry-run
+```
 
 ## Main Commands
 
@@ -197,7 +251,8 @@ weights, CARLA installs, Waymo shards, or generated MP4s.
 ## External References
 
 - [CARLA](https://carla.readthedocs.io/en/latest/start_introduction/)
-- [Fail2Drive](https://github.com/autonomousvision/fail2drive)
+- [Fail2Drive](https://github.com/autonomousvision/fail2drive) vendored as a
+  pinned submodule under `third_party/fail2drive`
 - [NVIDIA Alpamayo](https://developer.nvidia.com/drive/alpamayo)
 - [Z Lab FlashDrive](https://z-lab.ai/projects/flashdrive/)
 - [Realtime-VLA V2](https://dexmal.github.io/realtime-vla-v2/)

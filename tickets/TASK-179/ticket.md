@@ -1,7 +1,7 @@
 # TASK-179: Codex Skill For OpenSCENARIO-To-CARLA Workflow
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-174, TASK-175, TASK-176, TASK-177, TASK-178
@@ -89,11 +89,11 @@ Low in OODrive code; moderate in Codex workflow. The skill can evolve without ch
 - If TASK-175 commands do not exist yet, the skill must label them as prerequisites or use command stubs.
 
 ### Acceptance Criteria
-- [ ] AC-1: A Codex skill exists for OODrive CARLA/OpenSCENARIO scenario authoring.
-- [ ] AC-2: Skill workflow makes Codex author `.osc` and sidecar files directly from a user prompt.
-- [ ] AC-3: Skill instructs agents to use OODrive CLI for validation, execution, CARLA probing, artifact indexing, and visual scoring.
-- [ ] AC-4: Skill explicitly avoids `oodrive resolve-prompt` or any internal prompt compiler dependency.
-- [ ] AC-5: Skill outcome contract lists concrete artifacts: `scenario.osc`, sidecar, validation report, run result/blocker, media/evidence paths.
+- [x] AC-1: A Codex skill exists for OODrive CARLA/OpenSCENARIO scenario authoring.
+- [x] AC-2: Skill workflow makes Codex author `.osc` and sidecar files directly from a user prompt.
+- [x] AC-3: Skill instructs agents to use OODrive CLI for validation, execution, CARLA probing, artifact indexing, and visual scoring.
+- [x] AC-4: Skill explicitly avoids `oodrive resolve-prompt` or any internal prompt compiler dependency.
+- [x] AC-5: Skill outcome contract lists concrete artifacts: `scenario.osc`, sidecar, validation report, run result/blocker, media/evidence paths.
 
 ### Verification
 - Read the skill once and confirm it satisfies the skill-creator first-load contract.
@@ -109,3 +109,6 @@ Low in OODrive code; moderate in Codex workflow. The skill can evolve without ch
 - Validation report
 - Run result or precise blocker
 - Review artifact
+- Build evidence: skill created at `/Users/kenjipcx/coding-harness/Codexter/skills/oodrive-carla-scenario/SKILL.md`
+- Skill workflow uses `oodrive tools-manifest`, `validate-osc2`, `scenario-runner-package`, `run-osc2`, custom map/asset probe commands, `artifacts-list`, and `score-visual-fidelity`.
+- Build review: `tickets/TASK-174/artifacts/review/task174-180-impl-review.json`

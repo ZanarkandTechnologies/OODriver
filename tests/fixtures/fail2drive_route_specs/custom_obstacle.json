@@ -1,0 +1,35 @@
+{
+  "route_id": "oodrive-custom-obstacle-001",
+  "town": "Town05",
+  "waypoints": [
+    {
+      "x": 0.0,
+      "y": 6.0,
+      "z": 0.0
+    },
+    {
+      "x": 85.0,
+      "y": 6.0,
+      "z": 0.0
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "CustomObstacle_0",
+      "type": "CustomObstacle",
+      "trigger_point": {
+        "x": 42.0,
+        "y": 6.0,
+        "z": 0.0,
+        "yaw": 0.0
+      },
+      "params": {
+        "distance": 55,
+        "objects": {
+          "static.prop.dirtdebris01": "0,0,0",
+          "static.prop.constructioncone": "2,0,0"
+        }
+      }
+    }
+  ]
+}

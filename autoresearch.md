@@ -10,6 +10,9 @@ stretching a few checkpoint stills into a slow fake movie.
 ## Metric
 
 - Primary: `closed_loop_video_score` (0-100 points, higher is better)
+- Secondary submission-breadth probes: `f2d_model_reaction_coverage`,
+  `f2d_demo_readability_score`, and Fail2Drive route/catalog smoke metrics
+  emitted by the new `oodrive f2d-*` CLI lane.
 - Verify: `./autoresearch.sh`
 - Guard: `./autoresearch.checks.sh`
 - Direction: higher
@@ -78,3 +81,5 @@ video that lacks ego visibility or has too few source frames for its duration.
   handoff is stable, because more CARLA ticks are what make the video move.
 - Add frame-difference scoring from real MP4 samples if manifest-level pacing
   can still be gamed.
+- Run `oodrive f2d-evaluate-model` on live Kasm Fail2Drive routes and replace
+  fixture readability/model-reaction probes with real route RGB/video evidence.

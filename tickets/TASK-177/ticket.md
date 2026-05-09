@@ -1,7 +1,7 @@
 # TASK-177: CARLA Custom Asset Packaging And Blueprint Probe
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-170
@@ -93,11 +93,11 @@ Moderate around assets and live CARLA probes. Existing stock proxy behavior shou
 - Large generated assets must stay out of git.
 
 ### Acceptance Criteria
-- [ ] AC-1: `oodrive package-asset` consumes a Meshy/local asset manifest and writes CARLA packaging inputs plus command plan.
-- [ ] AC-2: `oodrive probe-asset-blueprint` searches a live CARLA blueprint library for expected custom ids and writes proof/blocker output.
+- [x] AC-1: `oodrive package-asset` consumes a Meshy/local asset manifest and writes CARLA packaging inputs plus command plan.
+- [x] AC-2: `oodrive probe-asset-blueprint` searches a live CARLA blueprint library for expected custom ids and writes proof/blocker output.
 - [ ] AC-3: `oodrive spawn-custom-asset` spawns a registered blueprint in CARLA, captures a screenshot/frame proof, and records cleanup ids.
-- [ ] AC-4: Stock proxy fallback remains available but labeled `stock_proxy_fallback=true`.
-- [ ] AC-5: Tests prevent `arbitrary_mesh_spawn=true` unless packaging, blueprint probe, and live spawn evidence all pass.
+- [x] AC-4: Stock proxy fallback remains available but labeled `stock_proxy_fallback=true`.
+- [x] AC-5: Tests prevent `arbitrary_mesh_spawn=true` unless packaging, blueprint probe, and live spawn evidence all pass.
 
 ### Agent Contract
 - Open: `src/driverx/assets/pipeline.py`, `src/driverx/assets/types.py`, `src/driverx/assets/carla_registry.py`, `src/driverx/simulators/carla_control.py`, `src/driverx/scenarios/studio_product_production_cli.py`
@@ -123,3 +123,7 @@ Moderate around assets and live CARLA probes. Existing stock proxy behavior shou
 - Live spawn proof or precise blocker
 - Overclaim guard test output
 - Planning review: `tickets/TASK-174/artifacts/review/task174-180-integration-plan-review.json`
+- Build evidence: `PYTHONPATH=src python3 -m unittest tests.test_custom_asset_packaging tests.test_oodrive_cli` passed as part of the focused integration batch.
+- Smoke artifact: `artifacts/runs/task177-asset-package-smoke/asset_package_plan.json`
+- Blocker log: root `blockers.txt` records that real custom CARLA asset import still requires external asset/package tooling plus live blueprint/spawn proof.
+- Build review: `tickets/TASK-174/artifacts/review/task174-180-impl-review.json`

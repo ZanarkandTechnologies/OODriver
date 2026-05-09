@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<routes>
+  <route id="bad" town="Town05">
+    <waypoints>
+      <position x="0.0" y="0.0" z="0.0" />
+      <position x="75.0" y="0.0" z="0.0" />
+    </waypoints>
+    <scenarios>
+      <scenario name="MadeUpHazard_0" type="MadeUpHazard">
+        <trigger_point x="35.0" y="0.0" z="0.0" yaw="0.0" />
+      </scenario>
+    </scenarios>
+  </route>
+</routes>

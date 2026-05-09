@@ -61,6 +61,11 @@ from driverx.evaluation.submission_readiness_score import (
     score_submission_readiness,
     write_submission_readiness_score,
 )
+from driverx.evaluation.visual_fidelity_score import (
+    VisualFidelityScoreReport,
+    score_visual_fidelity,
+    write_visual_fidelity_score,
+)
 
 __all__ = [
     "HeroDemoScoreInputs",
@@ -81,6 +86,7 @@ __all__ = [
     "SubmissionReadinessInputs",
     "SubmissionReadinessReport",
     "SubmissionReadinessThresholds",
+    "VisualFidelityScoreReport",
     "average_displacement_error",
     "load_demo_score_inputs",
     "load_environment_demo_readiness_inputs",
@@ -97,6 +103,7 @@ __all__ = [
     "score_closed_loop_integration",
     "score_hero_demo",
     "score_submission_readiness",
+    "score_visual_fidelity",
     "write_environment_demo_score",
     "write_environment_reasoned_carla_score",
     "write_generator_runtime_score",
@@ -106,4 +113,5 @@ __all__ = [
     "write_closed_loop_integration_score",
     "write_hero_demo_score",
     "write_submission_readiness_score",
+    "write_visual_fidelity_score",
 ]

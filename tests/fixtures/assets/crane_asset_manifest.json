@@ -1,0 +1,12 @@
+{
+  "asset_id": "fallen_crane_arm",
+  "provider": "local_procedural",
+  "status": "generated",
+  "prompt": "fallen crane arm blocking a wet lane",
+  "semantic_tags": ["construction", "blocker", "crane"],
+  "dimensions_m": {"length": 8.0, "width": 1.0, "height": 1.5},
+  "collision_proxy": {"kind": "box"},
+  "intended_placement": {"lane_offset_m": 0.0, "ahead_m": 20.0},
+  "license": "local-fixture",
+  "local_path": "tests/fixtures/assets/crane_proxy.obj"
+}

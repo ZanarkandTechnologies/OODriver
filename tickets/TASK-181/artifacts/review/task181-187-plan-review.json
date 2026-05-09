@@ -1,0 +1,78 @@
+{
+  "work_type": ["planning", "integration"],
+  "review_id": "task181-187-plan-review",
+  "created_at": "2026-05-09 09:47 Z",
+  "scope": "TASK-181 through TASK-187 Fail2Drive agent-native CLI planning batch",
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-181/ticket.md",
+      "tickets/TASK-182/ticket.md",
+      "tickets/TASK-183/ticket.md",
+      "tickets/TASK-184/ticket.md",
+      "tickets/TASK-185/ticket.md",
+      "tickets/TASK-186/ticket.md",
+      "tickets/TASK-187/ticket.md"
+    ],
+    "related_files": [
+      "third_party/fail2drive/toolbox/scripts/config.py",
+      "third_party/fail2drive/toolbox/scripts/carla_route.py",
+      "third_party/fail2drive/toolbox/README.md",
+      "src/driverx/simulators/fail2drive.py",
+      "src/driverx/simulators/fail2drive_video.py",
+      "src/driverx/pipeline/route_evidence.py",
+      "src/driverx/scenarios/studio_product_cli.py"
+    ],
+    "invariants_checked": ["MEM-0034", "MEM-0038", "MEM-0052"],
+    "rubrics_used": ["spec-contract", "implementation-plan"]
+  },
+  "overall_score": 4.3,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [],
+  "rubric_sections": {
+    "spec-contract": {
+      "score": 4.4,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "story-coherence": 4.5,
+        "parallelization-fit": 4.0,
+        "ticket-sizing": 4.0,
+        "acceptance-testability": 4.5,
+        "scope-clarity": 4.8
+      },
+      "findings": [],
+      "next_action": "Approve the ticket batch for implementation in dependency order."
+    },
+    "implementation-plan": {
+      "score": 4.2,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "human-readability": 4.0,
+        "bloatability": 4.0,
+        "modularity": 4.5,
+        "proof-clarity": 4.0,
+        "execution-order": 4.5,
+        "risk-clarity": 4.0,
+        "decision-tone": 4.5,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Start with TASK-181 and TASK-182, then move to authoring/runtime only after the catalog and validator are stable."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Implement TASK-181 through TASK-187 in order; live CARLA/Alpamayo branches should record blockers and continue with dry-run or fixture-backed proof when unavailable.",
+  "notes": [
+    "The batch keeps Fail2Drive as the upstream scenario and evaluator engine rather than reimplementing it.",
+    "The ticket order builds a usable agent loop: catalog -> validate -> author -> run -> reason -> video -> batch matrix.",
+    "Live CARLA and Alpamayo work is explicitly gated behind runtime availability and does not promote false closed-loop claims."
+  ]
+}

@@ -54,6 +54,8 @@ from driverx.policies.alpamayo_release import (
 from driverx.policies.alpamayo_trajectory import (
     alpamayo_prediction_to_trajectory,
     resample_alpamayo_xy,
+    resample_alpamayo_yaw,
+    select_alpamayo_rot_sample,
     select_alpamayo_xyz_sample,
     write_alpamayo_trajectory_conversion,
 )
@@ -118,6 +120,8 @@ __all__ = [
     "sample_memory_entries",
     "select_policy_adapter",
     "resample_alpamayo_xy",
+    "resample_alpamayo_yaw",
+    "select_alpamayo_rot_sample",
     "select_alpamayo_xyz_sample",
     "trajectory_to_control_trace",
     "build_policy_runtime_matrix",

@@ -19,6 +19,7 @@ from driverx.scenarios.studio_product import (
     run_studio_replay,
     run_studio_run,
 )
+from driverx.scenarios.studio_product_asset_cli import register_asset_commands
 from driverx.scenarios.studio_product_ancestry_runtime import run_studio_ancestry_cards
 from driverx.scenarios.studio_product_carla_composer_cli import register_carla_composer_commands
 from driverx.scenarios.studio_product_choreography_cli import register_choreography_commands
@@ -31,6 +32,8 @@ from driverx.scenarios.studio_product_runtime import (
     run_studio_reason,
     run_studio_score_demo,
 )
+from driverx.scenarios.studio_product_scenario_runner_cli import register_scenario_runner_commands
+from driverx.scenarios.studio_product_tools_cli import register_tools_commands
 from driverx.scenarios.studio_product_environment_runtime import (
     run_studio_export_env_demo,
     run_studio_generate_envs,
@@ -41,12 +44,15 @@ from driverx.scenarios.studio_product_env_video_runtime import (
     run_studio_env_demo_video,
     run_studio_score_env_proof,
 )
+from driverx.scenarios.studio_product_fail2drive_cli import register_fail2drive_commands
 from driverx.scenarios.studio_product_generated_runtime import (
     run_studio_generate_run,
     run_studio_score_generator_runtime,
 )
 from driverx.scenarios.studio_product_keyframe_runtime import run_studio_analyze_keyframes
 from driverx.scenarios.studio_product_memory_runtime import run_studio_memory_ledger
+from driverx.scenarios.studio_product_map_cli import register_map_commands
+from driverx.scenarios.studio_product_osc2_cli import register_osc2_commands
 from driverx.scenarios.studio_product_production_cli import register_production_commands
 from driverx.scenarios.studio_product_reasoning_diff_runtime import run_studio_reasoning_diff
 from driverx.scenarios.studio_product_submission_runtime import (
@@ -54,6 +60,7 @@ from driverx.scenarios.studio_product_submission_runtime import (
     run_studio_score_submission,
 )
 from driverx.scenarios.studio_product_stress_runtime import run_studio_stress_demo
+from driverx.scenarios.studio_product_visual_cli import register_visual_commands
 
 
 def build_oodrive_parser() -> argparse.ArgumentParser:
@@ -113,6 +120,13 @@ def _register_commands(parser: argparse.ArgumentParser, name: str) -> None:
 
     register_carla_composer_commands(nested)
     register_choreography_commands(nested)
+    register_osc2_commands(nested)
+    register_scenario_runner_commands(nested)
+    register_map_commands(nested)
+    register_asset_commands(nested)
+    register_tools_commands(nested)
+    register_visual_commands(nested)
+    register_fail2drive_commands(nested)
 
     register_production_commands(nested)
 

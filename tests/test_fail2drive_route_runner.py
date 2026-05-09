@@ -1,4 +1,5 @@
 import json
+import sys
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
@@ -62,7 +63,7 @@ class Fail2DriveRouteRunnerTest(unittest.TestCase):
         self.assertIn("route-ok", stdout)
         self.assertIn("Fail2Drive Route Run", report)
 
-    def test_runner_falls_back_from_python_to_python3(self) -> None:
+    def test_runner_falls_back_from_python_to_active_interpreter(self) -> None:
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
             plan = _write_plan(root, command=["python", "-c", "print('fallback-ok')"])
@@ -72,7 +73,7 @@ class Fail2DriveRouteRunnerTest(unittest.TestCase):
                     Fail2DriveRouteRunConfig(plan_path=plan, run_dir=root / "run", dry_run=True)
                 )
 
-        self.assertEqual(result.command[0], "python3")
+        self.assertEqual(result.command[0], sys.executable)
 
     def test_runner_names_missing_python_dependency(self) -> None:
         with TemporaryDirectory() as tmp:

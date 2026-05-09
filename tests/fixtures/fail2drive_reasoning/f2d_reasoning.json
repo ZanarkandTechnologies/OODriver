@@ -1,0 +1,43 @@
+{
+  "schema_version": "oodrive.fail2drive_reasoning.v1",
+  "status": "passed",
+  "mode": "fake",
+  "events": [
+    {
+      "frame_index": 0,
+      "source_time_s": 0.0,
+      "route_scenario": "RoadBlocked",
+      "risk_level": "critical",
+      "observation": "The route ahead is blocked.",
+      "predicted_action": "brake and wait",
+      "rationale": "A static blockage requires stopping before choosing a detour.",
+      "memory_callout": "Retrieved rule: stop for blocked lane.",
+      "latency_ms": 0.0,
+      "source": "fake"
+    },
+    {
+      "frame_index": 12,
+      "source_time_s": 1.25,
+      "route_scenario": "RoadBlocked",
+      "risk_level": "critical",
+      "observation": "No safe gap is visible.",
+      "predicted_action": "hold lane",
+      "rationale": "Leaving the lane blindly increases collision risk.",
+      "memory_callout": "Retrieved rule: preserve lane discipline.",
+      "latency_ms": 0.0,
+      "source": "fake"
+    },
+    {
+      "frame_index": 24,
+      "source_time_s": 2.5,
+      "route_scenario": "RoadBlocked",
+      "risk_level": "elevated",
+      "observation": "A potential clearance opens beyond the blockage.",
+      "predicted_action": "creep forward",
+      "rationale": "Slow progress is only safe after confirming clearance.",
+      "memory_callout": "Retrieved rule: move only after visual clearance.",
+      "latency_ms": 0.0,
+      "source": "fake"
+    }
+  ]
+}

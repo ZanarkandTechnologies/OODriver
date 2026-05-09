@@ -9,6 +9,8 @@ from driverx.cli import main
 from driverx.policies import (
     alpamayo_prediction_to_trajectory,
     resample_alpamayo_xy,
+    resample_alpamayo_yaw,
+    select_alpamayo_rot_sample,
     select_alpamayo_xyz_sample,
     write_alpamayo_trajectory_conversion,
 )
@@ -18,6 +20,21 @@ def _native_points(scale: float = 1.0) -> list[list[float]]:
     return [
         [round((index + 1) / 10.0 * scale, 4), round((index + 1) / 20.0, 4), 0.0]
         for index in range(64)
+    ]
+
+
+def _native_rot(yaw_rad: float = 0.1) -> list[list[list[float]]]:
+    import math
+
+    c = math.cos(yaw_rad)
+    s = math.sin(yaw_rad)
+    return [
+        [
+            [round(c, 6), round(-s, 6), 0.0],
+            [round(s, 6), round(c, 6), 0.0],
+            [0.0, 0.0, 1.0],
+        ]
+        for _ in range(64)
     ]
 
 
@@ -43,9 +60,17 @@ class AlpamayoTrajectoryTest(unittest.TestCase):
         self.assertEqual(selected[0], (0.2, 0.05, 0.0))
         self.assertEqual(selected[-1], (12.8, 3.2, 0.0))
 
+    def test_rotation_selection_extracts_and_resamples_yaw(self) -> None:
+        selected = select_alpamayo_rot_sample([[[ _native_rot(0.25) ]]])
+        yaw = resample_alpamayo_yaw(selected)
+
+        self.assertEqual(len(yaw), 20)
+        self.assertAlmostEqual(yaw[0], 0.25, places=5)
+
     def test_prediction_to_trajectory_returns_driverx_candidate(self) -> None:
         candidate = alpamayo_prediction_to_trajectory(
             _native_points(),
+            pred_rot=_native_rot(0.2),
             source="alpamayo_fixture",
             score=0.42,
             reasoning="yield to lateral pressure",
@@ -56,6 +81,7 @@ class AlpamayoTrajectoryTest(unittest.TestCase):
         self.assertEqual(len(candidate.points_xy), 20)
         self.assertEqual(candidate.metadata["native_steps"], 64)
         self.assertEqual(candidate.metadata["reasoning"], "yield to lateral pressure")
+        self.assertAlmostEqual(candidate.metadata["target_yaw_rad"][0], 0.2, places=5)
 
     def test_short_native_output_fails_before_silent_truncation(self) -> None:
         with self.assertRaisesRegex(ValueError, "need at least 50"):
@@ -65,7 +91,10 @@ class AlpamayoTrajectoryTest(unittest.TestCase):
         with TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
             pred_path = tmp_path / "pred.json"
-            pred_path.write_text(json.dumps({"pred_xyz": _native_points()}), encoding="utf-8")
+            pred_path.write_text(
+                json.dumps({"pred_xyz": _native_points(), "pred_rot": _native_rot(0.1)}),
+                encoding="utf-8",
+            )
 
             summary = write_alpamayo_trajectory_conversion(
                 tmp_path / "direct",
@@ -94,6 +123,7 @@ class AlpamayoTrajectoryTest(unittest.TestCase):
         self.assertTrue(direct_md_exists)
         self.assertTrue(cli_json_exists)
         self.assertEqual(len(cli_summary["trajectory"]["points_xy"]), 20)
+        self.assertIn("target_yaw_rad", cli_summary["trajectory"]["metadata"])
 
 
 if __name__ == "__main__":

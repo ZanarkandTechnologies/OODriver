@@ -1,0 +1,35 @@
+{
+  "route_id": "oodrive-dynamic-crossing-001",
+  "town": "Town03",
+  "waypoints": [
+    {
+      "x": 10.0,
+      "y": 2.0,
+      "z": 0.0
+    },
+    {
+      "x": 95.0,
+      "y": 2.0,
+      "z": 0.0
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "DynamicObjectCrossing_0",
+      "type": "DynamicObjectCrossing",
+      "trigger_point": {
+        "x": 45.0,
+        "y": 2.0,
+        "z": 0.0,
+        "yaw": 0.0
+      },
+      "params": {
+        "distance": 12,
+        "direction": "right",
+        "blocker_model": "static.prop.vendingmachine",
+        "crossing_angle": 0,
+        "walker": "walker.pedestrian.*"
+      }
+    }
+  ]
+}

@@ -26,6 +26,12 @@ fallbacks, API VLMs, SimLingo/CarLLaVA, or Alpamayo later.
 - `run_policy_fixture(...)`
 - `write_policy_decision(...)`
 
+`trajectory_to_control_trace(...)` defaults to the SimLingo/Fail2Drive-style
+PID bridge: future waypoints define desired speed and a lookahead target, then
+speed PID and lateral PID produce bounded `steer`, `throttle`, and `brake`.
+Use `TrajectoryControlConfig(controller="geometric")` only for legacy contract
+tests that need the older point-by-point geometric mapping.
+
 ## Example
 
 ```bash

@@ -1,7 +1,7 @@
 # TASK-174: CARLA ScenarioRunner Integration Bridge
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-152, TASK-153, TASK-171
@@ -94,11 +94,11 @@ Moderate. Adds new commands and files, but should not change existing `compile-s
 - Partial standards coverage: package must report unsupported fields instead of pretending full execution fidelity.
 
 ### Acceptance Criteria
-- [ ] AC-1: `oodrive scenario-runner-package` consumes `scenario_graph.json` plus sidecar and writes a ScenarioRunner package directory.
-- [ ] AC-2: Package includes either a minimal Python `BasicScenario` subclass, a route/scenario JSON pair, or an OpenSCENARIO file, plus an OODrive sidecar for unsupported fields.
-- [ ] AC-3: `oodrive scenario-runner-run` can invoke an installed ScenarioRunner checkout or write a precise blocker when missing.
+- [x] AC-1: `oodrive scenario-runner-package` consumes `scenario_graph.json` plus sidecar and writes a ScenarioRunner package directory.
+- [x] AC-2: Package includes either a minimal Python `BasicScenario` subclass, a route/scenario JSON pair, or an OpenSCENARIO file, plus an OODrive sidecar for unsupported fields.
+- [x] AC-3: `oodrive scenario-runner-run` can invoke an installed ScenarioRunner checkout or write a precise blocker when missing.
 - [ ] AC-4: Output records ScenarioRunner command, return code, criteria/results file paths, CARLA map, route id if present, and cleanup status.
-- [ ] AC-5: Coverage report distinguishes `native_scenario_runner=true|false`, `oodrive_sidecar_required=true|false`, and unsupported actors/actions/assets.
+- [x] AC-5: Coverage report distinguishes `native_scenario_runner=true|false`, `oodrive_sidecar_required=true|false`, and unsupported actors/actions/assets.
 
 ### Agent Contract
 - Open: `src/driverx/scenarios/scenario_graph.py`, `src/driverx/scenarios/studio_product_production_runtime.py`, `src/driverx/simulators/carla_scenario_runner.py`, `src/driverx/scenarios/studio_product_cli.py`
@@ -124,3 +124,7 @@ Moderate. Adds new commands and files, but should not change existing `compile-s
 - Command transcript
 - Local missing-runtime blocker or live ScenarioRunner results
 - Planning review: `tickets/TASK-174/artifacts/review/task174-180-integration-plan-review.json`
+- Build evidence: `PYTHONPATH=src python3 -m unittest tests.test_scenario_runner_bridge tests.test_openscenario2_export tests.test_oodrive_cli` passed as part of the focused integration batch.
+- Smoke artifact: `artifacts/runs/task174-package-smoke/scenario_runner_package/scenario_runner_package.json`
+- Blocker log: root `blockers.txt` records that live ScenarioRunner execution still requires an installed ScenarioRunner checkout/runtime on a CARLA host.
+- Build review: `tickets/TASK-174/artifacts/review/task174-180-impl-review.json`

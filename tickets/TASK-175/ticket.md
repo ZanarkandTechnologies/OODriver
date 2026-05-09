@@ -1,7 +1,7 @@
 # TASK-175: Agent-Written ASAM OpenSCENARIO 2.0 Validation And Execution Gate
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-152, TASK-174
@@ -92,11 +92,11 @@ Moderate. Adds commands/exporters without replacing existing graph compilation.
 - Coverage can be gamed; validation must list unsupported features explicitly.
 
 ### Acceptance Criteria
-- [ ] AC-1: `oodrive validate-osc2 --osc2 scenario.osc` accepts agent-authored `.osc` files and emits coverage, supported features, unsupported features, pass/block status, and claim labels.
-- [ ] AC-2: Validator accepts an optional sidecar with prompt lineage, assets, RAG, claim boundaries, and media expectations.
+- [x] AC-1: `oodrive validate-osc2 --osc2 scenario.osc` accepts agent-authored `.osc` files and emits coverage, supported features, unsupported features, pass/block status, and claim labels.
+- [x] AC-2: Validator accepts an optional sidecar with prompt lineage, assets, RAG, claim boundaries, and media expectations.
 - [ ] AC-3: `oodrive export-osc2 --scenario-graph <graph>` remains available as a draft helper but is not required for the agent-authored workflow.
-- [ ] AC-4: `oodrive run-osc2` invokes ScenarioRunner `--openscenario2` when available or writes a precise blocker.
-- [ ] AC-5: Tests prevent claiming `asam_openscenario2_executable=true` unless export validation and ScenarioRunner execution evidence exist.
+- [x] AC-4: `oodrive run-osc2` invokes ScenarioRunner `--openscenario2` when available or writes a precise blocker.
+- [x] AC-5: Tests prevent claiming `asam_openscenario2_executable=true` unless export validation and ScenarioRunner execution evidence exist.
 
 ### Agent Contract
 - Open: `src/driverx/scenarios/scenario_graph.py`, `src/driverx/scenarios/scenario_graph_export.py`, `src/driverx/scenarios/studio_product_production_cli.py`, `src/driverx/scenarios/studio_product_production_runtime.py`
@@ -121,3 +121,6 @@ Moderate. Adds commands/exporters without replacing existing graph compilation.
 - Sidecar
 - Execution result or precise blocker
 - Planning review: `tickets/TASK-174/artifacts/review/task174-180-integration-plan-review.json`
+- Build evidence: `PYTHONPATH=src python3 -m unittest tests.test_openscenario2_export tests.test_oodrive_cli` passed as part of the focused integration batch.
+- Smoke output: `PYTHONPATH=src python3 -m oodrive validate-osc2 --osc2 tests/fixtures/osc2/static_blocker.osc --sidecar tests/fixtures/osc2/static_blocker_sidecar.json --run-id task175-osc2-smoke --metric-only` emitted `METRIC osc2_coverage_ratio=1.0000` and `METRIC osc2_status_passed=1.0000`.
+- Build review: `tickets/TASK-174/artifacts/review/task174-180-impl-review.json`

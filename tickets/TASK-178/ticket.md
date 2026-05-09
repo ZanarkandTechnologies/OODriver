@@ -1,7 +1,7 @@
 # TASK-178: Agent-Facing OODrive Tool Manifest And MCP Surface
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-165, TASK-170, TASK-171, TASK-174, TASK-175, TASK-176, TASK-177
@@ -95,11 +95,11 @@ Low. Adds discovery surfaces without changing existing command behavior.
 - MCP scope creep; keep MCP optional if it delays manifest usefulness.
 
 ### Acceptance Criteria
-- [ ] AC-1: `oodrive tools-manifest` emits JSON schemas for core commands, inputs, outputs, side effects, claim boundaries, and example invocations.
-- [ ] AC-2: Manifest covers OpenSCENARIO validation/run, capability probing, CARLA composition, choreography, ScenarioRunner bridge, custom map import, custom asset packaging, live run, scoring, and artifact listing.
-- [ ] AC-3: `oodrive artifacts-list` returns latest run artifacts by kind, proof level, score, and media availability.
+- [x] AC-1: `oodrive tools-manifest` emits JSON schemas for core commands, inputs, outputs, side effects, claim boundaries, and example invocations.
+- [x] AC-2: Manifest covers OpenSCENARIO validation/run, capability probing, CARLA composition, choreography, ScenarioRunner bridge, custom map import, custom asset packaging, live run, scoring, and artifact listing.
+- [x] AC-3: `oodrive artifacts-list` returns latest run artifacts by kind, proof level, score, and media availability.
 - [ ] AC-4: Optional `oodrive mcp-server` exposes the same tool contracts through MCP without requiring CARLA to be running.
-- [ ] AC-5: Tests verify schemas stay valid and no command claims unsupported live/custom/closed-loop capabilities.
+- [x] AC-5: Tests verify schemas stay valid and no command claims unsupported live/custom/closed-loop capabilities.
 
 ### Agent Contract
 - Open: `src/driverx/scenarios/studio_product_cli.py`, `src/driverx/scenarios/studio_product_helpers.py`, `README.md`, `docs/MEMORY.md`
@@ -125,3 +125,7 @@ Low. Adds discovery surfaces without changing existing command behavior.
 - Schema validation output
 - Optional MCP smoke result
 - Planning review: `tickets/TASK-174/artifacts/review/task174-180-integration-plan-review.json`
+- Build evidence: `PYTHONPATH=src python3 -m unittest tests.test_oodrive_tool_manifest tests.test_oodrive_cli` passed as part of the focused integration batch.
+- Smoke artifacts: `artifacts/runs/task178-tools-smoke-final/tools_manifest.json`, `artifacts/runs/task178-artifacts-smoke/artifacts_index.json`
+- MCP wrapper intentionally deferred; the stable CLI/tool manifest is the accepted agent surface for this pass.
+- Build review: `tickets/TASK-174/artifacts/review/task174-180-impl-review.json`

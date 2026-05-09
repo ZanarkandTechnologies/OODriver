@@ -111,3 +111,23 @@ PYTHONPATH=src python3 -m oodrive score-closed-loop-video \
   --output-root "${TMP_ROOT}" \
   --run-id score \
   --metric-only
+
+PYTHONPATH=src python3 -m oodrive f2d-evaluate-model \
+  --routes tests/fixtures/fail2drive_routes \
+  --fail2drive-root third_party/fail2drive \
+  --output-root "${TMP_ROOT}" \
+  --run-id f2d-matrix \
+  --limit 2 \
+  --dry-run \
+  --reason \
+  --demo-video \
+  --metric-only
+
+PYTHONPATH=src python3 -m oodrive f2d-demo-video \
+  --evidence tests/fixtures/fail2drive_evidence/run_evidence.json \
+  --reasoning tests/fixtures/fail2drive_reasoning/f2d_reasoning.json \
+  --route tests/fixtures/fail2drive_routes/valid_roadblocked.xml \
+  --input-video tests/fixtures/fail2drive_evidence/source.mp4 \
+  --output-root "${TMP_ROOT}" \
+  --run-id f2d-demo \
+  --metric-only

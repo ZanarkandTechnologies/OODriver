@@ -437,7 +437,7 @@ def _resolve_command_executable(command: list[str]) -> list[str]:
         return command
     if shutil.which("python") is not None:
         return command
-    replacement = shutil.which("python3") or sys.executable
+    replacement = sys.executable or shutil.which("python3") or "python3"
     return [replacement, *command[1:]]
 
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -16,6 +17,7 @@ class Fail2DriveVideoSmokeConfig:
     host: str
     port: int
     fail2drive_root: Path
+    carla_root: Path | None
     route_path: Path
     agent_path: Path
     output_dir: Path
@@ -42,6 +44,7 @@ class Fail2DriveVideoSmokeConfig:
             host=config.host,
             port=config.port,
             fail2drive_root=config.fail2drive_root,
+            carla_root=config.carla_root,
             route_path=config.route_path,
             agent_path=config.agent_path,
             output_dir=output_dir if output_dir is not None else config.output_dir,
@@ -150,6 +153,7 @@ def plan_fail2drive_video_smoke(
         "SCENARIO_RUNNER_ROOT": str(root / "scenario_runner"),
         "TOWN": _route_town(route_path),
         "VIZ_PATH": str(rgb_folder),
+        "PYTHONPATH": _fail2drive_pythonpath(root, config.carla_root),
     }
     if config.live_visu:
         env["LIVE_VISU"] = "1"
@@ -219,6 +223,27 @@ def _route_town(route_path: Path) -> str:
     if route is None:
         return ""
     return str(route.attrib.get("town", ""))
+
+
+def _fail2drive_pythonpath(root: Path, carla_root: Path | None) -> str:
+    paths = [
+        root,
+        root / "leaderboard",
+        root / "scenario_runner",
+        root / "team_code",
+    ]
+    if carla_root is not None:
+        resolved_carla_root = carla_root.expanduser().resolve()
+        paths.extend(
+            [
+                resolved_carla_root / "PythonAPI" / "carla",
+                resolved_carla_root / "carla",
+            ]
+        )
+    existing = os.environ.get("PYTHONPATH")
+    if existing:
+        paths.extend(Path(item) for item in existing.split(os.pathsep) if item)
+    return os.pathsep.join(str(path) for path in paths)
 
 
 def _live_blockers(

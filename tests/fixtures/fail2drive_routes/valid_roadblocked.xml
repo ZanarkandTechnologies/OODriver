@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<routes>
+  <route id="oodrive-roadblocked-001" town="Town05">
+    <weathers>
+      <weather cloudiness="40" precipitation="15" sun_altitude_angle="35" />
+    </weathers>
+    <waypoints>
+      <position x="0.0" y="0.0" z="0.0" />
+      <position x="75.0" y="0.0" z="0.0" />
+    </waypoints>
+    <scenarios>
+      <scenario name="RoadBlocked_0" type="RoadBlocked">
+        <distance value="60" />
+        <wait value="15" />
+        <trigger_point x="35.0" y="0.0" z="0.0" yaw="0.0" />
+      </scenario>
+    </scenarios>
+  </route>
+</routes>

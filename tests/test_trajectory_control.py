@@ -20,6 +20,15 @@ def _trajectory(points: list[tuple[float, float]]) -> TrajectoryCandidate:
     )
 
 
+def _trajectory_with_yaw(points: list[tuple[float, float]], yaw_rad: float) -> TrajectoryCandidate:
+    return TrajectoryCandidate(
+        points_xy=points,
+        source="fixture",
+        score=0.0,
+        metadata={"target_yaw_rad": [yaw_rad for _ in range(20)]},
+    )
+
+
 class TrajectoryControlTest(unittest.TestCase):
     def test_straight_trajectory_has_near_zero_steer(self) -> None:
         trace = trajectory_to_control_trace(
@@ -36,14 +45,26 @@ class TrajectoryControlTest(unittest.TestCase):
         left = trajectory_to_control_trace(
             _trajectory([(float(i + 1), 1.0) for i in range(20)]),
             source_policy_id="left",
+            ego_pose=EgoPose(speed_mps=3.0),
         )
         right = trajectory_to_control_trace(
             _trajectory([(float(i + 1), -1.0) for i in range(20)]),
             source_policy_id="right",
+            ego_pose=EgoPose(speed_mps=3.0),
         )
 
         self.assertGreater(left.commands[0].steer, 0.0)
         self.assertLess(right.commands[0].steer, 0.0)
+
+    def test_pred_rot_yaw_hint_can_bias_steering(self) -> None:
+        trace = trajectory_to_control_trace(
+            _trajectory_with_yaw([(float(i + 1), 0.0) for i in range(20)], 0.4),
+            source_policy_id="alpamayo-live",
+            ego_pose=EgoPose(speed_mps=3.0),
+        )
+
+        self.assertGreater(trace.commands[0].steer, 0.0)
+        self.assertIn("pred_rot_yaw_hint=enabled", trace.safety_clamps)
 
     def test_stop_trajectory_brakes_after_lookahead(self) -> None:
         trace = trajectory_to_control_trace(
@@ -51,8 +72,8 @@ class TrajectoryControlTest(unittest.TestCase):
             source_policy_id="stop",
         )
 
-        self.assertEqual(trace.commands[3].brake, 0.5)
-        self.assertEqual(trace.commands[3].throttle, 0.0)
+        self.assertEqual(trace.commands[0].brake, 0.5)
+        self.assertEqual(trace.commands[0].throttle, 0.0)
 
     def test_speed_and_steer_clamps_are_reported(self) -> None:
         trace = trajectory_to_control_trace(
@@ -65,6 +86,27 @@ class TrajectoryControlTest(unittest.TestCase):
         self.assertLessEqual(max(command.target_speed_mps for command in trace.commands), 2.0)
         self.assertLessEqual(max(abs(command.steer) for command in trace.commands), 0.2)
 
+    def test_slow_alpamayo_path_brakes_when_current_speed_is_too_high(self) -> None:
+        trace = trajectory_to_control_trace(
+            _trajectory([(0.25 * float(i + 1), 0.0) for i in range(20)]),
+            source_policy_id="alpamayo-live",
+            ego_pose=EgoPose(speed_mps=6.0),
+        )
+
+        self.assertEqual(trace.commands[0].throttle, 0.0)
+        self.assertEqual(trace.commands[0].brake, 0.5)
+        self.assertIn("controller=simlingo_pid", trace.safety_clamps)
+
+    def test_geometric_controller_remains_available_for_contract_tests(self) -> None:
+        trace = trajectory_to_control_trace(
+            _trajectory([(float(i + 1), 0.0) for i in range(20)]),
+            source_policy_id="geometric",
+            config=TrajectoryControlConfig(controller="geometric"),
+        )
+
+        self.assertGreater(trace.commands[0].throttle, 0.0)
+        self.assertNotIn("controller=simlingo_pid", trace.safety_clamps)
+
     def test_points_behind_ego_brake_instead_of_steering(self) -> None:
         trace = trajectory_to_control_trace(
             _trajectory([(-float(i + 1), 0.0) for i in range(20)]),
@@ -74,7 +116,7 @@ class TrajectoryControlTest(unittest.TestCase):
         self.assertEqual(trace.commands[0].throttle, 0.0)
         self.assertEqual(trace.commands[0].brake, 0.5)
         self.assertEqual(trace.commands[0].steer, 0.0)
-        self.assertIn("target behind ego", trace.safety_clamps[0])
+        self.assertTrue(any("target behind ego" in clamp for clamp in trace.safety_clamps))
 
     def test_load_policy_decision_trajectory_accepts_live_bundle_shape(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -115,7 +157,7 @@ class TrajectoryControlTest(unittest.TestCase):
 
     def test_ego_frame_trajectory_ignores_world_pose(self) -> None:
         trace = trajectory_to_control_trace(
-            _trajectory([(1.0, 0.0) for _ in range(20)]),
+            _trajectory([(float(i + 1), 0.0) for i in range(20)]),
             source_policy_id="pose",
             ego_pose=EgoPose(x=100.0, y=100.0, yaw_deg=180.0),
         )

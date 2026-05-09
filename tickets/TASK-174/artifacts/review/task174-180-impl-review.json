@@ -1,0 +1,129 @@
+{
+  "work_type": ["backend", "integration", "evidence"],
+  "reviewed_at": "2026-05-09 06:58 +0800",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/scenarios/openscenario2.py",
+      "src/driverx/scenarios/scenario_runner_bridge.py",
+      "src/driverx/simulators/carla_custom_map.py",
+      "src/driverx/assets/carla_packaging.py",
+      "src/driverx/tools/oodrive_manifest.py",
+      "src/driverx/tools/artifact_index.py",
+      "src/driverx/evaluation/visual_fidelity_score.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "tests/test_openscenario2_export.py",
+      "tests/test_scenario_runner_bridge.py",
+      "tests/test_carla_custom_map_import.py",
+      "tests/test_custom_asset_packaging.py",
+      "tests/test_oodrive_tool_manifest.py",
+      "tests/test_visual_fidelity_score.py"
+    ],
+    "related_files": [
+      "tickets/TASK-174/ticket.md",
+      "tickets/TASK-175/ticket.md",
+      "tickets/TASK-176/ticket.md",
+      "tickets/TASK-177/ticket.md",
+      "tickets/TASK-178/ticket.md",
+      "tickets/TASK-179/ticket.md",
+      "tickets/TASK-180/ticket.md",
+      "docs/HISTORY.md",
+      "docs/MEMORY.md",
+      "blockers.txt",
+      "/Users/kenjipcx/coding-harness/Codexter/skills/oodrive-carla-scenario/SKILL.md"
+    ],
+    "invariants_checked": ["MEM-0050", "MEM-0045", "MEM-0047", "MEM-0048"],
+    "docs_checked": [
+      "skills/review/references/code-quality.md",
+      "skills/review/references/integration-readiness.md",
+      "skills/review/references/evidence-quality.md",
+      "skills/review/references/desloppify.md"
+    ]
+  },
+  "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality"],
+  "overall_score": 4.0,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": true,
+  "rerun_reason": "Local CLI/tool/score gates pass; live ScenarioRunner, CARLA custom map import, and custom asset spawn proof remain external-runtime blockers before closing the whole batch as production-live.",
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "medium",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "Live ScenarioRunner and custom CARLA import/spawn proof are intentionally blocked by missing external runtimes, so tickets should stay in building until Kasm/runtime evidence is attached.",
+      "file_refs": ["blockers.txt", "tickets/TASK-174/ticket.md", "tickets/TASK-176/ticket.md", "tickets/TASK-177/ticket.md"],
+      "evidence": "Commands and tests emit deterministic package/probe/blocker artifacts, but no installed ScenarioRunner checkout or packaged custom CARLA map/asset is available locally.",
+      "next_action": "Run the package/probe commands on the Kasm CARLA host with ScenarioRunner/custom package roots and attach live result artifacts."
+    },
+    {
+      "severity": "low",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "The repo guardrail references `tickets/scripts/check_ticket_metadata.py`, but that checker is absent.",
+      "file_refs": ["blockers.txt"],
+      "evidence": "`python3 tickets/scripts/check_ticket_metadata.py` failed with file-not-found; focused tests, compileall, autoresearch checks, and pre-push passed.",
+      "next_action": "Restore or replace the metadata checker in a follow-up cleanup ticket."
+    }
+  ],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 3.8,
+        "readability": 4.0,
+        "boundary-clarity": 4.2,
+        "error-handling": 4.1,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Continue extracting CLI registration modules if `studio_product_cli.py` grows further."
+    },
+    "integration-readiness": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 3.6,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.0
+      },
+      "findings": ["Live external runtime proof remains required before archival closeout."],
+      "next_action": "Keep tickets in building and attach Kasm ScenarioRunner/CARLA proof when available."
+    },
+    "evidence-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.0,
+        "traceability": 4.0,
+        "consistency": 4.0,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.0
+      },
+      "findings": ["External-runtime blockers are logged explicitly instead of hidden."],
+      "next_action": "Promote live artifacts into ticket evidence after running on Kasm."
+    }
+  },
+  "blocking_findings": [],
+  "verification": {
+    "focused_unittest": "PYTHONPATH=src python3 -m unittest tests.test_visual_fidelity_score tests.test_oodrive_tool_manifest tests.test_custom_asset_packaging tests.test_carla_custom_map_import tests.test_scenario_runner_bridge tests.test_openscenario2_export tests.test_oodrive_cli -> 30 tests OK",
+    "compileall": "python3 -m compileall -q src tests -> passed",
+    "pre_push": "bash scripts/pre_push_check.sh -> 500 tests OK, 6 skipped",
+    "autoresearch_checks": "./autoresearch.checks.sh -> 13 tests OK",
+    "autoresearch_metric": "./autoresearch.sh -> METRIC closed_loop_video_score=99.0000",
+    "visual_metric": "oodrive score-visual-fidelity -> METRIC visual_fidelity_score=90.0000"
+  },
+  "next_action": "Proceed to live Kasm proof for ScenarioRunner/OpenSCENARIO execution and custom asset/map probes, or use the new skill/tool manifest immediately for agent-authored scenario demos."
+}

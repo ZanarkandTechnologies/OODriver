@@ -6,7 +6,7 @@ import json
 import math
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, Literal, Sequence
 
 from driverx.core.types import TrajectoryCandidate
 
@@ -16,10 +16,12 @@ class EgoPose:
     x: float = 0.0
     y: float = 0.0
     yaw_deg: float = 0.0
+    speed_mps: float = 0.0
 
 
 @dataclass(frozen=True)
 class TrajectoryControlConfig:
+    controller: Literal["simlingo_pid", "geometric"] = "simlingo_pid"
     trajectory_frame: str = "ego"
     max_speed_mps: float = 6.0
     max_steer: float = 0.35
@@ -29,6 +31,22 @@ class TrajectoryControlConfig:
     lookahead_points: int = 3
     dt_s: float = 0.25
     stop_distance_m: float = 0.4
+    current_speed_mps: float | None = None
+    brake_speed_mps: float = 0.4
+    brake_ratio: float = 1.1
+    clip_delta_mps: float = 1.0
+    turn_kp: float = 1.25
+    turn_ki: float = 0.75
+    turn_kd: float = 0.3
+    turn_window: int = 20
+    speed_kp: float = 1.75
+    speed_ki: float = 1.0
+    speed_kd: float = 2.0
+    speed_window: int = 20
+    aim_distance_fast_m: float = 3.0
+    aim_distance_slow_m: float = 2.25
+    aim_distance_threshold_mps: float = 5.5
+    rotation_heading_weight: float = 0.2
 
 
 @dataclass(frozen=True)
@@ -114,13 +132,38 @@ def trajectory_to_control_trace(
         raise ValueError("max_speed_mps and dt_s must be positive.")
     if cfg.trajectory_frame not in {"ego", "world"}:
         raise ValueError("trajectory_frame must be either 'ego' or 'world'.")
+    if cfg.controller not in {"simlingo_pid", "geometric"}:
+        raise ValueError("controller must be either 'simlingo_pid' or 'geometric'.")
+    if cfg.controller == "simlingo_pid":
+        return _trajectory_to_control_trace_simlingo_pid(
+            trajectory,
+            source_policy_id=source_policy_id,
+            ego_pose=pose,
+            config=cfg,
+        )
+    return _trajectory_to_control_trace_geometric(
+        trajectory,
+        source_policy_id=source_policy_id,
+        ego_pose=pose,
+        config=cfg,
+    )
+
+
+def _trajectory_to_control_trace_geometric(
+    trajectory: TrajectoryCandidate,
+    *,
+    source_policy_id: str,
+    ego_pose: EgoPose,
+    config: TrajectoryControlConfig,
+) -> ControlTrace:
+    cfg = config
     commands: list[ControlCommand] = []
     clamps: list[str] = []
     previous = (0.0, 0.0)
-    yaw = math.radians(pose.yaw_deg)
+    yaw = math.radians(ego_pose.yaw_deg)
     for tick, point in enumerate(trajectory.points_xy):
         if cfg.trajectory_frame == "world":
-            local_x, local_y = _world_to_ego_relative_point(point, pose, yaw)
+            local_x, local_y = _world_to_ego_relative_point(point, ego_pose, yaw)
         else:
             local_x, local_y = (float(point[0]), float(point[1]))
         target_distance = math.hypot(local_x, local_y)
@@ -168,6 +211,121 @@ def trajectory_to_control_trace(
     )
 
 
+def _trajectory_to_control_trace_simlingo_pid(
+    trajectory: TrajectoryCandidate,
+    *,
+    source_policy_id: str,
+    ego_pose: EgoPose,
+    config: TrajectoryControlConfig,
+) -> ControlTrace:
+    cfg = config
+    local_points = [_trajectory_point_to_ego(point, ego_pose, cfg) for point in trajectory.points_xy]
+    turn_controller = _PidWindow(cfg.turn_kp, cfg.turn_ki, cfg.turn_kd, cfg.turn_window)
+    speed_controller = _PidWindow(cfg.speed_kp, cfg.speed_ki, cfg.speed_kd, cfg.speed_window)
+    current_speed = max(0.0, float(cfg.current_speed_mps if cfg.current_speed_mps is not None else ego_pose.speed_mps))
+    target_yaw = _target_yaw_rad(trajectory)
+    commands: list[ControlCommand] = []
+    clamps: list[str] = ["controller=simlingo_pid"]
+    if target_yaw:
+        clamps.append("pred_rot_yaw_hint=enabled")
+    for tick, point in enumerate(local_points):
+        remaining = local_points[tick:] or [point]
+        desired_speed = min(_simlingo_desired_speed(remaining, cfg.dt_s), cfg.max_speed_mps)
+        target_is_behind = point[0] < 0.0
+        brake = target_is_behind or desired_speed < cfg.brake_speed_mps
+        if desired_speed > 1e-5 and current_speed / desired_speed > cfg.brake_ratio:
+            brake = True
+        if target_is_behind:
+            clamps.append(f"tick {tick}: target behind ego, braking instead of steering")
+        delta = min(max(desired_speed - current_speed, 0.0), cfg.clip_delta_mps)
+        throttle = min(max(speed_controller.step(delta), 0.0), cfg.max_throttle)
+        if desired_speed > 0.05 and throttle > 0.0:
+            throttle = max(throttle, min(cfg.min_throttle_when_moving, cfg.max_throttle))
+        if brake:
+            throttle = 0.0
+        aim = _simlingo_aim_point(remaining, desired_speed, cfg)
+        angle = math.degrees(math.atan2(aim[1], max(aim[0], 1e-6))) / 90.0
+        if target_yaw and tick < len(target_yaw):
+            yaw_angle = _clamp(target_yaw[tick] / (math.pi / 2.0), -1.0, 1.0)
+            weight = _clamp(cfg.rotation_heading_weight, 0.0, 1.0)
+            angle = (1.0 - weight) * angle + weight * yaw_angle
+        if current_speed < 0.01 or brake:
+            angle = 0.0
+        raw_steer = turn_controller.step(angle)
+        steer = _clamp(raw_steer, -cfg.max_steer, cfg.max_steer)
+        if steer != raw_steer:
+            clamps.append(f"tick {tick}: steer clamped from {raw_steer:.3f}")
+        command_brake = cfg.max_brake if brake else 0.0
+        commands.append(
+            ControlCommand(
+                tick=tick,
+                target_x=round(point[0], 4),
+                target_y=round(point[1], 4),
+                target_speed_mps=round(desired_speed, 4),
+                steer=round(steer, 4),
+                throttle=round(throttle, 4),
+                brake=round(command_brake, 4),
+            )
+        )
+    return ControlTrace(
+        source_policy_id=source_policy_id,
+        closed_loop_control="cached_replay",
+        trajectory_frame=cfg.trajectory_frame,
+        commands=tuple(commands),
+        safety_clamps=tuple(_dedupe(clamps)),
+    )
+
+
+def _trajectory_point_to_ego(
+    point: tuple[float, float],
+    pose: EgoPose,
+    config: TrajectoryControlConfig,
+) -> tuple[float, float]:
+    if config.trajectory_frame == "world":
+        return _world_to_ego_relative_point(point, pose, math.radians(pose.yaw_deg))
+    return (float(point[0]), float(point[1]))
+
+
+def _simlingo_desired_speed(points: list[tuple[float, float]], dt_s: float) -> float:
+    one_second = max(2, int(round(1.0 / dt_s)))
+    half_second = max(1, one_second // 2)
+    first = points[min(half_second - 1, len(points) - 1)]
+    second = points[min(one_second - 1, len(points) - 1)]
+    return math.dist(first, second) * 2.0
+
+
+def _simlingo_aim_point(
+    points: list[tuple[float, float]],
+    desired_speed_mps: float,
+    config: TrajectoryControlConfig,
+) -> tuple[float, float]:
+    aim_distance = (
+        config.aim_distance_slow_m
+        if desired_speed_mps < config.aim_distance_threshold_mps
+        else config.aim_distance_fast_m
+    )
+    for point in points:
+        if math.hypot(point[0], point[1]) >= aim_distance:
+            return point
+    return points[-1]
+
+
+class _PidWindow:
+    def __init__(self, k_p: float, k_i: float, k_d: float, window_size: int) -> None:
+        self.k_p = k_p
+        self.k_i = k_i
+        self.k_d = k_d
+        self.window_size = max(1, int(window_size))
+        self._window: list[float] = [0.0 for _ in range(self.window_size)]
+
+    def step(self, error: float) -> float:
+        self._window.append(error)
+        self._window = self._window[-self.window_size :]
+        integral = sum(self._window) / len(self._window)
+        derivative = self._window[-1] - self._window[-2] if len(self._window) >= 2 else 0.0
+        return self.k_p * error + self.k_i * integral + self.k_d * derivative
+
+
 def _world_to_ego_relative_point(
     point: tuple[float, float],
     pose: EgoPose,
@@ -189,8 +347,29 @@ def _point2(value: Sequence[float | int]) -> tuple[float, float]:
     return (float(value[0]), float(value[1]))
 
 
+def _target_yaw_rad(trajectory: TrajectoryCandidate) -> list[float]:
+    values = trajectory.metadata.get("target_yaw_rad")
+    if not isinstance(values, list):
+        return []
+    result: list[float] = []
+    for value in values:
+        if isinstance(value, (int, float)):
+            result.append(float(value))
+    return result
+
+
 def _clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
+
+
+def _dedupe(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for value in values:
+        if value not in seen:
+            out.append(value)
+            seen.add(value)
+    return out
 
 
 __all__ = [

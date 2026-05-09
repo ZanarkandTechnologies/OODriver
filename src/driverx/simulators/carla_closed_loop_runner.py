@@ -620,10 +620,17 @@ def _set_attribute(blueprint: object, key: str, value: str) -> None:
 def _ego_pose(actor: object) -> EgoPose:
     try:
         transform = actor.get_transform()
+        speed_mps = 0.0
+        try:
+            velocity = actor.get_velocity()
+            speed_mps = float((velocity.x**2 + velocity.y**2 + velocity.z**2) ** 0.5)
+        except Exception:
+            speed_mps = 0.0
         return EgoPose(
             x=float(transform.location.x),
             y=float(transform.location.y),
             yaw_deg=float(transform.rotation.yaw),
+            speed_mps=speed_mps,
         )
     except Exception:
         return EgoPose()

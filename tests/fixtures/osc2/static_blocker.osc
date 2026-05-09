@@ -1,0 +1,14 @@
+scenario static_blocker_stop:
+  ego: actor
+  blocker: actor
+
+  do parallel:
+    ego.drive() with:
+      speed(25kph)
+      position(lane: 1)
+
+    serial:
+      wait elapsed(2s)
+      blocker.drive() with:
+        position(20m, ahead_of: ego)
+        speed(0kph)

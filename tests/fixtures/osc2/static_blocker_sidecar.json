@@ -1,0 +1,9 @@
+{
+  "schema_version": "oodrive.osc2_sidecar.v1",
+  "source_prompt": "wet roadwork with a static blocker in ego lane",
+  "claim_boundaries": [
+    "agent_authored_scenario=true",
+    "closed_loop_vla_control=false"
+  ],
+  "expected_media": ["front_rgb_video", "entity_tracks"]
+}

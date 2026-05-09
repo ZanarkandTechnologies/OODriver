@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<routes>
+  <route id="oodrive-dynamic-crossing-001" town="Town03">
+    <waypoints>
+      <position x="10.0" y="2.0" z="0.0" />
+      <position x="95.0" y="2.0" z="0.0" />
+    </waypoints>
+    <scenarios>
+      <scenario name="DynamicObjectCrossing_0" type="DynamicObjectCrossing">
+        <blocker_model value="static.prop.vendingmachine" />
+        <crossing_angle value="0" />
+        <direction value="right" />
+        <distance value="12" />
+        <walker value="walker.pedestrian.*" />
+        <trigger_point x="45.0" y="2.0" z="0.0" yaw="0.0" />
+      </scenario>
+    </scenarios>
+  </route>
+</routes>

@@ -1,7 +1,7 @@
 # TASK-176: Custom CARLA Map Import Readiness Path
 
 ## Status
-- state: review
+- state: building
 - owner: Codex
 - assignee: generalPurpose
 - dependencies: TASK-165, TASK-166
@@ -93,11 +93,11 @@ Low to moderate. Adds map-import commands without changing installed-town compos
 - Live probe may load maps slowly or fail; probe must restore/record state and not hide failures.
 
 ### Acceptance Criteria
-- [ ] AC-1: `oodrive prepare-map-import` writes a map import manifest from `.fbx` and `.xodr` inputs.
-- [ ] AC-2: Manifest records geometry path, OpenDRIVE path, map name, package/source-build mode, pedestrian navigation requirement, expected CARLA install location, and claim labels.
-- [ ] AC-3: `oodrive validate-map-import` checks file presence, extensions, OpenDRIVE readability where possible, map naming, and import-mode prerequisites.
-- [ ] AC-4: `oodrive carla-map-probe --map <custom-map>` detects whether the map is installed/loadable in CARLA and writes proof or blocker output.
-- [ ] AC-5: Tests prevent `custom_unreal_map_import=true` unless a manifest plus installed/loadable map proof exists.
+- [x] AC-1: `oodrive prepare-map-import` writes a map import manifest from `.fbx` and `.xodr` inputs.
+- [x] AC-2: Manifest records geometry path, OpenDRIVE path, map name, package/source-build mode, pedestrian navigation requirement, expected CARLA install location, and claim labels.
+- [x] AC-3: `oodrive validate-map-import` checks file presence, extensions, OpenDRIVE readability where possible, map naming, and import-mode prerequisites.
+- [x] AC-4: `oodrive carla-map-probe --map <custom-map>` detects whether the map is installed/loadable in CARLA and writes proof or blocker output.
+- [x] AC-5: Tests prevent `custom_unreal_map_import=true` unless a manifest plus installed/loadable map proof exists.
 
 ### Agent Contract
 - Open: `src/driverx/simulators/carla_catalog.py`, `src/driverx/simulators/carla_control.py`, `src/driverx/scenarios/studio_product_carla_composer_cli.py`, `src/driverx/scenarios/studio_product_carla_composer_runtime.py`
@@ -123,3 +123,7 @@ Low to moderate. Adds map-import commands without changing installed-town compos
 - Import command script
 - Installed/loadable map proof or blocker
 - Planning review: `tickets/TASK-174/artifacts/review/task174-180-integration-plan-review.json`
+- Build evidence: `PYTHONPATH=src python3 -m unittest tests.test_carla_custom_map_import tests.test_oodrive_cli` passed as part of the focused integration batch.
+- Smoke artifact: `artifacts/runs/task176-map-smoke/custom_map_import_manifest.json`
+- Blocker log: root `blockers.txt` records that real custom CARLA map import still requires external FBX/XODR plus Unreal/CARLA package/source build tooling.
+- Build review: `tickets/TASK-174/artifacts/review/task174-180-impl-review.json`

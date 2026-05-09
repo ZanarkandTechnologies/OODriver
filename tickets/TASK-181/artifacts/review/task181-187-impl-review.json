@@ -1,0 +1,119 @@
+{
+  "work_type": ["backend", "cli", "integration"],
+  "review_id": "task181-187-impl-review",
+  "created_at": "2026-05-10 00:49 +0800",
+  "scope": "TASK-181 through TASK-187 Fail2Drive agent-native CLI implementation batch",
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/fail2drive/catalog.py",
+      "src/driverx/fail2drive/route_validation.py",
+      "src/driverx/fail2drive/route_authoring.py",
+      "src/driverx/fail2drive/run_wrapper.py",
+      "src/driverx/fail2drive/reasoning.py",
+      "src/driverx/fail2drive/demo_video.py",
+      "src/driverx/fail2drive/model_reaction.py",
+      "src/driverx/scenarios/studio_product_fail2drive_cli.py",
+      "src/driverx/scenarios/studio_product_cli.py",
+      "src/driverx/tools/oodrive_manifest.py",
+      "tests/test_fail2drive_catalog.py",
+      "tests/test_fail2drive_route_validation.py",
+      "tests/test_fail2drive_route_authoring.py",
+      "tests/test_fail2drive_reasoning.py",
+      "tests/test_fail2drive_demo_video.py",
+      "tests/test_fail2drive_model_reaction.py",
+      "tests/test_oodrive_cli.py",
+      "README.md",
+      "AGENTS.md",
+      "docs/MEMORY.md",
+      "docs/HISTORY.md",
+      "autoresearch.jsonl"
+    ],
+    "related_files": [
+      "third_party/fail2drive/toolbox/scripts/config.py",
+      "third_party/fail2drive/toolbox/scripts/carla_route.py",
+      "third_party/fail2drive/toolbox/README.md",
+      "src/driverx/simulators/fail2drive_video.py",
+      "src/driverx/simulators/fail2drive_route_runner.py",
+      "src/driverx/pipeline/route_evidence.py"
+    ],
+    "invariants_checked": ["MEM-0034", "MEM-0038", "MEM-0052", "MEM-0053"],
+    "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality", "spec-contract"]
+  },
+  "overall_score": 4.1,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "minor",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "The Fail2Drive live route execution/video path is intentionally not proved locally; `f2d-run-route` records blockers until live CARLA and upstream video/RGB outputs exist.",
+      "file_refs": ["src/driverx/fail2drive/run_wrapper.py", "tickets/TASK-184/ticket.md"],
+      "evidence": "Smoke command emitted `METRIC f2d_route_run_blockers=6`; pre-push still passed.",
+      "next_action": "Use Kasm CARLA to replace dry-run evidence with live route result/RGB/video artifacts."
+    }
+  ],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity": 4.2,
+        "readability": 4.0,
+        "boundaries": 4.2,
+        "error_handling": 3.8,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Keep future Fail2Drive logic inside `driverx.fail2drive` modules rather than expanding the already-large product CLI file."
+    },
+    "integration-readiness": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "upstream_reuse": 4.5,
+        "claim_honesty": 4.5,
+        "runtime_blocker_visibility": 4.0,
+        "agent_cli_ergonomics": 4.0
+      },
+      "findings": ["Live Fail2Drive/CARLA runtime remains a next-proof task, not a hidden pass."],
+      "next_action": "Run `f2d-run-route --live` on Kasm with a selected route and feed its evidence into `f2d-reason` and `f2d-demo-video`."
+    },
+    "evidence-quality": {
+      "score": 4.1,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "focused_tests": 4.2,
+        "cli_smoke_metrics": 4.2,
+        "full_gate": 4.5,
+        "live_media_proof": 3.5
+      },
+      "findings": [],
+      "next_action": "Promote fixture video proof only after replacing it with live Fail2Drive RGB/video proof."
+    }
+  },
+  "blocking_findings": [],
+  "proof": {
+    "focused_tests": "PYTHONPATH=src python3 -m unittest tests.test_fail2drive_catalog tests.test_fail2drive_route_validation tests.test_fail2drive_route_authoring tests.test_fail2drive_reasoning tests.test_fail2drive_demo_video tests.test_fail2drive_model_reaction tests.test_oodrive_cli tests.test_oodrive_tool_manifest -> 20 tests OK",
+    "autoresearch": "./autoresearch.sh -> METRIC closed_loop_video_score=99.0000, METRIC f2d_model_reaction_coverage=45.5, METRIC f2d_demo_readability_score=100.0; ./autoresearch.checks.sh -> 21 tests OK",
+    "pre_push": "bash scripts/pre_push_check.sh -> 508 tests OK, 6 skipped",
+    "smoke_metrics": [
+      "METRIC f2d_catalog_scenario_count=56",
+      "METRIC f2d_route_validation_errors=0",
+      "METRIC f2d_route_write_validation_errors=0",
+      "METRIC f2d_reasoning_event_count=3",
+      "METRIC f2d_demo_readability_score=100.0",
+      "METRIC f2d_model_reaction_coverage=45.5"
+    ]
+  },
+  "next_action": "Use the new CLI on live Kasm CARLA Fail2Drive routes to produce real run/video artifacts, then score the judge-facing reel."
+}

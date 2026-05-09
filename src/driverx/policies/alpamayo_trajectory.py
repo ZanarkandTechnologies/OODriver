@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -40,6 +41,30 @@ def select_alpamayo_xyz_sample(
             f"Alpamayo trajectory has {len(points)} points; need at least {_minimum_native_steps()} for a 5s 4Hz chunk."
         )
     return points
+
+
+def select_alpamayo_rot_sample(
+    pred_rot: Any,
+    *,
+    batch_index: int = 0,
+    set_index: int = 0,
+    sample_index: int = 0,
+) -> list[float]:
+    """Select one native Alpamayo rotation sample and return ego-frame yaw radians."""
+
+    data = _unwrap_tensorish(pred_rot)
+    rotations = _select_rotation_with_flexible_rank(
+        data,
+        batch_index=batch_index,
+        set_index=set_index,
+        sample_index=sample_index,
+    )
+    yaw_rad = [_rotation_to_yaw(item) for item in list(rotations)]
+    if len(yaw_rad) < _minimum_native_steps():
+        raise ValueError(
+            f"Alpamayo rotation trajectory has {len(yaw_rad)} points; need at least {_minimum_native_steps()} for a 5s 4Hz chunk."
+        )
+    return yaw_rad
 
 
 def resample_alpamayo_xy(
@@ -81,9 +106,40 @@ def resample_alpamayo_xy(
     return resampled
 
 
+def resample_alpamayo_yaw(
+    yaw_rad: Sequence[Number],
+    *,
+    source_hz: float = ALPAMAYO_NATIVE_HZ,
+    target_hz: float = DRIVERX_TRAJECTORY_HZ,
+    target_steps: int = DRIVERX_TRAJECTORY_STEPS,
+) -> list[float]:
+    """Linearly resample native yaw predictions into DriverX control ticks."""
+
+    if source_hz <= 0 or target_hz <= 0:
+        raise ValueError("source_hz and target_hz must be positive.")
+    yaw = [float(value) for value in yaw_rad]
+    minimum_steps = int(target_steps * source_hz / target_hz)
+    if len(yaw) < minimum_steps:
+        raise ValueError(
+            f"Alpamayo rotation trajectory has {len(yaw)} points; need at least {minimum_steps} for a {target_steps / target_hz:.1f}s {target_hz:g}Hz chunk."
+        )
+    resampled: list[float] = []
+    unwrapped = _unwrap_angles(yaw)
+    for step in range(target_steps):
+        target_t = (step + 1) / target_hz
+        source_position = target_t * source_hz - 1.0
+        left_index = max(0, int(source_position))
+        right_index = min(left_index + 1, len(unwrapped) - 1)
+        ratio = source_position - left_index
+        value = unwrapped[left_index] + (unwrapped[right_index] - unwrapped[left_index]) * ratio
+        resampled.append(round(_wrap_angle(value), 6))
+    return resampled
+
+
 def alpamayo_prediction_to_trajectory(
     pred_xyz: Any,
     *,
+    pred_rot: Any | None = None,
     batch_index: int = 0,
     set_index: int = 0,
     sample_index: int = 0,
@@ -100,6 +156,16 @@ def alpamayo_prediction_to_trajectory(
         sample_index=sample_index,
     )
     xy = resample_alpamayo_xy(native)
+    yaw_rad: list[float] | None = None
+    if pred_rot is not None:
+        yaw_rad = resample_alpamayo_yaw(
+            select_alpamayo_rot_sample(
+                pred_rot,
+                batch_index=batch_index,
+                set_index=set_index,
+                sample_index=sample_index,
+            )
+        )
     return TrajectoryCandidate(
         points_xy=xy,
         source=source,
@@ -113,6 +179,7 @@ def alpamayo_prediction_to_trajectory(
             "set_index": set_index,
             "sample_index": sample_index,
             "reasoning": reasoning,
+            **({"target_yaw_rad": yaw_rad} if yaw_rad is not None else {}),
         },
     )
 
@@ -122,9 +189,16 @@ def load_prediction_json(path: Path) -> Any:
 
     payload = json.loads(path.read_text(encoding="utf-8"))
     if isinstance(payload, dict):
+        pred_xyz = None
         for key in ("pred_xyz", "native_pred_xyz", "trajectory"):
             if key in payload:
-                return payload[key]
+                pred_xyz = payload[key]
+                break
+        if pred_xyz is not None:
+            pred_rot = payload.get("pred_rot") or payload.get("native_pred_rot")
+            if pred_rot is not None:
+                return {"pred_xyz": pred_xyz, "pred_rot": pred_rot}
+            return pred_xyz
     return payload
 
 
@@ -140,8 +214,14 @@ def write_alpamayo_trajectory_conversion(
 
     run_dir.mkdir(parents=True, exist_ok=True)
     prediction = load_prediction_json(prediction_json)
+    pred_xyz = prediction
+    pred_rot = None
+    if isinstance(prediction, dict) and "pred_xyz" in prediction:
+        pred_xyz = prediction["pred_xyz"]
+        pred_rot = prediction.get("pred_rot")
     trajectory = alpamayo_prediction_to_trajectory(
-        prediction,
+        pred_xyz,
+        pred_rot=pred_rot,
         batch_index=batch_index,
         set_index=set_index,
         sample_index=sample_index,
@@ -201,6 +281,27 @@ def _select_with_flexible_rank(
     )
 
 
+def _select_rotation_with_flexible_rank(
+    data: Any,
+    *,
+    batch_index: int,
+    set_index: int,
+    sample_index: int,
+) -> Any:
+    rank = _nested_rank(data)
+    if rank == 6:
+        return data[batch_index][set_index][sample_index]
+    if rank == 5:
+        return data[set_index][sample_index]
+    if rank == 4:
+        return data[sample_index]
+    if rank in {1, 3}:
+        return data
+    raise ValueError(
+        "Expected Alpamayo pred_rot shaped as [B][sets][samples][T][3][3], [sets][samples][T][3][3], [samples][T][3][3], [T][3][3], or [T]."
+    )
+
+
 def _nested_rank(value: Any) -> int:
     rank = 0
     current = value
@@ -214,6 +315,40 @@ def _coerce_point3(value: Sequence[Number]) -> Point3:
     if len(value) < 3:
         raise ValueError("Alpamayo xyz point must contain at least three numeric values.")
     return (float(value[0]), float(value[1]), float(value[2]))
+
+
+def _rotation_to_yaw(value: Any) -> float:
+    if isinstance(value, (int, float)):
+        return float(value)
+    if not isinstance(value, Sequence) or len(value) < 2:
+        raise ValueError("Alpamayo rotation must be a 3x3 matrix or yaw scalar.")
+    first = value[0]
+    if isinstance(first, (int, float)):
+        return float(first)
+    row0 = list(value[0])
+    row1 = list(value[1])
+    if len(row0) < 1 or len(row1) < 1:
+        raise ValueError("Alpamayo rotation matrix rows must contain values.")
+    return float(math.atan2(float(row1[0]), float(row0[0])))
+
+
+def _unwrap_angles(values: Sequence[float]) -> list[float]:
+    if not values:
+        return []
+    result = [float(values[0])]
+    for value in values[1:]:
+        current = float(value)
+        previous = result[-1]
+        while current - previous > math.pi:
+            current -= 2.0 * math.pi
+        while current - previous < -math.pi:
+            current += 2.0 * math.pi
+        result.append(current)
+    return result
+
+
+def _wrap_angle(value: float) -> float:
+    return (float(value) + math.pi) % (2.0 * math.pi) - math.pi
 
 
 def _markdown(payload: dict[str, Any]) -> str:
@@ -247,6 +382,8 @@ __all__ = [
     "alpamayo_prediction_to_trajectory",
     "load_prediction_json",
     "resample_alpamayo_xy",
+    "resample_alpamayo_yaw",
+    "select_alpamayo_rot_sample",
     "select_alpamayo_xyz_sample",
     "write_alpamayo_trajectory_conversion",
 ]

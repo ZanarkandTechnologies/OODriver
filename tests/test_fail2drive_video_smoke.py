@@ -37,7 +37,7 @@ def _carla_config(root: Path, output_dir: Path) -> CarlaRunConfig:
         host="host.docker.internal",
         port=2000,
         timeout_s=0.25,
-        carla_root=None,
+        carla_root=root.parent / "carla",
         fail2drive_root=root,
         route_path=Path("fail2drive_split") / ROUTE_NAME,
         agent_path=Path("team_code/visu_agent.py"),
@@ -68,6 +68,9 @@ class Fail2DriveVideoSmokeTest(unittest.TestCase):
         self.assertEqual(plan.env["REPETITION"], "0")
         self.assertEqual(plan.env["SAVE_PATH"], str((output_dir / "visualizations").resolve()))
         self.assertEqual(plan.env["SCENARIO_RUNNER_ROOT"], str((root / "scenario_runner").resolve()))
+        self.assertIn(str(root.resolve() / "scenario_runner"), plan.env["PYTHONPATH"])
+        self.assertIn(str(root.resolve() / "leaderboard"), plan.env["PYTHONPATH"])
+        self.assertIn(str((root.parent / "carla" / "PythonAPI" / "carla").resolve()), plan.env["PYTHONPATH"])
         self.assertEqual(plan.env["TOWN"], "Town10HD_Opt")
         self.assertEqual(
             plan.env["VIZ_PATH"],
