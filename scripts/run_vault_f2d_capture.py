@@ -40,7 +40,7 @@ def _run_case(repo: Path, case: dict[str, str]) -> dict[str, object]:
     run_dir.mkdir(parents=True, exist_ok=True)
     root = Path("/workspace/fail2drive")
     route = Path(case["route_path"])
-    agent = repo / "artifacts" / "agents" / "driverx_viz_basic_agent.py"
+    agent = repo / "src" / "driverx" / "fail2drive" / "agents" / "oodrive_capture_agent.py"
     config = Fail2DriveVideoSmokeConfig.from_carla_config(
         CarlaRunConfig(
             host="127.0.0.1",
@@ -82,6 +82,10 @@ def _run_case(repo: Path, case: dict[str, str]) -> dict[str, object]:
     )
     rgb_folder = Path(plan_summary["expected_outputs"]["rgb_folder"])
     snapshots = sorted(str(path) for path in rgb_folder.glob("*.jpg"))[:6]
+    route_payload = json.loads(Path(run_summary["json_path"]).read_text(encoding="utf-8"))
+    frame_watch = dict(route_payload.get("frame_watch") or {})
+    video_assembly = dict(route_payload.get("video_assembly") or {})
+    video_plan = dict(video_assembly.get("plan") or {})
     return {
         "id": case["id"],
         "scenario_type": case["scenario_type"],
@@ -91,7 +95,10 @@ def _run_case(repo: Path, case: dict[str, str]) -> dict[str, object]:
         "evidence_path": evidence["json_path"],
         "status": run_summary["status"],
         "blockers": run_summary.get("route_blockers", []),
-        "video_path": plan_summary["expected_outputs"].get("video"),
+        "video_status": video_assembly.get("status"),
+        "video_path": video_plan.get("output_video") or plan_summary["expected_outputs"].get("video"),
+        "frame_count": frame_watch.get("frame_count"),
+        "frame_watch_ready": frame_watch.get("ready"),
         "rgb_folder": str(rgb_folder),
         "snapshots": snapshots,
     }

@@ -138,6 +138,10 @@ The product can author planned scenarios, but winning evidence needs repeatable 
 ### Artifact Links
 - Planning review: `tickets/TASK-181/artifacts/review/task181-187-plan-review.json`
 - Implementation review: `tickets/TASK-181/artifacts/review/task181-187-impl-review.json`
+- Evaluator capture fix review: `tickets/TASK-184/artifacts/review/task184-f2d-evaluator-capture-fix-review.json`
+- Live RunPod evaluator MP4: `artifacts/runs/vault-f2d-scenarios/fail2drive-live-proof/vault_static_roadblock_fail2drive.mp4`
+- Live RunPod evaluator first frame: `artifacts/runs/vault-f2d-scenarios/fail2drive-live-proof/vault_static_roadblock_frame00000.jpg`
+- Live RunPod route run JSON: `artifacts/runs/vault-f2d-scenarios/fail2drive-live-proof/fail2drive_route_run.json`
 
 ### User Evidence
 - Supporting evidence:
@@ -152,12 +156,13 @@ The product can author planned scenarios, but winning evidence needs repeatable 
 ### Build Notes
 - Implemented `driverx.fail2drive.run_wrapper` and `oodrive f2d-run-route`.
 - Smoke metric: `METRIC f2d_route_run_blockers=6` on local dry-run because no live Fail2Drive video helper/RGB/result artifacts exist locally; route validation and evaluator plan are produced.
+- 2026-05-10 hardening: replaced the display-only upstream `visu_agent.py` default with the OODrive capture agent for video evidence, added `_Opt` speed-limit alias preflight for optimized CARLA towns, and proved live RunPod Fail2Drive evaluator RGB capture plus MP4 assembly on `vault_static_roadblock` (`frame_count=93`, `video_assembly.status=passed`). The route score is intentionally partial because the proof run stops after early video capture.
 
 ### QA Reconciliation
 - AC-1: PASS
 - AC-2: PASS
 - AC-3: PASS
-- AC-4: NOT PROVABLE locally - live CARLA/Fail2Drive was not run in this pass.
+- AC-4: PASS - live RunPod Fail2Drive evaluator produced RGB frames and MP4 evidence for `vault_static_roadblock`; route scoring remains intentionally partial in early-capture mode.
 - AC-5: PASS
 
 ### Blockers

@@ -65,6 +65,8 @@ class Fail2DriveVideoSmokeTest(unittest.TestCase):
         self.assertTrue(plan.dry_run)
         self.assertEqual(plan.cwd, root.resolve())
         self.assertEqual(plan.env["LIVE_VISU"], "1")
+        self.assertEqual(plan.env["OODRIVE_CAPTURE_EVERY"], "1")
+        self.assertEqual(plan.env["OODRIVE_RGB_SENSOR_ID"], "oodrive_rgb")
         self.assertEqual(plan.env["REPETITION"], "0")
         self.assertEqual(plan.env["SAVE_PATH"], str((output_dir / "visualizations").resolve()))
         self.assertEqual(plan.env["SCENARIO_RUNNER_ROOT"], str((root / "scenario_runner").resolve()))

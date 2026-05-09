@@ -148,6 +148,8 @@ def plan_fail2drive_video_smoke(
         "CARLA_PORT": str(config.port),
         "FAIL2DRIVE_ROOT": str(root),
         "DRIVERX_METHOD_NAME": config.method_name,
+        "OODRIVE_CAPTURE_EVERY": "1",
+        "OODRIVE_RGB_SENSOR_ID": "oodrive_rgb",
         "REPETITION": "0",
         "SAVE_PATH": str(save_path),
         "SCENARIO_RUNNER_ROOT": str(root / "scenario_runner"),

@@ -18,7 +18,7 @@ class Fail2DriveModelReactionConfig:
     fail2drive_root: Path
     output_root: Path
     run_id: str
-    agent_kind: str = "pdm-lite"
+    agent_kind: str = "oodrive-capture"
     limit: int | None = None
     live: bool = False
     reason: bool = False

@@ -166,8 +166,10 @@ PYTHONPATH=src python3 -m oodrive f2d-validate-route \
 # Plan/run upstream Fail2Drive, then attach reasoning and video evidence.
 PYTHONPATH=src python3 -m oodrive f2d-run-route \
   --route artifacts/runs/<run>/route.xml \
-  --agent pdm-lite \
   --dry-run
+
+# Default agent is OODrive's RGB capture agent. Use `--agent pdm-lite` only for
+# the upstream display-oriented visualizer path, which does not write RGB proof.
 
 PYTHONPATH=src python3 -m oodrive f2d-reason \
   --evidence artifacts/runs/<run>/run_evidence.json \

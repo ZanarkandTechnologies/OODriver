@@ -300,6 +300,34 @@ class Fail2DriveRouteRunnerTest(unittest.TestCase):
         self.assertEqual(result.video_assembly["status"], "passed")
         self.assertTrue(video_exists)
 
+    def test_runner_creates_speed_limit_alias_for_optimized_towns(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            speed_limits = root / "scenario_runner" / "speed_limits"
+            speed_limits.mkdir(parents=True)
+            (speed_limits / "Town10HD_speed_limits.npy").write_bytes(b"speed-table")
+            plan = _write_plan(
+                root,
+                command=[
+                    "python3",
+                    "-c",
+                    (
+                        "from pathlib import Path; "
+                        f"assert Path({str(speed_limits / 'Town10HD_Opt_speed_limits.npy')!r}).exists(); "
+                        "print('alias-ok')"
+                    ),
+                ],
+            )
+            (root / "route.xml").write_text('<routes><route id="0" town="Town10HD_Opt" /></routes>', encoding="utf-8")
+            _write_rgb_folder(root)
+
+            result = run_fail2drive_route(
+                Fail2DriveRouteRunConfig(plan_path=plan, run_dir=root / "run")
+            )
+
+        self.assertEqual(result.status, "passed")
+        self.assertEqual(result.exit_code, 0)
+
 
 def _write_plan(root: Path, *, command: list[str] | None = None) -> Path:
     for name in ("evaluator.py", "route.xml", "agent.py"):

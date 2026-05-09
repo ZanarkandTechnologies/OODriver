@@ -1,0 +1,76 @@
+{
+  "work_type": ["backend", "runtime-integration", "evidence"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/fail2drive/agents/oodrive_capture_agent.py",
+      "src/driverx/fail2drive/run_wrapper.py",
+      "src/driverx/scenarios/studio_product_fail2drive_cli.py",
+      "src/driverx/simulators/fail2drive_route_runner.py",
+      "src/driverx/simulators/fail2drive_video.py",
+      "scripts/run_vault_f2d_capture.py",
+      "tests/test_fail2drive_route_runner.py",
+      "tests/test_fail2drive_run_wrapper.py",
+      "tests/test_fail2drive_video_smoke.py"
+    ],
+    "related_files": [
+      "third_party/fail2drive/team_code/visu_agent.py",
+      "third_party/fail2drive/team_code/autopilot.py",
+      "third_party/fail2drive/leaderboard/leaderboard/autoagents/agent_wrapper_local.py",
+      "tickets/TASK-184/ticket.md",
+      "docs/MEMORY.md",
+      "AGENTS.md"
+    ],
+    "invariants_checked": ["MEM-0052", "MEM-0053", "MEM-0055"],
+    "evidence_checked": [
+      "/workspace/0xDriver/artifacts/runs/vault-render-vault_static_roadblock/fail2drive_route_run.json",
+      "/workspace/0xDriver/artifacts/runs/vault-render-vault_static_roadblock/fail2drive_outputs/vault_static_roadblock.mp4",
+      "/Users/kenjipcx/SOTA/0xDriver/artifacts/runs/vault-f2d-scenarios/fail2drive-live-proof/vault_static_roadblock_fail2drive.mp4"
+    ]
+  },
+  "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality"],
+  "overall_score": 4.0,
+  "overall_threshold": 4.0,
+  "verdict": "pass",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "note",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "Live RunPod evidence proves Fail2Drive evaluator RGB capture and MP4 assembly, but the route score remains intentionally partial because the wrapper terminates after early video capture.",
+      "file_refs": ["scripts/run_vault_f2d_capture.py", "src/driverx/simulators/fail2drive_route_runner.py"],
+      "evidence": "frame_watch.ready=true, frame_count=93, video_assembly.status=passed, output MP4 exists at 3.3MB",
+      "next_action": "For route-score claims, run without early stop and use an agent intended for full benchmark scoring."
+    }
+  ],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [],
+      "next_action": "Keep the capture agent minimal and separate from upstream Fail2Drive policy agents."
+    },
+    "integration-readiness": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": [],
+      "next_action": "Preserve the `_Opt` speed-limit preflight alias for optimized CARLA town routes."
+    },
+    "evidence-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "findings": ["Video evidence passed; route-score completion remains out of scope for early capture mode."],
+      "next_action": "Use the pulled MP4/frame as proof for evaluator video rendering, not as a full Fail2Drive score."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Promote this as fixed for evaluator video capture; keep benchmark route-score claims separate."
+}

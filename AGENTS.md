@@ -77,6 +77,10 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   order: catalog, validate/write route, run evidence, reason, demo video, then
   model-reaction batch reporting. Dry-run/fake evidence is contract proof only
   until live CARLA/Alpamayo artifacts exist. See `MEM-0053`.
+- Use the OODrive Fail2Drive capture agent for evaluator video evidence; the
+  upstream `visu_agent.py` is a display-only path and does not write RGB frames.
+  Optimized CARLA town routes may need `_Opt` speed-limit aliases before
+  evaluator launch. See `MEM-0055`.
 - Use OODrive as the product-facing scenario generator name. `oodrive ...` and
   `python -m oodrive ...` are the canonical CLI database/control plane;
   `driverx oodrive`, `driverx oodriver`, and `driverx studio` are

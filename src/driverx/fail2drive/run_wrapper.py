@@ -22,7 +22,7 @@ class Fail2DriveRouteRunRequest:
     fail2drive_root: Path
     output_root: Path
     run_id: str
-    agent_kind: str = "pdm-lite"
+    agent_kind: str = "oodrive-capture"
     agent_path: Path | None = None
     agent_config: Path | None = None
     host: str = "127.0.0.1"
@@ -119,6 +119,8 @@ def _resolve_under(root: Path, path: Path) -> Path:
 def _resolve_agent(root: Path, agent_kind: str, explicit: Path | None) -> Path:
     if explicit is not None:
         return _resolve_under(root, explicit)
+    if agent_kind == "oodrive-capture":
+        return Path(__file__).with_name("agents") / "oodrive_capture_agent.py"
     if agent_kind == "human":
         return root / "leaderboard" / "leaderboard" / "autoagents" / "human_agent_keyboard.py"
     if agent_kind == "transfuser":

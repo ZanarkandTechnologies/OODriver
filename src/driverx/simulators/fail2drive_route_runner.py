@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import sys
 import time
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -129,6 +130,24 @@ def run_fail2drive_route(config: Fail2DriveRouteRunConfig) -> Fail2DriveRouteRun
             cwd=cwd,
             env=env,
             dry_run=config.dry_run,
+            timeout_s=config.timeout_s,
+            started_at_monotonic_s=None,
+            finished_at_monotonic_s=None,
+            exit_code=None,
+            stdout_path=stdout_path,
+            stderr_path=stderr_path,
+            expected_outputs=outputs,
+            route_blockers=route_blockers,
+        )
+    route_blockers.extend(_prepare_fail2drive_runtime(payload, cwd))
+    if route_blockers:
+        return Fail2DriveRouteRunResult(
+            plan_path=plan_path,
+            run_dir=run_dir,
+            command=command,
+            cwd=cwd,
+            env=env,
+            dry_run=False,
             timeout_s=config.timeout_s,
             started_at_monotonic_s=None,
             finished_at_monotonic_s=None,
@@ -428,6 +447,42 @@ def _route_blockers(payload: dict[str, Any], command: list[str], cwd: Path) -> l
         elif not path.is_file():
             blockers.append(f"{label} must be a file: {path}")
     return blockers
+
+
+def _prepare_fail2drive_runtime(payload: dict[str, Any], cwd: Path) -> list[str]:
+    """Create compatibility aliases for upstream Fail2Drive runtime data."""
+
+    route_path = Path(str(payload.get("route_path", ""))).expanduser()
+    town = _route_town(route_path)
+    if not town.endswith("_Opt"):
+        return []
+    base_town = town.removesuffix("_Opt")
+    speed_limits_dir = cwd / "scenario_runner" / "speed_limits"
+    target = speed_limits_dir / f"{town}_speed_limits.npy"
+    source = speed_limits_dir / f"{base_town}_speed_limits.npy"
+    if target.exists():
+        return []
+    if not source.exists():
+        return [f"Fail2Drive speed-limit table missing for {town} and fallback {base_town}: {source}"]
+    try:
+        target.symlink_to(source.name)
+    except OSError:
+        try:
+            shutil.copy2(source, target)
+        except OSError as exc:
+            return [f"Could not create Fail2Drive speed-limit alias for {town}: {exc}"]
+    return []
+
+
+def _route_town(route_path: Path) -> str:
+    try:
+        root = ET.parse(route_path).getroot()
+    except (OSError, ET.ParseError):
+        return ""
+    route = root.find("route")
+    if route is None:
+        return ""
+    return str(route.attrib.get("town", ""))
 
 
 def _resolve_command_executable(command: list[str]) -> list[str]:
