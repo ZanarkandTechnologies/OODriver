@@ -13,3 +13,6 @@ They are not automatically installed into the global Codex skill directory.
 - `waymo-multiview-fail2drive-reconstruction`: guides Codex through
   direction-aware Waymo multiview object transcription, Fail2Drive XML
   placement, render evidence, and visual QA.
+- `meshy-to-oodrive-asset`: generates Meshy 3D assets, downloads
+  `glb`/`fbx`/`obj` artifacts under ignored runs, and writes OODrive
+  external asset manifests for `generate-assets --provider external-manifest`.

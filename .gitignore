@@ -10,6 +10,7 @@ external/
 artifacts/cache/
 artifacts/exported/
 .env
+my.env
 .env.*
 !.env.example
 tickets/**/artifacts/**/*.jpg

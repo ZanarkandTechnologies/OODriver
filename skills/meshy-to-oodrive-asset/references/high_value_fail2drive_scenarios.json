@@ -1,0 +1,65 @@
+[
+  {
+    "scenario_id": "vault-fallen-crane-static-blocker",
+    "description": "A fallen crane arm blocks most of the ego lane on a wet urban road. The vehicle must brake early, edge around only if the route is clear, and never treat the custom asset as harmless decoration.",
+    "route_spec": {
+      "route_id": "vault-fallen-crane-static-blocker",
+      "town": "Town05",
+      "weather": {"cloudiness": 75, "precipitation": 35, "wetness": 80, "sun_altitude_angle": 18},
+      "waypoints": [{"x": 0.0, "y": 0.0, "z": 0.0}, {"x": 110.0, "y": 0.0, "z": 0.0}],
+      "scenarios": [
+        {
+          "name": "fallen_crane_custom_obstacle",
+          "type": "CustomObstacle",
+          "trigger_point": {"x": 34.0, "y": 0.0, "z": 0.0, "yaw": 0.0},
+          "params": {"distance": 45, "objects": {"static.prop.dirtdebris01": "0,0,0", "static.prop.constructioncone": "2.2,0.6,0"}}
+        }
+      ]
+    },
+    "asset_ids": ["meshy-fallen-crane-arm"]
+  },
+  {
+    "scenario_id": "vault-sinkhole-swerve-recover",
+    "description": "A road sinkhole opens in the ego lane with cones nearby. The vehicle must slow, use available lane space, recover smoothly, and continue at least 100 meters.",
+    "route_spec": {
+      "route_id": "vault-sinkhole-swerve-recover",
+      "town": "Town03",
+      "weather": {"cloudiness": 60, "precipitation": 20, "wetness": 60, "sun_altitude_angle": 30},
+      "waypoints": [{"x": 0.0, "y": 0.0, "z": 0.0}, {"x": 120.0, "y": 0.0, "z": 0.0}],
+      "scenarios": [
+        {
+          "name": "sinkhole_custom_obstacle",
+          "type": "CustomObstacle",
+          "trigger_point": {"x": 42.0, "y": 0.0, "z": 0.0, "yaw": 0.0},
+          "params": {"distance": 50, "objects": {"static.prop.dirtdebris01": "0,0,0", "static.prop.constructioncone": "-1.8,0.8,0", "static.prop.trafficcone02": "1.8,-0.8,0"}}
+        }
+      ]
+    },
+    "asset_ids": ["meshy-road-sinkhole-rim"]
+  },
+  {
+    "scenario_id": "vault-rolling-drum-crossing",
+    "description": "An industrial drum rolls from the opposite side toward the ego lane while cargo blocks part of the road. The vehicle must brake before collision and re-plan around the static blocker.",
+    "route_spec": {
+      "route_id": "vault-rolling-drum-crossing",
+      "town": "Town05",
+      "weather": {"cloudiness": 50, "precipitation": 10, "wetness": 45, "sun_altitude_angle": 45},
+      "waypoints": [{"x": 0.0, "y": 0.0, "z": 0.0}, {"x": 115.0, "y": 0.0, "z": 0.0}],
+      "scenarios": [
+        {
+          "name": "dynamic_object_crossing_drum_proxy",
+          "type": "DynamicObjectCrossing",
+          "trigger_point": {"x": 30.0, "y": 0.0, "z": 0.0, "yaw": 0.0},
+          "params": {"distance": 18, "direction": "right", "blocker_model": "static.prop.dirtdebris01", "crossing_angle": 0, "walker": "walker.pedestrian.*"}
+        },
+        {
+          "name": "overturned_cargo_custom_obstacle",
+          "type": "CustomObstacle",
+          "trigger_point": {"x": 50.0, "y": 0.0, "z": 0.0, "yaw": 0.0},
+          "params": {"distance": 55, "objects": {"static.prop.dirtdebris01": "0,0,0", "static.prop.barrel": "1.5,0,0"}}
+        }
+      ]
+    },
+    "asset_ids": ["meshy-rolled-industrial-drum", "meshy-overturned-cargo-cart"]
+  }
+]
