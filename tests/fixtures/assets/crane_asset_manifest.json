@@ -8,5 +8,10 @@
   "collision_proxy": {"kind": "box"},
   "intended_placement": {"lane_offset_m": 0.0, "ahead_m": 20.0},
   "license": "local-fixture",
-  "local_path": "tests/fixtures/assets/crane_proxy.obj"
+  "local_path": "tests/fixtures/assets/crane_proxy.obj",
+  "metadata": {
+    "alternate_formats": {
+      "fbx": "tests/fixtures/assets/crane_proxy.fbx"
+    }
+  }
 }
