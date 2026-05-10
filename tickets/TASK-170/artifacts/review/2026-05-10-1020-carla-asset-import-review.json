@@ -1,0 +1,73 @@
+{
+  "work_type": ["backend", "cli", "runtime", "evidence"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/assets/carla_packaging.py",
+      "src/driverx/scenarios/studio_product_asset_cli.py",
+      "src/driverx/scenarios/studio_product_asset_runtime.py",
+      "tests/test_custom_asset_packaging.py",
+      "tests/fixtures/assets/crane_asset_manifest.json",
+      "tests/fixtures/assets/crane_proxy.fbx",
+      "tickets/TASK-170/ticket.md",
+      "blockers.txt",
+      "docs/HISTORY.md"
+    ],
+    "evidence_artifacts": [
+      "artifacts/runs/task170-meshy-crane-carla-import-bundle/asset_package_plan.json",
+      "artifacts/runs/task170-meshy-crane-static-prop-probe/blueprint_probe.json"
+    ],
+    "external_docs_checked": [
+      "https://carla.readthedocs.io/en/latest/content_authoring_props/",
+      "https://carla.readthedocs.io/en/0.9.10/tuto_A_add_props/"
+    ]
+  },
+  "overall_score": 4.0,
+  "overall_threshold": 4.0,
+  "verdict": "pass_with_blocker",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "partial_by_environment",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [
+    "The current RunPod Fail2Drive packaged simulator lacks source cook/editor tooling, so the Meshy crane is not registered as a CARLA blueprint yet."
+  ],
+  "finding_log": [
+    {
+      "severity": "medium",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "Implementation now prepares the correct CARLA import bundle and proves the current host cannot cook it, which is the honest boundary. Full spawn proof still requires a source/editor cook host.",
+      "file_refs": [
+        "src/driverx/assets/carla_packaging.py",
+        "artifacts/runs/task170-meshy-crane-carla-import-bundle/asset_package_plan.json"
+      ],
+      "next_action": "Run the generated bundle on a CARLA source checkout with `make import` or CARLA Docker cook tooling, then probe `static.prop.meshy_fallen_crane_arm`."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "code-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "Packaging code is scoped, tested, and backwards-compatible."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "RunPod artifacts prove bundle creation, host capability limits, and failed blueprint registration."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 3.5,
+      "threshold": 4.0,
+      "pass": false,
+      "notes": "The target host cannot complete the cook/register phase; the next environment requirement is explicit."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Use a CARLA source/editor cook host or Docker cook image to turn the generated FBX bundle into a cooked package, then run `probe-asset-blueprint` and `spawn-custom-asset`."
+}

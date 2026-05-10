@@ -107,6 +107,13 @@ stack-specific details and commands in `PROJECT_RULES.md`.
   generated/ingested mesh, asset manifest, CARLA import registry or blueprint
   probe, and live spawn evidence. Stock proxies are fallback simulator evidence,
   not custom generated assets. See `MEM-0044`.
+- Treat `static.prop.mesh` actor-spawn JSON as insufficient custom-asset proof:
+  current packaged CARLA can render already-cooked `/Game/...` mesh paths, but
+  raw Meshy FBX/GLB paths stay unproved until visible live frames exist. See
+  `MEM-0059`.
+- Treat Fail2Drive Scenario Hub as XML and preview-image sharing, not a custom
+  mesh upload/cook path; hub scenarios may reference installed simulator assets
+  only. See `MEM-0060`.
 - Production prompt-to-CARLA generator promotion requires prompt-image QA on
   live CARLA frames. Partial visual matches can prove simulator execution, but
   they cannot be called exact prompt fidelity or flagship proof. See

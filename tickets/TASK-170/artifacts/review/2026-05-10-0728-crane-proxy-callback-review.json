@@ -1,0 +1,82 @@
+{
+  "work_type": ["evidence", "demo", "runtime"],
+  "search_scope": {
+    "changed_files": [
+      "tickets/TASK-170/ticket.md",
+      "blockers.txt"
+    ],
+    "evidence_artifacts": [
+      "artifacts/runs/task170-crane-proxy-kinematic-carla-v2/crane_proxy_stop_reaction.mp4",
+      "artifacts/runs/task170-crane-proxy-kinematic-carla-v2/crane_proxy_reaction_evidence.json",
+      "artifacts/runs/task170-crane-proxy-kinematic-carla-v2/preview/contact_sheet.jpg",
+      "artifacts/runs/task170-crane-proxy-closed-loop-v1/task170-crane-proxy-closed-loop-v1-video/closed_loop_hero.mp4",
+      "artifacts/runs/task170-crane-proxy-closed-loop-v1/closed-loop-video-scores/task170-crane-proxy-closed-loop-v1-closed-loop-video-score/closed_loop_video_score.json",
+      "artifacts/runs/task170-crane-live-f2d-v5/fail2drive_route_run.json"
+    ],
+    "invariants_checked": [
+      "MEM-0044",
+      "MEM-0045",
+      "MEM-0052",
+      "MEM-0053"
+    ]
+  },
+  "overall_score": 3.8,
+  "overall_threshold": 4.0,
+  "verdict": "revise",
+  "rerun_required": true,
+  "evidence_quality": "partial",
+  "integration_readiness": "partial",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [
+    "The live CARLA video is a stock-proxy/scripted behavior proof, not a custom Meshy crane blueprint proof.",
+    "The Fail2Drive evaluator XML route path still times out before RGB/video output."
+  ],
+  "finding_log": [
+    {
+      "severity": "medium",
+      "confidence": "high",
+      "rubric": "demo-quality",
+      "summary": "The direct CARLA video now clearly shows a blocked-lane stop reaction, but it is not a true generated crane mesh inside CARLA.",
+      "file_refs": [
+        "artifacts/runs/task170-crane-proxy-kinematic-carla-v2/crane_proxy_reaction_evidence.json"
+      ],
+      "next_action": "Implement or document the Unreal/CARLA asset import/cook path until `driverx.generated.meshy_fallen_crane_arm` probes and spawns live."
+    },
+    {
+      "severity": "medium",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "Fail2Drive route XML validation passes, but evaluator camera output is still blocked by a timeout with no `visualizations/route/rgb` folder.",
+      "file_refs": [
+        "artifacts/runs/task170-crane-live-f2d-v5/fail2drive_route_run.json"
+      ],
+      "next_action": "Harden the Fail2Drive evaluator capture agent/output path on the RunPod CARLA 0.9.15 runtime."
+    }
+  ],
+  "rubric_sections": [
+    {
+      "name": "video-quality",
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "notes": "The final direct CARLA video is visible, local, and includes prompt, action, distance, and reasoning overlays."
+    },
+    {
+      "name": "evidence-quality",
+      "score": 3.5,
+      "threshold": 4.0,
+      "pass": false,
+      "notes": "Evidence is fresh and traceable, but still proxy/scripted rather than real custom mesh plus model-control proof."
+    },
+    {
+      "name": "integration-readiness",
+      "score": 3.5,
+      "threshold": 4.0,
+      "pass": false,
+      "notes": "OODrive live CARLA path works; Fail2Drive XML-to-video and custom mesh blueprint import remain blockers."
+    }
+  ],
+  "blocking_findings": [],
+  "next_action": "Use the current video as an honest interim demo artifact, then prioritize custom blueprint import and Fail2Drive RGB capture hardening."
+}

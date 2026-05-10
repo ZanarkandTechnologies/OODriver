@@ -1,0 +1,123 @@
+{
+  "work_type": ["backend", "cli", "evidence"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/assets/carla_packaging.py",
+      "src/driverx/scenarios/studio_product_asset_cli.py",
+      "src/driverx/scenarios/studio_product_asset_runtime.py",
+      "tests/test_custom_asset_packaging.py",
+      "tests/test_oodrive_cli.py",
+      "tickets/TASK-170/ticket.md",
+      "docs/HISTORY.md",
+      "docs/MEMORY.md",
+      "docs/TROUBLES.md",
+      "AGENTS.md",
+      "blockers.txt"
+    ],
+    "related_files": [
+      "third_party/fail2drive/leaderboard/leaderboard/scenarios/route_scenario.py",
+      "docs/MEMORY.md",
+      "AGENTS.md"
+    ],
+    "invariants_checked": ["MEM-0044", "MEM-0058", "MEM-0059"],
+    "evidence_artifacts": [
+      "artifacts/runs/task170-runtime-mesh-cooked-carla-car-corrected-camera/custom_asset_spawn.png",
+      "artifacts/runs/task170-runtime-mesh-meshy-fbx-corrected-camera-scale50/custom_asset_spawn.png",
+      "artifacts/runs/task170-runtime-mesh-meshy-glb-corrected-camera-scale50/custom_asset_spawn.png",
+      "artifacts/runs/task170-runtime-mesh-cooked-carla-car-corrected-camera/runtime_mesh_spawn_proof.json",
+      "artifacts/runs/task170-runtime-mesh-meshy-fbx-corrected-camera-scale50/runtime_mesh_spawn_proof.json",
+      "artifacts/runs/task170-runtime-mesh-meshy-glb-corrected-camera-scale50/runtime_mesh_spawn_proof.json"
+    ]
+  },
+  "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality"],
+  "overall_score": 3.8,
+  "overall_threshold": 4.0,
+  "verdict": "pass_with_blocker",
+  "rerun_required": false,
+  "evidence_quality": "pass_for_runtime_mesh_claim_only",
+  "integration_readiness": "pass_for_cooked_mesh_path_cli_only",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [
+    "TASK-170 full Meshy-to-CARLA custom asset proof remains blocked because raw Meshy FBX/GLB paths do not render in the packaged simulator and the Meshy asset is not cooked/registered as CARLA content."
+  ],
+  "finding_log": [
+    {
+      "severity": "high",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "The new CLI proves cooked CARLA mesh-path placement, not raw generated Meshy asset placement. The corrected-camera cooked CARLA car frame visibly renders, while the corrected-camera raw Meshy FBX/GLB frames do not show the crane.",
+      "file_refs": [
+        "tickets/TASK-170/ticket.md",
+        "artifacts/runs/task170-runtime-mesh-cooked-carla-car-corrected-camera/custom_asset_spawn.png",
+        "artifacts/runs/task170-runtime-mesh-meshy-fbx-corrected-camera-scale50/custom_asset_spawn.png",
+        "artifacts/runs/task170-runtime-mesh-meshy-glb-corrected-camera-scale50/custom_asset_spawn.png"
+      ],
+      "evidence": "RunPod CARLA accepted `static.prop.mesh` actors for all paths, but only the cooked `/Game/Carla/...` mesh is visible in the frame.",
+      "next_action": "Use a CARLA source/editor cook path or already-cooked package that registers `static.prop.meshy_fallen_crane_arm`, then rerun blueprint probe and live spawn proof."
+    },
+    {
+      "severity": "medium",
+      "confidence": "high",
+      "rubric": "integration-readiness",
+      "summary": "`spawn-runtime-mesh` returns status `passed` for actor spawn even when the mesh is visually invisible. The claim boundary mitigates this, but downstream promotion must inspect screenshots or run visual QA before treating the result as custom asset proof.",
+      "file_refs": [
+        "src/driverx/assets/carla_packaging.py",
+        "docs/MEMORY.md",
+        "AGENTS.md"
+      ],
+      "evidence": "The proof schema records `custom_mesh_render_visible=requires_visual_qa`; MEM-0059 and AGENTS now forbid using actor-spawn JSON alone as proof.",
+      "next_action": "Add an automated visual-difference or detector gate if `spawn-runtime-mesh` becomes a promotion input instead of a diagnostic tool."
+    }
+  ],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 3.8,
+        "readability": 4.0,
+        "boundary-clarity": 4.0,
+        "error-handling": 4.0,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Keep runtime mesh placement as a diagnostic/CLI seam, not as a final custom-asset promotion gate."
+    },
+    "integration-readiness": {
+      "score": 3.8,
+      "threshold": 4.0,
+      "pass": false,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 3.0,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.0
+      },
+      "findings": ["Raw Meshy-to-CARLA depends on an Unreal/CARLA cook/import host."],
+      "next_action": "Advance the CLI and evidence, but do not close TASK-170 until cooked custom blueprint proof exists."
+    },
+    "evidence-quality": {
+      "score": 3.8,
+      "threshold": 4.0,
+      "pass": false,
+      "dimension_scores": {
+        "sufficiency": 3.5,
+        "reproducibility": 4.0,
+        "traceability": 4.0,
+        "consistency": 4.0,
+        "inspectability": 4.0,
+        "autonomy-readiness": 3.5
+      },
+      "findings": ["Cooked mesh rendering is proved; raw Meshy rendering is disproved on the current host."],
+      "next_action": "Keep the ticket building with an explicit cook/import blocker."
+    }
+  },
+  "blocking_findings": [
+    "Full Meshy custom object inside CARLA is still blocked on cooking/registering the generated mesh into CARLA content."
+  ],
+  "next_action": "Use the new `spawn-runtime-mesh` CLI for cooked CARLA assets and continue TASK-170 by obtaining a CARLA source/editor cook path for Meshy assets."
+}

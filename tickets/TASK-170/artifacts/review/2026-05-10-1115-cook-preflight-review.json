@@ -1,0 +1,100 @@
+{
+  "work_type": ["backend", "cli", "integration", "evidence"],
+  "search_scope": {
+    "changed_files": [
+      "src/driverx/assets/carla_packaging.py",
+      "src/driverx/scenarios/studio_product_asset_cli.py",
+      "src/driverx/scenarios/studio_product_asset_runtime.py",
+      "tests/test_custom_asset_packaging.py",
+      "tests/test_oodrive_cli.py",
+      "tickets/TASK-170/ticket.md",
+      "docs/HISTORY.md",
+      "docs/MEMORY.md",
+      "AGENTS.md",
+      "blockers.txt"
+    ],
+    "related_files": [
+      "third_party/fail2drive/f2d_carla/ImportAssets.sh",
+      "/Users/kenjipcx/SOTA/external/fail2drive_scenario_hub/CONTRIBUTING.md",
+      "/Users/kenjipcx/SOTA/external/fail2drive_scenario_hub/example_scenarios/routes/FarmScenario_1.xml"
+    ],
+    "evidence_artifacts": [
+      "artifacts/runs/task170-meshy-crane-cook-preflight-runpod-v2/asset_cook_plan.json",
+      "artifacts/runs/task170-meshy-crane-cook-preflight-runpod-v2/asset_cook_plan.md",
+      "artifacts/runs/task170-meshy-crane-cook-preflight-runpod-v2/asset_cook_commands.sh"
+    ],
+    "invariants_checked": ["MEM-0044", "MEM-0059", "MEM-0060"]
+  },
+  "rubrics_used": ["code-quality", "integration-readiness", "evidence-quality"],
+  "overall_score": 4.0,
+  "overall_threshold": 4.0,
+  "verdict": "pass_with_blocker",
+  "rerun_required": false,
+  "evidence_quality": "pass",
+  "integration_readiness": "pass_for_cook_preflight_not_for_custom_asset_completion",
+  "traceability": "pass",
+  "freshness": "pass",
+  "hard_gate_failures": [],
+  "finding_log": [
+    {
+      "severity": "medium",
+      "confidence": "high",
+      "rubric": "evidence-quality",
+      "summary": "`cook-asset-package` proves the current host cannot cook/import the Meshy crane, not that the Meshy crane is now available in CARLA.",
+      "file_refs": [
+        "artifacts/runs/task170-meshy-crane-cook-preflight-runpod-v2/asset_cook_plan.json",
+        "tickets/TASK-170/ticket.md"
+      ],
+      "evidence": "RunPod preflight reports `has_package_import_assets=true`, `has_source_make_import=false`, `has_editor_binary=false`, and `docker_available=false`, with no cooked package supplied.",
+      "next_action": "Acquire a CARLA source/Docker cook host or a prebuilt cooked package, then rerun `cook-asset-package`, `probe-asset-blueprint`, and `spawn-custom-asset`."
+    }
+  ],
+  "rubric_sections": {
+    "code-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "modularity-reusability": 4.0,
+        "bloatability": 4.0,
+        "readability": 4.0,
+        "boundary-clarity": 4.0,
+        "error-handling": 4.0,
+        "maintainability": 4.0
+      },
+      "findings": [],
+      "next_action": "Keep cook execution narrow; only `import_cooked --execute` mutates a packaged simulator."
+    },
+    "integration-readiness": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "integration-safety": 4.0,
+        "contract-correctness": 4.0,
+        "dependency-readiness": 4.0,
+        "coupling-risk": 4.0,
+        "merge-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Use this as an agent preflight before trying to claim Meshy asset availability."
+    },
+    "evidence-quality": {
+      "score": 4.0,
+      "threshold": 4.0,
+      "pass": true,
+      "dimension_scores": {
+        "sufficiency": 4.0,
+        "reproducibility": 4.0,
+        "traceability": 4.0,
+        "consistency": 4.0,
+        "inspectability": 4.0,
+        "autonomy-readiness": 4.0
+      },
+      "findings": [],
+      "next_action": "Do not close TASK-170 until the next host provides source/Docker cook or a cooked package."
+    }
+  },
+  "blocking_findings": [],
+  "next_action": "Continue TASK-170 on a CARLA source/Docker cook environment or obtain a cooked asset tarball."
+}
