@@ -234,11 +234,41 @@ def _safety_line(step: dict[str, Any]) -> str:
 def _reasoning_line(step: dict[str, Any]) -> str:
     path = step.get("inference_result_path")
     if path and Path(str(path)).exists():
-        payload = _load_json(Path(str(path)))
-        value = payload.get("reasoning_snippet") or payload.get("cot") or payload.get("reasoning")
+        inference_path = Path(str(path))
+        payload = _load_json(inference_path)
+        value = _reasoning_value(payload)
+        prediction_path = payload.get("prediction_json_path")
+        prediction = _load_prediction_for_overlay(prediction_path, inference_path)
+        if not value and prediction:
+            value = _reasoning_value(prediction)
         if value:
-            return "VLA: " + str(value).replace("\n", " ")[:128]
+            label = "cached Alpamayo" if prediction.get("cached_prior_prediction") else "VLA"
+            return f"{label}: " + str(value).replace("\n", " ")[:128]
     return "VLA: trajectory selected from checkpoint observation"
+
+
+def _reasoning_value(payload: dict[str, Any]) -> object | None:
+    value = (
+        payload.get("reasoning_snippet")
+        or payload.get("cot_summary")
+        or payload.get("cot")
+        or payload.get("reasoning")
+    )
+    extra = payload.get("extra")
+    if value is None and isinstance(extra, dict):
+        value = extra.get("cot") or extra.get("reasoning")
+    return value
+
+
+def _load_prediction_for_overlay(value: object, inference_path: Path) -> dict[str, Any]:
+    candidates: list[Path] = []
+    if value:
+        candidates.append(Path(str(value)))
+    candidates.append(inference_path.with_name("alpamayo_live_prediction.json"))
+    for candidate in candidates:
+        if candidate.exists():
+            return _load_json(candidate)
+    return {}
 
 
 def _blocked_result(

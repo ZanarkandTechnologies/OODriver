@@ -125,7 +125,13 @@ def load_prediction(path: Path | None, blockers: list[str]) -> dict[str, Any]:
 
 
 def cot_from_prediction(prediction: dict[str, Any]) -> str | None:
-    raw = prediction.get("cot") or prediction.get("reasoning") or prediction.get("coc")
+    raw = (
+        prediction.get("cot")
+        or prediction.get("cot_summary")
+        or prediction.get("reasoning_snippet")
+        or prediction.get("reasoning")
+        or prediction.get("coc")
+    )
     extra = prediction.get("extra")
     if raw is None and isinstance(extra, dict):
         raw = extra.get("cot") or extra.get("reasoning")

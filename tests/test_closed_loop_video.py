@@ -8,6 +8,8 @@ import unittest
 
 from driverx.evaluation.closed_loop_video_score import score_closed_loop_video
 from driverx.pipeline.closed_loop_video import ClosedLoopVideoInputs, build_closed_loop_video
+from driverx.pipeline.closed_loop_video import _reasoning_line
+from driverx.scenarios.studio_product_helpers import cot_from_prediction
 from driverx.simulators.carla_closed_loop_runner import PausedClosedLoopConfig, run_paused_closed_loop
 
 
@@ -128,6 +130,46 @@ class ClosedLoopVideoTests(unittest.TestCase):
 
             self.assertEqual(report.status, "passed")
             self.assertGreaterEqual(report.closed_loop_video_score, report.threshold)
+
+    def test_reasoning_line_falls_back_to_local_prediction_sibling(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            inference = root / "alpamayo_inference_result.json"
+            prediction = root / "alpamayo_live_prediction.json"
+            inference.write_text(
+                json.dumps(
+                    {
+                        "mode": "remote-kasm",
+                        "status": "passed",
+                        "prediction_json_path": "/workspace/remote/alpamayo_live_prediction.json",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            prediction.write_text(
+                json.dumps(
+                    {
+                        "cached_prior_prediction": True,
+                        "reasoning_snippet": "Keep distance to the lead vehicle.",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            line = _reasoning_line({"inference_result_path": str(inference)})
+
+        self.assertIn("cached Alpamayo", line)
+        self.assertIn("Keep distance", line)
+
+    def test_cot_from_prediction_accepts_cached_alpamayo_summary_fields(self) -> None:
+        self.assertEqual(
+            cot_from_prediction({"cot_summary": "Yield before entering the blocked lane."}),
+            "Yield before entering the blocked lane.",
+        )
+        self.assertEqual(
+            cot_from_prediction({"reasoning_snippet": "Keep distance to the lead vehicle."}),
+            "Keep distance to the lead vehicle.",
+        )
 
 
 if __name__ == "__main__":
